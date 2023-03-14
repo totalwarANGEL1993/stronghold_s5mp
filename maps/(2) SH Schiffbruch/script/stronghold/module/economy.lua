@@ -58,7 +58,7 @@ Stronghold.Economy = {
     Config = {
         MaxMeasurePoints = 5000,
         MaxReputation = 200,
-        TaxPerWorker = 6,
+        TaxPerWorker = 5,
         Income = {
             TaxEffect = {
                 [1] = {Honor = 4, Reputation = 10,},
@@ -155,26 +155,34 @@ Stronghold.Economy = {
                 Military = {
                     de = "@color:180,180,180 Militär @color:255,255,255 @cr Zum "..
                          "Militär zählen alle Soldaten und Kanonen. Baut Eure Burg "..
-                         "aus,  um mehr Truppen unterhalten zu können.",
-                    en = "",
+                         "aus und erreicht höhere Ränge, um das Limit zu erhöhen.",
+                    en = "@color:180,180,180 Military @color:255,255,255 @cr The "..
+                         " includes all of your soldiers and cannons. Upgrade your "..
+                         " castle and reach higher ranks to increase the limit.",
                 },
                 Population = {
                     de = "@color:180,180,180 Bevölkerung @color:255,255,255 @cr Zur "..
                          "Bevölkerung zählen alle Arbeiter, Leibeigene, Kundschafter "..
                          "und Diebe. Nehmt Dörfer ein, um mehr Volk anzulocken.",
-                    en = "",
+                    en = "@color:180,180,180 Population @color:255,255,255 @cr The "..
+                         "population consists of workers, serfs, scouts and thieves. "..
+                         " Build village centers to attract more subjects.",
                 },
                 TaxLeader = {
                     de = "@color:180,180,180 Sold @color:255,255,255 @cr Am Zahltag "..
                          "wird der Sold der Soldaten fällig. Soldaten könnt Ihr viele "..
                          "haben, müsst sie aber bezahlen können.",
-                    en = "",
+                    en = "@color:180,180,180 Upkeep @color:255,255,255 @cr On payday "..
+                         "you must pay your soldiers' wages. You can have a large "..
+                         "army but you have to be able to afford the upkeep.",
                 },
                 TaxWorker = {
                     de = "@color:180,180,180 Steuern @color:255,255,255 @cr Jeder "..
                          "Arbeiter entrichtet Euch zum Zahltag seine Steuer. Wägt "..
                          "ab, ob Ihr sie schonen oder schröpfen wollt.",
-                    en = "",
+                    en = "@color:180,180,180 Taxes @color:255,255,255 @cr Each worker "..
+                         "has to pay their taxes on the payday. Decide whether you "..
+                         "want to protect them or exploit them.",
                 },
             }
         },
@@ -527,7 +535,7 @@ end
 
 -- Calculate honor income
 -- Honor is influenced by tax, buildings and units.
--- A player can only gain honor if they have workers and a laird.
+-- A player can only gain honor if they have workers and a noble.
 function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
         local Income = 0;

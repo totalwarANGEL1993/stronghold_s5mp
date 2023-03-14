@@ -197,6 +197,16 @@ Stronghold = {
                     en = "%s %s{grey}has been defeated!",
                 },
             },
+            HQUpgrade = {
+                [1] = {
+                    de = "@color:233,214,180,255 hat die Burg zu einer Festung ausgebaut",
+                    en = "@color:233,214,180,255 has upgraded the keep to a fortress"
+                },
+                [2] = {
+                    de = "@color:233,214,180,255 hat die Festung zu einer Zitadelle ausgebaut",
+                    en = "@color:233,214,180,255 has upgraded the fortress to a zitadel"
+                },
+            },
             Promotion = {
                 Player = {
                     de = "Erhebt Euch, %s!",
@@ -311,6 +321,7 @@ function Stronghold:Init()
     self:StartEntityHurtTrigger();
     self:StartOnEveryTurnTrigger();
 
+    self:OverrideStringTableText();
     self:OverrideTooltipGenericMain();
     self:OverrideActionBuyMilitaryUnitMain();
     self:OverrideTooltipBuyMilitaryUnitMain();
@@ -349,6 +360,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Outlaw:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();
 
+    self:OverrideStringTableText();
     return true;
 end
 
@@ -363,6 +375,14 @@ function Stronghold:LoadGUIDelayed(_PlayerID)
         XGUIEng.TransferMaterials("BlessSettlers5", "Research_Scale");
         Camera.ZoomSetFactorMax(2.0);
     end
+end
+
+function Stronghold:OverrideStringTableText()
+    local Lang = GetLanguage();
+    local KeepText = self.Config.UI.HQUpgrade[1][Lang];
+    CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisKeep", KeepText);
+    local FortressText = self.Config.UI.HQUpgrade[2][Lang];
+    CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisCastle", FortressText);
 end
 
 -- Add player
@@ -408,16 +428,17 @@ function Stronghold:InitalizePlayer(_PlayerID)
 
     -- Create camp Pos
     local CampPos = GetCirclePosition(self.Players[_PlayerID].HQScriptName, 1200, 180);
-    ID = Logic.CreateEntity(Entities.XD_Camp_Internal, CampPos.X, CampPos.Y, 0, _PlayerID);
+    ID = Logic.CreateEntity(Entities.XD_ScriptEntity, CampPos.X, CampPos.Y, 0, _PlayerID);
     Logic.SetEntityName(ID, CampName);
 
     -- Create serfs
     local SerfCount = self.Config.Rule.StartingSerfs;
     for i= 1, SerfCount do
-        local SerfPos = GetCirclePosition(CampName, 250, (360/SerfCount) * i);
-        ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
+        local SerfPos = GetCirclePosition(CampPos, 250, (360/SerfCount) * i);
+        local ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
         LookAt(ID, CampName);
     end
+    DestroyEntity(CampName);
 
     Tools.GiveResouces(
         _PlayerID,
@@ -748,11 +769,11 @@ function Stronghold:GetPlayerRankName(_PlayerID, _Rank)
     local Language = GetLanguage();
     if self:IsPlayer(_PlayerID) then
         local Rank = _Rank or self.Players[_PlayerID].Rank;
-        local LairdID = GetID(self.Players[_PlayerID].LordScriptName);
+        local LordID = GetID(self.Players[_PlayerID].LordScriptName);
 
         local Gender = 1;
-        if LairdID ~= 0 then
-            Gender = self:GetLairdGender(Logic.GetEntityType(LairdID)) or 1;
+        if LordID ~= 0 then
+            Gender = self:GetLordGender(Logic.GetEntityType(LordID)) or 1;
         end
 
         local Text = self.Config.UI.Titles[Rank][Gender][Language];
@@ -764,7 +785,7 @@ function Stronghold:GetPlayerRankName(_PlayerID, _Rank)
     return (Language == "de" and "Pöbel") or "Rabble";
 end
 
-function Stronghold:GetLairdGender(_Type)
+function Stronghold:GetLordGender(_Type)
     if self.Config.Gender[_Type] then
         return self.Config.Gender[_Type];
     end

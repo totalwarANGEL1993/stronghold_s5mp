@@ -14,7 +14,7 @@ Stronghold.Unit = {
     Config = {
         UI = {
             MilitaryLimit = {
-                de = "Euere Heeresstärke ist an ihrem Limit, Euer Hochwohlgeboren!",
+                de = "Euere Heeresstärke ist an ihrem Limit, Hochwohlgeboren!",
                 en = "Your army strength is at its limit, Your Highness!",
             },
             ExpellSingle = {

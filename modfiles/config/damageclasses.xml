@@ -165,18 +165,6 @@
             <ArmorClassFurFactor>1.5</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
-    <!-- Yuki -->
-    <DamageClass id="DC_Yuki">
-        <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>2.2</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>2.2</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>2.2</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>1.5</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>1.0</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
-        </Logic>
-    </DamageClass>
     <!-- Bearmen -->
     <DamageClass id="DC_Evil">
         <Logic classname="GGL::CDamageClassProps">

@@ -235,6 +235,7 @@ function Stronghold.Outlaw:ControlCamp(_PlayerID, _CampID)
                     local Task = Logic.GetCurrentTaskList(ID);
                     if (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
                         if  Logic.LeaderGetNumberOfSoldiers(ID) < Logic.LeaderGetMaxNumberOfSoldiers(ID)
+                        and not AreEnemiesInArea(_PlayerID, ID, 2400)
                         and GetDistance(ID, Data.Position) <= 1200 then
                             Tools.CreateSoldiersForLeader(ID, 1);
                         end

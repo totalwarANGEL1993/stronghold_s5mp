@@ -61,8 +61,8 @@ Stronghold.Hero = {
             },
             Player = {
                 [1] = {
-                    de = "%s %s{grey}wurde als Laird gewählt!",
-                    en = "%s %s{grey}was choosen as Laird!",
+                    de = "%s {grey}hat einen Adligen gewählt.",
+                    en = "%s {grey}has choosen a Noble.",
                 },
                 [2] = {
                     de = "%s %s{white}muss sich in die Burg zurückziehen!",
@@ -71,15 +71,15 @@ Stronghold.Hero = {
             },
             Promotion = {
                 [1] = {
-                    de = "@color:180,180,180 %s @color:255,255,255 @cr Erhebt Euren Laird in einen "..
+                    de = "@color:180,180,180 %s @color:255,255,255 @cr Erhebt Euren Adligen in einen "..
                          "höheren Adelsstand. @cr @color:244,184,0 benötigt: @color:255,255,255 %s",
-                    en = "@color:180,180,180 %s @color:255,255,255 @cr Promote your Laird to a higher "..
+                    en = "@color:180,180,180 %s @color:255,255,255 @cr Promote your Noble to a higher "..
                          " peerage. @cr Requirements: %s",
                 },
                 [2] = {
-                    de = "@color:180,180,180 Höchster Rang @cr @color:255,255,255 Euer Laird hat "..
+                    de = "@color:180,180,180 Höchster Rang @cr @color:255,255,255 Euer Adligen hat "..
                          "den höchsten Titel erreicht.",
-                    en = "@color:180,180,180 Highest Rank @cr @color:255,255,255 Your Laird reached "..
+                    en = "@color:180,180,180 Highest Rank @cr @color:255,255,255 Your Noble reached "..
                          "the highest possible title.",
                 },
             },
@@ -123,7 +123,7 @@ Stronghold.Hero = {
                          "Your measures are 50% faster usable. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Can inflict fear to enemies in a wide area (except the Shrouded).",
+                         "Dario can inflict fear to enemies in a wide area (except the Shrouded).",
                 },
                 [Entities.PU_Hero2]              = {
                     de = "PILGRIM, der geologe @cr @cr @color:180,180,180 "..
@@ -306,7 +306,7 @@ Stronghold.Hero = {
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Mary hohlt zu einem Rundumschlag aus, der nahestehenden Feinde verletzt "..
-                         "und die ngriffskraft der Überlebenden halbiert.",
+                         "und die Angriffskraft der Überlebenden halbiert.",
                     en = "MARY, the snake "..
                          "@cr @cr @color:180,180,180 "..
                          "The Countess the Mortfichet is infamous as beeing a nefarious and "..
@@ -445,7 +445,8 @@ Stronghold.Hero = {
                          "sobald sie erscheint. Die maximale Armeegröße wird um 10% erhöht. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Kann befreundete Arbeiter mit Feuerwerk motivieren.",
+                         "Yuki kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
+                         "(außer Nebelvolk).",
                     en = "YUKI, the fist "..
                          "@cr @cr @color:180,180,180 "..
                          "She was engaged in pyrotechnics since early childhood. Together "..
@@ -460,7 +461,7 @@ Stronghold.Hero = {
                          "of 100 reputation when selected. Max army size is increased by 10%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Can motivate workers with her pyrotechnics.",
+                         "Yuki can inflict fear to enemies in a wide area (except the Shrouded).",
                 },
                 [Entities.CU_Evil_Queen]         = {
                     de = "KALA, die hexe "..
@@ -795,12 +796,12 @@ end
 function Stronghold.Hero:OnSelectHero11(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
     if Type == Entities.PU_Hero11 then
-        XGUIEng.SetWidgetPosition("Hero11_RechargeFireworksMotivate", 4, 38);
-        XGUIEng.SetWidgetPosition("Hero11_FireworksMotivate", 4, 38);
+        XGUIEng.SetWidgetPosition("Hero11_RechargeFireworksFear", 4, 38);
+        XGUIEng.SetWidgetPosition("Hero11_FireworksFear", 4, 38);
         XGUIEng.ShowWidget("Hero11_RechargeShuriken", 0);
-        XGUIEng.ShowWidget("Hero11_RechargeFireworksFear", 0);
+        XGUIEng.ShowWidget("Hero11_RechargeFireworksMotivate", 0);
         XGUIEng.ShowWidget("Hero11_Shuriken", 0);
-        XGUIEng.ShowWidget("Hero11_FireworksFear", 0);
+        XGUIEng.ShowWidget("Hero11_FireworksMotivate", 0);
     end
 end
 
@@ -824,7 +825,7 @@ function Stronghold.Hero:PrintSelectionName()
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
             local Rank = GetPlayerRank(PlayerID);
             local Language = GetLanguage();
-            local Gender = Stronghold:GetLairdGender(Type);
+            local Gender = Stronghold:GetLordGender(Type);
             local Text = Stronghold:GetPlayerRankName(PlayerID, Rank);
             XGUIEng.SetText("Selection_Name", Text.. " " ..Name);
 		end
@@ -849,8 +850,8 @@ function Stronghold.Hero:ConfigureBuyHero()
     self.Orig_GameCallback_GUI_BuyHero_GetHeadline = GameCallback_GUI_BuyHero_GetHeadline;
     GameCallback_GUI_BuyHero_GetHeadline = function(_PlayerID)
         if Stronghold:IsPlayer(_PlayerID) then
-            local LairdID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
-            local Caption = (LairdID ~= 0 and "Alea Iacta Est!") or "Wählt Euren Laird!";
+            local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
+            local Caption = (LordID ~= 0 and "Alea Iacta Est!") or "Wählt Euren Adligen!";
             return Caption;
         end
         return Stronghold.Hero.Orig_GameCallback_GUI_BuyHero_GetHeadline(_PlayerID);
@@ -876,9 +877,7 @@ function Stronghold.Hero:BuyHeroCreateLord(_PlayerID, _ID, _Type)
         -- Display info message
         local Language = GetLanguage();
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-        local TypeName = Logic.GetEntityTypeName(_Type);
-        local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-        Message(string.format(self.Config.UI.Player[1][Language], PlayerColor, Name));
+        Message(string.format(self.Config.UI.Player[1][Language], PlayerColor));
 
         if _Type == Entities.PU_Hero11 then
             -- Update motivation soft cap
@@ -1055,15 +1054,15 @@ end
 function Stronghold.Hero:HeliasConvertController(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
-            if Logic.GetEntityType(v[2]) == Entities.PU_Hero6 then
-                local HeliasPlayerID = Logic.EntityGetPlayer(v[2]);
-                local AttackerID = k;
+            if Logic.GetEntityType(k) == Entities.PU_Hero6 then
+                local HeliasPlayerID = Logic.EntityGetPlayer(k);
+                local AttackerID = v[2];
                 if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
                     AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
                 end
                 if not self.Data.ConvertBlacklist[AttackerID] then
                     if Logic.GetEntityHealth(AttackerID) > 0 and Logic.IsHero(AttackerID) == 0 then
-                        if math.random(1, 1000) <= 3 and GetDistance(AttackerID, v[2]) <= 1000 then
+                        if math.random(1, 1000) <= 3 and GetDistance(AttackerID, k) <= 1000 then
                             ChangePlayer(AttackerID, HeliasPlayerID);
                             if GUI.GetPlayerID() == HeliasPlayerID then
                                 Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
@@ -1314,9 +1313,9 @@ end
 
 function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
     if Stronghold:IsPlayer(_PlayerID) then
-        local LairdID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
-        if IsEntityValid(LairdID) then
-            local HeroType = Logic.GetEntityType(LairdID);
+        local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
+        if IsEntityValid(LordID) then
+            local HeroType = Logic.GetEntityType(LordID);
             local TypeName = Logic.GetEntityTypeName(HeroType);
             if type(_Type) == "string" and TypeName and string.find(TypeName, _Type) then
                 return true;

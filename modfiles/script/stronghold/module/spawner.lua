@@ -149,11 +149,10 @@ function Stronghold.Spawner:CreateTroop(_PlayerID, _SpawnerID)
     local ID = AI.Entity_CreateFormation(
         _PlayerID,
         Data.AllowedTypes[math.random(1, table.getn(Data.AllowedTypes))],
-        0, 0,
+        0, 16,
         Data.SpawnPosition.X, Data.SpawnPosition.Y,
-        0, 0, 3, 0
+        0, 0, 3, 16
     );
-    Tools.CreateSoldiersForLeader(ID, 16);
     table.insert(self.Data[_PlayerID].Spawner[_SpawnerID].SpawnedTroops, ID);
     return ID;
 end
@@ -212,7 +211,7 @@ function Stronghold.Spawner:ControlSpawner(_PlayerID, _SpawnerID)
         for i= table.getn(Data.SpawnedTroops), 1, -1 do
             local ID = Data.SpawnedTroops[i];
             local Task = Logic.GetCurrentTaskList(ID);
-            if  (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
+            if (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
                 if EnemyID ~= 0 then
                     Logic.GroupAttack(ID, EnemyID);
                 else

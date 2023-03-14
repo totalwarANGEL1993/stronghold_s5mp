@@ -14,22 +14,27 @@ Stronghold.Building = Stronghold.Building or {
             [BlessCategories.Construction] = {
                 Reputation = -10,
                 Honor = 0,
+                RechargeFactor = 0.34,
             },
             [BlessCategories.Research] = {
                 Reputation = 5,
                 Honor = 10,
+                RechargeFactor = 0.29,
             },
             [BlessCategories.Weapons] = {
                 Reputation = 150,
                 Honor = 0,
+                RechargeFactor = 0.37,
             },
             [BlessCategories.Financial] = {
                 Reputation = 22,
                 Honor = 0,
+                RechargeFactor = 0.21,
             },
             [BlessCategories.Canonisation] = {
                 Reputation = -30,
                 Honor = 150,
+                RechargeFactor = 0.14,
             },
         },
 
@@ -59,7 +64,7 @@ Stronghold.Building = Stronghold.Building or {
         UI = {
             MeasureNotReady = {
                 de = "Hochwohlgeboren, Ihr könnt noch keine neue Maßnahme anordnen!",
-                en = "Highness, you cannot yet order a new measure!",
+                en = "Your Highness, you cannot yet order a new measure!",
             },
             MeasureRandomTax = {
                 de = "Ihr habt %d Taler erhalten!",
@@ -217,17 +222,30 @@ Stronghold.Building = Stronghold.Building or {
                 },
             },
 
+            SelectLord = {
+                de = "@color:180,180,180 Adligen wählen @color:255,255,255 "..
+                     "@cr Wählt euren Adligen aus. Jeder Adlige verfügt über "..
+                     "starke Fähigkeiten. Ohne einen Adligen könnt ihr keine "..
+                     "Ehre erhalten.",
+                en = "@color:180,180,180 Choose Noble @color:255,255,255 "..
+                     " Choose your Noble. Each Noble has different strengths "..
+                     " and weaknesses. Without a Noble you can not gain honor.",
+            },
             TreasurySubMenu = {
                 de = "{grey}Schatzkammer{white}{cr}Hier könnt Ihr Leibeigene "..
-                     "kaufen, Euren Laird wählen, den Alarm ausrufen und später "..
+                     "kaufen, Euren Adligen wählen, den Alarm ausrufen und später "..
                      "sogar die Steuern einstellen.",
-                en = "",
+                en = "{grey}Treasury{white}{cr}Here you can buy serfs, choose "..
+                     "your noble, sound the alarm and later even set taxes.",
             },
             AdministrationSubMenu = {
                 de = "{grey}Verwaltung{white}{cr}Hier könnt Ihr Regularien "..
                      "beschließen. Jede dieser Maßnahmen hat individuelle "..
                      "Konsequenzen. Überlegt gut, ob und wann Ihr sie einsetzt.",
-                en = "",
+                en = "{grey}Administration{white}{cr}Here you can decide "..
+                     "regulations. Each of these measures has individual "..
+                     "consequences. Think carefully about whether and when "..
+                     "you use them.",
             },
             Require = {
                 de = " @cr @color:244,184,0 benötigt: @color:255,255,255 ",
@@ -243,7 +261,15 @@ Stronghold.Building = Stronghold.Building or {
 
 function Stronghold.Building:Install()
     for i= 1, table.getn(Score.Player) do
-        self.Data[i] = {};
+        self.Data[i] = {
+            Measure = {
+                -- Initial factor is very high so that the player can use the
+                -- first measure (propably levy tax) very fast once. The factor
+                -- is different for each measure so that weaker measures can
+                -- be used more often.
+                RechargeFactor = 6.0,
+            },
+        };
     end
 
     self:CreateBuildingButtonHandlers();
@@ -253,6 +279,7 @@ function Stronghold.Building:Install()
     self:OverrideSellBuildingAction();
     self:OverrideUpdateConstructionButton();
     self:OverrideChangeBuildingMenuButton();
+    self:OverrideCalculationCallbacks();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -292,6 +319,18 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             end
         end
     );
+end
+
+function Stronghold.Building:OverrideCalculationCallbacks()
+    self.Orig_GameCallback_Calculate_MeasureIncrease = GameCallback_Calculate_MeasureIncrease;
+    GameCallback_Calculate_MeasureIncrease = function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Stronghold.Building.Orig_GameCallback_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount);
+        if Stronghold.Building.Data[_PlayerID] then
+            local Factor = Stronghold.Building.Data[_PlayerID].Measure.RechargeFactor;
+            CurrentAmount = CurrentAmount * Factor;
+        end
+        return CurrentAmount;
+    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -457,10 +496,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         end
     elseif _Key == "MenuHeadquarter/CallMilitia" then
         if Logic.IsEntityInCategory(GUI.GetSelectedEntity(), EntityCategories.Headquarters) == 1 then
-            Text = "@color:180,180,180 Laird wählen @color:255,255,255 "..
-                   "@cr Wählt euren Laird aus. Jeder Laird verfügt über "..
-                   "starke Fähigkeiten. Ohne einen Laird könnt ihr keine "..
-                   "Ehre erhalten.";
+            Text = self.Config.UI.SelectLord[Language];
         end
     else
         return false;
@@ -502,15 +538,24 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     if MeasurePoints == 0 then
         return;
     end
+
+    -- Remove allmeasure points
+    Stronghold.Economy:AddPlayerMeasure(_PlayerID, (-1) * MeasurePoints);
+    -- Update recharge factor
+    local Rank = math.max(GetPlayerRank(_PlayerID), 1);
+    local RechargeFactor = self.Config.Headquarters[_BlessCategory].RechargeFactor;
+    RechargeFactor = RechargeFactor * (7/Rank);
+    self.Data[_PlayerID].Measure.RechargeFactor = RechargeFactor;
+    -- Show message
     local Language = GetLanguage();
     Message(self.Config.UI.Measure[_BlessCategory][2][Language]);
-    Stronghold.Economy:AddPlayerMeasure(_PlayerID, (-1) * MeasurePoints);
 
+    -- Execute effects
     local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
     if _BlessCategory == BlessCategories.Construction then
         local RandomTax = 0;
         for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
-            RandomTax = RandomTax + math.random(1, 5);
+            RandomTax = RandomTax + math.random(3, 7);
         end
         Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
 

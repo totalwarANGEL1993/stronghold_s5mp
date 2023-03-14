@@ -95,7 +95,7 @@
 	        
 	        <MissChance>5</MissChance>
 
-	        <HealingPoints>2</HealingPoints>
+	        <HealingPoints>4</HealingPoints>
 	        <HealingSeconds>1</HealingSeconds>
 		</Logic>
 	</Behavior>

@@ -89,8 +89,7 @@
 	        <BattleWalkAnim>PU_Hero11_Run1</BattleWalkAnim>
 	        <HitAnim>PU_Hero11_Hit</HitAnim>
 	        
-            <!-- She's a kung fu master afterall... -->
-	        <DamageClass>DC_Yuki</DamageClass>
+	        <DamageClass>DC_Hero</DamageClass>
 	        <DamageAmount>50</DamageAmount>
 	        <MaxRandomDamageBonus>50</MaxRandomDamageBonus>
 	        
@@ -99,9 +98,9 @@
 	        <MinRange>0.0f</MinRange>
 	        <AutoAttackRange>2200</AutoAttackRange>
 	        
-	        <BattleWaitUntil>1500</BattleWaitUntil>
+	        <BattleWaitUntil>3000</BattleWaitUntil>
 
-	        <HealingPoints>9</HealingPoints>
+	        <HealingPoints>4</HealingPoints>
 	        <HealingSeconds>1</HealingSeconds>
 		</Logic>
 	</Behavior>
@@ -111,11 +110,11 @@
   <Behavior>
     <Logic classname="GGL::CInflictFearAbilityProps">
       <Class>GGL::CInflictFearAbility</Class>
-      <RechargeTimeSeconds>120</RechargeTimeSeconds>
+      <RechargeTimeSeconds>90</RechargeTimeSeconds>
       <TaskList>TL_FIREWORKS_SPECIAL</TaskList>
       <Animation>PU_Hero11_PlaceRocket</Animation>
-      <Range>1000.0</Range>
-      <FlightDistance>3000.0</FlightDistance>
+      <Range>2000.0</Range>
+      <FlightDistance>3500.0</FlightDistance>
       <FlightDuration>30</FlightDuration>
       <Effect>FXYukiFireworksFear</Effect>
     </Logic>

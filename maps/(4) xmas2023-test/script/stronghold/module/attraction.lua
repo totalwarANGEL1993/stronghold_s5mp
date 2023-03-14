@@ -44,13 +44,13 @@ Stronghold.Attraction = {
         },
         HQCivilAttraction = {
             [1] = 76,
-            [2] = 84,
-            [3] = 92
+            [2] = 76,
+            [3] = 76
         },
         VCCivilAttraction = {
-            [1] = 50,
-            [2] = 66,
-            [3] = 82
+            [1] = 54,
+            [2] = 72,
+            [3] = 90
         },
 
         Criminals = {
@@ -326,7 +326,7 @@ end
 function Stronghold.Attraction:CalculateCriminalCatchChance(_PlayerID, _ThiefID)
     local Chance = self.Config.Criminals.Catch.Chance;
     local Position = GetPosition(_ThiefID);
-    -- The Laird can do it much better
+    -- The Noble can do it much better
     if self.Data[_PlayerID] then
         if IsNear(_ThiefID, Stronghold.Players[_PlayerID].LordScriptName, self.Config.Criminals.Catch.Area) then
             Chance = Chance +4;
