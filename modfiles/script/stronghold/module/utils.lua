@@ -14,8 +14,8 @@ function ShowInfoWindow(_Title, _Text)
     XGUIEng.ShowWidget("MovieBarTop", 0);
     XGUIEng.ShowWidget("MovieBarBottom", 0);
     XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 0);
-    XGUIEng.SetText("CreditsWindowTextTitle", _Title);
-    XGUIEng.SetText("CreditsWindowText", _Text);
+    XGUIEng.SetText("CreditsWindowTextTitle", Placeholder.Replace(_Title));
+    XGUIEng.SetText("CreditsWindowText", Placeholder.Replace(_Text));
 end
 
 function HideInfoWindow()

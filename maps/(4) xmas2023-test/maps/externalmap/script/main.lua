@@ -5,34 +5,29 @@ function StartTestStuff()
     Lib.Require("module/cinematic/BriefingSystem");
     Lib.Require("module/lua/Overwrite");
 
-    -- AiArmyController.Install();
+    CreateTestHonorProvince()
+    CreateTestReputationProvince()
+    CreateTestMilitaryProvince()
+    CreateTestResourceProvince()
+end
 
-    -- CreateBriefingNpc();
-    -- CreateMerchantNpc();
+function CreateTestHonorProvince()
+    CreateHonorProvince("Honor Province", "Povince1Pos", 25);
+end
 
-    Overwrite.CreateOverwrite("Foo", function()
-        Overwrite.CallOriginal();
-        Message("Foo Overwrite 1");
-    end);
-    Overwrite.CreateOverwrite("Foo", function()
-        Overwrite.CallOriginal();
-        Bar()
-        Message("Foo Overwrite 2");
-    end);
-    Overwrite.CreateOverwrite("Bar", function()
-        Overwrite.CallOriginal();
-        Message("Bar Overwrite 1");
-    end);
+function CreateTestReputationProvince()
+    CreateReputationProvince("Reputation Province", "Povince2Pos", 10);
+end
+
+function CreateTestMilitaryProvince()
+    CreateMilitaryProvince("Military Province", "Povince3Pos", 30);
+end
+
+function CreateTestResourceProvince()
+    CreateResourceProvince("Resource Province", "Povince4Pos", 30, 5, 0, 0, 0, 0, 0);
 end
 
 
-function Foo()
-    Message("Foo Original");
-end
-
-function Bar()
-    Message("Bar Original");
-end
 
 function CreateTestCamp()
     CreateTestSpawners();

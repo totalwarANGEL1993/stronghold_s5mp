@@ -4,7 +4,8 @@ if Lib == nil then
 end
 assert(Lib ~= nil);
 
-Lib.Require("comfort/KeyOf");
+Lib.Require("comfort/AreEnemiesInArea");
+Lib.Require("comfort/CreateNameForEntity");
 Lib.Require("comfort/GetAllCannons");
 Lib.Require("comfort/GetAllLeader");
 Lib.Require("comfort/GetAllWorker");
@@ -19,6 +20,7 @@ Lib.Require("comfort/GetValidEntitiesOfType");
 Lib.Require("comfort/IsBuildingBeingUpgraded");
 Lib.Require("comfort/IsInTable");
 Lib.Require("comfort/IsValidEntity");
+Lib.Require("comfort/KeyOf");
 
 Lib.Require("module/archive/Archive");
 Lib.Require("module/entity/EntityTracker");

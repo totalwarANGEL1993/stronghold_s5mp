@@ -28,7 +28,7 @@ Stronghold = {
     Config = {
         Rule = {
             MaxHonor = 9000,
-            InitialResources = {0, 450, 2000, 1500, 850, 50, 50},
+            InitialResources = {0, 1000, 1800, 3000, 850, 50, 50},
             InitialRank = 1,
             MaxRank = 7,
             StartingSerfs = 6,
@@ -43,7 +43,7 @@ Stronghold = {
                 end,
             },
             [2] = {
-                Costs = {15, 100, 0, 0, 0, 0, 0},
+                Costs = {10, 50, 0, 0, 0, 0, 0},
                 Description = {
                     de = "Kapelle",
                     en = "Chapel"
@@ -56,7 +56,7 @@ Stronghold = {
                 end,
             },
             [3] = {
-                Costs = {50, 200, 0, 0, 0, 0, 0},
+                Costs = {20, 100, 0, 0, 0, 0, 0},
                 Description = {
                     de = "Handelswesen, Festung",
                     en = "Trading, Fortress"
@@ -73,7 +73,7 @@ Stronghold = {
                 end,
             },
             [4] = {
-                Costs = {100, 300, 0, 0, 0, 0, 0},
+                Costs = {50, 200, 0, 0, 0, 0, 0},
                 Description = {
                     de = "8 Ziergebäude",
                     en = "8 Beautifications"
@@ -96,10 +96,10 @@ Stronghold = {
                 end,
             },
             [5] = {
-                Costs = {150, 500, 0, 0, 0, 0, 0},
+                Costs = {100, 500, 0, 0, 0, 0, 0},
                 Description = {
-                    de = "6 Alchemisten, 6 Ziegelbrenner, 6 Sägewerker, 6 Schmiede, 6 Steinmetze",
-                    en = "6 Alchemists, 6 Brickmaker, 6 Sawmillworkers, 6 Smiths, 6 Stonemasons"
+                    de = "4 Alchemisten, 4 Ziegelbrenner, 4 Sägewerker, 4 Schmiede, 4 Steinmetze",
+                    en = "4 Alchemists, 4 Brickmaker, 4 Sawmillworkers, 4 Smiths, 4 Stonemasons"
                 },
                 Condition = function(_PlayerID)
                     local Workers1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_BrickMaker);
@@ -107,30 +107,30 @@ Stronghold = {
                     local Workers3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Smith);
                     local Workers4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Stonecutter);
                     local Workers5 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Alchemist);
-                    return Workers1 >= 6 and Workers2 >= 6 and Workers3 >= 6 and Workers4 >= 6 and Workers5 >= 6;
+                    return Workers1 >= 4 and Workers2 >= 4 and Workers3 >= 4 and Workers4 >= 4 and Workers5 >= 4;
                 end,
             },
             [6] = {
-                Costs = {250, 2000, 0, 0, 0, 0, 0},
+                Costs = {200, 1000, 0, 0, 0, 0, 0},
                 Description = {
-                    de = "Kathedrale, 50 Arbeiter",
-                    en = "Cathedral, 50 Workers"
+                    de = "Kathedrale, 45 Arbeiter",
+                    en = "Cathedral, 45 Workers"
                 },
                 Condition = function(_PlayerID)
                     local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
                     local Castle3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Monastery3);
-                    return Castle3 > 0 and Workers >= 50;
+                    return Castle3 > 0 and Workers >= 45;
                 end,
             },
             [7] = {
-                Costs = {300, 3000, 0, 0, 0, 0, 0},
+                Costs = {300, 2000, 0, 0, 0, 0, 0},
                 Description = {
-                    de = "Alle Ziergebäude, Zitadelle, 75 Arbeiter",
-                    en = "All Beautifications, Zitadel, 75 Workers"
+                    de = "Alle Ziergebäude, Zitadelle, 65 Arbeiter",
+                    en = "All Beautifications, Zitadel, 65 Workers"
                 },
                 Condition = function(_PlayerID)
                     local IsFulfilled = false;
-                    if Logic.GetNumberOfAttractedWorker(_PlayerID) >= 75 then
+                    if Logic.GetNumberOfAttractedWorker(_PlayerID) >= 65 then
                         local CastleID = GetID(Stronghold.Players[_PlayerID].HQScriptName);
                         if Logic.GetEntityType(CastleID) == Entities.PB_Headquarters3 then
                             IsFulfilled = true;
@@ -952,8 +952,8 @@ function Stronghold:ControlReputationAttractionPenalty(_PlayerID)
             end
             local ID = table.remove(WorkerList, math.random(1, WorkerAmount));
             Logic.SetTaskList(ID, TaskLists.TL_WORKER_LEAVE);
-            LeaveAmount = LeaveAmount -1;
             WorkerAmount = table.getn(WorkerList);
+            LeaveAmount = LeaveAmount -1;
         end
     end
 end
@@ -964,6 +964,8 @@ end
 -- Menu update
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
+    HideInfoWindow();
+
     local GuiPlayer = self:GetLocalPlayerID();
     local SelectedID = GUI.GetSelectedEntity();
     local PlayerID = Logic.EntityGetPlayer(_EntityID);

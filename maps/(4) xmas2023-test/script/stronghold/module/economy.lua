@@ -98,9 +98,6 @@ Stronghold.Economy = {
                 [Entities.PB_Headquarters2]    = {Honor =  6, Reputation = 0,},
                 [Entities.PB_Headquarters3]    = {Honor = 12, Reputation = 0,},
                 ---
-                [Entities.PB_VillageCenter2]   = {Honor = 0, Reputation = 4,},
-                [Entities.PB_VillageCenter3]   = {Honor = 0, Reputation = 8,},
-                ---
                 [Entities.PB_Monastery1]       = {Honor = 0, Reputation = 6,},
                 [Entities.PB_Monastery2]       = {Honor = 0, Reputation = 9,},
                 [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 12,},
@@ -929,9 +926,7 @@ function Stronghold.Economy:ShowHeadquartersDetail(_PlayerID)
                 local Language = GetLanguage();
                 local Headline = self.Config.Text.CourtClerk[1][Language];
                 local Content = self:CreateHeadquarterDetailsText(_PlayerID);
-                self:PrintHeadquartersDetail(Headline, Content);
-            else
-                XGUIEng.ShowWidget("Movie", 0);
+                ShowInfoWindow(Headline, Content);
             end
         end
     end
@@ -977,17 +972,6 @@ function Stronghold.Economy:CreateHeadquarterDetailsText(_PlayerID)
         ((pho-phs < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pho-phs),
         ((pob-pop < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pob-pop)
     );
-end
-
-function Stronghold.Economy:PrintHeadquartersDetail(_Title, _Text)
-    XGUIEng.ShowWidget("Movie", 1);
-    XGUIEng.ShowWidget("Cinematic_Text", 0);
-    XGUIEng.ShowWidget("CreditsWindowLogo", 0);
-    XGUIEng.ShowWidget("MovieBarTop", 0);
-    XGUIEng.ShowWidget("MovieBarBottom", 0);
-    XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 0);
-    XGUIEng.SetText("CreditsWindowTextTitle", _Title);
-    XGUIEng.SetText("CreditsWindowText", Placeholder.Replace(_Text));
 end
 
 -- -------------------------------------------------------------------------- --

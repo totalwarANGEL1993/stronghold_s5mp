@@ -153,7 +153,7 @@ Stronghold.UnitConfig.Units = {
         Soldiers          = 12,
         Costs             = {
             [1] = {7, 120, 0, 0, 0, 50, 0},
-            [2] = {0, 20, 0, 0, 0, 10, 0},
+            [2] = {0, 15, 0, 0, 0, 10, 0},
         },
         Rank              = 2,
         Allowed           = true,

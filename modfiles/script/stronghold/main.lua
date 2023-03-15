@@ -952,8 +952,8 @@ function Stronghold:ControlReputationAttractionPenalty(_PlayerID)
             end
             local ID = table.remove(WorkerList, math.random(1, WorkerAmount));
             Logic.SetTaskList(ID, TaskLists.TL_WORKER_LEAVE);
-            LeaveAmount = LeaveAmount -1;
             WorkerAmount = table.getn(WorkerList);
+            LeaveAmount = LeaveAmount -1;
         end
     end
 end
@@ -964,6 +964,8 @@ end
 -- Menu update
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
+    HideInfoWindow();
+
     local GuiPlayer = self:GetLocalPlayerID();
     local SelectedID = GUI.GetSelectedEntity();
     local PlayerID = Logic.EntityGetPlayer(_EntityID);

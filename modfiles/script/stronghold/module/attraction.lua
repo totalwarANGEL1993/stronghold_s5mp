@@ -61,34 +61,40 @@ Stronghold.Attraction = {
         },
 
         UsedSpace = {
+            [Entities.CU_BanditLeaderSword1] = 1,
+            [Entities.CU_BanditLeaderSword2] = 1,
+            [Entities.CU_Barbarian_LeaderClub1] = 1,
+            [Entities.CU_Barbarian_LeaderClub2] = 1,
+            [Entities.CU_BlackKnight_LeaderMace1] = 1,
+            [Entities.CU_BlackKnight_LeaderMace2] = 1,
+            [Entities.CU_Evil_LeaderBearman1] = 1,
             [Entities.PU_LeaderPoleArm1] = 1,
             [Entities.PU_LeaderPoleArm2] = 1,
             [Entities.PU_LeaderPoleArm3] = 1,
             [Entities.PU_LeaderPoleArm4] = 1,
-            ---
             [Entities.PU_LeaderSword1] = 1,
             [Entities.PU_LeaderSword2] = 1,
             [Entities.PU_LeaderSword3] = 1,
             [Entities.PU_LeaderSword4] = 1,
             ---
+            [Entities.CU_BanditLeaderBow1] = 1,
+            [Entities.CU_Evil_LeaderSkirmisher1] = 1,
             [Entities.PU_LeaderBow1] = 1,
             [Entities.PU_LeaderBow2] = 1,
             [Entities.PU_LeaderBow3] = 1,
             [Entities.PU_LeaderBow4] = 1,
+            [Entities.PU_LeaderRifle1] = 2,
+            [Entities.PU_LeaderRifle2] = 2,
+            ---
+            [Entities.PU_LeaderCavalry1] = 1,
+            [Entities.PU_LeaderCavalry2] = 1,
+            [Entities.PU_LeaderHeavyCavalry1] = 3,
+            [Entities.PU_LeaderHeavyCavalry2] = 3,
             ---
             [Entities.PV_Cannon1] = 10,
             [Entities.PV_Cannon2] = 10,
             [Entities.PV_Cannon3] = 20,
             [Entities.PV_Cannon4] = 20,
-            ---
-            [Entities.PU_LeaderCavalry1] = 2,
-            [Entities.PU_LeaderCavalry2] = 2,
-            ---
-            [Entities.PU_LeaderHeavyCavalry1] = 2,
-            [Entities.PU_LeaderHeavyCavalry2] = 2,
-            ---
-            [Entities.PU_LeaderRifle1] = 2,
-            [Entities.PU_LeaderRifle2] = 1,
             ---
             [Entities.PU_Scout] = 0,
             [Entities.PU_Thief] = 0,

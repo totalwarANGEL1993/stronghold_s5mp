@@ -203,7 +203,7 @@ Stronghold.Hero = {
                          "schweren Scharfschützen " ..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Erek rekrutiert Soldaten mit der maximalen Erfahrung, wodurch er "..
+                         "Erec rekrutiert Soldaten mit der maximalen Erfahrung, wodurch er "..
                          "allerdings die Kosten der Ausbildung um 20% steigert. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
