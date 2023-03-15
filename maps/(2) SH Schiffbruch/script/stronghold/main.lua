@@ -947,13 +947,13 @@ function Stronghold:ControlReputationAttractionPenalty(_PlayerID)
         WorkerAmount = table.getn(WorkerList);
         LeaveAmount = math.ceil(WorkerAmount * 0.75);
         while LeaveAmount > 0 do
-            if table.getn(WorkerList) == 0 then
+            if WorkerAmount == 0 then
                 break;
             end
             local ID = table.remove(WorkerList, math.random(1, WorkerAmount));
             Logic.SetTaskList(ID, TaskLists.TL_WORKER_LEAVE);
-            WorkerAmount = table.getn(WorkerList);
             LeaveAmount = LeaveAmount -1;
+            WorkerAmount = table.getn(WorkerList);
         end
     end
 end

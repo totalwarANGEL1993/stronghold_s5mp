@@ -475,7 +475,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Die gesteigerte Geburtenrate sorgt für einen demographischen "..
-                         "Wandel. Kala steigert Euer Bevölkerungslimit wird um 20%. "..
+                         "Wandel. Kala steigert Euer Bevölkerungslimit wird um 25%. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Kala kann nahestehende Feinde mit Gift schädigen.",
@@ -490,7 +490,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                          "The increased birth rate is causing demographic change. Kala increases "..
-                         "your attraction limit by 20%. "..
+                         "your attraction limit by 25%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Kala can inflict poison damage to enemies.",
@@ -883,8 +883,8 @@ function Stronghold.Hero:BuyHeroCreateLord(_PlayerID, _ID, _Type)
             -- Update motivation soft cap
             ExpectedSoftCap = 3;
             -- Give motivation for Yuki
+            Stronghold:UpdateMotivationOfPlayersWorkers(_PlayerID, 50);
             Stronghold:AddPlayerReputation(_PlayerID, 100);
-            Stronghold:UpdateMotivationOfPlayersWorkers(_PlayerID, 100);
         end
         if _Type == Entities.CU_BlackKnight then
             -- Update motivation soft cap
@@ -1389,7 +1389,7 @@ end
 function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        Value = Value * 1.2;
+        Value = Value * 1.25;
     end
     return Value;
 end

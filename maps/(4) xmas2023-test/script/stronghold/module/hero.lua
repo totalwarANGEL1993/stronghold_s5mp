@@ -883,8 +883,8 @@ function Stronghold.Hero:BuyHeroCreateLord(_PlayerID, _ID, _Type)
             -- Update motivation soft cap
             ExpectedSoftCap = 3;
             -- Give motivation for Yuki
+            Stronghold:UpdateMotivationOfPlayersWorkers(_PlayerID, 50);
             Stronghold:AddPlayerReputation(_PlayerID, 100);
-            Stronghold:UpdateMotivationOfPlayersWorkers(_PlayerID, 100);
         end
         if _Type == Entities.CU_BlackKnight then
             -- Update motivation soft cap
