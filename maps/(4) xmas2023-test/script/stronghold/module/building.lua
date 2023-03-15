@@ -433,6 +433,8 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     end
 
     XGUIEng.ShowWidget("BuildingTabs", 1);
+    XGUIEng.ShowWidget("Buy_Serf_Recharge", 1);
+    XGUIEng.ShowWidget("Buy_Serf_Amount", 1);
     self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, gvGUI_WidgetID.ToBuildingCommandMenu);
 end
 

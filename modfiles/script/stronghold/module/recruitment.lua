@@ -26,6 +26,7 @@ function Stronghold.Recruitment:Install()
         self:InitDefaultRoster(i);
     end
     self:CreateBuildingButtonHandlers();
+    self:OverrideGUI();
 end
 
 function Stronghold.Recruitment:OnSaveGameLoaded()
@@ -510,5 +511,25 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostsText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortcutText);
     return true;
+end
+
+-- -------------------------------------------------------------------------- --
+
+function Stronghold.Recruitment:OverrideGUI()
+    GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID()
+
+        local TimeLeft = 50;
+        local RechargeTime = 100;
+        if TimeLeft == RechargeTime then		
+            XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0)
+            XGUIEng.DisableButton(_Button, 0)
+        end
+        if TimeLeft < RechargeTime then
+            XGUIEng.SetMaterialColor(CurrentWidgetID,1,214,44,24,189)
+            XGUIEng.DisableButton(_Button, 1)
+        end
+        XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeLeft, RechargeTime);
+    end
 end
 
