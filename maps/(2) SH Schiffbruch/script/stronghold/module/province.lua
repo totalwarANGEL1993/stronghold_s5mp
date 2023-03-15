@@ -42,8 +42,8 @@ Stronghold.Province = {
                     en = "Enemies prevent the construction of the village center!",
                 },
                 Lost = {
-                    de = "Die Provinz %s{grey}ist nun unabhängig.",
-                    en = "The province %s{grey}has become independed.",
+                    de = "{grey}Die Provinz %s{grey}ist nun unabhängig.",
+                    en = "{grey}The province %s{grey}has become independed.",
                 },
             }
         }
@@ -184,8 +184,8 @@ function Stronghold.Province:LooseProvince(_ID, _PlayerID, _BuildingID)
         self.Data.Provinces[_ID].Owner = self.Config.NeutralPlayerID;
         self.Data.Provinces[_ID].Village = nil;
         -- Delete exploration Entities
-        for i= table.getn(self.Data.Provinces[_ID].Exploration.Entities), 1, -1 do
-            DestroyEntity(self.Data.Provinces[_ID].Exploration.Entities[i]);
+        for i= table.getn(self.Data.Provinces[_ID].Explorers.Entities), 1, -1 do
+            DestroyEntity(self.Data.Provinces[_ID].Explorers.Entities[i]);
         end
         self.Data.Provinces[_ID].Entities = {};
         -- Print message
@@ -311,9 +311,7 @@ function Stronghold.Province:OnBuildingDestroyed(_BuildingID, _PlayerID)
         local VillageName = CreateNameForEntity(_BuildingID);
         for k,v in pairs(self.Data.Provinces) do
             if v.Owner ~= self.Config.NeutralPlayerID and VillageName == v.Village then
-                if Logic.GetEntityHealth(GetID(v.Village)) == 0 then
-                    self:LooseProvince(k, PlayerID, _BuildingID);
-                end
+                self:LooseProvince(k, PlayerID, _BuildingID);
             end
         end
     end
