@@ -18,6 +18,17 @@
         <!--NumBlockedPoints>2</NumBlockedPoints-->
         <SnapTolerance>30.0f</SnapTolerance>
 		<MapFileDontSave>true</MapFileDontSave>
+
+        <ModifySpeed>
+        	<Technology>T_BetterChassis</Technology>
+        </ModifySpeed>
+    
+         <ModifyDamage>
+        	<Technology>T_EnhancedGunPowder</Technology>
+        </ModifyDamage>
+         <ModifyDamage>
+        	<Technology>T_BlisteringCannonballs</Technology>
+        </ModifyDamage>
 	</Logic>
 	
 	<Behavior>

@@ -11,13 +11,24 @@
 		<DoNotExecute>false</DoNotExecute>
 		<ForceNoPlayer>false</ForceNoPlayer>
 		<Exploration>30</Exploration>	
-    <Category>MilitaryBuilding</Category>
+        <Category>MilitaryBuilding</Category>
 		<Category>Military</Category> 
 		<Category>Cannon</Category> 	
 		<Category>SplashDamage</Category>
         <!--NumBlockedPoints>2</NumBlockedPoints-->
         <SnapTolerance>30.0f</SnapTolerance>
 		<MapFileDontSave>true</MapFileDontSave>
+
+        <ModifySpeed>
+        	<Technology>T_BetterChassis</Technology>
+        </ModifySpeed>
+    
+         <ModifyDamage>
+        	<Technology>T_EnhancedGunPowder</Technology>
+        </ModifyDamage>
+         <ModifyDamage>
+        	<Technology>T_BlisteringCannonballs</Technology>
+        </ModifyDamage>
 	</Logic>
 	
 	<Behavior>

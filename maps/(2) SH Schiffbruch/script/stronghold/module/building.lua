@@ -298,6 +298,7 @@ end
 function Stronghold.Building:CreateBuildingButtonHandlers()
     self.SyncEvents = {
         ChangeTax = 1,
+        EnqueueSerf = 2,
         BuySerf = 3,
         BlessSettlers = 4,
         MeasureTaken = 5,
@@ -307,6 +308,13 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Building.SyncEvents.ChangeTax then
                 Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, arg[1]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.EnqueueSerf then
+                if arg[5] then
+                    Stronghold.Recruitment:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
+                else
+                    Stronghold.Recruitment:OrderUnit(_PlayerID, arg[4], arg[2], arg[1], arg[3]);
+                end
             end
             if _Action == Stronghold.Building.SyncEvents.BuySerf then
                 Stronghold.Unit:BuyUnit(_PlayerID, arg[2], arg[1], arg[3]);
@@ -415,10 +423,12 @@ function Stronghold.Building:HeadquartersBuySerf()
     Stronghold.Players[PlayerID].BuyUnitLock = true;
     Syncer.InvokeEvent(
         Stronghold.Building.NetworkCall,
-        Stronghold.Building.SyncEvents.BuySerf,
+        Stronghold.Building.SyncEvents.EnqueueSerf,
         GetID(Stronghold.Players[PlayerID].HQScriptName),
         Entities.PU_Serf,
-        false
+        false,
+        "Buy_Serf",
+        XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
     );
     return true;
 end
@@ -433,6 +443,8 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     end
 
     XGUIEng.ShowWidget("BuildingTabs", 1);
+    XGUIEng.ShowWidget("Buy_Serf_Recharge", 1);
+    XGUIEng.ShowWidget("Buy_Serf_Amount", 1);
     self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, gvGUI_WidgetID.ToBuildingCommandMenu);
 end
 

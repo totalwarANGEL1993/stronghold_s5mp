@@ -11,13 +11,23 @@
 		<DoNotExecute>false</DoNotExecute>
 		<ForceNoPlayer>false</ForceNoPlayer>
 		<Exploration>30</Exploration>	
-    <Category>MilitaryBuilding</Category>
+        <Category>MilitaryBuilding</Category>
 		<Category>Military</Category> 
 		<Category>Cannon</Category> 	
 		<Category>SplashDamage</Category>
         <!--NumBlockedPoints>2</NumBlockedPoints-->
         <SnapTolerance>30.0f</SnapTolerance>
 		<MapFileDontSave>true</MapFileDontSave>
+
+        <ModifyExploration>
+        	<Technology>T_Fletching</Technology>
+        </ModifyExploration>
+         <ModifyMaxRange>
+			  <Technology>T_Fletching</Technology>
+		</ModifyMaxRange>
+         <ModifyDamage>
+        	<Technology>T_BodkinArrow</Technology>
+        </ModifyDamage>
 	</Logic>
 	
 	<Behavior>
