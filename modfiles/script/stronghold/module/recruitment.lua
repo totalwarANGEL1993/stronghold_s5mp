@@ -9,9 +9,18 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
     Data = {},
     Config = {
         UI = {
-            MilitaryLimit = {
-                de = "Euere Heeresstärke ist an ihrem Limit, Hochwohlgeboren!",
-                en = "Your army strength is at its limit, Your Highness!",
+            QueueMapping = {
+                [Entities.PB_Headquarters1] = {"Buy_Serf"},
+                [Entities.PB_Headquarters2] = {"Buy_Serf"},
+                [Entities.PB_Headquarters3] = {"Buy_Serf"},
+                -- Add more buildings
+            },
+
+            Text = {
+                MilitaryLimit = {
+                    de = "Euere Heeresstärke ist an ihrem Limit, Hochwohlgeboren!",
+                    en = "Your army strength is at its limit, Your Highness!",
+                },
             },
         }
     },
@@ -21,12 +30,18 @@ function Stronghold.Recruitment:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {
             Config = CopyTable(Stronghold.UnitConfig.Units),
-            Roster = {}
+            Roster = {},
+            Queues = {
+                ["Buy_Serf"] = {},
+                -- TODO: Add more queues
+            },
         };
+        Stronghold.Recruitment:InitQueuesForProducer(GetID("HQ" ..i));
         self:InitDefaultRoster(i);
     end
     self:CreateBuildingButtonHandlers();
     self:OverrideGUI();
+    self:CreateQueueController();
 end
 
 function Stronghold.Recruitment:OnSaveGameLoaded()
@@ -35,11 +50,18 @@ end
 function Stronghold.Recruitment:CreateBuildingButtonHandlers()
     self.SyncEvents = {
         BuyUnit = 1,
+        EnqueueUnit = 2,
     };
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Recruitment.SyncEvents.BuyUnit then
                 Stronghold.Unit:BuyUnit(_PlayerID, arg[2], arg[1], arg[3]);
+            elseif _Action == Stronghold.Recruitment.SyncEvents.EnqueueUnit then
+                if arg[5] then
+                    self:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
+                else
+                    self:OrderUnit(_PlayerID, arg[4], arg[2], arg[1], arg[3]);
+                end
             end
         end
     );
@@ -128,6 +150,8 @@ function Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
     local Costs = {};
     local Config = Stronghold.UnitConfig:GetConfig(_Type, _PlayerID);
     if Config then
+        _SoldierAmount = _SoldierAmount or Config.Soldiers;
+
         Costs = CopyTable(Config.Costs[1]);
         Costs = CreateCostTable(unpack(Costs));
         Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, Costs);
@@ -145,7 +169,7 @@ function Stronghold.Recruitment:GetSoldierCostsByLeaderType(_PlayerID, _Type, _A
     if Config then
         Costs = CopyTable(Config.Costs[2]);
         for i= 2, 7 do
-            Costs[i] = Costs[i] * _Amount;
+            Costs[i] = Costs[i] * (_Amount or Config.Soldiers);
         end
         Costs = CreateCostTable(unpack(Costs));
         Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, Costs);
@@ -193,10 +217,10 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
 
-            local Places = Stronghold.Attraction:GetMilitarySpaceForUnitType(UnitType, Soldiers +1);
+            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
-                Message(self.Config.UI.MilitaryLimit[Language]);
+                Message(self.Config.UI.Text.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
@@ -268,10 +292,10 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
             local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
 
-            local Places = Stronghold.Attraction:GetMilitarySpaceForUnitType(UnitType, Soldiers +1);
+            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
-                Message(self.Config.UI.MilitaryLimit[Language]);
+                Message(self.Config.UI.Text.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
@@ -515,21 +539,248 @@ end
 
 -- -------------------------------------------------------------------------- --
 
+function Stronghold.Recruitment:CreateQueueController()
+    Overwrite.CreateOverwrite(
+        "GameCallback_Calculate_CivilAttrationUsage",
+        function(_PlayerID, _Amount)
+            local Amount = Overwrite.CallOriginal();
+            Amount = Amount + Stronghold.Recruitment:GetOccupiedSpacesFromQueues(_PlayerID, true);
+            return Amount;
+        end
+    );
+
+    Overwrite.CreateOverwrite(
+        "GameCallback_Calculate_MilitaryAttrationUsage",
+        function(_PlayerID, _Amount)
+            local Amount = Overwrite.CallOriginal();
+            Amount = Amount + Stronghold.Recruitment:GetOccupiedSpacesFromQueues(_PlayerID, false);
+            return Amount;
+        end
+    );
+
+    Job.Turn(function()
+        for i= 1, table.getn(Score.Player) do
+            Stronghold.Recruitment:ControlProductionQueues(i);
+        end
+    end);
+
+    Job.Create(function()
+        local ID = Event.GetEntityID();
+        Stronghold.Recruitment:InitQueuesForProducer(ID);
+    end);
+end
+
+function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptName)
+    if  self.Data[_PlayerID]
+    and self.Data[_PlayerID].Queues[_Queue]
+    and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
+        local Data = table.remove(self.Data[_PlayerID].Queues[_Queue][_ScriptName], 1);
+        if Data then
+            if not IsExisting(_ScriptName) then
+                return;
+            end
+            local Orientation = Logic.GetEntityOrientation(GetID(_ScriptName));
+            local Position = Stronghold.Unit:GetBarracksDoorPosition(GetID(_ScriptName));
+            local ID = AI.Entity_CreateFormation(
+                _PlayerID,
+                Data.Type,
+                0,
+                Data.Soldiers,
+                Position.X,
+                Position.Y,
+                0,
+                0,
+                Data.Experience,
+                Data.Soldiers
+            );
+            Logic.RotateEntity(ID, Orientation +180);
+            Stronghold.Unit:SetFormationOnCreate(ID);
+        end
+    end
+end
+
+function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID, _AutoFill)
+    if not IsExisting(_BarracksID) then
+        Stronghold.Players[_PlayerID].BuyUnitLock = nil;
+        return;
+    end
+    if Stronghold:IsPlayer(_PlayerID) then
+        local Config = Stronghold.UnitConfig:GetConfig(_Type, _PlayerID);
+        if Stronghold.UnitConfig:GetConfig(_Type, _PlayerID) then
+            local ScriptName = Logic.GetEntityName(_BarracksID);
+            local IsLeader = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Leader) == 1;
+            local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
+            local Soldiers = (_AutoFill and  Config.Soldiers) or 0;
+            local CostsSoldier = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, Soldiers);
+            local CostsLeader = self:GetLeaderCosts(_PlayerID, _Type, 0);
+            local Experience = 0;
+            local Places = Config.Places or Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type);
+            if IsLeader and not IsCannon and Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
+                CostsLeader = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, CostsLeader);
+                Experience = 3;
+            end
+            -- if IsCannon and Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
+            --     CostsLeader = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, CostsLeader);
+            -- end
+            self:CreateNewQueueEntry(_PlayerID, _Queue, ScriptName, Config.Turns, _Type, Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier, Experience);
+            self:PayUnit(_PlayerID, CostsLeader, CostsSoldier);
+        end
+        Stronghold.Players[_PlayerID].BuyUnitLock = nil;
+    end
+end
+
+function Stronghold.Recruitment:PayUnit(_PlayerID, _CostsLeader, _CostsSoldier)
+    local CostsFull = _CostsLeader;
+    for k,v in pairs(_CostsSoldier) do
+        CostsFull[k] = (CostsFull[k] or 0) + (v or 0);
+    end
+    RemoveResourcesFromPlayer(_PlayerID, CostsFull);
+end
+
+function Stronghold.Recruitment:RefundUnit(_PlayerID, _CostsLeader, _CostsSoldier)
+    local CostsFull = _CostsLeader;
+    for k,v in pairs(_CostsSoldier) do
+        CostsFull[k] = (CostsFull[k] or 0) + (v or 0);
+    end
+    AddResourcesToPlayer(_PlayerID, CostsFull);
+end
+
+function Stronghold.Recruitment:CreateNewQueueEntry(
+    _PlayerID, _Queue, _ScriptName, _Time, _Type, _Soldiers, _Civil, _Places,
+    _CostsLeader, _CostsSoldier, _Experience
+)
+    if  self.Data[_PlayerID]
+    and self.Data[_PlayerID].Queues[_Queue]
+    and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
+        table.insert(self.Data[_PlayerID].Queues[_Queue][_ScriptName], {
+            Progress = 0,
+            Limit = _Time,
+            IsCivil = _Civil == true,
+            Type = _Type,
+            Experience = _Experience,
+            Soldiers = _Soldiers,
+            Places = _Places,
+            Costs = {
+                [1] = _CostsLeader,
+                [2] = _CostsSoldier,
+            }
+        });
+    end
+end
+
+function Stronghold.Recruitment:GetSizeOfQueue(_PlayerID, _Queue, _ScriptName)
+    if  self.Data[_PlayerID]
+    and self.Data[_PlayerID].Queues[_Queue]
+    and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
+        return table.getn(self.Data[_PlayerID].Queues[_Queue][_ScriptName]);
+    end
+    return 0;
+end
+
+function Stronghold.Recruitment:GetFirstEntryFromQueue(_PlayerID, _Queue, _ScriptName)
+    if  self.Data[_PlayerID]
+    and self.Data[_PlayerID].Queues[_Queue]
+    and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
+        return self.Data[_PlayerID].Queues[_Queue][_ScriptName][1];
+    end
+end
+
+function Stronghold.Recruitment:GetOccupiedSpacesFromQueues(_PlayerID, _IsCivil)
+    local Places = 0;
+    for QueueName,_ in pairs(self.Data[_PlayerID].Queues) do
+        for ScriptName, Data in pairs(self.Data[_PlayerID].Queues[QueueName]) do
+            for k,v in pairs(Data) do
+                if v.IsCivil == _IsCivil then
+                    Places = Places + (v.Places + (v.Soldiers * v.Places));
+                end
+            end
+        end
+    end
+    return Places;
+end
+
+function Stronghold.Recruitment:AbortLatestQueueEntry(_PlayerID, _Queue, _ScriptName)
+    if  self.Data[_PlayerID] then
+        -- Remove lock
+        Stronghold.Players[_PlayerID].BuyUnitLock = nil;
+        -- Refund unit
+        if  self.Data[_PlayerID].Queues[_Queue]
+        and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
+            local Entry = table.remove(self.Data[_PlayerID].Queues[_Queue][_ScriptName]);
+            if Entry then
+                self:RefundUnit(_PlayerID, Entry.Costs[1], Entry.Costs[2]);
+            end
+        end
+    end
+end
+
+-- Runs the queue and executes unit creation after completion.
+function Stronghold.Recruitment:ControlProductionQueues(_PlayerID)
+    if self.Data[_PlayerID] then
+        for ButtonName,_ in pairs(self.Data[_PlayerID].Queues) do
+            for ScriptName, Queue in pairs(self.Data[_PlayerID].Queues[ButtonName]) do
+                if not IsExisting(ScriptName) then
+                    self.Data[_PlayerID].Queues[ButtonName][ScriptName] = nil;
+                else
+                    if Queue[1] then
+                        if Queue[1].Progress > Queue[1].Limit then
+                            self:ProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName);
+                        else
+                            self.Data[_PlayerID].Queues[ButtonName][ScriptName][1].Progress = Queue[1].Progress + 1;
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Initalizes all queues for the entity if not existing.
+function Stronghold.Recruitment:InitQueuesForProducer(_EntityID)
+    if not IsExisting(_EntityID) then
+        return;
+    end
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Type = Logic.GetEntityType(_EntityID);
+    if self.Data[PlayerID] then
+        if self.Config.UI.QueueMapping[Type] then
+            local ScriptName = CreateNameForEntity(_EntityID);
+            for k,v in pairs(self.Config.UI.QueueMapping[Type]) do
+                if not self.Data[PlayerID].Queues[v][ScriptName] then
+                    self.Data[PlayerID].Queues[v][ScriptName] = {};
+                end
+            end
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+
 function Stronghold.Recruitment:OverrideGUI()
     GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
-        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID()
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local EntityID = GUI.GetSelectedEntity();
+        local ScriptName = Logic.GetEntityName(EntityID);
+        local PlayerID = Stronghold:GetLocalPlayerID();
 
-        local TimeLeft = 50;
-        local RechargeTime = 100;
-        if TimeLeft == RechargeTime then		
-            XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0)
-            XGUIEng.DisableButton(_Button, 0)
+        if not Stronghold.Recruitment.Data[PlayerID] then
+            XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0);
+            return;
         end
-        if TimeLeft < RechargeTime then
-            XGUIEng.SetMaterialColor(CurrentWidgetID,1,214,44,24,189)
-            XGUIEng.DisableButton(_Button, 1)
+
+        local QueueSize = Stronghold.Recruitment:GetSizeOfQueue(PlayerID, _Button, ScriptName);
+        local FirstEntry = Stronghold.Recruitment:GetFirstEntryFromQueue(PlayerID, _Button, ScriptName);
+        if QueueSize == 0 or not FirstEntry then
+            XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0);
+            XGUIEng.SetText(_Button.. "_Amount", "");
+            return;
         end
-        XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeLeft, RechargeTime);
+
+        local TimeCharged = FirstEntry.Progress;
+        local RechargeTime = FirstEntry.Limit;
+        XGUIEng.SetMaterialColor(CurrentWidgetID,1,214,44,24,189);
+        XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeCharged, RechargeTime);
+        XGUIEng.SetTextByValue(_Button.. "_Amount", QueueSize);
     end
 end
 

@@ -513,6 +513,13 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     return math.ceil(Limit);
 end
 
+function Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type, _Amount)
+    if self.Config.UsedSpace[_Type] then
+        return self.Config.UsedSpace[_Type] * (_Amount or 1);
+    end
+    return 0;
+end
+
 function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
     local Usage = 0;
     if Stronghold:IsPlayer(_PlayerID) then
@@ -521,13 +528,6 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
         Usage = GameCallback_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
     end
     return Usage;
-end
-
-function Stronghold.Attraction:GetMilitarySpaceForUnitType(_Type, _Amount)
-    if self.Config.UsedSpace[_Type] then
-        return self.Config.UsedSpace[_Type] * (_Amount or 1);
-    end
-    return 0;
 end
 
 function Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount)
@@ -655,7 +655,12 @@ function Stronghold.Attraction:OverrideAttraction()
         local ScoutCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Scout);
         local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
         local Criminals = Stronghold.Attraction:CountCriminals(_PlayerID);
-        Usage = WorkerCount + Criminals + BattleSerfCount + SerfCount + ScoutCount + (ThiefCount * 5);
+        Usage = WorkerCount + Criminals +
+                (BattleSerfCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Serf, _PlayerID).Places) +
+                (SerfCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Serf, _PlayerID).Places) +
+                (ScoutCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Scout, _PlayerID).Places) +
+                (ThiefCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Thief, _PlayerID).Places);
+
         -- External
         Usage = GameCallback_Calculate_CivilAttrationUsage(_PlayerID, Usage);
 
