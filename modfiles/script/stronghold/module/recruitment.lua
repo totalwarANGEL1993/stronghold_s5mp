@@ -27,6 +27,7 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
                     "Buy_Scout",
                     "Buy_Thief"
                 },
+                ---
                 [Entities.PB_Barracks1] = {
                     "Research_UpgradeSword1",
                     "Research_UpgradeSword2",
@@ -43,6 +44,7 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
                     "Research_UpgradeSpear2",
                     "Research_UpgradeSpear3",
                 },
+                ---
                 [Entities.PB_Archery1] = {
                     "Research_UpgradeBow1",
                     "Research_UpgradeBow2",
@@ -55,8 +57,15 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
                     "Research_UpgradeBow3",
                     "Research_UpgradeRifle1",
                 },
-
-                -- Add more buildings
+                ---
+                [Entities.PB_Stable1] = {
+                    "Research_UpgradeCavalryLight1",
+                    "Research_UpgradeCavalryHeavy1",
+                },
+                [Entities.PB_Stable2] = {
+                    "Research_UpgradeCavalryLight1",
+                    "Research_UpgradeCavalryHeavy1",
+                },
             },
 
             Text = {
@@ -75,10 +84,6 @@ function Stronghold.Recruitment:Install()
             Config = CopyTable(Stronghold.UnitConfig.Units),
             Roster = {},
             Queues = {
-                ["Buy_Serf"] = {},
-                ["Buy_Scout"] = {},
-                ["Buy_Thief"] = {},
-                ---
                 ["Research_UpgradeSword1"] = {},
                 ["Research_UpgradeSword2"] = {},
                 ["Research_UpgradeSword3"] = {},
@@ -90,8 +95,13 @@ function Stronghold.Recruitment:Install()
                 ["Research_UpgradeBow2"] = {},
                 ["Research_UpgradeBow3"] = {},
                 ["Research_UpgradeRifle1"] = {},
-
-                -- TODO: Add more queues
+                ---
+                ["Research_UpgradeCavalryLight1"] = {},
+                ["Research_UpgradeCavalryHeavy1"] = {},
+                ---
+                ["Buy_Serf"] = {},
+                ["Buy_Scout"] = {},
+                ["Buy_Thief"] = {},
             },
         };
         Stronghold.Recruitment:InitQueuesForProducer(GetID("HQ" ..i));
