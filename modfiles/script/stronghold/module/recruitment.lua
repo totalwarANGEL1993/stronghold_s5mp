@@ -10,11 +10,39 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
     Config = {
         UI = {
             QueueMapping = {
-                [Entities.PB_Headquarters1] = {"Buy_Serf"},
-                [Entities.PB_Headquarters2] = {"Buy_Serf"},
-                [Entities.PB_Headquarters3] = {"Buy_Serf"},
-                [Entities.PB_Tavern1] = {"Buy_Scout", "Buy_Thief"},
-                [Entities.PB_Tavern2] = {"Buy_Scout", "Buy_Thief"},
+                [Entities.PB_Headquarters1] = {
+                    "Buy_Serf"
+                },
+                [Entities.PB_Headquarters2] = {
+                    "Buy_Serf"
+                },
+                [Entities.PB_Headquarters3] = {
+                    "Buy_Serf"
+                },
+                [Entities.PB_Tavern1] = {
+                    "Buy_Scout",
+                    "Buy_Thief"
+                },
+                [Entities.PB_Tavern2] = {
+                    "Buy_Scout",
+                    "Buy_Thief"
+                },
+                [Entities.PB_Barracks1] = {
+                    "Research_UpgradeSword1",
+                    "Research_UpgradeSword2",
+                    "Research_UpgradeSword3",
+                    "Research_UpgradeSpear1",
+                    "Research_UpgradeSpear2",
+                    "Research_UpgradeSpear3",
+                },
+                [Entities.PB_Barracks2] = {
+                    "Research_UpgradeSword1",
+                    "Research_UpgradeSword2",
+                    "Research_UpgradeSword3",
+                    "Research_UpgradeSpear1",
+                    "Research_UpgradeSpear2",
+                    "Research_UpgradeSpear3",
+                },
                 -- Add more buildings
             },
 
@@ -37,6 +65,13 @@ function Stronghold.Recruitment:Install()
                 ["Buy_Serf"] = {},
                 ["Buy_Scout"] = {},
                 ["Buy_Thief"] = {},
+                -- ---------------------------------------------------------- --
+                ["Research_UpgradeSword1"] = {},
+                ["Research_UpgradeSword2"] = {},
+                ["Research_UpgradeSword3"] = {},
+                ["Research_UpgradeSpear1"] = {},
+                ["Research_UpgradeSpear2"] = {},
+                ["Research_UpgradeSpear3"] = {},
                 -- TODO: Add more queues
             },
         };
@@ -220,33 +255,36 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local UnitType = self.Data[PlayerID].Roster[Button];
             local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
+            local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
-            if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
+            if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
                 Message(self.Config.UI.Text.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
             Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(PlayerID, UnitType, Costs);
-            if HasPlayerEnoughResourcesFeedback(Costs) then
-                Stronghold.Players[PlayerID].BuyUnitLock = true;
-                local EventType = self.SyncEvents.EnqueueUnit;
-                if string.find(Button, "Cannon") then
-                    EventType = self.SyncEvents.BuyUnit;
-                    GUI.BuyCannon(EntityID, _Type);
-		            XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress,1);
-                end
-                Syncer.InvokeEvent(
-                    self.NetworkCall,
-                    EventType,
-                    EntityID,
-                    UnitType,
-                    false,
-                    Button,
-                    XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
-                );
+            if not Modifier and not HasPlayerEnoughResourcesFeedback(Costs) then
+                return true;
             end
+
+            Stronghold.Players[PlayerID].BuyUnitLock = true;
+            local EventType = self.SyncEvents.EnqueueUnit;
+            if string.find(Button, "Cannon") then
+                EventType = self.SyncEvents.BuyUnit;
+                GUI.BuyCannon(EntityID, _Type);
+                XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress,1);
+            end
+            Syncer.InvokeEvent(
+                self.NetworkCall,
+                EventType,
+                EntityID,
+                UnitType,
+                false,
+                Button,
+                XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
+            );
             return true;
         end
     end
@@ -302,22 +340,29 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
             local UnitType = self.Data[PlayerID].Roster[Button];
             local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
+            local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
-            if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
+            if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
                 Message(self.Config.UI.Text.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
             Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(PlayerID, UnitType, Costs);
-            if HasPlayerEnoughResourcesFeedback(Costs) then
-                Stronghold.Players[PlayerID].BuyUnitLock = true;
-                Syncer.InvokeEvent(
-                    self.NetworkCall,
-                    self.SyncEvents.BuyUnit, EntityID, UnitType, AutoFillActive
-                );
+            if not Modifier and not HasPlayerEnoughResourcesFeedback(Costs) then
+                return true;
             end
+            Stronghold.Players[PlayerID].BuyUnitLock = true;
+            Syncer.InvokeEvent(
+                self.NetworkCall,
+                self.SyncEvents.EnqueueUnit,
+                EntityID,
+                UnitType,
+                AutoFillActive,
+                Button,
+                XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
+            );
             return true;
         end
     end
@@ -413,11 +458,15 @@ function Stronghold.Recruitment:OnRecruiterSelected(_ButtonsToUpdate, _EntityID)
         return;
     end
     for k, v in pairs(_ButtonsToUpdate) do
+        XGUIEng.ShowWidget(k.. "_Recharge", 1);
+        XGUIEng.ShowWidget(k.. "_Amount", 1);
         XGUIEng.ShowWidget(k, 0);
         if self.Data[PlayerID].Roster[k] then
             local UnitType = self.Data[PlayerID].Roster[k];
             local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
             XGUIEng.TransferMaterials(Config.Button, k);
+            XGUIEng.SetWidgetPositionAndSize(k.. "_Recharge", v[1], v[2], v[3], v[4]);
+            XGUIEng.SetWidgetPositionAndSize(k.. "_Amount", v[1], v[2], v[3], v[4]);
             XGUIEng.SetWidgetPositionAndSize(k, v[1], v[2], v[3], v[4]);
             XGUIEng.ShowWidget(k, 1);
 
