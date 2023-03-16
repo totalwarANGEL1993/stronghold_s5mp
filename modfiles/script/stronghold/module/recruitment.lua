@@ -819,7 +819,11 @@ function Stronghold.Recruitment:ControlProductionQueues(_PlayerID)
                         if Queue[1].Progress > Queue[1].Limit then
                             self:ProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName);
                         else
-                            self.Data[_PlayerID].Queues[ButtonName][ScriptName][1].Progress = Queue[1].Progress + 1;
+                            local Health = Logic.GetEntityHealth(GetID(ScriptName));
+                            local MaxHealth = Logic.GetEntityMaxHealth(GetID(ScriptName));
+                            if Health / MaxHealth >= 0.2 then
+                                self.Data[_PlayerID].Queues[ButtonName][ScriptName][1].Progress = Queue[1].Progress + 1;
+                            end
                         end
                     end
                 end
