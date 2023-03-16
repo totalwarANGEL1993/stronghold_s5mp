@@ -231,14 +231,15 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(PlayerID, UnitType, Costs);
             if HasPlayerEnoughResourcesFeedback(Costs) then
                 Stronghold.Players[PlayerID].BuyUnitLock = true;
+                local EventType = self.SyncEvents.EnqueueUnit;
                 if string.find(Button, "Cannon") then
+                    EventType = self.SyncEvents.BuyUnit;
                     GUI.BuyCannon(EntityID, _Type);
 		            XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress,1);
                 end
                 Syncer.InvokeEvent(
                     self.NetworkCall,
-                    -- self.SyncEvents.BuyUnit,
-                    self.SyncEvents.EnqueueUnit,
+                    EventType,
                     EntityID,
                     UnitType,
                     false,
