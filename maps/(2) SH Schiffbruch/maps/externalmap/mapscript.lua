@@ -20,6 +20,7 @@ function OnMapStart()
     Script.Load(gvBasePath.. "loader.lua");
 
     Lib.Require("comfort/CreateWoodPile");
+    Lib.Require("module/weather/WeatherMaker");
 
     ---
 
@@ -42,6 +43,11 @@ function OnMapStart()
     SetHostile(2, 7);
     CreatePassiveBanditCamps();
     CreateAggressiveBanditCamps();
+
+    UseWeatherSet("HighlandsWeatherSet");
+    AddPeriodicSummer(360);
+    AddPeriodicRain(90);
+    LocalMusic.UseSet = HIGHLANDMUSIC;
 end
 
 -- Create wood piles
@@ -125,16 +131,6 @@ function GameCallback_OnGameStart()
 		Logic.PlayerSetIsHumanFlag(PlayerID, 1);
 		Logic.PlayerSetGameStateToPlaying(PlayerID);
 	end
-
-    AddPeriodicSummer(360);
-    AddPeriodicRain(90);
-    Mission_InitWeatherGfxSets();
-    LocalMusic.UseSet = HIGHLANDMUSIC;
-
     OnMapStart();
-end
-
-function Mission_InitWeatherGfxSets()
-    SetupNormalWeatherGfxSet();
 end
 
