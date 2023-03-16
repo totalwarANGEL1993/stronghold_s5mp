@@ -407,12 +407,12 @@ end
 -- (The tracker only handles the tracking and not the UI!)
 function Stronghold.Construction:InitBuildingLimits()
     -- Beautifications
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification04, 8);
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification06, 8);
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification09, 8);
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification01, 6);
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification02, 6);
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification12, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification04, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification06, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification09, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification01, 4);
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification02, 4);
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification12, 4);
     EntityTracker.SetLimitOfType(Entities.PB_Beautification05, 2);
     EntityTracker.SetLimitOfType(Entities.PB_Beautification07, 2);
     EntityTracker.SetLimitOfType(Entities.PB_Beautification08, 2);
@@ -428,13 +428,13 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_PowerPlant1, 1);
 
     -- Military buildings
-    EntityTracker.SetLimitOfType(Entities.PB_Barracks1, 2);
-    EntityTracker.SetLimitOfType(Entities.PB_Barracks2, 1);
-    EntityTracker.SetLimitOfType(Entities.PB_Stable1, 2);
-    EntityTracker.SetLimitOfType(Entities.PB_Stable2, 1);
-    EntityTracker.SetLimitOfType(Entities.PB_Archery1, 2);
-    EntityTracker.SetLimitOfType(Entities.PB_Archery2, 1);
-    EntityTracker.SetLimitOfType(Entities.PB_Foundry1, 6);
-    EntityTracker.SetLimitOfType(Entities.PB_Foundry2, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Barracks1, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Barracks2, 3);
+    EntityTracker.SetLimitOfType(Entities.PB_Stable1, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Stable2, 3);
+    EntityTracker.SetLimitOfType(Entities.PB_Archery1, 6);
+    EntityTracker.SetLimitOfType(Entities.PB_Archery2, 3);
+    EntityTracker.SetLimitOfType(Entities.PB_Foundry1, 12);
+    EntityTracker.SetLimitOfType(Entities.PB_Foundry2, 12);
 end
 
