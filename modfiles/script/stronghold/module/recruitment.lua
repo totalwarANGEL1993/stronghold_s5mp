@@ -13,6 +13,8 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
                 [Entities.PB_Headquarters1] = {"Buy_Serf"},
                 [Entities.PB_Headquarters2] = {"Buy_Serf"},
                 [Entities.PB_Headquarters3] = {"Buy_Serf"},
+                [Entities.PB_Tavern1] = {"Buy_Scout", "Buy_Thief"},
+                [Entities.PB_Tavern2] = {"Buy_Scout", "Buy_Thief"},
                 -- Add more buildings
             },
 
@@ -33,6 +35,8 @@ function Stronghold.Recruitment:Install()
             Roster = {},
             Queues = {
                 ["Buy_Serf"] = {},
+                ["Buy_Scout"] = {},
+                ["Buy_Thief"] = {},
                 -- TODO: Add more queues
             },
         };
@@ -233,7 +237,13 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
                 end
                 Syncer.InvokeEvent(
                     self.NetworkCall,
-                    self.SyncEvents.BuyUnit, EntityID, UnitType, false
+                    -- self.SyncEvents.BuyUnit,
+                    self.SyncEvents.EnqueueUnit,
+                    EntityID,
+                    UnitType,
+                    false,
+                    Button,
+                    XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
                 );
             end
             return true;
@@ -389,6 +399,10 @@ function Stronghold.Recruitment:OnTavernSelected(_EntityID)
     if Type ~= Entities.PB_Tavern1 and Type ~= Entities.PB_Tavern2 then
         return;
     end
+    XGUIEng.ShowWidget("Buy_Scout_Recharge", 1);
+    XGUIEng.ShowWidget("Buy_Scout_Amount", 1);
+    XGUIEng.ShowWidget("Buy_Thief_Recharge", 1);
+    XGUIEng.ShowWidget("Buy_Thief_Amount", 1);
     self:OnRecruiterSelected(ButtonsToUpdate, _EntityID);
 end
 
