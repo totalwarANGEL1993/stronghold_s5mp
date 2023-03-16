@@ -43,6 +43,19 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
                     "Research_UpgradeSpear2",
                     "Research_UpgradeSpear3",
                 },
+                [Entities.PB_Archery1] = {
+                    "Research_UpgradeBow1",
+                    "Research_UpgradeBow2",
+                    "Research_UpgradeBow3",
+                    "Research_UpgradeRifle1",
+                },
+                [Entities.PB_Archery2] = {
+                    "Research_UpgradeBow1",
+                    "Research_UpgradeBow2",
+                    "Research_UpgradeBow3",
+                    "Research_UpgradeRifle1",
+                },
+
                 -- Add more buildings
             },
 
@@ -65,13 +78,19 @@ function Stronghold.Recruitment:Install()
                 ["Buy_Serf"] = {},
                 ["Buy_Scout"] = {},
                 ["Buy_Thief"] = {},
-                -- ---------------------------------------------------------- --
+                ---
                 ["Research_UpgradeSword1"] = {},
                 ["Research_UpgradeSword2"] = {},
                 ["Research_UpgradeSword3"] = {},
                 ["Research_UpgradeSpear1"] = {},
                 ["Research_UpgradeSpear2"] = {},
                 ["Research_UpgradeSpear3"] = {},
+                ---
+                ["Research_UpgradeBow1"] = {},
+                ["Research_UpgradeBow2"] = {},
+                ["Research_UpgradeBow3"] = {},
+                ["Research_UpgradeRifle1"] = {},
+
                 -- TODO: Add more queues
             },
         };
