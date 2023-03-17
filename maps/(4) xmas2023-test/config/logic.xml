@@ -91,9 +91,9 @@
     <GuardMoveDistanceOther>300.0</GuardMoveDistanceOther>
 
 	<!-- The time (in ms) after an attack an entity counts as 'recently attacked' (hit anim) -->
-	<MilitaryRecentlyAttackedTime>200</MilitaryRecentlyAttackedTime>
+	<MilitaryRecentlyAttackedTime>400</MilitaryRecentlyAttackedTime>
 
-	<MilitaryMaxAttackersPerEntity>12</MilitaryMaxAttackersPerEntity>
+	<MilitaryMaxAttackersPerEntity>48</MilitaryMaxAttackersPerEntity>
 
 	<!-- 5 attack damage modifiers for each level of experience -->
 	<!--AttackDamage>

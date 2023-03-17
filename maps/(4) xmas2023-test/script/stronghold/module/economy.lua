@@ -225,8 +225,6 @@ function Stronghold.Economy:Install()
         };
     end
 
-    self:StartTriggers();
-
     self:OverrideFindViewUpdate();
     self:OverrideTaxAndPayStatistics();
 end
@@ -736,7 +734,7 @@ function Stronghold.Economy:HonorMenu()
     local Reputation = 100;
     local ReputationLimit = 200;
     local Honor = 0;
-    local MaxHonor = Stronghold.Config.Rule.MaxHonor;
+    local MaxHonor = Stronghold.Config.Base.MaxHonor;
     if Stronghold:IsPlayer(PlayerID) then
         Reputation = Stronghold:GetPlayerReputation(PlayerID);
         ReputationLimit = Stronghold:GetPlayerReputationLimit(PlayerID);
@@ -764,7 +762,7 @@ function Stronghold.Economy:HonorMenu()
 end
 
 function Stronghold.Economy:OverrideTaxAndPayStatistics()
-    Overwrite.CreateOverwrite("GameCallback_Stronghold_OnPayday", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
         Overwrite.CallOriginal();
         -- Remove the one time bonuses
         if Stronghold.Economy.Data[_PlayerID] then
@@ -972,24 +970,5 @@ function Stronghold.Economy:CreateHeadquarterDetailsText(_PlayerID)
         ((pho-phs < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pho-phs),
         ((pob-pop < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pob-pop)
     );
-end
-
--- -------------------------------------------------------------------------- --
--- Trigger
-
-function Stronghold.Economy:StartTriggers()
-    Job.Turn(function()
-        local Players = table.getn(Score.Player);
-        ---@diagnostic disable-next-line: undefined-field
-        local PlayerID = math.mod(math.floor(Logic.GetTime() * 10), Players);
-        Stronghold.Economy:UpdateIncomeAndUpkeep(PlayerID);
-        Stronghold.Economy:GainMeasurePoints(PlayerID);
-    end);
-
-    Job.Turn(function()
-        for i= 1, table.getn(Score.Player) do
-            Stronghold.Economy:ShowHeadquartersDetail(i);
-        end
-    end);
 end
 

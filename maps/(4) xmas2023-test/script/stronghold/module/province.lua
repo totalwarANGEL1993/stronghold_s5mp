@@ -255,22 +255,6 @@ function Stronghold.Province:StartTriggers()
         Overwrite.CallOriginal();
         Stronghold.Province:OnBuildingConstructed(_BuildingID, _PlayerID);
     end);
-
-    Job.Destroy(function()
-        local BuildingID = Event.GetEntityID();
-        local PlayerID = Event.GetPlayerID();
-        Stronghold.Province:OnBuildingDestroyed(BuildingID, PlayerID);
-    end);
-
-    Job.Create(function()
-        local BuildingID = Event.GetEntityID();
-        local PlayerID = Event.GetPlayerID();
-        Stronghold.Province:OnBuildingCreated(BuildingID, PlayerID);
-    end);
-
-    Job.Turn(function()
-        Stronghold.Province:ControlProvince();
-    end);
 end
 
 function Stronghold.Province:ControlProvince()

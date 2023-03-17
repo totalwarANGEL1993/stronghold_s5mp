@@ -251,7 +251,7 @@ end
 function Stronghold:AddResourcesToPlayer(_PlayerID, _Resources)
     if self.Players[_PlayerID] then
         if _Resources[ResourceType.Honor] ~= nil then
-            AddPlayerHonor(_PlayerID, _Resources[ResourceType.Honor]);
+            AddHonor(_PlayerID, _Resources[ResourceType.Honor]);
         end
         if _Resources[ResourceType.Gold] ~= nil then
             AddGold(_PlayerID, _Resources[ResourceType.Gold] or _Resources[ResourceType.GoldRaw]);
@@ -262,13 +262,13 @@ function Stronghold:AddResourcesToPlayer(_PlayerID, _Resources)
         if _Resources[ResourceType.Wood] ~= nil then
             AddWood(_PlayerID, _Resources[ResourceType.Wood] or _Resources[ResourceType.WoodRaw]);
         end
-        if _Resources[ResourceType.Iron] ~= nil then		
+        if _Resources[ResourceType.Iron] ~= nil then
             AddIron(_PlayerID, _Resources[ResourceType.Iron] or _Resources[ResourceType.IronRaw]);
         end
-        if _Resources[ResourceType.Stone] ~= nil then		
+        if _Resources[ResourceType.Stone] ~= nil then
             AddStone(_PlayerID, _Resources[ResourceType.Stone] or _Resources[ResourceType.StoneRaw]);
         end
-        if _Resources[ResourceType.Sulfur] ~= nil then		
+        if _Resources[ResourceType.Sulfur] ~= nil then
             AddSulfur(_PlayerID, _Resources[ResourceType.Sulfur] or _Resources[ResourceType.SulfurRaw]);
         end
     end
@@ -296,7 +296,7 @@ function Stronghold:RemoveResourcesFromPlayer(_PlayerID, _Costs)
         -- Silver cost
         if  _Costs[ResourceType.Honor] ~= nil and _Costs[ResourceType.Honor] > 0
         and Honor >= _Costs[ResourceType.Honor] then
-            AddPlayerHonor(_PlayerID, _Costs[ResourceType.Honor] * (-1));
+            AddHonor(_PlayerID, _Costs[ResourceType.Honor] * (-1));
         end
         -- Gold cost
         if  _Costs[ResourceType.Gold] ~= nil and _Costs[ResourceType.Gold] > 0

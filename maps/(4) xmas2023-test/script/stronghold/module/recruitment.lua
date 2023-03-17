@@ -117,13 +117,13 @@ end
 
 function Stronghold.Recruitment:CreateBuildingButtonHandlers()
     self.SyncEvents = {
-        BuyUnit = 1,
+        PayUnit = 1,
         EnqueueUnit = 2,
     };
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            if _Action == Stronghold.Recruitment.SyncEvents.BuyUnit then
-                Stronghold.Unit:BuyUnit(_PlayerID, arg[2], arg[1], arg[3]);
+            if _Action == Stronghold.Recruitment.SyncEvents.PayUnit then
+                Stronghold.Unit:PayUnit(_PlayerID, arg[2]);
             elseif _Action == Stronghold.Recruitment.SyncEvents.EnqueueUnit then
                 if arg[5] then
                     self:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
@@ -198,7 +198,7 @@ function Stronghold.Recruitment:HasSufficientRank(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
     local Config = Stronghold.UnitConfig:GetConfig(_Type, PlayerID);
     if Config then
-        if GetPlayerRank(PlayerID) >= Config.Rank then
+        if GetRank(PlayerID) >= Config.Rank then
             return true;
         end
     end
@@ -301,7 +301,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             Stronghold.Players[PlayerID].BuyUnitLock = true;
             local EventType = self.SyncEvents.EnqueueUnit;
             if string.find(Button, "Cannon") then
-                EventType = self.SyncEvents.BuyUnit;
+                EventType = self.SyncEvents.PayUnit;
                 GUI.BuyCannon(EntityID, _Type);
                 XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress,1);
             end
@@ -462,6 +462,7 @@ function Stronghold.Recruitment:OnFoundrySelected(_EntityID)
     if Type ~= Entities.PB_Foundry1 and Type ~= Entities.PB_Foundry2 then
         return;
     end
+    XGUIEng.SetWidgetPositionAndSize("Research_BetterChassis", 4, 38, 31, 31);
     self:OnRecruiterSelected(ButtonsToUpdate, _EntityID);
 end
 
@@ -650,17 +651,6 @@ function Stronghold.Recruitment:CreateQueueController()
             return Amount;
         end
     );
-
-    Job.Turn(function()
-        for i= 1, table.getn(Score.Player) do
-            Stronghold.Recruitment:ControlProductionQueues(i);
-        end
-    end);
-
-    Job.Create(function()
-        local ID = Event.GetEntityID();
-        Stronghold.Recruitment:InitQueuesForProducer(ID);
-    end);
 end
 
 function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptName)
