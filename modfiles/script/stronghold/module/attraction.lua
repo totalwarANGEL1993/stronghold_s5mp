@@ -124,6 +124,42 @@ Stronghold.Attraction = {
 -- -------------------------------------------------------------------------- --
 -- API
 
+function GetCrimeRate(_PlayerID)
+    return Stronghold.Attraction:CalculateCrimeRate(_PlayerID);
+end
+
+function CountCriminals(_PlayerID)
+    return Stronghold.Attraction:CountCriminals(_PlayerID);
+end
+
+function ConvertToCriminal(_PlayerID, _BuildingID, _WorkerID)
+    Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID);
+end
+
+function RehabilitateCriminal(_PlayerID, _EntityID)
+    Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID);
+end
+
+function GetCriminalsOfBuilding(_BuildingID)
+    return Stronghold.Attraction:GetCriminalsOfBuilding(_BuildingID);
+end
+
+function GetMilitaryAttractionLimit(_PlayerID)
+    return Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID);
+end
+
+function GetMilitaryAttractionUsage(_PlayerID)
+    return Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID);
+end
+
+function GetCivilAttractionLimit(_PlayerID)
+    return Logic.GetPlayerAttractionLimit(_PlayerID);
+end
+
+function GetCivilAttractionUsage(_PlayerID)
+    return Logic.GetPlayerAttractionUsage(_PlayerID);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Internal
 
@@ -137,19 +173,6 @@ function Stronghold.Attraction:Install()
 
     self:OverrideAttraction();
     self:InitCriminalsEffects();
-
-    Job.Second(function()
-        for i= 1, table.getn(Score.Player) do
-            Stronghold.Attraction:CreateWorkersForPlayer(i);
-            Stronghold.Attraction:ManageCriminalsOfPlayer(i);
-        end
-    end);
-    Job.Create(function()
-        local EntityID = Event.GetEntityID();
-        if Logic.IsBuilding(EntityID) == 1 then
-            Stronghold.Attraction:SetBuildingCurrentWorkerAmount(EntityID, 1);
-        end
-    end);
 end
 
 function Stronghold.Attraction:OnSaveGameLoaded()
@@ -313,7 +336,7 @@ end
 
 function Stronghold.Attraction:DoCriminalsAppear(_PlayerID)
     if self.Data[_PlayerID] then
-        return Stronghold:GetPlayerRank(_PlayerID) >= 3;
+        return GetRank(_PlayerID) >= 3;
     end
     return false;
 end
@@ -321,8 +344,8 @@ end
 function Stronghold.Attraction:CalculateCrimeRate(_PlayerID)
     local CrimeRate = 0;
     if self.Data[_PlayerID] then
-        local ReputationFactor = GetPlayerReputation(_PlayerID) / 100;
-        local RankFactor = 1 - ((GetPlayerRank(_PlayerID) -1) / 15);
+        local ReputationFactor = GetReputation(_PlayerID) / 100;
+        local RankFactor = 1 - ((GetRank(_PlayerID) -1) / 15);
         CrimeRate = self.Config.Criminals.Convert.Rate * ReputationFactor * RankFactor;
         CrimeRate = GameCallback_Calculate_CrimeRate(_PlayerID, CrimeRate);
     end
@@ -496,7 +519,7 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
     if Stronghold:IsPlayer(_PlayerID) then
         local HeadquarterID = GetID(Stronghold.Players[_PlayerID].HQScriptName);
-        local Rank = GetPlayerRank(_PlayerID);
+        local Rank = GetRank(_PlayerID);
 
         -- Attraction limit
         Limit = self.Config.HQMilitaryAttraction[1];
@@ -567,19 +590,17 @@ end
 -- will also have effect on the reputation.
 function Stronghold.Attraction:InitCriminalsEffects()
     -- Criminals steal goods at the payday.
-    self.Orig_GameCallback_Stronghold_OnPayday = GameCallback_Stronghold_OnPayday;
-    GameCallback_Stronghold_OnPayday = function(_PlayerID)
-        Stronghold.Attraction.Orig_GameCallback_Stronghold_OnPayday(_PlayerID);
+    Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
+        Overwrite.CallOriginal();
         Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
-    end
+    end);
 
     -- Criminals will have a negative effect on the reputation.
-    self.Orig_GameCallback_Calculate_ReputationDecreaseExternal = GameCallback_Calculate_ReputationDecreaseExternal;
-    GameCallback_Calculate_ReputationDecreaseExternal = function(_PlayerID)
-        local Amount = Stronghold.Attraction.Orig_GameCallback_Calculate_ReputationDecreaseExternal(_PlayerID);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationDecreaseExternal", function(_PlayerID)
+        local Amount = Overwrite.CallOriginal();
         local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
         return Amount + Criminals;
-    end
+    end);
 end
 
 function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)

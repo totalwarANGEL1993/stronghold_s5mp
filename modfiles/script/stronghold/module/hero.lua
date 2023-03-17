@@ -61,8 +61,8 @@ Stronghold.Hero = {
             },
             Player = {
                 [1] = {
-                    de = "%s {grey}hat einen Adligen gewählt.",
-                    en = "%s {grey}has choosen a Noble.",
+                    de = "%s %s {grey}hat einen Adligen gewählt.",
+                    en = "%s %s {grey}has choosen a Noble.",
                 },
                 [2] = {
                     de = "%s %s{white}muss sich in die Burg zurückziehen!",
@@ -168,7 +168,7 @@ Stronghold.Hero = {
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Kanonen benötigen keine Ehre und die Kosten sind um 20% reduziert. "..
+                         "Kanonen benötigen keine Ehre und die Kosten sind um 10% reduziert. "..
                          "Wenn eine Technologie erforscht wird, erhält Salim 5 Ehre. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
@@ -183,7 +183,7 @@ Stronghold.Hero = {
                          "- "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Cannons do not require honor and their costs are reduced by 20%. "..
+                         "Cannons do not require honor and their costs are reduced by 10%. "..
                          "Everytime a technology is researched Salim receives 5 honor. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
@@ -337,7 +337,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Kann eine persönliche Leibgarde anheuern. Malus auf die Beliebtheit "..
-                         "verringern sich um 30%. Die maximale Beliebtheit sinkt auf 175. " ..
+                         "verringern sich um 40%. Die maximale Beliebtheit sinkt auf 175. " ..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Kerberos kann die Rüstung von nahestehenden Feinden zeitweilig auf 0 "..
@@ -354,7 +354,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                          "Can employ personal bodyguards. Negative effects on reputation are "..
-                         "decreased by 30%. The reputation maximum becomes 175. "..
+                         "decreased by 40%. The reputation maximum becomes 175. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Kerberos can temporarily reduce the armor of close by enemies to 0.",
@@ -442,7 +442,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Die maximale Beliebtheit wird 300. Yuki gewährt einmalig 100 Beliebtheit, "..
-                         "sobald sie erscheint. Die maximale Armeegröße wird um 10% erhöht. "..
+                         "sobald sie erscheint. Die maximale Armeegröße wird um 5% erhöht. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Yuki kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
@@ -458,7 +458,7 @@ Stronghold.Hero = {
                          "- "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                          "The reputation limit is raised to 300. Yuki gives a one time bonus "..
-                         "of 100 reputation when selected. Max army size is increased by 10%. "..
+                         "of 100 reputation when selected. Max army size is increased by 5%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Yuki can inflict fear to enemies in a wide area (except the Shrouded).",
@@ -475,7 +475,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Die gesteigerte Geburtenrate sorgt für einen demographischen "..
-                         "Wandel. Kala steigert Euer Bevölkerungslimit wird um 25%. "..
+                         "Wandel. Kala steigert Euer Bevölkerungslimit um 25%. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Kala kann nahestehende Feinde mit Gift schädigen.",
@@ -500,6 +500,21 @@ Stronghold.Hero = {
     }
 }
 
+-- -------------------------------------------------------------------------- --
+-- API
+
+--- Creates an hero for the player.
+function PlayerCreateNoble(_PlayerID, _Type, _Position)
+    Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position);
+end
+
+--- Returns if the player has the type as hero.
+function PlayerHasHeroOfType(_PlayerID, _Type)
+    return Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type);
+end
+
+-- -------------------------------------------------------------------------- --
+
 function Stronghold.Hero:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {};
@@ -510,10 +525,6 @@ function Stronghold.Hero:Install()
     self:CreateHeroButtonHandlers();
     self:OverrideHero5AbilityArrowRain();
     self:OverrideHero8AbilityMoralDamage();
-    self:StartTriggers();
-    self:OverrideGUI();
-    -- DEPRECATED
-    -- self:OverrideHero5AbilitySummon();
 end
 
 function Stronghold.Hero:OnSaveGameLoaded()
@@ -528,7 +539,6 @@ end
 function Stronghold.Hero:CreateHeroButtonHandlers()
     self.SyncEvents = {
         RankUp = 1,
-        Hero5Summon = 2,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -536,9 +546,6 @@ function Stronghold.Hero:CreateHeroButtonHandlers()
             if _Action == Stronghold.Hero.SyncEvents.RankUp then
                 Stronghold:PromotePlayer(_PlayerID);
                 Stronghold.Hero:OnlineHelpUpdate("OnlineHelpButton", Technologies.T_OnlineHelp);
-            end
-            if _Action == Stronghold.Hero.SyncEvents.Hero5Summon then
-                Stronghold.Hero:OnHero5SummonSelected(_PlayerID, arg[1], arg[2], arg[3]);
             end
         end
     );
@@ -553,10 +560,10 @@ end
 
 function Stronghold.Hero:OnlineHelpAction()
     local PlayerID = GUI.GetPlayerID();
-    if not Stronghold:IsPlayer(PlayerID) then
+    if not Stronghold:IsPlayerInitalized(PlayerID) then
         return false;
     end
-    local Rank = Stronghold:GetPlayerRank(PlayerID);
+    local Rank = GetRank(PlayerID);
     local NextRank = Stronghold.Config.Ranks[Rank+1];
     if NextRank then
         local Costs = Stronghold:CreateCostTable(unpack(NextRank.Costs));
@@ -580,8 +587,8 @@ function Stronghold.Hero:OnlineHelpTooltip(_Key)
         local Text = "";
 
         local PlayerID = Stronghold:GetLocalPlayerID();
-        local NextRank = Stronghold:GetPlayerRank(PlayerID) +1;
-        if PlayerID ~= 17 and Stronghold.Config.Ranks[NextRank] and NextRank <= Stronghold.Config.Rule.MaxRank then
+        local NextRank = GetRank(PlayerID) +1;
+        if PlayerID ~= 17 and Stronghold.Config.Ranks[NextRank] and NextRank <= Stronghold.Config.Base.MaxRank then
             local Config = Stronghold.Config.Ranks[NextRank];
             local Costs = Stronghold:CreateCostTable(unpack(Config.Costs));
             Text = string.format(
@@ -605,19 +612,24 @@ end
 function Stronghold.Hero:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
     if _Button == "OnlineHelpButton" then
         local Texture = "graphics/textures/gui/b_rank_f2.png";
-        local Disabled = 1;
-        if GUI.GetPlayerID() == _PlayerID and Stronghold:IsPlayer(_PlayerID) then
-            local Rank = Stronghold:GetPlayerRank(_PlayerID);
-            Texture = "graphics/textures/gui/b_rank_" ..Rank.. ".png";
-            if Stronghold:CanPlayerBePromoted(_PlayerID) then
-                Disabled = 0;
+        if GUI.GetPlayerID() == _PlayerID then
+            local Disabled = 1;
+            if Stronghold:IsPlayerInitalized(_PlayerID) then
+                local Rank = GetRank(_PlayerID);
+                Texture = "graphics/textures/gui/b_rank_" ..Rank.. ".png";
+                if Rank >= Stronghold.Config.Base.MaxRank then
+                    Texture = "graphics/textures/gui/b_rank_f1.png";
+                end
+                if Stronghold:CanPlayerBePromoted(_PlayerID) then
+                    Disabled = 0;
+                end
             end
+            for i= 0, 6 do
+                XGUIEng.SetMaterialTexture(_Button, i, Texture);
+            end
+            XGUIEng.DisableButton(_Button, Disabled);
+            return true;
         end
-        for i= 0, 6 do
-            XGUIEng.SetMaterialTexture(_Button, i, Texture);
-        end
-        XGUIEng.DisableButton(_Button, Disabled);
-        return true;
     end
     return false;
 end
@@ -823,9 +835,9 @@ function Stronghold.Hero:PrintSelectionName()
             local Type = Logic.GetEntityType(EntityID);
             local TypeName = Logic.GetEntityTypeName(Type);
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-            local Rank = GetPlayerRank(PlayerID);
+            local Rank = GetRank(PlayerID);
             local Language = GetLanguage();
-            local Gender = Stronghold:GetLordGender(Type);
+            local Gender = Stronghold:GetNobleGender(Type);
             local Text = Stronghold:GetPlayerRankName(PlayerID, Rank);
             XGUIEng.SetText("Selection_Name", Text.. " " ..Name);
 		end
@@ -836,38 +848,47 @@ end
 -- Buy Hero
 
 function Stronghold.Hero:ConfigureBuyHero()
-    self.Orig_GameCallback_Logic_BuyHero_OnHeroSelected = GameCallback_Logic_BuyHero_OnHeroSelected;
-    GameCallback_Logic_BuyHero_OnHeroSelected = function(_PlayerID, _ID, _Type)
+    Overwrite.CreateOverwrite("GameCallback_Logic_BuyHero_OnHeroSelected", function(_PlayerID, _ID, _Type)
         if Stronghold:IsPlayer(_PlayerID) then
-            Stronghold.Hero:BuyHeroCreateLord(_PlayerID, _ID, _Type);
+            Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type);
             Stronghold.Hero:PlayFunnyComment(_PlayerID);
             Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type);
             return;
         end
-        return Stronghold.Hero.Orig_GameCallback_Logic_BuyHero_OnHeroSelected(_PlayerID, _ID, _Type);
-    end
+        return Overwrite.CallOriginal();
+    end);
 
-    self.Orig_GameCallback_GUI_BuyHero_GetHeadline = GameCallback_GUI_BuyHero_GetHeadline;
-    GameCallback_GUI_BuyHero_GetHeadline = function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetHeadline", function(_PlayerID)
         if Stronghold:IsPlayer(_PlayerID) then
             local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
             local Caption = (LordID ~= 0 and "Alea Iacta Est!") or "Wählt Euren Adligen!";
             return Caption;
         end
-        return Stronghold.Hero.Orig_GameCallback_GUI_BuyHero_GetHeadline(_PlayerID);
-    end
+        return Overwrite.CallOriginal();
+    end);
 
-    self.Orig_GameCallback_GUI_BuyHero_GetMessage = GameCallback_GUI_BuyHero_GetMessage;
-    GameCallback_GUI_BuyHero_GetMessage = function(_PlayerID, _Type)
+    Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetMessage", function(_PlayerID, _Type)
         if Stronghold:IsPlayer(_PlayerID) then
             local Language = GetLanguage();
             return Stronghold.Hero.Config.UI.HeroCV[_Type][Language];
         end
-        return Stronghold.Hero.Orig_GameCallback_GUI_BuyHero_GetMessage(_PlayerID, _Type);
+        return Overwrite.CallOriginal();
+    end);
+end
+
+function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
+    if Stronghold:IsPlayer(_PlayerID) then
+        local Position = _Position;
+        if type(Position) ~= "table" then
+            Position = GetPosition(Position);
+        end
+        local ID = Logic.CreateEntity(_Type, Position.X, Position.Y, 0, _PlayerID);
+        self:BuyHeroSetupNoble(_PlayerID, ID, _Type, true);
+        self:InitSpecialUnits(_PlayerID, _Type);
     end
 end
 
-function Stronghold.Hero:BuyHeroCreateLord(_PlayerID, _ID, _Type)
+function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
     if Stronghold:IsPlayer(_PlayerID) then
         -- Get motivation cap
         local ExpectedSoftCap = 2;
@@ -875,9 +896,12 @@ function Stronghold.Hero:BuyHeroCreateLord(_PlayerID, _ID, _Type)
         -- Set name of lord
         Logic.SetEntityName(_ID, Stronghold.Players[_PlayerID].LordScriptName);
         -- Display info message
-        local Language = GetLanguage();
-        local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-        Message(string.format(self.Config.UI.Player[1][Language], PlayerColor));
+        if not _Silent then
+            local Language = GetLanguage();
+            local PlayerName = UserTool_GetPlayerName(_PlayerID);
+            local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+            Message(string.format(self.Config.UI.Player[1][Language], PlayerColor, PlayerName));
+        end
 
         if _Type == Entities.PU_Hero11 then
             -- Update motivation soft cap
@@ -908,7 +932,7 @@ function Stronghold.Hero:ConfigurePlayersHeroPet(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
     if Type == Entities.CU_Barbarian_Hero_wolf then
         if self:HasValidHeroOfType(PlayerID, Entities.CU_Barbarian_Hero) then
-            local CurrentRank = Stronghold:GetPlayerRank(PlayerID);
+            local CurrentRank = GetRank(PlayerID);
             local Armor = 2 + math.floor(CurrentRank * 0.5);
             local Damage = 13 + math.floor(CurrentRank * 3);
             Logic.SetSpeedFactor(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
@@ -995,26 +1019,7 @@ end
 -- -------------------------------------------------------------------------- --
 -- Trigger
 
-function Stronghold.Hero:StartTriggers()
-    Job.Turn(function()
-        for i= 1, table.getn(Score.Player) do
-            Stronghold.Hero:EntityAttackedController(i);
-            Stronghold.Hero:HeliasConvertController(i);
-            Stronghold.Hero:VargWolvesController(i);
-        end
-    end);
-
-    Job.Create(function()
-        local EntityID = Event.GetEntityID();
-        local PlayerID = Logic.EntityGetPlayer(EntityID);
-        if Logic.IsSettler(EntityID) == 1 and GUI.GetPlayerID() == PlayerID then
-            Stronghold.Hero:ConfigurePlayersHeroPet(EntityID);
-        end
-    end);
-end
-
 function Stronghold.Hero:EntityAttackedController(_PlayerID)
-    local Language = GetLanguage();
     if Stronghold:IsPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             -- Count down and remove
@@ -1031,6 +1036,7 @@ function Stronghold.Hero:EntityAttackedController(_PlayerID)
                     local x,y,z = Logic.EntityGetPos(k);
 
                     -- Send message
+                    local Language = GetLanguage();
                     local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(k));
                     local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
                     Message(string.format(self.Config.UI.Player[2][Language], PlayerColor, Name));
@@ -1084,49 +1090,12 @@ function Stronghold.Hero:VargWolvesController(_PlayerID)
                 WolvesBatteling = WolvesBatteling +1;
             end
         end
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, 0.005 * WolvesBatteling);
+        Stronghold.Economy:AddOneTimeHonor(_PlayerID, 0.05 * WolvesBatteling);
     end
 end
 
 -- -------------------------------------------------------------------------- --
 -- Activated Abilities
-
-function Stronghold.Hero:OnHero5SummonSelected(_PlayerID, _EntityID, _X, _Y)
-    if GUI.GetPlayerID() == _PlayerID then
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesHero5_HERO5_CallBandits_rnd_01, 127);
-    end
-    Logic.HeroSetAbilityChargeSeconds(_EntityID, Abilities.AbilitySummon, 0);
-    local CurrentRank = Stronghold:GetPlayerRank(_PlayerID);
-    for i= 1, (4 + (2 * (CurrentRank -1))) do
-        local x = _X + math.random(-400, 400);
-        local y = _Y + math.random(-400, 400);
-        local ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Hero5_Outlaw, nil, 0, x, y, 0, 0, 0, 0);
-        Logic.GroupAttackMove(ID, x, y);
-    end
-end
-
--- DEPRECATED!
-function Stronghold.Hero:OverrideHero5AbilitySummon()
-    self.Orig_GUIAction_Hero5Summon = GUIAction_Hero5Summon;
-    GUIAction_Hero5Summon = function()
-        local GuiPlayer = GUI.GetPlayerID();
-        local PlayerID = Stronghold:GetLocalPlayerID();
-        local EntityID = GUI.GetSelectedEntity();
-        local x,y,z = Logic.EntityGetPos(EntityID);
-        if not Stronghold:IsPlayer(PlayerID) then
-            return Stronghold.Hero.Orig_GUIAction_Hero5Summon();
-        end
-        if GuiPlayer ~= PlayerID then
-            return;
-        end
-        Syncer.InvokeEvent(
-            Stronghold.Hero.NetworkCall,
-            Stronghold.Hero.SyncEvents.Hero5Summon,
-            EntityID,
-            x,y
-        );
-    end
-end
 
 function Stronghold.Hero:OverrideHero5AbilityArrowRain()
     function GUIAction_Hero5ArrowRain()
@@ -1174,141 +1143,121 @@ end
 
 function Stronghold.Hero:OverrideCalculationCallbacks()
     -- Generic --
-
-    self.Orig_GameCallback_GainedResources = GameCallback_GainedResources;
-    GameCallback_GainedResources = function(_PlayerID, _ResourceType, _Amount)
-        Stronghold.Hero.Orig_GameCallback_GainedResources(_PlayerID, _ResourceType, _Amount);
+    Overwrite.CreateOverwrite("Orig_GameCallback_GainedResources", function(_PlayerID, _ResourceType, _Amount)
+        Overwrite.CallOriginal();
         if Stronghold:IsPlayer(_PlayerID) then
             Stronghold.Hero:ResourceProductionBonus(_PlayerID, _ResourceType, _Amount);
         end
-    end
+    end);
 
-    self.Orig_GameCallback_OnTechnologyResearched = GameCallback_OnTechnologyResearched;
-	GameCallback_OnTechnologyResearched = function(_PlayerID, _Technology, _EntityID)
-		Stronghold.Hero.Orig_GameCallback_OnTechnologyResearched(_PlayerID, _Technology, _EntityID);
+    Overwrite.CreateOverwrite("GameCallback_OnTechnologyResearched", function(_PlayerID, _Technology, _EntityID)
+        Overwrite.CallOriginal();
         Stronghold.Hero:ProduceHonorForTechnology(_PlayerID, _Technology, _EntityID);
-	end
+    end);
 
-    -- Resource --
+    -- Noble --
 
-    self.Orig_GameCallback_Calculate_ReputationMax = GameCallback_Calculate_ReputationMax;
-    GameCallback_Calculate_ReputationMax = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_ReputationMax(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxReputationPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
-    self.Orig_GameCallback_Calculate_ReputationIncrease = GameCallback_Calculate_ReputationIncrease;
-    GameCallback_Calculate_ReputationIncrease = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_ReputationIncrease(_PlayerID, _CurrentAmount);
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationIncrease", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyReputationIncreasePassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_DynamicReputationIncrease = GameCallback_Calculate_DynamicReputationIncrease;
-    GameCallback_Calculate_DynamicReputationIncrease = function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_DynamicReputationIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_ReputationDecrease = GameCallback_Calculate_ReputationDecrease;
-    GameCallback_Calculate_ReputationDecrease = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_ReputationDecrease(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationDecrease", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyReputationDecreasePassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_HonorIncrease = GameCallback_Calculate_HonorIncrease;
-    GameCallback_Calculate_HonorIncrease = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_HonorIncrease(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_HonorIncrease", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyHonorBonusPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_DynamicHonorIncrease = GameCallback_Calculate_DynamicHonorIncrease;
-    GameCallback_Calculate_DynamicHonorIncrease = function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_DynamicHonorIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
     -- Money --
 
-    self.Orig_GameCallback_Calculate_TotalPaydayIncome = GameCallback_Calculate_TotalPaydayIncome;
-    GameCallback_Calculate_TotalPaydayIncome = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_TotalPaydayIncome(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_TotalPaydayIncome", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyIncomeBonusPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_TotalPaydayUpkeep = GameCallback_Calculate_TotalPaydayUpkeep;
-    GameCallback_Calculate_TotalPaydayUpkeep = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_TotalPaydayUpkeep(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_TotalPaydayUpkeep", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyUpkeepDiscountPassiveAbility(_PlayerID, _CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_PaydayUpkeep = GameCallback_Calculate_PaydayUpkeep;
-    GameCallback_Calculate_PaydayUpkeep = function(_PlayerID, _UnitType, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_PaydayUpkeep", function(_PlayerID, _UnitType, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _UnitType, CurrentAmount)
         return CurrentAmount;
-    end
+    end);
 
     -- Attraction --
 
-    self.Orig_GameCallback_Calculate_CivilAttrationLimit = GameCallback_Calculate_CivilAttrationLimit;
-    GameCallback_Calculate_CivilAttrationLimit = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_CivilAttrationLimit", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_CivilAttrationUsage = GameCallback_Calculate_CivilAttrationUsage;
-    GameCallback_Calculate_CivilAttrationUsage = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_CivilAttrationUsage(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_CivilAttrationUsage", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_MilitaryAttrationLimit = GameCallback_Calculate_MilitaryAttrationLimit;
-    GameCallback_Calculate_MilitaryAttrationLimit = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationLimit", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_MilitaryAttrationUsage = GameCallback_Calculate_MilitaryAttrationUsage;
-    GameCallback_Calculate_MilitaryAttrationUsage = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_MilitaryAttrationUsage(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    -- Measure --
+    -- Social --
 
-    self.Orig_GameCallback_Calculate_MeasureIncrease = GameCallback_Calculate_MeasureIncrease;
-    GameCallback_Calculate_MeasureIncrease = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Hero.Orig_GameCallback_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_MeasureIncrease", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
-    end
+    end);
 
-    -- Criminals --
-
-    self.Orig_GameCallback_Calculate_CrimeRate = GameCallback_Calculate_CrimeRate;
-    GameCallback_Calculate_CrimeRate = function(_PlayerID, _Rate)
-        local CrimeRate = Stronghold.Hero.Orig_GameCallback_Calculate_CrimeRate(_PlayerID, _Rate);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_CrimeRate", function(_PlayerID, _Rate)
+        local CrimeRate = Overwrite.CallOriginal();
         CrimeRate = Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, CrimeRate);
         return CrimeRate;
-    end
+    end);
 
-    self.Orig_GameCallback_Calculate_CrimeChance = GameCallback_Calculate_CrimeChance;
-    GameCallback_Calculate_CrimeChance = function(_PlayerID, _CrimeChance)
-        local CrimeChance = Stronghold.Hero.Orig_GameCallback_Calculate_CrimeChance(_PlayerID, _CrimeChance);
+    Overwrite.CreateOverwrite("GameCallback_Calculate_CrimeChance", function(_PlayerID, _CrimeChance)
+        local CrimeChance = Overwrite.CallOriginal();
         CrimeChance = Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, CrimeChance);
         return CrimeChance;
-    end
+    end);
 end
 
 function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
@@ -1327,14 +1276,14 @@ function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
     return false;
 end
 
--- Passive Ability: @cr Produce honor for technology
+-- Passive Ability: Produce honor for technology
 function Stronghold.Hero:ProduceHonorForTechnology(_PlayerID, _Technology, _EntityID)
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
         Stronghold.Economy:AddOneTimeHonor(_PlayerID, 5);
     end
 end
 
--- Passive Ability: @cr Resource production bonus
+-- Passive Ability: Resource production bonus
 -- (Callback is only called for main resource types)
 function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _Type, _Amount)
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero2) then
@@ -1350,7 +1299,7 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _Type, _Amount)
     end
 end
 
--- Passive Ability: @cr unit costs
+-- Passive Ability: unit costs
 function Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, _Costs)
     local Costs = _Costs;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
@@ -1376,16 +1325,16 @@ function Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, _Costs)
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
         if Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1 then
             Costs[ResourceType.Honor] = nil;
-            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 0.8);
-            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 0.8);
-            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 0.8);
-            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 0.8);
+            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 0.9);
+            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 0.9);
+            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 0.9);
+            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 0.9);
         end
     end
     return Costs;
 end
 
--- Passive Ability: @cr Increase of max civil attraction
+-- Passive Ability: Increase of max civil attraction
 function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Evil_Queen) then
@@ -1394,7 +1343,7 @@ function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value
     return Value;
 end
 
--- Passive Ability: @cr decrease of used civil attraction
+-- Passive Ability: decrease of used civil attraction
 function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
@@ -1404,23 +1353,23 @@ function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
     return Value;
 end
 
--- Passive Ability: @cr Increase of max military attraction
+-- Passive Ability: Increase of max military attraction
 function Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
-        Value = Value * 1.10;
+        Value = Value * 1.05;
     end
     return Value;
 end
 
--- Passive Ability: @cr decrease of used military attraction
+-- Passive Ability: decrease of used military attraction
 function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     -- Do nothing
     return Value;
 end
 
--- Passive Ability: @cr Increase of reputation
+-- Passive Ability: Increase of reputation
 function Stronghold.Hero:ApplyMaxReputationPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_BlackKnight) then
@@ -1431,23 +1380,23 @@ function Stronghold.Hero:ApplyMaxReputationPassiveAbility(_PlayerID, _Value)
     return Value;
 end
 
--- Passive Ability: @cr Increase of reputation
+-- Passive Ability: Increase of reputation
 function Stronghold.Hero:ApplyReputationIncreasePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     -- Do nothing
     return Value;
 end
 
--- Passive Ability: @cr Decrease of reputation
+-- Passive Ability: Decrease of reputation
 function Stronghold.Hero:ApplyReputationDecreasePassiveAbility(_PlayerID, _Decrease)
     local Decrease = _Decrease;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_BlackKnight) then
-        Decrease = Decrease * 0.7;
+        Decrease = Decrease * 0.6;
     end
     return Decrease;
 end
 
--- Passive Ability: @cr Improve dynamic reputation generation
+-- Passive Ability: Improve dynamic reputation generation
 function Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, _Amount)
     local Value = _Amount;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
@@ -1459,14 +1408,14 @@ function Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _B
     return Value;
 end
 
--- Passive Ability: @cr Honor increase bonus
+-- Passive Ability: Honor increase bonus
 function Stronghold.Hero:ApplyHonorBonusPassiveAbility(_PlayerID, _Income)
     local Income = _Income;
     -- do nothing
     return Income;
 end
 
--- Passive Ability: @cr Improve dynamic honor generation
+-- Passive Ability: Improve dynamic honor generation
 function Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, _Amount)
     local Value = _Amount;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
@@ -1478,7 +1427,7 @@ function Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Buildi
     return Value;
 end
 
--- Passive Ability: @cr Tax income bonus
+-- Passive Ability: Tax income bonus
 function Stronghold.Hero:ApplyIncomeBonusPassiveAbility(_PlayerID, _Income)
     local Income = _Income;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero5) then
@@ -1487,14 +1436,14 @@ function Stronghold.Hero:ApplyIncomeBonusPassiveAbility(_PlayerID, _Income)
     return Income;
 end
 
--- Passive Ability: @cr Upkeep discount
+-- Passive Ability: Upkeep discount
 function Stronghold.Hero:ApplyUpkeepDiscountPassiveAbility(_PlayerID, _Upkeep)
     local Upkeep = _Upkeep;
     -- do nothing
     return Upkeep;
 end
 
--- Passive Ability: @cr Upkeep discount
+-- Passive Ability: Upkeep discount
 -- This function is called for each unit type individually.
 function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type, _Upkeep)
     local Upkeep = _Upkeep;
@@ -1511,7 +1460,7 @@ function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type,
     return Upkeep;
 end
 
--- Passive Ability: @cr Generating measure points
+-- Passive Ability: Generating measure points
 function Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, "^PU_Hero1[abc]+$") then
@@ -1520,7 +1469,7 @@ function Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, _Value)
     return Value;
 end
 
--- Passive Ability: @cr Change factor of becoming a criminal
+-- Passive Ability: Change factor of becoming a criminal
 function Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero6) then
@@ -1529,41 +1478,12 @@ function Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, _Value)
     return Value;
 end
 
--- Passive Ability: @cr Chance the chance of becoming a criminal
+-- Passive Ability: Chance the chance of becoming a criminal
 function Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, _Chance)
     local Value = _Chance;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero6) then
         Value = Value * 0.75;
     end
     return Value;
-end
-
--- -------------------------------------------------------------------------- --
--- UI
-
-function Stronghold.Hero:OverrideGUI()
-    Overwrite.CreateOverwrite("GUIAction_OnlineHelp", function()
-        Stronghold.Hero:OnlineHelpAction();
-    end);
-
-    Overwrite.CreateOverwrite("GUITooltip_Generic", function(_Key)
-        Overwrite.CallOriginal();
-        Stronghold.Hero:OnlineHelpTooltip(_Key);
-    end);
-
-    Overwrite.CreateOverwrite("GUIUpdate_BuildingButtons", function(_Button, _Technology)
-        Overwrite.CallOriginal();
-        local PlayerID = GUI.GetPlayerID();
-        return Stronghold.Hero:OnlineHelpUpdate(PlayerID, _Button, _Technology);
-    end);
-    Job.Second(function()
-        local PlayerID = GUI.GetPlayerID();
-        Stronghold.Hero:OnlineHelpUpdate(PlayerID, "OnlineHelpButton", Technologies.T_OnlineHelp);
-    end);
-
-    Overwrite.CreateOverwrite("GUIUpdate_SelectionName", function()
-        Overwrite.CallOriginal();
-        Stronghold.Hero:PrintSelectionName();
-    end);
 end
 

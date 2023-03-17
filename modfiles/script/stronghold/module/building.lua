@@ -273,12 +273,9 @@ function Stronghold.Building:Install()
     end
 
     self:CreateBuildingButtonHandlers();
-    self:OverrideMonasteryInterface()
     self:OverrideHeadquarterButtons();
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
-    self:OverrideUpdateConstructionButton();
-    self:OverrideChangeBuildingMenuButton();
     self:OverrideCalculationCallbacks();
     self:InitalizeBuyUnitKeybindings();
 end
@@ -299,7 +296,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
     self.SyncEvents = {
         ChangeTax = 1,
         EnqueueSerf = 2,
-        BuySerf = 3,
         BlessSettlers = 4,
         MeasureTaken = 5,
     };
@@ -315,9 +311,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
                 else
                     Stronghold.Recruitment:OrderUnit(_PlayerID, arg[4], arg[2], arg[1], arg[3]);
                 end
-            end
-            if _Action == Stronghold.Building.SyncEvents.BuySerf then
-                Stronghold.Unit:BuyUnit(_PlayerID, arg[2], arg[1], arg[3]);
             end
             if _Action == Stronghold.Building.SyncEvents.BlessSettlers then
                 Stronghold.Building:MonasteryBlessSettlers(_PlayerID, arg[1]);
@@ -554,7 +547,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     -- Remove allmeasure points
     Stronghold.Economy:AddPlayerMeasure(_PlayerID, (-1) * MeasurePoints);
     -- Update recharge factor
-    local Rank = math.max(GetPlayerRank(_PlayerID), 1);
+    local Rank = math.max(GetRank(_PlayerID), 1);
     local RechargeFactor = self.Config.Headquarters[_BlessCategory].RechargeFactor;
     RechargeFactor = RechargeFactor * (7/Rank);
     self.Data[_PlayerID].Measure.RechargeFactor = RechargeFactor;
@@ -703,7 +696,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
     end
 
     local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
-    local Rank = Stronghold:GetPlayerRank(_PlayerID);
+    local Rank = GetRank(_PlayerID);
     local ButtonDisabled = 0;
     if _Button == "BlessSettlers1" then
         ButtonDisabled = (Rank < 1 and 1) or 0;
@@ -830,67 +823,6 @@ function Stronghold.Building:OnMonasterySelected(_EntityID)
     XGUIEng.TransferMaterials("Research_Taxation", "BlessSettlers3");
     XGUIEng.TransferMaterials("Research_Debenture", "BlessSettlers4");
     XGUIEng.TransferMaterials("Research_Scale", "BlessSettlers5");
-end
-
-function Stronghold.Building:OverrideMonasteryInterface()
-    Overwrite.CreateOverwrite(
-        "GUIAction_BlessSettlers",
-        function(_BlessCategory)
-            local GuiPlayer = Stronghold:GetLocalPlayerID();
-            local EntityID = GUI.GetSelectedEntity();
-            if InterfaceTool_IsBuildingDoingSomething(EntityID) == true then
-                return true;
-            end
-            if not Stronghold.Building:HeadquartersBlessSettlersGuiAction(GuiPlayer, EntityID, _BlessCategory) then
-                Overwrite.CallOriginal();
-            end
-        end
-    );
-
-    Overwrite.CreateOverwrite(
-        "GUIAction_BlessSettlers",
-        function(_BlessCategory)
-            local GuiPlayer = Stronghold:GetLocalPlayerID();
-            local EntityID = GUI.GetSelectedEntity();
-            if InterfaceTool_IsBuildingDoingSomething(EntityID) == true then
-                return true;
-            end
-            if not Stronghold.Building:MonasteryBlessSettlersGuiAction(GuiPlayer, EntityID, _BlessCategory) then
-                Overwrite.CallOriginal();
-            end
-        end
-    );
-
-    Overwrite.CreateOverwrite(
-        "GUITooltip_BlessSettlers",
-        function(_TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-            local GuiPlayer = Stronghold:GetLocalPlayerID();
-            local EntityID = GUI.GetSelectedEntity();
-            Overwrite.CallOriginal();
-            Stronghold.Building:MonasteryBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
-        end
-    );
-
-    Overwrite.CreateOverwrite(
-        "GUITooltip_BlessSettlers",
-        function(_TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-            local GuiPlayer = Stronghold:GetLocalPlayerID();
-            local EntityID = GUI.GetSelectedEntity();
-            Overwrite.CallOriginal();
-            Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
-        end
-    );
-
-    Overwrite.CreateOverwrite(
-        "GUIUpdate_FaithProgress",
-        function()
-            local WidgetID = XGUIEng.GetCurrentWidgetID();
-            local PlayerID = Stronghold:GetLocalPlayerID();
-            local EntityID = GUI.GetSelectedEntity();
-            Overwrite.CallOriginal();
-            Stronghold.Building:HeadquartersFaithProgressGuiUpdate(PlayerID, EntityID, WidgetID);
-        end
-    );
 end
 
 function Stronghold.Building:MonasteryBlessSettlersGuiAction(_PlayerID, _EntityID, _BlessCategory)
@@ -1027,7 +959,6 @@ function Stronghold.Building:InitalizeBuyUnitKeybindings()
     Input.KeyBindDown(Keys.S, "Stronghold_KeyBindings_BuyUnit(2, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
     Input.KeyBindDown(Keys.D, "Stronghold_KeyBindings_BuyUnit(3, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
     Input.KeyBindDown(Keys.F, "Stronghold_KeyBindings_BuyUnit(4, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    -- TODO: Hero special units?
     Input.KeyBindDown(Keys.G, "Stronghold_KeyBindings_BuyUnit(5, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
     Input.KeyBindDown(Keys.H, "Stronghold_KeyBindings_BuyUnit(6, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
 end
@@ -1090,34 +1021,6 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _En
 end
 
 -- -------------------------------------------------------------------------- --
--- General
-
-function Stronghold.Building:OverrideChangeBuildingMenuButton()
-    Overwrite.CreateOverwrite(
-        "GUIAction_ChangeBuildingMenu",
-        function(_WidgetID)
-            local EntityID = GUI.GetSelectedEntity();
-            local PlayerID = Stronghold:GetLocalPlayerID();
-            if not Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(PlayerID, EntityID, _WidgetID) then
-                Overwrite.CallOriginal();
-            end
-        end
-    );
-end
-
-function Stronghold.Building:OverrideUpdateConstructionButton()
-    Overwrite.CreateOverwrite(
-        "GUIUpdate_BuildingButtons",
-        function(_Button, _Technology)
-            local PlayerID = Stronghold:GetLocalPlayerID();
-            local EntityID = GUI.GetSelectedEntity();
-            Overwrite.CallOriginal();
-            Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
-        end
-    );
-end
-
--- -------------------------------------------------------------------------- --
 -- Dirty Hacks
 
 -- Prevent nasty update when toggle groups is used.
@@ -1128,7 +1031,7 @@ function Stronghold.Building:OverrideManualButtonUpdate()
         local SingleLeader = XGUIEng.GetWidgetID("Activate_RecruitSingleLeader");
         local FullLeader = XGUIEng.GetWidgetID("Activate_RecruitGroups");
         if WidgetID ~= SingleLeader and WidgetID ~= FullLeader then
-            self.Orig_XGUIEng_DoManualButtonUpdate(_WidgetID);
+            Stronghold.Building.Orig_XGUIEng_DoManualButtonUpdate(_WidgetID);
         end
     end
 end
@@ -1138,7 +1041,7 @@ function Stronghold.Building:OverrideSellBuildingAction()
     self.Orig_GUI_SellBuilding = GUI.SellBuilding;
     GUI.SellBuilding = function(_EntityID)
         GUI.DeselectEntity(_EntityID);
-        self.Orig_GUI_SellBuilding(_EntityID);
+        Stronghold.Building.Orig_GUI_SellBuilding(_EntityID);
     end
 end
 
