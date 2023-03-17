@@ -23,8 +23,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>150</MaxHealth>
-		  <DodgeChance>1</DodgeChance> 
+		  <MaxHealth>250</MaxHealth>
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -81,7 +80,7 @@
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassLeather</ArmorClass>
 		  <ArmorAmount>8</ArmorAmount> 
-		  <DodgeChance>1</DodgeChance> 
+		  <DodgeChance>3</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>25</ExperiencePoints>
 	</Logic>

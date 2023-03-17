@@ -23,7 +23,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>115</MaxHealth>
+		  <MaxHealth>125</MaxHealth>
 		  <DodgeChance>5</DodgeChance> 
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>

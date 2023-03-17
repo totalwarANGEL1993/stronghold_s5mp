@@ -32,18 +32,18 @@
 	
 	<Behavior>
     	<Logic classname="GGL::CAutoCannonBehaviorProps">
-    	    <Class>GGL::CAutoCannonBehavior</Class>
+<Class>GGL::CAutoCannonBehavior</Class>
     	    <NumberOfShots>0</NumberOfShots>
     	    <RotationSpeed>7</RotationSpeed>
     	    <CannonBallEffectType>FXBalistaTowerArrow</CannonBallEffectType>
   			<ProjectileOffsetFront>100</ProjectileOffsetFront>
-    	    <ReloadTime>5000</ReloadTime>
-    	    <MaxAttackRange>2800.0f</MaxAttackRange>
+    	    <ReloadTime>2500</ReloadTime>
+    	    <MaxAttackRange>3000.0f</MaxAttackRange>
     	     <MinRange>800.0f</MinRange>
     	    <DamageClass>DC_Cannon</DamageClass>
-    	    <DamageAmount>35</DamageAmount>
+    	    <DamageAmount>25</DamageAmount>
     	    <DamageRange>500</DamageRange>
-    	    <AutoAttackRange>2800</AutoAttackRange>
+    	    <AutoAttackRange>3000</AutoAttackRange>
     	    <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>
     	</Logic>
 		<Display classname="ED::CBehaviorProps">

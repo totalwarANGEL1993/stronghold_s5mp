@@ -27,8 +27,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Stonecutter</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>
+        <MaxWorkers>3</MaxWorkers>
+        <InitialMaxWorkers>3</InitialMaxWorkers>
 		  <WorkTaskList>
 		    <Start>TL_STONECUTTER_WORK_START</Start> 
 		    <Work>TL_STONECUTTER_WORK</Work> 
@@ -58,8 +58,8 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-			    <Clay>300</Clay>
-			    <Wood>200</Wood>
+			    <Clay>250</Clay>
+			    <Wood>150</Wood>
 				    <Stone>0</Stone>
 				    <Gold/>
 				    <Iron/>
@@ -136,7 +136,7 @@
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
             <ResourceType>Stone</ResourceType>
-            <InitialFactor>3</InitialFactor>
+            <InitialFactor>4</InitialFactor>
             <SupplierCategory>StoneSupplier</SupplierCategory>
           
         </Logic>

@@ -10,6 +10,7 @@
 		  <Anim>PU_Hero5_Idle1</Anim>
 		  <Anim>PU_Hero5_IdleAttack1</Anim>
 		  <Anim>PU_Hero5_Attack1</Anim>
+		  <Anim>PU_Hero5_Attack2</Anim>
 		  <Anim>PU_Hero5_Dying1</Anim>
 		  <Anim>PU_Hero5_Run1</Anim>
 		  <Anim>PU_Hero5_Dead</Anim>		
@@ -158,7 +159,7 @@
 	        <Class>GGL::CShurikenAbility</Class>
 	        <RechargeTimeSeconds>60</RechargeTimeSeconds>
 	        <TaskList>TL_SHURIKEN_SPECIAL</TaskList>
-	        <Animation>PU_Hero5_Attack1</Animation> 
+	        <Animation>PU_Hero5_Attack2</Animation> 
 	        <Range>3000.0</Range>
 	        <MaxArcDegree>120</MaxArcDegree>
 	        <NumberShuriken>10</NumberShuriken>

@@ -12,7 +12,7 @@
 	<UseForStatisticsFlag>true</UseForStatisticsFlag>
 	
 	<SpeedModifier>
-		<Value>30</Value>
+		<Value>75</Value>
 		<Operation>+</Operation>
 	</SpeedModifier>
 

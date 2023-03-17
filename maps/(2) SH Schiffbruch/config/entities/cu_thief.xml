@@ -43,7 +43,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>18</Exploration>
 		  <ArmorClass>ArmorClassHero</ArmorClass>
-		  <ArmorAmount>9</ArmorAmount> 
+		  <ArmorAmount>10</ArmorAmount> 
 		  <DodgeChance>30</DodgeChance> 
     	<IdleTaskList>TL_THIEF_IDLE</IdleTaskList>
     	<ExperiencePoints>40</ExperiencePoints>
@@ -99,7 +99,7 @@
 	        <HitAnim>PU_Thief_Hit</HitAnim>
 
 	        <DamageClass>DC_Sword</DamageClass>
-	        <DamageAmount>20</DamageAmount>
+	        <DamageAmount>30</DamageAmount>
 	        <MaxRandomDamageBonus>18</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2000</BattleWaitUntil>

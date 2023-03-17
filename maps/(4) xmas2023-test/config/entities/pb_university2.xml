@@ -27,8 +27,8 @@
         </ModifyExploration>   
 		  
         <Worker>PU_Scholar</Worker>
-        <MaxWorkers>8</MaxWorkers>
-        <InitialMaxWorkers>8</InitialMaxWorkers>
+        <MaxWorkers>9</MaxWorkers>
+        <InitialMaxWorkers>9</InitialMaxWorkers>
 		  <WorkTaskList>
 		    <Start>TL_SCHOLAR_WORK3_START</Start> 
 		    <Work>TL_SCHOLAR_WORK3</Work> 

@@ -51,10 +51,13 @@
         <ModifyExploration>
         	<Technology>T_Fletching</Technology>
         </ModifyExploration>
+        <ModifyMaxRange>
+			<Technology>T_Turnery</Technology>
+		</ModifyMaxRange>
+        <ModifyExploration>
+        	<Technology>T_Turnery</Technology>
+        </ModifyExploration>
 
-        <ModifyDamage>
-        	<Technology>T_BodkinArrow</Technology>
-        </ModifyDamage>
         <ModifyDamage>
         	<Technology>T_WoodAging</Technology>
         </ModifyDamage>

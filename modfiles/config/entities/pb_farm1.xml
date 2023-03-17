@@ -38,11 +38,11 @@
             <Time>40.0</Time>  
             <Cost>
 			    <Clay>0</Clay>
-			    <Wood>50</Wood>
-				    <Stone>100</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+			    <Wood>150</Wood>
+                <Stone>75</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <Type>PB_Farm2</Type> 
             <Category>Farm</Category>
@@ -52,7 +52,7 @@
             <Time>80</Time>
             <Cost>
 				    <Clay>150</Clay>
-				    <Wood>200</Wood>
+				    <Wood>75</Wood>
 				    <Stone>0</Stone>
 				    <Gold/>
 				    <Iron/>

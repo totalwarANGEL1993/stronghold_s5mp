@@ -59,7 +59,7 @@
         <Category>Sword</Category>
         <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <MaxHealth>200</MaxHealth>
+		  <MaxHealth>250</MaxHealth>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassLeather</ArmorClass>
 		  <ArmorAmount>6</ArmorAmount>

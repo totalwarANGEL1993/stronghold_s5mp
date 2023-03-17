@@ -27,7 +27,7 @@
 		  <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-			  <Money>300</Money>
+			  <Money>100</Money>
         </Cost>
 
 
@@ -53,11 +53,11 @@
 
         <Category>Military</Category>
         <Category>Melee</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <ArmorClass>ArmorClassHero</ArmorClass>
-        <Exploration>20</Exploration>
-        <ArmorAmount>6</ArmorAmount> 
-        <DodgeChance>10</DodgeChance> 
+		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+		  <ArmorClass>ArmorClassHero</ArmorClass>
+		  <ArmorAmount>6</ArmorAmount> 
+		  <DodgeChance>20</DodgeChance> 
+		  <Exploration>20</Exploration>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>50</ExperiencePoints>
     	<Upgrade>                       
@@ -76,7 +76,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSettlerMovement</Class>
-			  <Speed>380</Speed>
+			  <Speed>360</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 		</Logic>
@@ -104,22 +104,21 @@
 	        <BattleWalkAnim>PU_SoldierSword3_Run1</BattleWalkAnim> 
 	        <HitAnim>PU_SoldierSword3_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Sword</DamageClass>
-	        <DamageAmount>10</DamageAmount>
-	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+	        <DamageClass>DC_Hero</DamageClass>
+	        <DamageAmount>25</DamageAmount>
+	        <MaxRandomDamageBonus>10</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2000</BattleWaitUntil>
 	        
-	        <AutoAttackRange>3000</AutoAttackRange>
+	        <AutoAttackRange>2000</AutoAttackRange>
 	        
-	        <MaxRange>200.0f</MaxRange>
-	        <MinRange>0.0f</MinRange>
+	        <MaxRange>300</MaxRange>
+	        <MinRange>0</MinRange>
 
             <HealingPoints>4</HealingPoints>
 	        <HealingSeconds>1</HealingSeconds>
 		</Logic>
 	</Behavior>
-    
 	<Behavior>
 		  <Logic classname="GGL::CFormationBehaviorProperties">
 			  <Class>GGL::CFormationBehavior</Class>
@@ -171,10 +170,4 @@
 	    </Logic>
 	</Behavior>
 
-    <Behavior>
-        <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
-            <Class>GGL::CReplaceableEntityBehavior</Class>
-            <EntityType>XD_DroppedShield</EntityType>
-        </Logic>
-    </Behavior>
 </root>

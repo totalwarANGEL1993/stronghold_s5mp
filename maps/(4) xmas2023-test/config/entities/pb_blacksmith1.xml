@@ -27,8 +27,8 @@
         </ModifyExploration>   
 		 
         <Worker>PU_Smith</Worker>
-        <MaxWorkers>2</MaxWorkers>
-        <InitialMaxWorkers>2</InitialMaxWorkers>
+        <MaxWorkers>3</MaxWorkers>
+        <InitialMaxWorkers>3</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_SMITH_WORK_START</Start> 
             <Work>TL_SMITH_WORK</Work> 
@@ -43,11 +43,11 @@
         </WorkTaskList>
          <Upgrade>
             <Category>Blacksmith</Category>
-            <Time>40.0</Time>  
+            <Time>50.0</Time>  
             <Cost>
 			    <Clay>200</Clay>
 			    <Wood/>
-				    <Stone>100</Stone>
+				    <Stone>150</Stone>
 				    <Gold/>
 				    <Iron/>
 				    <Sulfur/>
@@ -58,7 +58,7 @@
         	<Time>110</Time>
             <Cost>
 			    <Clay>300</Clay>
-			    <Wood>200</Wood>
+			    <Wood>150</Wood>
 				    <Stone>0</Stone>
 				    <Gold/>
 				    <Iron/>

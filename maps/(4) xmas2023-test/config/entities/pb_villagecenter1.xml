@@ -36,12 +36,12 @@
         	<Time>40.0</Time>        		
             <Category>VillageCenter</Category>
             <Cost>
-			    <Clay>100</Clay>
-			    <Wood/>
-				    <Stone>300</Stone>
-				    <Gold>150</Gold>
-				    <Iron/>
-				    <Sulfur/>
+			    <Clay>50</Clay>
+			    <Wood>150</Wood>
+                <Stone>300</Stone>
+                <Gold>200</Gold>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <Type>PB_VillageCenter2</Type>            
         </Upgrade>
@@ -50,12 +50,12 @@
         <ConstructionInfo>
             <Time>110</Time>
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>300</Wood>
-				    <Stone>200</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+			    <Clay>100</Clay>
+			    <Wood>200</Wood>
+                <Stone>200</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>

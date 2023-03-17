@@ -34,7 +34,7 @@
 				    <Wood/>
 				    <Stone>250</Stone>
 				    <Gold/>
-				    <Iron>100</Iron>
+				    <Iron>75</Iron>
 				    <Sulfur/>
             </Cost>
             <Type>PB_Alchemist2</Type>
@@ -56,7 +56,7 @@
             <Cost>
 				    <Clay>0</Clay>
 				    <Wood>200</Wood>				
-				    <Stone>400</Stone>
+				    <Stone>300</Stone>
 				    <Gold/>
 				    <Iron/>
 				    <Sulfur/>

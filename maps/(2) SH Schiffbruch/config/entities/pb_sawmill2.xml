@@ -125,7 +125,7 @@
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
             <ResourceType>Wood</ResourceType>
-            <InitialFactor>6</InitialFactor>
+            <InitialFactor>8</InitialFactor>
             <SupplierCategory>WoodSupplier</SupplierCategory>            
         </Logic>
     </Behavior>

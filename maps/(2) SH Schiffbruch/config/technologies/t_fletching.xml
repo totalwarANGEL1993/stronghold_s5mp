@@ -19,12 +19,12 @@
 	
 	
 	<MaxRangeModifier>
-		<Value>300</Value>
+		<Value>400</Value>
 		<Operation>+</Operation>
 	</MaxRangeModifier>
 	
 	<ExplorationModifier>
-		<Value>3</Value>
+		<Value>4</Value>
 		<Operation>+</Operation>	
 	</ExplorationModifier>
 	

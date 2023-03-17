@@ -12,9 +12,10 @@
 	<UseForStatisticsFlag>true</UseForStatisticsFlag>
 	
 	<DamageModifier>
-		<Value>2</Value>
-		<Operation>+</Operation>
+		<Value>1.30</Value>
+		<Operation>*</Operation>
 	</DamageModifier>
+
 	<AutomaticResearch>false</AutomaticResearch>
 	<Conditions>	
 		  <RequiredEntityConditions>1</RequiredEntityConditions>

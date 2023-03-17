@@ -20,7 +20,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>170</MaxHealth>
+		  <MaxHealth>300</MaxHealth>
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -130,7 +130,7 @@
 	        
 	        <ProjectileEffectID>FXCavalryArrow</ProjectileEffectID>
 	        <MaxRange>2800</MaxRange>
-	        <MinRange>800</MinRange>
+	        <MinRange>0</MinRange>
 	        <AutoAttackRange>3000</AutoAttackRange>
 	        
 			<HealingPoints>5</HealingPoints>

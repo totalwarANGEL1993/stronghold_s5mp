@@ -21,7 +21,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>100</MaxHealth>
+		  <MaxHealth>150</MaxHealth>
 		  <DodgeChance>10</DodgeChance> 
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>
@@ -130,7 +130,7 @@
 	        
 	        <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
 	        <MaxRange>2800</MaxRange>
-	        <MinRange>800.0f</MinRange>
+	        <MinRange>0.0f</MinRange>
 	        
 		</Logic>
 	</Behavior>

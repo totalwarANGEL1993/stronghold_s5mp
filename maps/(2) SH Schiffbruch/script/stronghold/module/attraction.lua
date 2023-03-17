@@ -43,14 +43,14 @@ Stronghold.Attraction = {
             [3] = 125
         },
         HQCivilAttraction = {
-            [1] = 76,
-            [2] = 76,
-            [3] = 76
+            [1] = 35,
+            [2] = 50,
+            [3] = 65
         },
         VCCivilAttraction = {
-            [1] = 54,
-            [2] = 72,
-            [3] = 90
+            [1] = 50,
+            [2] = 75,
+            [3] = 100
         },
 
         Criminals = {

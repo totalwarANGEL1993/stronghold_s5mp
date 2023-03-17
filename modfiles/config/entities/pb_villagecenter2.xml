@@ -35,10 +35,12 @@
         	<Time>40.0</Time>        		
             <Category>VillageCenter</Category>
             <Cost>
-			    <Clay>150</Clay>
+			    <Clay>300</Clay>
 			    <Wood/>
+                    <Clay>100</Clay>
+                    <Wood>200</Wood>
 				    <Stone>400</Stone>
-				    <Gold>200</Gold>
+				    <Gold>300</Gold>
 				    <Iron/>
 				    <Sulfur/>
             </Cost>

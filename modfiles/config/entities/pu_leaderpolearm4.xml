@@ -76,7 +76,7 @@
         <Category>Spear</Category>
         <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <MaxHealth>250</MaxHealth>
+		  <MaxHealth>300</MaxHealth>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassJerkin</ArmorClass> 
 		  <ArmorAmount>8</ArmorAmount>

@@ -29,8 +29,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Treasurer</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>
+        <MaxWorkers>3</MaxWorkers>
+        <InitialMaxWorkers>3</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_TREASURER_WORK_START</Start> 
             <Work>TL_TREASURER_WORK</Work> 
@@ -43,12 +43,12 @@
             <Category>Bank</Category>
             <Time>40</Time>  
             <Cost>
-				   <Clay>0</Clay>
-				   <Wood/>
-				    <Stone>300</Stone>
-				    <Gold>200</Gold>
-				    <Iron/>
-				    <Sulfur/>
+                <Clay>0</Clay>
+                <Wood>100</Wood>
+                <Stone>300</Stone>
+                <Gold>200</Gold>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <Type>PB_Bank2</Type>
         </Upgrade>
@@ -56,11 +56,11 @@
         	<Time>130</Time>
             <Cost>
 			    <Clay>0</Clay>
-			    <Wood>500</Wood>
-				    <Stone>500</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+			    <Wood>350</Wood>
+                <Stone>400</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
                <BuilderSlot>
                 <Position>

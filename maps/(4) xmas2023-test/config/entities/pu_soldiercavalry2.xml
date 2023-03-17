@@ -19,7 +19,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>125</MaxHealth>
+		  <MaxHealth>200</MaxHealth>
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -140,7 +140,7 @@
 	        
 			<ProjectileEffectID>FXCrossBowCavalryArrow</ProjectileEffectID> 
 	        <MaxRange>3000</MaxRange>
-	        <MinRange>800.0f</MinRange>
+	        <MinRange>0.0f</MinRange>
 		  </Logic>
 	</Behavior>
 	<Behavior>

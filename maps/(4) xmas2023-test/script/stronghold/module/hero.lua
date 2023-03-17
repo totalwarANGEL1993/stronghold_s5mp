@@ -1143,7 +1143,7 @@ end
 
 function Stronghold.Hero:OverrideCalculationCallbacks()
     -- Generic --
-    Overwrite.CreateOverwrite("Orig_GameCallback_GainedResources", function(_PlayerID, _ResourceType, _Amount)
+    Overwrite.CreateOverwrite("GameCallback_GainedResources", function(_PlayerID, _ResourceType, _Amount)
         Overwrite.CallOriginal();
         if Stronghold:IsPlayer(_PlayerID) then
             Stronghold.Hero:ResourceProductionBonus(_PlayerID, _ResourceType, _Amount);
@@ -1293,7 +1293,7 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _Type, _Amount)
             or _Type == ResourceType.StoneRaw
             or _Type == ResourceType.IronRaw then
                 -- TODO: Maybe use the non-raw here?
-                Logic.AddToPlayersGlobalResource(_PlayerID, _Type, math.max(_Amount-4, 1));
+                Logic.AddToPlayersGlobalResource(_PlayerID, _Type, math.max(_Amount-3, 1));
             end
         end
     end

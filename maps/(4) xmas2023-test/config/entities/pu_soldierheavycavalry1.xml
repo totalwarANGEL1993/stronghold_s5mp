@@ -19,7 +19,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>250</MaxHealth>
+		  <MaxHealth>300</MaxHealth>
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -33,7 +33,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassIron</ArmorClass>
-		  <ArmorAmount>4</ArmorAmount> 
+		  <ArmorAmount>5</ArmorAmount> 
 		  <DodgeChance>10</DodgeChance> 
         <Upgrade>
             <Cost>

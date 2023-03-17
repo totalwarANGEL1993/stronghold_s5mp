@@ -71,7 +71,7 @@
         <Category>Rifle</Category>
         <Category>LongRange</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <MaxHealth>150</MaxHealth>
+		  <MaxHealth>200</MaxHealth>
 		  <Exploration>28</Exploration>
 		  <ArmorClass>ArmorClassNone</ArmorClass> 
 		  <ArmorAmount>2</ArmorAmount>
@@ -141,7 +141,7 @@
 	        
 	        <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
 	        <MaxRange>2800</MaxRange>
-	        <MinRange>800.0f</MinRange>
+	        <MinRange>0.0f</MinRange>
 	        <AutoAttackRange>2800</AutoAttackRange>
 	        
 			<HealingPoints>5</HealingPoints>

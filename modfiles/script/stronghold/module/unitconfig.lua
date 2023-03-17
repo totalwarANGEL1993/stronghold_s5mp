@@ -403,7 +403,7 @@ Stronghold.UnitConfig.Units = {
         IsCivil           = false,
         Rank              = 2,
         Upkeep            = 15,
-        Turns             = 130,
+        Turns             = 120,
         Soldiers          = 12,
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
         ProviderBuilding  = {},
@@ -474,7 +474,7 @@ Stronghold.UnitConfig.Units = {
         IsCivil           = false,
         Rank              = 3,
         Upkeep            = 50,
-        Turns             = 180,
+        Turns             = 220,
         Soldiers          = 6,
         RecruiterBuilding = {Entities.PB_Archery2},
         ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
@@ -844,20 +844,15 @@ Stronghold.UnitConfig.Units = {
     -- Kerberos (Bodyguard passive skill)
     [Entities.CU_BlackKnight]              = {
         Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}ERROR{cr}{white}YOU SHOULD NEVER SEE THIS!{cr}",
-            en = "{grey}ERROR{cr}{white}YOU SHOULD NEVER SEE THIS!{cr}",
-        },
-        TextDisabled      = {
-            de = "{grey}ERROR{cr}{white}YOU SHOULD NEVER SEE THIS!{cr} #Rank#",
-            en = "{grey}ERROR{cr}{white}YOU SHOULD NEVER SEE THIS!{cr} #Rank#",
-        },
+        TextNormal        = {de = "ERROR{cr}", en = "ERROR{cr}",},
+        TextDisabled      = {de = "ERROR #Rank#", en = "ERROR #Rank#",},
         Costs             = {
             [1] = {0, 0, 0, 0, 0, 0, 0},
-            [2] = {15, 300, 0, 0, 0, 0, 0},
+            [2] = {10, 150, 0, 0, 0, 0, 0},
         },
-        Rank              = 5,
+        Rank              = 1,
         Allowed           = true,
+        IsCivil           = false,
         Upkeep            = 0,
         Turns             = 0,
         Places            = 1,

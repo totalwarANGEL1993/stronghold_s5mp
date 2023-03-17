@@ -60,7 +60,7 @@
         <Category>Bow</Category>
         <Category>LongRange</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <MaxHealth>200</MaxHealth>
+		  <MaxHealth>300</MaxHealth>
 		  <Exploration>29</Exploration>
 		  <ArmorClass>ArmorClassJerkin</ArmorClass> 
 		  <ArmorAmount>5</ArmorAmount>
@@ -128,7 +128,7 @@
 	        
 	        <ProjectileEffectID>FXCrossBowArrow</ProjectileEffectID>
 	        <MaxRange>2900</MaxRange>
-	        <MinRange>800.0f</MinRange>
+	        <MinRange>0.0f</MinRange>
 	        <AutoAttackRange>2900</AutoAttackRange>
 	        
 			<HealingPoints>5</HealingPoints>
