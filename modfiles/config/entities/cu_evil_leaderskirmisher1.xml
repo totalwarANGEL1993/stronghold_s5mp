@@ -35,19 +35,23 @@
         <ModifyArmor>
         	<Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
-        
         <ModifyArmor>
         	<Technology>T_PaddedArcherArmor</Technology>
         </ModifyArmor>
-        
         <ModifyArmor>
         	<Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
 
+        <ModifyMaxRange>
+			<Technology>T_Fletching</Technology>
+		</ModifyMaxRange>
         <ModifyExploration>
         	<Technology>T_Fletching</Technology>
         </ModifyExploration>
-        
+
+        <ModifyDamage>
+        	<Technology>T_BodkinArrow</Technology>
+        </ModifyDamage>
         <ModifyDamage>
         	<Technology>T_WoodAging</Technology>
         </ModifyDamage>
@@ -57,6 +61,9 @@
 
         <ModifySpeed>
         	<Technology>T_BetterTrainingArchery</Technology>
+        </ModifySpeed>
+        <ModifySpeed>
+        	<Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
         
 
