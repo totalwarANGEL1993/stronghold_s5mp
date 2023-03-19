@@ -68,6 +68,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	
     	<Upgrade>                       
     	   <Category>SoldierBarbarian</Category>
@@ -88,7 +89,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>360</Speed>
+			  <Speed>370</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 			  <MoveIdleAnim>CU_Barbarian_SoldierClub1_Idle1</MoveIdleAnim>

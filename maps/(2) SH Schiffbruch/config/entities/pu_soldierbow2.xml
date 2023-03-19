@@ -70,6 +70,7 @@
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>15</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>           
             <Type>PU_SoldierBow3</Type> 
             <Category>SoldierBow</Category>
@@ -88,7 +89,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>320</Speed>
+			  <Speed>360</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_SoldierBow2_Idle1</MoveIdleAnim>

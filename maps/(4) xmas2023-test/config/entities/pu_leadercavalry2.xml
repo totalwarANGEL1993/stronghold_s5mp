@@ -39,6 +39,7 @@
 		  <DodgeChance>15</DodgeChance>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>30</ExperiencePoints>
+    	<AttractionSlots>0</AttractionSlots>
 
         <ModifyArmor>
         	<Technology>T_SoftArcherArmor</Technology>
@@ -66,8 +67,6 @@
         <ModifySpeed>
         	<Technology>T_Shoeing</Technology>
         </ModifySpeed>
-    	
-    	<AttractionSlots>2</AttractionSlots>
 	</Logic>
 	<Behavior>
 		  <Logic classname="GGL::CGLAnimationBehaviorExProps">
@@ -82,7 +81,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CLeaderMovement</Class>
-			  <Speed>520</Speed>
+			  <Speed>550</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_LeaderCavalry2_Idle1</MoveIdleAnim>

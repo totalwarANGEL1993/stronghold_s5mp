@@ -84,6 +84,7 @@
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>15</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>            
             <Type>PU_SoldierPoleArm3</Type> 
             <Category>SoldierPoleArm</Category>

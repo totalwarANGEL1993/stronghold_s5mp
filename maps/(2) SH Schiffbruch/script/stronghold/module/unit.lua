@@ -76,6 +76,7 @@ end
 function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
     local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
     RemoveResourcesFromPlayer(_PlayerID, Costs);
+    Stronghold.Players[_PlayerID].BuyUnitLock = nil;
 end
 
 function Stronghold.Unit:RefillUnit(_PlayerID, _UnitID, _Amount, _Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)

@@ -84,6 +84,7 @@
 		  <DodgeChance>5</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>            
             <Type>PU_SoldierSword4</Type> 
             <Category>SoldierSword</Category>
@@ -102,7 +103,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>360</Speed>
+			  <Speed>300</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_SoldierSword3_Idle1</MoveIdleAnim>

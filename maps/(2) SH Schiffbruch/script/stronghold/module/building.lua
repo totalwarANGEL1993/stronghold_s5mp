@@ -408,11 +408,12 @@ function Stronghold.Building:HeadquartersBuySerf()
     if not HasPlayerEnoughResourcesFeedback(Costs) then
         return false;
     end
-    if Logic.GetPlayerAttractionUsage(PlayerID) >= Logic.GetPlayerAttractionLimit(PlayerID) then
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 127);
-        Message("Ihr habt keinen Platz für weitere Leibeigene!");
-        return false;
-    end
+    -- Obsolete due to production queue...
+    -- if Logic.GetPlayerAttractionUsage(PlayerID) >= Logic.GetPlayerAttractionLimit(PlayerID) then
+    --     Sound.PlayQueuedFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 127);
+    --     Message("Ihr habt keinen Platz für weitere Leibeigene!");
+    --     return false;
+    -- end
 
     Stronghold.Players[PlayerID].BuyUnitLock = true;
     Syncer.InvokeEvent(

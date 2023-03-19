@@ -630,6 +630,8 @@ function Stronghold:OnEveryTurn()
     -- Player jobs on modified turns
     ---@diagnostic disable-next-line: undefined-field
     local PlayerID = math.mod(math.floor(Logic.GetTime() * 10), Players);
+    Stronghold.Attraction:ManageCriminalsOfPlayer(PlayerID);
+    Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
     Stronghold.Economy:UpdateIncomeAndUpkeep(PlayerID);
     Stronghold.Economy:GainMeasurePoints(PlayerID);
     Stronghold.Hero:VargWolvesController(PlayerID);
@@ -642,8 +644,6 @@ function Stronghold:OnEverySecond()
     local Players = table.getn(Score.Player);
     for i= 1, Players do
         self:PlayerDefeatCondition(i);
-        Stronghold.Attraction:CreateWorkersForPlayer(i);
-        Stronghold.Attraction:ManageCriminalsOfPlayer(i);
     end
 end
 
@@ -656,11 +656,8 @@ function Stronghold:OnEntityCreated()
             self:OnSelectionMenuChanged(EntityID, GUI.GetSelectedEntity());
         end
     end
-    if Logic.IsSettler(EntityID) == 1 and GUI.GetPlayerID() == PlayerID then
+    if Logic.IsSettler(EntityID) == 1 then
         Stronghold.Hero:ConfigurePlayersHeroPet(EntityID);
-    end
-    if Logic.IsBuilding(EntityID) == 1 then
-        Stronghold.Attraction:SetBuildingCurrentWorkerAmount(EntityID, 1);
     end
     Stronghold.Unit:SetFormationOnCreate(EntityID);
     Stronghold.Province:OnBuildingCreated(EntityID, PlayerID);
@@ -745,9 +742,10 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 MakeInvulnerable(self.Players[_PlayerID].HQScriptName);
             end
             if not self.Players[_PlayerID].InvulnerabilityInfoShown then
+                -- 
                 self.Players[_PlayerID].InvulnerabilityInfoShown = true;
                 Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-
+                -- 
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
                 Message(string.format(
@@ -764,9 +762,10 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 MakeVulnerable(self.Players[_PlayerID].HQScriptName);
             end
             if not self.Players[_PlayerID].VulnerabilityInfoShown then
+                -- 
                 self.Players[_PlayerID].VulnerabilityInfoShown = true;
                 Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-
+                -- 
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
                 Message(string.format(
@@ -861,8 +860,7 @@ function Stronghold:OnPlayerPayday(_PlayerID)
 
         -- Motivation
         self:AddDelayedAction(1, function()
-            Stronghold:UpdateMotivationOfPlayersWorkers(_PlayerID, ReputationIncome);
-            Stronghold:ControlReputationAttractionPenalty(_PlayerID);
+            Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, ReputationIncome);
         end);
 
         -- Honor
@@ -1022,59 +1020,6 @@ function Stronghold:GetPlayerReputation(_PlayerID)
     return 100;
 end
 
-function Stronghold:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
-    if self:IsPlayer(_PlayerID) then
-        for k,v in pairs(GetAllWorker(_PlayerID)) do
-            local WorkplaceID = Logic.GetSettlersWorkBuilding(v);
-            if  (WorkplaceID ~= nil and WorkplaceID ~= 0)
-            and Logic.IsOvertimeActiveAtBuilding(WorkplaceID) == 0
-            and Logic.IsAlarmModeActive(WorkplaceID) ~= true then
-                local OldMoti = Logic.GetSettlersMotivation(v);
-                local NewMoti = math.floor((OldMoti * 100) + 0.5) + _Amount;
-                NewMoti = math.min(NewMoti, self.Players[_PlayerID].ReputationLimit);
-                NewMoti = math.max(NewMoti, 30);
-                CEntity.SetMotivation(v, NewMoti / 100);
-            end
-        end
-    end
-end
-
-function Stronghold:ControlReputationAttractionPenalty(_PlayerID)
-    local Reputation = self:GetPlayerReputation(_PlayerID);
-    local WorkerList = GetAllWorker(_PlayerID);
-    local WorkerAmount = table.getn(WorkerList);
-    local LeaveAmount = 0;
-
-    -- Restore reputation when workers are all gone
-    if  self.Players[_PlayerID].HasHadRegularPayday
-    and Logic.GetNumberOfAttractedWorker(_PlayerID) == 0 then
-        self:SetPlayerReputation(_PlayerID, math.min(Reputation +12, 75));
-        return;
-    end
-
-    if Reputation <= 30 then
-        -- Get all not already leaving workers
-        for i= table.getn(WorkerList), 1, -1 do
-            if Logic.GetCurrentTaskList(WorkerList[i]) == "TL_WORKER_LEAVE" then
-                table.remove(WorkerList, i);
-            end
-        end
-
-        -- Make workers leave
-        WorkerAmount = table.getn(WorkerList);
-        LeaveAmount = math.ceil(WorkerAmount * 0.75);
-        while LeaveAmount > 0 do
-            if WorkerAmount == 0 then
-                break;
-            end
-            local ID = table.remove(WorkerList, math.random(1, WorkerAmount));
-            Logic.SetTaskList(ID, TaskLists.TL_WORKER_LEAVE);
-            WorkerAmount = table.getn(WorkerList);
-            LeaveAmount = LeaveAmount -1;
-        end
-    end
-end
-
 -- -------------------------------------------------------------------------- --
 -- UI Update
 
@@ -1140,12 +1085,6 @@ function Stronghold:OverwriteCommonCallbacks()
 
     Overwrite.CreateOverwrite("GameCallback_OnBuildingUpgradeComplete", function(_EntityIDOld, _EntityIDNew)
         Overwrite.CallOriginal();
-        -- Fixes the problem with the building attraction. The currend amount
-        -- will be red and then set. After that all workers are reattached.
-        local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
-        local Workers = {Logic.GetAttachedWorkersToBuilding(_EntityIDNew)};
-        Stronghold.Attraction:SetBuildingCurrentWorkerAmount(_EntityIDNew, Workers[1]);
-        Logic.PlayerReAttachAllWorker(PlayerID);
         Stronghold:OnSelectionMenuChanged(_EntityIDNew);
     end);
 

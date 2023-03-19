@@ -60,6 +60,7 @@
 		  <Exploration>20</Exploration>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>50</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>                       
             <Category>BlackKnightSoldier</Category>
         </Upgrade>

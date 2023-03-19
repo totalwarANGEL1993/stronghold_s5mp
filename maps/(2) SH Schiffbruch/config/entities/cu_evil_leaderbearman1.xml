@@ -68,6 +68,7 @@
         <DodgeChance>10</DodgeChance>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	
 	</Logic>
 	<Behavior>
@@ -83,7 +84,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CLeaderMovement</Class>
-			  <Speed>360</Speed>
+			  <Speed>390</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
 			  <MoveIdleAnim>CU_Evil_LeaderBearman1_Idle1</MoveIdleAnim>

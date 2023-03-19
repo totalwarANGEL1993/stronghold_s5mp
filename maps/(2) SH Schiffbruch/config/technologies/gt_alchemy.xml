@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
 	<TecCategoryType>TC_Resources</TecCategoryType>
-	<TimeToResearch>15</TimeToResearch>	
+	<TimeToResearch>20</TimeToResearch>	
 	<ResourceCosts>
         <Gold/>
         <Sulfur>50</Sulfur>

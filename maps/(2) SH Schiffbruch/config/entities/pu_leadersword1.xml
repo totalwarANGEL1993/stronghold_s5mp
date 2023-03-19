@@ -126,6 +126,7 @@
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>25</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>
            
             <Type>PU_LeaderSword2</Type> 
@@ -145,7 +146,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CLeaderMovement</Class>
-			  <Speed>360</Speed>
+			  <Speed>390</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_LeaderSword1_Idle1</MoveIdleAnim>

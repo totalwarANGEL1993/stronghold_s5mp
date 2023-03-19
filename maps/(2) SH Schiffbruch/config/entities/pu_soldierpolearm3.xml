@@ -84,6 +84,7 @@
 		  <DodgeChance>5</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>            
             <Type>PU_SoldierPoleArm4</Type> 
             <Category>SoldierPoleArm</Category>
@@ -102,7 +103,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>360</Speed>
+			  <Speed>330</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_SoldierPoleArm3_Idle1</MoveIdleAnim>

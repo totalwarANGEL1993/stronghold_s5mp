@@ -40,7 +40,7 @@
 		  <DodgeChance>7</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>40</ExperiencePoints>
-    	<AttractionSlots>2</AttractionSlots>
+    	<AttractionSlots>0</AttractionSlots>
     	
 
         <ModifyArmor>
@@ -79,7 +79,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CLeaderMovement</Class>
-			  <Speed>500</Speed>
+			  <Speed>520</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_LeaderCavalry4_Idle1</MoveIdleAnim>

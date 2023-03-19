@@ -37,7 +37,7 @@
 			  <Iron>30</Iron>
 			  <Wood/>
         </Cost>
-       <AttractionSlots>0</AttractionSlots>        
+       <AttractionSlots>1</AttractionSlots>        
         <Category>Military</Category>
         <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>

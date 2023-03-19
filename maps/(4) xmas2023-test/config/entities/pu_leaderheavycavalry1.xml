@@ -42,7 +42,7 @@
             <Type>PU_LeaderHeavyCavalry2</Type> 
             <Category>LeaderHeavyCavalry</Category>
         </Upgrade>
-    	<AttractionSlots>2</AttractionSlots>
+    	<AttractionSlots>0</AttractionSlots>
 
         <ModifyArmor>
         	<Technology>T_LeatherMailArmor</Technology>
@@ -79,7 +79,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CLeaderMovement</Class>
-			  <Speed>500</Speed>
+			  <Speed>520</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_LeaderCavalry3_Idle1</MoveIdleAnim>

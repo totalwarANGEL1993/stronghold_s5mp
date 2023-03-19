@@ -12,8 +12,8 @@
 	<UseForStatisticsFlag>true</UseForStatisticsFlag>
 	
 	<SpeedModifier>
-		<Value>75</Value>
-		<Operation>+</Operation>
+		<Value>1.1</Value>
+		<Operation>*</Operation>
 	</SpeedModifier>
 
     <MaxRangeModifier>

@@ -33,7 +33,7 @@
         <Upgrade>
             <Category>VillageCenter</Category>
         </Upgrade>
-		  <NumberOfAttractableSettlers>0</NumberOfAttractableSettlers>
+		  <NumberOfAttractableSettlers>65</NumberOfAttractableSettlers>
 		  <Exploration>40</Exploration>
         <ConstructionInfo>
             

@@ -7,14 +7,11 @@
 --- - <number> GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
 ---   Allows to overwrite the max worker attraction.
 ---
---- - <number> GameCallback_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
----   Allows to overwrite the used worker attraction.
+--- - <number> GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
+---   Allows to overwrite the max usage of military places.
 ---
 --- - <number> GameCallback_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
 ---   Allows to overwrite the current overall usage of military places.
----
---- - <number> GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
----   Allows to overwrite the max usage of military places.
 ---
 --- - <number> GameCallback_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Places)
 ---   Allows to overwrite the places a unit is occupying.
@@ -96,10 +93,10 @@ Stronghold.Attraction = {
             [Entities.PV_Cannon3] = 20,
             [Entities.PV_Cannon4] = 20,
             ---
-            [Entities.PU_Scout] = 0,
-            [Entities.PU_Thief] = 0,
+            [Entities.PU_Scout] = 1,
+            [Entities.PU_Thief] = 5,
             ---
-            [Entities.PU_Serf] = 0,
+            [Entities.PU_Serf] = 1,
         },
 
         UI = {
@@ -152,6 +149,10 @@ function GetMilitaryAttractionUsage(_PlayerID)
     return Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID);
 end
 
+function GetMilitaryPlacesUsedByUnit(_Type, _Amount)
+    return Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type, _Amount);
+end
+
 function GetCivilAttractionLimit(_PlayerID)
     return Logic.GetPlayerAttractionLimit(_PlayerID);
 end
@@ -171,12 +172,10 @@ function Stronghold.Attraction:Install()
         };
     end
 
-    self:OverrideAttraction();
     self:InitCriminalsEffects();
 end
 
 function Stronghold.Attraction:OnSaveGameLoaded()
-    self:OverrideAttraction();
 end
 
 -- -------------------------------------------------------------------------- --
@@ -187,10 +186,6 @@ function GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
 end
 
 function GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
-    return _Amount
-end
-
-function GameCallback_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
     return _Amount
 end
 
@@ -412,104 +407,55 @@ end
 -- -------------------------------------------------------------------------- --
 -- Workers
 
--- Worker Spawner
--- Workers spawn for each building. The workers inside a building can become
--- criminals. Their workplace stays occupied until they brought to justice.
-function Stronghold.Attraction:CreateWorkersForPlayer(_PlayerID)
+function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
     if Stronghold:IsPlayer(_PlayerID) then
-        if not Stronghold.Players[_PlayerID].CivilAttractionLocked then
-            if Logic.GetPlayerAttractionUsage(_PlayerID) < Logic.GetPlayerAttractionLimit(_PlayerID) then
-                -- Get buildings that need workers
-                local Buildings = GetAllWorkplaces(_PlayerID);
-                for i= table.getn(Buildings), 1, -1 do
-                    local Used, Limit = self:GetBuildingCurrentAndMaxWorkerAmount(Buildings[i]);
-                    if Logic.IsOvertimeActiveAtBuilding(Buildings[i]) == 1
-                    or IsBuildingBeingUpgraded(Buildings[i])
-                    or Used == Limit then
-                        table.remove(Buildings, i);
-                    end
-                end
-                -- Create 1 worker
-                local Index = self.Data[_PlayerID].LastBuildingWorkerCreatedIndex or 1;
-                if Buildings[Index] then
-                    local Type = Logic.GetWorkerTypeByBuilding(Buildings[Index]);
-                    local Used, Limit = self:GetBuildingCurrentAndMaxWorkerAmount(Buildings[Index]);
-                    local Criminals = self:GetCriminalsOfBuilding(Buildings[Index]);
-                    local Current = math.min(Used +1, Limit - table.getn(Criminals));
-                    local AttractionBuilding = self:GetClostestAttractionBuilding(Buildings[Index]);
-                    local Position = Stronghold.Unit:GetBarracksDoorPosition(AttractionBuilding);
-                    self:SetBuildingCurrentWorkerAmount(Buildings[Index], Current);
-                    if Used < Current then
-                        Stronghold:AddDelayedAction(1, function(_Type, _X, _Y, _PlayerID)
-                            local ID = Logic.CreateEntity(_Type, _X, _Y, 0, _PlayerID);
-                            local Reputation = Stronghold:GetPlayerReputation(_PlayerID);
-                            CEntity.SetMotivation(ID, Reputation / 100);
-                        end, Type, Position.X, Position.Y, _PlayerID);
-                    end
-                    self.Data[_PlayerID].LastBuildingWorkerCreatedIndex = Index +1;
-                else
-                    self.Data[_PlayerID].LastBuildingWorkerCreatedIndex = nil;
-                end
+        -- Update Motivation of workers
+        for k,v in pairs(GetAllWorker(_PlayerID)) do
+            local WorkplaceID = Logic.GetSettlersWorkBuilding(v);
+            if  (WorkplaceID ~= nil and WorkplaceID ~= 0)
+            and Logic.IsOvertimeActiveAtBuilding(WorkplaceID) == 0
+            and Logic.IsAlarmModeActive(WorkplaceID) ~= true then
+                local OldMoti = Logic.GetSettlersMotivation(v);
+                local NewMoti = math.floor((OldMoti * 100) + 0.5) + _Amount;
+                NewMoti = math.min(NewMoti, GetMaxReputation(_PlayerID));
+                NewMoti = math.min(NewMoti, GetReputation(_PlayerID));
+                NewMoti = math.max(NewMoti, 20);
+                CEntity.SetMotivation(v, NewMoti / 100);
             end
         end
-    end
-end
-
-function Stronghold.Attraction:GetClostestAttractionBuilding(_BuildingID)
-    local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local BuildingID = 0;
-    if Stronghold:IsPlayer(PlayerID) then
-        local LastDistance = Logic.WorldGetSize();
-        for k, v in pairs(self:GetAttractionBuildings(PlayerID)) do
-            local Distance = GetDistance(v, _BuildingID);
-            if LastDistance > Distance then
-                LastDistance = Distance;
-                BuildingID = v;
-            end
+        -- Restore reputation when workers are all gone
+        if  Stronghold.Players[_PlayerID].HasHadRegularPayday
+        and Logic.GetNumberOfAttractedWorker(_PlayerID) == 0 then
+            Stronghold:SetPlayerReputation(_PlayerID, 50);
+            return;
         end
     end
-    return BuildingID;
 end
 
-function Stronghold.Attraction:GetAttractionBuildings(_PlayerID)
-    local AttractionBuildings = {};
+function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
-        for k, v in pairs(GetValidEntitiesOfType(_PlayerID, Entities.PB_VillageCenter1)) do
-            table.insert(AttractionBuildings, v);
-        end
-        for k, v in pairs(GetValidEntitiesOfType(_PlayerID, Entities.PB_VillageCenter2)) do
-            table.insert(AttractionBuildings, v);
-        end
-        for k, v in pairs(GetValidEntitiesOfType(_PlayerID, Entities.PB_VillageCenter3)) do
-            table.insert(AttractionBuildings, v);
-        end
-        table.insert(AttractionBuildings, GetID(Stronghold.Players[_PlayerID].HQScriptName));
-    end
-    return AttractionBuildings;
-end
+        local Limit = 0;
+        local RawLimit = 0;
 
--- Set the current amount of workplaces in the building.
--- (Spread workers evenly over all buildings)
-function Stronghold.Attraction:SetBuildingCurrentWorkerAmount(_EntityID, _Max)
-    local WorkerMax = Logic.GetMaxNumWorkersInBuilding(_EntityID);
-    local WorkerAmount = math.min(WorkerMax, _Max);
-    if CNetwork then
-        SendEvent.SetCurrentMaxNumWorkersInBuilding(_EntityID, WorkerAmount);
-    else
-        GUI.SetCurrentMaxNumWorkersInBuilding(_EntityID, WorkerAmount);
-    end
-end
+        -- Village Centers
+        local VC1 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_VillageCenter1));
+        RawLimit = RawLimit + (VC1 * self.Config.VCCivilAttraction[1]);
+        local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
+        RawLimit = RawLimit + (VC2 * self.Config.VCCivilAttraction[2]);
+        local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
+        RawLimit = RawLimit + (VC3 * self.Config.VCCivilAttraction[3]);
+        -- Headquarters
+        local HQ1 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Headquarters1));
+        RawLimit = RawLimit + (HQ1 * self.Config.HQCivilAttraction[1]);
+        local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
+        RawLimit = RawLimit + (HQ2 * self.Config.HQCivilAttraction[2]);
+        local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
+        RawLimit = RawLimit + (HQ3 * self.Config.HQCivilAttraction[3]);
+        -- External
+        Limit = GameCallback_Calculate_CivilAttrationLimit(_PlayerID, RawLimit);
 
--- Returns the current worker amount and the current max amount
-function Stronghold.Attraction:GetBuildingCurrentAndMaxWorkerAmount(_EntityID)
-    local PlacesLimit = 0;
-    local PlacesUsed = 0;
-    if Logic.IsBuilding(_EntityID) == 1 then
-        local Workers = {Logic.GetAttachedWorkersToBuilding(_EntityID)};
-        PlacesLimit = Logic.GetBuildingWorkPlaceLimit(_EntityID);
-        PlacesUsed = math.max(Logic.GetBuildingWorkPlaceUsage(_EntityID), Workers[1]);
+        CLogic.SetAttractionLimitOffset(_PlayerID, math.ceil(Limit - RawLimit));
     end
-    return PlacesUsed, PlacesLimit;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -565,18 +511,21 @@ end
 function Stronghold.Attraction:GetMillitarySize(_PlayerID)
     local Size = 0;
     for k,v in pairs(self.Config.UsedSpace) do
-        local UnitList = GetPlayerEntities(_PlayerID, k);
-        for i= 1, table.getn(UnitList) do
-            -- Get unit size
-            local Usage = v;
-            if Logic.IsLeader(UnitList[i]) == 1 then
-                local Soldiers = {Logic.GetSoldiersAttachedToLeader(UnitList[i])};
-                Usage = Usage + (Usage * Soldiers[1]);
-            end
-            -- External
-            Usage = GameCallback_Calculate_UnitPlaces(_PlayerID, UnitList[i], k, Usage);
+        local Config = Stronghold.UnitConfig:GetConfig(k, _PlayerID);
+        if not Config or Config.IsCivil ~= true then
+            local UnitList = GetPlayerEntities(_PlayerID, k);
+            for i= 1, table.getn(UnitList) do
+                -- Get unit size
+                local Usage = v;
+                if Logic.IsLeader(UnitList[i]) == 1 then
+                    local Soldiers = {Logic.GetSoldiersAttachedToLeader(UnitList[i])};
+                    Usage = Usage + (Usage * Soldiers[1]);
+                end
+                -- External
+                Usage = GameCallback_Calculate_UnitPlaces(_PlayerID, UnitList[i], k, Usage);
 
-            Size = Size + Usage;
+                Size = Size + Usage;
+            end
         end
     end
     return Size;
@@ -623,69 +572,5 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
         end
         RemoveResourcesFromPlayer(_PlayerID, ResourcesToSub);
     end
-end
-
--- -------------------------------------------------------------------------- --
--- Attraction
-
--- Overwrite attraction
--- The attraction limit is based on the headquarters. To make my life easier
--- I just overwrite the logics.
-function Stronghold.Attraction:OverrideAttraction()
-    self.Orig_GetPlayerAttractionLimit = Logic.GetPlayerAttractionLimit;
-	Logic.GetPlayerAttractionLimit = function(_PlayerID)
-		local Limit = 0;
-        if not Stronghold:IsPlayer(_PlayerID) then
-            return Stronghold.Attraction.Orig_GetPlayerAttractionLimit(_PlayerID);
-        end
-
-        -- HQ limit
-        local HeadquarterID = GetID(Stronghold.Players[_PlayerID].HQScriptName);
-        local HQLimit = Stronghold.Attraction.Config.HQCivilAttraction[1];
-        if Logic.GetEntityType(HeadquarterID) == Entities.PB_Headquarters2 then
-            HQLimit = Stronghold.Attraction.Config.HQCivilAttraction[2];
-        end
-        if Logic.GetEntityType(HeadquarterID) == Entities.PB_Headquarters3 then
-            HQLimit = Stronghold.Attraction.Config.HQCivilAttraction[3];
-        end
-        Limit = Limit + HQLimit;
-        -- VC limit
-        local VCLimit = 0;
-        local VCLevel1 = GetValidEntitiesOfType(_PlayerID, Entities.PB_VillageCenter1);
-        VCLimit = VCLimit + (table.getn(VCLevel1) * Stronghold.Attraction.Config.VCCivilAttraction[1]);
-        local VCLevel2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
-        VCLimit = VCLimit + (VCLevel2 * Stronghold.Attraction.Config.VCCivilAttraction[2]);
-        local VCLevel3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
-        VCLimit = VCLimit + (VCLevel3 * Stronghold.Attraction.Config.VCCivilAttraction[3]);
-        Limit = Limit + VCLimit;
-        -- External
-        Limit = GameCallback_Calculate_CivilAttrationLimit(_PlayerID, Limit);
-
-        return math.floor(Limit + 0.5);
-	end
-
-	self.Orig_GetPlayerAttractionUsage = Logic.GetPlayerAttractionUsage;
-	Logic.GetPlayerAttractionUsage = function(_PlayerID)
-        local Usage = 0;
-		if not Stronghold:IsPlayer(_PlayerID) then
-            return Stronghold.Attraction.Orig_GetPlayerAttractionUsage(_PlayerID);
-        end
-        local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-        local SerfCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
-        local BattleSerfCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_BattleSerf);
-        local ScoutCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Scout);
-        local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
-        local Criminals = Stronghold.Attraction:CountCriminals(_PlayerID);
-        Usage = WorkerCount + Criminals +
-                (BattleSerfCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Serf, _PlayerID).Places) +
-                (SerfCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Serf, _PlayerID).Places) +
-                (ScoutCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Scout, _PlayerID).Places) +
-                (ThiefCount * Stronghold.UnitConfig:GetConfig(Entities.PU_Thief, _PlayerID).Places);
-
-        -- External
-        Usage = GameCallback_Calculate_CivilAttrationUsage(_PlayerID, Usage);
-
-        return math.floor(Usage + 0.5);
-	end
 end
 

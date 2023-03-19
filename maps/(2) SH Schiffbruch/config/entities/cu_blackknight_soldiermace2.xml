@@ -71,6 +71,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
 	</Logic>
 	<Behavior>
 		  <Logic classname="GGL::CGLAnimationBehaviorExProps">
@@ -85,7 +86,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>360</Speed>
+			  <Speed>380</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 			  <MoveIdleAnim>CU_BlackKnight_SoldierMace1_Idle1</MoveIdleAnim>

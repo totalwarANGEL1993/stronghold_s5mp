@@ -28,7 +28,7 @@
   <!-- Exploration-->
 		<ModifyExploration>
         	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
+        </ModifyExploration>
 		 
         <BuildOn>XD_VillageCenter</BuildOn>
         <HideBase>true</HideBase>
@@ -45,7 +45,7 @@
             </Cost>
             <Type>PB_VillageCenter2</Type>            
         </Upgrade>
-		  <NumberOfAttractableSettlers>0</NumberOfAttractableSettlers>
+		  <NumberOfAttractableSettlers>35</NumberOfAttractableSettlers>
 		  <Exploration>40</Exploration>
         <ConstructionInfo>
             <Time>110</Time>

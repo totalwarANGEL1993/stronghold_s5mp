@@ -36,8 +36,8 @@
 		  <ArmorAmount>7</ArmorAmount> 
 		  <DodgeChance>7</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-    	<AttractionSlots>2</AttractionSlots>
     	<ExperiencePoints>25</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	
 
     
@@ -96,7 +96,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>440</Speed>
+			  <Speed>500</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_SoldierCavalry4_Idle1</MoveIdleAnim>

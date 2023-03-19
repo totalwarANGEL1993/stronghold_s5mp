@@ -68,6 +68,7 @@
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>                       
             <Category>SoldierBandit</Category>
         </Upgrade>
@@ -84,7 +85,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSettlerMovement</Class>
-			  <Speed>360</Speed>
+			  <Speed>380</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 		</Logic>

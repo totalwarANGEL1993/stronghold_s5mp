@@ -43,7 +43,8 @@
         </Upgrade>
         <CanBeSold>false</CanBeSold>
 		  
-		  <Exploration>50</Exploration>		
+		<NumberOfAttractableSettlers>125</NumberOfAttractableSettlers>
+		<Exploration>50</Exploration>		
         <ConstructionInfo>
 
             <BuilderSlot>

@@ -1223,12 +1223,6 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_CivilAttrationUsage", function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
-        return CurrentAmount;
-    end);
-
     Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, CurrentAmount);
@@ -1375,8 +1369,8 @@ function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value
     return Value;
 end
 
--- Passive Ability: decrease of used civil attraction
-function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
+-- Passive Ability: 
+function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
         local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
@@ -1387,13 +1381,6 @@ end
 
 -- Passive Ability: Increase of max military attraction
 function Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, _Value)
-    local Value = _Value;
-    -- Do nothing
-    return Value;
-end
-
--- Passive Ability: decrease of used military attraction
-function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     -- Do nothing
     return Value;

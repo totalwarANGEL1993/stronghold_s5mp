@@ -68,7 +68,8 @@
 		  <ArmorAmount>2</ArmorAmount>
 		  <DodgeChance>20</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-    	<ExperiencePoints>10</ExperiencePoints>    	
+    	<ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
 	</Logic>
 	<Behavior>
 		  <Logic classname="GGL::CGLAnimationBehaviorExProps">
@@ -83,7 +84,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>340</Speed>
+			  <Speed>380</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
 			  <MoveIdleAnim>CU_BanditLeaderBow1_Idle1</MoveIdleAnim>

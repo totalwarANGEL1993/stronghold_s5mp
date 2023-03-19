@@ -109,7 +109,6 @@ function Stronghold.Recruitment:Install()
     end
     self:CreateBuildingButtonHandlers();
     self:OverrideGUI();
-    self:CreateQueueController();
 end
 
 function Stronghold.Recruitment:OnSaveGameLoaded()
@@ -638,26 +637,6 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function Stronghold.Recruitment:CreateQueueController()
-    Overwrite.CreateOverwrite(
-        "GameCallback_Calculate_CivilAttrationUsage",
-        function(_PlayerID, _Amount)
-            local Amount = Overwrite.CallOriginal();
-            Amount = Amount + Stronghold.Recruitment:GetOccupiedSpacesFromQueues(_PlayerID, true);
-            return Amount;
-        end
-    );
-
-    Overwrite.CreateOverwrite(
-        "GameCallback_Calculate_MilitaryAttrationUsage",
-        function(_PlayerID, _Amount)
-            local Amount = Overwrite.CallOriginal();
-            Amount = Amount + Stronghold.Recruitment:GetOccupiedSpacesFromQueues(_PlayerID, false);
-            return Amount;
-        end
-    );
-end
-
 function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptName)
     if  self.Data[_PlayerID]
     and self.Data[_PlayerID].Queues[_Queue]
@@ -689,6 +668,28 @@ function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptN
             Stronghold.Unit:SetFormationOnCreate(ID);
         end
     end
+end
+
+function Stronghold.Recruitment:CanProduceUnitFromQueue(_PlayerID, _Queue, _ScriptName)
+    if  self.Data[_PlayerID]
+    and self.Data[_PlayerID].Queues[_Queue]
+    and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
+        local Data = self.Data[_PlayerID].Queues[_Queue][_ScriptName][1];
+        if Data then
+            local Places = Data.Places + (Data.Places * Data.Soldiers);
+            local Config = Stronghold.UnitConfig:GetConfig(Data.Type, _PlayerID);
+            if Config then
+                local AttractionLimit = GetMilitaryAttractionLimit(_PlayerID);
+                local AttractionUsage = GetMilitaryAttractionUsage(_PlayerID);
+                if Config.IsCivil then
+                    AttractionLimit = GetCivilAttractionLimit(_PlayerID);
+                    AttractionUsage = GetCivilAttractionUsage(_PlayerID);
+                end
+                return AttractionUsage + Places <= AttractionLimit;
+            end
+        end
+    end
+    return false;
 end
 
 function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID, _AutoFill)
@@ -805,8 +806,14 @@ function Stronghold.Recruitment:ControlProductionQueues(_PlayerID)
                     self.Data[_PlayerID].Queues[ButtonName][ScriptName] = nil;
                 else
                     if Queue[1] then
-                        if Queue[1].Progress > Queue[1].Limit then
-                            self:ProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName);
+                        if Queue[1].Progress >= Queue[1].Limit then
+                            if self:CanProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName) then
+                                self:ProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName);
+                            else
+                                -- Only for cosmetics
+                                local Progress = math.floor(Queue[1].Progress * 0.85);
+                                self.Data[_PlayerID].Queues[ButtonName][ScriptName][1].Progress = Progress;
+                            end
                         else
                             local Health = Logic.GetEntityHealth(GetID(ScriptName));
                             local MaxHealth = Logic.GetEntityMaxHealth(GetID(ScriptName));
@@ -862,9 +869,13 @@ function Stronghold.Recruitment:OverrideGUI()
             return;
         end
 
+        local Color = {26, 115, 16, 190};
+        if not self:CanProduceUnitFromQueue(PlayerID, _Button, ScriptName) then
+            Color = {214, 44, 24, 190};
+        end
         local TimeCharged = FirstEntry.Progress;
         local RechargeTime = FirstEntry.Limit;
-        XGUIEng.SetMaterialColor(CurrentWidgetID,1,214,44,24,189);
+        XGUIEng.SetMaterialColor(CurrentWidgetID, 1, unpack(Color));
         XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeCharged, RechargeTime);
         XGUIEng.SetTextByValue(_Button.. "_Amount", QueueSize);
     end

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
 	<TecCategoryType>TC_Inventions</TecCategoryType>
-	<TimeToResearch>15</TimeToResearch>
+	<TimeToResearch>20</TimeToResearch>
 	<ResourceCosts>
         <Gold>50</Gold>
         <Stone/>

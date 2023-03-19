@@ -157,16 +157,16 @@
 	<Behavior>
 	    <Logic classname="GGL::CShurikenAbilityProps">
 	        <Class>GGL::CShurikenAbility</Class>
-	        <RechargeTimeSeconds>60</RechargeTimeSeconds>
+	        <RechargeTimeSeconds>30</RechargeTimeSeconds>
 	        <TaskList>TL_SHURIKEN_SPECIAL</TaskList>
 	        <Animation>PU_Hero5_Attack2</Animation> 
 	        <Range>3000.0</Range>
 	        <MaxArcDegree>120</MaxArcDegree>
-	        <NumberShuriken>10</NumberShuriken>
+	        <NumberShuriken>12</NumberShuriken>
 	        <ProjectileType>FXArrow</ProjectileType> 
 	        <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight> 
 	        <DamageClass>DC_Hero</DamageClass>
-	        <DamageAmount>100</DamageAmount>
+	        <DamageAmount>75</DamageAmount>
 	    </Logic>
 	</Behavior>
 	
