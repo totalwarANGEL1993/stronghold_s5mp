@@ -42,7 +42,7 @@
             <Type>PU_LeaderHeavyCavalry2</Type> 
             <Category>LeaderHeavyCavalry</Category>
         </Upgrade>
-    	<AttractionSlots>2</AttractionSlots>
+    	<AttractionSlots>0</AttractionSlots>
 
         <ModifyArmor>
         	<Technology>T_LeatherMailArmor</Technology>

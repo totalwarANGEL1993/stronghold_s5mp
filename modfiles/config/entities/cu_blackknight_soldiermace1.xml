@@ -67,6 +67,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	
     	<Upgrade>                       
     	   <Category>BlackKnightSoldierMace1</Category>

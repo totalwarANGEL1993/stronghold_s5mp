@@ -80,6 +80,7 @@
         <DodgeChance>20</DodgeChance>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	
 	</Logic>
 	<Behavior>

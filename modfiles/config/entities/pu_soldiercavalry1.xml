@@ -98,7 +98,7 @@
         
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>15</ExperiencePoints>
-    	<AttractionSlots>2</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
 	</Logic>
 	<Behavior>
 		  <Logic classname="GGL::CGLAnimationBehaviorExProps">

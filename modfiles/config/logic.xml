@@ -91,7 +91,7 @@
     <GuardMoveDistanceOther>300.0</GuardMoveDistanceOther>
 
 	<!-- The time (in ms) after an attack an entity counts as 'recently attacked' (hit anim) -->
-	<MilitaryRecentlyAttackedTime>400</MilitaryRecentlyAttackedTime>
+	<MilitaryRecentlyAttackedTime>200</MilitaryRecentlyAttackedTime>
 
 	<MilitaryMaxAttackersPerEntity>100</MilitaryMaxAttackersPerEntity>
 

@@ -36,8 +36,7 @@
 			  <Gold>300</Gold>
 			  <Iron>30</Iron>
 			  <Wood/>
-        </Cost>
-       <AttractionSlots>5</AttractionSlots>        
+        </Cost>       
         <Category>Military</Category>        
         <Category>Melee</Category>
         <Category>Thief</Category>        
@@ -48,6 +47,7 @@
 		  <DodgeChance>0</DodgeChance> 
     	<IdleTaskList>TL_THIEF_IDLE</IdleTaskList>
     	<ExperiencePoints>40</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
 		<Fearless>true</Fearless>
 	</Logic>
 	<Behavior>

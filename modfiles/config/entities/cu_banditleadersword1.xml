@@ -66,6 +66,7 @@
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>                       
     	   <Category>LeaderBandit</Category>
     	    <Type>CU_BanditLeaderSword2</Type> 

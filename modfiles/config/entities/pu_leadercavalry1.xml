@@ -40,6 +40,7 @@
 		  <DodgeChance>20</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>25</ExperiencePoints>
+    	<AttractionSlots>0</AttractionSlots>
 
         <ModifyArmor>
         	<Technology>T_SoftArcherArmor</Technology>
@@ -72,7 +73,6 @@
             <Type>PU_LeaderCavalry2</Type> 
             <Category>LeaderCavalry</Category>
         </Upgrade>
-    	<AttractionSlots>2</AttractionSlots>
 	</Logic>
 	<Behavior>
 		  <Logic classname="GGL::CGLAnimationBehaviorExProps">

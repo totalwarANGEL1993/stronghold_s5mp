@@ -71,6 +71,7 @@
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     	<Upgrade>           
             <Type>PU_SoldierBow2</Type> 
             <Category>SoldierBow</Category>

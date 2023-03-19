@@ -39,6 +39,7 @@
 		  <DodgeChance>15</DodgeChance>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>30</ExperiencePoints>
+    	<AttractionSlots>0</AttractionSlots>
 
         <ModifyArmor>
         	<Technology>T_SoftArcherArmor</Technology>
@@ -66,8 +67,6 @@
         <ModifySpeed>
         	<Technology>T_Shoeing</Technology>
         </ModifySpeed>
-    	
-    	<AttractionSlots>2</AttractionSlots>
 	</Logic>
 	<Behavior>
 		  <Logic classname="GGL::CGLAnimationBehaviorExProps">

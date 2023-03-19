@@ -44,7 +44,7 @@
         </Upgrade>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
-    	<AttractionSlots>2</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
     	
 
     
