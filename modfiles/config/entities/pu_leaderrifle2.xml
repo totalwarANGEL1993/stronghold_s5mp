@@ -29,38 +29,25 @@
 			  <Wood/>
         </Cost>
         
-<!--Armor modifier-->
-        
-		  <ModifyArmor>
+		<ModifyArmor>
         	<Technology>T_FleeceLinedLeatherArmor</Technology>
         </ModifyArmor>
-        
         <ModifyArmor>
         	<Technology>T_FleeceArmor</Technology>
         </ModifyArmor>
-        
-        
-    
 
-    <!-- Damage Modifier-->
-          
-		  <ModifyDamage>
+		<ModifyDamage>
         	<Technology>T_LeadShot</Technology>
         </ModifyDamage>
-        
-        
-		  <ModifyExploration>
+
+		<ModifyExploration>
         	<Technology>T_Sights</Technology>
         </ModifyExploration>
-        
-         <ModifyMaxRange>
+        <ModifyMaxRange>
 			  <Technology>T_Sights</Technology>
 		</ModifyMaxRange>
-       
-
-    <!-- Speed Modifier-->
         
-		  <ModifySpeed>
+		<ModifySpeed>
         	<Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
         
@@ -68,12 +55,12 @@
         <Category>Leader</Category>
         <Category>Rifle</Category>
         <Category>LongRange</Category>
-		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <MaxHealth>250</MaxHealth>
-		  <Exploration>30</Exploration>
-		  <ArmorClass>ArmorClassNone</ArmorClass> 
-		  <ArmorAmount>4</ArmorAmount>
-		  <DodgeChance>5</DodgeChance> 
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>250</MaxHealth>
+        <Exploration>30</Exploration>
+        <ArmorClass>ArmorClassNone</ArmorClass> 
+        <ArmorAmount>4</ArmorAmount>
+        <DodgeChance>5</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>40</ExperiencePoints>
 	</Logic>
@@ -90,7 +77,7 @@
 	<Behavior>
 		  <Logic classname="EGL::CMovementBehaviorProps">
 			  <Class>GGL::CLeaderMovement</Class>
-			  <Speed>320</Speed>
+			  <Speed>280</Speed>
 			  <RotationSpeed>30</RotationSpeed>
 			  <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
 			  <MoveIdleAnim>PU_LeaderRifle2_Idle1</MoveIdleAnim>
@@ -124,7 +111,7 @@
 	        <HitAnim>PU_LeaderRifle2_Hit</HitAnim>
 	        
 	        <DamageClass>DC_Bullet</DamageClass>
-	        <DamageAmount>35</DamageAmount>
+	        <DamageAmount>28</DamageAmount>
 	        <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>3800</BattleWaitUntil>
@@ -136,7 +123,7 @@
 	        <MinRange>0.0f</MinRange>
 	        <AutoAttackRange>3000</AutoAttackRange>
 	        
-			  <HealingPoints>5</HealingPoints>
+			<HealingPoints>5</HealingPoints>
 	        <HealingSeconds>3</HealingSeconds>
 	        
 	        <UpkeepCost>20</UpkeepCost>
