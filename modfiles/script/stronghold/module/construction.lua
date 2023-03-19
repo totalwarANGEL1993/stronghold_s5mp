@@ -351,27 +351,21 @@ function Stronghold.Construction:OverridePlaceBuildingAction()
         return;
     end
 
-    Overwrite.CreateOverwrite(
-        "GUIAction_PlaceBuilding",
-        function(_UpgradeCategory)
-            local PlayerID = Stronghold:GetLocalPlayerID();
-            Overwrite.CallOriginal();
-            Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory = _UpgradeCategory;
-            return false;
-        end
-    );
+    Overwrite.CreateOverwrite("GUIAction_PlaceBuilding", function(_UpgradeCategory)
+        local PlayerID = Stronghold:GetLocalPlayerID();
+        Overwrite.CallOriginal();
+        Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory = _UpgradeCategory;
+        return false;
+    end);
 
-    Overwrite.CreateOverwrite(
-        "GUIUpdate_FindView",
-        function()
-            Overwrite.CallOriginal();
-            local PlayerID = Stronghold:GetLocalPlayerID();
-            Stronghold.Construction:CancelBuildingPlacementForUpgradeCategory(
-                PlayerID,
-                Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory
-            );
-        end
-    );
+    Overwrite.CreateOverwrite("GUIUpdate_FindView", function()
+        Overwrite.CallOriginal();
+        local PlayerID = Stronghold:GetLocalPlayerID();
+        Stronghold.Construction:CancelBuildingPlacementForUpgradeCategory(
+            PlayerID,
+            Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory
+        );
+    end);
 end
 
 function Stronghold.Construction:CancelBuildingPlacementForUpgradeCategory(_PlayerID, _UpgradeCategory)

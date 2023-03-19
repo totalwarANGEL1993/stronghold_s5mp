@@ -114,11 +114,11 @@
 	        <BattleWalkAnim>PU_LeaderCavalry2_Run1</BattleWalkAnim>
 	        <HitAnim>PU_LeaderCavalry2_Hit</HitAnim>
 
-            <DamageClass>DC_Bow</DamageClass>
-	        <DamageAmount>24</DamageAmount>
-	        <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
+            <DamageClass>DC_Crossbow</DamageClass>
+	        <DamageAmount>28</DamageAmount>
+	        <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 	        
-	        <BattleWaitUntil>3000</BattleWaitUntil>
+	        <BattleWaitUntil>2000</BattleWaitUntil>
 	        
 	        <MissChance>12</MissChance>
 	        

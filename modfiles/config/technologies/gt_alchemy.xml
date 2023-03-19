@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+	<TecCategoryType>TC_Resources</TecCategoryType>
+	<TimeToResearch>15</TimeToResearch>	
+	<ResourceCosts>
+        <Gold/>
+        <Sulfur>50</Sulfur>
+        <Clay/>
+        <Wood>50</Wood>
+        <Stone/>		
+        <Iron>50</Iron>	
+	</ResourceCosts>		
+	<AutomaticResearch>false</AutomaticResearch>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag>
+	<Conditions>
+		
+	</Conditions>	
+</root>

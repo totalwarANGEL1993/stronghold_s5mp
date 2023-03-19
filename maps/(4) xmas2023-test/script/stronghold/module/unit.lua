@@ -73,14 +73,9 @@ end
 -- -------------------------------------------------------------------------- --
 -- Buy Unit (Logic)
 
-function Stronghold.Unit:PayUnit(_PlayerID, _Type)
-    local CostsLeader = Stronghold:CreateCostTable(unpack(Stronghold.UnitConfig:GetConfig(_Type, _PlayerID).Costs[1]));
-    local IsLeader = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Leader) == 1;
-    local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
-    if IsLeader and not IsCannon and Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
-        CostsLeader = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, CostsLeader);
-    end
-    RemoveResourcesFromPlayer(_PlayerID, CostsLeader);
+function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
+    local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
+    RemoveResourcesFromPlayer(_PlayerID, Costs);
 end
 
 function Stronghold.Unit:RefillUnit(_PlayerID, _UnitID, _Amount, _Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)
@@ -173,7 +168,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     end
 
     local BuyAmount = 1;
-    if XGUIEng.IsModifierPressed(Keys.ModifierShift)== 1 then
+    if XGUIEng.IsModifierPressed(Keys.ModifierControl)== 1 then
         local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(EntityID);
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(EntityID);
         BuyAmount = MaxSoldiers - CurrentSoldiers;
@@ -228,7 +223,7 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
     end
 
     local BuyAmount = 1;
-    if XGUIEng.IsModifierPressed(Keys.ModifierShift)== 1 then
+    if XGUIEng.IsModifierPressed(Keys.ModifierControl)== 1 then
         local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(EntityID);
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(EntityID);
         BuyAmount = MaxSoldiers - CurrentSoldiers;
@@ -306,7 +301,7 @@ function Stronghold.Unit:ExpelSettlerButtonTooltip(_Key)
     local PlayerID = Stronghold:GetLocalPlayerID();
     if Stronghold:IsPlayer(PlayerID) then
         if _Key == "MenuCommandsGeneric/expel" then
-            local Index = (XGUIEng.IsModifierPressed(Keys.ModifierShift) == 1 and "All") or "Single";
+            local Index = (XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 and "All") or "Single";
             local Text = Placeholder.Replace(self.Config.UI["Expell" ..Index][Language]);
             XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
             return true;
@@ -330,7 +325,7 @@ function Stronghold.Unit:ExpelSettlerButtonAction()
     if Logic.IsWorker(EntityID) == 1 and Logic.GetSettlersWorkBuilding(EntityID) ~= 0 then
         return true;
     end
-    if XGUIEng.IsModifierPressed(Keys.ModifierShift) == 1 then
+    if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
         local Selected = {GUI.GetSelectedEntities()};
         GUI.ClearSelection();
         for i= 1, table.getn(Selected) do

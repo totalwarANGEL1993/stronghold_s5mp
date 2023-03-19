@@ -133,8 +133,8 @@
 	        <TaskList>TL_BATTLE_SPECIAL</TaskList>
 	        <Animation>CU_Evil_Queen_PoisonAttack</Animation>
 	        <DamageClass>DC_Hero</DamageClass>
-	        <DamageAmount>95</DamageAmount>
-	        <Range>1500.0</Range>
+	        <DamageAmount>75</DamageAmount>
+	        <Range>1750.0</Range>
       		<Effect>FXKalaPoison</Effect>
 	    </Logic>
 	</Behavior>

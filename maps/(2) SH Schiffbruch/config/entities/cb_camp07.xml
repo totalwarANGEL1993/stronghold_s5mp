@@ -10,8 +10,9 @@
 
 		<NeedsPlayer>true</NeedsPlayer>
 		<ForceNoPlayer>false</ForceNoPlayer>
-		<MaxHealth>75</MaxHealth>
-	        <ArmorAmount>0</ArmorAmount>
+		<ArmorClass>ArmorClassJerkin</ArmorClass> 
+		<MaxHealth>300</MaxHealth>
+	    <ArmorAmount>0</ArmorAmount>
         <ApproachPos>
             <X>-140</X>
             <Y>30</Y>

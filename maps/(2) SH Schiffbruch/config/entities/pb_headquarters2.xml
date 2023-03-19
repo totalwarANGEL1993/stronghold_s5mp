@@ -40,13 +40,13 @@
         <Category>WoodSupplier</Category>
         <Category>ThiefRefuge</Category> 
         <Upgrade>
-        	<Time>120.0</Time>  
+        	<Time>150.0</Time>  
       
             <Cost>
-				    <Clay>400</Clay>
+				    <Gold>1000</Gold>
+				    <Clay>350</Clay>
 				    <Wood/>
-				    <Stone>500</Stone>
-				    <Gold>500</Gold>
+				    <Stone>450</Stone>
 				    <Iron/>
 				    <Sulfur/>
             </Cost>
@@ -54,27 +54,10 @@
             <Category>Headquarters</Category>
         </Upgrade>
         <CanBeSold>false</CanBeSold>
-		  
-
-    
-
-    
-<!--NumberOfAttractableSettlers>25</NumberOfAttractableSettlers-->
+		
 		  <Exploration>50</Exploration>     
         <ConstructionInfo>
             
-
-      
-
-      
-
-      
-
-      <!--Time>10</Time>
-            <Cost>
-				<Clay>2000</Clay>
-				<Stone>1500</Stone>
-            </Cost-->
             <BuilderSlot>
                 <Position>
                     <X>400</X>

@@ -770,19 +770,19 @@
    <Scale>8.103275e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_VillageCenter</Type>
+   <Type>XD_Greenery3</Type>
    <Position>
-    <X>3.910000e+004</X>
-    <Y>8.700000e+003</Y>
+    <X>3.885705e+004</X>
+    <Y>9.148059e+003</Y>
    </Position>
-   <Orientation>0.000000e+000</Orientation>
+   <Orientation>2.853896e+002</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
+   <Scale>8.414930e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_Tree2</Type>
@@ -34615,7 +34615,7 @@
     <X>2.245925e+004</X>
     <Y>2.580656e+004</Y>
    </Position>
-   <Orientation>9.194737e+001</Orientation>
+   <Orientation>9.194736e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -38407,8 +38407,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_Tree3_small</Type>
    <Position>
-    <X>1.412000e+004</X>
-    <Y>8.220000e+003</Y>
+    <X>1.455693e+004</X>
+    <Y>6.867733e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -38467,10 +38467,10 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ChestClose</Type>
    <Position>
-    <X>1.447000e+004</X>
-    <Y>8.430000e+003</Y>
+    <X>1.585041e+004</X>
+    <Y>7.935767e+003</Y>
    </Position>
-   <Orientation>1.270100e+002</Orientation>
+   <Orientation>2.470096e+002</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -38485,7 +38485,7 @@
     <X>2.655863e+004</X>
     <Y>3.453000e+004</Y>
    </Position>
-   <Orientation>5.539000e+001</Orientation>
+   <Orientation>8.538997e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -62965,7 +62965,7 @@
     <X>1.728052e+004</X>
     <Y>1.336710e+004</Y>
    </Position>
-   <Orientation>7.740102e+001</Orientation>
+   <Orientation>7.740101e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -75955,7 +75955,7 @@
     <X>1.854032e+004</X>
     <Y>1.301904e+004</Y>
    </Position>
-   <Orientation>8.229009e+000</Orientation>
+   <Orientation>8.229008e+000</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -84280,7 +84280,7 @@
     <X>2.302301e+004</X>
     <Y>1.241929e+004</Y>
    </Position>
-   <Orientation>9.456219e+001</Orientation>
+   <Orientation>9.456218e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -86890,7 +86890,7 @@
     <X>2.274348e+004</X>
     <Y>9.672200e+003</Y>
    </Position>
-   <Orientation>6.578812e+001</Orientation>
+   <Orientation>6.578811e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -89167,8 +89167,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_SingnalFireOff</Type>
    <Position>
-    <X>4.590000e+003</X>
-    <Y>3.489585e+004</Y>
+    <X>2.709536e+004</X>
+    <Y>3.291000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -89227,8 +89227,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_Tree2</Type>
    <Position>
-    <X>4.168171e+003</X>
-    <Y>3.468000e+004</Y>
+    <X>4.126479e+003</X>
+    <Y>3.476815e+004</Y>
    </Position>
    <Orientation>9.000000e+001</Orientation>
    <Flags>0</Flags>
@@ -94987,8 +94987,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_SingnalFireOff</Type>
    <Position>
-    <X>3.459409e+004</X>
-    <Y>7.090000e+003</Y>
+    <X>3.459000e+004</X>
+    <Y>7.293444e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -95002,8 +95002,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_SingnalFireOff</Type>
    <Position>
-    <X>3.511000e+004</X>
-    <Y>6.592959e+003</Y>
+    <X>1.409219e+004</X>
+    <Y>8.206375e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -95122,8 +95122,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_Tree2_small</Type>
    <Position>
-    <X>3.642000e+004</X>
-    <Y>6.520000e+003</Y>
+    <X>3.527279e+004</X>
+    <Y>6.420000e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -101152,8 +101152,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_Tree1_small</Type>
    <Position>
-    <X>5.180000e+003</X>
-    <Y>3.523059e+004</Y>
+    <X>5.020000e+003</X>
+    <Y>3.522426e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -103705,7 +103705,7 @@
     <X>2.613386e+004</X>
     <Y>1.221300e+004</Y>
    </Position>
-   <Orientation>6.422802e+001</Orientation>
+   <Orientation>6.422801e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -103915,7 +103915,7 @@
     <X>2.412232e+004</X>
     <Y>2.851558e+004</Y>
    </Position>
-   <Orientation>9.263953e+001</Orientation>
+   <Orientation>9.263952e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -104035,7 +104035,7 @@
     <X>2.621241e+004</X>
     <Y>3.008739e+004</Y>
    </Position>
-   <Orientation>6.745810e+001</Orientation>
+   <Orientation>6.745809e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -104485,7 +104485,7 @@
     <X>2.045925e+004</X>
     <Y>2.780656e+004</Y>
    </Position>
-   <Orientation>9.194737e+001</Orientation>
+   <Orientation>9.194736e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -104770,7 +104770,7 @@
     <X>1.609118e+004</X>
     <Y>2.947946e+004</Y>
    </Position>
-   <Orientation>8.312508e+001</Orientation>
+   <Orientation>8.312507e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -105115,7 +105115,7 @@
     <X>1.609118e+004</X>
     <Y>2.907946e+004</Y>
    </Position>
-   <Orientation>8.312508e+001</Orientation>
+   <Orientation>8.312507e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -105395,19 +105395,1309 @@
    <Scale>9.783380e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_VillageCenter</Type>
+   <Type>XD_Plant2</Type>
    <Position>
-    <X>2.600000e+003</X>
-    <Y>3.310000e+004</Y>
+    <X>3.881904e+004</X>
+    <Y>9.486876e+003</Y>
    </Position>
-   <Orientation>0.000000e+000</Orientation>
+   <Orientation>3.600330e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
+   <Scale>1.167333e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.883168e+004</X>
+    <Y>9.558907e+003</Y>
+   </Position>
+   <Orientation>2.020667e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.008698e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>3.900411e+004</X>
+    <Y>9.379144e+003</Y>
+   </Position>
+   <Orientation>3.597253e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.096982e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant1</Type>
+   <Position>
+    <X>3.873058e+004</X>
+    <Y>9.144784e+003</Y>
+   </Position>
+   <Orientation>2.707444e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.128489e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.863180e+004</X>
+    <Y>8.026852e+003</Y>
+   </Position>
+   <Orientation>1.017365e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.792413e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant3</Type>
+   <Position>
+    <X>3.841866e+004</X>
+    <Y>7.831894e+003</Y>
+   </Position>
+   <Orientation>2.515836e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.438033e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush2</Type>
+   <Position>
+    <X>3.858166e+004</X>
+    <Y>8.177053e+003</Y>
+   </Position>
+   <Orientation>9.061800e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.065554e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant1</Type>
+   <Position>
+    <X>3.894116e+004</X>
+    <Y>8.087565e+003</Y>
+   </Position>
+   <Orientation>7.910397e-001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.511368e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>3.855461e+004</X>
+    <Y>8.124187e+003</Y>
+   </Position>
+   <Orientation>3.040229e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.021247e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant3</Type>
+   <Position>
+    <X>3.927859e+004</X>
+    <Y>9.170096e+003</Y>
+   </Position>
+   <Orientation>9.641895e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.073751e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>3.964891e+004</X>
+    <Y>9.164885e+003</Y>
+   </Position>
+   <Orientation>1.773797e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.504410e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant1</Type>
+   <Position>
+    <X>3.921462e+004</X>
+    <Y>8.995381e+003</Y>
+   </Position>
+   <Orientation>3.035835e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.026978e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>3.931513e+004</X>
+    <Y>9.083953e+003</Y>
+   </Position>
+   <Orientation>2.171075e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.055599e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant1</Type>
+   <Position>
+    <X>3.924871e+004</X>
+    <Y>8.994100e+003</Y>
+   </Position>
+   <Orientation>3.199316e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.117026e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>3.903136e+004</X>
+    <Y>1.115075e+004</Y>
+   </Position>
+   <Orientation>2.058791e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.037019e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.888050e+004</X>
+    <Y>1.149949e+004</Y>
+   </Position>
+   <Orientation>7.420393e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.475600e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery4</Type>
+   <Position>
+    <X>3.901872e+004</X>
+    <Y>1.144444e+004</Y>
+   </Position>
+   <Orientation>2.391796e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.813288e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical1</Type>
+   <Position>
+    <X>3.911871e+004</X>
+    <Y>1.131890e+004</Y>
+   </Position>
+   <Orientation>3.005951e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.303354e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.911877e+004</X>
+    <Y>1.140667e+004</Y>
+   </Position>
+   <Orientation>9.664968e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.116599e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockGrass2</Type>
+   <Position>
+    <X>2.061049e+003</X>
+    <Y>3.215654e+004</Y>
+   </Position>
+   <Orientation>2.480459e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.142894e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>2.232015e+003</X>
+    <Y>3.220611e+004</Y>
+   </Position>
+   <Orientation>2.113395e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.043489e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant3</Type>
+   <Position>
+    <X>2.121045e+003</X>
+    <Y>3.216335e+004</Y>
+   </Position>
+   <Orientation>2.755455e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.999054e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant4</Type>
+   <Position>
+    <X>2.277304e+003</X>
+    <Y>3.197819e+004</Y>
+   </Position>
+   <Orientation>1.898825e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.159337e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush3</Type>
+   <Position>
+    <X>2.251752e+003</X>
+    <Y>3.217288e+004</Y>
+   </Position>
+   <Orientation>1.569884e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.362224e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>2.121942e+003</X>
+    <Y>3.369059e+004</Y>
+   </Position>
+   <Orientation>3.076266e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.061275e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant1</Type>
+   <Position>
+    <X>2.324771e+003</X>
+    <Y>3.346213e+004</Y>
+   </Position>
+   <Orientation>4.081545e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.844295e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockGrass2</Type>
+   <Position>
+    <X>2.193851e+003</X>
+    <Y>3.351291e+004</Y>
+   </Position>
+   <Orientation>6.084414e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.485000e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>2.282800e+003</X>
+    <Y>3.341718e+004</Y>
+   </Position>
+   <Orientation>6.896328e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.841701e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>2.367907e+003</X>
+    <Y>3.339955e+004</Y>
+   </Position>
+   <Orientation>3.480135e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.062374e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockGrass2</Type>
+   <Position>
+    <X>3.090487e+003</X>
+    <Y>3.327002e+004</Y>
+   </Position>
+   <Orientation>2.985186e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.082247e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.022985e+003</X>
+    <Y>3.318665e+004</Y>
+   </Position>
+   <Orientation>2.898282e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.895200e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical1</Type>
+   <Position>
+    <X>3.294608e+003</X>
+    <Y>3.339352e+004</Y>
+   </Position>
+   <Orientation>1.474081e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.819605e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>2.980186e+003</X>
+    <Y>3.321399e+004</Y>
+   </Position>
+   <Orientation>2.436732e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.119590e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical1</Type>
+   <Position>
+    <X>3.347735e+003</X>
+    <Y>3.317364e+004</Y>
+   </Position>
+   <Orientation>3.397516e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.022846e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>2.816493e+003</X>
+    <Y>3.210498e+004</Y>
+   </Position>
+   <Orientation>2.459804e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.049190e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush3</Type>
+   <Position>
+    <X>2.810406e+003</X>
+    <Y>3.224530e+004</Y>
+   </Position>
+   <Orientation>8.121341e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.222938e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant3</Type>
+   <Position>
+    <X>3.005385e+003</X>
+    <Y>3.205693e+004</Y>
+   </Position>
+   <Orientation>2.690304e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.767480e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush3</Type>
+   <Position>
+    <X>3.057565e+003</X>
+    <Y>3.222823e+004</Y>
+   </Position>
+   <Orientation>3.506284e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.193091e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush3</Type>
+   <Position>
+    <X>2.949564e+003</X>
+    <Y>3.242864e+004</Y>
+   </Position>
+   <Orientation>6.066835e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.041926e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical1</Type>
+   <Position>
+    <X>2.678604e+003</X>
+    <Y>3.107299e+004</Y>
+   </Position>
+   <Orientation>5.419721e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.137242e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery4</Type>
+   <Position>
+    <X>2.768049e+003</X>
+    <Y>3.074633e+004</Y>
+   </Position>
+   <Orientation>3.263478e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.863827e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>2.812956e+003</X>
+    <Y>3.085230e+004</Y>
+   </Position>
+   <Orientation>2.614606e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.023164e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant3</Type>
+   <Position>
+    <X>2.770534e+003</X>
+    <Y>3.107717e+004</Y>
+   </Position>
+   <Orientation>1.475399e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.041584e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery4</Type>
+   <Position>
+    <X>2.926875e+003</X>
+    <Y>3.070261e+004</Y>
+   </Position>
+   <Orientation>5.824030e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.350230e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Tree2_small</Type>
+   <Position>
+    <X>3.933258e+004</X>
+    <Y>1.066339e+004</Y>
+   </Position>
+   <Orientation>3.488156e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.052681e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Tree1</Type>
+   <Position>
+    <X>3.916152e+004</X>
+    <Y>1.008000e+004</Y>
+   </Position>
+   <Orientation>1.492208e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.688986e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Fir1_small</Type>
+   <Position>
+    <X>3.935036e+004</X>
+    <Y>9.220000e+003</Y>
+   </Position>
+   <Orientation>8.458631e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.780053e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Tree3</Type>
+   <Position>
+    <X>3.956793e+004</X>
+    <Y>8.580000e+003</Y>
+   </Position>
+   <Orientation>2.184918e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.555590e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Fir1</Type>
+   <Position>
+    <X>3.908000e+004</X>
+    <Y>8.320080e+003</Y>
+   </Position>
+   <Orientation>7.120456e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.835231e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Tree1</Type>
+   <Position>
+    <X>3.878000e+004</X>
+    <Y>8.220000e+003</Y>
+   </Position>
+   <Orientation>1.281155e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.182989e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Tree1_small</Type>
+   <Position>
+    <X>1.880000e+003</X>
+    <Y>3.332000e+004</Y>
+   </Position>
+   <Orientation>1.763250e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.346355e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Tree2_small</Type>
+   <Position>
+    <X>2.220000e+003</X>
+    <Y>3.366087e+004</Y>
+   </Position>
+   <Orientation>1.785882e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.173229e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant3</Type>
+   <Position>
+    <X>6.368378e+003</X>
+    <Y>2.813185e+004</Y>
+   </Position>
+   <Orientation>1.432551e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.199951e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>6.900913e+003</X>
+    <Y>2.783337e+004</Y>
+   </Position>
+   <Orientation>1.877621e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.801813e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>6.852890e+003</X>
+    <Y>2.783184e+004</Y>
+   </Position>
+   <Orientation>2.650752e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.022614e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush3</Type>
+   <Position>
+    <X>6.739810e+003</X>
+    <Y>2.808302e+004</Y>
+   </Position>
+   <Orientation>1.573180e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.271646e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical1</Type>
+   <Position>
+    <X>6.622674e+003</X>
+    <Y>2.812949e+004</Y>
+   </Position>
+   <Orientation>2.611310e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.130454e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery2</Type>
+   <Position>
+    <X>6.872392e+003</X>
+    <Y>2.996477e+004</Y>
+   </Position>
+   <Orientation>2.173931e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.324748e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery2</Type>
+   <Position>
+    <X>7.127000e+003</X>
+    <Y>2.950070e+004</Y>
+   </Position>
+   <Orientation>9.920956e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.414106e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush2</Type>
+   <Position>
+    <X>7.257548e+003</X>
+    <Y>3.002687e+004</Y>
+   </Position>
+   <Orientation>3.454866e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.040364e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical1</Type>
+   <Position>
+    <X>7.007423e+003</X>
+    <Y>2.979907e+004</Y>
+   </Position>
+   <Orientation>2.710300e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.157103e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant1</Type>
+   <Position>
+    <X>6.958320e+003</X>
+    <Y>2.971657e+004</Y>
+   </Position>
+   <Orientation>1.635914e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.072457e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant4</Type>
+   <Position>
+    <X>9.014089e+003</X>
+    <Y>2.776406e+004</Y>
+   </Position>
+   <Orientation>2.195135e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.125095e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery2</Type>
+   <Position>
+    <X>9.276965e+003</X>
+    <Y>2.769107e+004</Y>
+   </Position>
+   <Orientation>3.164159e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.809626e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockGrass2</Type>
+   <Position>
+    <X>9.438879e+003</X>
+    <Y>2.757713e+004</Y>
+   </Position>
+   <Orientation>2.882131e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.074032e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockGrass2</Type>
+   <Position>
+    <X>9.544431e+003</X>
+    <Y>2.779924e+004</Y>
+   </Position>
+   <Orientation>4.581438e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.678518e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>9.406207e+003</X>
+    <Y>2.772146e+004</Y>
+   </Position>
+   <Orientation>1.518796e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.190136e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.005939e+004</X>
+    <Y>1.137541e+004</Y>
+   </Position>
+   <Orientation>2.552312e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.459120e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>2.971664e+004</X>
+    <Y>1.152354e+004</Y>
+   </Position>
+   <Orientation>5.726249e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.472304e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery2</Type>
+   <Position>
+    <X>3.001569e+004</X>
+    <Y>1.145529e+004</Y>
+   </Position>
+   <Orientation>3.158336e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.081784e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery2</Type>
+   <Position>
+    <X>2.994923e+004</X>
+    <Y>1.156327e+004</Y>
+   </Position>
+   <Orientation>1.299942e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.447798e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>3.009405e+004</X>
+    <Y>1.135177e+004</Y>
+   </Position>
+   <Orientation>1.352568e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.046492e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.158660e+004</X>
+    <Y>1.141736e+004</Y>
+   </Position>
+   <Orientation>1.684475e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.201544e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>3.195415e+004</X>
+    <Y>1.155362e+004</Y>
+   </Position>
+   <Orientation>2.671517e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.114573e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant1</Type>
+   <Position>
+    <X>3.160507e+004</X>
+    <Y>1.136986e+004</Y>
+   </Position>
+   <Orientation>6.639240e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.181860e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bush3</Type>
+   <Position>
+    <X>3.139635e+004</X>
+    <Y>1.161190e+004</Y>
+   </Position>
+   <Orientation>2.052419e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.985535e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>3.171915e+004</X>
+    <Y>1.106387e+004</Y>
+   </Position>
+   <Orientation>3.947508e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.788232e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.195496e+004</X>
+    <Y>1.349376e+004</Y>
+   </Position>
+   <Orientation>2.916959e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.079989e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockGrass2</Type>
+   <Position>
+    <X>3.190921e+004</X>
+    <Y>1.345819e+004</Y>
+   </Position>
+   <Orientation>3.264797e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.604633e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant3</Type>
+   <Position>
+    <X>3.197212e+004</X>
+    <Y>1.303945e+004</Y>
+   </Position>
+   <Orientation>2.047694e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.123472e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Plant2</Type>
+   <Position>
+    <X>3.231981e+004</X>
+    <Y>1.334924e+004</Y>
+   </Position>
+   <Orientation>2.149321e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.151134e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>3.173826e+004</X>
+    <Y>1.366722e+004</Y>
+   </Position>
+   <Orientation>3.389496e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.041536e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery2</Type>
+   <Position>
+    <X>3.437980e+004</X>
+    <Y>1.205178e+004</Y>
+   </Position>
+   <Orientation>1.926292e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.747612e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Greenery3</Type>
+   <Position>
+    <X>3.441243e+004</X>
+    <Y>1.196046e+004</Y>
+   </Position>
+   <Orientation>2.684042e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>8.491836e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.435552e+004</X>
+    <Y>1.219169e+004</Y>
+   </Position>
+   <Orientation>4.819849e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.502243e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical1</Type>
+   <Position>
+    <X>3.417336e+004</X>
+    <Y>1.208241e+004</Y>
+   </Position>
+   <Orientation>2.260176e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.127964e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_GreeneryVertical2</Type>
+   <Position>
+    <X>3.433754e+004</X>
+    <Y>1.215204e+004</Y>
+   </Position>
+   <Orientation>1.527146e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.111362e-001</Scale>
   </Entity>
  </Entities>
 </root>

@@ -701,20 +701,17 @@ end
 -- UI
 
 function Stronghold.Economy:OverrideFindViewUpdate()
-    Overwrite.CreateOverwrite(
-        "GUIUpdate_FindView",
-        function()
-            Overwrite.CallOriginal();
-            local PlayerID = GUI.GetPlayerID();
-            if PlayerID == 17 then
-                local EntityID = GUI.GetSelectedEntity();
-                PlayerID = Logic.EntityGetPlayer(EntityID);
-            end
-            XGUIEng.ShowWidget("FindView", 1);
-            XGUIEng.ShowAllSubWidgets("FindView", 1);
-            Stronghold.Economy:HonorMenu();
+    Overwrite.CreateOverwrite("GUIUpdate_FindView", function()
+        Overwrite.CallOriginal();
+        local PlayerID = GUI.GetPlayerID();
+        if PlayerID == 17 then
+            local EntityID = GUI.GetSelectedEntity();
+            PlayerID = Logic.EntityGetPlayer(EntityID);
         end
-    );
+        XGUIEng.ShowWidget("FindView", 1);
+        XGUIEng.ShowAllSubWidgets("FindView", 1);
+        Stronghold.Economy:HonorMenu();
+    end);
 end
 
 function Stronghold.Economy:GetLeaderTypesInUpgradeCategories(...)
@@ -905,7 +902,7 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
         return false;
     end
 
-    local UpkeepText = self.Config.UI.FindView.Upkeep[Language];
+    local UpkeepText = string.format(self.Config.UI.FindView.Upkeep[Language], Upkeep);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text .. UpkeepText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");

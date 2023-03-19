@@ -44,16 +44,11 @@
         <Category>ThiefRefuge</Category> 
   
         <Upgrade>
-        	<Time>90.0</Time>  
-
-
-      
-
-      <!-- In seconds!  -->
+        	<Time>120.0</Time>  
             <Cost>
-				    <Gold>300</Gold>
+				    <Gold>500</Gold>
 				    <Wood/>
-				    <Stone>300</Stone>
+				    <Stone>250</Stone>
 				    <Clay>250</Clay>
 				    <Iron/>
 				    <Sulfur/>
@@ -62,17 +57,12 @@
             <Category>Headquarters</Category>
         </Upgrade>
         <CanBeSold>false</CanBeSold>
-    
-
-    
-
-    <!--NumberOfAttractableSettlers>25</NumberOfAttractableSettlers-->
 		  <Exploration>50</Exploration>  
         <ConstructionInfo>
         	<Time>110</Time>
             <Cost>
-				    <Clay>1000</Clay>
-				    <Wood/>
+				    <Clay>500</Clay>
+				    <Wood>500</Wood>
 				    <Stone>1000</Stone>
 				    <Gold/>
 				    <Iron/>

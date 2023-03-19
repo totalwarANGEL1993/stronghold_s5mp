@@ -123,7 +123,7 @@ function Stronghold.Recruitment:CreateBuildingButtonHandlers()
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Recruitment.SyncEvents.PayUnit then
-                Stronghold.Unit:PayUnit(_PlayerID, arg[2]);
+                Stronghold.Unit:PayUnit(_PlayerID, arg[1], arg[2]);
             elseif _Action == Stronghold.Recruitment.SyncEvents.EnqueueUnit then
                 if arg[5] then
                     self:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
@@ -222,7 +222,7 @@ function Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
 
         Costs = CopyTable(Config.Costs[1]);
         Costs = CreateCostTable(unpack(Costs));
-        Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, Costs);
+        Costs = Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, Costs);
         if _SoldierAmount and _SoldierAmount > 0 then
             local SoldierCosts = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
             Costs = MergeCostTable(Costs, SoldierCosts);
@@ -240,7 +240,7 @@ function Stronghold.Recruitment:GetSoldierCostsByLeaderType(_PlayerID, _Type, _A
             Costs[i] = Costs[i] * (_Amount or Config.Soldiers);
         end
         Costs = CreateCostTable(unpack(Costs));
-        Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, Costs);
+        Costs = Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _Type, Costs);
     end
     return Costs;
 end
@@ -293,27 +293,33 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
-            Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(PlayerID, UnitType, Costs);
             if not Modifier and not HasPlayerEnoughResourcesFeedback(Costs) then
                 return true;
             end
 
             Stronghold.Players[PlayerID].BuyUnitLock = true;
-            local EventType = self.SyncEvents.EnqueueUnit;
+            -- For cannons only pay the costs
             if string.find(Button, "Cannon") then
-                EventType = self.SyncEvents.PayUnit;
                 GUI.BuyCannon(EntityID, _Type);
                 XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress,1);
+                Syncer.InvokeEvent(
+                    self.NetworkCall,
+                    self.SyncEvents.PayUnit,
+                    UnitType,
+                    0
+                );
+            -- For other units enqueue them in the queue
+            else
+                Syncer.InvokeEvent(
+                    self.NetworkCall,
+                    self.SyncEvents.EnqueueUnit,
+                    EntityID,
+                    UnitType,
+                    false,
+                    Button,
+                    XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
+                );
             end
-            Syncer.InvokeEvent(
-                self.NetworkCall,
-                EventType,
-                EntityID,
-                UnitType,
-                false,
-                Button,
-                XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
-            );
             return true;
         end
     end
@@ -378,7 +384,6 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
-            Costs = Stronghold.Hero:ApplyUnitCostPassiveAbility(PlayerID, UnitType, Costs);
             if not Modifier and not HasPlayerEnoughResourcesFeedback(Costs) then
                 return true;
             end
@@ -662,6 +667,10 @@ function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptN
             if not IsExisting(_ScriptName) then
                 return;
             end
+            local Experience = 0;
+            if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
+                Experience = 3;
+            end
             local Orientation = Logic.GetEntityOrientation(GetID(_ScriptName));
             local Position = Stronghold.Unit:GetBarracksDoorPosition(GetID(_ScriptName));
             local ID = AI.Entity_CreateFormation(
@@ -673,7 +682,7 @@ function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptN
                 Position.Y,
                 0,
                 0,
-                Data.Experience,
+                Experience,
                 Data.Soldiers
             );
             Logic.RotateEntity(ID, Orientation +180);
@@ -691,28 +700,18 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
         local Config = Stronghold.UnitConfig:GetConfig(_Type, _PlayerID);
         if Stronghold.UnitConfig:GetConfig(_Type, _PlayerID) then
             local ScriptName = Logic.GetEntityName(_BarracksID);
-            local IsLeader = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Leader) == 1;
-            local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
             local Soldiers = (_AutoFill and  Config.Soldiers) or 0;
             local CostsSoldier = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, Soldiers);
             local CostsLeader = self:GetLeaderCosts(_PlayerID, _Type, 0);
-            local Experience = 0;
             local Places = Config.Places or Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type);
-            if IsLeader and not IsCannon and Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
-                CostsLeader = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, CostsLeader);
-                Experience = 3;
-            end
-            -- if IsCannon and Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
-            --     CostsLeader = Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, CostsLeader);
-            -- end
-            self:CreateNewQueueEntry(_PlayerID, _Queue, ScriptName, Config.Turns, _Type, Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier, Experience);
-            self:PayUnit(_PlayerID, CostsLeader, CostsSoldier);
+            self:CreateNewQueueEntry(_PlayerID, _Queue, ScriptName, Config.Turns, _Type, Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier);
+            self:SubResourcesForUnit(_PlayerID, CostsLeader, CostsSoldier);
         end
         Stronghold.Players[_PlayerID].BuyUnitLock = nil;
     end
 end
 
-function Stronghold.Recruitment:PayUnit(_PlayerID, _CostsLeader, _CostsSoldier)
+function Stronghold.Recruitment:SubResourcesForUnit(_PlayerID, _CostsLeader, _CostsSoldier)
     local CostsFull = _CostsLeader;
     for k,v in pairs(_CostsSoldier) do
         CostsFull[k] = (CostsFull[k] or 0) + (v or 0);

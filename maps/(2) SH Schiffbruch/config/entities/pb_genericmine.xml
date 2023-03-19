@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+			<Class>ED::CDisplayStaticEntity</Class>
+			<Model>PB_GenericMine</Model>
+	</Display>
+	<Logic classname="GGL::CGLBuildingProps">
+		  <Class>GGL::CBuilding</Class>
+		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
+		  <NeedsPlayer>true</NeedsPlayer>
+		  <ForceNoPlayer>false</ForceNoPlayer>
+        <BuildOn>XD_ClayPit1</BuildOn>
+        <BuildOn>XD_IronPit1</BuildOn>
+        <BuildOn>XD_StonePit1</BuildOn>
+        <BuildOn>XD_SulfurPit1</BuildOn>
+        <BuildOn>XD_ClayPit1</BuildOn>
+        <Upgrade>
+            <Category>GenericMine</Category>
+        </Upgrade>
+	    <ConstructionInfo>
+	    	<Cost>
+				    <Clay>150</Clay>												
+				    <Wood>100</Wood>
+				    <Stone>0</Stone>
+				    <Gold/>
+				    <Iron/>
+				    <Sulfur/>
+	    	</Cost>
+        </ConstructionInfo>
+	</Logic>	
+    <Behavior>
+        <Logic classname="GGL::CResourceDependentBuildingBehaviorProperties">
+            <Class>GGL::CResourceDependentBuildingBehavior</Class>
+            <Building>
+                <Resource>XD_ClayPit1</Resource>
+                <Type>PB_ClayMine1</Type>
+            </Building>
+            <Building>
+                <Resource>XD_IronPit1</Resource>
+                <Type>PB_IronMine1</Type>
+            </Building>
+            <Building>
+                <Resource>XD_StonePit1</Resource>
+                <Type>PB_StoneMine1</Type>
+            </Building>
+            <Building>
+                <Resource>XD_SulfurPit1</Resource>
+                <Type>PB_SulfurMine1</Type>
+            </Building>
+			  <Building>
+                <Resource>XD_ClayPit1</Resource>
+                <Type>PB_ClayMine1</Type>
+            </Building>
+
+
+        </Logic>
+    </Behavior>
+</root>

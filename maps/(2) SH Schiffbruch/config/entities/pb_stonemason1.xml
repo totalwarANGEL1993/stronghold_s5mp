@@ -14,7 +14,7 @@
 		  <UpgradeSite>ZB_UpgradeSiteStonemason1</UpgradeSite>
 		  <MaxHealth>1200</MaxHealth>
 		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>3</ArmorAmount>   
+		  <ArmorAmount>4</ArmorAmount>   
 		  
 		<!-- Armor -->
 		<ModifyArmor>
@@ -27,8 +27,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Stonecutter</Worker>
-        <MaxWorkers>3</MaxWorkers>
-        <InitialMaxWorkers>3</InitialMaxWorkers>
+        <MaxWorkers>4</MaxWorkers>
+        <InitialMaxWorkers>4</InitialMaxWorkers>
 		  <WorkTaskList>
 		    <Start>TL_STONECUTTER_WORK_START</Start> 
 		    <Work>TL_STONECUTTER_WORK</Work> 
@@ -45,9 +45,8 @@
             <Category>StoneMason</Category>
             <Time>40.0</Time>  
             <Cost>
-			    <Clay>150</Clay>
-			    <Wood/>
-				    <Stone>150</Stone>
+			    <Clay>250</Clay>
+			    <Wood>200</Wood>
 				    <Gold/>
 				    <Iron/>
 				    <Sulfur/>
@@ -58,7 +57,7 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-			    <Clay>250</Clay>
+			    <Clay>200</Clay>
 			    <Wood>150</Wood>
 				    <Stone>0</Stone>
 				    <Gold/>

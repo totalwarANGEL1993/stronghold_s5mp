@@ -39,9 +39,9 @@
             <Category>Farm</Category>
             <Time>50.0</Time>  
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>250</Wood>
-                <Stone>150</Stone>
+			    <Clay>250</Clay>
+			    <Wood>150</Wood>
+                <Stone>50</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>

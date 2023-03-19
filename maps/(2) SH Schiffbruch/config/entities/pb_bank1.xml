@@ -29,8 +29,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Treasurer</Worker>
-        <MaxWorkers>3</MaxWorkers>
-        <InitialMaxWorkers>3</InitialMaxWorkers>
+        <MaxWorkers>4</MaxWorkers>
+        <InitialMaxWorkers>4</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_TREASURER_WORK_START</Start> 
             <Work>TL_TREASURER_WORK</Work> 
@@ -43,8 +43,8 @@
             <Category>Bank</Category>
             <Time>40</Time>  
             <Cost>
-                <Clay>0</Clay>
-                <Wood>100</Wood>
+                <Clay>200</Clay>
+                <Wood/>
                 <Stone>300</Stone>
                 <Gold>200</Gold>
                 <Iron/>
@@ -55,9 +55,9 @@
         <ConstructionInfo>
         	<Time>130</Time>
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>350</Wood>
-                <Stone>400</Stone>
+			    <Clay>100</Clay>
+			    <Wood>100</Wood>
+                <Stone>300</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -159,7 +159,7 @@
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
             <ResourceType>Gold</ResourceType>
-            <InitialFactor>3</InitialFactor>
+            <InitialFactor>2</InitialFactor>
             <SupplierCategory>GoldSupplier</SupplierCategory>
         </Logic>
     </Behavior>

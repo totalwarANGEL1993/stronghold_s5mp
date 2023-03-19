@@ -79,7 +79,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassLeather</ArmorClass>
-		  <ArmorAmount>8</ArmorAmount> 
+		  <ArmorAmount>6</ArmorAmount> 
 		  <DodgeChance>3</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>25</ExperiencePoints>
@@ -120,7 +120,7 @@
 	        <HitAnim>PU_SoldierSword4_Hit</HitAnim>
 	        
 	        <DamageClass>DC_Sword</DamageClass>
-	        <DamageAmount>18</DamageAmount>
+	        <DamageAmount>22</DamageAmount>
 	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2700</BattleWaitUntil>

@@ -49,7 +49,7 @@ Stronghold = {
     Config = {
         Base = {
             MaxHonor = 9000,
-            InitialResources = {0, 950, 1800, 3000, 850, 50, 50},
+            InitialResources = {0, 1000, 2000, 2500, 850, 100, 100},
             InitialRank = 1,
             MaxRank = 7,
             StartingSerfs = 6,
@@ -64,7 +64,7 @@ Stronghold = {
                 end,
             },
             [2] = {
-                Costs = {10, 50, 0, 0, 0, 0, 0},
+                Costs = {10, 0, 0, 0, 0, 0, 0},
                 Description = {
                     de = "Kapelle",
                     en = "Chapel"
@@ -77,7 +77,7 @@ Stronghold = {
                 end,
             },
             [3] = {
-                Costs = {20, 100, 0, 0, 0, 0, 0},
+                Costs = {25, 0, 0, 0, 0, 0, 0},
                 Description = {
                     de = "Handelswesen, Festung",
                     en = "Trading, Fortress"
@@ -94,7 +94,7 @@ Stronghold = {
                 end,
             },
             [4] = {
-                Costs = {50, 200, 0, 0, 0, 0, 0},
+                Costs = {50, 0, 0, 0, 0, 0, 0},
                 Description = {
                     de = "8 Ziergebäude",
                     en = "8 Beautifications"
@@ -117,7 +117,7 @@ Stronghold = {
                 end,
             },
             [5] = {
-                Costs = {100, 500, 0, 0, 0, 0, 0},
+                Costs = {100, 0, 0, 0, 0, 0, 0},
                 Description = {
                     de = "4 Alchemisten, 4 Ziegelbrenner, 4 Sägewerker, 4 Schmiede, 4 Steinmetze",
                     en = "4 Alchemists, 4 Brickmaker, 4 Sawmillworkers, 4 Smiths, 4 Stonemasons"
@@ -132,7 +132,7 @@ Stronghold = {
                 end,
             },
             [6] = {
-                Costs = {200, 1000, 0, 0, 0, 0, 0},
+                Costs = {200, 0, 0, 0, 0, 0, 0},
                 Description = {
                     de = "Kathedrale, 45 Arbeiter",
                     en = "Cathedral, 45 Workers"
@@ -144,7 +144,7 @@ Stronghold = {
                 end,
             },
             [7] = {
-                Costs = {300, 2000, 0, 0, 0, 0, 0},
+                Costs = {300, 0, 0, 0, 0, 0, 0},
                 Description = {
                     de = "Alle Ziergebäude, Zitadelle, 65 Arbeiter",
                     en = "All Beautifications, Zitadel, 65 Workers"
@@ -460,6 +460,7 @@ function Stronghold:AddPlayer(_PlayerID)
         AttackMemory = {},
     };
 
+    -- NEVER EVER CHANGE THIS!!!
     BuyHero.SetNumberOfBuyableHeroes(_PlayerID, 1);
     if CNetwork then
         SendEvent.SetTaxes(_PlayerID, 0);
@@ -1264,7 +1265,7 @@ function Stronghold:OverrideWidgetTooltips()
         Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
     end);
 
-    Overwrite.CreateOverwrite( "GUITooltip_Generic", function(_Key)
+    Overwrite.CreateOverwrite("GUITooltip_Generic", function(_Key)
         local PlayerID = Stronghold:GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         if not Stronghold:IsPlayer(PlayerID) then

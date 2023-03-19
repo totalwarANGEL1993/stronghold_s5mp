@@ -103,9 +103,8 @@
 	        
 	        <UpkeepCost>20</UpkeepCost>
 	        
-	        <!-- <HealingPoints>4</HealingPoints>
-	        <HealingSeconds>4</HealingSeconds> -->
-	        
+	        <HealingPoints>2</HealingPoints>
+	        <HealingSeconds>5</HealingSeconds>
 		</Logic>
 	</Behavior>
 	<Behavior>

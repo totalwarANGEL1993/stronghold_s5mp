@@ -32,41 +32,16 @@
 			<Category>GoldSupplier</Category>
 			<Category>WoodSupplier</Category>
         
-
-    
-
-    
-
-    
-<!--Worker>PU_Trader</Worker>
-        <MaxWorkers>3</MaxWorkers>
-        <InitialMaxWorkers>3</InitialMaxWorkers>
-		  <WorkTaskList>
-		    <Start>TL_TRADER_WORK_START</Start> 
-		    <Work>TL_TRADER_WORK</Work> 
-		</WorkTaskList>
-		  <WorkTaskList>
-		    <Start>TL_TRADER_WORK1_START</Start> 
-		    <Work>TL_TRADER_WORK1</Work> 
-		</WorkTaskList>
-		  <WorkTaskList>
-		    <Start>TL_TRADER_WORK2_START</Start> 
-		    <Work>TL_TRADER_WORK2</Work> 
-		</WorkTaskList>
-		  <WorkTaskList>
-		    <Start>TL_TRADER_WORK_INSIDE_START</Start> 
-		    <Work>TL_TRADER_WORK_INSIDE</Work> 
-		</WorkTaskList-->
         <Upgrade>
             <Category>Market</Category>
             <Time>40.0</Time>  
             <Cost>
-			    <Clay>100</Clay>
+			    <Clay>150</Clay>
 			    <Wood/>
-				    <Stone>200</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+                <Stone>300</Stone>
+                <Gold>100</Gold>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <Type>PB_Market2</Type>
         </Upgrade>
@@ -75,8 +50,8 @@
             <Time>80</Time>
             <Cost>
 			    <Clay>0</Clay>
-			    <Wood>200</Wood>
-				    <Stone>400</Stone>
+			    <Wood>150</Wood>
+				    <Stone>250</Stone>
 				    <Gold/>
 				    <Iron/>
 				    <Sulfur/>

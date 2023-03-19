@@ -38,25 +38,25 @@ Stronghold.Attraction = {
     Data = {},
     Config = {
         HQMilitaryAttraction = {
+            [1] = 120,
+            [2] = 150,
+            [3] = 180
+        },
+        HQCivilAttraction = {
             [1] = 75,
             [2] = 100,
             [3] = 125
         },
-        HQCivilAttraction = {
+        VCCivilAttraction = {
             [1] = 35,
             [2] = 50,
             [3] = 65
-        },
-        VCCivilAttraction = {
-            [1] = 50,
-            [2] = 75,
-            [3] = 100
         },
 
         Criminals = {
             Steal      = {Min = 25, Max = 75},
             Convert    = {Rate = 1.0, Chance = 850, Time = 2*60},
-            Catch      = {Chance = 4, Area = 4000},
+            Catch      = {Chance = 4, Area = 5000},
             Reputation = 3,
         },
 
@@ -529,7 +529,7 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
         if Logic.GetEntityType(HeadquarterID) == Entities.PB_Headquarters3 then
             Limit = self.Config.HQMilitaryAttraction[3];
         end
-        Limit = Limit + (Limit * (Rank * 0.2));
+        Limit = Limit + (Limit * (0.2 * (Rank-1)));
         -- External
         Limit = GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, Limit);
     end

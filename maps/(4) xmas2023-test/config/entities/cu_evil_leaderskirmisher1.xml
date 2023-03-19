@@ -132,10 +132,10 @@
 	        <HitAnim>CU_Evil_LeaderSkirmisher1_Hit</HitAnim>
 	        
 	        <DamageClass>DC_Javelin</DamageClass>
-	        <DamageAmount>18</DamageAmount>
-	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+	        <DamageAmount>16</DamageAmount>
+	        <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 	        
-	        <BattleWaitUntil>3000</BattleWaitUntil>
+	        <BattleWaitUntil>2500</BattleWaitUntil>
 	        
 	        <MissChance>2</MissChance>
 	        

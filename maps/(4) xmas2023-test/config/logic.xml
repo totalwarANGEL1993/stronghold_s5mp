@@ -93,7 +93,7 @@
 	<!-- The time (in ms) after an attack an entity counts as 'recently attacked' (hit anim) -->
 	<MilitaryRecentlyAttackedTime>400</MilitaryRecentlyAttackedTime>
 
-	<MilitaryMaxAttackersPerEntity>48</MilitaryMaxAttackersPerEntity>
+	<MilitaryMaxAttackersPerEntity>100</MilitaryMaxAttackersPerEntity>
 
 	<!-- 5 attack damage modifiers for each level of experience -->
 	<!--AttackDamage>

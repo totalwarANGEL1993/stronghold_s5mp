@@ -33,9 +33,9 @@
             <Category>Residence</Category>
             <Time>50.0</Time>  
             <Cost>
-				    <Clay>0</Clay>
-				    <Wood>150</Wood>
-				    <Stone>250</Stone>
+				    <Clay>50</Clay>
+				    <Wood>250</Wood>
+				    <Stone>150</Stone>
 				    <Gold/>
 				    <Iron/>
 				    <Sulfur/>

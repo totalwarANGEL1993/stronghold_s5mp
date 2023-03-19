@@ -29,8 +29,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Sawmillworker</Worker>
-        <MaxWorkers>3</MaxWorkers>
-        <InitialMaxWorkers>3</InitialMaxWorkers>
+        <MaxWorkers>4</MaxWorkers>
+        <InitialMaxWorkers>4</InitialMaxWorkers>
 		  <WorkTaskList>
 		    <Start>TL_SAWMILLWORKER_WORK_START</Start> 
 		    <Work>TL_SAWMILLWORKER_WORK</Work> 
@@ -45,7 +45,7 @@
             <Cost>
 			    <Clay>200</Clay>
 			    <Wood/>
-                <Stone>150</Stone>
+                <Stone>200</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -145,7 +145,7 @@
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
             <ResourceType>Wood</ResourceType>
-            <InitialFactor>8</InitialFactor>
+            <InitialFactor>4</InitialFactor>
             <SupplierCategory>WoodSupplier</SupplierCategory>            
         </Logic>
     </Behavior>

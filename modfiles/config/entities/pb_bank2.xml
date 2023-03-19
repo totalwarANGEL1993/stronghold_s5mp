@@ -140,7 +140,7 @@
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
             <ResourceType>Gold</ResourceType>
-            <InitialFactor>3</InitialFactor>
+            <InitialFactor>2</InitialFactor>
             <SupplierCategory>GoldSupplier</SupplierCategory>
         </Logic>
     </Behavior>

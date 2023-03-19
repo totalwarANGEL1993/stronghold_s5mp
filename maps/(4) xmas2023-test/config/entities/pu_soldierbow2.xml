@@ -113,9 +113,9 @@
 	        
 	        <DamageClass>DC_Bow</DamageClass>
 	        <DamageAmount>11</DamageAmount>
-	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+	        <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 	        
-	        <BattleWaitUntil>3000</BattleWaitUntil>
+	        <BattleWaitUntil>2500</BattleWaitUntil>
 	        
 	        <MissChance>10</MissChance>
 	        

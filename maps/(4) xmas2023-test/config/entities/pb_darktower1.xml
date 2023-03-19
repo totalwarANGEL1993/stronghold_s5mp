@@ -35,9 +35,9 @@
             <Category>DarkTower</Category>
             <Time>15.0</Time>  
             <Cost>
-                    <Clay>0</Clay>
+                    <Clay>200</Clay>
 				    <Wood>300</Wood>
-				    <Stone>400</Stone>
+				    <Stone>200</Stone>
 				    <Gold/>
 				    <Iron>200</Iron>
 				    <Sulfur/>
@@ -48,9 +48,9 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-				    <Clay>0</Clay>
+				    <Clay>200</Clay>
 				    <Wood>200</Wood>
-				    <Stone>200</Stone>
+				    <Stone>0</Stone>
 				    <Gold/>
 				    <Iron/>
 				    <Sulfur/>

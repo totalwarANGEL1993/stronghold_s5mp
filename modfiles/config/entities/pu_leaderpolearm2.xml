@@ -135,7 +135,7 @@
 	        <HitAnim>PU_LeaderPoleArm2_Hit</HitAnim>
 	        
 	        <DamageClass>DC_Pole</DamageClass>
-	        <DamageAmount>9</DamageAmount>
+	        <DamageAmount>10</DamageAmount>
 	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2700</BattleWaitUntil>

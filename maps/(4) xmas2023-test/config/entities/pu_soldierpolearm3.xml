@@ -80,7 +80,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassJerkin</ArmorClass> 
-		  <ArmorAmount>4</ArmorAmount>
+		  <ArmorAmount>5</ArmorAmount>
 		  <DodgeChance>5</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>

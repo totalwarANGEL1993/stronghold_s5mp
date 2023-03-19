@@ -203,8 +203,8 @@ Stronghold.Hero = {
                          "schweren Scharfschützen " ..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Erec rekrutiert Soldaten mit der maximalen Erfahrung, wodurch er "..
-                         "allerdings die Kosten der Ausbildung um 20% steigert. "..
+                         "Erec rekrutiert Soldaten mit der maximalen Erfahrung, wodurch die "..
+                         "Ausbildung des Hauptmannes um 50% teurer wird. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Erec kann mit einem Rundumschlag alle nahestehenden Feinde verletzen.",
@@ -218,8 +218,8 @@ Stronghold.Hero = {
                          "Mounted axemen and mounted crossbowmen, no heavy sharpshooters "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Erec will hire soldiers with full experience. But due to intensifyed "..
-                         "training, the costs increase by 20%. "..
+                         "Erec will hire group leaders with full experience. But due to intensifyed "..
+                         "training, the costs of those leaders increase by 50%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Erec can inflict high damage in a small area.",
@@ -430,7 +430,7 @@ Stronghold.Hero = {
                          "to him by 150% for a short amount of time.",
                 },
                 [Entities.PU_Hero11]             = {
-                    de = "YUKI, die faust "..
+                    de = "YUKI, die donnerfaust "..
                          "@cr @cr @color:180,180,180 "..
                          "Schon als kleines Mädchen beschäftigte sich Yuki mit Pyrotechnik. " ..
                          "Zusammen mit den drei Chinesen und deren Kontrabass verschlug es " ..
@@ -441,13 +441,14 @@ Stronghold.Hero = {
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Die maximale Beliebtheit wird 300. Yuki gewährt einmalig 100 Beliebtheit, "..
-                         "sobald sie erscheint. Die maximale Armeegröße wird um 5% erhöht. "..
+                         "Die maximale Beliebtheit wird 300. Yuki gewährt einmalig 100 "..
+                         "Beliebtheit, sobald sie erscheint. Soldaten für einen Hauptmann "..
+                         "anzuwerben ist 10% billiger. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Yuki kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
                          "(außer Nebelvolk).",
-                    en = "YUKI, the fist "..
+                    en = "YUKI, the thunderfist "..
                          "@cr @cr @color:180,180,180 "..
                          "She was engaged in pyrotechnics since early childhood. Together "..
                          "with the 3 Chinese and their double bass she ended up in the west "..
@@ -458,7 +459,8 @@ Stronghold.Hero = {
                          "- "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                          "The reputation limit is raised to 300. Yuki gives a one time bonus "..
-                         "of 100 reputation when selected. Max army size is increased by 5%. "..
+                         "of 100 reputation when selected. The costs of recruiting soldiers "..
+                         "is reduced by 10%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Yuki can inflict fear to enemies in a wide area (except the Shrouded).",
@@ -1007,9 +1009,9 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     elseif _Type == Entities.CU_Evil_Queen then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword1"] = Entities.PU_LeaderPoleArm1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm2;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.PU_LeaderSword1;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_Evil_LeaderBearman1;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear2"] = Entities.PU_LeaderSword3;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Evil_LeaderBearman1;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword3;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.CU_Evil_LeaderSkirmisher1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderBow3;
     end
@@ -1299,27 +1301,32 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _Type, _Amount)
     end
 end
 
--- Passive Ability: unit costs
-function Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, _Costs)
+-- Passive Ability: leader costs
+function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     local Costs = _Costs;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
-        if Costs[ResourceType.Gold] then
-            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 1.2);
-        end
-        if Costs[ResourceType.Clay] then
-            Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * 1.2);
-        end
-        if Costs[ResourceType.Wood] then
-            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 1.2);
-        end
-        if Costs[ResourceType.Stone] then
-            Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * 1.2);
-        end
-        if Costs[ResourceType.Iron] then
-            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 1.2);
-        end
-        if Costs[ResourceType.Sulfur] then
-            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 1.2);
+        local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1
+        local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1
+        local IsThief = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Thief) == 1
+        if not IsCannon and not IsScout and not IsThief then
+            if Costs[ResourceType.Gold] then
+                Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 1.5);
+            end
+            if Costs[ResourceType.Clay] then
+                Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * 1.5);
+            end
+            if Costs[ResourceType.Wood] then
+                Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 1.5);
+            end
+            if Costs[ResourceType.Stone] then
+                Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * 1.5);
+            end
+            if Costs[ResourceType.Iron] then
+                Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 1.5);
+            end
+            if Costs[ResourceType.Sulfur] then
+                Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 1.5);
+            end
         end
     end
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
@@ -1328,6 +1335,31 @@ function Stronghold.Hero:ApplyUnitCostPassiveAbility(_PlayerID, _Type, _Costs)
             Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 0.9);
             Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 0.9);
             Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 0.9);
+            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 0.9);
+        end
+    end
+    return Costs;
+end
+
+function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, _Costs)
+    local Costs = _Costs;
+    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
+        if Costs[ResourceType.Gold] then
+            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 0.9);
+        end
+        if Costs[ResourceType.Clay] then
+            Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * 0.9);
+        end
+        if Costs[ResourceType.Wood] then
+            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 0.9);
+        end
+        if Costs[ResourceType.Stone] then
+            Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * 0.9);
+        end
+        if Costs[ResourceType.Iron] then
+            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 0.9);
+        end
+        if Costs[ResourceType.Sulfur] then
             Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 0.9);
         end
     end
@@ -1356,9 +1388,7 @@ end
 -- Passive Ability: Increase of max military attraction
 function Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
-        Value = Value * 1.05;
-    end
+    -- Do nothing
     return Value;
 end
 

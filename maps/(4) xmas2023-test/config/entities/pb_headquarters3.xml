@@ -43,24 +43,9 @@
         </Upgrade>
         <CanBeSold>false</CanBeSold>
 		  
-
-    
-<!--NumberOfAttractableSettlers>25</NumberOfAttractableSettlers-->
 		  <Exploration>50</Exploration>		
         <ConstructionInfo>
-        	
 
-      
-
-      <!--Time>10</Time>
-            <Cost>
-				<Clay>1000</Clay>
-				<Wood></Wood>
-				<Stone>1000</Stone>
-				<Gold></Gold>
-				<Iron></Iron>
-				<Sulfur></Sulfur>
-           </Cost-->
             <BuilderSlot>
                 <Position>
                     <X>400</X>

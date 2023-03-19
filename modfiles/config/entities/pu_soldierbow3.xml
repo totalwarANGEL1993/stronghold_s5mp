@@ -109,11 +109,11 @@
 	        <BattleWalkAnim>PU_SoldierBow3_Run1</BattleWalkAnim> 
 	        <HitAnim>PU_SoldierBow3_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Bow</DamageClass>
-	        <DamageAmount>23</DamageAmount>
-	        <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+	        <DamageClass>DC_Crossbow</DamageClass>
+	        <DamageAmount>26</DamageAmount>
+	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 	        
-	        <BattleWaitUntil>2700</BattleWaitUntil>
+	        <BattleWaitUntil>2000</BattleWaitUntil>
 	        
 	        <MissChance>7</MissChance>
 	        

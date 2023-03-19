@@ -29,19 +29,20 @@ function Stronghold.UnitConfig:GetConfig(_Type, _PlayerID)
 end
 
 Stronghold.UnitConfig.Units = {
-    -- Spear Tier 1 --
+    -- Spear --
+
     [Entities.PU_LeaderPoleArm1]            = {
         Button            = "Buy_LeaderSpear",
         TextNormal        = {
-            de = "{grey}Speerträger{cr}{white}Billige Truppen, die höchstens als Kanonenfutter taugen.{cr}",
-            en = "{grey}Spearman{cr}{white}Cheap troops, good only as cannon fodder.{cr}",
+            de = "{grey}Speerträger{cr}{white}Ihr Götter, welch Memmen befehlen unsere Schar? Zum Krieg zusammengekehrt, das Gerümpel des Landes.{cr}",
+            en = "{grey}Spearman{cr}{white}Ye gods, what wretches command our troop? Sweeping together for the war, the junk of the country.{cr}",
         },
         TextDisabled      = {
             de = "@color:244,184,0 benötigt:{white} #Rank#",
             en = "@color:244,184,0 requires:{white} #Rank#",
         },
         Costs             = {
-            [1] = {0, 50, 0, 40, 0, 0, 0},
+            [1] = {0, 60, 0, 50, 0, 0, 0},
             [2] = {0, 5, 0, 10, 0, 0, 0},
         },
         Allowed           = true,
@@ -53,7 +54,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
         ProviderBuilding  = {},
     },
-    -- Spear Tier 2 --
     [Entities.PU_LeaderPoleArm2]            = {
         Button            = "Buy_LeaderSpear",
         TextNormal        = {
@@ -65,8 +65,8 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
         },
         Costs             = {
-            [1] = {5, 65, 0, 50, 0, 0, 0},
-            [2] = {0, 5, 0, 15, 0, 0, 0},
+            [1] = {5, 75, 0, 55, 0, 10, 0},
+            [2] = {0, 10, 0, 10, 0, 5, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -77,11 +77,10 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
         ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
     },
-    -- Spear Tier 3 --
     [Entities.PU_LeaderPoleArm3]            = {
         Button            = "Buy_LeaderSpear",
         TextNormal        = {
-            de = "{grey}Landsknecht{cr}{white}Diese Männer führen eine Streitlanze gegen Kavallerie, können aber auch Schwertkämpfer beschäftigen.{cr}",
+            de = "{grey}Streitlanzenträger{cr}{white}Diese Männer führen eine Streitlanze gegen Kavallerie, können aber auch Schwertkämpfer beschäftigen.{cr}",
             en = "{grey}Battle Lancer{cr}{white}Diese Männer führen eine Streitlanze gegen Kavallerie, können aber auch Schwertkämpfer beschäftigen.{cr}",
         },
         TextDisabled      = {
@@ -89,8 +88,8 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Sawmill",
         },
         Costs             = {
-            [1] = {10, 150, 0, 70, 0, 10, 0},
-            [2] = {0, 65, 0, 40, 0, 5, 0},
+            [1] = {10, 170, 0, 60, 0, 15, 0},
+            [2] = {0, 65, 0, 35, 0, 5, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -101,7 +100,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Barracks2},
         ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
     },
-    -- Spear Tier 4 --
     [Entities.PU_LeaderPoleArm4]            = {
         Button            = "Buy_LeaderSpear",
         TextNormal        = {
@@ -113,8 +111,8 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Lumber Mill",
         },
         Costs             = {
-            [1] = {15, 200, 0, 80, 0, 20, 0},
-            [2] = {0, 75, 0, 45, 0, 10, 0},
+            [1] = {15, 235, 0, 75, 0, 35, 0},
+            [2] = {0, 78, 0, 40, 0, 12, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -126,7 +124,8 @@ Stronghold.UnitConfig.Units = {
         ProviderBuilding  = {Entities.PB_Sawmill2},
     },
 
-    -- Sword Tier 1 --
+    -- Sword  --
+
     [Entities.PU_LeaderSword1]              = {
         Button            = "Buy_LeaderSword",
         TextNormal        = {
@@ -139,7 +138,7 @@ Stronghold.UnitConfig.Units = {
         },
         Costs             = {
             [1] = {6, 100, 0, 0, 0, 50, 0},
-            [2] = {0, 15, 0, 0, 0, 10, 0},
+            [2] = {0, 20, 0, 0, 0, 15, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -150,76 +149,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
         ProviderBuilding  = {},
     },
-    [Entities.CU_BanditLeaderSword2]        = {
-        Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}Wegelagerer{cr}{white}Räuber und Wegelagerer, die ihre Äxte gut gegen andere Infanterie einsetzen können.{cr}",
-            en = "{grey}Highwayman{cr}{white}Raiders and highwaymen who are good at using their axes against other infantry.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Schmiede",
-            en = "@color:244,184,0 requires:{white} #Rank#, Smithy",
-        },
-        Costs             = {
-            [1] = {7, 120, 0, 0, 0, 50, 0},
-            [2] = {0, 15, 0, 0, 0, 10, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 2,
-        Upkeep            = 30,
-        Turns             = 125,
-        Soldiers          = 12,
-        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
-        ProviderBuilding  = {},
-    },
-    [Entities.CU_Barbarian_LeaderClub2]     = {
-        Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}Barbarenkrieger{cr}{white}Barbarenkrieger sind effektiv gegen gepanzerte Truppen und ihre Nagelkeulen können tiefe Wunden reißen.{cr}",
-            en = "{grey}Barbarian Warrior{cr}{white}Barbarian warriors are effective against armored troops, and their spiked clubs can inflict deep wounds.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#",
-            en = "@color:244,184,0 requires:{white} #Rank#",
-        },
-        Costs             = {
-            [1] = {8, 110, 0, 20, 0, 20, 0},
-            [2] = {0, 20, 0, 5, 0, 10, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 2,
-        Upkeep            = 30,
-        Turns             = 125,
-        Soldiers          = 12,
-        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
-        ProviderBuilding  = {},
-    },
-    [Entities.CU_BlackKnight_LeaderMace2]   = {
-        Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}Schwarzer Ritter{cr}{white}Diese Truppen setzt man am Besten gegen gepanzerte Truppen ein.{cr}",
-            en = "{grey}Black Knight{cr}{white}{cr}These troops are best used against armored troops.",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Schmiede",
-            en = "@color:244,184,0 requires:{white} #Rank#, Smithy",
-        },
-        Costs             = {
-            [1] = {7, 100, 0, 0, 0, 40, 0},
-            [2] = {0, 25, 0, 0, 0, 15, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 2,
-        Upkeep            = 30,
-        Turns             = 125,
-        Soldiers          = 12,
-        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
-        ProviderBuilding  = {},
-    },
-    -- Sword Tier 2 --
     [Entities.PU_LeaderSword2]              = {
         Button            = "Buy_LeaderSword",
         TextNormal        = {
@@ -231,7 +160,7 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Smithy",
         },
         Costs             = {
-            [1] = {10, 150, 0, 0, 0, 60, 0},
+            [1] = {10, 170, 0, 0, 0, 75, 0},
             [2] = {0, 50, 0, 0, 0, 35, 0},
         },
         Allowed           = true,
@@ -243,7 +172,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
         ProviderBuilding  = {Entities.PB_Blacksmith1, Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
     },
-    -- Sword Tier 3 --
     [Entities.PU_LeaderSword3]              = {
         Button            = "Buy_LeaderSword",
         TextNormal        = {
@@ -255,8 +183,8 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Blacksmith",
         },
         Costs             = {
-            [1] = {20, 230, 0, 0, 0, 70, 0},
-            [2] = {0, 60, 0, 0, 0, 45, 0},
+            [1] = {20, 230, 0, 0, 0, 95, 0},
+            [2] = {0, 65, 0, 0, 0, 50, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -267,99 +195,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Barracks2},
         ProviderBuilding  = {Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
     },
-    [Entities.CU_Barbarian_LeaderClub1]     = {
-        Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}Elitekrieger der Barbaren{cr}{white}Diese Elitekrieger sind gut gegen gepanzerte Truppen und können hohen kritischen Schaden austeilen.{cr}",
-            en = "{grey}Elite of the Barbarians{cr}{white}These elite warriors are good against armored troops and can deal high critical damage.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Garnison, Schmiede",
-            en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Smithy",
-        },
-        Costs             = {
-            [1] = {22, 200, 0, 40, 0, 30, 0},
-            [2] = {0, 55, 0, 35, 0, 15, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 5,
-        Upkeep            = 40,
-        Turns             = 190,
-        Soldiers          = 6,
-        RecruiterBuilding = {Entities.PB_Barracks2},
-        ProviderBuilding  = {Entities.PB_Blacksmith1, Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
-    },
-    [Entities.CU_BlackKnight_LeaderMace1]   = {
-        Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}Edler Schwarzer Ritter{cr}{white}Die edlen schwarzen Ritter können mit ihren Keulen Rüstungen verbeulen und ein wahrer Albtraum werden.{cr}",
-            en = "{grey}Black Knight Elite{cr}{white}The noble black knights can dent armor with their clubs and become a real nightmare.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Garnison, Grobschmiede",
-            en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Blacksmith",
-        },
-        Costs             = {
-            [1] = {18, 200, 0, 0, 0, 70, 0},
-            [2] = {0, 65, 0, 0, 0, 45, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 5,
-        Upkeep            = 35,
-        Turns             = 190,
-        Soldiers          = 6,
-        RecruiterBuilding = {Entities.PB_Barracks2},
-        ProviderBuilding  = {Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
-    },
-    [Entities.CU_BanditLeaderSword1]        = {
-        Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}Banditenkrieger{cr}{white}Diese erfahrenen Gesetzlosen schwingen die Axt und schnetzeln sich durch feindliche Infanterie.{cr}",
-            en = "{grey}Bandit Warrior{cr}{white}These experienced outlaws wield their ax and slice through the lines of the enemy.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Grobschmiede",
-            en = "@color:244,184,0 requires:{white} #Rank#, Blacksmith",
-        },
-        Costs             = {
-            [1] = {18, 200, 0, 0, 0, 65, 0},
-            [2] = {0, 60, 0, 0, 0, 40, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 5,
-        Upkeep            = 35,
-        Turns             = 190,
-        Soldiers          = 6,
-        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
-        ProviderBuilding  = {Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
-    },
-    [Entities.CU_Evil_LeaderBearman1]       = {
-        Button            = "Buy_LeaderSword",
-        TextNormal        = {
-            de = "{grey}Bärenmensch{cr}{white}Fanatiker in rituellen Bärenkostümen, die keine Gnade für gewöhnliche Infantrie aufbringen wird.{cr}",
-            en = "{grey}Bearman{cr}{white}Fanatics in ritual bear costumes who will show no mercy to ordinary infantry.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Sägemühle",
-            en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
-        },
-        Costs             = {
-            [1] = {12, 70, 0, 180, 0, 40, 0},
-            [2] = {0, 15, 0, 70, 0, 25, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 4,
-        Upkeep            = 45,
-        Turns             = 170,
-        Soldiers          = 16,
-        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
-        ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
-    },
-    -- Sword Tier 4 --
     [Entities.PU_LeaderSword4]              = {
         Button            = "Buy_LeaderSword",
         TextNormal        = {
@@ -371,8 +206,8 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Finishing Smithy",
         },
         Costs             = {
-            [1] = {30, 275, 0, 0, 0, 85, 0},
-            [2] = {0, 75, 0, 0, 0, 60, 0},
+            [1] = {30, 285, 0, 0, 0, 100, 0},
+            [2] = {0, 85, 0, 0, 0, 65, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -384,7 +219,8 @@ Stronghold.UnitConfig.Units = {
         ProviderBuilding  = {Entities.PB_Blacksmith3},
     },
 
-    -- Bow Tier 1 --
+    -- Bow --
+
     [Entities.PU_LeaderBow1]                = {
         Button            = "Buy_LeaderBow",
         TextNormal        = {
@@ -408,30 +244,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
         ProviderBuilding  = {},
     },
-    [Entities.CU_BanditLeaderBow1]          = {
-        Button            = "Buy_LeaderBow",
-        TextNormal        = {
-            de = "{grey}Banditenbogenschütze{cr}{white}Diese Bogenschützen sind den Kampf gewöhnt und darum excellent gegen leicht gepanzerte Truppen.{cr}",
-            en = "{grey}Outlaw Bowman{cr}{white}These archers are used to combat and are therefore excellent against lightly armored troops.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Sägemühle",
-            en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
-        },
-        Costs             = {
-            [1] = {5, 80, 0, 55, 0, 0, 0},
-            [2] = {0, 15, 0, 15, 0, 0, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 2,
-        Upkeep            = 25,
-        Turns             = 150,
-        Soldiers          = 12,
-        RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
-        ProviderBuilding  = {},
-    },
-    -- Bow Tier 2 --
     [Entities.PU_LeaderBow2]                = {
         Button            = "Buy_LeaderBow",
         TextNormal        = {
@@ -443,79 +255,54 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
         },
         Costs             = {
-            [1] = {6, 110, 0, 70, 0, 0, 0},
-            [2] = {0, 20, 0, 20, 0, 0, 0},
+            [1] = {6, 130, 0, 75, 0, 0, 0},
+            [2] = {0, 15, 0, 15, 0, 0, 0},
         },
         Allowed           = true,
         IsCivil           = false,
-        Rank              = 2,
+        Rank              = 3,
         Upkeep            = 20,
         Turns             = 150,
         Soldiers          = 12,
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
         ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
     },
-    -- Bow Tier 3 --
     [Entities.PU_LeaderBow3]                = {
         Button            = "Buy_LeaderBow",
         TextNormal        = {
-            de = "{grey}Armbrustschütze{cr}{white}Armbrustschützen können viel Schaden austeilen, brauchen aber lange um nachzuladen.{cr}",
-            en = "{grey}Crossbowman{cr}{white}Crossbowmen can deal a lot of damage but take a long time to reload.{cr}",
+            de = "{grey}Armbrustschütze{cr}{white}Armbrustschützen können viel Schaden austeilen, brauchen allergins Schutz durch Nahkämpfer.{cr}",
+            en = "{grey}Crossbowman{cr}{white}Crossbowmen can deal a lot of damage but need to be guarded with melee troops.{cr}",
         },
         TextDisabled      = {
             de = "@color:244,184,0 benötigt:{white} #Rank#, Schießanlage, Sägemühle",
             en = "@color:244,184,0 requires:{white} #Rank#, Archery, Sawmill",
         },
         Costs             = {
-            [1] = {12, 250, 0, 35, 0, 35, 0},
-            [2] = {0, 60, 0, 15, 0, 25, 0},
+            [1] = {12, 230, 0, 35, 0, 45, 0},
+            [2] = {0, 65, 0, 18, 0, 32, 0},
         },
         Allowed           = true,
         IsCivil           = false,
-        Rank              = 3,
+        Rank              = 4,
         Upkeep            = 50,
         Turns             = 220,
         Soldiers          = 6,
         RecruiterBuilding = {Entities.PB_Archery2},
         ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
     },
-    [Entities.CU_Evil_LeaderSkirmisher1]    = {
-        Button            = "Buy_LeaderBow",
-        TextNormal        = {
-            de = "{grey}Speerwerfer{cr}{white}Nicht weniger fanatisch als die Bärenmenschen sind auch die Speerwerfer stark gegen gewöhnliche Truppen.{cr}",
-            en = "{grey}Javelin Thrower{cr}{white}No less fanatical than the bearmen, the javelin throwers are strong against common troops.{cr}",
-        },
-        TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} #Rank#, Sägemühle",
-            en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
-        },
-        Costs             = {
-            [1] = {8, 100, 0, 180, 0, 0, 0},
-            [2] = {0, 30, 0, 70, 0, 0, 0},
-        },
-        Allowed           = true,
-        IsCivil           = false,
-        Rank              = 4,
-        Upkeep            = 35,
-        Turns             = 250,
-        Soldiers          = 16,
-        RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
-        ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
-    },
-    -- Bow Tier 4 --
     [Entities.PU_LeaderBow4]                = {
         Button            = "Buy_LeaderBow",
         TextNormal        = {
-            de = "{grey}Arbaleastschütze{cr}{white}Die hochmittelalterliche Armbrust ist sehr stark gegen Infanterie aber auch sehr langsam.{cr}",
-            en = "{grey}Heavy Crossbowman{cr}{white}The high medieval crossbow is very strong against foot soldiers but also very slow.{cr}",
+            de = "{grey}Arbaleastschütze{cr}{white}Die hochmittelalterliche Armbrust ist sehr stark gegen Infanterie.{cr}",
+            en = "{grey}Heavy Crossbowman{cr}{white}The high medieval crossbow is very strong against foot soldiers.{cr}",
         },
         TextDisabled      = {
             de = "@color:244,184,0 benötigt:{white} #Rank#, Schießanlage, Sägewerk",
             en = "@color:244,184,0 requires:{white} #Rank#, Archery, Lumber Mill",
         },
         Costs             = {
-            [1] = {16, 300, 0, 40, 0, 45, 0},
-            [2] = {0, 75, 0, 20, 0, 35, 0},
+            [1] = {16, 300, 0, 40, 0, 55, 0},
+            [2] = {0, 80, 0, 25, 0, 40, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -527,7 +314,8 @@ Stronghold.UnitConfig.Units = {
         ProviderBuilding  = {Entities.PB_Sawmill2},
     },
 
-    -- Rifle Tier 1 --
+    -- Rifle --
+
     [Entities.PU_LeaderRifle1]              = {
         Button            = "Buy_LeaderRifle",
         TextNormal        = {
@@ -539,19 +327,18 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Gunsmith's Shop",
         },
         Costs             = {
-            [1] = {35, 250, 0, 20, 0, 0, 50},
-            [2] = {0, 60, 0, 20, 0, 0, 30},
+            [1] = {35, 340, 0, 20, 0, 0, 60},
+            [2] = {0, 75, 0, 10, 0, 0, 35},
         },
         Allowed           = true,
         IsCivil           = false,
-        Rank              = 5,
+        Rank              = 6,
         Upkeep            = 50,
         Turns             = 320,
         Soldiers          = 6,
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
         ProviderBuilding  = {Entities.PB_GunsmithWorkshop1, Entities.PB_GunsmithWorkshop2},
     },
-    -- Rifle Tier 2 --
     [Entities.PU_LeaderRifle2]              = {
         Button            = "Buy_LeaderRifle",
         TextNormal        = {
@@ -563,8 +350,8 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Archery, Gun Factory",
         },
         Costs             = {
-            [1] = {50, 300, 0, 0, 0, 20, 60},
-            [2] = {0, 70, 0, 0, 0, 20, 30},
+            [1] = {50, 420, 0, 0, 0, 35, 75},
+            [2] = {0, 85, 0, 0, 0, 15, 35},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -576,7 +363,8 @@ Stronghold.UnitConfig.Units = {
         ProviderBuilding  = {Entities.PB_GunsmithWorkshop2},
     },
 
-    -- Cavalry Tier 1 --
+    -- Cavalry --
+
     [Entities.PU_LeaderCavalry1]            = {
         Button            = "Buy_LeaderCavalryLight",
         TextNormal        = {
@@ -588,8 +376,8 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Lumber Mill",
         },
         Costs             = {
-            [1] = {12, 200, 0, 40, 0, 20, 0},
-            [2] = {0, 60, 0, 15, 0, 5, 0},
+            [1] = {12, 220, 0, 45, 0, 25, 0},
+            [2] = {0, 65, 0, 20, 0, 10, 0},
         },
         Allowed           = true,
         IsCivil           = false,
@@ -600,7 +388,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
         ProviderBuilding  = {Entities.PB_Sawmill2},
     },
-    -- Cavalry Tier 2 --
     [Entities.PU_LeaderCavalry2]            = {
         Button            = "Buy_LeaderCavalryLight",
         TextNormal        = {
@@ -612,7 +399,7 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Lumber Mill",
         },
         Costs             = {
-            [1] = {24, 250, 0, 20, 0, 50, 0},
+            [1] = {24, 265, 0, 20, 0, 50, 0},
             [2] = {0, 80, 0, 20, 0, 10, 0},
         },
         Allowed           = true,
@@ -624,7 +411,8 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
         ProviderBuilding  = {Entities.PB_Sawmill2},
     },
-    -- Heavy Cavalry Tier 1 --
+
+    -- Heavy Cavalry --
     [Entities.PU_LeaderHeavyCavalry1]       = {
         Button            = "Buy_LeaderCavalryHeavy",
         TextNormal        = {
@@ -636,7 +424,7 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Stables, Finishing Smithy",
         },
         Costs             = {
-            [1] = {40, 300, 0, 0, 0, 90, 0},
+            [1] = {40, 320, 0, 0, 0, 90, 0},
             [2] = {0, 100, 0, 0, 0, 30, 0},
         },
         Allowed           = true,
@@ -648,7 +436,6 @@ Stronghold.UnitConfig.Units = {
         RecruiterBuilding = {Entities.PB_Stable2},
         ProviderBuilding  = {Entities.PB_Blacksmith3},
     },
-    -- Heavy Cavalry Tier 2 --
     [Entities.PU_LeaderHeavyCavalry2]       = {
         Button            = "Buy_LeaderCavalryHeavy",
         TextNormal        = {
@@ -660,7 +447,7 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Stables, Finishing Smithy",
         },
         Costs             = {
-            [1] = {50, 400, 0, 0, 0, 110, 0},
+            [1] = {50, 430, 0, 0, 0, 110, 0},
             [2] = {0, 120, 0, 0, 0, 40, 0},
         },
         Allowed           = true,
@@ -674,6 +461,7 @@ Stronghold.UnitConfig.Units = {
     },
 
     -- Cannons --
+
     [Entities.PV_Cannon1]                   = {
         Button            = "Buy_Cannon1",
         TextNormal        = {
@@ -690,7 +478,7 @@ Stronghold.UnitConfig.Units = {
         },
         Allowed           = true,
         IsCivil           = false,
-        Rank              = 4,
+        Rank              = 3,
         Upkeep            = 30,
         Turns             = 0,
         Soldiers          = 0,
@@ -713,7 +501,7 @@ Stronghold.UnitConfig.Units = {
         },
         Allowed           = true,
         IsCivil           = false,
-        Rank              = 4,
+        Rank              = 3,
         Upkeep            = 50,
         Turns             = 0,
         Soldiers          = 0,
@@ -767,7 +555,8 @@ Stronghold.UnitConfig.Units = {
         ProviderBuilding  = {},
     },
 
-    -- Special units
+    -- Special units --
+
     [Entities.PU_Scout]                     = {
         Button            = "Buy_Scout",
         TextNormal        = {
@@ -784,7 +573,7 @@ Stronghold.UnitConfig.Units = {
         },
         Allowed           = true,
         IsCivil           = true,
-        Rank              = 2,
+        Rank              = 1,
         Upkeep            = 10,
         Turns             = 150,
         Places            = 1,
@@ -808,7 +597,7 @@ Stronghold.UnitConfig.Units = {
         },
         Allowed           = true,
         IsCivil           = true,
-        Rank              = 4,
+        Rank              = 3,
         Upkeep            = 50,
         Turns             = 500,
         Places            = 5,
@@ -841,7 +630,226 @@ Stronghold.UnitConfig.Units = {
         ProviderBuilding  = {},
     },
 
-    -- Kerberos (Bodyguard passive skill)
+    -- Bandits --
+
+    [Entities.CU_BanditLeaderSword2]        = {
+        Button            = "Buy_LeaderSword",
+        TextNormal        = {
+            de = "{grey}Wegelagerer{cr}{white}Räuber und Wegelagerer, die ihre Äxte gut gegen andere Infanterie einsetzen können.{cr}",
+            en = "{grey}Highwayman{cr}{white}Raiders and highwaymen who are good at using their axes against other infantry.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Schmiede",
+            en = "@color:244,184,0 requires:{white} #Rank#, Smithy",
+        },
+        Costs             = {
+            [1] = {7, 120, 0, 10, 0, 50, 0},
+            [2] = {0, 25, 0, 5, 0, 15, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 2,
+        Upkeep            = 30,
+        Turns             = 125,
+        Soldiers          = 12,
+        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
+        ProviderBuilding  = {},
+    },
+    [Entities.CU_BanditLeaderSword1]        = {
+        Button            = "Buy_LeaderSword",
+        TextNormal        = {
+            de = "{grey}Banditenkrieger{cr}{white}Diese erfahrenen Gesetzlosen schwingen die Axt und schnetzeln sich durch feindliche Infanterie.{cr}",
+            en = "{grey}Bandit Warrior{cr}{white}These experienced outlaws wield their ax and slice through the lines of the enemy.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Grobschmiede",
+            en = "@color:244,184,0 requires:{white} #Rank#, Blacksmith",
+        },
+        Costs             = {
+            [1] = {18, 260, 0, 0, 0, 65, 0},
+            [2] = {0, 70, 0, 10, 0, 35, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 5,
+        Upkeep            = 35,
+        Turns             = 190,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
+        ProviderBuilding  = {Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
+    },
+    [Entities.CU_BanditLeaderBow1]          = {
+        Button            = "Buy_LeaderBow",
+        TextNormal        = {
+            de = "{grey}Banditenbogenschütze{cr}{white}Diese Bogenschützen sind den Kampf gewöhnt und darum excellent gegen leicht gepanzerte Truppen.{cr}",
+            en = "{grey}Outlaw Bowman{cr}{white}These archers are used to combat and are therefore excellent against lightly armored troops.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
+        },
+        Costs             = {
+            [1] = {5, 100, 0, 70, 0, 0, 0},
+            [2] = {0, 12, 0, 12, 0, 0, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 2,
+        Upkeep            = 25,
+        Turns             = 150,
+        Soldiers          = 12,
+        RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
+        ProviderBuilding  = {},
+    },
+
+    -- Barbarians
+    [Entities.CU_Barbarian_LeaderClub2]     = {
+        Button            = "Buy_LeaderSword",
+        TextNormal        = {
+            de = "{grey}Barbarenkrieger{cr}{white}Barbarenkrieger sind effektiv gegen gepanzerte Truppen und ihre Nagelkeulen können tiefe Wunden reißen.{cr}",
+            en = "{grey}Barbarian Warrior{cr}{white}Barbarian warriors are effective against armored troops, and their spiked clubs can inflict deep wounds.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#",
+            en = "@color:244,184,0 requires:{white} #Rank#",
+        },
+        Costs             = {
+            [1] = {8, 95, 0, 40, 0, 30, 0},
+            [2] = {0, 12, 0, 18, 0, 12, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 2,
+        Upkeep            = 30,
+        Turns             = 125,
+        Soldiers          = 12,
+        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
+        ProviderBuilding  = {},
+    },
+    [Entities.CU_Barbarian_LeaderClub1]     = {
+        Button            = "Buy_LeaderSword",
+        TextNormal        = {
+            de = "{grey}Elitekrieger der Barbaren{cr}{white}Diese Elitekrieger sind gut gegen gepanzerte Truppen und können hohen kritischen Schaden austeilen.{cr}",
+            en = "{grey}Elite of the Barbarians{cr}{white}These elite warriors are good against armored troops and can deal high critical damage.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Garnison, Schmiede",
+            en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Smithy",
+        },
+        Costs             = {
+            [1] = {22, 170, 0, 75, 0, 45, 0},
+            [2] = {0, 45, 0, 35, 0, 25, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 5,
+        Upkeep            = 40,
+        Turns             = 190,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Barracks2},
+        ProviderBuilding  = {Entities.PB_Blacksmith1, Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
+    },
+
+    -- Black Knights --
+
+    [Entities.CU_BlackKnight_LeaderMace2]   = {
+        Button            = "Buy_LeaderSword",
+        TextNormal        = {
+            de = "{grey}Schwarzer Ritter{cr}{white}Diese Truppen setzt man am Besten gegen gepanzerte Truppen ein.{cr}",
+            en = "{grey}Black Knight{cr}{white}{cr}These troops are best used against armored troops.",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Schmiede",
+            en = "@color:244,184,0 requires:{white} #Rank#, Smithy",
+        },
+        Costs             = {
+            [1] = {7, 135, 0, 0, 0, 45, 0},
+            [2] = {0, 30, 0, 0, 0, 15, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 2,
+        Upkeep            = 30,
+        Turns             = 125,
+        Soldiers          = 12,
+        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
+        ProviderBuilding  = {},
+    },
+    [Entities.CU_BlackKnight_LeaderMace1]   = {
+        Button            = "Buy_LeaderSword",
+        TextNormal        = {
+            de = "{grey}Edler Schwarzer Ritter{cr}{white}Die edlen schwarzen Ritter können mit ihren Keulen Rüstungen verbeulen und ein wahrer Albtraum werden.{cr}",
+            en = "{grey}Black Knight Elite{cr}{white}The noble black knights can dent armor with their clubs and become a real nightmare.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Garnison, Grobschmiede",
+            en = "@color:244,184,0 requires:{white} #Rank#, Garnison, Blacksmith",
+        },
+        Costs             = {
+            [1] = {18, 250, 0, 0, 0, 85, 0},
+            [2] = {0, 72, 0, 0, 0, 40, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 5,
+        Upkeep            = 35,
+        Turns             = 190,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Barracks2},
+        ProviderBuilding  = {Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
+    },
+
+    -- Shrouded --
+
+    [Entities.CU_Evil_LeaderBearman1]       = {
+        Button            = "Buy_LeaderSword",
+        TextNormal        = {
+            de = "{grey}Bärenmensch{cr}{white}Fanatiker in rituellen Bärenkostümen, die keine Gnade für gewöhnliche Infantrie aufbringen wird.{cr}",
+            en = "{grey}Bearman{cr}{white}Fanatics in ritual bear costumes who will show no mercy to ordinary infantry.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
+        },
+        Costs             = {
+            [1] = {12, 70, 0, 150, 0, 40, 0},
+            [2] = {0, 8, 0, 20, 0, 10, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 4,
+        Upkeep            = 45,
+        Turns             = 170,
+        Soldiers          = 16,
+        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
+        ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
+    },
+    [Entities.CU_Evil_LeaderSkirmisher1]    = {
+        Button            = "Buy_LeaderBow",
+        TextNormal        = {
+            de = "{grey}Speerwerfer{cr}{white}Nicht weniger fanatisch als die Bärenmenschen sind auch die Speerwerfer stark gegen gewöhnliche Truppen.{cr}",
+            en = "{grey}Javelin Thrower{cr}{white}No less fanatical than the bearmen, the javelin throwers are strong against common troops.{cr}",
+        },
+        TextDisabled      = {
+            de = "@color:244,184,0 benötigt:{white} #Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white} #Rank#, Sawmill",
+        },
+        Costs             = {
+            [1] = {8, 90, 0, 200, 0, 0, 0},
+            [2] = {0, 9, 0, 35, 0, 0, 0},
+        },
+        Allowed           = true,
+        IsCivil           = false,
+        Rank              = 4,
+        Upkeep            = 35,
+        Turns             = 250,
+        Soldiers          = 16,
+        RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
+        ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
+    },
+
+    -- Kerberos Budyguard --
+
     [Entities.CU_BlackKnight]              = {
         Button            = "Buy_LeaderSword",
         TextNormal        = {de = "ERROR{cr}", en = "ERROR{cr}",},

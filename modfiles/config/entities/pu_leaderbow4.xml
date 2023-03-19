@@ -118,11 +118,11 @@
 	        <BattleWalkAnim>PU_LeaderBow4_Run1</BattleWalkAnim>
 	        <HitAnim>PU_LeaderBow4_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Bow</DamageClass>
+	        <DamageClass>DC_Crossbow</DamageClass>
 	        <DamageAmount>30</DamageAmount>
 	        <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 	        
-	        <BattleWaitUntil>2700</BattleWaitUntil>
+	        <BattleWaitUntil>2000</BattleWaitUntil>
 	        
 	        <MissChance>5</MissChance>
 	        

@@ -103,7 +103,7 @@
 	        <HitAnim>PU_Militia_Hit</HitAnim>
 
 	        <DamageClass>DC_Sword</DamageClass>
-	        <DamageAmount>9</DamageAmount>
+	        <DamageAmount>10</DamageAmount>
 	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2000</BattleWaitUntil>
@@ -112,6 +112,9 @@
 	        <MinRange>0.0f</MinRange>
 	        
 	        <AutoAttackRange>1500</AutoAttackRange>
+
+            <HealingPoints>1</HealingPoints>
+	        <HealingSeconds>3</HealingSeconds>
 		</Logic>
 	</Behavior>
 	

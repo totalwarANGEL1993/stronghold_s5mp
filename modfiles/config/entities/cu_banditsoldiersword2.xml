@@ -114,7 +114,7 @@
 	        
             <!-- That is on purpose -->
 	        <DamageClass>DC_Axe</DamageClass>
-	        <DamageAmount>5</DamageAmount>
+	        <DamageAmount>7</DamageAmount>
 	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        
 	        <MaxRange>200.0f</MaxRange>
