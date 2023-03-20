@@ -62,7 +62,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <MaxHealth>250</MaxHealth>
 		  <Exploration>27</Exploration>
-		  <ArmorClass>ArmorClassJerkin</ArmorClass> 
+		  <ArmorClass>ArmorClassNone</ArmorClass> 
 		  <ArmorAmount>3</ArmorAmount>
 		  <DodgeChance>5</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -120,7 +120,7 @@
 	        <BattleWalkAnim>PU_LeaderBow3_Run1</BattleWalkAnim>
 	        <HitAnim>PU_LeaderBow3_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Crossbow</DamageClass>
+	        <DamageClass>DC_Arrow</DamageClass>
 	        <DamageAmount>26</DamageAmount>
 	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 	        

@@ -116,7 +116,7 @@
 	        <HitAnim>CU_LeaderOutlaw1_Hit</HitAnim>
 	        
             <!-- That is on purpose -->
-	        <DamageClass>DC_Axe</DamageClass>
+	        <DamageClass>DC_Strike</DamageClass>
 	        <DamageAmount>18</DamageAmount>	        
 	        <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 	        

@@ -102,7 +102,7 @@
 	        <BattleWalkAnim>PU_Militia_Run1</BattleWalkAnim>
 	        <HitAnim>PU_Militia_Hit</HitAnim>
 
-	        <DamageClass>DC_Sword</DamageClass>
+	        <DamageClass>DC_Slash</DamageClass>
 	        <DamageAmount>10</DamageAmount>
 	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 	        

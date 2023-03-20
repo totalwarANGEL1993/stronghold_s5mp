@@ -99,7 +99,7 @@
 	        <BattleWalkAnim>PU_Thief_Run1</BattleWalkAnim>
 	        <HitAnim>PU_Thief_Hit</HitAnim>
 
-	        <DamageClass>DC_Sword</DamageClass>
+	        <DamageClass>DC_Slash</DamageClass>
 	        <DamageAmount>5</DamageAmount>
 	        <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
 	        

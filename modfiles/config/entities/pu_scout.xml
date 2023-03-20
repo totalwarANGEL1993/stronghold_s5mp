@@ -94,7 +94,7 @@
 	        <BattleWalkAnim>PU_Scout_Run1</BattleWalkAnim>
 	        <HitAnim>PU_Scout_Hit</HitAnim>
 
-	        <DamageClass>DC_Mace</DamageClass>
+	        <DamageClass>DC_Blunt</DamageClass>
 	        <DamageAmount>10</DamageAmount>
 	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        

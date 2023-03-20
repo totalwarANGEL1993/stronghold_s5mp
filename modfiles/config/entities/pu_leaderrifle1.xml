@@ -73,7 +73,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <MaxHealth>200</MaxHealth>
 		  <Exploration>28</Exploration>
-		  <ArmorClass>ArmorClassNone</ArmorClass> 
+		  <ArmorClass>ArmorClassLeather</ArmorClass> 
 		  <ArmorAmount>2</ArmorAmount>
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
