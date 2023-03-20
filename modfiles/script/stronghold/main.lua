@@ -635,9 +635,6 @@ function Stronghold:OnEveryTurn()
     Stronghold.Economy:UpdateIncomeAndUpkeep(PlayerID);
     Stronghold.Economy:GainMeasurePoints(PlayerID);
     Stronghold.Hero:VargWolvesController(PlayerID);
-
-    -- Other jobs
-    Stronghold.Province:ControlProvince();
 end
 
 function Stronghold:OnEverySecond()
@@ -645,6 +642,7 @@ function Stronghold:OnEverySecond()
     for i= 1, Players do
         self:PlayerDefeatCondition(i);
     end
+    Stronghold.Province:ControlProvince();
 end
 
 function Stronghold:OnEntityCreated()
@@ -667,8 +665,6 @@ end
 function Stronghold:OnEntityDestroyed()
     local EntityID = Event.GetEntityID();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
-
-    Stronghold.Province:OnBuildingDestroyed(EntityID, PlayerID);
 end
 
 function Stronghold:OnEntityHurtEntity()
@@ -1081,11 +1077,13 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_EntityID, _PlayerID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_EntityID);
+        Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
     end);
 
     Overwrite.CreateOverwrite("GameCallback_OnBuildingUpgradeComplete", function(_EntityIDOld, _EntityIDNew)
         Overwrite.CallOriginal();
-        Stronghold:OnSelectionMenuChanged(_EntityIDNew);
+        local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
+        Stronghold.Province:OnBuildingUpgraded(_EntityIDNew, PlayerID);
     end);
 
     Overwrite.CreateOverwrite("GameCallback_OnTechnologyResearched", function(_PlayerID, _Technology, _EntityID)

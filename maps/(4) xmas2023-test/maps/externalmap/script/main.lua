@@ -12,19 +12,19 @@ function StartTestStuff()
 end
 
 function CreateTestHonorProvince()
-    CreateHonorProvince("Honor Province", "Povince1Pos", 25);
+    CreateHonorProvince("Honor Province", "Povince1Pos", 25, 0.2);
 end
 
 function CreateTestReputationProvince()
-    CreateReputationProvince("Reputation Province", "Povince2Pos", 10);
+    CreateReputationProvince("Reputation Province", "Povince2Pos", 10, 0.1);
 end
 
 function CreateTestMilitaryProvince()
-    CreateMilitaryProvince("Military Province", "Povince3Pos", 30);
+    CreateMilitaryProvince("Military Province", "Povince3Pos", 30, 0.5);
 end
 
 function CreateTestResourceProvince()
-    CreateResourceProvince("Resource Province", "Povince4Pos", 30, 5, 0, 0, 0, 0, 0);
+    CreateResourceProvince("Resource Province", "Povince4Pos", ResourceType.IronRaw, 300, 0.5);
 end
 
 

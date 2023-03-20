@@ -15,6 +15,7 @@ Lib.Require("comfort/GetEnemiesInArea");
 Lib.Require("comfort/GetGeometricCenter");
 Lib.Require("comfort/GetPlayerEntities");
 Lib.Require("comfort/GetLanguage");
+Lib.Require("comfort/GetResourceName");
 Lib.Require("comfort/GetSeparatedTooltipText");
 Lib.Require("comfort/GetValidEntitiesOfType");
 Lib.Require("comfort/IsBuildingBeingUpgraded");

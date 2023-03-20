@@ -225,7 +225,8 @@
         "HeroSelection_GetCurrentSelectedHeroID",
         "Treasure",
         "GetGeometricCenter",
-        "CreateNameForEntity"
+        "CreateNameForEntity",
+        "GetResourceName"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
