@@ -119,7 +119,7 @@
 	        <BattleWalkAnim>CU_Evil_LeaderSkirmisher1_Run1</BattleWalkAnim> 
 	        <HitAnim>CU_Evil_LeaderSkirmisher1_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Javelin</DamageClass>
+	        <DamageClass>DC_Evil</DamageClass>
 	        <DamageAmount>16</DamageAmount>
 	        <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 	        

@@ -132,7 +132,7 @@
 	        <BattleWalkAnim>PU_LeaderPoleArm4_Run1</BattleWalkAnim>
 	        <HitAnim>PU_LeaderPoleArm4_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Pierce</DamageClass>
+	        <DamageClass>DC_Pole</DamageClass>
 	        <DamageAmount>14</DamageAmount>
 	        <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 	        

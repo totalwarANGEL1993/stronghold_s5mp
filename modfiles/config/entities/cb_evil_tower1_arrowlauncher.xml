@@ -15,7 +15,7 @@
 		<Category>Military</Category> 
 		<Category>Cannon</Category> 	
         <!--NumBlockedPoints>2</NumBlockedPoints-->
-        <DamageClass>DC_Javelin</DamageClass>
+        <DamageClass>DC_Evil</DamageClass>
         <SnapTolerance>40.0f</SnapTolerance>
 		<MapFileDontSave>true</MapFileDontSave>
 		<Visible>false</Visible>

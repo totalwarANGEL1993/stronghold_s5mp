@@ -126,7 +126,7 @@
 	        <BattleWalkAnim>PU_SoldierPoleArm2_Run1</BattleWalkAnim> 
 	        <HitAnim>PU_SoldierPoleArm2_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Pierce</DamageClass>
+	        <DamageClass>DC_Pole</DamageClass>
 	        <DamageAmount>10</DamageAmount>
 	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        

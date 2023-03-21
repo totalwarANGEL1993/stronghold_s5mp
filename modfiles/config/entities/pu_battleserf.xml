@@ -53,7 +53,7 @@
         <Category>Military</Category>
 		<AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		<Exploration>15</Exploration>
-		<ArmorClass>ArmorClassLeather</ArmorClass>
+		<ArmorClass>ArmorClassJerkin</ArmorClass>
 		<ArmorAmount>2</ArmorAmount> 
 		<DodgeChance>0</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
