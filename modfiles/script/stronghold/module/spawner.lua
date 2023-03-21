@@ -207,13 +207,14 @@ function Stronghold.Spawner:ControlSpawner(_PlayerID, _SpawnerID)
         end
 
         -- Attack near enemies or refill soldiers
-        local EnemyID =  self:GetNextEnemy(_PlayerID, Data.SpawnPosition, Data.DefendArea);
+        local EnemyID = self:GetNextEnemy(_PlayerID, Data.SpawnPosition, Data.DefendArea);
         for i= table.getn(Data.SpawnedTroops), 1, -1 do
             local ID = Data.SpawnedTroops[i];
             local Task = Logic.GetCurrentTaskList(ID);
             if (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
                 if EnemyID ~= 0 then
-                    Logic.GroupAttack(ID, EnemyID);
+                    local x,y,z = Logic.EntityGetPos(EnemyID);
+                    Logic.GroupAttackMove(ID, x, y);
                 else
                     if  Logic.LeaderGetNumberOfSoldiers(ID) < Logic.LeaderGetMaxNumberOfSoldiers(ID)
                     and GetDistance(ID, Data.SpawnPosition) <= Data.DefendArea / 2
@@ -226,6 +227,7 @@ function Stronghold.Spawner:ControlSpawner(_PlayerID, _SpawnerID)
 
         -- Check in defend area
         for i= table.getn(Data.SpawnedTroops), 1, -1 do
+            local ID = Data.SpawnedTroops[i];
             local Task = Logic.GetCurrentTaskList(ID);
             local Distance = Data.DefendArea;
             if Task and not string.find(Task, "BATTLE") then

@@ -90,7 +90,7 @@
             <ArmorClassJerkinFactor>0.01</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>0.01</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.01</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>3.0</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>1.8</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.01</ArmorClassHeroFactor>            
             <ArmorClassFurFactor>0.01</ArmorClassFurFactor>
         </Logic>
