@@ -29,7 +29,9 @@
 			  <Wood/>
         </Cost>
         <Category>Military</Category>
+        <Category>CavalryHeavy</Category>
         <Category>Soldier</Category>
+        <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassIron</ArmorClass>

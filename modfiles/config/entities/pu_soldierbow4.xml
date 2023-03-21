@@ -60,6 +60,7 @@
 
         
         <Category>Military</Category>
+        <Category>Bow</Category>
         <Category>Soldier</Category>
         <Category>LongRange</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>

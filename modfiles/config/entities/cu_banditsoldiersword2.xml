@@ -59,6 +59,7 @@
         </ModifySpeed>
         
         <Category>Military</Category>
+        <Category>Soldier</Category>
         <Category>Melee</Category>
         <Category>Sword</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>

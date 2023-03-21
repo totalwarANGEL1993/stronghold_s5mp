@@ -29,6 +29,7 @@
 			  <Wood/>
         </Cost>
         <Category>Military</Category>
+        <Category>CavalryLight</Category>
         <Category>Soldier</Category>
         <Category>LongRange</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>

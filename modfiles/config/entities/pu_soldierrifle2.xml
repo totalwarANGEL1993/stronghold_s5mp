@@ -68,6 +68,7 @@
         </ModifySpeed>
         
         <Category>Military</Category>
+        <Category>Rifle</Category>
         <Category>Soldier</Category>
         <Category>LongRange</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
