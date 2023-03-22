@@ -34,20 +34,23 @@ Stronghold = Stronghold or {};
 Stronghold.Attraction = {
     Data = {},
     Config = {
-        HQMilitaryAttraction = {
-            [1] = 120,
-            [2] = 150,
-            [3] = 180
-        },
+        -- THIS MUST BE IN SYNC WITH ENTITY DEFINITION XML!
         HQCivilAttraction = {
             [1] = 75,
             [2] = 100,
             [3] = 125
         },
+        -- THIS MUST BE IN SYNC WITH ENTITY DEFINITION XML!
         VCCivilAttraction = {
             [1] = 35,
             [2] = 50,
             [3] = 65
+        },
+        -- This is freely changeable in Lua
+        HQMilitaryAttraction = {
+            [1] = 120,
+            [2] = 150,
+            [3] = 180
         },
 
         Criminals = {
@@ -405,6 +408,49 @@ function Stronghold.Attraction:GetCriminalsOfBuilding(_BuildingID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Criminal activity
+
+-- Criminals steal resources. The losses are discovered on payday (because I am
+-- very lazy and do not want to programm an extra job for it). Each criminal
+-- will also have effect on the reputation.
+function Stronghold.Attraction:InitCriminalsEffects()
+    -- Criminals steal goods at the payday.
+    Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
+        Overwrite.CallOriginal();
+        Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
+    end);
+
+    -- Criminals will have a negative effect on the reputation.
+    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationDecreaseExternal", function(_PlayerID)
+        local Amount = Overwrite.CallOriginal();
+        local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
+        return Amount + Criminals;
+    end);
+end
+
+function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
+    local TotalAmount = 0;
+    local ResourcesToSub = {};
+    local ResourcesToSteal = {"Gold", "Wood", "Clay", "Stone", "Iron", "Sulfur"};
+    local Criminals = self:CountCriminals(_PlayerID);
+
+    if Criminals > 0 then
+        for i= 1, Criminals do
+            local Type = ResourceType[ResourcesToSteal[math.random(1, 6)]];
+            local Amount = math.random(self.Config.Criminals.Steal.Min, self.Config.Criminals.Steal.Max);
+            ResourcesToSub[Type] = (ResourcesToSub[Type] or 0) + Amount;
+            TotalAmount = TotalAmount + Amount;
+        end
+        if TotalAmount > 0 and GUI.GetPlayerID() == _PlayerID then
+            local Language = GetLanguage();
+            local Text = self.Config.UI.Msg.CriminalsStoleResources[Language];
+            Message(string.format(Text, TotalAmount));
+        end
+        RemoveResourcesFromPlayer(_PlayerID, ResourcesToSub);
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- Workers
 
 function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
@@ -529,48 +575,5 @@ function Stronghold.Attraction:GetMillitarySize(_PlayerID)
         end
     end
     return Size;
-end
-
--- -------------------------------------------------------------------------- --
--- Criminal activity
-
--- Criminals steal resources. The losses are discovered on payday (because I am
--- very lazy and do not want to programm an extra job for it). Each criminal
--- will also have effect on the reputation.
-function Stronghold.Attraction:InitCriminalsEffects()
-    -- Criminals steal goods at the payday.
-    Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
-        Overwrite.CallOriginal();
-        Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
-    end);
-
-    -- Criminals will have a negative effect on the reputation.
-    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationDecreaseExternal", function(_PlayerID)
-        local Amount = Overwrite.CallOriginal();
-        local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
-        return Amount + Criminals;
-    end);
-end
-
-function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
-    local TotalAmount = 0;
-    local ResourcesToSub = {};
-    local ResourcesToSteal = {"Gold", "Wood", "Clay", "Stone", "Iron", "Sulfur"};
-    local Criminals = self:CountCriminals(_PlayerID);
-
-    if Criminals > 0 then
-        for i= 1, Criminals do
-            local Type = ResourceType[ResourcesToSteal[math.random(1, 6)]];
-            local Amount = math.random(self.Config.Criminals.Steal.Min, self.Config.Criminals.Steal.Max);
-            ResourcesToSub[Type] = (ResourcesToSub[Type] or 0) + Amount;
-            TotalAmount = TotalAmount + Amount;
-        end
-        if TotalAmount > 0 and GUI.GetPlayerID() == _PlayerID then
-            local Language = GetLanguage();
-            local Text = self.Config.UI.Msg.CriminalsStoleResources[Language];
-            Message(string.format(Text, TotalAmount));
-        end
-        RemoveResourcesFromPlayer(_PlayerID, ResourcesToSub);
-    end
 end
 

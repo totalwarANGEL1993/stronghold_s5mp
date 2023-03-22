@@ -347,29 +347,20 @@ end
 -- Regulas Headquarters
 
 function Stronghold.Building:OverrideHeadquarterButtons()
-    Overwrite.CreateOverwrite(
-        "GUIAction_SetTaxes",
-        function(_Level)
-            Stronghold.Building:AdjustTax(_Level);
-        end
-    );
+    Overwrite.CreateOverwrite("GUIAction_SetTaxes", function(_Level)
+        Stronghold.Building:AdjustTax(_Level);
+    end);
 
-    Overwrite.CreateOverwrite(
-        "GUIUpdate_TaxesButtons",
-        function()
-            local PlayerID = Stronghold:GetLocalPlayerID();
-            local TaxLevel = Stronghold.Players[PlayerID].TaxHeight -1;
-            XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
-            XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
-        end
-    );
+    Overwrite.CreateOverwrite("GUIUpdate_TaxesButtons", function()
+        local PlayerID = Stronghold:GetLocalPlayerID();
+        local TaxLevel = Stronghold.Players[PlayerID].TaxHeight -1;
+        XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
+        XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
+    end);
 
-    Overwrite.CreateOverwrite(
-        "GUIAction_BuySerf",
-        function()
-            Stronghold.Building:HeadquartersBuySerf();
-        end
-    );
+    Overwrite.CreateOverwrite("GUIAction_BuySerf", function()
+        Stronghold.Building:HeadquartersBuySerf();
+    end);
 
     GUIAction_CallMilitia = function()
         XGUIEng.ShowWidget("BuyHeroWindow", 1);

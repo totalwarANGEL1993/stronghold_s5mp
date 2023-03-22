@@ -52,6 +52,7 @@
 
 
         <Category>Military</Category>
+        <Category>Soldier</Category>
         <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <ArmorClass>ArmorClassHero</ArmorClass>

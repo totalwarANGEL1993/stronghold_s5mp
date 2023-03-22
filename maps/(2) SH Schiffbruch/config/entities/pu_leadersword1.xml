@@ -179,7 +179,7 @@
 	        <BattleWalkAnim>PU_LeaderSword1_Run1</BattleWalkAnim>
 	        <HitAnim>PU_LeaderSword1_Hit</HitAnim>
 
-	        <DamageClass>DC_Sword</DamageClass>
+	        <DamageClass>DC_Slash</DamageClass>
 	        <DamageAmount>6</DamageAmount>
 	        <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
 	        

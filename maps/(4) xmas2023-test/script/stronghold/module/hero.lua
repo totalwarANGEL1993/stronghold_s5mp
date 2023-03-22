@@ -105,7 +105,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Als König hat Dario die Autorität, schneller Maßnahmen zu "..
-                         "ergreifen. Eure Maßnahmen sind 50% schneller wieder einsetzbar. "..
+                         "ergreifen. Eure Maßnahmen sind doppelt so schneller einsetzbar. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Dario kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
@@ -120,7 +120,7 @@ Stronghold.Hero = {
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                          "As king Dario has the autority to faster take measures when needed. "..
-                         "Your measures are 50% faster usable. "..
+                         "Your measures can be used twice as often. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Dario can inflict fear to enemies in a wide area (except the Shrouded).",
@@ -168,8 +168,8 @@ Stronghold.Hero = {
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Kanonen benötigen keine Ehre und die Kosten sind um 10% reduziert. "..
-                         "Wenn eine Technologie erforscht wird, erhält Salim 5 Ehre. "..
+                         "Wissen ist Macht. Und Salim weiß sein Wissen einzusetzen. Kanonen "..
+                         "benötigen keine Ehre und die Kosten sind um 10% reduziert. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Salim kann eine Falle verstecken, die explodiert, sobald der Feind "..
@@ -183,8 +183,8 @@ Stronghold.Hero = {
                          "- "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Cannons do not require honor and their costs are reduced by 10%. "..
-                         "Everytime a technology is researched Salim receives 5 honor. "..
+                         "Knowledge equals power. And Salim knows how to use it. Cannons do "..
+                         "not require honor and their costs are reduced by 10%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Salim can hide a trap that explodes when reckless enemies come "..
@@ -1152,11 +1152,6 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         end
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_OnTechnologyResearched", function(_PlayerID, _Technology, _EntityID)
-        Overwrite.CallOriginal();
-        Stronghold.Hero:ProduceHonorForTechnology(_PlayerID, _Technology, _EntityID);
-    end);
-
     -- Noble --
 
     Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
@@ -1272,15 +1267,9 @@ function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
     return false;
 end
 
--- Passive Ability: Produce honor for technology
-function Stronghold.Hero:ProduceHonorForTechnology(_PlayerID, _Technology, _EntityID)
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, 5);
-    end
-end
-
 -- Passive Ability: Resource production bonus
 -- (Callback is only called for main resource types)
+-- TODO: Replace this with server functions?
 function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _Type, _Amount)
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero2) then
         if _Amount >= 4 then
@@ -1335,6 +1324,7 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     return Costs;
 end
 
+-- Passive Ability: soldier costs
 function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, _Costs)
     local Costs = _Costs;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
@@ -1369,7 +1359,7 @@ function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value
     return Value;
 end
 
--- Passive Ability: 
+-- Passive Ability: Change millitary places usage
 function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then

@@ -121,22 +121,6 @@
             <Y>-800</Y>
         </TerrainPos2>
         
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <!--MilitaryInfo>
-            <LeaderLimit>100</LeaderLimit>
-            <SoldierLimit>1000</SoldierLimit>
-            <DamageClass>DC_Bow</DamageClass>
-        </MilitaryInfo-->	
 	</Logic>
 	<Behavior>
 		  <Logic classname="EGL::CGLEBehaviorProps">

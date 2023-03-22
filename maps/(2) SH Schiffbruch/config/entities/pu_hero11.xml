@@ -145,7 +145,7 @@
 	        <NumberShuriken>4</NumberShuriken>
 	        <ProjectileType>FXYukiShuriken</ProjectileType> 
 	        <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight> 
-	        <DamageClass>DC_HERO</DamageClass>
+	        <DamageClass>DC_Hero</DamageClass>
 	        <DamageAmount>150</DamageAmount>
 	    </Logic>
 	</Behavior>

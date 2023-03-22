@@ -14,17 +14,17 @@ Stronghold = Stronghold or {};
 
 OutlawAttackState = {
     -- The camp waits for troops to respawn.
-    Recruit = 1,
+    RecruitUnits = 1,
     -- The camp moves the troops to the attack target.
-    Advance = 2,
+    AdvanceUnits = 2,
     -- The camp attacks all targets in the area.
-    Pillage = 3,
+    PillageArea = 3,
     -- The attackers return to the camp and vanish.
-    Retreat = 4,
+    RetreatHome = 4,
     -- The attackers regroup when to far appart
-    Gather = 5,
+    StandGround = 5,
     -- Troops defend while recruiting
-    Defend = 6,
+    DefendBase = 6,
 };
 
 Stronghold.Outlaw = {
@@ -115,7 +115,7 @@ function Stronghold.Outlaw:CreateCamp(_PlayerID, _HomePosition, _AtkTarget, _Atk
     local Camp = {
         SpawnerList = arg,
         Troops = {},
-        State = OutlawAttackState.Recruit,
+        State = OutlawAttackState.RecruitUnits,
 
         ID = self.Data.CampSequenceID,
         PlayerID = _PlayerID,
@@ -125,12 +125,19 @@ function Stronghold.Outlaw:CreateCamp(_PlayerID, _HomePosition, _AtkTarget, _Atk
         AttackStrength = _AtkStrength,
         AttackDelay = _AtkDelay,
         AttackTimer = _AtkDelay,
+        Anchor = nil,
         IsDefeated = false,
         CanAttack = true,
     };
 
-    local JobID = Job.Second(function(_PlayerID, _CampID)
-        Stronghold.Outlaw:ControlCamp(_PlayerID, _CampID);
+    local JobID = Job.Turn(function(_PlayerID, _CampID)
+        local PlayerID = math.mod(
+            math.floor(Logic.GetTime() * 10),
+            table.getn(Score.Player)
+        );
+        if PlayerID == _PlayerID then
+            Stronghold.Outlaw:ControlCamp(_PlayerID, _CampID);
+        end
     end, _PlayerID, Camp.ID);
     Camp.JobID = JobID;
 
@@ -195,6 +202,25 @@ function Stronghold.Outlaw:RemoveSpawner(_PlayerID, _CampID, _SpawnerID)
     end
 end
 
+function Stronghold.Outlaw:GetRaidStrength(_PlayerID, _CampID)
+    if self.Data[_PlayerID].Camps[_CampID] then
+        local MaxStrength = self.Data[_PlayerID].Camps[_CampID].AttackStrength;
+        local Strength = 0;
+        for i= table.getn(self.Data[_PlayerID].Camps[_CampID].Troops), 1, -1 do
+            local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
+            local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(ID);
+            local SoldiersNow = Logic.LeaderGetNumberOfSoldiers(ID);
+            if SoldiersMax > 0 then
+                Strength = Strength + (SoldiersNow/SoldiersMax);
+            else
+                Strength = Strength + 1;
+            end
+        end
+        return Strength / MaxStrength;
+    end
+    return 0;
+end
+
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Outlaw:ControlCamp(_PlayerID, _CampID)
@@ -222,195 +248,255 @@ function Stronghold.Outlaw:ControlCamp(_PlayerID, _CampID)
         end
 
         if not Data.IsDefeated then
-            if Data.State == OutlawAttackState.Recruit then
-                -- Check for enemies
-                local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.Position, Data.ActionArea);
+            if Data.State == OutlawAttackState.RecruitUnits then
+                self:ExecuteRecruitUnitsBehavior(_PlayerID, _CampID);
+            elseif Data.State == OutlawAttackState.DefendBase then
+                self:ExecuteDefendBaseBehavior(_PlayerID, _CampID);
+            elseif Data.State == OutlawAttackState.AdvanceUnits then
+                self:ExecuteAdvanceUnitsBehavior(_PlayerID, _CampID);
+            elseif Data.State == OutlawAttackState.StandGround then
+                self:ExecuteStandGroundBehavior(_PlayerID, _CampID);
+            elseif Data.State == OutlawAttackState.PillageArea then
+                self:ExecutePillageAreaBehavior(_PlayerID, _CampID);
+            elseif Data.State == OutlawAttackState.RetreatHome then
+                self:ExecuteRetreatHomeBehavior(_PlayerID, _CampID);
+            end
+        end
+    end
+end
+
+function Stronghold.Outlaw:ExecuteRecruitUnitsBehavior(_PlayerID, _CampID)
+    if self.Data[_PlayerID].Camps[_CampID] then
+        local Data = self.Data[_PlayerID].Camps[_CampID];
+        -- Check for enemies
+        local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.Position, Data.ActionArea);
+        if EnemyID ~= 0 then
+            self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.DefendBase;
+            return;
+        end
+        -- Refill weakened troops
+        for i= table.getn(Data.Troops), 1, -1 do
+            local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
+            local Task = Logic.GetCurrentTaskList(ID);
+            if (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
+                if  Logic.LeaderGetNumberOfSoldiers(ID) < Logic.LeaderGetMaxNumberOfSoldiers(ID)
+                and not AreEnemiesInArea(_PlayerID, ID, 2400)
+                and GetDistance(ID, Data.Position) <= 1200 then
+                    Tools.CreateSoldiersForLeader(ID, 1);
+                end
+            end
+        end
+        if Data.CanAttack then
+            -- Start attack if possible
+            if table.getn(Data.Troops) >= Data.AttackStrength then
+                EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.AttackTarget, Data.ActionArea);
                 if EnemyID ~= 0 then
-                    self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Defend;
-                    return;
-                end
-                -- Refill weakened troops
-                for i= table.getn(Data.Troops), 1, -1 do
-                    local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
-                    local Task = Logic.GetCurrentTaskList(ID);
-                    if (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
-                        if  Logic.LeaderGetNumberOfSoldiers(ID) < Logic.LeaderGetMaxNumberOfSoldiers(ID)
-                        and not AreEnemiesInArea(_PlayerID, ID, 2400)
-                        and GetDistance(ID, Data.Position) <= 1200 then
-                            Tools.CreateSoldiersForLeader(ID, 1);
-                        end
+                    self.Data[_PlayerID].Camps[_CampID].AttackTimer = Data.AttackTimer -1;
+                    if Data.AttackTimer <= 0 then
+                        self.Data[_PlayerID].Camps[_CampID].AttackTimer = 0;
+                        self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.AdvanceUnits;
+                        GameCallback_Logic_OutlawAttackStarted(_PlayerID, _CampID);
                     end
                 end
-                if Data.CanAttack then
-                    -- Start attack if possible
-                    if table.getn(Data.Troops) >= Data.AttackStrength then
-                        EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.AttackTarget, Data.ActionArea);
-                        if EnemyID ~= 0 then
-                            self.Data[_PlayerID].Camps[_CampID].AttackTimer = Data.AttackTimer -1;
-                            if Data.AttackTimer <= 0 then
-                                self.Data[_PlayerID].Camps[_CampID].AttackTimer = 0;
-                                self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Advance;
-                                GameCallback_Logic_OutlawAttackStarted(_PlayerID, _CampID);
-                            end
-                        end
-                        return;
-                    end
-                    -- Get troops for attack
-                    for i= table.getn(Data.SpawnerList), 1, -1 do
-                        if HasSpawnerFullStrength(_PlayerID, Data.SpawnerList[i]) then
-                            local ID = GetTroopFromSpawner(_PlayerID, Data.SpawnerList[i]);
-                            table.insert(self.Data[_PlayerID].Camps[_CampID].Troops, ID);
-                        end
-                        if table.getn(Data.Troops) >= Data.AttackStrength then
-                            break;
-                        end
-                    end
+                return;
+            end
+            -- Get troops for attack
+            for i= table.getn(Data.SpawnerList), 1, -1 do
+                if HasSpawnerFullStrength(_PlayerID, Data.SpawnerList[i]) then
+                    local ID = GetTroopFromSpawner(_PlayerID, Data.SpawnerList[i]);
+                    table.insert(self.Data[_PlayerID].Camps[_CampID].Troops, ID);
                 end
-
-            elseif Data.State == OutlawAttackState.Defend then
-                -- Check in defend area
-                for i= table.getn(self.Data[_PlayerID].Camps[_CampID].Troops), 1, -1 do
-                    local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
-                    if GetDistance(ID, Data.Position) > Data.ActionArea then
-                        Logic.MoveSettler(ID, Data.Position.X, Data.Position.Y);
-                    end
-                end
-                -- Check need to defend
-                local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.Position, Data.ActionArea);
-                if EnemyID ~= 0 then
-                    for i= table.getn(self.Data[_PlayerID].Camps[_CampID].Troops), 1, -1 do
-                        local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
-                        local Task = Logic.GetCurrentTaskList(ID);
-                        if  (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
-                            Logic.GroupAttack(ID, EnemyID);
-                        end
-                    end
-                else
-                    self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Recruit;
-                end
-
-            elseif Data.State == OutlawAttackState.Advance then
-                -- Check if attack is defeated
-                if self:GetRaidStrength(_PlayerID, _CampID) < 0.3 then
-                    self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Retreat;
-                    return;
-                end
-                -- Check if attack arrived
-                for i= table.getn(Data.Troops), 1, -1 do
-                    if GetDistance(Data.Troops[i], Data.AttackTarget) <= Data.ActionArea then
-                        self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Pillage;
-                        GameCallback_Logic_OutlawAttackArrived(_PlayerID, _CampID);
-                        return;
-                    end
-                end
-                -- Move troops to attack target
-                local ArmyPosition = GetGeometricCenter(unpack(Data.Troops));
-                local RegroupTroops = false;
-                for i= table.getn(Data.Troops), 1, -1 do
-                    if GetDistance(Data.Troops[i], ArmyPosition) > 1200 then
-                        RegroupTroops = true;
-                        break;
-                    end
-                    local Task = Logic.GetCurrentTaskList(Data.Troops[i]);
-                    if  not string.find(Task or "", "BATTLE")
-                    and GetDistance(Data.Troops[i], Data.AttackTarget) > Data.ActionArea
-                    and Logic.IsEntityMoving(Data.Troops[i]) == false then
-                        Logic.GroupAttackMove(Data.Troops[i], Data.AttackTarget.X, Data.AttackTarget.Y);
-                    end
-                end
-                -- Regroup
-                if RegroupTroops then
-                    for i= table.getn(Data.Troops), 1, -1 do
-                        Logic.MoveSettler(Data.Troops[i], ArmyPosition.X, ArmyPosition.Y);
-                    end
-                    self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Gather;
-                end
-
-            elseif Data.State == OutlawAttackState.Gather then
-                -- Troops gather when too far apart
-                local ArmyPosition = GetGeometricCenter(unpack(Data.Troops));
-                for i= table.getn(Data.Troops), 1, -1 do
-                    if GetDistance(Data.Troops[i], ArmyPosition) > 900 then
-                        return;
-                    end
-                end
-                self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Advance;
-
-            elseif Data.State == OutlawAttackState.Pillage then
-                -- Check if attack is defeated
-                local AttackDone = 2;
-                if self:GetRaidStrength(_PlayerID, _CampID) >= 0.3 then
-                    AttackDone = 1;
-                    -- Search for enemies to kill
-                    for i= table.getn(Data.Troops), 1, -1 do
-                        if GetDistance(Data.Troops[i], Data.AttackTarget) > Data.ActionArea then
-                            Logic.MoveSettler(Data.Troops[i], Data.AttackTarget.X, Data.AttackTarget.Y);
-                            AttackDone = 0;
-                        else
-                            local Task = Logic.GetCurrentTaskList(Data.Troops[i]);
-                            local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.AttackTarget, Data.ActionArea);
-                            if EnemyID ~= 0 then
-                                if (not string.find(Task or "", "BATTLE") and not string.find(Task or "", "DIE")) then
-                                    if Logic.IsEntityInCategory(Data.Troops[i], EntityCategories.Melee) == 1 then
-                                        Logic.GroupAttackMove(Data.Troops[i], Data.AttackTarget.X, Data.AttackTarget.Y);
-                                    else
-                                        Logic.GroupAttack(Data.Troops[i], EnemyID);
-                                    end
-                                end
-                                AttackDone = 0;
-                            end
-                        end
-                    end
-                end
-                -- End attack if done
-                if AttackDone ~= 0 then
-                    self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Retreat;
-                    for i= table.getn(Data.Troops), 1, -1 do
-                        Logic.MoveSettler(Data.Troops[i], Data.Position.X, Data.Position.Y);
-                    end
-                    GameCallback_Logic_OutlawAttackFinished(_PlayerID, _CampID, AttackDone);
-                end
-
-            elseif Data.State == OutlawAttackState.Retreat then
-                -- Move troops back
-                if table.getn(Data.Troops) > 0 then
-                    for i= table.getn(Data.Troops), 1, -1 do
-                        if GetDistance(Data.Troops[i], Data.Position) > 500 then
-                            if Logic.IsEntityMoving(Data.Troops[i]) == false then
-                                Logic.MoveSettler(Data.Troops[i], Data.Position.X, Data.Position.Y);
-                            end
-                        else
-                            DestroyEntity(Data.Troops[i]);
-                        end
-                    end
-                -- Prepare for next attack
-                else
-                    self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.Recruit;
-                    self.Data[_PlayerID].Camps[_CampID].AttackTimer = Data.AttackDelay;
+                if table.getn(Data.Troops) >= Data.AttackStrength then
+                    break;
                 end
             end
         end
     end
 end
 
--- -------------------------------------------------------------------------- --
-
-function Stronghold.Outlaw:GetRaidStrength(_PlayerID, _CampID)
+function Stronghold.Outlaw:ExecuteDefendBaseBehavior(_PlayerID, _CampID)
     if self.Data[_PlayerID].Camps[_CampID] then
-        local MaxStrength = self.Data[_PlayerID].Camps[_CampID].AttackStrength;
-        local Strength = 0;
+        local Data = self.Data[_PlayerID].Camps[_CampID];
+        -- Check in defend area
         for i= table.getn(self.Data[_PlayerID].Camps[_CampID].Troops), 1, -1 do
             local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
-            local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(ID);
-            local SoldiersNow = Logic.LeaderGetNumberOfSoldiers(ID);
-            if SoldiersMax > 0 then
-                Strength = Strength + (SoldiersNow/SoldiersMax);
-            else
-                Strength = Strength + 1;
+            if GetDistance(ID, Data.Position) > Data.ActionArea then
+                Logic.MoveSettler(ID, Data.Position.X, Data.Position.Y);
             end
         end
-        return Strength / MaxStrength;
+        -- Check need to defend
+        local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.Position, Data.ActionArea);
+        if EnemyID ~= 0 then
+            for i= table.getn(self.Data[_PlayerID].Camps[_CampID].Troops), 1, -1 do
+                local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
+                local Task = Logic.GetCurrentTaskList(ID);
+                if  (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
+                    Logic.GroupAttack(ID, EnemyID);
+                end
+            end
+        else
+            self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.RecruitUnits;
+        end
     end
-    return 0;
+end
+
+function Stronghold.Outlaw:ExecuteAdvanceUnitsBehavior(_PlayerID, _CampID)
+    if self.Data[_PlayerID].Camps[_CampID] then
+        local Data = self.Data[_PlayerID].Camps[_CampID];
+        -- Check if attack is defeated
+        if self:GetRaidStrength(_PlayerID, _CampID) < 0.3 then
+            self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.RetreatHome;
+            return;
+        end
+        -- Check if attack arrived
+        for i= table.getn(Data.Troops), 1, -1 do
+            if GetDistance(Data.Troops[i], Data.AttackTarget) <= Data.ActionArea then
+                self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.PillageArea;
+                GameCallback_Logic_OutlawAttackArrived(_PlayerID, _CampID);
+                return;
+            end
+        end
+        -- Check enemies
+        local ArmyPosition = GetGeometricCenter(unpack(Data.Troops));
+        local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, ArmyPosition, Data.ActionArea);
+        if EnemyID ~= 0 then
+            self.Data[_PlayerID].Camps[_CampID].Anchor = ArmyPosition;
+            self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.StandGround;
+            return;
+        end
+        -- Move troops to attack target
+        for i= table.getn(Data.Troops), 1, -1 do
+            if GetDistance(Data.Troops[i], ArmyPosition) > 1200 then
+                self.Data[_PlayerID].Camps[_CampID].Anchor = ArmyPosition;
+                self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.StandGround;
+                return;
+            end
+            if Logic.IsEntityMoving(Data.Troops[i]) == false then
+                Logic.GroupAttackMove(Data.Troops[i], Data.AttackTarget.X, Data.AttackTarget.Y);
+            end
+        end
+    end
+end
+
+function Stronghold.Outlaw:ExecuteStandGroundBehavior(_PlayerID, _CampID)
+    if self.Data[_PlayerID].Camps[_CampID] then
+        local Data = self.Data[_PlayerID].Camps[_CampID];
+        -- Check if attack is defeated
+        if self:GetRaidStrength(_PlayerID, _CampID) < 0.3 then
+            self.Data[_PlayerID].Camps[_CampID].Anchor = nil;
+            self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.RetreatHome;
+            return;
+        end
+        -- Save distances to anchor
+        local AnchorDistance = {};
+        for i= table.getn(Data.Troops), 1, -1 do
+            AnchorDistance[Data.Troops[i]] = GetDistance(Data.Troops[i], Data.Anchor);
+        end
+        -- Gather at anchor
+        local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.Anchor, Data.ActionArea);
+        if EnemyID == 0 then
+            local IsDone = true;
+            for i= table.getn(Data.Troops), 1, -1 do
+                if AnchorDistance[Data.Troops[i]] > 1200 then
+                    IsDone = false;
+                    break;
+                end
+            end
+            if IsDone then
+                self.Data[_PlayerID].Camps[_CampID].Anchor = nil;
+                self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.AdvanceUnits;
+            else
+                for i= table.getn(Data.Troops), 1, -1 do
+                    if AnchorDistance[Data.Troops[i]] > 1200 then
+                        Logic.MoveSettler(Data.Troops[i], Data.Anchor.X, Data.Anchor.Y);
+                    else
+                        Logic.GroupStand(Data.Troops[i]);
+                    end
+                end
+            end
+            return;
+        end
+        -- Defend anchor
+        local x,y,z = Logic.EntityGetPos(EnemyID);
+        for i= table.getn(Data.Troops), 1, -1 do
+            local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
+            local Task = Logic.GetCurrentTaskList(ID);
+            if AnchorDistance[Data.Troops[i]] > Data.ActionArea then
+                if string.find(Task or "", "BATTLE") or Logic.IsEntityMoving(ID) == false then
+                    Logic.MoveSettler(Data.Troops[i], Data.Anchor.X, Data.Anchor.Y);
+                end
+            else
+                if (not string.find(Task or "", "BATTLE") and not string.find(Task or "", "DIE")) then
+                    if Logic.IsEntityInCategory(Data.Troops[i], EntityCategories.Melee) == 1 then
+                        Logic.GroupAttackMove(Data.Troops[i], x, y);
+                    else
+                        Logic.GroupAttack(Data.Troops[i], EnemyID);
+                    end
+                end
+            end
+        end
+    end
+end
+
+function Stronghold.Outlaw:ExecutePillageAreaBehavior(_PlayerID, _CampID)
+    if self.Data[_PlayerID].Camps[_CampID] then
+        local Data = self.Data[_PlayerID].Camps[_CampID];
+        -- Check if attack is defeated
+        local AttackDone = 2;
+        if self:GetRaidStrength(_PlayerID, _CampID) >= 0.3 then
+            AttackDone = 1;
+            -- Search for enemies to kill
+            for i= table.getn(Data.Troops), 1, -1 do
+                if GetDistance(Data.Troops[i], Data.AttackTarget) > Data.ActionArea then
+                    Logic.MoveSettler(Data.Troops[i], Data.AttackTarget.X, Data.AttackTarget.Y);
+                    AttackDone = 0;
+                else
+                    local Task = Logic.GetCurrentTaskList(Data.Troops[i]);
+                    local EnemyID = Stronghold.Spawner:GetNextEnemy(_PlayerID, Data.AttackTarget, Data.ActionArea);
+                    if EnemyID ~= 0 then
+                        local x,y,z = Logic.EntityGetPos(EnemyID);
+                        if (not string.find(Task or "", "BATTLE") and not string.find(Task or "", "DIE")) then
+                            if Logic.IsEntityInCategory(Data.Troops[i], EntityCategories.Melee) == 1 then
+                                Logic.GroupAttackMove(Data.Troops[i], x, y);
+                            else
+                                Logic.GroupAttack(Data.Troops[i], EnemyID);
+                            end
+                        end
+                        AttackDone = 0;
+                    end
+                end
+            end
+        end
+        -- End attack if done
+        if AttackDone ~= 0 then
+            self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.RetreatHome;
+            for i= table.getn(Data.Troops), 1, -1 do
+                Logic.MoveSettler(Data.Troops[i], Data.Position.X, Data.Position.Y);
+            end
+            GameCallback_Logic_OutlawAttackFinished(_PlayerID, _CampID, AttackDone);
+        end
+    end
+end
+
+function Stronghold.Outlaw:ExecuteRetreatHomeBehavior(_PlayerID, _CampID)
+    if self.Data[_PlayerID].Camps[_CampID] then
+        local Data = self.Data[_PlayerID].Camps[_CampID];
+        -- Move troops back
+        if table.getn(Data.Troops) > 0 then
+            for i= table.getn(Data.Troops), 1, -1 do
+                if GetDistance(Data.Troops[i], Data.Position) > 500 then
+                    if Logic.IsEntityMoving(Data.Troops[i]) == false then
+                        Logic.MoveSettler(Data.Troops[i], Data.Position.X, Data.Position.Y);
+                    end
+                else
+                    DestroyEntity(Data.Troops[i]);
+                end
+            end
+        -- Prepare for next attack
+        else
+            self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.RecruitUnits;
+            self.Data[_PlayerID].Camps[_CampID].AttackTimer = Data.AttackDelay;
+        end
+    end
 end
 

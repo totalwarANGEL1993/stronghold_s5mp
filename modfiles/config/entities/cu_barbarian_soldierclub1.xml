@@ -118,8 +118,8 @@
 	        <HitAnim>CU_Barbarian_SoldierClub1_Hit</HitAnim>
 	        
 	        <DamageClass>DC_Blunt</DamageClass>
-	        <DamageAmount>20</DamageAmount>	        
-	        <MaxRandomDamageBonus>22</MaxRandomDamageBonus>
+	        <DamageAmount>18</DamageAmount>	        
+	        <MaxRandomDamageBonus>28</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2500</BattleWaitUntil>
 	        

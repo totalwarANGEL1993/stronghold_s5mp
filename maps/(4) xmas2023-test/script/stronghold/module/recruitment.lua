@@ -674,7 +674,7 @@ function Stronghold.Recruitment:CanProduceUnitFromQueue(_PlayerID, _Queue, _Scri
     if  self.Data[_PlayerID]
     and self.Data[_PlayerID].Queues[_Queue]
     and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
-        local Data = self.Data[_PlayerID].Queues[_Queue][_ScriptName][1];
+        local Data = self:GetFirstEntryFromQueue(_PlayerID, _Queue, _ScriptName);
         if Data then
             local Places = Data.Places + (Data.Places * Data.Soldiers);
             local Config = Stronghold.UnitConfig:GetConfig(Data.Type, _PlayerID);
@@ -768,6 +768,7 @@ function Stronghold.Recruitment:GetFirstEntryFromQueue(_PlayerID, _Queue, _Scrip
     end
 end
 
+-- DEPRECATED!
 function Stronghold.Recruitment:GetOccupiedSpacesFromQueues(_PlayerID, _IsCivil)
     local Places = 0;
     for QueueName,_ in pairs(self.Data[_PlayerID].Queues) do

@@ -75,6 +75,7 @@
         </ModifySpeed>
         
         <Category>Military</Category>
+        <Category>Spear</Category>
         <Category>Soldier</Category>
         <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>

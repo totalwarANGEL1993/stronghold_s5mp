@@ -89,7 +89,7 @@
 	        <BattleWalkAnim>PV_Cannon2_Drive</BattleWalkAnim>
 	        
 	        <DamageClass>DC_Siege</DamageClass>
-	        <DamageAmount>40</DamageAmount>
+	        <DamageAmount>80</DamageAmount>
 	        <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 	        <DamageRange>50</DamageRange>
 	        

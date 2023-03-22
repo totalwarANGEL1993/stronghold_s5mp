@@ -118,7 +118,7 @@
 	        <BattleWalkAnim>CU_BlackKnight_LeaderMace1_Run1</BattleWalkAnim>
 	        <HitAnim>CU_BlackKnight_LeaderMace1_Hit</HitAnim>
 
-	        <DamageClass>DC_Mace</DamageClass>
+	        <DamageClass>DC_Blunt</DamageClass>
 	        <DamageAmount>9</DamageAmount>	        
 	        <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 	        

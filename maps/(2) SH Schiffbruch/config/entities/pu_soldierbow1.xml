@@ -62,11 +62,12 @@
         </ModifySpeed>
         
         <Category>Military</Category>
+        <Category>Bow</Category>
         <Category>Soldier</Category>
         <Category>LongRange</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>23</Exploration>
-		  <ArmorClass>ArmorClassJerkin</ArmorClass> 
+		  <ArmorClass>ArmorClassNone</ArmorClass> 
 		  <ArmorAmount>0</ArmorAmount>
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -113,7 +114,7 @@
 	        <BattleWalkAnim>PU_SoldierBow1_Run1</BattleWalkAnim> 
 	        <HitAnim>PU_SoldierBow1_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Bow</DamageClass>
+	        <DamageClass>DC_Arrow</DamageClass>
 	        <DamageAmount>9</DamageAmount>
 	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        

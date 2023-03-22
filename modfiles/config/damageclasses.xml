@@ -20,7 +20,7 @@
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
@@ -32,7 +32,7 @@
             <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>2.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>    
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
             <ArmorClassFurFactor>0.2</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
@@ -44,8 +44,8 @@
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>        
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
+            <ArmorClassFurFactor>0.4</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Black Knights and Barbarians -->
@@ -56,7 +56,7 @@
             <ArmorClassLeatherFactor>1.6</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.6</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>    
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
@@ -68,7 +68,7 @@
             <ArmorClassLeatherFactor>1.5</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>    
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
@@ -80,8 +80,8 @@
             <ArmorClassLeatherFactor>1.4</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.4</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>            
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>            
+            <ArmorClassFurFactor>0.4</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <DamageClass id="DC_Siege">
@@ -103,7 +103,7 @@
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>1.4</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
@@ -115,7 +115,7 @@
             <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.7</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
     </DamageClass>

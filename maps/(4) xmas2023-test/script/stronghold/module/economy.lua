@@ -150,28 +150,32 @@ Stronghold.Economy = {
             },
             Overview = {
                 Military = {
-                    de = "@color:180,180,180 Militär @color:255,255,255 @cr Zum "..
-                         "Militär zählen alle Soldaten und Kanonen. Baut Eure Burg "..
-                         "aus und erreicht höhere Ränge, um das Limit zu erhöhen.",
+                    de = "@color:180,180,180 Militär @color:255,255,255 @cr "..
+                         "Zum Militär zählen Soldaten, Kanonen, Kundschafter "..
+                         "und Diebe. Baut Eure Burg aus und erreicht höhere "..
+                         "Ränge, um das Limit zu erhöhen.",
                     en = "@color:180,180,180 Military @color:255,255,255 @cr The "..
-                         " includes all of your soldiers and cannons. Upgrade your "..
-                         " castle and reach higher ranks to increase the limit.",
+                         "includes all soldiers, cannons, scouts and thieves. "..
+                         "Upgrade your  castle and reach higher ranks to increase "..
+                         "the limit.",
                 },
                 Population = {
-                    de = "@color:180,180,180 Bevölkerung @color:255,255,255 @cr Zur "..
-                         "Bevölkerung zählen alle Arbeiter, Leibeigene, Kundschafter "..
-                         "und Diebe. Nehmt Dörfer ein, um mehr Volk anzulocken.",
+                    de = "@color:180,180,180 Bevölkerung @color:255,255,255 @cr "..
+                         "Zur Bevölkerung zählen alle Arbeiter, Leibeigene und "..
+                         "Verbrecher. Baut die Burg aus oder nehmt Dörfer ein, "..
+                         "um mehr Volk anzulocken.",
                     en = "@color:180,180,180 Population @color:255,255,255 @cr The "..
-                         "population consists of workers, serfs, scouts and thieves. "..
-                         " Build village centers to attract more subjects.",
+                         "population consists of all workers, serfs and criminals. "..
+                         "Upgrade your castle or build village centers to attract "..
+                         "more population.",
                 },
                 TaxLeader = {
                     de = "@color:180,180,180 Sold @color:255,255,255 @cr Am Zahltag "..
-                         "wird der Sold der Soldaten fällig. Soldaten könnt Ihr viele "..
-                         "haben, müsst sie aber bezahlen können.",
-                    en = "@color:180,180,180 Upkeep @color:255,255,255 @cr On payday "..
-                         "you must pay your soldiers' wages. You can have a large "..
-                         "army but you have to be able to afford the upkeep.",
+                         "wird der Sold der Soldaten fällig. Der Sold ist für jeden "..
+                         "Truppentyp unterschiedlich.",
+                    en = "@color:180,180,180 Upkeep @color:255,255,255 @cr On the "..
+                         "payday your soldiers get their wages. How much you pay "..
+                         "is different for each unit type.",
                 },
                 TaxWorker = {
                     de = "@color:180,180,180 Steuern @color:255,255,255 @cr Jeder "..

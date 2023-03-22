@@ -29,7 +29,9 @@
 			  <Wood/>
         </Cost>
         <Category>Military</Category>
+        <Category>CavalryHeavy</Category>
         <Category>Soldier</Category>
+        <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassIron</ArmorClass>
@@ -129,7 +131,7 @@
 	        <BattleWalkAnim>PU_SoldierCavalry3_Run1</BattleWalkAnim>
 	        <HitAnim>PU_SoldierCavalry3_Hit</HitAnim> 
 	        
-	        <DamageClass>DC_Axe</DamageClass>
+	        <DamageClass>DC_Strike</DamageClass>
 	        <DamageAmount>26</DamageAmount>
 	        <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 	        

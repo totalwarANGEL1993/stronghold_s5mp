@@ -76,6 +76,7 @@
         
         <Category>Military</Category>
         <Category>Soldier</Category>
+        <Category>Spear</Category>
         <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>

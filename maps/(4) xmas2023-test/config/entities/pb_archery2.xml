@@ -88,13 +88,6 @@
         </ConstructionInfo>
         
 
-    
-
-    <!--MilitaryInfo>
-            <LeaderLimit>100</LeaderLimit>
-            <SoldierLimit>1000</SoldierLimit>
-            <DamageClass>DC_Bow</DamageClass>
-        </MilitaryInfo-->
         <ApproachPos>
             <X>-670</X>
             <Y>600</Y>

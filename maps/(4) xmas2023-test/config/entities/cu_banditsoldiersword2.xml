@@ -59,6 +59,7 @@
         </ModifySpeed>
         
         <Category>Military</Category>
+        <Category>Soldier</Category>
         <Category>Melee</Category>
         <Category>Sword</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
@@ -114,7 +115,7 @@
 	        <HitAnim>CU_SoldierOutlaw1_Hit</HitAnim>
 	        
             <!-- That is on purpose -->
-	        <DamageClass>DC_Axe</DamageClass>
+	        <DamageClass>DC_Strike</DamageClass>
 	        <DamageAmount>7</DamageAmount>
 	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        

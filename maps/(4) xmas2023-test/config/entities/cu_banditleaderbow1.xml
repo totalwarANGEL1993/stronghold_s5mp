@@ -67,7 +67,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <MaxHealth>150</MaxHealth>
 		  <Exploration>25</Exploration>
-		  <ArmorClass>ArmorClassJerkin</ArmorClass> 
+		  <ArmorClass>ArmorClassNone</ArmorClass> 
 		  <ArmorAmount>2</ArmorAmount>
 		  <DodgeChance>20</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -121,7 +121,7 @@
 	        <BattleWalkAnim>CU_BanditLeaderBow1_Run1</BattleWalkAnim>
 	        <HitAnim>CU_BanditLeaderBow1_Hit</HitAnim>
 	        
-	        <DamageClass>DC_Bow</DamageClass>
+	        <DamageClass>DC_Arrow</DamageClass>
 	        <DamageAmount>10</DamageAmount>
 	        <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 	        

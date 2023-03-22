@@ -91,14 +91,7 @@
             <ConstructionSite>ZB_ConstructionSiteBarracks1</ConstructionSite>
         </ConstructionInfo>
         
-
-    
-
-    <!--MilitaryInfo>
-            <LeaderLimit>100</LeaderLimit>
-            <SoldierLimit>1000</SoldierLimit>
-            <DamageClass>DC_Strike</DamageClass>
-        </MilitaryInfo-->
+        
         <ApproachPos>
             <X>-800</X>
             <Y>-300</Y>

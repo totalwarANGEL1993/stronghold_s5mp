@@ -68,11 +68,12 @@
         </ModifySpeed>
         
         <Category>Military</Category>
+        <Category>Rifle</Category>
         <Category>Soldier</Category>
         <Category>LongRange</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>30</Exploration>
-		  <ArmorClass>ArmorClassNone</ArmorClass> 
+		  <ArmorClass>ArmorClassLeather</ArmorClass> 
 		  <ArmorAmount>4</ArmorAmount>
 		  <DodgeChance>5</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
