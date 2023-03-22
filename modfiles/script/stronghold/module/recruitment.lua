@@ -709,7 +709,11 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
             local CostsSoldier = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, Soldiers);
             local CostsLeader = self:GetLeaderCosts(_PlayerID, _Type, 0);
             local Places = Config.Places or Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type);
-            self:CreateNewQueueEntry(_PlayerID, _Queue, ScriptName, Config.Turns, _Type, Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier);
+            local Turns = Stronghold.Hero:ApplyRecruitTimePassiveAbility(_PlayerID, _Type, Config.Turns);
+            self:CreateNewQueueEntry(
+                _PlayerID, _Queue, ScriptName, math.floor(Turns + 0.5), _Type,
+                Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier
+            );
             self:SubResourcesForUnit(_PlayerID, CostsLeader, CostsSoldier);
         end
         Stronghold.Players[_PlayerID].BuyUnitLock = nil;

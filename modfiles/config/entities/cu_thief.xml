@@ -38,7 +38,7 @@
 			  <Wood/>
         </Cost>
        <AttractionSlots>1</AttractionSlots>        
-        <Category>Military</Category>
+        <Category>Thief</Category>
         <Category>Melee</Category>
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>18</Exploration>

@@ -182,6 +182,7 @@ end
 
 function Stronghold.Province:StartTriggers()
     Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
+        Overwrite.CallOriginal();
         Stronghold.Province:OnPayday(_PlayerID);
     end);
 
