@@ -68,7 +68,7 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
                 },
             },
 
-            Text = {
+            Msg = {
                 MilitaryLimit = {
                     de = "Euere Heeresstärke ist an ihrem Limit, Hochwohlgeboren!",
                     en = "Your army strength is at its limit, Your Highness!",
@@ -83,6 +83,7 @@ function Stronghold.Recruitment:Install()
         self.Data[i] = {
             Config = CopyTable(Stronghold.UnitConfig.Units),
             Roster = {},
+            ForgeRegister = {},
             Queues = {
                 ["Research_UpgradeSword1"] = {},
                 ["Research_UpgradeSword2"] = {},
@@ -109,6 +110,7 @@ function Stronghold.Recruitment:Install()
     end
     self:CreateBuildingButtonHandlers();
     self:OverrideGUI();
+    self:OverrideLogic();
 end
 
 function Stronghold.Recruitment:OnSaveGameLoaded()
@@ -116,13 +118,14 @@ end
 
 function Stronghold.Recruitment:CreateBuildingButtonHandlers()
     self.SyncEvents = {
-        PayUnit = 1,
+        BuyCannon = 1,
         EnqueueUnit = 2,
     };
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            if _Action == Stronghold.Recruitment.SyncEvents.PayUnit then
-                Stronghold.Unit:PayUnit(_PlayerID, arg[1], arg[2]);
+            if _Action == Stronghold.Recruitment.SyncEvents.BuyCannon then
+                Stronghold.Unit:PayUnit(_PlayerID, arg[1], 0);
+                self:RegisterCannonOrder(_PlayerID, arg[2], arg[1]);
             elseif _Action == Stronghold.Recruitment.SyncEvents.EnqueueUnit then
                 if arg[5] then
                     self:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
@@ -288,7 +291,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
-                Message(self.Config.UI.Text.MilitaryLimit[Language]);
+                Message(self.Config.UI.Msg.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
@@ -303,9 +306,9 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
                 XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress,1);
                 Syncer.InvokeEvent(
                     self.NetworkCall,
-                    self.SyncEvents.PayUnit,
+                    self.SyncEvents.BuyCannon,
                     UnitType,
-                    0
+                    EntityID
                 );
             -- For other units enqueue them in the queue
             else
@@ -379,7 +382,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
-                Message(self.Config.UI.Text.MilitaryLimit[Language]);
+                Message(self.Config.UI.Msg.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
@@ -636,6 +639,7 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
 end
 
 -- -------------------------------------------------------------------------- --
+-- Production queues
 
 function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptName)
     if  self.Data[_PlayerID]
@@ -849,6 +853,47 @@ function Stronghold.Recruitment:InitQueuesForProducer(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Cannon Spam
+
+-- Registers a foundry for checking the forging process.
+function Stronghold.Recruitment:RegisterCannonOrder(_PlayerID, _BarracksID, _Type)
+    if self.Data[_PlayerID] then
+        self.Data[_PlayerID].ForgeRegister[_BarracksID] = _Type;
+    end
+end
+
+-- Checks the forging process in all registered foundries.
+function Stronghold.Recruitment:ControlCannonProducers(_PlayerID)
+    if self.Data[_PlayerID] then
+        for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
+            if not IsExisting(k) or Logic.GetCannonProgress(k) == 100 then
+                self.Data[_PlayerID].ForgeRegister[k] = nil;
+            end
+        end
+    end
+end
+
+-- Returns the places occupied by cannons currently in production.
+function Stronghold.Recruitment:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
+    local Places = 0;
+    if self.Data[_PlayerID] then
+        for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
+            local Size = Stronghold.Attraction:GetRequiredSpaceForUnitType(v, 1);
+            Places = Places + Size;
+        end
+    end
+    return Places;
+end
+
+-- -------------------------------------------------------------------------- --
+
+function Stronghold.Recruitment:OverrideLogic()
+    Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        local CannonPlaces = Stronghold.Recruitment:GetOccupiedSpacesFromCannonsInProgress(_PlayerID);
+        return CurrentAmount + CannonPlaces;
+    end);
+end
 
 function Stronghold.Recruitment:OverrideGUI()
     GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
