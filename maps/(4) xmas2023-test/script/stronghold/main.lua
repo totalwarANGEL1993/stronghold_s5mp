@@ -626,6 +626,7 @@ function Stronghold:OnEveryTurn()
         Stronghold.Hero:HeliasConvertController(i);
         Stronghold.Economy:ShowHeadquartersDetail(i);
         Stronghold.Recruitment:ControlProductionQueues(i);
+        Stronghold.Recruitment:ControlCannonProducers(i);
     end
     -- Player jobs on modified turns
     ---@diagnostic disable-next-line: undefined-field

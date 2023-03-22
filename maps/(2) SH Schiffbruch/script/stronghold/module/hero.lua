@@ -374,8 +374,8 @@ Stronghold.Hero = {
                          "von Tavernen um 50%. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Varg ruft Wölfe, die Ehre erzeugen, wenn sie gegen Feinde kämpfen. Ihre "..
-                         "Stärke richtet sich nach Vargs Rang.",
+                         "Varg ruft Wölfe herbei, die Ehre erzeugen, wenn sie gegen Feinde kämpfen. "..
+                         "Ihre Stärke richtet sich nach Vargs Rang.",
                     en = "VARG, the beastblood "..
                          "@cr @cr @color:180,180,180 "..
                          "After he was suckled by a alpha wolf instead of a woman he grew to a "..
@@ -405,8 +405,8 @@ Stronghold.Hero = {
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Durch effizientere Trainingsmethoden senkt Drake die Kosten für den "..
-                         "Unterhalt aller Scharfschützen um 50%. "..
+                         "Durch effizientere Trainingsmethoden senkt Drake die Rekrutierungszeit "..
+                         "von Scharfschützen um 50% und ihren Sold um 30%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                          "Drake kann den Schaden von verbündeten Fernkämpfern in seiner Nähe "..
@@ -416,14 +416,14 @@ Stronghold.Hero = {
                          "When he is not shooting at hazlenuts and pinecones he hunts down "..
                          "anyone as \"the jackal\" who dare to say he is compensating for "..
                          "something. His mother says to this day that he should leave his "..
-                         "gun at home. "..
+                         "rifle at home. "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Through the efficient methods Drake lowers the costs of training "..
-                         "riflemen by 50%. "..
+                         "Through the efficient methods Drake lowers the training time of all "..
+                         "sharpshooters by 50% and their upkeep costs by 30%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                          "Drake can increase the damage of allied ranged troops that are close "..
@@ -1243,12 +1243,6 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         CrimeRate = Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, CrimeRate);
         return CrimeRate;
     end);
-
-    Overwrite.CreateOverwrite("GameCallback_Calculate_CrimeChance", function(_PlayerID, _CrimeChance)
-        local CrimeChance = Overwrite.CallOriginal();
-        CrimeChance = Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, CrimeChance);
-        return CrimeChance;
-    end);
 end
 
 function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
@@ -1348,6 +1342,16 @@ function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, 
         end
     end
     return Costs;
+end
+
+function Stronghold.Hero:ApplyRecruitTimePassiveAbility(_PlayerID, _LeaderType, _Value)
+    local Value = _Value;
+    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero10) then
+        if Logic.IsEntityTypeInCategory(_LeaderType, EntityCategories.Rifle) == 1 then
+            Value = Value * 0.5;
+        end
+    end
+    return Value;
 end
 
 -- Passive Ability: Increase of max civil attraction
@@ -1461,7 +1465,7 @@ function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type,
     -- end
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero10) then
         if _Type == Entities.PU_LeaderRifle1 or _Type == Entities.PU_LeaderRifle2 then
-            Upkeep = Upkeep * 0.5;
+            Upkeep = Upkeep * 0.7;
         end
     end
     return Upkeep;
@@ -1480,7 +1484,7 @@ end
 function Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero6) then
-        Value = Value * 1.75;
+        Value = Value * 0.25;
     end
     return Value;
 end

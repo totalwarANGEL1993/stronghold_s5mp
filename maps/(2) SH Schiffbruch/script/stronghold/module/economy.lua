@@ -672,7 +672,7 @@ function Stronghold.Economy:AddPlayerMeasure(_PlayerID, _Amount)
     if Stronghold:IsPlayer(_PlayerID) then
         local MeasurePoints = self:GetPlayerMeasure(_PlayerID);
         MeasurePoints = math.max(MeasurePoints + _Amount, 0);
-        MeasurePoints = math.min(MeasurePoints, self.Config.MaxMeasurePoints);
+        MeasurePoints = math.min(MeasurePoints, self:GetPlayerMeasureLimit(_PlayerID));
         self.Data[_PlayerID].MeasurePoints = MeasurePoints;
     end
 end
@@ -690,10 +690,11 @@ end
 
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
+        local Rank = GetRank(_PlayerID)
         local MeasurePoints = 0;
         for k, v in pairs(GetAllWorker(_PlayerID, 0)) do
             if Logic.IsSettlerAtWork(v) == 1 then
-                MeasurePoints = MeasurePoints + (math.random(5, 10) * 0.1);
+                MeasurePoints = MeasurePoints + ((10 * 0.1) * (1.1 - (Rank/10)));
             end
         end
         MeasurePoints = GameCallback_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
