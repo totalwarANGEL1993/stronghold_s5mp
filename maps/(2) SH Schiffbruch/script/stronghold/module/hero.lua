@@ -132,7 +132,7 @@ Stronghold.Hero = {
                          "Fahne vom Geruch des Sprengstoffs zu unterscheiden. "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
-                         "Arbaleastschützen, keine schweren Scharfschützen "..
+                         "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Pilgrims Kenntnisse der Gesteine ermöglicht es, dass immer wenn "..
@@ -149,7 +149,7 @@ Stronghold.Hero = {
                          "of his mead. "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
-                         "Arbaleast archers but no heavy sharpshooters "..
+                         "- "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                          "Every time when resources are gathered by miners an aditional "..
@@ -298,7 +298,7 @@ Stronghold.Hero = {
                          "Ihr Motto: Ein gut platzierter Dolch erreicht mehr als 1000 Schwerter. " ..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
-                         "- "..
+                         "Arbaleastschützen, keine schweren Scharfschützen "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Mary schaltet Sabotate frei, sobald sie gewählt wird. Diebe belegen "..
@@ -314,7 +314,7 @@ Stronghold.Hero = {
                          "placed dagger is better than 1000 swords. "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
-                         "- "..
+                         "Arbaleast archers, no heavy sharpshooters "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                          "Mary unlocks sabotage when chosen. Thieves occupy less population places "..
@@ -985,7 +985,8 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm4;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword4;
     elseif _Type == Entities.PU_Hero2 then
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow4;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle1;
     elseif _Type == Entities.PU_Hero4 then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
@@ -1001,6 +1002,8 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.CU_BlackKnight_LeaderMace2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BlackKnight_LeaderMace1;
     elseif _Type == Entities.CU_Mary_de_Mortfichet then
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow4;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle1;
         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
         ThiefRecruiter = {Entities.PB_Tavern1, Entities.PB_Tavern2};
     elseif _Type == Entities.CU_Barbarian_Hero then

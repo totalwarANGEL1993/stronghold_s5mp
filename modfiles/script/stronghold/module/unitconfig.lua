@@ -327,7 +327,7 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Gunsmith's Shop",
         },
         Costs             = {
-            [1] = {35, 340, 0, 20, 0, 0, 60},
+            [1] = {28, 340, 0, 20, 0, 0, 60},
             [2] = {0, 75, 0, 10, 0, 0, 35},
         },
         Allowed           = true,
@@ -350,7 +350,7 @@ Stronghold.UnitConfig.Units = {
             en = "@color:244,184,0 requires:{white} #Rank#, Archery, Gun Factory",
         },
         Costs             = {
-            [1] = {50, 420, 0, 0, 0, 35, 75},
+            [1] = {36, 420, 0, 0, 0, 35, 75},
             [2] = {0, 85, 0, 0, 0, 15, 35},
         },
         Allowed           = true,
