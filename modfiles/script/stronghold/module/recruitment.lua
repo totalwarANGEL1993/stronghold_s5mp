@@ -109,7 +109,6 @@ function Stronghold.Recruitment:Install()
         self:InitDefaultRoster(i);
     end
     self:CreateBuildingButtonHandlers();
-    self:ImplementGUI();
     self:OverrideLogic();
 end
 
@@ -647,13 +646,16 @@ function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptN
     and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
         local Data = table.remove(self.Data[_PlayerID].Queues[_Queue][_ScriptName], 1);
         if Data then
+            -- Check existing
             if not IsExisting(_ScriptName) then
                 return;
             end
+            -- Get initial experience
             local Experience = 0;
             if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
                 Experience = 3;
             end
+            -- Create entity
             local Orientation = Logic.GetEntityOrientation(GetID(_ScriptName));
             local Position = Stronghold.Unit:GetBarracksDoorPosition(GetID(_ScriptName));
             local ID = AI.Entity_CreateFormation(
@@ -669,7 +671,10 @@ function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptN
                 Data.Soldiers
             );
             Logic.RotateEntity(ID, Orientation +180);
+            -- Change formation
             Stronghold.Unit:SetFormationOnCreate(ID);
+            -- Move to rally point
+            Stronghold.Building:MoveToRallyPoint(_ScriptName, ID);
         end
     end
 end
@@ -899,6 +904,9 @@ function Stronghold.Recruitment:OverrideLogic()
     end);
 end
 
+-- Updates the queue progress.
+-- (This must be directly in the script because otherwise it becomes
+-- an upvalue - and we don't want upvalues!).
 GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
     local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
     local EntityID = GUI.GetSelectedEntity();
@@ -919,7 +927,7 @@ GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
     end
 
     local Color = {26, 115, 16, 190};
-    if not self:CanProduceUnitFromQueue(PlayerID, _Button, ScriptName) then
+    if not Stronghold.Recruitment:CanProduceUnitFromQueue(PlayerID, _Button, ScriptName) then
         Color = {214, 44, 24, 190};
     end
     local TimeCharged = FirstEntry.Progress;
@@ -927,8 +935,5 @@ GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
     XGUIEng.SetMaterialColor(CurrentWidgetID, 1, unpack(Color));
     XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeCharged, RechargeTime);
     XGUIEng.SetTextByValue(_Button.. "_Amount", QueueSize);
-end
-
-function Stronghold.Recruitment:ImplementGUI()
 end
 

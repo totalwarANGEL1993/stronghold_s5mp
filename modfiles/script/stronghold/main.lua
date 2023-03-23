@@ -667,6 +667,7 @@ end
 function Stronghold:OnEntityDestroyed()
     local EntityID = Event.GetEntityID();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
+    Stronghold.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
 end
 
 function Stronghold:OnEntityHurtEntity()
@@ -1073,6 +1074,8 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_GUI_SelectionChanged", function()
         Overwrite.CallOriginal();
         local EntityID = GUI.GetSelectedEntity();
+        local GuiPlayer = Stronghold:GetLocalPlayerID();
+        self.Building:OnRallyPointHolderSelected(GuiPlayer, EntityID);
         Stronghold:OnSelectionMenuChanged(EntityID);
     end);
 
