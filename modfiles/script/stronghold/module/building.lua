@@ -973,6 +973,10 @@ end
 
 function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
     if self.Data[_PlayerID] then
+        -- No rally points on uncharted territory
+        if Logic.IsMapPositionExplored(_PlayerID, _X, _Y) == 0 then
+            return;
+        end
         -- Create position entity
         local ScriptName = CreateNameForEntity(_EntityID);
         local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X, _Y, 0, _PlayerID);
@@ -1043,6 +1047,7 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
         for k,v in pairs(self.Data[_PlayerID].RallyPoint) do
             if IsExisting(v) then
                 Logic.SetModelAndAnimSet(v, Models.Effects_XF_ExtractStone);
+                Logic.SetEntityExplorationRange(v, 0);
             end
         end
         -- Display the rally point of the building
