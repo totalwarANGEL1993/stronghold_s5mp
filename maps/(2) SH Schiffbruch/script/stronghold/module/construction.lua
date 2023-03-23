@@ -46,56 +46,16 @@ function Stronghold.Construction:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {};
     end
-
-    self:InitBuildingLimits();
-    self:OverridePlaceBuildingAction();
-    self:OverrideGUI();
-end
-
-function Stronghold.Construction:OnSaveGameLoaded()
-end
-
--- -------------------------------------------------------------------------- --
--- UI
-
-function Stronghold.Construction:OverrideGUI()
     -- Don't let EMS fuck with my script...
     if EMS then
         function EMS.RD.Rules.Markets:Evaluate(self) end
     end
 
-    Overwrite.CreateOverwrite(
-        "GUITooltip_UpgradeBuilding",
-        function(_Type, _KeyDisabled, _KeyNormal, _Technology)
-            Overwrite.CallOriginal();
-            Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDisabled, _KeyNormal, _Technology);
-        end
-    );
+    self:InitBuildingLimits();
+    self:OverridePlaceBuildingAction();
+end
 
-    Overwrite.CreateOverwrite(
-        "GUITooltip_ConstructBuilding",
-        function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
-            Overwrite.CallOriginal();
-            Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
-        end
-    );
-
-    Overwrite.CreateOverwrite(
-        "GUIUpdate_BuildingButtons",
-        function(_Button, _Technology)
-            local PlayerID = Stronghold:GetLocalPlayerID();
-            Overwrite.CallOriginal();
-            Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
-        end
-    );
-
-    Overwrite.CreateOverwrite(
-        "GUIUpdate_UpgradeButtons",
-        function(_Button, _Technology)
-            Overwrite.CallOriginal();
-            Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology);
-        end
-    );
+function Stronghold.Construction:OnSaveGameLoaded()
 end
 
 -- -------------------------------------------------------------------------- --

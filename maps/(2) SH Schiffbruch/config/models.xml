@@ -3405,5 +3405,191 @@
   <Model id="XD_ThiefBomb">
     <UseSurfaceHeight>True</UseSurfaceHeight>
   </Model>
-  
+
+<!-- AddOn 2-->
+
+  <Model id="XD_Groyne1">
+    <UseSurfaceHeight>True</UseSurfaceHeight>
+  </Model>
+
+  <Model id="XD_Groyne2">
+    <UseSurfaceHeight>True</UseSurfaceHeight>
+  </Model>
+
+  <Model id="XD_Groyne3">
+    <UseSurfaceHeight>True</UseSurfaceHeight>
+  </Model>
+
+  <Model id="XD_CliffTideland1">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>False</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTideland2">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>False</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTideland3">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>False</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTideland4">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>False</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTideland5">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>False</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTidelandShadows1">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>True</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTidelandShadows2">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>True</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTidelandShadows3">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>True</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTidelandShadows4">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>True</CastShadow>
+  </Model>
+
+  <Model id="XD_CliffTidelandShadows5">
+    <SelectionRadius>1000</SelectionRadius>
+    <CastShadow>True</CastShadow>
+  </Model>
+
+  <Model id="XD_Rape1">
+    <Effect>DoodadMovementHorizontal</Effect>
+    <CastShadow>False</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>True</UseAlphaBlending>
+    <OnePassAlphaBlendingDistance>1000</OnePassAlphaBlendingDistance>
+    <OrnamentalItem>True</OrnamentalItem>
+    <OrnamentalItemEffect>OrnamentalItemMovementHorizontal</OrnamentalItemEffect>
+    <TerrainLightColorPortion>1</TerrainLightColorPortion>
+    <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+  </Model>
+  <Model id="XD_RapeBlossom1">
+    <Effect>DoodadMovementHorizontal</Effect>
+    <CastShadow>False</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>False</UseAlphaBlending>
+    <OnePassAlphaBlendingDistance>1000</OnePassAlphaBlendingDistance>
+    <OrnamentalItem>True</OrnamentalItem>
+    <OrnamentalItemEffect>OrnamentalItemMovementHorizontal</OrnamentalItemEffect>
+    <TerrainLightColorPortion>1</TerrainLightColorPortion>
+    <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+  </Model>
+    
+  <Model id="XD_NephilimFlower">
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>True</UseAlphaBlending>
+    <Effect>DoodadSnowMovementHorizontalSlightly</Effect>
+  </Model>
+
+  <Model id="XD_Flower1">
+    <Effect>DoodadMovementHorizontal</Effect>
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>False</UseAlphaBlending>
+    <OnePassAlphaBlendingDistance>1000</OnePassAlphaBlendingDistance>
+    <OrnamentalItem>True</OrnamentalItem>
+    <OrnamentalItemEffect>OrnamentalItemMovementHorizontal</OrnamentalItemEffect>
+    <TerrainLightColorPortion>1</TerrainLightColorPortion>
+    <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+  </Model>
+   
+  <Model id="XD_Flower2">
+    <Effect>DoodadMovementHorizontal</Effect>
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>True</UseAlphaBlending>
+    <OnePassAlphaBlendingDistance>1000</OnePassAlphaBlendingDistance>
+    <OrnamentalItem>True</OrnamentalItem>
+    <OrnamentalItemEffect>OrnamentalItemMovementHorizontal</OrnamentalItemEffect>
+    <TerrainLightColorPortion>1</TerrainLightColorPortion>
+    <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+  </Model>
+ 
+   <Model id="XD_Flower3">
+    <Effect>DoodadMovementHorizontal</Effect>
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>True</UseAlphaBlending>
+    <OnePassAlphaBlendingDistance>1000</OnePassAlphaBlendingDistance>
+    <OrnamentalItem>True</OrnamentalItem>
+    <OrnamentalItemEffect>OrnamentalItemMovementHorizontal</OrnamentalItemEffect>
+    <TerrainLightColorPortion>1</TerrainLightColorPortion>
+    <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+  </Model>
+   
+   <Model id="XD_Flower4">
+    <Effect>DoodadMovementHorizontal</Effect>
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>True</UseAlphaBlending>
+    <OnePassAlphaBlendingDistance>1000</OnePassAlphaBlendingDistance>
+    <OrnamentalItem>True</OrnamentalItem>
+    <OrnamentalItemEffect>OrnamentalItemMovementHorizontal</OrnamentalItemEffect>
+    <TerrainLightColorPortion>1</TerrainLightColorPortion>
+    <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+  </Model>
+
+  <Model id="XD_Flower5">
+    <Effect>DoodadMovementHorizontal</Effect>
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>False</UseAlphaBlending>
+    <OnePassAlphaBlendingDistance>1000</OnePassAlphaBlendingDistance>
+    <OrnamentalItem>True</OrnamentalItem>
+    <OrnamentalItemEffect>OrnamentalItemMovementHorizontal</OrnamentalItemEffect>
+    <TerrainLightColorPortion>1</TerrainLightColorPortion>
+    <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+  </Model>
+
+  <Model id="XD_CherryTree">
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>True</UseAlphaBlending>
+    <Effect>DoodadSnowMovementRotation</Effect>
+    <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+  </Model>
+
+  <Model id="XD_Sunflower1">
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>False</UseAlphaBlending>
+    <Effect>DoodadMovementHorizontalSlightly</Effect>
+  </Model>
+  <Model id="XD_Sunflower2">
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>False</UseAlphaBlending>
+    <Effect>DoodadMovementHorizontalSlightly</Effect>
+  </Model>
+  <Model id="XD_Sunflower3">
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>False</UseAlphaBlending>
+    <Effect>DoodadMovementHorizontalSlightly</Effect>
+  </Model>
+  <Model id="XD_Sunflower4">
+    <CastShadow>True</CastShadow>
+    <ShareShadowRaster>True</ShareShadowRaster>
+    <UseAlphaBlending>False</UseAlphaBlending>
+    <Effect>DoodadMovementHorizontalSlightly</Effect>
+  </Model>
 </root>

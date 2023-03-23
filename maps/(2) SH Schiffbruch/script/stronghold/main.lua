@@ -1203,6 +1203,13 @@ function Stronghold:OverrideWidgetTooltips()
         Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
     end);
 
+    Overwrite.CreateOverwrite( "GUITooltip_ConstructBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
+        local GuiPlayer = Stronghold:GetLocalPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        Overwrite.CallOriginal();
+        Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
+    end);
+
     Overwrite.CreateOverwrite("GUITooltip_Generic", function(_Key)
         local PlayerID = Stronghold:GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
@@ -1252,13 +1259,23 @@ function Stronghold:OverrideWidgetTooltips()
 end
 
 -- Button Update Generic Override
-function Stronghold:OverrideWidgetUpdates()
-    Overwrite.CreateOverwrite("GUIUpdate_BuildingButtons", function(_Button, _Technology)
-        Overwrite.CallOriginal();
+function Stronghold:OverrideWidgetUpdates()Overwrite.CreateOverwrite("GUIUpdate_BuildingButtons", function(_Button, _Technology)
         local PlayerID = self:GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
+        Overwrite.CallOriginal();
         Stronghold.Hero:OnlineHelpUpdate(PlayerID, _Button, _Technology);
+        Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
         Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
+    end);
+
+    Overwrite.CreateOverwrite("GUITooltip_UpgradeBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
+        Overwrite.CallOriginal();
+        Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
+    end);
+
+    Overwrite.CreateOverwrite("GUIUpdate_UpgradeButtons", function(_Button, _Technology)
+        Overwrite.CallOriginal();
+        Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology);
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_SelectionName", function()

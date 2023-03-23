@@ -83,6 +83,7 @@ Stronghold.Hero = {
                          "the highest possible title.",
                 },
             },
+
             HeroSkill = {
                 [Entities.PU_Hero5]              = {
                     de = "{grey}Pfeilhagel{cr}{white}Ari lässt einen Köcher voll Pfeile auf die Gegner herabregnen.",
@@ -93,62 +94,201 @@ Stronghold.Hero = {
                     en = "{grey}Demoralize{cr}{white}Mary attacks all enemies around her, which not only deals damage but also lowers the damage they can inflict.",
                 },
             },
-            HeroCV = {
+
+            HeroNames                            = {
                 [Entities.PU_Hero1c]             = {
-                    de = "DARIO, der könig @cr @cr @color:180,180,180 "..
-                         "Trotz seiner jungen Jahre obliegen die Geschicke des Reiches ihm. "..
-                         "Früher wurde er oft dabei gesehen, wie er rosa Kleidchen trug. Die "..
-                         "tauschte er inzwischen gegen ein Schwert ein. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "DARIO, der könig ",
+                    en = "DARIO, the king ",
+                },
+                [Entities.PU_Hero2]              = {
+                    de = "PILGRIM, der geologe ",
+                    en = "PILGRIM, the geologist ",
+                },
+                [Entities.PU_Hero3]              = {
+                    de = "SALIM, der gelehrte ",
+                    en = "SALIM, the scholar ",
+                },
+                [Entities.PU_Hero4]              = {
+                    de = "EREC, der ritter ",
+                    en = "EREC, the knight ",
+                },
+                [Entities.PU_Hero5]              = {
+                    de = "ARI, die vogelfreie ",
+                    en = "ARI, the vagabund ",
+                },
+                [Entities.PU_Hero6]              = {
+                    de = "HELIAS, der priester ",
+                    en = "HELIAS, the priest ",
+                },
+                [Entities.CU_Mary_de_Mortfichet] = {
+                    de = "MARY, die schlange ",
+                    en = "MARY, the snake ",
+                },
+                [Entities.CU_BlackKnight]        = {
+                    de = "KERBEROS, der schrecken ",
+                    en = "KERBEROS, the dread ",
+                },
+                [Entities.CU_Barbarian_Hero]     = {
+                    de = "VARG, das wolfsblut ",
+                    en = "VARG, the beastblood ",
+                },
+                [Entities.PU_Hero10]             = {
+                    de = "DRAKE, der schakal ",
+                    en = "DRAKE, the jackal ",
+                },
+                [Entities.PU_Hero11]             = {
+                    de = "YUKI, die donnerfaust ",
+                    en = "YUKI, the thunderfist ",
+                },
+                [Entities.CU_Evil_Queen]         = {
+                    de = "KALA, die hexe ",
+                    en = "KALA, the witch ",
+                },
+            },
+
+            HeroBiography                        = {
+                [Entities.PU_Hero1c]             = {
+                    de = "Trotz seiner jungen Jahre obliegen die Geschicke des "..
+                         "Reiches ihm. Früher wurde er oft dabei gesehen, wie "..
+                         "er rosa Kleidchen trug. Die tauschte er inzwischen "..
+                         "gegen ein Schwert ein. ",
+                    en = "Despite his young age he has a lot of responsibility "..
+                         "on his shoulders. He is often seen wearing pink dresses. "..
+                         "Sometimes he exchanges them for armor and sword. ",
+                },
+                [Entities.PU_Hero2]              = {
+                    de = "Er entstammt einer langen Linie von Bergmännern. Ein " ..
+                         "glückliches Schicksal verhalf ihm zu Geld und Würden. "..
+                         "Es fällt ihm oft schwer, seine Fahne vom Geruch des "..
+                         "Sprengstoffs zu unterscheiden. ",
+                    en = "He descended from a long line of miners. Serendipity "..
+                         "helped him to money and dignity. He is always fond of "..
+                         "alcohol. He often has trouble distinguishing the smell "..
+                         "of the explosives from those of his mead. ",
+                },
+                [Entities.PU_Hero3]              = {
+                    de = "Ein Schriftgelehrter aus dem nahen Osten. Manche sagen ihm nach, " ..
+                         "er sei verrückt geworden und versuche in seinem Labor ein schwarzes "..
+                         "Loch zu erschaffen und so die Vergangenheit zu verändern. ",
+                    en = "A scholar from the east who decided to bring knowledge to the west. "..
+                         "Some say he is crazy and tries to create a black hole inside his "..
+                         "laboratory to alter time. ",
+                },
+                [Entities.PU_Hero4]              = {
+                    de = "Er ist ein echter Ritter. Von Kopf bis Fuß gehüllt in glänzender "..
+                         "Rüstung zieht er aus, seinen Ruhm zu mehren und Jungfrauen in " ..
+                         "Nöten beizustehen. Seine Anwesenheit inspiriert die Truppen zu "..
+                         "Höchsleistungen. ",
+                    en = "He is a true knight. From head to toe clad in shining armor he strifes "..
+                         "to gather fame and safe damsels in distress. His presence inspires all "..
+                         "soldiers under his command. ",
+                },
+                [Entities.PU_Hero5]              = {
+                    de = "Als Kind wurde sie von Gesetzlosen adoptiert und wuchs nicht nur " ..
+                         "zu einer atemberaubenden Lady heran. Aber dies ist mit Nichten ihre " ..
+                         "einzige Qualität, was sie jeden spüren lässt, der sich erdreistet, " ..
+                         "ihre Augen eine Etage tiefer zu suchen. ",
+                    en = "As a little girl she was adopted by the outlaws. Since then she grew "..
+                         "to be a breathtaking lady. Beauty is not her only quality. Anyone who "..
+                         "dares to search her eyes one story to deep will regret it. ",
+                },
+                [Entities.PU_Hero6]              = {
+                    de = "Einst vorgesehen für die Thronfolge des Alten Reiches, war der Ruf des " ..
+                         "Herrn stärker. Wenn er nicht gerade Wasser predigt und Wein trinkt, "..
+                         "erfreut er sich an den lieblichen Klängen der Chorknaben. ",
+                    en = "Once designated as the heir of the Old Reich the calling from god was "..
+                         "stronger. When he is not preaching water and drinking wine he enjoys "..
+                         "the lovely sounds of the choirboys. ",
+                },
+                [Entities.CU_Mary_de_Mortfichet] = {
+                    de = "Die Countess ist verrufen als ruchloses Miststück. Zeigt ihr Gegenüber " ..
+                         "eine Schwäche, zögert sie nicht, sie auszunutzen. Ihr Motto: Ein gut " ..
+                         "platzierter Dolch erreicht mehr als 1000 Schwerter. ",
+                    en = "The Countess is infamous as beeing a nefarious and bitch. If her "..
+                         "opponent has any weaknesses she will expoit it. A good placed dagger "..
+                         "is better than 1000 swords. ",
+                },
+                [Entities.CU_BlackKnight]        = {
+                    de = "Als sein Vater den Thron aufgab um Pfaffe zu werden, brach für " ..
+                         "ihn eine Welt zusammen. Seinem Erbe beraubt, verfiel er der " ..
+                         "Finsternis. Als Scherge eines bösen Königs wartet er auf seine Chance. ",
+                    en = "After his father gave up the throne to become a priest the world "..
+                         "came crashing down for him. Deprived of his inheritance he embraced "..
+                         "the darkness. As minion of a evil king he awaits his chance. ",
+                },
+                [Entities.CU_Barbarian_Hero]     = {
+                    de = "Als Baby wurde er von einer Alphawölfin gesäugt. Als zwölfjähriger "..
+                         "Junge besiegte er einen Eisbären im Zweikampf und wurde daraufhin zum " ..
+                         "Anführer aller Barbaren gekrönt. ",
+                    en = "After he was suckled by a alpha wolf instead of a woman he grew to a "..
+                         "strong boy who defeated a icebear after his twelth birthday. He was "..
+                         "soon chosen as the sole leader of the Barbarians. ",
+                },
+                [Entities.PU_Hero10]             = {
+                    de = "Wenn er nicht gerade auf Haselnüsse und Tannenzapfen schießt, jagt " ..
+                         "er als \"Der Schakal\" alle die behaupten, er wolle nur etwas "..
+                         "kompensieren. Seine Mutter meint noch heute, er solle das Gewehr "..
+                         "zuhause lassen. ",
+                    en = "When he is not shooting at hazlenuts and pinecones he hunts down "..
+                         "anyone as \"the jackal\" who dare to say he is compensating for "..
+                         "something. His mother says to this day that he should leave his "..
+                         "rifle at home. ",
+                },
+                [Entities.PU_Hero11]             = {
+                    de = "Schon als kleines Mädchen beschäftigte sie sich mit Pyrotechnik. " ..
+                         "Zusammen mit den drei Chinesen und deren Kontrabass verschlug es " ..
+                         "sie in den Westen, wo sie Reichtum erlangte und nun eine Burg ihr "..
+                         "Eigen nennt. ",
+                    en = "She was engaged in pyrotechnics since early childhood. Together "..
+                         "with the 3 Chinese and their double bass she ended up in the west "..
+                         "searching for wealth. Now she claimed a castle. ",
+                },
+                [Entities.CU_Evil_Queen]         = {
+                    de = "Um ihre Herkunft ranken sich Mysterien und düstere Legenden. Vom "..
+                         "Nebelvolk wird sie wie eine Göttin verehrt. Böse Zungen behaupten, " ..
+                         "sie hätte jeden Einzelnen ihrer Untertanen selbst zur Welt gebracht. ",
+                    en = "Many rumors clowding the trugh about her origin. The shrouded praise "..
+                         "her like a godess. Envy tongues claim that she had birthed the entirty "..
+                         "of the shrouded pepole herself. ",
+                },
+            },
+
+            HeroDescription = {
+                [Entities.PU_Hero1c]             = {
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Bastardschwertkämpfer, Hellebardiere "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Als König hat Dario die Autorität, schneller Maßnahmen zu "..
-                         "ergreifen. Eure Maßnahmen sind doppelt so schneller einsetzbar. "..
+                         "Er besitzt die Autorität, schneller Maßnahmen zu ergreifen. "..
+                         "Eure Maßnahmen sind doppelt so schneller einsetzbar. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Dario kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
+                         "Er kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
                          "(außer Nebelvolk).",
-                    en = "DARIO, the king @cr @cr @color:180,180,180 "..
-                         "Despite his young age Dario has a lot of responsibility on his "..
-                         "shoulders. He is often seen wearing pink dresses. Sometimes he "..
-                         "exchanges them for armor and sword. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special units: @color:255,255,255 "..
+                    en = "@color:55,145,155 Special units: @color:255,255,255 "..
                          "Bastardswordmen, Halberdiers "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "As king Dario has the autority to faster take measures when needed. "..
+                         "He has the autority to faster take measures when needed. "..
                          "Your measures can be used twice as often. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Dario can inflict fear to enemies in a wide area (except the Shrouded).",
+                         "He can inflict fear to enemies in a wide area "..
+                         "(except the Shrouded).",
                 },
                 [Entities.PU_Hero2]              = {
-                    de = "PILGRIM, der geologe @cr @cr @color:180,180,180 "..
-                         "Pilgrim entstammt einer langen Linie von Bergmännern. Ein glückliches " ..
-                         "Schicksal verhalf ihm zu Geld und Würden. Es fällt ihm oft schwer, seine "..
-                         "Fahne vom Geruch des Sprengstoffs zu unterscheiden. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Pilgrims Kenntnisse der Gesteine ermöglicht es, dass immer wenn "..
-                         "Rohstoffe in Minen abgebaut werden, weitere Rohstoffe erzeugt "..
-                         "werden. Ausbau der Minen steigert den Effekt. "..
+                         "Seine Kenntnisse der Gesteine ermöglicht es, dass immer "..
+                         "wenn Rohstoffe in Minen abgebaut werden, weitere Rohstoffe "..
+                         "erzeugt werden. Ausbau der Minen steigert den Effekt. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Pilgrim kann eine Bombe legen, die verschüttete Schächte freilegt und "..
-                         "ebenfalls Feinde schädigt. ",
-                    en = "PILGRIM, the geologist @cr @cr @color:180,180,180 "..
-                         "Pilgrim descended from a long line of miners. Serendipity helped "..
-                         "him to money and dignity. He is always fond of alcohol. He often "..
-                         "has trouble distinguishing the smell of the explosives from those "..
-                         "of his mead. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Er kann eine Bombe legen, die verschüttete Schächte freilegt "..
+                         "und ebenfalls Feinde schädigt. ",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
@@ -156,98 +296,62 @@ Stronghold.Hero = {
                          "resource is earned. Upgrading mines increases this effect. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Pilgrim can place a bomb that damages foes and blast open resources.",
+                         "He can place a bomb that damages foes and blast open resources.",
                 },
                 [Entities.PU_Hero3]              = {
-                    de = "SALIM, der gelehrte @cr @cr @color:180,180,180 "..
-                         "Ein Schriftgelehrter aus dem nahen Osten. Manche sagen ihm nach, " ..
-                         "er sei verrückt geworden und versuche in seinem Labor ein schwarzes "..
-                         "Loch zu erschaffen und so die Vergangenheit zu verändern. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Wissen ist Macht. Und Salim weiß sein Wissen einzusetzen. Kanonen "..
+                         "Wissen ist Macht. Und er weiß sein Wissen einzusetzen. Kanonen "..
                          "benötigen keine Ehre und die Kosten sind um 10% reduziert. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Salim kann eine Falle verstecken, die explodiert, sobald der Feind "..
+                         "Er kann eine Falle verstecken, die explodiert, sobald der Feind "..
                          "unvorsichtig an sie heran tritt.",
-                    en = "SALIM, the scholar @cr @cr @color:180,180,180 "..
-                         "A scholar from the east who decided to bring knowledge to the west. "..
-                         "Some say he is crazy and tries to create a black hole inside his "..
-                         "laboratory to alter time. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Knowledge equals power. And Salim knows how to use it. Cannons do "..
+                         "Knowledge equals power. And he knows how to use it. Cannons do "..
                          "not require honor and their costs are reduced by 10%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Salim can hide a trap that explodes when reckless enemies come "..
+                         "He can hide a trap that explodes when reckless enemies come "..
                          "to close.",
                 },
                 [Entities.PU_Hero4]              = {
-                    de = "EREC, der ritter "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Er ist ein echter Ritter. Von Kopf bis Fuß gehüllt in glänzender "..
-                         "Rüstung zieht er aus, seinen Ruhm zu mehren und Jungfrauen in " ..
-                         "Nöten beizustehen. Seine Anwesenheit inspiriert die Truppen zu "..
-                         "Höchsleistungen. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Berittene Streitaxtkämpfer und berittene Armbrustschützen, keine "..
                          "schweren Scharfschützen " ..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Erec rekrutiert Soldaten mit der maximalen Erfahrung, wodurch die "..
+                         "Er rekrutiert Soldaten mit der maximalen Erfahrung, wodurch die "..
                          "Ausbildung des Hauptmannes um 50% teurer wird. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Erec kann mit einem Rundumschlag alle nahestehenden Feinde verletzen.",
-                    en = "EREC, the knight "..
-                         "@cr @cr @color:180,180,180 "..
-                         "He is a true knight. From head to toe clad in shining armor he strifes "..
-                         "to gather fame and safe damsels in distress. His presence inspires all "..
-                         "soldiers under his command. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Er kann mit einem Rundumschlag alle nahestehenden Feinde verletzen.",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "Mounted axemen and mounted crossbowmen, no heavy sharpshooters "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Erec will hire group leaders with full experience. But due to intensifyed "..
+                         "He will hire group leaders with full experience. But due to intensifyed "..
                          "training, the costs of those leaders increase by 50%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Erec can inflict high damage in a small area.",
+                         "He can inflict high damage in a small area.",
                 },
                 [Entities.PU_Hero5]              = {
-                    de = "ARI, die vogelfreie "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Als Kind wurde Ari von Gesetzlosen adoptiert und wuchs nicht nur zu " ..
-                         "einer atemberaubenden Lady heran. Aber dies ist mit Nichten ihre einzige " ..
-                         "Qualität, was sie jeden spüren lässt, der sich erdreistet, ihre Augen " ..
-                         "eine Etage tiefer zu suchen. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Leichte und schwere Banditen, Banditenbogenschützen "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Als Banditenfürstin kennt Ari alle Tricks, um an Gold zu "..
+                         "Als Banditenfürstin kennt sie alle Tricks, um an Gold zu "..
                          "kommen. Die Steuereinnahmen werden um 30% erhöht. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Ari kann einen Pfeilhagel auf Feinde hernieder gehen lassen.",
-                    en = "ARI, the vagabund "..
-                         "@cr @cr @color:180,180,180 "..
-                         "As a little girl she was adopted by the outlaws. Since then she grew to "..
-                         "be a breathtaking lady. Beauty is not her only quality. Anyone who dares "..
-                         "to search her eyes one story to deep will regret it. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Sie kann einen Pfeilhagel auf Feinde hernieder gehen lassen.",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "Light and heavy bandits, bandit archers "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
@@ -255,247 +359,162 @@ Stronghold.Hero = {
                          "increased by 30%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Ari can unleash a hail of arrows upon the enemy.",
+                         "She can unleash a hail of arrows upon the enemy.",
                 },
                 [Entities.PU_Hero6]              = {
-                    de = "HELIAS, der priester "..
-                         "@cr @cr @color:180,180,180 " ..
-                         "Einst vorgesehen für die Thronfolge des Alten Reiches, war der Ruf des " ..
-                         "Herrn stärker. Wenn er nicht gerade Wasser predigt und Wein trinkt, "..
-                         "erfreut er sich an den lieblichen Klängen der Chorknaben. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Durch Helias Beistand brechen Arbeter seltener das Gesetz. Außerdem "..
-                         "hat Helias eine geringe Chance, Feinde im Kampf zu bekehren. "..
+                         "Durch seinen Beistand brechen Arbeter seltener das Gesetz. "..
+                         "Außerdem hat er eine geringe Chance, Feinde im Kampf zu "..
+                         "bekehren. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Helias kann die Rüstung von verbündeten Einheiten für einen kurzen "..
-                         "Zeitruam verdoppeln.",
-                    en = "HELIAS, the priest "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Once designated as the heir of the Old Reich the calling from god was "..
-                         "stronger. When he is not preaching water and drinking wine he enjoys "..
-                         "the lovely sounds of the choirboys. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Er kann die Rüstung von verbündeten Einheiten für einen "..
+                         "kurzen Zeitruam verdoppeln.",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Workers are less likely to become criminals. Additionally Helias has a "..
-                         "low chance to convert enemies while fighting them. "..
+                         "Workers are less likely to become criminals. Additionally "..
+                         "he has a very slight to convert enemies while fighting them. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Helias can bless allied troops, doubleing their armor raiting temporarily.",
+                         "He can bless allied troops, doubleing their armor raiting "..
+                         "temporarily.",
                 },
                 [Entities.CU_Mary_de_Mortfichet] = {
-                    de = "MARY, die schlange "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Die Countess de Mortfichet ist verrufen als ruchloses Miststück. " ..
-                         "Zeigt ihr Gegenüber eine Schwäche, zögert sie nicht, sie auszunutzen. " ..
-                         "Ihr Motto: Ein gut platzierter Dolch erreicht mehr als 1000 Schwerter. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Arbaleastschützen, keine schweren Scharfschützen "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Mary schaltet Sabotate frei, sobald sie gewählt wird. Diebe belegen "..
-                         "weniger Platz und können bereits in Tavernen rekrutiert werden. "..
+                         "Die Sabotage wird freigeschaltet, sobald sie gewählt wird. "..
+                         "Diebe belegen weniger Platz und können bereits in Tavernen "..
+                         "rekrutiert werden. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Mary hohlt zu einem Rundumschlag aus, der nahestehenden Feinde verletzt "..
-                         "und die Angriffskraft der Überlebenden halbiert.",
-                    en = "MARY, the snake "..
-                         "@cr @cr @color:180,180,180 "..
-                         "The Countess the Mortfichet is infamous as beeing a nefarious and "..
-                         "bitch. If her opponent has any weaknesses she will expoit it. A good "..
-                         "placed dagger is better than 1000 swords. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Sie hohlt zu einem Rundumschlag aus, der nahestehenden Feinde "..
+                         "verletzt und die Angriffskraft der Überlebenden halbiert.",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "Arbaleast archers, no heavy sharpshooters "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Mary unlocks sabotage when chosen. Thieves occupy less population places "..
-                         "and can be recruited without upgrading taverns. "..
+                         "She unlocks sabotage when chosen. Thieves occupy less population "..
+                         "places and can be recruited without upgrading taverns. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Mary can inflict damage to close enemies and also lower the damage "..
-                         "surviving enemies inflict.",
+                         "She can inflict damage to close enemies and also lower the "..
+                         "damage surviving enemies inflict.",
                 },
                 [Entities.CU_BlackKnight]        = {
-                    de = "KERBEROS, der schrecken "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Als sein Vater den Thron aufgab um Pfaffe zu werden, brach für " ..
-                         "Kerberos eine Welt zusammen. Seinem Erbe beraubt, verfiel er der " ..
-                         "Finsternis. Als Scherge eines bösen Königs wartet er auf seine "..
-                         "Chance. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Leichte und schwere schwarze Ritter "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Kann eine persönliche Leibgarde anheuern. Malus auf die Beliebtheit "..
-                         "verringern sich um 40%. Die maximale Beliebtheit sinkt auf 175. " ..
+                         "Er kann eine persönliche Leibgarde mit sich führen. Malus "..
+                         "auf die Beliebtheit verringern sich um 40%. Dafür sinkt die "..
+                         "maximale Beliebtheit sinkt auf 175. " ..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Kerberos kann die Rüstung von nahestehenden Feinden zeitweilig auf 0 "..
-                         " senken.",
-                    en = "KERBEROS, the dread "..
-                         "@cr @cr @color:180,180,180 "..
-                         "After his father gave up the throne to become a priest the world "..
-                         "came crashing down for Kerberos. Deprived of his inheritance he "..
-                         "embraced the darkness. As minion of a evil king he awaits his "..
-                         "chance. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                         "Er kann die Rüstung von nahestehenden Feinden zeitweilig auf 0 "..
+                         "senken.",
+                    en = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Light and Heavy black knights "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Can employ personal bodyguards. Negative effects on reputation are "..
-                         "decreased by 40%. The reputation maximum becomes 175. "..
+                         "He can employ personal bodyguards. Negative effects on "..
+                         "reputation are decreased by 40%. The reputation maximum becomes 175. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Kerberos can temporarily reduce the armor of close by enemies to 0.",
+                         "He can temporarily reduce the armor of close by enemies to 0.",
                 },
                 [Entities.CU_Barbarian_Hero]     = {
-                    de = "VARG, das wolfsblut "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Als Baby wurde Varg von einer Alphawölfin gesäugt. Als zwölfjähriger "..
-                         "Junge besiegte er einen Eisbären im Zweikampf und wurde daraufhin zum " ..
-                         "Anführer aller Barbaren gekrönt. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Leichte und schwere Barbarenkrieger "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Einen Sieg muss man zu feiern wissen! Varg steigert die Effektivität "..
-                         "von Tavernen um 50%. "..
+                         "Einen Sieg muss man zu feiern wissen! Tavernen und Wirtshäuser "..
+                         "produzieren doppelt so effektiv Beliebtheit. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Varg ruft Wölfe herbei, die Ehre erzeugen, wenn sie gegen Feinde kämpfen. "..
-                         "Ihre Stärke richtet sich nach Vargs Rang.",
-                    en = "VARG, the beastblood "..
-                         "@cr @cr @color:180,180,180 "..
-                         "After he was suckled by a alpha wolf instead of a woman he grew to a "..
-                         "strong boy who defeated a icebear after his twelth birthday. He was "..
-                         "soon chosen as the sole leader of the Barbarians. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Er ruft Wölfe herbei, die Ehre erzeugen, wenn sie gegen Feinde "..
+                         "kämpfen. Ihre Stärke richtet sich nach seinem Rang.",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "Light and heavy barbarian warriors "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Barbarians know how to celebrate a victory. The efficiency of all "..
-                         "taverns are increased by 50%. "..
+                         "Barbarians know how to celebrate a victory. The efficiency "..
+                         "of all taverns and ins are doubled. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Summons wolves. They produce honor when they fight against an enemy. "..
-                         "Their depends on Vargs rank.",
+                         "He cann summon wolves. They produce honor when they fight "..
+                         "against an enemy. Their depends on his rank.",
                 },
                 [Entities.PU_Hero10]             = {
-                    de = "DRAKE, der schakal "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Wenn er nicht gerade auf Haselnüsse und Tannenzapfen schießt, jagt " ..
-                         "Drake als \"Der Schakal\" alle die behaupten, er wolle nur etwas "..
-                         "kompensieren. Seine Mutter meint noch heute, er solle das Gewehr "..
-                         "zuhause lassen. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Durch effizientere Trainingsmethoden senkt Drake die Rekrutierungszeit "..
-                         "von Scharfschützen um 50% und ihren Sold um 30%. "..
+                         "Seine effizienteren Trainingsmethoden senken die Zeit für "..
+                         "die Ausbildung von Scharfschützen um 50% und ihren Sold um 30%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Drake kann den Schaden von verbündeten Fernkämpfern in seiner Nähe "..
-                         "kurzzeitig um 150% erhöhen.",
-                    en = "DRAKE, the jackal "..
-                         "@cr @cr @color:180,180,180 "..
-                         "When he is not shooting at hazlenuts and pinecones he hunts down "..
-                         "anyone as \"the jackal\" who dare to say he is compensating for "..
-                         "something. His mother says to this day that he should leave his "..
-                         "rifle at home. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Er kann den Schaden von verbündeten Fernkämpfern in seiner "..
+                         "Nähe kurzzeitig um 150% erhöhen.",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "Through the efficient methods Drake lowers the training time of all "..
-                         "sharpshooters by 50% and their upkeep costs by 30%. "..
+                         "Through the efficient methods he lowers the training time of "..
+                         "all sharpshooters by 50% and their upkeep costs by 30%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Drake can increase the damage of allied ranged troops that are close "..
-                         "to him by 150% for a short amount of time.",
+                         "He can increase the damage of allied ranged troops that are "..
+                         "close to him by 150% for a short amount of time.",
                 },
                 [Entities.PU_Hero11]             = {
-                    de = "YUKI, die donnerfaust "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Schon als kleines Mädchen beschäftigte sich Yuki mit Pyrotechnik. " ..
-                         "Zusammen mit den drei Chinesen und deren Kontrabass verschlug es " ..
-                         "sie in den Westen, wo sie Reichtum erlangte und nun eine Burg ihr "..
-                         "Eigen nennt. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "- "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                         "Die maximale Beliebtheit wird 300. Yuki gewährt einmalig 100 "..
+                         "Die maximale Beliebtheit wird 300. Sie gewährt einmalig 100 "..
                          "Beliebtheit, sobald sie erscheint. Soldaten für einen Hauptmann "..
                          "anzuwerben ist 10% billiger. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Yuki kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
+                         "Sie kann feindliche Einheiten in einem weitem Umkreis vertreiben "..
                          "(außer Nebelvolk).",
-                    en = "YUKI, the thunderfist "..
-                         "@cr @cr @color:180,180,180 "..
-                         "She was engaged in pyrotechnics since early childhood. Together "..
-                         "with the 3 Chinese and their double bass she ended up in the west "..
-                         "searching for wealth. Now she claimed a castle. "..
-                         "@cr @cr @color:255,255,255 "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "- "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "The reputation limit is raised to 300. Yuki gives a one time bonus "..
-                         "of 100 reputation when selected. The costs of recruiting soldiers "..
-                         "is reduced by 10%. "..
+                         "The reputation limit is raised to 300. She gives a one time "..
+                         "bonus of 100 reputation when selected. The costs of recruiting "..
+                         "soldiers is reduced by 10%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Yuki can inflict fear to enemies in a wide area (except the Shrouded).",
+                         "She can inflict fear to enemies in a wide area "..
+                         "(except the Shrouded).",
                 },
                 [Entities.CU_Evil_Queen]         = {
-                    de = "KALA, die hexe "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Um ihre Herkunft ranken sich Mysterien und düstere Legenden. Vom "..
-                         "Nebelvolk wird Kala wie eine Göttin verehrt. Böse Zungen behaupten, " ..
-                         "sie hätte jeden Einzelnen ihrer Untertanen selbst zur Welt gebracht. " ..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                    de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                          "Bärenmenschen und Speerwerfer, keine Scharfschützen "..
                          "@cr @cr @color:255,255,255 " ..
                          "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                          "Die gesteigerte Geburtenrate sorgt für einen demographischen "..
-                         "Wandel. Kala steigert Euer Bevölkerungslimit um 25%. "..
+                         "Wandel. Sie steigert Euer Bevölkerungslimit um 25%. "..
                          "@cr @cr "..
                          "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                         "Kala kann nahestehende Feinde mit Gift schädigen.",
-                    en = "KALA, the witch "..
-                         "@cr @cr @color:180,180,180 "..
-                         "Many rumors clowding the trugh about her origin. The shrouded praise "..
-                         "her like a godess. Envy tongues claim that she had birthed the entirty "..
-                         "of the shrouded pepole herself. "..
-                         "@cr @cr @color:255,255,255 " ..
-                         "@color:55,145,155 Special ability: @cr @color:255,255,255 "..
+                         "Sie kann nahestehende Feinde mit Gift schädigen.",
+                    en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                          "Bearmen and javelin throwers but no sharpshooters "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                         "The increased birth rate is causing demographic change. Kala increases "..
-                         "your attraction limit by 25%. "..
+                         "The increased birth rate is causing demographic change. She "..
+                         "increases your attraction limit by 25%. "..
                          "@cr @cr @color:255,255,255 "..
                          "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                         "Kala can inflict poison damage to enemies.",
+                         "She can inflict poison damage to enemies.",
                 },
             },
         },
@@ -555,6 +574,30 @@ end
 
 function Stronghold.Hero:SetEntityConvertable(_EntityID, _Flag)
     self.Data.ConvertBlacklist[_EntityID] = _Flag == true;
+end
+
+function Stronghold.Hero:SetHeroName(_Type, _Text)
+    local Text = _Text;
+    if type(Text) ~= "table" then
+        Text = {de = _Text, en = _Text};
+    end
+    self.Config.UI.HeroName[_Type] = Text;
+end
+
+function Stronghold.Hero:SetHeroBiography(_Type, _Text)
+    local Text = _Text;
+    if type(Text) ~= "table" then
+        Text = {de = _Text, en = _Text};
+    end
+    self.Config.UI.HeroBiography[_Type] = Text;
+end
+
+function Stronghold.Hero:SetHeroDescription(_Type, _Text)
+    local Text = _Text;
+    if type(Text) ~= "table" then
+        Text = {de = _Text, en = _Text};
+    end
+    self.Config.UI.HeroDescription[_Type] = Text;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -871,8 +914,16 @@ function Stronghold.Hero:ConfigureBuyHero()
 
     Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetMessage", function(_PlayerID, _Type)
         if Stronghold:IsPlayer(_PlayerID) then
-            local Language = GetLanguage();
-            return Stronghold.Hero.Config.UI.HeroCV[_Type][Language];
+            local Lang = GetLanguage();
+            local DisplayName = Stronghold.Hero.Config.UI.HeroNames[_Type][Lang];
+            local Biography = Stronghold.Hero.Config.UI.HeroBiography[_Type][Lang];
+            local Description = Stronghold.Hero.Config.UI.HeroDescription[_Type][Lang];
+            return string.format(
+                "%s @cr @cr @color:180,180,180 %s @cr @cr %s",
+                DisplayName,
+                Biography,
+                Description
+            );
         end
         return Overwrite.CallOriginal();
     end);
@@ -1416,7 +1467,7 @@ function Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _B
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
         local Type = Logic.GetEntityType(_BuildingID);
         if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
-            Value = Value * 1.5;
+            Value = Value * 2;
         end
     end
     return Value;
@@ -1435,7 +1486,7 @@ function Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Buildi
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
         local Type = Logic.GetEntityType(_BuildingID);
         if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
-            Value = Value * 1.5;
+            Value = Value * 2;
         end
     end
     return Value;

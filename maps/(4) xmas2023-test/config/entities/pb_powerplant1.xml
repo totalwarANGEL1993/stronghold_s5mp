@@ -27,7 +27,7 @@
         </ModifyExploration>   
 		
 		  
-		  <Upgrade>            
+		<Upgrade>            
             <Category>PowerPlant</Category>
         </Upgrade>
         <Worker>PU_Engineer</Worker>
@@ -37,7 +37,7 @@
 		    <Start>TL_ENGINEER_WORK_START</Start> 
 		    <Work>TL_ENGINEER_WORK</Work> 
 		</WorkTaskList>
-		  <Exploration>30</Exploration>
+		<Exploration>30</Exploration>
         <ConstructionInfo>
             <Time>40</Time>
             <Cost>
@@ -112,6 +112,7 @@
 			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
 		</Display>
 	</Behavior>
+    
 	<Behavior>
 		  <Logic classname="EGL::CGLEBehaviorProps">
 			  <Class>GGL::CBuildingBehavior</Class>

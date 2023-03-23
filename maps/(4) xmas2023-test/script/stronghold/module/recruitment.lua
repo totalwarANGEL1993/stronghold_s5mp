@@ -109,7 +109,7 @@ function Stronghold.Recruitment:Install()
         self:InitDefaultRoster(i);
     end
     self:CreateBuildingButtonHandlers();
-    self:OverrideGUI();
+    self:ImplementGUI();
     self:OverrideLogic();
 end
 
@@ -899,7 +899,7 @@ function Stronghold.Recruitment:OverrideLogic()
     end);
 end
 
-function Stronghold.Recruitment:OverrideGUI()
+function Stronghold.Recruitment:ImplementGUI()
     GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
         local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
         local EntityID = GUI.GetSelectedEntity();

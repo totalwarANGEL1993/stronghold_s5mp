@@ -277,7 +277,6 @@ function Stronghold.Building:Install()
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
     self:OverrideCalculationCallbacks();
-    self:InitalizeRallyPointGUI();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -936,19 +935,6 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
 
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
     return true;
-end
-
--- -------------------------------------------------------------------------- --
--- Rally Points
-
-function Stronghold.Building:InitalizeRallyPointGUI()
-    GUIAction_SetRallyPoint = function(_EntityID)
-    end
-    GUITooltip_SetRallyPoint = function(_EntityID, _TextKey, _Binding)
-    end
-    GUIUpdate_SetRallyPoint = function(_EntityID)
-        XGUIEng.ShowWidget(XGUIEng.GetCurrentWidgetID(), 0);
-    end
 end
 
 -- -------------------------------------------------------------------------- --
