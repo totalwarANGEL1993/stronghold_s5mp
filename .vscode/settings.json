@@ -226,7 +226,8 @@
         "Treasure",
         "GetGeometricCenter",
         "CreateNameForEntity",
-        "GetResourceName"
+        "GetResourceName",
+        "ArePositionsConnected"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

@@ -5,6 +5,7 @@ end
 assert(Lib ~= nil);
 
 Lib.Require("comfort/AreEnemiesInArea");
+Lib.Require("comfort/ArePositionsConnected");
 Lib.Require("comfort/CreateNameForEntity");
 Lib.Require("comfort/GetAllCannons");
 Lib.Require("comfort/GetAllLeader");

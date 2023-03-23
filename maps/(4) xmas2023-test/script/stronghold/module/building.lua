@@ -263,12 +263,9 @@ function Stronghold.Building:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {
             Measure = {
-                -- Initial factor is very high so that the player can use the
-                -- first measure (propably levy tax) very fast once. The factor
-                -- is different for each measure so that weaker measures can
-                -- be used more often.
                 RechargeFactor = 6.0,
             },
+            RallyPoint = {},
         };
     end
 
@@ -277,7 +274,6 @@ function Stronghold.Building:Install()
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
     self:OverrideCalculationCallbacks();
-    self:InitalizeRallyPointGUI();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -299,6 +295,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         EnqueueSerf = 2,
         BlessSettlers = 4,
         MeasureTaken = 5,
+        RallyPoint = 6,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -318,6 +315,9 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             end
             if _Action == Stronghold.Building.SyncEvents.MeasureTaken then
                 Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, arg[1]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.RallyPoint then
+                Stronghold.Building:PlaceRallyPoint(_PlayerID, arg[1], arg[2], arg[3]);
             end
         end
     );
@@ -939,6 +939,126 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
 end
 
 -- -------------------------------------------------------------------------- --
+-- Rally Points
+
+function InputCallback_ShiftRightClick()
+    Stronghold.Building:OnShiftRightClick();
+    return true;
+end
+
+function Stronghold.Building:MoveToRallyPoint(_Building, _EntityID)
+    local Position = self:GetRallyPointPosition(_Building);
+    if Position then
+        -- (TODO) Make serf extract nearby resources and construct buildings
+        if Logic.IsEntityInCategory(_EntityID, EntityCategories.Serf) == 1 then
+            Logic.MoveSettler(_EntityID, Position.X, Position.Y, -1);
+        -- Just move scouts and thieves
+        elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.Scout) == 1
+        or     Logic.IsEntityInCategory(_EntityID, EntityCategories.Thief) == 1 then
+            Logic.MoveSettler(_EntityID, Position.X, Position.Y, -1);
+        -- Move soldiers with attack walk
+        else
+            Logic.GroupAttackMove(_EntityID, Position.X, Position.Y, -1);
+        end
+    end
+end
+
+function Stronghold.Building:GetRallyPointPosition(_Building)
+    local PlayerID = Logic.EntityGetPlayer(GetID(_Building));
+    local ScriptName = (type(_Building) == "number" and Logic.GetEntityName(_Building)) or _Building;
+    if self.Data[PlayerID] and self.Data[PlayerID].RallyPoint[ScriptName] then
+        return GetPosition(self.Data[PlayerID].RallyPoint[ScriptName]);
+    end
+end
+
+function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
+    if self.Data[_PlayerID] then
+        -- Create position entity
+        local ScriptName = CreateNameForEntity(_EntityID);
+        local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X, _Y, 0, _PlayerID);
+        -- Check connectivity
+        if not ArePositionsConnected(ID, _EntityID) then
+            DestroyEntity(ID);
+            return;
+        end
+        -- Get model
+        local Model = Models.Effects_XF_ExtractStone;
+        if Stronghold:GetLocalPlayerID() == _PlayerID then
+            Model = Models.Banners_XB_LargeFull;
+        end
+        Logic.SetModelAndAnimSet(ID, Model);
+        SVLib.SetInvisibility(ID, false);
+        -- Save new entity
+        DestroyEntity(self.Data[_PlayerID].RallyPoint[ScriptName]);
+        self.Data[_PlayerID].RallyPoint[ScriptName] = ID;
+    end
+end
+
+function Stronghold.Building:CanHaveRallyPoint(_Building)
+    local ID = GetID(_Building);
+    local Type = Logic.GetEntityType(ID);
+    if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2
+    or Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2
+    or Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2
+    -- or Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2
+    or Type == Entities.PB_Headquarters1 or Type == Entities.PB_Headquarters2
+    or Type == Entities.PB_Headquarters3 then
+        return true;
+    end
+    return false;
+end
+
+function Stronghold.Building:OnShiftRightClick()
+    local PlayerID = Stronghold:GetLocalPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    if self.Data[PlayerID] then
+        if self:CanHaveRallyPoint(EntityID) then
+            local x,y = GUI.Debug_GetMapPositionUnderMouse();
+            if x ~= -1 and y ~= -1 then
+                Syncer.InvokeEvent(
+                    Stronghold.Building.NetworkCall,
+                    Stronghold.Building.SyncEvents.RallyPoint,
+                    EntityID,
+                    x,
+                    y
+                );
+            end
+        end
+    end
+end
+
+function Stronghold.Building:OnRallyPointHolderDestroyed(_PlayerID, _EntityID)
+    if self.Data[_PlayerID] then
+        local ScriptName = CreateNameForEntity(_EntityID);
+        if self.Data[_PlayerID].RallyPoint[ScriptName] and not IsExisting(ScriptName) then
+            DestroyEntity(self.Data[_PlayerID].RallyPoint[ScriptName]);
+            self.Data[_PlayerID].RallyPoint[ScriptName] = nil;
+        end
+    end
+end
+
+function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
+    if self.Data[_PlayerID] then
+        -- Hide all rally points of the player
+        for k,v in pairs(self.Data[_PlayerID].RallyPoint) do
+            if IsExisting(v) then
+                Logic.SetModelAndAnimSet(v, Models.Effects_XF_ExtractStone);
+            end
+        end
+        -- Display the rally point of the building
+        if _EntityID and IsExisting(_EntityID) then
+            local ScriptName = CreateNameForEntity(_EntityID);
+            if self.Data[_PlayerID].RallyPoint[ScriptName] then
+                Logic.SetModelAndAnimSet(
+                    GetID(self.Data[_PlayerID].RallyPoint[ScriptName]),
+                    Models.Banners_XB_LargeFull
+                );
+            end
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- Keybindings
 
 function Stronghold.Building:InitalizeBuyUnitKeybindings()
@@ -1011,19 +1131,6 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _En
                 end
             end
         end
-    end
-end
-
--- -------------------------------------------------------------------------- --
--- Rally Points
-
-function Stronghold.Building:InitalizeRallyPointGUI()
-    GUIAction_SetRallyPoint = function()
-    end
-    GUITooltip_SetRallyPoint = function(_TextKey, _Binding)
-    end
-    GUIUpdate_SetRallyPoint = function()
-        XGUIEng.ShowWidget(XGUIEng.GetCurrentWidgetID(), 0);
     end
 end
 
