@@ -899,35 +899,36 @@ function Stronghold.Recruitment:OverrideLogic()
     end);
 end
 
-function Stronghold.Recruitment:ImplementGUI()
-    GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
-        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
-        local EntityID = GUI.GetSelectedEntity();
-        local ScriptName = Logic.GetEntityName(EntityID);
-        local PlayerID = Stronghold:GetLocalPlayerID();
+GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
+    local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+    local EntityID = GUI.GetSelectedEntity();
+    local ScriptName = Logic.GetEntityName(EntityID);
+    local PlayerID = Stronghold:GetLocalPlayerID();
 
-        if not Stronghold.Recruitment.Data[PlayerID] then
-            XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0);
-            return;
-        end
-
-        local QueueSize = Stronghold.Recruitment:GetSizeOfQueue(PlayerID, _Button, ScriptName);
-        local FirstEntry = Stronghold.Recruitment:GetFirstEntryFromQueue(PlayerID, _Button, ScriptName);
-        if QueueSize == 0 or not FirstEntry then
-            XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0);
-            XGUIEng.SetText(_Button.. "_Amount", "");
-            return;
-        end
-
-        local Color = {26, 115, 16, 190};
-        if not self:CanProduceUnitFromQueue(PlayerID, _Button, ScriptName) then
-            Color = {214, 44, 24, 190};
-        end
-        local TimeCharged = FirstEntry.Progress;
-        local RechargeTime = FirstEntry.Limit;
-        XGUIEng.SetMaterialColor(CurrentWidgetID, 1, unpack(Color));
-        XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeCharged, RechargeTime);
-        XGUIEng.SetTextByValue(_Button.. "_Amount", QueueSize);
+    if not Stronghold.Recruitment.Data[PlayerID] then
+        XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0);
+        return;
     end
+
+    local QueueSize = Stronghold.Recruitment:GetSizeOfQueue(PlayerID, _Button, ScriptName);
+    local FirstEntry = Stronghold.Recruitment:GetFirstEntryFromQueue(PlayerID, _Button, ScriptName);
+    if QueueSize == 0 or not FirstEntry then
+        XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0);
+        XGUIEng.SetText(_Button.. "_Amount", "");
+        return;
+    end
+
+    local Color = {26, 115, 16, 190};
+    if not self:CanProduceUnitFromQueue(PlayerID, _Button, ScriptName) then
+        Color = {214, 44, 24, 190};
+    end
+    local TimeCharged = FirstEntry.Progress;
+    local RechargeTime = FirstEntry.Limit;
+    XGUIEng.SetMaterialColor(CurrentWidgetID, 1, unpack(Color));
+    XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeCharged, RechargeTime);
+    XGUIEng.SetTextByValue(_Button.. "_Amount", QueueSize);
+end
+
+function Stronghold.Recruitment:ImplementGUI()
 end
 

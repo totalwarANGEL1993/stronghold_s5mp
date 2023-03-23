@@ -621,6 +621,7 @@ function Stronghold:OnEveryTurn()
     local Players = table.getn(Score.Player);
     -- Player jobs on each turn
     for i= 1, Players do
+        Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(i);
         Stronghold.Hero:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
         Stronghold.Hero:EntityAttackedController(i);
         Stronghold.Hero:HeliasConvertController(i);
@@ -1259,8 +1260,9 @@ function Stronghold:OverrideWidgetTooltips()
 end
 
 -- Button Update Generic Override
-function Stronghold:OverrideWidgetUpdates()Overwrite.CreateOverwrite("GUIUpdate_BuildingButtons", function(_Button, _Technology)
-        local PlayerID = self:GetLocalPlayerID();
+function Stronghold:OverrideWidgetUpdates()
+    Overwrite.CreateOverwrite("GUIUpdate_BuildingButtons", function(_Button, _Technology)
+        local PlayerID = Stronghold:GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
         Stronghold.Hero:OnlineHelpUpdate(PlayerID, _Button, _Technology);

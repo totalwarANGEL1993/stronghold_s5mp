@@ -277,6 +277,7 @@ function Stronghold.Building:Install()
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
     self:OverrideCalculationCallbacks();
+    self:InitalizeRallyPointGUI();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -1010,6 +1011,19 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _En
                 end
             end
         end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Rally Points
+
+function Stronghold.Building:InitalizeRallyPointGUI()
+    GUIAction_SetRallyPoint = function()
+    end
+    GUITooltip_SetRallyPoint = function(_TextKey, _Binding)
+    end
+    GUIUpdate_SetRallyPoint = function()
+        XGUIEng.ShowWidget(XGUIEng.GetCurrentWidgetID(), 0);
     end
 end
 

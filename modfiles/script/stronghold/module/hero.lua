@@ -1272,6 +1272,12 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_Calculate_CivilAttrationUsage", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
     Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, CurrentAmount);
@@ -1405,6 +1411,13 @@ function Stronghold.Hero:ApplyRecruitTimePassiveAbility(_PlayerID, _LeaderType, 
             Value = Value * 0.5;
         end
     end
+    return Value;
+end
+
+-- Passive Ability: Change civil places usage
+function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
+    local Value = _Value;
+    -- Do nothing
     return Value;
 end
 

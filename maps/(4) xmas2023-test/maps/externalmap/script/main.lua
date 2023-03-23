@@ -5,10 +5,10 @@ function StartTestStuff()
     Lib.Require("module/cinematic/BriefingSystem");
     Lib.Require("module/lua/Overwrite");
 
-    CreateTestHonorProvince()
-    CreateTestReputationProvince()
-    CreateTestMilitaryProvince()
-    CreateTestResourceProvince()
+    CreateTestHonorProvince();
+    CreateTestReputationProvince();
+    CreateTestMilitaryProvince();
+    CreateTestResourceProvince();
 end
 
 function CreateTestHonorProvince()

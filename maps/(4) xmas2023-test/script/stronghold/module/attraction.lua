@@ -5,7 +5,10 @@
 ---
 --- Defined game callbacks:
 --- - <number> GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
----   Allows to overwrite the max worker attraction.
+---   Allows to overwrite the max usage of civil places.
+---
+--- - <number> GameCallback_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
+---   Allows to overwrite the current overall usage of civil places.
 ---
 --- - <number> GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
 ---   Allows to overwrite the max usage of military places.
@@ -170,29 +173,36 @@ function Stronghold.Attraction:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {
             LastAttempt = 0,
+            VirtualSettlers = 0,
             Criminals = {},
         };
     end
 
     self:InitCriminalsEffects();
+    self:InitLogicOverride();
 end
 
 function Stronghold.Attraction:OnSaveGameLoaded()
+    -- self:InitLogicOverride();
 end
 
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
 function GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
-    return _Amount
+    return _Amount;
 end
 
 function GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
-    return _Amount
+    return _Amount;
+end
+
+function GameCallback_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
+    return _Amount;
 end
 
 function GameCallback_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
-    return _Amount
+    return _Amount;
 end
 
 function GameCallback_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Usage)
@@ -496,8 +506,42 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
         RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQCivil[3]);
         -- External
         Limit = GameCallback_Calculate_CivilAttrationLimit(_PlayerID, RawLimit);
+        -- Virtual settlers
+        Limit = Limit + self.Data[_PlayerID].VirtualSettlers;
 
         CLogic.SetAttractionLimitOffset(_PlayerID, math.ceil(Limit - RawLimit));
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Virtual Settlers
+
+function Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(_PlayerID)
+    if Stronghold:IsPlayerInitalized(_PlayerID) then
+        local RealUsage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
+        local Usage = GameCallback_Calculate_CivilAttrationUsage(_PlayerID, RealUsage);
+        local FakeUsage = RealUsage - math.floor(Usage + 0.5);
+        Stronghold.Attraction.Data[_PlayerID].VirtualSettlers = FakeUsage;
+    end
+end
+
+function Stronghold.Attraction:InitLogicOverride()
+    self.Orig_Logic_GetPlayerAttractionLimit = Logic.GetPlayerAttractionLimit;
+    Logic.GetPlayerAttractionLimit = function(_PlayerID)
+        local Limit = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionLimit(_PlayerID);
+        if Stronghold.Attraction.Data[_PlayerID] then
+            Limit = math.max(Limit - Stronghold.Attraction.Data[_PlayerID].VirtualSettlers, 0);
+        end
+        return Limit;
+    end
+
+    self.Orig_Logic_GetPlayerAttractionUsage = Logic.GetPlayerAttractionUsage;
+    Logic.GetPlayerAttractionUsage = function(_PlayerID)
+        local Usage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
+        if Stronghold.Attraction.Data[_PlayerID] then
+            Usage = math.max(Usage - Stronghold.Attraction.Data[_PlayerID].VirtualSettlers, 0);
+        end
+        return Usage;
     end
 end
 
