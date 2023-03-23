@@ -363,6 +363,11 @@
           with the weather machine -->
     <EnergyDeductedFromOtherPlayers>300</EnergyDeductedFromOtherPlayers>
 
+<!-- HQ Stuff -->
+
+  <AlarmRechargeTime>180000</AlarmRechargeTime>
+
+  <OvertimeRechargeTimeInMs>240000</OvertimeRechargeTimeInMs>
 
 
 <!-- ***********************************************************************************************
@@ -881,9 +886,4 @@
     	<Category>Merchant</Category>
     	<FirstBuilding>CB_Mercenary</FirstBuilding>
 	</BuildingUpgrade>
-
-  <AlarmRechargeTime>180000</AlarmRechargeTime>
-
-  <OvertimeRechargeTimeInMs>240000</OvertimeRechargeTimeInMs>
-
 </root>
