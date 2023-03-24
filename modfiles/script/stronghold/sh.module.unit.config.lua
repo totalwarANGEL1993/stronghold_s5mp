@@ -1,5 +1,5 @@
 --- 
---- 
+--- Config for Units
 --- 
 
 Stronghold.Unit.Config = {

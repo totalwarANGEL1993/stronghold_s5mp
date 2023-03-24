@@ -1,4 +1,6 @@
-
+--- 
+--- Constants for outlaw
+--- 
 
 OutlawAttackState = {
     -- The camp waits for troops to respawn.
@@ -14,17 +16,4 @@ OutlawAttackState = {
     -- Troops defend while recruiting
     DefendBase = 6,
 };
-
-ProvinceType = {
-    -- Province produces honor
-    Honor = 1,
-    -- Province produces reputation
-    Reputation = 2,
-    -- Province grants additional military capacity
-    Military = 3,
-    -- Province produces resources
-    Resource = 4,
-    -- Province produces resources
-    Custom = 5,
-}
 

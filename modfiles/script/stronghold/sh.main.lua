@@ -1146,9 +1146,9 @@ function Stronghold:OverrideWidgetUpdates()
         Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
     end);
 
-    Overwrite.CreateOverwrite("GUITooltip_UpgradeBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
+    Overwrite.CreateOverwrite("GUITooltip_UpgradeBuilding", function(_Type, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
         Overwrite.CallOriginal();
-        Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
+        Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyNormal, _KeyDisabled, _Technology);
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_UpgradeButtons", function(_Button, _Technology)

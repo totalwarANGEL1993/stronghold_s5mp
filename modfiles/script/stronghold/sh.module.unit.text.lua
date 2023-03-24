@@ -1,5 +1,5 @@
 --- 
---- 
+--- Text for Units
 --- 
 
 Stronghold.Unit.Text = {

@@ -33,94 +33,8 @@ Stronghold = Stronghold or {};
 
 Stronghold.Attraction = {
     Data = {},
-    Config = {
-        Attraction = {
-            -- THIS MUST BE IN SYNC WITH ENTITY DEFINITION XML!
-            HQCivil = {[1] = 75, [2] = 100, [3] = 125},
-            VCCivil = {[1] = 35, [2] = 50, [3] = 65},
-            -- This is freely changeable in Lua
-            HQMilitary = {[1] = 60, [2] = 90, [3] = 120},
-            VCMilitary = {[1] = 0, [2] = 0, [3] = 0},
-        },
-
-        Crime = {
-            Unveil = {
-                Points = 180,
-                Area = 3500,
-                SoldierRate = 2,
-                BuildingRate = 4,
-                TownGuardFactor = 1.5,
-            },
-            Effects = {
-                TheftAmount = {Min = 25, Max = 75},
-                ReputationDamage = 4,
-            },
-            Convert = {
-                Chance = 5,
-                Rate = 1.0,
-                TimeBetween = 10
-            },
-        },
-
-        UsedSpace = {
-            [Entities.CU_BanditLeaderSword1] = 1,
-            [Entities.CU_BanditLeaderSword2] = 1,
-            [Entities.CU_Barbarian_LeaderClub1] = 1,
-            [Entities.CU_Barbarian_LeaderClub2] = 1,
-            [Entities.CU_BlackKnight_LeaderMace1] = 1,
-            [Entities.CU_BlackKnight_LeaderMace2] = 1,
-            [Entities.CU_Evil_LeaderBearman1] = 1,
-            [Entities.PU_LeaderPoleArm1] = 1,
-            [Entities.PU_LeaderPoleArm2] = 1,
-            [Entities.PU_LeaderPoleArm3] = 1,
-            [Entities.PU_LeaderPoleArm4] = 1,
-            [Entities.PU_LeaderSword1] = 1,
-            [Entities.PU_LeaderSword2] = 1,
-            [Entities.PU_LeaderSword3] = 1,
-            [Entities.PU_LeaderSword4] = 1,
-            ---
-            [Entities.CU_BanditLeaderBow1] = 1,
-            [Entities.CU_Evil_LeaderSkirmisher1] = 1,
-            [Entities.PU_LeaderBow1] = 1,
-            [Entities.PU_LeaderBow2] = 1,
-            [Entities.PU_LeaderBow3] = 1,
-            [Entities.PU_LeaderBow4] = 1,
-            [Entities.PU_LeaderRifle1] = 2,
-            [Entities.PU_LeaderRifle2] = 2,
-            ---
-            [Entities.PU_LeaderCavalry1] = 1,
-            [Entities.PU_LeaderCavalry2] = 1,
-            [Entities.PU_LeaderHeavyCavalry1] = 3,
-            [Entities.PU_LeaderHeavyCavalry2] = 3,
-            ---
-            [Entities.PV_Cannon1] = 10,
-            [Entities.PV_Cannon2] = 10,
-            [Entities.PV_Cannon3] = 20,
-            [Entities.PV_Cannon4] = 20,
-            ---
-            [Entities.PU_Scout] = 1,
-            [Entities.PU_Thief] = 5,
-            ---
-            [Entities.PU_Serf] = 1,
-        },
-
-        UI = {
-            Msg = {
-                ConvertedToCriminal = {
-                    de = "Ein Arbeiter hat das Gesetz gebrochen!",
-                    en = "A worker has become a criminal!",
-                },
-                CriminalsStoleResources = {
-                    de = "Verbrecher haben %d Rohstoffe aus Euren Vorräten gestohlen!",
-                    en = "Criminals have stolen %d resources from your stockpile!",
-                },
-                CriminalResocialized = {
-                    de = "Ein Verbrecher hat seine gerechte Strafe erhalten!",
-                    en = "A criminal has received their just punishment!",
-                },
-            }
-        }
-    },
+    Config = {},
+    Text = {},
 };
 
 -- -------------------------------------------------------------------------- --
@@ -183,7 +97,7 @@ function Stronghold.Attraction:Install()
 end
 
 function Stronghold.Attraction:OnSaveGameLoaded()
-    -- self:InitLogicOverride();
+    self:InitLogicOverride();
 end
 
 -- -------------------------------------------------------------------------- --
@@ -251,7 +165,7 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
         end
         if TotalAmount > 0 and GUI.GetPlayerID() == _PlayerID then
             local Language = GetLanguage();
-            local Text = self.Config.UI.Msg.CriminalsStoleResources[Language];
+            local Text = self.Text.Msg.CriminalsStoleResources[Language];
             Message(string.format(Text, TotalAmount));
         end
         RemoveResourcesFromPlayer(_PlayerID, ResourcesToSub);
@@ -336,7 +250,7 @@ function Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID)
         -- Show message
         if GUI.GetPlayerID() == _PlayerID then
             local Language = GetLanguage();
-            Message(self.Config.UI.Msg.ConvertedToCriminal[Language]);
+            Message(self.Text.Msg.ConvertedToCriminal[Language]);
         end
         -- Trigger callback
         GameCallback_Logic_CriminalAppeared(_PlayerID, ID, _BuildingID);
@@ -356,7 +270,7 @@ function Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID)
                 -- Show message
                 if GUI.GetPlayerID() == _PlayerID then
                     local Language = GetLanguage();
-                    Message(self.Config.UI.Msg.CriminalResocialized[Language]);
+                    Message(self.Text.Msg.CriminalResocialized[Language]);
                 end
                 -- Invoke callback
                 GameCallback_Logic_CriminalCatched(_PlayerID, Data[1], Data[2]);
@@ -527,6 +441,7 @@ end
 
 function Stronghold.Attraction:InitLogicOverride()
     self.Orig_Logic_GetPlayerAttractionLimit = Logic.GetPlayerAttractionLimit;
+    ---@diagnostic disable-next-line: duplicate-set-field
     Logic.GetPlayerAttractionLimit = function(_PlayerID)
         local Limit = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionLimit(_PlayerID);
         if Stronghold.Attraction.Data[_PlayerID] then
@@ -536,6 +451,7 @@ function Stronghold.Attraction:InitLogicOverride()
     end
 
     self.Orig_Logic_GetPlayerAttractionUsage = Logic.GetPlayerAttractionUsage;
+    ---@diagnostic disable-next-line: duplicate-set-field
     Logic.GetPlayerAttractionUsage = function(_PlayerID)
         local Usage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
         if Stronghold.Attraction.Data[_PlayerID] then

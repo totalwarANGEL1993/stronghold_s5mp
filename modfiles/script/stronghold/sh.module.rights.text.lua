@@ -1,5 +1,5 @@
 --- 
---- 
+--- Text for Rights
 --- 
 
 Stronghold.Rights.Text = {

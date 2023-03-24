@@ -116,6 +116,7 @@ function Stronghold.Outlaw:CreateCamp(_PlayerID, _HomePosition, _AtkTarget, _Atk
     };
 
     local JobID = Job.Turn(function(_PlayerID, _CampID)
+        ---@diagnostic disable-next-line: undefined-field
         local PlayerID = math.mod(
             math.floor(Logic.GetTime() * 10),
             table.getn(Score.Player)

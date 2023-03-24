@@ -1,5 +1,5 @@
 --- 
---- 
+--- Config for Rights
 --- 
 
 Stronghold.Rights.Config = {

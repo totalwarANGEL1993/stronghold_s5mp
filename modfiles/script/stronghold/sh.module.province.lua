@@ -20,47 +20,11 @@
 Stronghold = Stronghold or {};
 
 Stronghold.Province = {
-    ProvinceIdSequence = 0,
     Data = {
+        ProvinceIdSequence = 0,
         Provinces = {},
     },
-    Config = {
-        NeutralPlayerID = 8,
-        UI = {
-            Msg = {
-                Claimed = {
-                    de = "%s{grey}hat die Provinz %s{grey}beansprucht.",
-                    en = "%s{grey}has put %s{grey}under their control.",
-                },
-                Denyed = {
-                    de = "Feinde verhindern den Bau des Dorfzentrums!",
-                    en = "Enemies prevent the construction of the village center!",
-                },
-                Lost = {
-                    de = "{grey}Die Provinz %s{grey}ging verloren.",
-                    en = "{grey}The province %s{grey}was lost.",
-                },
-                Upgraded = {
-                    de = "%s{grey}hat die Provinz %s{grey}ausgebaut.",
-                    en = "%s{grey}has given the province %s{grey}an upgrade.",
-                },
-                Revenue = {
-                    [1] = {
-                        de = "Sie wird Euch fortan an jeden Zahltag mit %s versorgen.",
-                        en = "It will provide you from now an with %s on each payday.",
-                    },
-                    [2] = {
-                        de = "Sie wird Euer Heeresstärke fortan um %s steigern.",
-                        en = "It will increase your army size from now on by %s.",
-                    },
-                    [3] = {
-                        de = "Sie gewährt Euch fortan einen Bonus von %s.",
-                        en = "It will provide you from now on with %s.",
-                    },
-                },
-            }
-        }
-    },
+    Config = {},
 }
 
 function Stronghold.Province:Install()
@@ -195,8 +159,8 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Province:CreateProvince(_Data)
-    self.ProvinceIdSequence = self.ProvinceIdSequence +1;
-    local ID = self.ProvinceIdSequence;
+    self.Data.ProvinceIdSequence = self.Data.ProvinceIdSequence +1;
+    local ID = self.Data.ProvinceIdSequence;
 
     _Data.ID = ID;
     _Data.Owner = self.Config.NeutralPlayerID;
@@ -236,7 +200,7 @@ function Stronghold.Province:ClaimProvince(_ID, _PlayerID, _BuildingID)
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
         Message(string.format(
-            self.Config.UI.Msg.Claimed[Lang],
+            self.Text.Msg.Claimed[Lang],
             PlayerColor.. " " ..PlayerName,
             self.Data.Provinces[_ID].DisplayName
         ));
@@ -260,7 +224,7 @@ function Stronghold.Province:UpgradeProvince(_ID, _PlayerID, _BuildingID)
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
         Message(string.format(
-            self.Config.UI.Msg.Upgraded[Lang],
+            self.Text.Msg.Upgraded[Lang],
             PlayerColor.. " " ..PlayerName,
             self.Data.Provinces[_ID].DisplayName
         ));
@@ -289,7 +253,7 @@ function Stronghold.Province:LooseProvince(_ID, _PlayerID)
         -- Print message
         local Lang = GetLanguage();
         Message(string.format(
-            self.Config.UI.Msg.Lost[Lang],
+            self.Text.Msg.Lost[Lang],
             self.Data.Provinces[_ID].DisplayName
         ));
         -- Extern effects
@@ -338,18 +302,18 @@ function Stronghold.Province:CreateProvinceEffectMessage(_ID, _PlayerID, _Buildi
         local Template;
 
         if self.Data.Provinces[_ID].Type == ProvinceType.Honor then
-            Template = self.Config.UI.Msg.Revenue[3];
+            Template = self.Text.Msg.Revenue[3];
             local ResourceName = Stronghold.Config.UI.Honor[Lang];
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Reputation then
-            Template = self.Config.UI.Msg.Revenue[3];
+            Template = self.Text.Msg.Revenue[3];
             local ResourceName = Stronghold.Config.UI.Reputation[Lang];
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Military then
-            Template = self.Config.UI.Msg.Revenue[2];
+            Template = self.Text.Msg.Revenue[2];
             Text = "" ..self:GetProvinceRevenue(_ID, _PlayerID);
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Resource then
-            Template = self.Config.UI.Msg.Revenue[1];
+            Template = self.Text.Msg.Revenue[1];
             local ResourceName = GetResourceName(self.Data.Provinces[_ID].Resource);
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         end
@@ -398,7 +362,7 @@ function Stronghold.Province:OnBuildingCreated(_BuildingID, _PlayerID)
                         if GetDistance(VillagePosition, v.Position) <= 4000 then
                             if AreEnemiesInArea(_PlayerID, v.Position, 7000) then
                                 if _PlayerID == GUI.GetPlayerID() then
-                                    Message(self.Config.UI.Msg.Lost[GetLanguage()]);
+                                    Message(self.Text.Msg.Lost[GetLanguage()]);
                                 end
                                 SetHealth(_BuildingID, 0);
                             end
