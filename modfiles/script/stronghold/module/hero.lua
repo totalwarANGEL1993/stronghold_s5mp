@@ -542,7 +542,6 @@ function Stronghold.Hero:Install()
 
     self:ConfigureBuyHero();
     self:OverrideCalculationCallbacks();
-    self:CreateHeroButtonHandlers();
     self:OverrideHero5AbilityArrowRain();
     self:OverrideHero8AbilityMoralDamage();
 end

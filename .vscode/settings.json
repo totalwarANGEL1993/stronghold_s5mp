@@ -227,7 +227,8 @@
         "GetGeometricCenter",
         "CreateNameForEntity",
         "GetResourceName",
-        "ArePositionsConnected"
+        "ArePositionsConnected",
+        "KeyOf"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

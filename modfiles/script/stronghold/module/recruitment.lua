@@ -81,7 +81,7 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
 function Stronghold.Recruitment:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {
-            Config = CopyTable(Stronghold.UnitConfig.Units),
+            Config = CopyTable(Stronghold.Unit.Config),
             Roster = {},
             ForgeRegister = {},
             Queues = {
@@ -168,7 +168,7 @@ end
 
 function Stronghold.Recruitment:IsSufficientRecruiterBuilding(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.UnitConfig:GetConfig(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
         local BuildingType = Logic.GetEntityType(_BuildingID);
         return IsInTable(BuildingType, Config.RecruiterBuilding);
@@ -178,7 +178,7 @@ end
 
 function Stronghold.Recruitment:HasSufficientProviderBuilding(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.UnitConfig:GetConfig(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
         local Providers = table.getn(Config.ProviderBuilding);
         if Providers == 0 then
@@ -197,9 +197,9 @@ end
 
 function Stronghold.Recruitment:HasSufficientRank(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.UnitConfig:GetConfig(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
-        if GetRank(PlayerID) >= Config.Rank then
+        if GetRank(PlayerID) >= GetRankRequired(PlayerID, Config.Right) then
             return true;
         end
     end
@@ -208,16 +208,17 @@ end
 
 function Stronghold.Recruitment:IsUnitAllowed(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.UnitConfig:GetConfig(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
-        return Config.Allowed == true;
+        local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right);
+        return RequiredRank >= GetRank(PlayerID);
     end
     return false;
 end
 
 function Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
     local Costs = {};
-    local Config = Stronghold.UnitConfig:GetConfig(_Type, _PlayerID);
+    local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
     if Config then
         _SoldierAmount = _SoldierAmount or Config.Soldiers;
 
@@ -234,7 +235,7 @@ end
 
 function Stronghold.Recruitment:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amount)
     local Costs = {};
-    local Config = Stronghold.UnitConfig:GetConfig(_Type, _PlayerID);
+    local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
     if Config then
         Costs = CopyTable(Config.Costs[2]);
         for i= 2, 7 do
@@ -283,7 +284,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
         local Button = _UnitToRecruit[_Type][1];
         if self.Data[PlayerID].Roster[Button] then
             local UnitType = self.Data[PlayerID].Roster[Button];
-            local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
+            local Config = Stronghold.Unit.Config:Get(UnitType, PlayerID);
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
             local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
@@ -374,7 +375,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
         local Button = _UnitToRecruit[_Technology][1];
         if self.Data[PlayerID].Roster[Button] then
             local UnitType = self.Data[PlayerID].Roster[Button];
-            local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
+            local Config = Stronghold.Unit.Config:Get(UnitType, PlayerID);
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
             local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
@@ -499,7 +500,7 @@ function Stronghold.Recruitment:OnRecruiterSelected(_ButtonsToUpdate, _EntityID)
         XGUIEng.ShowWidget(k, 0);
         if self.Data[PlayerID].Roster[k] then
             local UnitType = self.Data[PlayerID].Roster[k];
-            local Config = Stronghold.UnitConfig:GetConfig(UnitType, PlayerID);
+            local Config = Stronghold.Unit.Config:Get(UnitType, PlayerID);
             XGUIEng.TransferMaterials(Config.Button, k);
             XGUIEng.SetWidgetPositionAndSize(k.. "_Recharge", v[1], v[2], v[3], v[4]);
             XGUIEng.SetWidgetPositionAndSize(k.. "_Amount", v[1], v[2], v[3], v[4]);
@@ -546,8 +547,8 @@ function Stronghold.Recruitment:UpdateRecruiterBuyUnitTooltip(_TextToPrint, _Pla
 
     if _TextToPrint[_UpgradeCategory] then
         local UnitType = self.Data[_PlayerID].Roster[_TextToPrint[_UpgradeCategory][1]];
-        local Config = Stronghold.UnitConfig:GetConfig(UnitType, _PlayerID);
-        if not Config.Allowed then
+        local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
+        if not self:IsUnitAllowed(EntityID, UnitType) then
             Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
         else
             local Soldiers = (Logic.IsAutoFillActive(EntityID) == 1 and Config.Soldiers) or 0;
@@ -556,7 +557,8 @@ function Stronghold.Recruitment:UpdateRecruiterBuyUnitTooltip(_TextToPrint, _Pla
             Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
-                local RankName = GetRankName(Config.Rank, _PlayerID);
+                local Rank = Stronghold.Rights:GetRankRequiredForRight(_PlayerID, Config.Right);
+                local RankName = GetRankName(Rank, _PlayerID);
                 DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
                 Text = Text .. DisabledText;
             end
@@ -611,8 +613,8 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
 
     if _TextToPrint[_TextKey] then
         local UnitType = self.Data[_PlayerID].Roster[_TextToPrint[_TextKey][1]];
-        local Config = Stronghold.UnitConfig:GetConfig(UnitType, _PlayerID);
-        if not Config.Allowed then
+        local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
+        if not self:IsUnitAllowed(EntityID, UnitType) then
             Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
         else
             ShortcutText = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. _TextToPrint[_TextKey][2];
@@ -622,7 +624,7 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
             Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
-                local RankName = GetRankName(Config.Rank, _PlayerID);
+                local RankName = GetRankName(GetRankRequired(_PlayerID, Config.Right), _PlayerID);
                 DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
                 Text = Text .. DisabledText;
             end
@@ -686,7 +688,7 @@ function Stronghold.Recruitment:CanProduceUnitFromQueue(_PlayerID, _Queue, _Scri
         local Data = self:GetFirstEntryFromQueue(_PlayerID, _Queue, _ScriptName);
         if Data then
             local Places = Data.Places + (Data.Places * Data.Soldiers);
-            local Config = Stronghold.UnitConfig:GetConfig(Data.Type, _PlayerID);
+            local Config = Stronghold.Unit.Config:Get(Data.Type, _PlayerID);
             if Config then
                 local AttractionLimit = GetMilitaryAttractionLimit(_PlayerID);
                 local AttractionUsage = GetMilitaryAttractionUsage(_PlayerID);
@@ -707,8 +709,8 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
         return;
     end
     if Stronghold:IsPlayer(_PlayerID) then
-        local Config = Stronghold.UnitConfig:GetConfig(_Type, _PlayerID);
-        if Stronghold.UnitConfig:GetConfig(_Type, _PlayerID) then
+        local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
+        if Stronghold.Unit.Config:Get(_Type, _PlayerID) then
             local ScriptName = Logic.GetEntityName(_BarracksID);
             local Soldiers = (_AutoFill and  Config.Soldiers) or 0;
             local CostsSoldier = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, Soldiers);

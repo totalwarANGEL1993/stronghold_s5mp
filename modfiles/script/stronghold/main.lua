@@ -17,9 +17,6 @@
 --- Defined game callbacks:
 --- - GameCallback_Logic_Payday(_PlayerID)
 ---   Called after the payday is done.
----
---- - GameCallback_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
----   Called after a player has been promoted.
 --- 
 --- - GameCallback_Logic_HonorGained(_PlayerID, _Amount)
 ---   Called after a player gained honor.
@@ -282,9 +279,6 @@ end
 function GameCallback_Logic_Payday(_PlayerID)
 end
 
-function GameCallback_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
-end
-
 function GameCallback_Logic_HonorGained(_PlayerID, _Amount)
 end
 
@@ -332,11 +326,10 @@ function Stronghold:Init()
     GUI.ClearSelection();
     ResourceType.Honor = 20;
 
-    self.Promotion:Install();
+    self.Rights:Install();
     self.Economy:Install();
     self.Construction:Install();
     self.Building:Install();
-    self.UnitConfig:Install();
     self.Recruitment:Install();
     self.Hero:Install();
     self.Unit:Install();
@@ -372,10 +365,9 @@ function Stronghold:OnSaveGameLoaded()
     GUI.ClearSelection();
     ResourceType.Honor = 20;
 
-    self.Promotion:OnSaveGameLoaded();
+    self.Rights:OnSaveGameLoaded();
     self.Construction:OnSaveGameLoaded();
     self.Building:OnSaveGameLoaded();
-    self.UnitConfig:OnSaveGameLoaded();
     self.Recruitment:OnSaveGameLoaded();
     self.Economy:OnSaveGameLoaded();
     self.Hero:OnSaveGameLoaded();
@@ -588,7 +580,7 @@ function Stronghold:OnEveryTurn()
         Stronghold.Hero:EntityAttackedController(i);
         Stronghold.Hero:HeliasConvertController(i);
         Stronghold.Economy:ShowHeadquartersDetail(i);
-        Stronghold.Promotion:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
+        Stronghold.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
         Stronghold.Recruitment:ControlProductionQueues(i);
         Stronghold.Recruitment:ControlCannonProducers(i);
     end
@@ -835,48 +827,6 @@ function Stronghold:OnPlayerPayday(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Rank
-
-function Stronghold:PromotePlayer(_PlayerID)
-    local Language = GetLanguage();
-    if self:CanPlayerBePromoted(_PlayerID) then
-        local CurrentRank = GetRank(_PlayerID);
-        local Costs = Stronghold:CreateCostTable(unpack(self.Config.Ranks[CurrentRank +1].Costs));
-        SetRank(_PlayerID, CurrentRank +1);
-        RemoveResourcesFromPlayer(_PlayerID, Costs);
-        local MsgText = string.format(
-            self.Config.UI.Promotion.Player[Language],
-            GetRankName(CurrentRank +1, _PlayerID)
-        );
-        if GUI.GetPlayerID() == _PlayerID then
-            Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
-        else
-            MsgText = string.format(
-                self.Config.UI.Promotion.Other[Language],
-                UserTool_GetPlayerName(_PlayerID),
-                "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ","),
-                GetRankName(CurrentRank +1, _PlayerID)
-            );
-        end
-        Message(MsgText);
-        GameCallback_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);
-    end
-end
-
-function Stronghold:CanPlayerBePromoted(_PlayerID)
-    if self:IsPlayer(_PlayerID) then
-        if IsExisting(self.Players[_PlayerID].LordScriptName) then
-            local CurrentRank = GetRank(_PlayerID);
-            if CurrentRank == Rank.Commoner or CurrentRank >= self.Config.Base.MaxRank then
-                return false;
-            end
-            return self.Config.Ranks[Rank +1].Condition(_PlayerID);
-        end
-    end
-    return false;
-end
-
--- -------------------------------------------------------------------------- --
 -- Honor
 
 function Stronghold:AddPlayerHonor(_PlayerID, _Amount)
@@ -1041,7 +991,7 @@ end
 -- Button Action Generic Override
 function Stronghold:OverrideWidgetActions()
     Overwrite.CreateOverwrite("GUIAction_OnlineHelp", function()
-        Stronghold.Promotion:OnlineHelpAction();
+        Stronghold.Rights:OnlineHelpAction();
     end);
 
     Overwrite.CreateOverwrite("GUIAction_ReserachTechnology", function(_Technology)
@@ -1157,7 +1107,7 @@ function Stronghold:OverrideWidgetTooltips()
             TooltipSet = Stronghold.Building:HeadquartersBuildingTabsGuiTooltip(PlayerID, EntityID, _Key);
         end
         if not TooltipSet then
-            TooltipSet = Stronghold.Promotion:OnlineHelpTooltip(_Key);
+            TooltipSet = Stronghold.Rights:OnlineHelpTooltip(_Key);
         end
         if not TooltipSet then
             return Overwrite.CallOriginal();
@@ -1191,7 +1141,7 @@ function Stronghold:OverrideWidgetUpdates()
         local PlayerID = Stronghold:GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
-        Stronghold.Promotion:OnlineHelpUpdate(PlayerID, _Button, _Technology);
+        Stronghold.Rights:OnlineHelpUpdate(PlayerID, _Button, _Technology);
         Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
         Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
     end);

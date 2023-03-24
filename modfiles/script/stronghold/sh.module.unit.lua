@@ -1,3 +1,5 @@
+
+
 --- 
 --- Unit script
 ---
@@ -11,39 +13,8 @@ Stronghold = Stronghold or {};
 Stronghold.Unit = {
     SyncEvents = {},
     Data = {},
-    Config = {
-        UI = {
-            MilitaryLimit = {
-                de = "Euere Heeresstärke ist an ihrem Limit, Hochwohlgeboren!",
-                en = "Your army strength is at its limit, Your Highness!",
-            },
-            ExpellSingle = {
-                de = "{grey}Einheit entlassen{white}{cr}Entlasst die "..
-                     "selektierte Einheit aus ihrem Dienst. Wenn Ihr "..
-                     "Soldaten entlasst, geht der Hauptmann zuletzt.",
-                en = "{grey}Dismiss unit{white}{cr}Dismiss the unit from "..
-                     "their duties. The leader always goes last.",
-            },
-            ExpellAll = {
-                de = "{grey}Alle entlassen{white}{cr}Entlasst alle aktuell "..
-                     "selektierten Einheiten aus ihrem Dienst.",
-                en = "{grey}Dismiss all{white}{cr}Dismiss all units you "..
-                     " currently have selected at once.",
-            },
-            RecruitSingle = {
-                de = "{grey}Soldat rekrutieren{white}{cr}Heuert einen neuen "..
-                     "Soldaten für die Gruppe des Haupmannes an.",
-                en = "{grey}Buy soldier{white}{cr}Recruit a single soldier "..
-                     "for the group of the leader.",
-            },
-            RecruitAll = {
-                de = "{grey}Soldaten rekrutieren{white}{cr}Füllt die Gruppe "..
-                     "des Haupmannes mit so vielen Soldaten, wie möglich.",
-                en = "{grey}Buy soldiers{white}{cr}Refill the leader's group "..
-                     "as much as possible with new soldiers.",
-            },
-        },
-    },
+    Config = {},
+    Text = {},
 }
 
 function Stronghold.Unit:Install()
@@ -82,7 +53,7 @@ end
 function Stronghold.Unit:RefillUnit(_PlayerID, _UnitID, _Amount, _Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)
     if Stronghold:IsPlayer(_PlayerID) then
         local LeaderType = Logic.GetEntityType(_UnitID);
-        if Stronghold.UnitConfig:GetConfig(LeaderType, _PlayerID) then
+        if Stronghold.Unit.Config:Get(LeaderType, _PlayerID) then
             if Logic.GetEntityHealth(_UnitID) > 0 then
                 local Task = Logic.GetCurrentTaskList(_UnitID);
                 if not Task or (not string.find(Task, "DIE") and not string.find(Task, "BATTLE")) then
@@ -179,7 +150,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     end
     if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, BuyAmount) then
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
-        Message(self.Config.UI.MilitaryLimit[Language]);
+        Message(self.Text.MilitaryLimit[Language]);
         return true;
     end
 
@@ -234,7 +205,7 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
     local Costs = Stronghold.Recruitment:GetSoldierCostsByLeaderType(PlayerID, Type, BuyAmount);
 
     local Index = (BuyAmount > 1 and "All") or "Single";
-    local Text = Placeholder.Replace(self.Config.UI["Recruit" ..Index][Language]);
+    local Text = Placeholder.Replace(self.Text["Recruit" ..Index][Language]);
     local CostText = FormatCostString(PlayerID, Costs);
     if _KeyNormal == "MenuCommandsGeneric/Buy_Soldier" then
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
@@ -257,7 +228,7 @@ function Stronghold.Unit:BuySoldierButtonUpdate()
             if Type == Entities.CU_BlackKnight then
                 XGUIEng.DisableButton("Buy_Soldier_Button", 0);
             else
-                if not Stronghold.UnitConfig:GetConfig(Type, PlayerID)
+                if not Stronghold.Unit.Config:Get(Type, PlayerID)
                 or Logic.IsLeader(EntityID) == 0 then
                     XGUIEng.DisableButton("Buy_Soldier_Button", 1);
                 else
@@ -303,7 +274,7 @@ function Stronghold.Unit:ExpelSettlerButtonTooltip(_Key)
     if Stronghold:IsPlayer(PlayerID) then
         if _Key == "MenuCommandsGeneric/expel" then
             local Index = (XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 and "All") or "Single";
-            local Text = Placeholder.Replace(self.Config.UI["Expell" ..Index][Language]);
+            local Text = Placeholder.Replace(self.Text["Expell" ..Index][Language]);
             XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
             return true;
         end

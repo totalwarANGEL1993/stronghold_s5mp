@@ -604,7 +604,7 @@ end
 function Stronghold.Attraction:GetMillitarySize(_PlayerID)
     local Size = 0;
     for k,v in pairs(self.Config.UsedSpace) do
-        local Config = Stronghold.UnitConfig:GetConfig(k, _PlayerID);
+        local Config = Stronghold.Unit.Config:Get(k, _PlayerID);
         if not Config or Config.IsCivil ~= true then
             local UnitList = GetPlayerEntities(_PlayerID, k);
             for i= 1, table.getn(UnitList) do

@@ -624,24 +624,26 @@ end
 function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
         local Upkeep = 0;
-        for k, v in pairs(Stronghold.UnitConfig.Units) do
-            local Military = GetValidEntitiesOfType(_PlayerID, k);
-            -- Calculate regular upkeep
-            local TypeUpkeep = 0;
-            for i= 1, table.getn(Military) do
-                local UnitUpkeep = v.Upkeep;
-                local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(Military[i]);
-                local SoldiersCur = Logic.LeaderGetNumberOfSoldiers(Military[i]);
-                if SoldiersMax > 0 then
-                    UnitUpkeep = math.ceil(UnitUpkeep * ((SoldiersCur +1) / (SoldiersMax +1)));
+        for k, v in pairs(Stronghold.Unit.Config) do
+            if type(k) == "number" then
+                local Military = GetValidEntitiesOfType(_PlayerID, k);
+                -- Calculate regular upkeep
+                local TypeUpkeep = 0;
+                for i= 1, table.getn(Military) do
+                    local UnitUpkeep = v.Upkeep;
+                    local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(Military[i]);
+                    local SoldiersCur = Logic.LeaderGetNumberOfSoldiers(Military[i]);
+                    if SoldiersMax > 0 then
+                        UnitUpkeep = math.ceil(UnitUpkeep * ((SoldiersCur +1) / (SoldiersMax +1)));
+                    end
+                    TypeUpkeep = TypeUpkeep + UnitUpkeep;
                 end
-                TypeUpkeep = TypeUpkeep + UnitUpkeep;
-            end
-            -- External calculations
-            TypeUpkeep = GameCallback_Calculate_PaydayUpkeep(_PlayerID, k, TypeUpkeep)
+                -- External calculations
+                TypeUpkeep = GameCallback_Calculate_PaydayUpkeep(_PlayerID, k, TypeUpkeep)
 
-            self.Data[_PlayerID].UpkeepDetails[k] = TypeUpkeep;
-            Upkeep = Upkeep + TypeUpkeep;
+                self.Data[_PlayerID].UpkeepDetails[k] = TypeUpkeep;
+                Upkeep = Upkeep + TypeUpkeep;
+            end
         end
         -- External
         Upkeep = GameCallback_Calculate_TotalPaydayUpkeep(_PlayerID, Upkeep);
