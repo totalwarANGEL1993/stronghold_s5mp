@@ -523,9 +523,8 @@ function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _Taxt
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local Penalty = 0;
         if _TaxtHeight > 1 then
-            local Rank = Stronghold.Players[_PlayerID].Rank;
             local TaxEffect = self.Config.Income.TaxEffect[_TaxtHeight].Reputation * -1;
-            Penalty = TaxEffect * (1 + ((WorkerCount/95) + (0.42 * (Rank -1))));
+            Penalty = TaxEffect * (1 + ((WorkerCount/95) + (0.42 * (GetRank(_PlayerID) -1))));
         end
         return math.floor(Penalty);
     end
@@ -690,11 +689,11 @@ end
 
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
-        local Rank = GetRank(_PlayerID)
+        local CurrentRank = GetRank(_PlayerID)
         local MeasurePoints = 0;
         for k, v in pairs(GetAllWorker(_PlayerID, 0)) do
             if Logic.IsSettlerAtWork(v) == 1 then
-                MeasurePoints = MeasurePoints + ((10 * 0.1) * (1.1 - (Rank/10)));
+                MeasurePoints = MeasurePoints + ((10 * 0.1) * (1.1 - (CurrentRank/10)));
             end
         end
         MeasurePoints = GameCallback_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);

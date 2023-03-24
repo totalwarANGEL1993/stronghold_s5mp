@@ -50,6 +50,8 @@ end
 
 -- ---------- --
 
+Script.Load(gvBasePath.. "constants.lua");
+Script.Load(gvBasePath.. "text.lua");
 Script.Load(gvBasePath.. "main.lua");
 
 Script.Load(gvBasePath.. "module/utils.lua");

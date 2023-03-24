@@ -556,7 +556,7 @@ function Stronghold.Recruitment:UpdateRecruiterBuyUnitTooltip(_TextToPrint, _Pla
             Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
-                local RankName = Stronghold:GetPlayerRankName(_PlayerID, Config.Rank);
+                local RankName = GetRankName(Config.Rank, _PlayerID);
                 DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
                 Text = Text .. DisabledText;
             end
@@ -622,7 +622,7 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
             Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
-                local RankName = Stronghold:GetPlayerRankName(_PlayerID, Config.Rank);
+                local RankName = GetRankName(Config.Rank, _PlayerID);
                 DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
                 Text = Text .. DisabledText;
             end

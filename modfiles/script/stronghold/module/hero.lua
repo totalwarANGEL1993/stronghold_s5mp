@@ -10,7 +10,6 @@
 --- - Activated abilities
 --- - Passive abilities
 --- - Selection menus
---- - Gender of hero (for text)
 --- 
 
 Stronghold = Stronghold or {};
@@ -608,8 +607,8 @@ function Stronghold.Hero:OnlineHelpAction()
     if not Stronghold:IsPlayerInitalized(PlayerID) then
         return false;
     end
-    local Rank = GetRank(PlayerID);
-    local NextRank = Stronghold.Config.Ranks[Rank+1];
+    local CurrentRank = GetRank(PlayerID);
+    local NextRank = Stronghold.Config.Ranks[CurrentRank+1];
     if NextRank then
         local Costs = Stronghold:CreateCostTable(unpack(NextRank.Costs));
         if not HasPlayerEnoughResourcesFeedback(Costs) then
@@ -638,7 +637,7 @@ function Stronghold.Hero:OnlineHelpTooltip(_Key)
             local Costs = Stronghold:CreateCostTable(unpack(Config.Costs));
             Text = string.format(
                 Stronghold.Hero.Config.UI.Promotion[1][Language],
-                Stronghold:GetPlayerRankName(PlayerID, NextRank),
+                GetRankName(NextRank, PlayerID),
                 (Config.Description and Config.Description[Language]) or ""
             );
             CostText = Stronghold:FormatCostString(PlayerID, Costs);
@@ -660,9 +659,9 @@ function Stronghold.Hero:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
         if GUI.GetPlayerID() == _PlayerID then
             local Disabled = 1;
             if Stronghold:IsPlayerInitalized(_PlayerID) then
-                local Rank = GetRank(_PlayerID);
-                Texture = "graphics/textures/gui/b_rank_" ..Rank.. ".png";
-                if Rank >= Stronghold.Config.Base.MaxRank then
+                local CurrentRank = GetRank(_PlayerID);
+                Texture = "graphics/textures/gui/b_rank_" ..CurrentRank.. ".png";
+                if CurrentRank >= Stronghold.Config.Base.MaxRank then
                     Texture = "graphics/textures/gui/b_rank_f1.png";
                 end
                 if Stronghold:CanPlayerBePromoted(_PlayerID) then
@@ -880,10 +879,8 @@ function Stronghold.Hero:PrintSelectionName()
             local Type = Logic.GetEntityType(EntityID);
             local TypeName = Logic.GetEntityTypeName(Type);
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-            local Rank = GetRank(PlayerID);
-            local Language = GetLanguage();
-            local Gender = Stronghold:GetNobleGender(Type);
-            local Text = Stronghold:GetPlayerRankName(PlayerID, Rank);
+            local CurrentRank = GetRank(PlayerID);
+            local Text = GetRankName(CurrentRank, PlayerID);
             XGUIEng.SetText("Selection_Name", Text.. " " ..Name);
 		end
     end

@@ -541,9 +541,9 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     -- Remove allmeasure points
     Stronghold.Economy:AddPlayerMeasure(_PlayerID, (-1) * MeasurePoints);
     -- Update recharge factor
-    local Rank = math.max(GetRank(_PlayerID), 1);
+    local CurrentRank = math.max(GetRank(_PlayerID), 1);
     local RechargeFactor = self.Config.Headquarters[_BlessCategory].RechargeFactor;
-    RechargeFactor = RechargeFactor * (7/Rank);
+    RechargeFactor = RechargeFactor * (7/CurrentRank);
     self.Data[_PlayerID].Measure.RechargeFactor = RechargeFactor;
     -- Show message
     local Language = GetLanguage();
@@ -620,7 +620,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             RequireText = string.gsub(
                 self.Config.UI.Require[Language] ..
                 self.Config.UI.Measure[BlessCategories.Construction][3][Language],
-                "#Rank#", Stronghold:GetPlayerRankName(_PlayerID, 1)
+                "#Rank#", GetRankName(Rank.Noble, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Construction];
@@ -630,7 +630,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             RequireText = string.gsub(
                 self.Config.UI.Require[Language] ..
                 self.Config.UI.Measure[BlessCategories.Research][3][Language],
-                "#Rank#", Stronghold:GetPlayerRankName(_PlayerID, 2)
+                "#Rank#", GetRankName(Rank.Mayor, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Research];
@@ -640,7 +640,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             RequireText = string.gsub(
                 self.Config.UI.Require[Language] ..
                 self.Config.UI.Measure[BlessCategories.Weapons][3][Language],
-                "#Rank#", Stronghold:GetPlayerRankName(_PlayerID, 3)
+                "#Rank#", GetRankName(Rank.Earl, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Weapons];
@@ -650,7 +650,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             RequireText = string.gsub(
                 self.Config.UI.Require[Language] ..
                 self.Config.UI.Measure[BlessCategories.Financial][3][Language],
-                "#Rank#", Stronghold:GetPlayerRankName(_PlayerID, 3)
+                "#Rank#", GetRankName(Rank.Earl, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Financial];
@@ -660,7 +660,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             RequireText = string.gsub(
                 self.Config.UI.Require[Language] ..
                 self.Config.UI.Measure[BlessCategories.Canonisation][3][Language],
-                "#Rank#", Stronghold:GetPlayerRankName(_PlayerID, 6)
+                "#Rank#", GetRankName(Rank.Margrave, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Canonisation];
@@ -690,18 +690,18 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
     end
 
     local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
-    local Rank = GetRank(_PlayerID);
+    local CurrentRank = GetRank(_PlayerID);
     local ButtonDisabled = 0;
     if _Button == "BlessSettlers1" then
-        ButtonDisabled = (Rank < 1 and 1) or 0;
+        ButtonDisabled = (CurrentRank < 1 and 1) or 0;
     elseif _Button == "BlessSettlers2" then
-        ButtonDisabled = (Rank < 2 and 1) or 0;
+        ButtonDisabled = (CurrentRank < 2 and 1) or 0;
     elseif _Button == "BlessSettlers3" then
-        ButtonDisabled = ((Rank < 3 or Level < 1) and 1) or 0;
+        ButtonDisabled = ((CurrentRank < 3 or Level < 1) and 1) or 0;
     elseif _Button == "BlessSettlers4" then
-        ButtonDisabled = ((Rank < 3 or Level < 1) and 1) or 0;
+        ButtonDisabled = ((CurrentRank < 3 or Level < 1) and 1) or 0;
     elseif _Button == "BlessSettlers5" then
-        ButtonDisabled = ((Rank < 6 or Level < 2) and 1) or 0;
+        ButtonDisabled = ((CurrentRank < 6 or Level < 2) and 1) or 0;
     end
     XGUIEng.DisableButton(_Button, ButtonDisabled);
     return true;

@@ -169,24 +169,6 @@ Stronghold = {
             },
         },
 
-        Gender = {
-            [Entities.PU_Hero1]              = 1,
-            [Entities.PU_Hero1a]             = 1,
-            [Entities.PU_Hero1b]             = 1,
-            [Entities.PU_Hero1c]             = 1,
-            [Entities.PU_Hero2]              = 1,
-            [Entities.PU_Hero3]              = 1,
-            [Entities.PU_Hero4]              = 1,
-            [Entities.PU_Hero5]              = 2,
-            [Entities.PU_Hero6]              = 1,
-            [Entities.CU_BlackKnight]        = 1,
-            [Entities.CU_Mary_de_Mortfichet] = 2,
-            [Entities.CU_Barbarian_Hero]     = 1,
-            [Entities.PU_Hero10]             = 1,
-            [Entities.PU_Hero11]             = 2,
-            [Entities.CU_Evil_Queen]         = 2,
-        },
-
         Trade = {
             -- {buy min, buy max, sell min, sell max}
             [ResourceType.Gold]   = {0.85, 1.25, 0.85, 1.25},
@@ -201,22 +183,6 @@ Stronghold = {
             Reputation = {de = "Beliebtheit", en = "Reputation"},
             Honor = {de = "Ehre", en = "Honor"},
 
-            Titles = {
-                [1] = {{de = "Edelmann", en = "Nobleman"},
-                       {de = "Edelfrau", en = "Noblewoman"}},
-                [2] = {{de = "Landvogt", en = "Bailiff"},
-                       {de = "Landvögtin", en = "Bailiff"}},
-                [3] = {{de = "Fürst", en = "Lord"},
-                       {de = "Fürstin", en = "Lady"}},
-                [4] = {{de = "Baron", en = "Baron"},
-                       {de = "Baronin", en = "Baroness"}},
-                [5] = {{de = "Graf", en = "Count"},
-                       {de = "Gräfin", en = "Countess"}},
-                [6] = {{de = "Markgraf", en = "Margrave"},
-                       {de = "Markgräfin", en = "Margravine"}},
-                [7] = {{de = "Herzog", en = "Duke"},
-                       {de = "Herzogin", en = "Duchess"}},
-            },
             Player = {
                 [1] = {
                     de = "{grey}Das Haupthaus von %s %s{grey}ist nun geschützt!",
@@ -295,16 +261,6 @@ function GetHonor(_PlayerID)
     return Stronghold:GetPlayerHonor(_PlayerID);
 end
 
---- Returns the rank of the player.
-function GetRank(_PlayerID)
-    return Stronghold:GetPlayerRank(_PlayerID);
-end
-
---- Sets the rank of the player.
-function SetRank(_PlayerID, _Rank)
-    return Stronghold:SetPlayerRank(_PlayerID, _Rank);
-end
-
 --- Returns the ID of the players headquarter.
 function GetHeadquarterID(_PlayerID)
     return Stronghold:GetPlayerHeadquarter(_PlayerID);
@@ -376,6 +332,7 @@ function Stronghold:Init()
     GUI.ClearSelection();
     ResourceType.Honor = 20;
 
+    self.Promotion:Install();
     self.Economy:Install();
     self.Construction:Install();
     self.Building:Install();
@@ -415,6 +372,7 @@ function Stronghold:OnSaveGameLoaded()
     GUI.ClearSelection();
     ResourceType.Honor = 20;
 
+    self.Promotion:OnSaveGameLoaded();
     self.Construction:OnSaveGameLoaded();
     self.Building:OnSaveGameLoaded();
     self.UnitConfig:OnSaveGameLoaded();
@@ -448,8 +406,6 @@ function Stronghold:AddPlayer(_PlayerID)
         DoorPos = nil;
 
         TaxHeight = 3,
-        Rank = 1,
-
         ReputationLimit = 200,
         Reputation = 100,
         Honor = 0,
@@ -503,6 +459,13 @@ function Stronghold:GetPlayerHeadquarter(_PlayerID)
     return 0;
 end
 
+function Stronghold:GetPlayerHero(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        return GetID(self.Players[_PlayerID].LordScriptName);
+    end
+    return 0;
+end
+
 function Stronghold:GetLocalPlayerID()
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID1 = GUI.GetPlayerID();
@@ -549,8 +512,8 @@ function Stronghold:InitalizePlayer(_PlayerID)
         self.Config.Base.InitialResources[6],
         self.Config.Base.InitialResources[7]
     );
-    self:SetPlayerRank(_PlayerID, self.Config.Base.InitialRank);
-    self:AddPlayerHonor(_PlayerID, self.Config.Base.InitialResources[1]);
+    SetRank(_PlayerID, self.Config.Base.InitialRank);
+    AddHonor(_PlayerID, self.Config.Base.InitialResources[1]);
 
     self.Players[_PlayerID].IsInitalized = true;
 end
@@ -874,56 +837,16 @@ end
 -- -------------------------------------------------------------------------- --
 -- Rank
 
-function Stronghold:GetPlayerRank(_PlayerID)
-    if self:IsPlayer(_PlayerID) then
-        return self.Players[_PlayerID].Rank;
-    end
-    return 0;
-end
-
-function Stronghold:GetPlayerRankName(_PlayerID, _Rank)
-    local Language = GetLanguage();
-    if self:IsPlayer(_PlayerID) then
-        local Rank = _Rank or self.Players[_PlayerID].Rank;
-        local LordID = GetID(self.Players[_PlayerID].LordScriptName);
-
-        local Gender = 1;
-        if LordID ~= 0 then
-            Gender = self:GetNobleGender(Logic.GetEntityType(LordID)) or 1;
-        end
-
-        local Text = self.Config.UI.Titles[Rank][Gender][Language];
-        if type (Text) == "table" then
-            Text = Text[Language];
-        end
-        return Text;
-    end
-    return (Language == "de" and "Pöbel") or "Rabble";
-end
-
-function Stronghold:GetNobleGender(_Type)
-    if self.Config.Gender[_Type] then
-        return self.Config.Gender[_Type];
-    end
-    return 1;
-end
-
-function Stronghold:SetPlayerRank(_PlayerID, _Rank)
-    if self:IsPlayer(_PlayerID) then
-        self.Players[_PlayerID].Rank = _Rank;
-    end
-end
-
 function Stronghold:PromotePlayer(_PlayerID)
     local Language = GetLanguage();
     if self:CanPlayerBePromoted(_PlayerID) then
-        local Rank = self:GetPlayerRank(_PlayerID);
-        local Costs = Stronghold:CreateCostTable(unpack(self.Config.Ranks[Rank +1].Costs));
-        self:SetPlayerRank(_PlayerID, Rank +1);
+        local CurrentRank = GetRank(_PlayerID);
+        local Costs = Stronghold:CreateCostTable(unpack(self.Config.Ranks[CurrentRank +1].Costs));
+        SetRank(_PlayerID, CurrentRank +1);
         RemoveResourcesFromPlayer(_PlayerID, Costs);
         local MsgText = string.format(
             self.Config.UI.Promotion.Player[Language],
-            Stronghold:GetPlayerRankName(_PlayerID, Rank +1)
+            GetRankName(CurrentRank +1, _PlayerID)
         );
         if GUI.GetPlayerID() == _PlayerID then
             Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
@@ -932,19 +855,19 @@ function Stronghold:PromotePlayer(_PlayerID)
                 self.Config.UI.Promotion.Other[Language],
                 UserTool_GetPlayerName(_PlayerID),
                 "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ","),
-                Stronghold:GetPlayerRankName(_PlayerID, Rank +1)
+                GetRankName(CurrentRank +1, _PlayerID)
             );
         end
         Message(MsgText);
-        GameCallback_Logic_PlayerPromoted(_PlayerID, Rank, Rank +1);
+        GameCallback_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);
     end
 end
 
 function Stronghold:CanPlayerBePromoted(_PlayerID)
     if self:IsPlayer(_PlayerID) then
         if IsExisting(self.Players[_PlayerID].LordScriptName) then
-            local Rank = self:GetPlayerRank(_PlayerID);
-            if Rank == 0 or Rank >= self.Config.Base.MaxRank then
+            local CurrentRank = GetRank(_PlayerID);
+            if CurrentRank == Rank.Commoner or CurrentRank >= self.Config.Base.MaxRank then
                 return false;
             end
             return self.Config.Ranks[Rank +1].Condition(_PlayerID);
