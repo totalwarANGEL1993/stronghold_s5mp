@@ -1,3 +1,5 @@
+
+
 ---
 --- Economy Script
 ---
@@ -55,139 +57,8 @@ Stronghold = Stronghold or {};
 
 Stronghold.Economy = {
     Data = {},
-    Config = {
-        MaxMeasurePoints = 5000,
-        MaxReputation = 200,
-        TaxPerWorker = 5,
-        Income = {
-            TaxEffect = {
-                [1] = {Honor = 4, Reputation = 10,},
-                [2] = {Honor = 2, Reputation = -2,},
-                [3] = {Honor = 1, Reputation = -4,},
-                [4] = {Honor = 0, Reputation = -10,},
-                [5] = {Honor = 0, Reputation = -16,},
-            },
-
-            Dynamic = {
-                [Entities.PB_Farm2]      = {Honor = 0.15, Reputation = 0.06,},
-                [Entities.PB_Farm3]      = {Honor = 0.21, Reputation = 0.09,},
-                ---
-                [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.15,},
-                [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.21,},
-                ---
-                [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.40,},
-                [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.50,},
-            },
-            Static = {
-                [Entities.PB_Beautification04] = {Honor = 1, Reputation = 1,},
-                [Entities.PB_Beautification06] = {Honor = 1, Reputation = 1,},
-                [Entities.PB_Beautification09] = {Honor = 1, Reputation = 1,},
-                ---
-                [Entities.PB_Beautification01] = {Honor = 2, Reputation = 1,},
-                [Entities.PB_Beautification02] = {Honor = 2, Reputation = 1,},
-                [Entities.PB_Beautification12] = {Honor = 2, Reputation = 1,},
-                ---
-                [Entities.PB_Beautification05] = {Honor = 3, Reputation = 1,},
-                [Entities.PB_Beautification07] = {Honor = 3, Reputation = 1,},
-                [Entities.PB_Beautification08] = {Honor = 3, Reputation = 1,},
-                ---
-                [Entities.PB_Beautification03] = {Honor = 4, Reputation = 1,},
-                [Entities.PB_Beautification10] = {Honor = 4, Reputation = 1,},
-                [Entities.PB_Beautification11] = {Honor = 4, Reputation = 1,},
-                ---
-                [Entities.PB_Headquarters2]    = {Honor =  6, Reputation = 0,},
-                [Entities.PB_Headquarters3]    = {Honor = 12, Reputation = 0,},
-                ---
-                [Entities.PB_Monastery1]       = {Honor = 0, Reputation = 6,},
-                [Entities.PB_Monastery2]       = {Honor = 0, Reputation = 9,},
-                [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 12,},
-            },
-        },
-
-        Text = {
-            CourtClerk = {
-                [1] = {
-                    de = "Hofschreiber",
-                    en = "Court Clerk",
-                },
-                [2] = {
-                    de = "{white}Erwartete Ehre: %s{cr}"..
-                         "{none}___{grey}Steuer: %s{cr}"..
-                         "{none}___{grey}Gebäude: %s{cr}"..
-                         "{none}___{grey}Versorgung: %s{cr}"..
-                         "{none}___{grey}Obdach: %s{cr}"..
-                         "{none}___{grey}Spezial: %s{cr}{cr}"..
-                         "{white}Erwartete Beliebtheit: %s{cr}"..
-                         "{none}___{grey}Steuer: %s{cr}"..
-                         "{none}___{grey}Gesetz: %s{cr}"..
-                         "{none}___{grey}Gebäude: %s{cr}"..
-                         "{none}___{grey}Versorgung: %s{cr}"..
-                         "{none}___{grey}Obdach: %s{cr}"..
-                         "{none}___{grey}Spezial: %s",
-                    en = "{white}Expected Honor: %s{cr}"..
-                         "{none}___{grey}Tax: %s{cr}"..
-                         "{none}___{grey}Buildings: %s{cr}"..
-                         "{none}___{grey}Providing: %s{cr}"..
-                         "{none}___{grey}Housing: %s{cr}"..
-                         "{none}___{grey}Special: %s{cr}{cr}"..
-                         "{white}Expected Reputation: %s{cr}"..
-                         "{none}___{grey}Tax: %s{cr}"..
-                         "{none}___{grey}Law & Order: %s{cr}"..
-                         "{none}___{grey}Buildings: %s{cr}"..
-                         "{none}___{grey}Providing: %s{cr}"..
-                         "{none}___{grey}Housing: %s{cr}"..
-                         "{none}___{grey}Special: %s",
-                },
-            }
-        },
-
-        UI = {
-            FindView = {
-                Upkeep = {
-                    de = " @cr Unterhalt: @color:255,32,32 %d @color:255,255,255 Taler",
-                    en = " @cr Unterhalt: @color:255,32,32 %d @color:255,255,255 Gold",
-                }
-            },
-            Overview = {
-                Military = {
-                    de = "@color:180,180,180 Militär @color:255,255,255 @cr "..
-                         "Zum Militär zählen Soldaten, Kanonen, Kundschafter "..
-                         "und Diebe. Baut Eure Burg aus und erreicht höhere "..
-                         "Ränge, um das Limit zu erhöhen.",
-                    en = "@color:180,180,180 Military @color:255,255,255 @cr The "..
-                         "includes all soldiers, cannons, scouts and thieves. "..
-                         "Upgrade your  castle and reach higher ranks to increase "..
-                         "the limit.",
-                },
-                Population = {
-                    de = "@color:180,180,180 Bevölkerung @color:255,255,255 @cr "..
-                         "Zur Bevölkerung zählen alle Arbeiter, Leibeigene und "..
-                         "Verbrecher. Baut die Burg aus oder nehmt Dörfer ein, "..
-                         "um mehr Volk anzulocken.",
-                    en = "@color:180,180,180 Population @color:255,255,255 @cr The "..
-                         "population consists of all workers, serfs and criminals. "..
-                         "Upgrade your castle or build village centers to attract "..
-                         "more population.",
-                },
-                TaxLeader = {
-                    de = "@color:180,180,180 Sold @color:255,255,255 @cr Am Zahltag "..
-                         "wird der Sold der Soldaten fällig. Der Sold ist für jeden "..
-                         "Truppentyp unterschiedlich.",
-                    en = "@color:180,180,180 Upkeep @color:255,255,255 @cr On the "..
-                         "payday your soldiers get their wages. How much you pay "..
-                         "is different for each unit type.",
-                },
-                TaxWorker = {
-                    de = "@color:180,180,180 Steuern @color:255,255,255 @cr Jeder "..
-                         "Arbeiter entrichtet Euch zum Zahltag seine Steuer. Wägt "..
-                         "ab, ob Ihr sie schonen oder schröpfen wollt.",
-                    en = "@color:180,180,180 Taxes @color:255,255,255 @cr Each worker "..
-                         "has to pay their taxes on the payday. Decide whether you "..
-                         "want to protect them or exploit them.",
-                },
-            }
-        },
-    }
+    Config = {},
+    Text = {},
 };
 
 function Stronghold.Economy:Install()
@@ -327,7 +198,7 @@ end
 
 function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
-        local MaxReputation = self.Config.MaxReputation;
+        local MaxReputation = self.Config.Income.MaxReputation;
         MaxReputation = GameCallback_Calculate_ReputationMax(_PlayerID, MaxReputation);
         Stronghold:SetPlayerReputationLimit(_PlayerID, MaxReputation);
 
@@ -610,7 +481,7 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
     if Stronghold:IsPlayer(_PlayerID) then
         local WorkerList = GetAllWorker(_PlayerID, 0);
         local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
-        local PerWorker = self.Config.TaxPerWorker;
+        local PerWorker = self.Config.Income.TaxPerWorker;
         local Income = (table.getn(WorkerList) * PerWorker) * (TaxHeight -1);
         Income = GameCallback_Calculate_TotalPaydayIncome(_PlayerID, Income);
         return math.floor(Income + 0.5);
@@ -686,7 +557,7 @@ function Stronghold.Economy:GetPlayerMeasure(_PlayerID)
 end
 
 function Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID)
-    return self.Config.MaxMeasurePoints;
+    return self.Config.Income.MaxMeasurePoints;
 end
 
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
@@ -835,22 +706,22 @@ end
 function Stronghold.Economy:PrintTooltipGenericForEcoGeneral(_PlayerID, _Key)
     local Language = GetLanguage();
     if _Key == "MenuHeadquarter/TaxWorker" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Config.UI.Overview.TaxWorker[Language]);
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.TaxWorker[Language]);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
     elseif _Key == "MenuHeadquarter/TaxLeader" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Config.UI.Overview.TaxLeader[Language]);
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.TaxLeader[Language]);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
     elseif _Key == "MenuResources/population" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Config.UI.Overview.Population[Language]);
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.Population[Language]);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
     elseif _Key == "MenuResources/Motivation" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Config.UI.Overview.Military[Language]);
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.Military[Language]);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
@@ -908,7 +779,7 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
         return false;
     end
 
-    local UpkeepText = string.format(self.Config.UI.FindView.Upkeep[Language], Upkeep);
+    local UpkeepText = string.format(self.Text.FindView.Upkeep[Language], Upkeep);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text .. UpkeepText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
@@ -925,7 +796,7 @@ function Stronghold.Economy:ShowHeadquartersDetail(_PlayerID)
             local Selected = GUI.GetSelectedEntity();
             if Selected == GetID(Stronghold.Players[_PlayerID].HQScriptName) then
                 local Language = GetLanguage();
-                local Headline = self.Config.Text.CourtClerk[1][Language];
+                local Headline = self.Text.CourtClerk[1][Language];
                 local Content = self:CreateHeadquarterDetailsText(_PlayerID);
                 ShowInfoWindow(Headline, Content);
             end
@@ -956,7 +827,7 @@ function Stronghold.Economy:CreateHeadquarterDetailsText(_PlayerID)
 
     local Language = GetLanguage();
     return string.format(
-        self.Config.Text.CourtClerk[2][Language],
+        self.Text.CourtClerk[2][Language],
         -- Honor
         ((ihon < 0 and "{scarlet}") or "{green}") ..ihon,
         ((htb < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", htb),
