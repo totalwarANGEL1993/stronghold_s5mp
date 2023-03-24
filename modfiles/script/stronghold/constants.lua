@@ -16,6 +16,17 @@ Rank = {
     Duke = 7
 };
 
+Requirement = {
+    Headquarters = 1,
+    Cathedral = 2,
+    Workers = 3,
+    Soldiers = 4,
+    SettlerType = 5,
+    BuildingType = 6,
+    Beautification = 7,
+    Custom = 8,
+}
+
 OutlawAttackState = {
     -- The camp waits for troops to respawn.
     RecruitUnits = 1,

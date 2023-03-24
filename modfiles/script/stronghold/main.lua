@@ -585,10 +585,10 @@ function Stronghold:OnEveryTurn()
     -- Player jobs on each turn
     for i= 1, Players do
         Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(i);
-        Stronghold.Hero:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
         Stronghold.Hero:EntityAttackedController(i);
         Stronghold.Hero:HeliasConvertController(i);
         Stronghold.Economy:ShowHeadquartersDetail(i);
+        Stronghold.Promotion:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
         Stronghold.Recruitment:ControlProductionQueues(i);
         Stronghold.Recruitment:ControlCannonProducers(i);
     end
@@ -1041,7 +1041,7 @@ end
 -- Button Action Generic Override
 function Stronghold:OverrideWidgetActions()
     Overwrite.CreateOverwrite("GUIAction_OnlineHelp", function()
-        Stronghold.Hero:OnlineHelpAction();
+        Stronghold.Promotion:OnlineHelpAction();
     end);
 
     Overwrite.CreateOverwrite("GUIAction_ReserachTechnology", function(_Technology)
@@ -1157,7 +1157,7 @@ function Stronghold:OverrideWidgetTooltips()
             TooltipSet = Stronghold.Building:HeadquartersBuildingTabsGuiTooltip(PlayerID, EntityID, _Key);
         end
         if not TooltipSet then
-            TooltipSet = Stronghold.Hero:OnlineHelpTooltip(_Key);
+            TooltipSet = Stronghold.Promotion:OnlineHelpTooltip(_Key);
         end
         if not TooltipSet then
             return Overwrite.CallOriginal();
@@ -1191,7 +1191,7 @@ function Stronghold:OverrideWidgetUpdates()
         local PlayerID = Stronghold:GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
-        Stronghold.Hero:OnlineHelpUpdate(PlayerID, _Button, _Technology);
+        Stronghold.Promotion:OnlineHelpUpdate(PlayerID, _Button, _Technology);
         Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
         Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
     end);

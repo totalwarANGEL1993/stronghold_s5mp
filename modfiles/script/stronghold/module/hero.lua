@@ -556,21 +556,6 @@ function Stronghold.Hero:OnSaveGameLoaded()
     end
 end
 
-function Stronghold.Hero:CreateHeroButtonHandlers()
-    self.SyncEvents = {
-        RankUp = 1,
-    };
-
-    self.NetworkCall = Syncer.CreateEvent(
-        function(_PlayerID, _Action, ...)
-            if _Action == Stronghold.Hero.SyncEvents.RankUp then
-                Stronghold:PromotePlayer(_PlayerID);
-                Stronghold.Hero:OnlineHelpUpdate("OnlineHelpButton", Technologies.T_OnlineHelp);
-            end
-        end
-    );
-end
-
 function Stronghold.Hero:SetEntityConvertable(_EntityID, _Flag)
     self.Data.ConvertBlacklist[_EntityID] = _Flag == true;
 end
@@ -597,85 +582,6 @@ function Stronghold.Hero:SetHeroDescription(_Type, _Text)
         Text = {de = _Text, en = _Text};
     end
     self.Config.UI.HeroDescription[_Type] = Text;
-end
-
--- -------------------------------------------------------------------------- --
--- Rank Up
-
-function Stronghold.Hero:OnlineHelpAction()
-    local PlayerID = GUI.GetPlayerID();
-    if not Stronghold:IsPlayerInitalized(PlayerID) then
-        return false;
-    end
-    local CurrentRank = GetRank(PlayerID);
-    local NextRank = Stronghold.Config.Ranks[CurrentRank+1];
-    if NextRank then
-        local Costs = Stronghold:CreateCostTable(unpack(NextRank.Costs));
-        if not HasPlayerEnoughResourcesFeedback(Costs) then
-            return true;
-        end
-    end
-    if Stronghold:CanPlayerBePromoted(PlayerID) then
-        Syncer.InvokeEvent(
-            Stronghold.Hero.NetworkCall,
-            Stronghold.Hero.SyncEvents.RankUp
-        );
-    end
-    return true;
-end
-
-function Stronghold.Hero:OnlineHelpTooltip(_Key)
-    if _Key == "MenuMap/OnlineHelp" then
-        local Language = GetLanguage();
-        local CostText = "";
-        local Text = "";
-
-        local PlayerID = Stronghold:GetLocalPlayerID();
-        local NextRank = GetRank(PlayerID) +1;
-        if PlayerID ~= 17 and Stronghold.Config.Ranks[NextRank] and NextRank <= Stronghold.Config.Base.MaxRank then
-            local Config = Stronghold.Config.Ranks[NextRank];
-            local Costs = Stronghold:CreateCostTable(unpack(Config.Costs));
-            Text = string.format(
-                Stronghold.Hero.Config.UI.Promotion[1][Language],
-                GetRankName(NextRank, PlayerID),
-                (Config.Description and Config.Description[Language]) or ""
-            );
-            CostText = Stronghold:FormatCostString(PlayerID, Costs);
-        else
-            Text = Stronghold.Hero.Config.UI.Promotion[2][Language];
-        end
-
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostText);
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
-        return true;
-    end
-    return false;
-end
-
-function Stronghold.Hero:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
-    if _Button == "OnlineHelpButton" then
-        local Texture = "graphics/textures/gui/b_rank_f2.png";
-        if GUI.GetPlayerID() == _PlayerID then
-            local Disabled = 1;
-            if Stronghold:IsPlayerInitalized(_PlayerID) then
-                local CurrentRank = GetRank(_PlayerID);
-                Texture = "graphics/textures/gui/b_rank_" ..CurrentRank.. ".png";
-                if CurrentRank >= Stronghold.Config.Base.MaxRank then
-                    Texture = "graphics/textures/gui/b_rank_f1.png";
-                end
-                if Stronghold:CanPlayerBePromoted(_PlayerID) then
-                    Disabled = 0;
-                end
-            end
-            for i= 0, 6 do
-                XGUIEng.SetMaterialTexture(_Button, i, Texture);
-            end
-            XGUIEng.DisableButton(_Button, Disabled);
-            return true;
-        end
-    end
-    return false;
 end
 
 -- -------------------------------------------------------------------------- --
