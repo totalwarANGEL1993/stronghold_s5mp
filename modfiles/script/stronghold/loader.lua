@@ -78,11 +78,14 @@ Script.Load(gvBasePath.. "sh.module.province.text.lua");
 Script.Load(gvBasePath.. "sh.module.construction.lua");
 Script.Load(gvBasePath.. "sh.module.construction.config.lua");
 
+Script.Load(gvBasePath.. "sh.module.building.lua");
+Script.Load(gvBasePath.. "sh.module.building.config.lua");
+Script.Load(gvBasePath.. "sh.module.building.text.lua");
+
 Script.Load(gvBasePath.. "sh.module.spawner.lua");
 Script.Load(gvBasePath.. "sh.module.outlaw.lua");
 Script.Load(gvBasePath.. "sh.module.outlaw.constants.lua");
 
 Script.Load(gvBasePath.. "module/economy.lua");
-Script.Load(gvBasePath.. "module/building.lua");
 Script.Load(gvBasePath.. "module/hero.lua");
 

@@ -9,254 +9,8 @@ Stronghold = Stronghold or {};
 Stronghold.Building = Stronghold.Building or {
     SyncEvents = {},
     Data = {},
-    Config = {
-        Headquarters = {
-            [BlessCategories.Construction] = {
-                Reputation = -10,
-                Honor = 0,
-                RechargeFactor = 0.34,
-            },
-            [BlessCategories.Research] = {
-                Reputation = 5,
-                Honor = 10,
-                RechargeFactor = 0.29,
-            },
-            [BlessCategories.Weapons] = {
-                Reputation = 150,
-                Honor = 0,
-                RechargeFactor = 0.37,
-            },
-            [BlessCategories.Financial] = {
-                Reputation = 22,
-                Honor = 0,
-                RechargeFactor = 0.21,
-            },
-            [BlessCategories.Canonisation] = {
-                Reputation = -30,
-                Honor = 150,
-                RechargeFactor = 0.14,
-            },
-        },
-
-        Monastery = {
-            [BlessCategories.Construction] = {
-                Reputation = 9,
-                Honor = 0,
-            },
-            [BlessCategories.Research] = {
-                Reputation = 0,
-                Honor = 9,
-            },
-            [BlessCategories.Weapons] = {
-                Reputation = 18,
-                Honor = 0,
-            },
-            [BlessCategories.Financial] = {
-                Reputation = 0,
-                Honor = 18,
-            },
-            [BlessCategories.Canonisation] = {
-                Reputation = 15,
-                Honor = 15,
-            },
-        },
-
-        UI = {
-            MeasureNotReady = {
-                de = "Hochwohlgeboren, Ihr könnt noch keine neue Maßnahme anordnen!",
-                en = "Your Highness, you cannot yet order a new measure!",
-            },
-            MeasureRandomTax = {
-                de = "Ihr habt %d Taler erhalten!",
-                en = "The levy tax produced %d Gold!"
-            },
-            Measure = {
-                [BlessCategories.Construction] = {
-                    [1] = {
-                        de = "{grey}Zwangsabgabe{white}{cr}Treibt eine Sondersteuer von Eurem "..
-                             "Volke ein. Ihren Ertrag vermag jedoch niemand vorherzusehen!",
-                        en = "{grey}Levy Duty{white}{cr}Collect a special tax from your people. "..
-                             "However, no one can predict your yield!",
-                    },
-                    [2] = {
-                        de = "Die Siedler werden zur Kasse gebeten, was sie sehr verärgert!",
-                        en = "The settlers are asked to pay, which upsets them greatly!",
-                    },
-                    [3] = {de = "#Rank# ", en = "#Rank# ",},
-                },
-                [BlessCategories.Research] = {
-                    [1] = {
-                        de = "{grey}Öffentlicher Prozess{white}{cr}Haltet einen öffentlichen "..
-                             "Schaupozess ab. Recht und Ordnung steigert die Zufriedenheit "..
-                             "des Pöbel.",
-                        en = "{grey}Duty{white}{cr}Collect a special tax from your people. "..
-                             "However, no one can predict your yield!",
-                    },
-                    [2] = {
-                        de = "Ihr sprecht Recht und bestraft Kriminelle. Das Volk begrüßt dies!",
-                        en = "You administer justice and punish criminals. The people welcome this!",
-                    },
-                    [3] = {de = "#Rank# ", en = "#Rank# ",},
-                },
-                [BlessCategories.Weapons] = {
-                    [1] = {
-                        de = "{grey}Willkommenskultur{white}{cr}Eure Migrationspolitik wird "..
-                             "Neuankömmlinge sehr zufrieden machen, aber die Einheimischen "..
-                             "werden dies nicht gut heißen...",
-                        en = "{grey}Welcome Culture{white}{cr}Your migration policies will keep "..
-                             "newcomers very content but will also cause the locals to get very "..
-                             "mad because of those \"guests\"...",
-                    },
-                    [2] = {
-                        de = "Eure Migrationspolitik wird von den zugezogenen Siedlern begrüßt.",
-                        en = "Your migration policy is welcomed by the new settlers.",
-                    },
-                    [3] = {de = "#Rank#, Festung ", en = "#Rank#, Fortress ",},
-                },
-                [BlessCategories.Financial] = {
-                    [1] = {
-                        de = "{grey}Folklorefest{white}{cr}Ihr beglückt eure Siedler mit einem "..
-                             "rauschenden Fest, dass sie sehr glücklich machen wird.",
-                        en = "{grey}Folklorefest{white}{cr}You treat your settlers to a lavish "..
-                             "festival that will make them very happy.",
-                    },
-                    [2] = {
-                        de = "Das Volksfest erfreut die Siedler und steigert Eure Beliebtheit.",
-                        en = "The folk festival delights the settlers and increases your popularity.",
-                    },
-                    [3] = {de = "#Rank#, Festung ", en = "#Rank#, Fortress ",},
-                },
-                [BlessCategories.Canonisation] = {
-                    [1] = {
-                        de = "{grey}Gelage{white}{cr}Erhaltet Ehre durch ein verschwenderisches Gelage. "..
-                             "Aber Ihr zieht ebenso den Zorn des Volkes auf Euch!",
-                        en = "{grey}Feast{white}{cr}Gain honor from a lavish feast. But you draw the "..
-                             "wrath of the people against you as well !",
-                    },
-                    [2] = {
-                        de = "Ein Bankett gereicht Euch an Ehre, aber verärgert das Volk!",
-                        en = "A banquet honors you, but angers the people!",
-                    },
-                    [3] = {de = "#Rank#, Zitadelle ", en = "#Rank#, Zitadel ",},
-                },
-            },
-
-            PrayerMess = {
-                [BlessCategories.Construction] = {
-                    [1] = {
-                        de = "{grey}Gebetsmesse{white}",
-                        en = "{grey}Church Service{white}",
-                    },
-                    [2] = {
-                        de = "Eure Priester leuten die Glocke zum Gebet.",
-                        en = "Your priests ring the bell for prayer.",
-                    },
-                    [3] = {de = "", en = "",},
-                },
-                [BlessCategories.Research] = {
-                    [1] = {
-                        de = "{grey}Ablassbriefe{white}",
-                        en = "{grey}Indulgence Letters{white}",
-                    },
-                    [2] = {
-                        de = "Eure Priester vergeben die Sünden Eurer Arbeiter.",
-                        en = "Your priests forgive the sins of your workers.",
-                    },
-                    [3] = {de = "", en = "",},
-                },
-                [BlessCategories.Weapons] = {
-                    [1] = {
-                        de = "{grey}Bibeln{white}",
-                        en = "{grey}Bible Reading{white}",
-                    },
-                    [2] = {
-                        de = "Eure Priester predigen Bibeltexte zu ihrer Gemeinde.",
-                        en = "Your priests read from the bible to their community.",
-                    },
-                    [3] = {de = "Kirche", en = "Church",},
-                },
-                [BlessCategories.Financial] = {
-                    [1] = {
-                        de = "{grey}Kollekte{white}",
-                        en = "{grey}Collect{white}",
-                    },
-                    [2] = {
-                        de = "Eure Priester rufen die Siedler auf zur Kollekte.",
-                        en = "Your priests are calling for the collection.",
-                    },
-                    [3] = {de = "Kirche", en = "Church",},
-                },
-                [BlessCategories.Canonisation] = {
-                    [1] = {
-                        de = "{grey}Heiligsprechung{white}",
-                        en = "{grey}Canonisation{white}",
-                    },
-                    [2] = {
-                        de = "Eure Priester sprechen Eure Taten heilig.",
-                        en = "Your priests sanctify your deeds.",
-                    },
-                    [3] = {de = "Kathedrale", en = "Cathedral",},
-                },
-            },
-
-            TaxLevel = {
-                [1] = {
-                    de = "{grey}Keine Steuer{white}{cr}Keine Steuern. Aber wie wollt Ihr zu Talern kommen?",
-                    en = "{grey}No Taxes{white}{cr}No taxes. But how are you going to generate money?",
-                },
-                [2] = {
-                    de = "{grey}Niedrige Steuer{white}{cr}Ihr seid großzügig und entlastet Eure Untertanen.",
-                    en = "{grey}Low Taxes{white}{cr}You are generous and exonerate your subjects.",
-                },
-                [3] = {
-                    de = "{grey}Faire Steuer{white}{cr}Ihr verlangt die übliche Steuer von Eurem Volk.",
-                    en = "{grey}Fair Taxes{white}{cr}You demand the usual tax from your people.",
-                },
-                [4] = {
-                    de = "{grey}Hohe Steuer{white}{cr}Ihr dreht an der Steuerschraube. Wenn das mal gut geht...",
-                    en = "{grey}High Taxes{white}{cr}You increase the tax burden. How long will this go well...",
-                },
-                [5] = {
-                    de = "{grey}Grausame Steuer{white}{cr}Ihr zieht Euren Untertanen das letzte Hemd aus!",
-                    en = "{grey}Curel Taxes{white}{cr}You are stripping your subjects of their last shirts!",
-                },
-            },
-
-            SelectLord = {
-                de = "@color:180,180,180 Adligen wählen @color:255,255,255 "..
-                     "@cr Wählt euren Adligen aus. Jeder Adlige verfügt über "..
-                     "starke Fähigkeiten. Ohne einen Adligen könnt ihr keine "..
-                     "Ehre erhalten.",
-                en = "@color:180,180,180 Choose Noble @color:255,255,255 "..
-                     " Choose your Noble. Each Noble has different strengths "..
-                     " and weaknesses. Without a Noble you can not gain honor.",
-            },
-            TreasurySubMenu = {
-                de = "{grey}Schatzkammer{white}{cr}Hier könnt Ihr Leibeigene "..
-                     "kaufen, Euren Adligen wählen, den Alarm ausrufen und später "..
-                     "sogar die Steuern einstellen.",
-                en = "{grey}Treasury{white}{cr}Here you can buy serfs, choose "..
-                     "your noble, sound the alarm and later even set taxes.",
-            },
-            AdministrationSubMenu = {
-                de = "{grey}Verwaltung{white}{cr}Hier könnt Ihr Regularien "..
-                     "beschließen. Jede dieser Maßnahmen hat individuelle "..
-                     "Konsequenzen. Überlegt gut, ob und wann Ihr sie einsetzt.",
-                en = "{grey}Administration{white}{cr}Here you can decide "..
-                     "regulations. Each of these measures has individual "..
-                     "consequences. Think carefully about whether and when "..
-                     "you use them.",
-            },
-            Require = {
-                de = " @cr @color:244,184,0 benötigt: @color:255,255,255 ",
-                en = " @cr @color:244,184,0 requires: @color:255,255,255 ",
-            },
-            Effect  = {
-                de = " @cr @color:244,184,0 bewirkt: @color:255,255,255 ",
-                en = " @cr @color:244,184,0 achives: @color:255,255,255 ",
-            },
-        },
-    },
+    Config = {},
+    Text = {},
 }
 
 function Stronghold.Building:Install()
@@ -444,9 +198,9 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
     local EffectText = "";
 
     if _Key == "MenuHeadquarter/SetVeryLowTaxes" then
-        Text = self.Config.UI.TaxLevel[1][Language];
+        Text = self.Text.TaxLevel[1][Language];
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[1];
-        EffectText = self.Config.UI.Effect[Language];
+        EffectText = self.Text.UI.Effect[Language];
         if Effects.Reputation ~= 0 then
             EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language].. " ";
         end
@@ -454,40 +208,40 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Config.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetLowTaxes" then
-        Text = self.Config.UI.TaxLevel[2][Language];
+        Text = self.Text.TaxLevel[2][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 2);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[2];
-        EffectText = self.Config.UI.Effect[Language];
+        EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
                      " " ..Stronghold.Config.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Config.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetNormalTaxes" then
-        Text = self.Config.UI.TaxLevel[3][Language];
+        Text = self.Text.TaxLevel[3][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 3);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[3];
-        EffectText = self.Config.UI.Effect[Language];
+        EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
                      " " ..Stronghold.Config.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Config.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetHighTaxes" then
-        Text = self.Config.UI.TaxLevel[4][Language];
+        Text = self.Text.TaxLevel[4][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 4);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[4];
-        EffectText = self.Config.UI.Effect[Language];
+        EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
                      " " ..Stronghold.Config.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Config.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetVeryHighTaxes" then
-        Text = self.Config.UI.TaxLevel[5][Language];
+        Text = self.Text.TaxLevel[5][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 5);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[5];
-        EffectText = self.Config.UI.Effect[Language];
+        EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
                      " " ..Stronghold.Config.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
@@ -495,7 +249,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         end
     elseif _Key == "MenuHeadquarter/CallMilitia" then
         if Logic.IsEntityInCategory(GUI.GetSelectedEntity(), EntityCategories.Headquarters) == 1 then
-            Text = self.Config.UI.SelectLord[Language];
+            Text = self.Text.SelectLord[Language];
         end
     else
         return false;
@@ -547,7 +301,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     self.Data[_PlayerID].Measure.RechargeFactor = RechargeFactor;
     -- Show message
     local Language = GetLanguage();
-    Message(self.Config.UI.Measure[_BlessCategory][2][Language]);
+    Message(self.Text.Measure[_BlessCategory][2][Language]);
 
     -- Execute effects
     local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
@@ -558,7 +312,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         end
         Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
 
-        Message(string.format(self.Config.UI.MeasureRandomTax[Language], RandomTax));
+        Message(string.format(self.Text.Msg.MeasureRandomTax[Language], RandomTax));
         Sound.PlayGUISound(Sounds.LevyTaxes, 100);
         AddGold(_PlayerID, RandomTax);
 
@@ -592,7 +346,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _Enti
     end
     if Stronghold.Economy:GetPlayerMeasure(_PlayerID) < Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID) then
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 127);
-        Message(self.Config.UI.MeasureNotReady[Language]);
+        Message(self.Text.Msg.MeasureNotReady[Language]);
         return true;
     end
 
@@ -609,62 +363,62 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
     local Text = "";
     local Effects;
     local RequireText = "";
-    local EffectText = self.Config.UI.Effect[Language];
+    local EffectText = self.Text.UI.Effect[Language];
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
 
     if _TooltipNormal == "AOMenuMonastery/BlessSettlers1_normal" then
-        Text = self.Config.UI.Measure[BlessCategories.Construction][1][Language];
+        Text = self.Text.Measure[BlessCategories.Construction][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLevyTax);
             RequireText = string.gsub(
-                self.Config.UI.Require[Language] ..
-                self.Config.UI.Measure[BlessCategories.Construction][3][Language],
+                self.Text.UI.Require[Language] ..
+                self.Text.Measure[BlessCategories.Construction][3][Language],
                 "#Rank#", GetRankName(Rank, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Construction];
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers2_normal" then
-        Text = self.Config.UI.Measure[BlessCategories.Research][1][Language];
+        Text = self.Text.Measure[BlessCategories.Research][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLawAndOrder);
             RequireText = string.gsub(
-                self.Config.UI.Require[Language] ..
-                self.Config.UI.Measure[BlessCategories.Research][3][Language],
+                self.Text.UI.Require[Language] ..
+                self.Text.Measure[BlessCategories.Research][3][Language],
                 "#Rank#", GetRankName(Rank, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Research];
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers3_normal" then
-        Text = self.Config.UI.Measure[BlessCategories.Weapons][1][Language];
+        Text = self.Text.Measure[BlessCategories.Weapons][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureWelcomeCulture);
             RequireText = string.gsub(
-                self.Config.UI.Require[Language] ..
-                self.Config.UI.Measure[BlessCategories.Weapons][3][Language],
+                self.Text.UI.Require[Language] ..
+                self.Text.Measure[BlessCategories.Weapons][3][Language],
                 "#Rank#", GetRankName(Rank, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Weapons];
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers4_normal" then
-        Text = self.Config.UI.Measure[BlessCategories.Financial][1][Language];
+        Text = self.Text.Measure[BlessCategories.Financial][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureFolkloreFeast);
             RequireText = string.gsub(
-                self.Config.UI.Require[Language] ..
-                self.Config.UI.Measure[BlessCategories.Financial][3][Language],
+                self.Text.UI.Require[Language] ..
+                self.Text.Measure[BlessCategories.Financial][3][Language],
                 "#Rank#", GetRankName(Rank, _PlayerID)
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Financial];
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers5_normal" then
-        Text = self.Config.UI.Measure[BlessCategories.Canonisation][1][Language];
+        Text = self.Text.Measure[BlessCategories.Canonisation][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureOrgy);
             RequireText = string.gsub(
-                self.Config.UI.Require[Language] ..
-                self.Config.UI.Measure[BlessCategories.Canonisation][3][Language],
+                self.Text.UI.Require[Language] ..
+                self.Text.Measure[BlessCategories.Canonisation][3][Language],
                 "#Rank#", GetRankName(Rank, _PlayerID)
             );
         end
@@ -775,9 +529,9 @@ function Stronghold.Building:HeadquartersBuildingTabsGuiTooltip(_PlayerID, _Enti
     end
     local Text = "";
     if _Key == "MenuBuildingGeneric/ToBuildingcommandmenu" then
-        Text = self.Config.UI.TreasurySubMenu[Language];
+        Text = self.Text.SubMenu.Treasury[Language];
     elseif _Key == "MenuBuildingGeneric/tobuildingsettlersmenu" then
-        Text = self.Config.UI.AdministrationSubMenu[Language];
+        Text = self.Text.SubMenu.Administration[Language];
     else
         return false;
     end
@@ -804,7 +558,7 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
 
     if GUI.GetPlayerID() == _PlayerID then
         local Language = GetLanguage();
-        Message(self.Config.UI.PrayerMess[_BlessCategory][2][Language]);
+        Message(self.Text.PrayerMess[_BlessCategory][2][Language]);
         Sound.PlayGUISound(Sounds.Buildings_Monastery, 0);
         Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_SettlersBlessed_rnd_01, 0);
     end
@@ -867,8 +621,8 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers1) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
-            Text = self.Config.UI.PrayerMess[BlessCategories.Construction][1][Language];
-            Text = Text .. self.Config.UI.Effect[Language];
+            Text = self.Text.PrayerMess[BlessCategories.Construction][1][Language];
+            Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Construction];
             if Effects.Reputation > 0 then
                 Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language].. " ";
@@ -881,8 +635,8 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers2) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
-            Text = self.Config.UI.PrayerMess[BlessCategories.Research][1][Language];
-            Text = Text .. self.Config.UI.Effect[Language];
+            Text = self.Text.PrayerMess[BlessCategories.Research][1][Language];
+            Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Research];
             if Effects.Reputation > 0 then
                 Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language].. " ";
@@ -895,12 +649,12 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers3) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
-            Text = self.Config.UI.PrayerMess[BlessCategories.Weapons][1][Language];
+            Text = self.Text.PrayerMess[BlessCategories.Weapons][1][Language];
             if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                Text = Text .. self.Config.UI.Require[Language] ..
-                       self.Config.UI.PrayerMess[BlessCategories.Weapons][3][Language];
+                Text = Text .. self.Text.UI.Require[Language] ..
+                       self.Text.PrayerMess[BlessCategories.Weapons][3][Language];
             end
-            Text = Text .. self.Config.UI.Effect[Language];
+            Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Weapons];
             if Effects.Reputation > 0 then
                 Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language].. " ";
@@ -913,12 +667,12 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers4) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
-            Text = self.Config.UI.PrayerMess[BlessCategories.Financial][1][Language];
+            Text = self.Text.PrayerMess[BlessCategories.Financial][1][Language];
             if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                Text = Text .. self.Config.UI.Require[Language] ..
-                       self.Config.UI.PrayerMess[BlessCategories.Financial][3][Language];
+                Text = Text .. self.Text.UI.Require[Language] ..
+                       self.Text.PrayerMess[BlessCategories.Financial][3][Language];
             end
-            Text = Text .. self.Config.UI.Effect[Language];
+            Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Financial];
             if Effects.Reputation > 0 then
                 Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language].. " ";
@@ -931,12 +685,12 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers5) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
-            Text = self.Config.UI.PrayerMess[BlessCategories.Canonisation][1][Language];
+            Text = self.Text.PrayerMess[BlessCategories.Canonisation][1][Language];
             if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                Text = Text .. self.Config.UI.Require[Language] ..
-                       self.Config.UI.PrayerMess[BlessCategories.Canonisation][3][Language];
+                Text = Text .. self.Text.UI.Require[Language] ..
+                       self.Text.PrayerMess[BlessCategories.Canonisation][3][Language];
             end
-            Text = Text .. self.Config.UI.Effect[Language];
+            Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Canonisation];
             if Effects.Reputation > 0 then
                 Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language].. " ";
