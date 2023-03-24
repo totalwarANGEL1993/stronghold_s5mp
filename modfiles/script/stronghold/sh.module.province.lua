@@ -25,6 +25,7 @@ Stronghold.Province = {
         Provinces = {},
     },
     Config = {},
+    Text = {},
 }
 
 function Stronghold.Province:Install()
@@ -362,7 +363,7 @@ function Stronghold.Province:OnBuildingCreated(_BuildingID, _PlayerID)
                         if GetDistance(VillagePosition, v.Position) <= 4000 then
                             if AreEnemiesInArea(_PlayerID, v.Position, 7000) then
                                 if _PlayerID == GUI.GetPlayerID() then
-                                    Message(self.Text.Msg.Lost[GetLanguage()]);
+                                    Message(self.Text.Msg.Denyed[GetLanguage()]);
                                 end
                                 SetHealth(_BuildingID, 0);
                             end

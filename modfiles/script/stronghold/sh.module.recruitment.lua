@@ -7,75 +7,8 @@ Stronghold = Stronghold or {};
 Stronghold.Recruitment = Stronghold.Recruitment or {
     SyncEvents = {},
     Data = {},
-    Config = {
-        UI = {
-            QueueMapping = {
-                [Entities.PB_Headquarters1] = {
-                    "Buy_Serf"
-                },
-                [Entities.PB_Headquarters2] = {
-                    "Buy_Serf"
-                },
-                [Entities.PB_Headquarters3] = {
-                    "Buy_Serf"
-                },
-                [Entities.PB_Tavern1] = {
-                    "Buy_Scout",
-                    "Buy_Thief"
-                },
-                [Entities.PB_Tavern2] = {
-                    "Buy_Scout",
-                    "Buy_Thief"
-                },
-                ---
-                [Entities.PB_Barracks1] = {
-                    "Research_UpgradeSword1",
-                    "Research_UpgradeSword2",
-                    "Research_UpgradeSword3",
-                    "Research_UpgradeSpear1",
-                    "Research_UpgradeSpear2",
-                    "Research_UpgradeSpear3",
-                },
-                [Entities.PB_Barracks2] = {
-                    "Research_UpgradeSword1",
-                    "Research_UpgradeSword2",
-                    "Research_UpgradeSword3",
-                    "Research_UpgradeSpear1",
-                    "Research_UpgradeSpear2",
-                    "Research_UpgradeSpear3",
-                },
-                ---
-                [Entities.PB_Archery1] = {
-                    "Research_UpgradeBow1",
-                    "Research_UpgradeBow2",
-                    "Research_UpgradeBow3",
-                    "Research_UpgradeRifle1",
-                },
-                [Entities.PB_Archery2] = {
-                    "Research_UpgradeBow1",
-                    "Research_UpgradeBow2",
-                    "Research_UpgradeBow3",
-                    "Research_UpgradeRifle1",
-                },
-                ---
-                [Entities.PB_Stable1] = {
-                    "Research_UpgradeCavalryLight1",
-                    "Research_UpgradeCavalryHeavy1",
-                },
-                [Entities.PB_Stable2] = {
-                    "Research_UpgradeCavalryLight1",
-                    "Research_UpgradeCavalryHeavy1",
-                },
-            },
-
-            Msg = {
-                MilitaryLimit = {
-                    de = "Euere Heeresstärke ist an ihrem Limit, Hochwohlgeboren!",
-                    en = "Your army strength is at its limit, Your Highness!",
-                },
-            },
-        }
-    },
+    Config = {},
+    Text = {},
 };
 
 function Stronghold.Recruitment:Install()
@@ -291,7 +224,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
-                Message(self.Config.UI.Msg.MilitaryLimit[Language]);
+                Message(self.Text.Msg.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
@@ -382,7 +315,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
-                Message(self.Config.UI.Msg.MilitaryLimit[Language]);
+                Message(self.Text.Msg.MilitaryLimit[Language]);
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
@@ -852,9 +785,9 @@ function Stronghold.Recruitment:InitQueuesForProducer(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if self.Data[PlayerID] then
-        if self.Config.UI.QueueMapping[Type] then
+        if self.Config.QueueMapping[Type] then
             local ScriptName = CreateNameForEntity(_EntityID);
-            for k,v in pairs(self.Config.UI.QueueMapping[Type]) do
+            for k,v in pairs(self.Config.QueueMapping[Type]) do
                 if not self.Data[PlayerID].Queues[v][ScriptName] then
                     self.Data[PlayerID].Queues[v][ScriptName] = {};
                 end
