@@ -25,15 +25,15 @@ end
 -- -------------------------------------------------------------------------- --
 -- UI Tools
 
-function Stronghold:HasPlayerEnoughResourcesFeedback(_Costs)
+function HasPlayerEnoughResourcesFeedback(_Costs)
     local Language = GetLanguage();
-    local PlayerID = self:GetLocalPlayerID();
-    if not self.Players[PlayerID] then
+    local PlayerID = Stronghold:GetLocalPlayerID();
+    if not Stronghold.Players[PlayerID] then
         return InterfaceTool_HasPlayerEnoughResources_Feedback(_Costs) == 1;
     end
 
     local CanBuy = true;
-	local Honor = self:GetPlayerHonor(PlayerID);
+	local Honor = GetHonor(PlayerID);
     if _Costs[ResourceType.Honor] ~= nil and _Costs[ResourceType.Honor] - Honor > 0 then
 		CanBuy = false;
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_INFO_NotEnough, 127);
@@ -46,18 +46,15 @@ function Stronghold:HasPlayerEnoughResourcesFeedback(_Costs)
     CanBuy = InterfaceTool_HasPlayerEnoughResources_Feedback(_Costs) == 1 and CanBuy;
     return CanBuy == true;
 end
-function HasPlayerEnoughResourcesFeedback(_Costs)
-    return Stronghold:HasPlayerEnoughResourcesFeedback(_Costs);
-end
 
-function Stronghold:FormatCostString(_PlayerID, _Costs)
+function FormatCostString(_PlayerID, _Costs)
     local Language = GetLanguage();
     local CostString = "";
-    if not self.Players[_PlayerID] then
+    if not Stronghold:IsPlayer(_PlayerID) then
         return CostString;
     end
 
-	local Honor     = self.Players[_PlayerID].Honor;
+	local Honor     = GetHonor(_PlayerID);
 	local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
 	local Gold      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Gold);
     local ClayRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw);
@@ -132,14 +129,11 @@ function Stronghold:FormatCostString(_PlayerID, _Costs)
 	end
     return CostString;
 end
-function FormatCostString(_PlayerID, _Costs)
-    return Stronghold:FormatCostString(_PlayerID, _Costs)
-end
 
 -- -------------------------------------------------------------------------- --
 -- Resources
 
-function Stronghold:MergeCostTable(_Costs1, _Costs2)
+function MergeCostTable(_Costs1, _Costs2)
     local Costs = {};
     Costs[ResourceType.Honor] = _Costs1[ResourceType.Honor];
     if _Costs2[ResourceType.Honor] ~= nil and _Costs2[ResourceType.Honor] > 0 then
@@ -171,11 +165,8 @@ function Stronghold:MergeCostTable(_Costs1, _Costs2)
     end
     return Costs
 end
-function MergeCostTable(_Costs1, _Costs2)
-    return Stronghold:MergeCostTable(_Costs1, _Costs2);
-end
 
-function Stronghold:CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)
+function CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)
     local Costs = {};
     if _Honor ~= nil and _Honor > 0 then
         Costs[ResourceType.Honor] = _Honor;
@@ -200,13 +191,10 @@ function Stronghold:CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, 
     end
     return Costs
 end
-function CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)
-    return Stronghold:CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur);
-end
 
-function Stronghold:HasEnoughResources(_PlayerID, _Costs)
-    if self.Players[_PlayerID] then
-        local Honor     = self.Players[_PlayerID].Honor;
+function HasEnoughResources(_PlayerID, _Costs)
+    if Stronghold:GetPlayer(_PlayerID) then
+        local Honor     = GetHonor(_PlayerID);
         local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
         local Gold      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Gold);
         local ClayRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw);
@@ -244,12 +232,9 @@ function Stronghold:HasEnoughResources(_PlayerID, _Costs)
     end
     return true;
 end
-function HasEnoughResources(_PlayerID, _Costs)
-    return Stronghold:HasEnoughResources(_PlayerID, _Costs);
-end
 
-function Stronghold:AddResourcesToPlayer(_PlayerID, _Resources)
-    if self.Players[_PlayerID] then
+function AddResourcesToPlayer(_PlayerID, _Resources)
+    if Stronghold:GetPlayer(_PlayerID) then
         if _Resources[ResourceType.Honor] ~= nil then
             AddHonor(_PlayerID, _Resources[ResourceType.Honor]);
         end
@@ -273,13 +258,10 @@ function Stronghold:AddResourcesToPlayer(_PlayerID, _Resources)
         end
     end
 end
-function AddResourcesToPlayer(_PlayerID, _Resources)
-    Stronghold:AddResourcesToPlayer(_PlayerID, _Resources);
-end
 
-function Stronghold:RemoveResourcesFromPlayer(_PlayerID, _Costs)
-    if self.Players[_PlayerID] then
-        local Honor     = self.Players[_PlayerID].Honor;
+function RemoveResourcesFromPlayer(_PlayerID, _Costs)
+    if Stronghold:GetPlayer(_PlayerID) then
+        local Honor     = GetHonor(_PlayerID);
         local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
         local Gold      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Gold);
         local ClayRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw);
@@ -329,8 +311,5 @@ function Stronghold:RemoveResourcesFromPlayer(_PlayerID, _Costs)
             AddSulfur(_PlayerID, _Costs[ResourceType.Sulfur] * (-1));
         end
     end
-end
-function RemoveResourcesFromPlayer(_PlayerID, _Costs)
-    Stronghold:RemoveResourcesFromPlayer(_PlayerID, _Costs);
 end
 

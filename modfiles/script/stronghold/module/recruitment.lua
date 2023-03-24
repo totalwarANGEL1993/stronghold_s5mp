@@ -553,7 +553,7 @@ function Stronghold.Recruitment:UpdateRecruiterBuyUnitTooltip(_TextToPrint, _Pla
         else
             local Soldiers = (Logic.IsAutoFillActive(EntityID) == 1 and Config.Soldiers) or 0;
             local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, UnitType, Soldiers);
-            CostsText = Stronghold:FormatCostString(_PlayerID, Costs);
+            CostsText = FormatCostString(_PlayerID, Costs);
             Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
@@ -620,7 +620,7 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
             ShortcutText = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. _TextToPrint[_TextKey][2];
             local Soldiers = (Logic.IsAutoFillActive(EntityID) == 1 and Config.Soldiers) or 0;
             local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, UnitType, Soldiers);
-            CostsText = Stronghold:FormatCostString(_PlayerID, Costs);
+            CostsText = FormatCostString(_PlayerID, Costs);
             Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);

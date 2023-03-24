@@ -350,7 +350,7 @@ function Stronghold.Rights:OnlineHelpAction()
     local CurrentRank = GetRank(PlayerID);
     local NextRank = self.Config.Titles[CurrentRank+1];
     if NextRank then
-        local Costs = Stronghold:CreateCostTable(unpack(NextRank.Costs));
+        local Costs = CreateCostTable(unpack(NextRank.Costs));
         if not HasPlayerEnoughResourcesFeedback(Costs) then
             return true;
         end
@@ -376,13 +376,13 @@ function Stronghold.Rights:OnlineHelpTooltip(_Key)
         and NextRank <= self.Data[PlayerID].MaxRank
         and NextRank < self.Data[PlayerID].LockRank then
             local Config = self.Config.Titles[NextRank];
-            local Costs = Stronghold:CreateCostTable(unpack(Config.Costs));
+            local Costs = CreateCostTable(unpack(Config.Costs));
             Text = string.format(
                 Stronghold.Rights.Text.NewRank[Language],
                 GetRankName(NextRank, PlayerID),
                 self:GetDutiesDescription(PlayerID, NextRank)
             );
-            CostText = Stronghold:FormatCostString(PlayerID, Costs);
+            CostText = FormatCostString(PlayerID, Costs);
         else
             Text = Stronghold.Rights.Text.FinalRank[Language];
         end

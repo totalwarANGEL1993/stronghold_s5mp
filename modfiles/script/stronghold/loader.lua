@@ -51,7 +51,8 @@ end
 -- ---------- --
 
 Script.Load(gvBasePath.. "constants.lua");
-Script.Load(gvBasePath.. "main.lua");
+Script.Load(gvBasePath.. "sh.main.lua");
+Script.Load(gvBasePath.. "sh.utils.lua");
 
 Script.Load(gvBasePath.. "sh.module.rights.lua");
 Script.Load(gvBasePath.. "sh.module.rights.constants.lua");
@@ -62,7 +63,6 @@ Script.Load(gvBasePath.. "sh.module.unit.lua");
 Script.Load(gvBasePath.. "sh.module.unit.config.lua");
 Script.Load(gvBasePath.. "sh.module.unit.text.lua");
 
-Script.Load(gvBasePath.. "module/utils.lua");
 Script.Load(gvBasePath.. "module/attraction.lua");
 Script.Load(gvBasePath.. "module/economy.lua");
 Script.Load(gvBasePath.. "module/construction.lua");

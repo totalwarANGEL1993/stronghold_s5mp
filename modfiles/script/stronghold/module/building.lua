@@ -395,7 +395,7 @@ function Stronghold.Building:HeadquartersBuySerf()
     end
 
     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
-    local Costs = Stronghold:CreateCostTable(unpack(Config.Costs[1]));
+    local Costs = CreateCostTable(unpack(Config.Costs[1]));
     if not HasPlayerEnoughResourcesFeedback(Costs) then
         return false;
     end

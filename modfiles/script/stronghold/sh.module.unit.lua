@@ -60,7 +60,7 @@ function Stronghold.Unit:RefillUnit(_PlayerID, _UnitID, _Amount, _Honor, _Gold, 
                     local BuildingID = Logic.LeaderGetNearbyBarracks(_UnitID);
                     local Position = self:GetBarracksDoorPosition((BuildingID ~= 0 and BuildingID) or _UnitID);
 
-                    local Costs = Stronghold:CreateCostTable(unpack({
+                    local Costs = CreateCostTable(unpack({
                         _Honor or 0,
                         _Gold or 0,
                         _Clay or 0,
