@@ -834,7 +834,7 @@ end
 function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        Value = Value * 1.25;
+        Value = Value * 1.15;
     end
     return Value;
 end

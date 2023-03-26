@@ -90,7 +90,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.BallistaTower,
                 PlayerRight.Mill,
 
-                PlayerRight.Bearman1,
+                PlayerRight.Bearman,
                 PlayerRight.Skirmisher,
             },
         },

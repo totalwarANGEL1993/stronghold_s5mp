@@ -739,10 +739,37 @@ end
 
 function Stronghold:OverrideStringTableText()
     local Lang = GetLanguage();
-    local KeepText = self.Text.HQUpgrade[1][Lang];
-    CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisKeep", KeepText);
-    local FortressText = self.Text.HQUpgrade[2][Lang];
-    CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisCastle", FortressText);
+    local Text;
+
+    Text = self.Text.HQUpgrade[1][Lang];
+    CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisKeep", Text);
+    Text = self.Text.HQUpgrade[2][Lang];
+    CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisCastle", Text);
+
+    Text = self.Text.Bandit[2][Lang];
+    CUtil.SetStringTableText("names/CU_BanditLeaderSword1", Text);
+    Text = self.Text.Bandit[1][Lang];
+    CUtil.SetStringTableText("names/CU_BanditLeaderSword2", Text);
+
+    Text = self.Text.BlackKnight[2][Lang];
+    CUtil.SetStringTableText("names/CU_BlackKnight_LeaderMace1", Text);
+    Text = self.Text.BlackKnight[1][Lang];
+    CUtil.SetStringTableText("names/CU_BlackKnight_LeaderMace2", Text);
+
+    Text = self.Text.Barbarian[2][Lang];
+    CUtil.SetStringTableText("names/CU_Barbarian_LeaderClub1", Text);
+    Text = self.Text.Barbarian[1][Lang];
+    CUtil.SetStringTableText("names/CU_Barbarian_LeaderClub2", Text);
+
+    Text = self.Text.Spearman[1][Lang];
+    CUtil.SetStringTableText("names/PU_LeaderPoleArm1", Text);
+    Text = self.Text.Spearman[2][Lang];
+    CUtil.SetStringTableText("names/PU_LeaderPoleArm3", Text);
+
+    Text = self.Text.Knight[1][Lang];
+    CUtil.SetStringTableText("names/PU_LeaderHeavyCavalry1", Text);
+    Text = self.Text.Knight[2][Lang];
+    CUtil.SetStringTableText("names/PU_LeaderHeavyCavalry2", Text);
 end
 
 -- Menu update

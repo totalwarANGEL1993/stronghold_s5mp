@@ -264,12 +264,12 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
             Text = self.Text.RequireBeautification[2][Lang];
         end
     elseif _Type == PlayerDuty.Soldiers then
-        Text = arg[2].. " ".. self.Text.RequireSoldiers[Lang];
+        Text = arg[1].. " ".. self.Text.RequireSoldiers[Lang];
     elseif _Type == PlayerDuty.Technology then
         local TechnologyKey = KeyOf(arg[1], Technologies);
         Text = XGUIEng.GetStringTableText("Names/" ..TechnologyKey);
     elseif _Type == PlayerDuty.Custom then
-        Text = (type(arg[2]) == "table" and arg[2][Lang]) or arg[2];
+        Text = (type(arg[1]) == "table" and arg[1][Lang]) or arg[1];
     end
     return Text;
 end

@@ -486,6 +486,7 @@ function Stronghold.Recruitment:UpdateRecruiterBuyUnitTooltip(_TextToPrint, _Pla
 
     if _TextToPrint[_UpgradeCategory] then
         local UnitType = self.Data[_PlayerID].Roster[_TextToPrint[_UpgradeCategory][1]];
+        local TypeName = Logic.GetEntityTypeName(UnitType);
         local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
         if not self:IsUnitAllowed(EntityID, UnitType) then
             Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
@@ -493,7 +494,8 @@ function Stronghold.Recruitment:UpdateRecruiterBuyUnitTooltip(_TextToPrint, _Pla
             local Soldiers = (Logic.IsAutoFillActive(EntityID) == 1 and Config.Soldiers) or 0;
             local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, UnitType, Soldiers);
             CostsText = FormatCostString(_PlayerID, Costs);
-            Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
+            local Name = XGUIEng.GetStringTableText("names/".. TypeName);
+            Text = Placeholder.Replace("{grey} " .. Name .. Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
                 local Rank = Stronghold.Rights:GetRankRequiredForRight(_PlayerID, Config.Right);
@@ -552,6 +554,7 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
 
     if _TextToPrint[_TextKey] then
         local UnitType = self.Data[_PlayerID].Roster[_TextToPrint[_TextKey][1]];
+        local TypeName = Logic.GetEntityTypeName(UnitType);
         local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
         if not self:IsUnitAllowed(EntityID, UnitType) then
             Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
@@ -560,7 +563,8 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
             local Soldiers = (Logic.IsAutoFillActive(EntityID) == 1 and Config.Soldiers) or 0;
             local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, UnitType, Soldiers);
             CostsText = FormatCostString(_PlayerID, Costs);
-            Text = Placeholder.Replace(Config.TextNormal[GetLanguage()]);
+            local Name = XGUIEng.GetStringTableText("names/".. TypeName);
+            Text = Placeholder.Replace("{grey}" .. Name .. Config.TextNormal[GetLanguage()]);
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
                 local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
                 local RankName = GetRankName(GetRankRequired(_PlayerID, Config.Right), _PlayerID);

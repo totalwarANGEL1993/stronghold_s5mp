@@ -80,7 +80,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderBow3,
                 PlayerRight.LeaderBow4,
 
-                PlayerRight.Bearman1,
+                PlayerRight.Bearman,
                 PlayerRight.Skirmisher,
             },
         },

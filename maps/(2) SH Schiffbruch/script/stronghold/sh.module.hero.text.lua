@@ -295,18 +295,18 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 " ..
                 "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                 "Durch seinen Beistand brechen Arbeter seltener das Gesetz. "..
-                "Außerdem hat er eine geringe Chance, Feinde im Kampf zu "..
-                "bekehren. "..
+                "Außerdem hat er eine geringe Chance, nahe Feinde zu bekehren, "..
+                "wenn sie ihn angreifen. "..
                 "@cr @cr "..
                 "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                 "Er kann die Rüstung von verbündeten Einheiten für einen "..
-                "kurzen Zeitruam verdoppeln.",
+                "kurzen Zeitraum verdoppeln.",
             en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
                 "- "..
                 "@cr @cr @color:255,255,255 " ..
                 "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                 "Workers are less likely to become criminals. Additionally "..
-                "he has a very slight to convert enemies while fighting them. "..
+                "he can convert enemies closeby when they attack him. "..
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                 "He can bless allied troops, doubleing their armor raiting "..
@@ -342,7 +342,7 @@ Stronghold.Hero.Text.Hero = {
                 "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                 "Er kann eine persönliche Leibgarde mit sich führen. Malus "..
                 "auf die Beliebtheit verringern sich um 40%. Dafür sinkt die "..
-                "maximale Beliebtheit sinkt auf 175. " ..
+                "maximale Beliebtheit auf 175. " ..
                 "@cr @cr "..
                 "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                 "Er kann die Rüstung von nahestehenden Feinden zeitweilig auf 0 "..
@@ -430,7 +430,7 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 " ..
                 "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                 "Die gesteigerte Geburtenrate sorgt für einen demographischen "..
-                "Wandel. Sie steigert Euer Bevölkerungslimit um 25%. "..
+                "Wandel. Sie steigert Euer Bevölkerungslimit um 15%. "..
                 "@cr @cr "..
                 "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                 "Sie kann nahestehende Feinde mit Gift schädigen.",
@@ -439,7 +439,7 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                 "The increased birth rate is causing demographic change. She "..
-                "increases your attraction limit by 25%. "..
+                "increases your attraction limit by 15%. "..
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                 "She can inflict poison damage to enemies.",
