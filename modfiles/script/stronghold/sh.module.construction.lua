@@ -71,10 +71,10 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(Type);
         if Effects then
             if Effects.Reputation > 0 then
-                EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language] .. " ";
+                EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language] .. " ";
             end
             if Effects.Honor > 0 then
-                EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Config.UI.Honor[Language];
+                EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
             end
             if EffectText ~= "" then
                 EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 " ..EffectText;
@@ -199,10 +199,10 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(_Type +1);
         if Effects then
             if Effects.Reputation > 0 then
-                EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Stronghold.Config.UI.Reputation[Language] .. " ";
+                EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language] .. " ";
             end
             if Effects.Honor > 0 then
-                EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Config.UI.Honor[Language];
+                EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
             end
             if EffectText ~= "" then
                 EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 " ..EffectText;

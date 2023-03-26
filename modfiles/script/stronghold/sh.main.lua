@@ -43,179 +43,8 @@ Stronghold = {
         HQInfo = {},
     },
     Players = {},
-    Config = {
-        Base = {
-            MaxHonor = 9000,
-            InitialResources = {0, 1000, 2000, 2500, 850, 100, 100},
-            InitialRank = 1,
-            MaxRank = 7,
-            StartingSerfs = 6,
-        },
-
-        Ranks = {
-            [1] = {
-                Costs = {0, 0, 0, 0, 0, 0, 0},
-                Description = nil,
-                Condition = function(_PlayerID)
-                    return true;
-                end,
-            },
-            [2] = {
-                Costs = {10, 0, 0, 0, 0, 0, 0},
-                Description = {
-                    de = "Kapelle",
-                    en = "Chapel"
-                },
-                Condition = function(_PlayerID)
-                    local Chapell1 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Monastery1));
-                    local Chapell2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Monastery2);
-                    local Chapell3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Monastery3);
-                    return Chapell1 + Chapell2 + Chapell3 > 0;
-                end,
-            },
-            [3] = {
-                Costs = {25, 0, 0, 0, 0, 0, 0},
-                Description = {
-                    de = "Handelswesen, Festung",
-                    en = "Trading, Fortress"
-                },
-                Condition = function(_PlayerID)
-                    if Logic.IsTechnologyResearched(_PlayerID, Technologies.GT_Trading) == 1 then
-                        local CastleID = GetID(Stronghold.Players[_PlayerID].HQScriptName);
-                        if Logic.GetEntityType(CastleID) == Entities.PB_Headquarters2
-                        or Logic.GetEntityType(CastleID) == Entities.PB_Headquarters3 then
-                            return true;
-                        end
-                    end
-                    return false;
-                end,
-            },
-            [4] = {
-                Costs = {50, 0, 0, 0, 0, 0, 0},
-                Description = {
-                    de = "8 Ziergebäude",
-                    en = "8 Beautifications"
-                },
-                Condition = function(_PlayerID)
-                    local Beauty01 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification01));
-                    local Beauty02 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification02));
-                    local Beauty03 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification03));
-                    local Beauty04 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification04));
-                    local Beauty05 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification05));
-                    local Beauty06 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification06));
-                    local Beauty07 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification07));
-                    local Beauty08 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification08));
-                    local Beauty09 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification09));
-                    local Beauty10 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification10));
-                    local Beauty11 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification11));
-                    local Beauty12 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Beautification12));
-                    return Beauty01 + Beauty02 + Beauty03 + Beauty04 + Beauty05 + Beauty06 +
-                           Beauty07 + Beauty08 + Beauty09 + Beauty10 + Beauty11 + Beauty12 >= 8;
-                end,
-            },
-            [5] = {
-                Costs = {100, 0, 0, 0, 0, 0, 0},
-                Description = {
-                    de = "4 Alchemisten, 4 Ziegelbrenner, 4 Sägewerker, 4 Schmiede, 4 Steinmetze",
-                    en = "4 Alchemists, 4 Brickmaker, 4 Sawmillworkers, 4 Smiths, 4 Stonemasons"
-                },
-                Condition = function(_PlayerID)
-                    local Workers1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_BrickMaker);
-                    local Workers2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Sawmillworker);
-                    local Workers3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Smith);
-                    local Workers4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Stonecutter);
-                    local Workers5 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Alchemist);
-                    return Workers1 >= 4 and Workers2 >= 4 and Workers3 >= 4 and Workers4 >= 4 and Workers5 >= 4;
-                end,
-            },
-            [6] = {
-                Costs = {200, 0, 0, 0, 0, 0, 0},
-                Description = {
-                    de = "Kathedrale, 45 Arbeiter",
-                    en = "Cathedral, 45 Workers"
-                },
-                Condition = function(_PlayerID)
-                    local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
-                    local Castle3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Monastery3);
-                    return Castle3 > 0 and Workers >= 45;
-                end,
-            },
-            [7] = {
-                Costs = {300, 0, 0, 0, 0, 0, 0},
-                Description = {
-                    de = "Alle Ziergebäude, Zitadelle, 65 Arbeiter",
-                    en = "All Beautifications, Zitadel, 65 Workers"
-                },
-                Condition = function(_PlayerID)
-                    local IsFulfilled = false;
-                    if Logic.GetNumberOfAttractedWorker(_PlayerID) >= 65 then
-                        local CastleID = GetID(Stronghold.Players[_PlayerID].HQScriptName);
-                        if Logic.GetEntityType(CastleID) == Entities.PB_Headquarters3 then
-                            IsFulfilled = true;
-                            for i= 1, 12 do
-                                local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-                                if table.getn(GetValidEntitiesOfType(_PlayerID, Entities[Type])) < 1 then
-                                    IsFulfilled = false;
-                                    break;
-                                end
-                            end
-                        end
-                    end
-                    return IsFulfilled;
-                end,
-            },
-        },
-
-        Trade = {
-            -- {buy min, buy max, sell min, sell max}
-            [ResourceType.Gold]   = {0.85, 1.25, 0.85, 1.25},
-            [ResourceType.Clay]   = {0.80, 1.35, 0.80, 1.35},
-            [ResourceType.Wood]   = {0.60, 1.15, 0.60, 1.15},
-            [ResourceType.Stone]  = {0.80, 1.35, 0.80, 1.35},
-            [ResourceType.Iron]   = {0.90, 1.50, 0.90, 1.50},
-            [ResourceType.Sulfur] = {0.95, 1.50, 0.95, 1.50},
-        },
-
-        UI = {
-            Reputation = {de = "Beliebtheit", en = "Reputation"},
-            Honor = {de = "Ehre", en = "Honor"},
-
-            Player = {
-                [1] = {
-                    de = "{grey}Das Haupthaus von %s %s{grey}ist nun geschützt!",
-                    en = "{grey}The headquarter of %s %s{grey}is now protected!",
-                },
-                [2] = {
-                    de = "{grey}Das Haupthaus von %s %s{grey} ist nun verwundbar!",
-                    en = "{grey}The headquarter of %s %s{grey} is now vulnerable!",
-                },
-                [3] = {
-                    de = "%s %s{grey}wurde besiegt!",
-                    en = "%s %s{grey}has been defeated!",
-                },
-            },
-            HQUpgrade = {
-                [1] = {
-                    de = "@color:233,214,180,255 hat die Burg zu einer Festung ausgebaut",
-                    en = "@color:233,214,180,255 has upgraded the keep to a fortress"
-                },
-                [2] = {
-                    de = "@color:233,214,180,255 hat die Festung zu einer Zitadelle ausgebaut",
-                    en = "@color:233,214,180,255 has upgraded the fortress to a zitadel"
-                },
-            },
-            Promotion = {
-                Player = {
-                    de = "Erhebt Euch, %s!",
-                    en = "Rise, %s!"
-                },
-                Other = {
-                    de = "%s %s {grey}wurde befördert und ist nun{white}%s",
-                    en = "%s %s {grey}has been promoted and is now{white}%s"
-                },
-            }
-        },
-    },
+    Config = {},
+    Text = {},
 }
 
 -- -------------------------------------------------------------------------- --
@@ -703,7 +532,7 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
                 Message(string.format(
-                    self.Config.UI.Player[1][Language],
+                    self.Text.Player[1][Language],
                     PlayerColor,
                     PlayerName
                 ));
@@ -723,7 +552,7 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
                 Message(string.format(
-                    self.Config.UI.Player[2][Language],
+                    self.Text.Player[2][Language],
                     PlayerColor,
                     PlayerName
                 ));
@@ -738,7 +567,7 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
         Message(string.format(
-            self.Config.UI.Player[3][Language],
+            self.Text.Player[3][Language],
             PlayerColor,
             PlayerName
         ));
@@ -910,9 +739,9 @@ end
 
 function Stronghold:OverrideStringTableText()
     local Lang = GetLanguage();
-    local KeepText = self.Config.UI.HQUpgrade[1][Lang];
+    local KeepText = self.Text.HQUpgrade[1][Lang];
     CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisKeep", KeepText);
-    local FortressText = self.Config.UI.HQUpgrade[2][Lang];
+    local FortressText = self.Text.HQUpgrade[2][Lang];
     CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisCastle", FortressText);
 end
 

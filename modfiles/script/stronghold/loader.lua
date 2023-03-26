@@ -51,6 +51,9 @@ end
 -- ---------- --
 
 Script.Load(gvBasePath.. "sh.main.lua");
+Script.Load(gvBasePath.. "sh.main.config.lua");
+Script.Load(gvBasePath.. "sh.main.text.lua");
+
 Script.Load(gvBasePath.. "sh.utils.lua");
 
 Script.Load(gvBasePath.. "sh.module.attraction.lua");
