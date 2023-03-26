@@ -23,10 +23,10 @@ PlayerDuty = {
     Cathedral = 2,
     Settlers = 3,
     Soldiers = 4,
-    Buildings = 6,
-    Beautification = 7,
-    Custom = 8,
-    Technology = 9,
+    Buildings = 5,
+    Beautification = 6,
+    Custom = 7,
+    Technology = 8,
 }
 
 PlayerRight = {

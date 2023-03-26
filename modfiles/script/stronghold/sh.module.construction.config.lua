@@ -1,5 +1,5 @@
 --- 
---- 
+--- Configuration for construction limits
 --- 
 
 Stronghold.Construction.Config = {

@@ -1,5 +1,5 @@
 --- 
---- 
+--- Texts for heroes
 --- 
 
 Stronghold.Hero.Text.Player = {

@@ -1,5 +1,5 @@
 --- 
---- 
+--- Texts for the buildings
 --- 
 
 Stronghold.Building.Text.UI = {

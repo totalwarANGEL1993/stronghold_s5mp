@@ -10,11 +10,11 @@
 --- - GameCallback_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
 ---   A player has upgraded a province.
 --- 
---- - GameCallback_Logic_OnProvincePayday(_PlayerID, _ProvinceID, _BuildingID)
----   A player controlled a province at their payday.
+--- - GameCallback_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
+---   A player controlled a province at the payday.
 --- 
 --- - GameCallback_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
----   A player lost a ptovince.
+---   A player lost a province.
 --- 
 
 Stronghold = Stronghold or {};
@@ -124,7 +124,7 @@ end
 function GameCallback_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
 end
 
-function GameCallback_Logic_OnProvincePayday(_PlayerID, _ProvinceID, _BuildingID)
+function GameCallback_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
 end
 
 function GameCallback_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
@@ -347,7 +347,7 @@ function Stronghold.Province:OnPayday(_PlayerID)
                     local Amount = Stronghold.Province:GetProvinceRevenue(k, v.Owner);
                     Logic.AddToPlayersGlobalResource(v.Owner, v.Resource, Amount);
                 end
-                GameCallback_Logic_OnProvincePayday(v.Owner, k, GetID(v.Village));
+                GameCallback_Logic_OnProvincePayday(v.Owner, k);
             end
         end
     end

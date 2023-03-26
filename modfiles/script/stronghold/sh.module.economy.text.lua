@@ -1,5 +1,5 @@
 --- 
---- 
+--- Texts for economy script
 --- 
 
 Stronghold.Economy.Text.FindView = {

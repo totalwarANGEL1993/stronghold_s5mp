@@ -1,5 +1,12 @@
 --- 
 --- Recruitment Script
+---
+--- Recruiting units is done like in Age of Empires. Every unit needs time to
+--- be completed. Other units of the same type are enqueued. A building has
+--- a queue for each unit it produces.
+---
+--- Also this script fixes the cannon spam by adding them immediately to the
+--- occupied spaces while they are still under construction.
 --- 
 
 Stronghold = Stronghold or {};
@@ -143,8 +150,7 @@ function Stronghold.Recruitment:IsUnitAllowed(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
     local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
-        local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right);
-        return RequiredRank >= GetRank(PlayerID);
+        return Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right) ~= 0;
     end
     return false;
 end
@@ -223,7 +229,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
 
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
-                Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
+                Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
                 Message(self.Text.Msg.MilitaryLimit[Language]);
                 return true;
             end
@@ -314,7 +320,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
 
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
-                Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
+                Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
                 Message(self.Text.Msg.MilitaryLimit[Language]);
                 return true;
             end
@@ -441,10 +447,10 @@ function Stronghold.Recruitment:OnRecruiterSelected(_ButtonsToUpdate, _EntityID)
             XGUIEng.ShowWidget(k, 1);
 
             local Disabled = 1;
-            if  self:IsSufficientRecruiterBuilding(_EntityID, UnitType)
+            if  self:IsUnitAllowed(_EntityID, UnitType)
+            and self:IsSufficientRecruiterBuilding(_EntityID, UnitType)
             and self:HasSufficientProviderBuilding(_EntityID, UnitType)
-            and self:HasSufficientRank(_EntityID, UnitType)
-            and self:IsUnitAllowed(_EntityID, UnitType) then
+            and self:HasSufficientRank(_EntityID, UnitType) then
                 Disabled = 0;
             end
             XGUIEng.DisableButton(k, Disabled);
@@ -840,8 +846,8 @@ function Stronghold.Recruitment:OverrideLogic()
 end
 
 -- Updates the queue progress.
--- (This must be directly in the script because otherwise it becomes
--- an upvalue - and we don't want upvalues!).
+-- (This must be directly in the script because - somehow - nil after a save
+-- is loaded - and we don't want that!).
 GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
     local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
     local EntityID = GUI.GetSelectedEntity();

@@ -1,5 +1,5 @@
 --- 
---- 
+--- Configuration for the buildings
 --- 
 
 Stronghold.Building.Config.Headquarters = {

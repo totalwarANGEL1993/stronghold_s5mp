@@ -1,5 +1,6 @@
 --- 
---- 
+--- Config for heroes
+--- (Can this be deleted?)
 --- 
 
 Stronghold.Hero.Config.Nobles = {

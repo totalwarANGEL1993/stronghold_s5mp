@@ -12,6 +12,7 @@ Stronghold.Recruitment.Config.QueueMapping = {
     [Entities.PB_Headquarters3] = {
         "Buy_Serf"
     },
+    ---
     [Entities.PB_Tavern1] = {
         "Buy_Scout",
         "Buy_Thief"

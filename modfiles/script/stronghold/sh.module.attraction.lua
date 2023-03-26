@@ -3,6 +3,9 @@
 ---
 --- This script manages the attraction of settlers for the players.
 ---
+--- Attraction limit is split in two. The player has a civil and a military
+--- limit. Civil units are all workers and military is the rest.
+---
 --- Defined game callbacks:
 --- - <number> GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
 ---   Allows to overwrite the max usage of civil places.

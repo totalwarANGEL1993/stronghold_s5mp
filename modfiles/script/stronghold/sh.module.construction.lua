@@ -306,7 +306,7 @@ function Stronghold.Construction:CancelBuildingPlacementForUpgradeCategory(_Play
             local x, y = GUI.Debug_GetMapPositionUnderMouse();
             if self:AreTowersOfPlayerInArea(_PlayerID, x, y, AreaSize) then
                 Message("Ihr könnt Türme nicht so na aneinander bauen!");
-                Sound.PlayQueuedFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 127);
+                Sound.PlayQueuedFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 100);
                 self.Data[_PlayerID].LastPlacedUpgradeCategory = nil;
                 GUI.CancelState();
             end

@@ -4,8 +4,8 @@
 --- Unit script
 ---
 --- This script implements al unit specific actions and overwrites their
---- selection menus. Also properties like costs, needed rank, upkeep and
---- if they are allowed are defined here.
+--- selection menus. Also properties like costs, needed rank, upkeep are
+--- also defined here.
 --- 
 
 Stronghold = Stronghold or {};
@@ -149,7 +149,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
         return true;
     end
     if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, BuyAmount) then
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 127);
+        Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
         Message(self.Text.MilitaryLimit[Language]);
         return true;
     end

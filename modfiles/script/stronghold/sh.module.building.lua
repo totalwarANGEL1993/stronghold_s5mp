@@ -1,7 +1,12 @@
 --- 
 --- Building Script
 ---
---- This script implements buttons and all non-income properties of buildings.
+--- This script implements special properties of building.
+--- Including:
+--- - Building menus
+--- - Building rally points
+--- - Govermental measures
+--- - Church prayers
 --- 
 
 Stronghold = Stronghold or {};
@@ -98,7 +103,7 @@ function Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, _Level)
     end
 end
 
--- Regulas Headquarters
+-- Regular Headquarters
 
 function Stronghold.Building:OverrideHeadquarterButtons()
     Overwrite.CreateOverwrite("GUIAction_SetTaxes", function(_Level)
@@ -153,12 +158,6 @@ function Stronghold.Building:HeadquartersBuySerf()
     if not HasPlayerEnoughResourcesFeedback(Costs) then
         return false;
     end
-    -- Obsolete due to production queue...
-    -- if Logic.GetPlayerAttractionUsage(PlayerID) >= Logic.GetPlayerAttractionLimit(PlayerID) then
-    --     Sound.PlayQueuedFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 127);
-    --     Message("Ihr habt keinen Platz für weitere Leibeigene!");
-    --     return false;
-    -- end
 
     Stronghold.Players[PlayerID].BuyUnitLock = true;
     Syncer.InvokeEvent(
@@ -345,7 +344,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _Enti
         return false;
     end
     if Stronghold.Economy:GetPlayerMeasure(_PlayerID) < Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID) then
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 127);
+        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
         Message(self.Text.Msg.MeasureNotReady[Language]);
         return true;
     end

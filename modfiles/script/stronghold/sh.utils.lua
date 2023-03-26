@@ -36,7 +36,7 @@ function HasPlayerEnoughResourcesFeedback(_Costs)
 	local Honor = GetHonor(PlayerID);
     if _Costs[ResourceType.Honor] ~= nil and _Costs[ResourceType.Honor] - Honor > 0 then
 		CanBuy = false;
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_INFO_NotEnough, 127);
+        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_INFO_NotEnough, 100);
 		GUI.AddNote(string.format(
             (Language == "de" and "%d Ehre muss noch erlangt werden.") or
             "%d honor must first be aquired.",

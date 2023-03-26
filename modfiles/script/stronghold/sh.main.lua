@@ -207,10 +207,10 @@ Stronghold = {
             Promotion = {
                 Player = {
                     de = "Erhebt Euch, %s!",
-                    en = "Rise, %!"
+                    en = "Rise, %s!"
                 },
                 Other = {
-                    de = "%s %s {grey} wurde befördert und ist nun{white}%s",
+                    de = "%s %s {grey}wurde befördert und ist nun{white}%s",
                     en = "%s %s {grey}has been promoted and is now{white}%s"
                 },
             }
@@ -939,8 +939,6 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
     self.Recruitment:OnStableSelected(SelectedID);
     self.Recruitment:OnFoundrySelected(SelectedID);
     self.Recruitment:OnTavernSelected(SelectedID);
-
-    XGUIEng.DisableButton("OnlineHelpButton", 1);
 end
 
 function Stronghold:OverwriteCommonCallbacks()

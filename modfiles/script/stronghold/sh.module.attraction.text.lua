@@ -1,5 +1,5 @@
 --- 
---- 
+--- Texts for the attraction system
 --- 
 
 Stronghold.Attraction.Text.Msg = {

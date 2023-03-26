@@ -1,5 +1,9 @@
 --- 
---- Promotion System
+--- Rights System
+---
+--- This script implements a promotion system with duties and rights much like
+--- in Settlers 6. Some conditions must be fulfilled to climb up the ladder to
+--- a higher rank.
 ---
 --- Defined game callbacks:
 --- - GameCallback_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
@@ -18,19 +22,19 @@ Stronghold.Rights = {
 -- -------------------------------------------------------------------------- --
 -- API
 
---- Returns the gender of the entity type.
-function GetGender(_Type)
-    return Stronghold.Rights:GetHeroGender(_Type);
-end
-
 --- Returns the rank of the player.
 function GetRank(_PlayerID)
     return Stronghold.Rights:GetPlayerRank(_PlayerID);
 end
 
+-- Locks an rank and all ranks after it.
+function LockRank(_PlayerID, _Rank)
+    Stronghold.Rights:LockPlayerRank(_PlayerID, _Rank);
+end
+
 --- Sets the rank of the player.
 function SetRank(_PlayerID, _Rank)
-    return Stronghold.Rights:SetPlayerRank(_PlayerID, _Rank);
+    Stronghold.Rights:SetPlayerRank(_PlayerID, _Rank);
 end
 
 --- Returns the name of the rank invoking the gender of the players hero.
@@ -42,10 +46,28 @@ function GetRankRequired(_PlayerID, _Right)
     return Stronghold.Rights:GetRankRequiredForRight(_PlayerID, _Right);
 end
 
+--- Changes rights and duties for the player.
+function SetRightsAndDuties(_PlayerID, _Data)
+    return Stronghold.Rights:ChangeRightsAndDutiesForPlayer(_PlayerID, _Data);
+end
+
+-- Checks if a player has a right unlocked.
+function HasRight(_PlayerID, _Right)
+    return Stronghold.Rights:HasPlayerRight(_PlayerID, _Right);
+end
+
+--- Returns the gender of the entity type.
+function GetGender(_Type)
+    return Stronghold.Rights:GetHeroGender(_Type);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
 function GameCallback_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
+end
+
+function GameCallback_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -55,7 +77,7 @@ function Stronghold.Rights:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {
             MaxRank = Stronghold.Config.Base.MaxRank,
-            LockRank = Stronghold.Config.Base.MaxRank,
+            LockRank = Stronghold.Config.Base.MaxRank +1,
             Rank = Stronghold.Config.Base.InitialRank,
 
             Titles = CopyTable(Stronghold.Rights.Config.Titles);
@@ -138,6 +160,29 @@ function Stronghold.Rights:InitDutiesAndRights(_PlayerID)
     end
 end
 
+function Stronghold.Rights:ChangeRightsAndDutiesForPlayer(_PlayerID, _Data)
+    if Stronghold:IsPlayer(_PlayerID) then
+        -- Change player rights and duties
+        for k,v in pairs(_Data) do
+            local RankKey = KeyOf(k, PlayerRank);
+            assert(_Data[k] ~= nil, "PlayerRanks." ..RankKey.. " is missing from data table!");
+            self.Data[_PlayerID].Titles[k].Duties = CopyTable(_Data[k].Duties or {});
+            self.Data[_PlayerID].Titles[k].Rights = CopyTable(_Data[k].Rights or {});
+        end
+        -- Update unlocked rights
+        self.Data[_PlayerID].Rights = {};
+        for i= 1, GetRank(_PlayerID) do
+            self:GrantPlayerRights(_PlayerID, i);
+        end
+    end
+end
+
+function Stronghold.Rights:LockPlayerRank(_PlayerID, _Rank)
+    if Stronghold:IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].LockRank = _Rank;
+    end
+end
+
 function Stronghold.Rights:LockPlayerRight(_PlayerID, _RightToLock)
     if Stronghold:IsPlayer(_PlayerID) then
         self.Data[_PlayerID].Rights[_RightToLock] = -1;
@@ -197,17 +242,17 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
         if arg[1] == 1 then
             local TypeName = Logic.GetEntityTypeName(arg[2]);
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-            Text = string.format("%d %s", arg[4], Name);
+            Text = string.format("%dx %s", arg[3], Name);
         else
-            Text = arg[3].. " ".. self.Text.RequireSettler[Lang];
+            Text = arg[2].. " ".. self.Text.RequireTaxPayer[Lang];
         end
     elseif _Type == PlayerDuty.Buildings then
         if arg[1] == 1 then
             local TypeName = Logic.GetEntityTypeName(arg[2]);
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-            Text = string.format("%d %s", arg[4], Name);
+            Text = string.format("%dx %s", arg[3], Name);
         else
-            Text = arg[3].. " ".. self.Text.RequireBuildings[Lang];
+            Text = arg[2].. " ".. self.Text.RequireWorkplaces[Lang];
         end
     elseif _Type == PlayerDuty.Beautification then
         if arg[1] == 1 then
@@ -301,7 +346,9 @@ function Stronghold.Rights:IsTechnologyResearched(_PlayerID, _Technology)
 end
 
 function Stronghold.Rights:DoesWorkerAmountInSettlementExist(_PlayerID, _Amount)
-    return Logic.GetNumberOfAttractedWorker(_PlayerID) >= _Amount;
+    local Serfs = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
+    local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
+    return Serfs + Workers >= _Amount;
 end
 
 function Stronghold.Rights:DoesSoldierAmountInSettlementExist(_PlayerID, _Amount)
@@ -310,6 +357,11 @@ end
 
 function Stronghold.Rights:DoSettlersOfTypeInSettlementExist(_PlayerID, _Type, _Amount)
     return Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, _Type) >= _Amount;
+end
+
+function Stronghold.Rights:DooesBuildingAmountInSettlementExist(_PlayerID, _Amount)
+    local WorkplaceAmount = table.getn(GetAllWorkplaces(_PlayerID, 0));
+    return WorkplaceAmount >= _Amount;
 end
 
 function Stronghold.Rights:DoBuildingsOfTypeInSettlementExist(_PlayerID, _Type, _Amount)
@@ -343,7 +395,7 @@ end
 -- Rank Up Button
 
 function Stronghold.Rights:OnlineHelpAction()
-    local PlayerID = GUI.GetPlayerID();
+    local PlayerID = Stronghold:GetLocalPlayerID();
     if not Stronghold:IsPlayerInitalized(PlayerID) then
         return false;
     end
@@ -360,6 +412,12 @@ function Stronghold.Rights:OnlineHelpAction()
             Stronghold.Rights.NetworkCall,
             Stronghold.Rights.SyncEvents.RankUp
         );
+    else
+        if GUI.GetPlayerID() == PlayerID then
+            local Lang = GetLanguage();
+            Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
+            Message(self.Text.PromoteLocked[Lang]);
+        end
     end
     return true;
 end
@@ -374,7 +432,7 @@ function Stronghold.Rights:OnlineHelpTooltip(_Key)
         local NextRank = GetRank(PlayerID) +1;
         if  PlayerID ~= 17 and self.Config.Titles[NextRank]
         and NextRank <= self.Data[PlayerID].MaxRank
-        and NextRank < self.Data[PlayerID].LockRank then
+        and NextRank <= self.Data[PlayerID].LockRank then
             local Config = self.Config.Titles[NextRank];
             local Costs = CreateCostTable(unpack(Config.Costs));
             Text = string.format(
@@ -399,7 +457,6 @@ function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
     if _Button == "OnlineHelpButton" then
         local Texture = "graphics/textures/gui/b_rank_f2.png";
         if GUI.GetPlayerID() == _PlayerID then
-            local Disabled = 1;
             if Stronghold:IsPlayerInitalized(_PlayerID) then
                 local CurrentRank = GetRank(_PlayerID);
                 Texture = "graphics/textures/gui/b_rank_" ..CurrentRank.. ".png";
@@ -407,14 +464,10 @@ function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
                 or CurrentRank >= self.Data[_PlayerID].MaxRank then
                     Texture = "graphics/textures/gui/b_rank_f1.png";
                 end
-                if self:CanPlayerBePromoted(_PlayerID) then
-                    Disabled = 0;
-                end
             end
             for i= 0, 6 do
                 XGUIEng.SetMaterialTexture(_Button, i, Texture);
             end
-            XGUIEng.DisableButton(_Button, Disabled);
             return true;
         end
     end
@@ -444,6 +497,8 @@ function Stronghold.Rights:PromotePlayer(_PlayerID)
         end
         Message(MsgText);
         GameCallback_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);
+
+        GameCallback_Logic_PlayerReachedHighestRank(_PlayerID, CurrentRank +1);
     end
 end
 

@@ -1,5 +1,5 @@
 --- 
---- 
+--- Configuration for economy script
 --- 
 
 Stronghold.Economy.Config.Income = {

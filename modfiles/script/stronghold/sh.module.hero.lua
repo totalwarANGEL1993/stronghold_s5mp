@@ -4,9 +4,9 @@
 --- This script implements all processes around the hero.
 ---
 --- Managed by the script:
---- - Stats of hero
---- - Stats of summons
 --- - Selection of hero
+--- - Special units
+--- - Summons
 --- - Activated abilities
 --- - Passive abilities
 --- - Selection menus
@@ -402,8 +402,12 @@ function Stronghold.Hero:ConfigurePlayersHeroPet(_EntityID)
 end
 
 -- Play a funny comment when the hero is selected.
--- (Yes, it is intended that every player hears them.)
 function Stronghold.Hero:PlayFunnyComment(_PlayerID)
+    -- It's not intended anymore that other players hear the funny comment.
+    if Stronghold:GetLocalPlayerID() ~= _PlayerID then
+        return;
+    end
+
     local FunnyComment = Sounds.VoicesHero1_HERO1_FunnyComment_rnd_01;
     local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
     local Type = Logic.GetEntityType(LordID);
@@ -430,7 +434,7 @@ function Stronghold.Hero:PlayFunnyComment(_PlayerID)
     elseif Type == Entities.CU_Evil_Queen then
         FunnyComment = Sounds.AOVoicesHero12_HERO12_FunnyComment_rnd_01;
     end
-    Sound.PlayQueuedFeedbackSound(FunnyComment, 127);
+    Sound.PlayQueuedFeedbackSound(FunnyComment, 100);
 end
 
 function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)

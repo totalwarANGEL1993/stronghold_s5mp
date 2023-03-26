@@ -1,5 +1,5 @@
 --- 
---- 
+--- Configuration for the attraction system
 --- 
 
 Stronghold.Attraction.Config.Attraction = {

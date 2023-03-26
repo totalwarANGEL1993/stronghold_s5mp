@@ -13,10 +13,10 @@ Stronghold.Rights.Text = {
         [2] = {de = "Kirche", en = "Church"},
         [3] = {de = "Kathedrale", en = "Cathedral"},
     },
-    RequireSettler = {
-        de = "Arbeiter", en = "workers",
+    RequireTaxPayer = {
+        de = "Zivilbevölkerung", en = "civil population",
     },
-    RequireBuildings = {
+    RequireWorkplaces = {
         de = "Arbeitsstätten", en = "workplaces",
     },
     RequireBeautification = {
@@ -24,28 +24,32 @@ Stronghold.Rights.Text = {
         [2] = {de = "Alle Ziergebäude", en = "all beautifications"},
     },
     RequireSoldiers = {
-        de = "Soldaten", en = "soldiers",
+        de = "Militäreinheiten", en = "military units",
     },
 
     PromoteSelf = {
-            de = "Erhebt Euch, %s!",
-            en = "Rise, %!"
-        },
+        de = "Erhebt Euch, %s!",
+        en = "Rise, %!"
+    },
+    PromoteLocked = {
+        de = "Hochwohlgeboren, Ihr könnt keinen höheren Titel beanspruchen!",
+        en = "Your Highness, you can't obtain a higher title yet!"
+    },
     PromoteOther = {
         de = "%s %s {grey} wurde befördert und ist nun{white}%s",
         en = "%s %s {grey}has been promoted and is now{white}%s"
     },
     NewRank = {
-        de = "@color:180,180,180 %s @color:255,255,255 @cr Erhebt Euren Adligen in einen "..
-            "höheren Adelsstand. @cr @color:244,184,0 benötigt: @color:255,255,255 %s",
-        en = "@color:180,180,180 %s @color:255,255,255 @cr Promote your Noble to a higher "..
-            " peerage. @cr Requirements: %s",
+        de = "@color:180,180,180 %s @color:255,255,255 @cr Erhebt Euren Adligen in "..
+             "höheren Stand. @cr @color:244,184,0 benötigt: @color:255,255,255 %s",
+        en = "einen @color:180,180,180 %s @color:255,255,255 @cr Promote your Noble "..
+             "to a higher  peerage. @cr Requirements: %s",
     },
     FinalRank = {
-        de = "@color:180,180,180 Höchster Rang @cr @color:255,255,255 Euer Adligen hat "..
-                "den höchsten Titel erreicht.",
-        en = "@color:180,180,180 Highest Rank @cr @color:255,255,255 Your Noble reached "..
-            "the highest possible title.",
+        de = "@color:180,180,180 Höchster Rang @cr @color:255,255,255 Euer Adliger "..
+             "hat den höchsten Titel erreicht.",
+        en = "@color:180,180,180 Highest Rank @cr @color:255,255,255 Your Noble "..
+             "reached the highest possible title.",
     },
 
     Title = {

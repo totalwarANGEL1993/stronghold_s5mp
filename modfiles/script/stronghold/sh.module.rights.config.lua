@@ -54,7 +54,7 @@ Stronghold.Rights.Config = {
         [PlayerRank.Earl]     = {
             Costs  = {25, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Technology, Technologies.GT_Literacy},
+                {PlayerDuty.Technology, Technologies.GT_Trading},
                 {PlayerDuty.Headquarters, 1},
             },
             Rights = {
@@ -72,7 +72,8 @@ Stronghold.Rights.Config = {
         [PlayerRank.Baron]    = {
             Costs  = {50, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Beautification, 1, 8}
+                {PlayerDuty.Settlers, 2, 50},
+                {PlayerDuty.Buildings, 2, 8},
             },
             Rights = {
                 PlayerRight.MeasureFolkloreFeast,
@@ -86,11 +87,8 @@ Stronghold.Rights.Config = {
         [PlayerRank.Count]    = {
             Costs  = {100, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Settlers, 1, Entities.PU_BrickMaker, 4},
-                {PlayerDuty.Settlers, 1, Entities.PU_Sawmillworker, 4},
-                {PlayerDuty.Settlers, 1, Entities.PU_Smith, 4},
-                {PlayerDuty.Settlers, 1, Entities.PU_Stonecutter, 4},
-                {PlayerDuty.Settlers, 1, Entities.PU_Alchemist, 4},
+                {PlayerDuty.Beautification, 1, 12},
+                {PlayerDuty.Cathedral, 1},
             },
             Rights = {
                 PlayerRight.LeaderRifle1,
@@ -107,7 +105,7 @@ Stronghold.Rights.Config = {
         [PlayerRank.Margrave] = {
             Costs  = {200, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Settlers, 2, 45},
+                {PlayerDuty.Settlers, 2, 75},
                 {PlayerDuty.Cathedral, 2},
             },
             Rights = {
@@ -120,7 +118,7 @@ Stronghold.Rights.Config = {
         [PlayerRank.Duke]     = {
             Costs  = {300, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Settlers, 2, 65},
+                {PlayerDuty.Settlers, 2, 100},
                 {PlayerDuty.Beautification, 2},
                 {PlayerDuty.Headquarters, 2},
             },
