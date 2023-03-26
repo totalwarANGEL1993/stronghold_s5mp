@@ -50,18 +50,47 @@ end
 
 -- ---------- --
 
-Script.Load(gvBasePath.. "main.lua");
+Script.Load(gvBasePath.. "sh.main.lua");
+Script.Load(gvBasePath.. "sh.utils.lua");
 
-Script.Load(gvBasePath.. "module/utils.lua");
-Script.Load(gvBasePath.. "module/attraction.lua");
-Script.Load(gvBasePath.. "module/economy.lua");
-Script.Load(gvBasePath.. "module/construction.lua");
-Script.Load(gvBasePath.. "module/building.lua");
-Script.Load(gvBasePath.. "module/unitconfig.lua");
-Script.Load(gvBasePath.. "module/recruitment.lua");
-Script.Load(gvBasePath.. "module/unit.lua");
-Script.Load(gvBasePath.. "module/hero.lua");
-Script.Load(gvBasePath.. "module/spawner.lua");
-Script.Load(gvBasePath.. "module/outlaw.lua");
-Script.Load(gvBasePath.. "module/province.lua");
+Script.Load(gvBasePath.. "sh.module.attraction.lua");
+Script.Load(gvBasePath.. "sh.module.attraction.config.lua");
+Script.Load(gvBasePath.. "sh.module.attraction.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.rights.lua");
+Script.Load(gvBasePath.. "sh.module.rights.constants.lua");
+Script.Load(gvBasePath.. "sh.module.rights.config.lua");
+Script.Load(gvBasePath.. "sh.module.rights.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.unit.lua");
+Script.Load(gvBasePath.. "sh.module.unit.config.lua");
+Script.Load(gvBasePath.. "sh.module.unit.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.hero.lua");
+Script.Load(gvBasePath.. "sh.module.hero.config.lua");
+Script.Load(gvBasePath.. "sh.module.hero.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.economy.lua");
+Script.Load(gvBasePath.. "sh.module.economy.config.lua");
+Script.Load(gvBasePath.. "sh.module.economy.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.recruitment.lua");
+Script.Load(gvBasePath.. "sh.module.recruitment.config.lua");
+Script.Load(gvBasePath.. "sh.module.recruitment.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.province.lua");
+Script.Load(gvBasePath.. "sh.module.province.constants.lua");
+Script.Load(gvBasePath.. "sh.module.province.config.lua");
+Script.Load(gvBasePath.. "sh.module.province.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.construction.lua");
+Script.Load(gvBasePath.. "sh.module.construction.config.lua");
+
+Script.Load(gvBasePath.. "sh.module.building.lua");
+Script.Load(gvBasePath.. "sh.module.building.config.lua");
+Script.Load(gvBasePath.. "sh.module.building.text.lua");
+
+Script.Load(gvBasePath.. "sh.module.spawner.lua");
+Script.Load(gvBasePath.. "sh.module.outlaw.lua");
+Script.Load(gvBasePath.. "sh.module.outlaw.constants.lua");
 
