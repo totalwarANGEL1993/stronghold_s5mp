@@ -9,6 +9,9 @@
 --- - GameCallback_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
 ---   Called after a player has been promoted.
 --- 
+--- - GameCallback_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
+---   Called after a player reached the highest rank.
+--- 
 
 Stronghold = Stronghold or {};
 
