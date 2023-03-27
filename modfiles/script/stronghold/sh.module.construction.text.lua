@@ -3,6 +3,7 @@
 ---
 
 Stronghold.Construction.Text.UI = {
+    Title = {de = "Rang: ", en = "Rank: "},
     Reputation = {de = "Beliebtheit", en = "Reputation"},
     Honor = {de = "Ehre", en = "Honor"},
 

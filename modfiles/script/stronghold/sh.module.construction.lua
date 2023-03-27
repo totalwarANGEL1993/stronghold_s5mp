@@ -10,6 +10,7 @@ Stronghold = Stronghold or {};
 Stronghold.Construction = {
     Data = {},
     Config = {},
+    Text = {},
 }
 
 function Stronghold.Construction:Install()
@@ -38,6 +39,7 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         return false;
     end
     local IsForbidden = false;
+    local IsDisabled = false;
 
     -- Get default text
     local ForbiddenText = GetSeparatedTooltipText("MenuGeneric/BuildingNotAvailable")
@@ -45,6 +47,7 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
     local DisabledText = GetSeparatedTooltipText(_KeyDisabled);
     local DefaultText = NormalText;
     if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+        IsDisabled = true;
         DefaultText = DisabledText;
         if _Technology and Logic.GetTechnologyState(PlayerID, _Technology) == 0 then
             DefaultText = ForbiddenText;
@@ -65,8 +68,25 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         end
     end
 
-    local Text = DefaultText[1] .. " @cr " .. DefaultText[2];
+    local Text = DefaultText[1];
     if not IsForbidden then
+        -- Rank requirement
+        local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
+        if CheckRight then
+            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
+            if RequiredRank ~= 0 and IsDisabled then
+                local RankText = self.Text.UI.Title[Language]
+                local RankName = GetRankName(RequiredRank, PlayerID);
+                if not DefaultText[2] then
+                    DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
+                else
+                    DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
+                    DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
+                end
+            end
+        end
+        Text = DefaultText[1] .. " @cr " .. DefaultText[2];
+
         -- Effect text
         local EffectText = "";
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(Type);
@@ -95,22 +115,8 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
             Text = DefaultText[1] .. " @cr " .. DefaultText[2];
         end
 
-        -- Rank requirement
-        local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
-        if CheckRight then
-            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
-            if RequiredRank ~= 0 and GetRank(PlayerID) < RequiredRank then
-                local RankName = GetRankName(RequiredRank, PlayerID);
-                if not DefaultText[3] then
-                    DefaultText[3] = self.Text.UI.Require[Language] .. RankName;
-                else
-                    DefaultText[3] = DefaultText[3] .. ", " .. RankName;
-                end
-            end
-        end
-
         -- Add rest of text
-        for i= 4, table.getn(DefaultText) do
+        for i= 3, table.getn(DefaultText) do
             Text = Text .. " @cr " .. DefaultText[i];
         end
         Text = Text .. EffectText;
@@ -121,39 +127,6 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
     return true;
-end
-
-function Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology)
-    local PlayerID = Stronghold:GetLocalPlayerID();
-    if Stronghold:IsPlayer(PlayerID) then
-        if not Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology) then
-            local Disable = false;
-            local CheckTechnologies = Stronghold.Construction.Config.TypesToCheckForUpgrade[_Technology] or {};
-            local CheckRight = Stronghold.Construction.Config.RightsToCheckForUpgrade[_Technology];
-            local Type = Logic.GetEntityType(GUI.GetSelectedEntity()) +1;
-
-            -- Check limit
-            local Limit = EntityTracker.GetLimitOfType(Type);
-            local Usage = 0;
-            if Limit > -1 then
-                for i= 1, table.getn(CheckTechnologies) do
-                    Usage = Usage + EntityTracker.GetUsageOfType(PlayerID, CheckTechnologies[i]);
-                end
-                Disable = Limit <= Usage;
-            end
-            -- Check right
-            local Right = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
-            if Right > 0 and GetRank(PlayerID) < Right then
-                Disable = true;
-            end
-
-            if Disable then
-                XGUIEng.DisableButton(_Button, 1);
-                return true;
-            end
-        end
-    end
-    return false;
 end
 
 -- Update buttons in serf menu
@@ -191,6 +164,16 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
     return false;
 end
 
+function Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology)
+    local PlayerID = GUI.GetPlayerID();
+    if Stronghold:IsPlayer(PlayerID) then
+        if not Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology) then
+            return self:UpdateBuildingUpgradeButtons(_Button, _Technology);
+        end
+    end
+    return false;
+end
+
 -- -------------------------------------------------------------------------- --
 -- Upgrade Button
 
@@ -201,6 +184,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
         return false;
     end
     local IsForbidden = false;
+    local IsDisabled = false;
 
     -- Get default text
     local ForbiddenText = GetSeparatedTooltipText("MenuGeneric/BuildingNotAvailable");
@@ -208,6 +192,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
     local DisabledText = GetSeparatedTooltipText(_KeyDisabled);
     local DefaultText = NormalText;
     if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+        IsDisabled = true;
         DefaultText = DisabledText;
         if _Technology and Logic.GetTechnologyState(PlayerID, _Technology) == 0 then
             DefaultText = ForbiddenText;
@@ -225,8 +210,26 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
             ": [" .. XGUIEng.GetStringTableText("KeyBindings/UpgradeBuilding") .. "]"
     end
 
-    local Text = DefaultText[1] .. " @cr " .. DefaultText[2];
+    local Text = DefaultText[1];
     if not IsForbidden then
+        -- Rank requirement
+        local CheckRight = Stronghold.Construction.Config.RightsToCheckForUpgrade[_Technology];
+        if CheckRight then
+            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
+            if RequiredRank ~= 0 and IsDisabled then
+                local RankText = self.Text.UI.Title[Language]
+                local RankName = GetRankName(RequiredRank, PlayerID);
+                if not DefaultText[2] then
+                    DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
+                else
+                    DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
+                    DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
+                end
+            end
+        end
+        Text = DefaultText[1] .. " @cr " .. DefaultText[2];
+
+        -- Effect text
         local EffectText = "";
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(_Type +1);
         if Effects then
@@ -237,7 +240,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
                 EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
             if EffectText ~= "" then
-                EffectText = self.Text.UI.Effect[Language] .. EffectText .. EffectText;
+                EffectText = self.Text.UI.Effect[Language] .. EffectText;
             end
         end
 
@@ -261,22 +264,8 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
             Text = DefaultText[1] .. " @cr " .. DefaultText[2];
         end
 
-        -- Rank requirement
-        local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
-        if CheckRight then
-            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
-            if RequiredRank ~= 0 and GetRank(PlayerID) < RequiredRank then
-                local RankName = GetRankName(RequiredRank, PlayerID);
-                if not DefaultText[3] then
-                    DefaultText[3] = self.Text.UI.Require[Language] .. RankName;
-                else
-                    DefaultText[3] = DefaultText[3] .. ", " .. RankName;
-                end
-            end
-        end
-
         -- Add rest of text
-        for i= 4, table.getn(DefaultText) do
+        for i= 3, table.getn(DefaultText) do
             Text = Text .. " @cr " .. DefaultText[i];
         end
         Text = Text .. EffectText;
@@ -287,6 +276,37 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
     return true;
+end
+
+function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technology)
+    local PlayerID = GUI.GetPlayerID();
+    if Stronghold:IsPlayer(PlayerID) then
+        local Disable = false;
+        local CheckTechnologies = Stronghold.Construction.Config.TypesToCheckForUpgrade[_Technology] or {};
+        local CheckRight = Stronghold.Construction.Config.RightsToCheckForUpgrade[_Technology];
+        local Type = Logic.GetEntityType(GUI.GetSelectedEntity()) +1;
+
+        -- Check limit
+        local Limit = EntityTracker.GetLimitOfType(Type);
+        local Usage = 0;
+        if Limit > -1 then
+            for i= 1, table.getn(CheckTechnologies) do
+                Usage = Usage + EntityTracker.GetUsageOfType(PlayerID, CheckTechnologies[i]);
+            end
+            Disable = Limit <= Usage;
+        end
+        -- Check right
+        local Right = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
+        if Right > 0 and GetRank(PlayerID) < Right then
+            Disable = true;
+        end
+
+        if Disable then
+            XGUIEng.DisableButton(_Button, 1);
+            return true;
+        end
+    end
+    return false;
 end
 
 -- -------------------------------------------------------------------------- --

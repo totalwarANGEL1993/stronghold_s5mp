@@ -1007,7 +1007,11 @@ function Stronghold:OverrideWidgetUpdates()
 
     Overwrite.CreateOverwrite("GUIUpdate_UpgradeButtons", function(_Button, _Technology)
         Overwrite.CallOriginal();
-        Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology);
+        if string.find(_Button, "Beautification") then
+            Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology);
+        else
+            Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technology);
+        end
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_SelectionName", function()
