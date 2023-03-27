@@ -77,13 +77,12 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
                 EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
             end
             if EffectText ~= "" then
-                EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 " ..EffectText;
+                EffectText = self.Text.UI.Effect[Language] .. EffectText;
             end
         end
 
         if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.Tavern then
-            EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 "..
-                            " Beliebtheit für jeden Gast";
+            EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.Tavern[Language];
         end
 
         local BuildingMax = EntityTracker.GetLimitOfType(Type);
@@ -205,21 +204,18 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
                 EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
             end
             if EffectText ~= "" then
-                EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 " ..EffectText;
+                EffectText = self.Text.UI.Effect[Language] .. EffectText .. EffectText;
             end
         end
 
         if Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tavern then
-            EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 "..
-                         " Beliebtheit für jeden Gast";
+            EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.Tavern[Language];
         end
         if Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Farm then
-            EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 "..
-                         " Ehre und Beliebtheit für jeden Gast";
+            EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.Farm[Language];
         end
         if Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Residence then
-            EffectText = " @cr @color:244,184,0 bewirkt: @color:255,255,255 "..
-                         " Beliebtheit für jeden Gast";
+            EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.House[Language];
         end
 
         -- Building limit

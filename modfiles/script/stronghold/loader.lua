@@ -88,6 +88,7 @@ Script.Load(gvBasePath.. "sh.module.province.text.lua");
 
 Script.Load(gvBasePath.. "sh.module.construction.lua");
 Script.Load(gvBasePath.. "sh.module.construction.config.lua");
+Script.Load(gvBasePath.. "sh.module.construction.text.lua");
 
 Script.Load(gvBasePath.. "sh.module.building.lua");
 Script.Load(gvBasePath.. "sh.module.building.config.lua");
