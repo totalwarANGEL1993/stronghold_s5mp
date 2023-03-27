@@ -304,11 +304,11 @@ function Stronghold.Province:CreateProvinceEffectMessage(_ID, _PlayerID, _Buildi
 
         if self.Data.Provinces[_ID].Type == ProvinceType.Honor then
             Template = self.Text.Msg.Revenue[3];
-            local ResourceName = Stronghold.Text.Honor[Lang];
+            local ResourceName = self.Text.UI.Honor[Lang];
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Reputation then
             Template = self.Text.Msg.Revenue[3];
-            local ResourceName = Stronghold.Text.Reputation[Lang];
+            local ResourceName = self.Text.UI.Reputation[Lang];
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Military then
             Template = self.Text.Msg.Revenue[2];

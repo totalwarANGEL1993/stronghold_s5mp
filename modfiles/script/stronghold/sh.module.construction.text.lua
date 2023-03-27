@@ -3,6 +3,9 @@
 ---
 
 Stronghold.Construction.Text.UI = {
+    Reputation = {de = "Beliebtheit", en = "Reputation"},
+    Honor = {de = "Ehre", en = "Honor"},
+
     Require = {
         de = " @cr @color:244,184,0 benötigt: @color:255,255,255 ",
         en = " @cr @color:244,184,0 requires: @color:255,255,255 ",

@@ -3,9 +3,6 @@
 --- 
 
 Stronghold.Text = {
-    Reputation = {de = "Beliebtheit", en = "Reputation"},
-    Honor = {de = "Ehre", en = "Honor"},
-
     Player = {
         [1] = {
             de = "{grey}Das Haupthaus von %s %s{grey}ist nun geschützt!",
