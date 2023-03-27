@@ -4,6 +4,8 @@
 
 Stronghold.Construction.Config = {
     TowerDistance = 1500,
+
+    -- Check types for construction technology
     TypesToCheckForConstruction = {
         [Technologies.B_Beautification01] = {Entities.PB_Beautification01},
         [Technologies.B_Beautification02] = {Entities.PB_Beautification02},
@@ -24,6 +26,8 @@ Stronghold.Construction.Config = {
         [Technologies.B_Monastery]        = {Entities.PB_Monastery1, Entities.PB_Monastery2, Entities.PB_Monastery3},
         [Technologies.B_PowerPlant]       = {Entities.PB_PowerPlant1},
     },
+
+    -- Check types for upgrade technologies
     TypesToCheckForUpgrade = {
         [Technologies.UP1_Barracks]  = {Entities.PB_Barracks2,},
         [Technologies.UP1_Archery]   = {Entities.PB_Archery2,},
@@ -31,6 +35,77 @@ Stronghold.Construction.Config = {
         [Technologies.UP1_Monastery] = {Entities.PB_Monastery2, Entities.PB_Monastery3},
         [Technologies.UP2_Monastery] = {Entities.PB_Monastery1, Entities.PB_Monastery3},
         [Technologies.UP1_Market]    = {Entities.PB_Market2},
+    },
+
+    -- Building construction restricted by rights
+    -- FIXME: Beautifications?
+    RightsToCheckForConstruction = {
+        [Technologies.B_Tavern]                 = PlayerRight.Tavern,
+        [Technologies.B_Archery]                = PlayerRight.ShootingRange,
+        [Technologies.B_Barracks]               = PlayerRight.Barracks,
+        [Technologies.B_Stables]                = PlayerRight.Barn,
+        [Technologies.B_Foundry]                = PlayerRight.Foundry,
+        [Technologies.B_Alchemist]              = PlayerRight.Alchemist,
+        [Technologies.B_Brickworks]             = PlayerRight.Brickmaker,
+        [Technologies.B_Blacksmith]             = PlayerRight.Smithy,
+        [Technologies.B_GunsmithWorkshop]       = PlayerRight.GunWorkshop,
+        [Technologies.B_Sawmill]                = PlayerRight.Sawmill,
+        [Technologies.B_StoneMason]             = PlayerRight.MasonHut,
+        [Technologies.B_MasterBuilderWorkshop]  = PlayerRight.ArchitectShop,
+        [Technologies.B_Bridge]                 = PlayerRight.Bridge,
+        [Technologies.B_Bank]                   = PlayerRight.Bank,
+        [Technologies.B_Weathermachine]         = PlayerRight.WeatherTower,
+        [Technologies.B_PowerPlant]             = PlayerRight.PowerPlant,
+        [Technologies.B_Tower]                  = PlayerRight.WatchTower,
+        [Technologies.B_Residence]              = PlayerRight.House,
+        [Technologies.B_Farm]                   = PlayerRight.Farm,
+        [Technologies.B_University]             = PlayerRight.Highschool,
+        [Technologies.B_Village]                = PlayerRight.VillageCenter,
+        [Technologies.B_Monastery]              = PlayerRight.Chapel,
+        [Technologies.B_Market]                = PlayerRight.Store,
+        [Technologies.B_Claymine]               = PlayerRight.ClayPit,
+        [Technologies.B_Ironmine]               = PlayerRight.IronPit,
+        [Technologies.B_Stonemine]              = PlayerRight.StonePit,
+        [Technologies.B_Sulfurmine]             = PlayerRight.SulfurPit,
+    },
+
+    -- Building upgrade restricted by rights
+    RightsToCheckForUpgrade = {
+        [Technologies.UP1_Tower]            = PlayerRight.BallistaTower,
+        [Technologies.UP2_Tower]            = PlayerRight.CannonTower,
+        [Technologies.UP1_Market]           = PlayerRight.Market,
+        [Technologies.UP1_Tavern]           = PlayerRight.Inn,
+        [Technologies.UP1_University]       = PlayerRight.University,
+        [Technologies.UP1_Residence]        = PlayerRight.Cottage,
+        [Technologies.UP2_Residence]        = PlayerRight.Manor,
+        [Technologies.UP1_Farm]             = PlayerRight.Mill,
+        [Technologies.UP2_Farm]             = PlayerRight.Estate,
+        [Technologies.UP1_Archery]          = PlayerRight.Archery,
+        [Technologies.UP1_Barracks]         = PlayerRight.Garnison,
+        [Technologies.UP1_Stables]          = PlayerRight.Stable,
+        [Technologies.UP1_Foundry]          = PlayerRight.CannonFactory,
+        [Technologies.UP1_Alchemist]        = PlayerRight.Laboratory,
+        [Technologies.UP1_Brickworks]       = PlayerRight.Brickworks,
+        [Technologies.UP1_Blacksmith]       = PlayerRight.Blacksmith,
+        [Technologies.UP2_Blacksmith]       = PlayerRight.FinishingSmithy,
+        [Technologies.UP1_GunsmithWorkshop] = PlayerRight.GunFactory,
+        [Technologies.UP1_Sawmill]          = PlayerRight.LumberMill,
+        [Technologies.UP1_StoneMason]       = PlayerRight.MasonWorkshop,
+        [Technologies.UP1_Bank]             = PlayerRight.Treasury,
+        [Technologies.UP1_Village]          = PlayerRight.TownCenter,
+        [Technologies.UP2_Village]          = PlayerRight.CityCenter,
+        [Technologies.UP1_Monastery]        = PlayerRight.Church,
+        [Technologies.UP2_Monastery]        = PlayerRight.Cathedral,
+        [Technologies.UP1_Headquarter]      = PlayerRight.Fortress,
+        [Technologies.UP2_Headquarter]      = PlayerRight.Zitadel,
+        [Technologies.UP1_Claymine]         = PlayerRight.ClayGallery,
+        [Technologies.UP2_Claymine]         = PlayerRight.ClayMine,
+        [Technologies.UP1_Ironmine]         = PlayerRight.IronGallery,
+        [Technologies.UP2_Ironmine]         = PlayerRight.IronMine,
+        [Technologies.UP1_Stonemine]        = PlayerRight.StoneGallery,
+        [Technologies.UP2_Stonemine]        = PlayerRight.StoneMine,
+        [Technologies.UP1_Sulfurmine]       = PlayerRight.SulfurGallery,
+        [Technologies.UP2_Sulfurmine]       = PlayerRight.SulfurMine,
     },
 }
 

@@ -150,7 +150,7 @@ function Stronghold.Recruitment:IsUnitAllowed(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
     local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
-        return Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right) ~= 0;
+        return Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right) > 0;
     end
     return false;
 end

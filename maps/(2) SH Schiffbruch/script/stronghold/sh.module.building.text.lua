@@ -3,6 +3,10 @@
 --- 
 
 Stronghold.Building.Text.UI = {
+    Title = {de = "Rang", en = "Rank"},
+    Reputation = {de = "Beliebtheit", en = "Reputation"},
+    Honor = {de = "Ehre", en = "Honor"},
+
     Require = {
         de = " @cr @color:244,184,0 benötigt: @color:255,255,255 ",
         en = " @cr @color:244,184,0 requires: @color:255,255,255 ",
@@ -88,7 +92,7 @@ Stronghold.Building.Text.Measure = {
             de = "Die Siedler werden zur Kasse gebeten, was sie sehr verärgert!",
             en = "The settlers are asked to pay, which upsets them greatly!",
         },
-        [3] = {de = "#Rank# ", en = "#Rank# ",},
+        [3] = {de = "#Rank#", en = "#Rank#",},
     },
     [BlessCategories.Research] = {
         [1] = {
@@ -102,7 +106,7 @@ Stronghold.Building.Text.Measure = {
             de = "Ihr sprecht Recht und bestraft Kriminelle. Das Volk begrüßt dies!",
             en = "You administer justice and punish criminals. The people welcome this!",
         },
-        [3] = {de = "#Rank# ", en = "#Rank# ",},
+        [3] = {de = "#Rank#", en = "#Rank#",},
     },
     [BlessCategories.Weapons] = {
         [1] = {
@@ -117,7 +121,7 @@ Stronghold.Building.Text.Measure = {
             de = "Eure Migrationspolitik wird von den zugezogenen Siedlern begrüßt.",
             en = "Your migration policy is welcomed by the new settlers.",
         },
-        [3] = {de = "#Rank#, Festung ", en = "#Rank#, Fortress ",},
+        [3] = {de = "Festung, #Rank#", en = "Fortress, #Rank#",},
     },
     [BlessCategories.Financial] = {
         [1] = {
@@ -130,7 +134,7 @@ Stronghold.Building.Text.Measure = {
             de = "Das Volksfest erfreut die Siedler und steigert Eure Beliebtheit.",
             en = "The folk festival delights the settlers and increases your popularity.",
         },
-        [3] = {de = "#Rank#, Festung ", en = "#Rank#, Fortress ",},
+        [3] = {de = "Festung, #Rank#", en = "Fortress, #Rank#",},
     },
     [BlessCategories.Canonisation] = {
         [1] = {
@@ -143,7 +147,7 @@ Stronghold.Building.Text.Measure = {
             de = "Ein Bankett gereicht Euch an Ehre, aber verärgert das Volk!",
             en = "A banquet honors you, but angers the people!",
         },
-        [3] = {de = "#Rank#, Zitadelle ", en = "#Rank#, Zitadel ",},
+        [3] = {de = "Zitadelle, #Rank#", en = "Zitadel, #Rank#",},
     },
 }
 

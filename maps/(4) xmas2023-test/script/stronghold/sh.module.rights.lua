@@ -147,6 +147,9 @@ function Stronghold.Rights:GetPlayerRankName(_Rank, _PlayerID)
             end
         end
     end
+    if CurrentRank == -1 then
+        return "-";
+    end
     return Stronghold.Rights.Text.Title[CurrentRank][Gender][Language];
 end
 
@@ -220,13 +223,14 @@ end
 
 function Stronghold.Rights:GetRankRequiredForRight(_PlayerID, _Right)
     if Stronghold:IsPlayer(_PlayerID) then
-        for i= 1, table.getn(self.Config.Titles) do
-            for j= 1, table.getn(self.Config.Titles[i].Rights) do
-                if self.Config.Titles[i].Rights[j] == _Right then
-                    return i;
+        for t,_ in pairs(self.Data[_PlayerID].Titles) do
+            for j= 1, table.getn(self.Data[_PlayerID].Titles[t].Rights) do
+                if self.Data[_PlayerID].Titles[t].Rights[j] == _Right then
+                    return t;
                 end
             end
         end
+        return -1;
     end
     return 0;
 end
@@ -249,14 +253,6 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
         else
             Text = arg[2].. " ".. self.Text.RequireTaxPayer[Lang];
         end
-    elseif _Type == PlayerDuty.Buildings then
-        if arg[1] == 1 then
-            local TypeName = Logic.GetEntityTypeName(arg[2]);
-            local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-            Text = string.format("%dx %s", arg[3], Name);
-        else
-            Text = arg[2].. " ".. self.Text.RequireWorkplaces[Lang];
-        end
     elseif _Type == PlayerDuty.Beautification then
         if arg[1] == 1 then
             Text = arg[2].. " ".. self.Text.RequireBeautification[1][Lang];
@@ -265,6 +261,8 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
         end
     elseif _Type == PlayerDuty.Soldiers then
         Text = arg[1].. " ".. self.Text.RequireSoldiers[Lang];
+    elseif _Type == PlayerDuty.Buildings then
+        Text = arg[1].. " ".. self.Text.RequireWorkplaces[Lang];
     elseif _Type == PlayerDuty.Technology then
         local TechnologyKey = KeyOf(arg[1], Technologies);
         Text = XGUIEng.GetStringTableText("Names/" ..TechnologyKey);

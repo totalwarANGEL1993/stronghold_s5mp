@@ -2,6 +2,11 @@
 --- Text for Provinces
 --- 
 
+Stronghold.Province.Text.UI = {
+    Reputation = {de = "Beliebtheit", en = "Reputation"},
+    Honor = {de = "Ehre", en = "Honor"},
+}
+
 Stronghold.Province.Text.Msg = {
     Claimed = {
         de = "%s{grey}hat die Provinz %s{grey}beansprucht.",

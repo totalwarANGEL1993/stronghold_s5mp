@@ -201,10 +201,10 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[1];
         EffectText = self.Text.UI.Effect[Language];
         if Effects.Reputation ~= 0 then
-            EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+            EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
         end
         if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetLowTaxes" then
         Text = self.Text.TaxLevel[2][Language];
@@ -212,9 +212,9 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[2];
         EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..Stronghold.Text.Reputation[Language].. " ";
+                     " " ..self.Text.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetNormalTaxes" then
         Text = self.Text.TaxLevel[3][Language];
@@ -222,9 +222,9 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[3];
         EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..Stronghold.Text.Reputation[Language].. " ";
+                     " " ..self.Text.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetHighTaxes" then
         Text = self.Text.TaxLevel[4][Language];
@@ -232,9 +232,9 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[4];
         EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..Stronghold.Text.Reputation[Language].. " ";
+                     " " ..self.Text.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/SetVeryHighTaxes" then
         Text = self.Text.TaxLevel[5][Language];
@@ -242,9 +242,9 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[5];
         EffectText = self.Text.UI.Effect[Language];
         EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..Stronghold.Text.Reputation[Language].. " ";
+                     " " ..self.Text.UI.Reputation[Language].. " ";
         if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
     elseif _Key == "MenuHeadquarter/CallMilitia" then
         if Logic.IsEntityInCategory(GUI.GetSelectedEntity(), EntityCategories.Headquarters) == 1 then
@@ -427,12 +427,12 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
     end
 
     if Effects.Reputation > 0 then
-        EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+        EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
     elseif Effects.Reputation < 0 then
-        EffectText = EffectText .. Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+        EffectText = EffectText .. Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
     end
     if Effects.Honor > 0 then
-        EffectText = EffectText.. "+" ..Effects.Honor.." " ..Stronghold.Text.Honor[Language];
+        EffectText = EffectText.. "+" ..Effects.Honor.." " ..self.Text.UI.Honor[Language];
     end
 
     XGUIEng.SetText(
@@ -624,10 +624,10 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Construction];
             if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
             end
             if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers2_normal" then
@@ -638,10 +638,10 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Research];
             if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
             end
             if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers3_normal" then
@@ -656,10 +656,10 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Weapons];
             if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
             end
             if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers4_normal" then
@@ -674,10 +674,10 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Financial];
             if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
             end
             if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
     elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers5_normal" then
@@ -692,10 +692,10 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             Text = Text .. self.Text.UI.Effect[Language];
             local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Canonisation];
             if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..Stronghold.Text.Reputation[Language].. " ";
+                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
             end
             if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..Stronghold.Text.Honor[Language];
+                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
     else

@@ -2,11 +2,13 @@
 --- Constants for Rights
 --- 
 
+-- Genders
 Gender = {
     Male = 1,
     Female = 2
 }
 
+-- Ranks to achive
 PlayerRank = {
     Commoner = 0,
     Noble = 1,
@@ -18,6 +20,7 @@ PlayerRank = {
     Duke = 7
 };
 
+-- Types of conditions for promotion
 PlayerDuty = {
     Headquarters = 1,
     Cathedral = 2,
@@ -29,13 +32,16 @@ PlayerDuty = {
     Technology = 8,
 }
 
+-- Rights for the player
 PlayerRight = {
+    -- Measures
     MeasureLevyTax = 1,
     MeasureLawAndOrder = 2,
     MeasureWelcomeCulture = 3,
     MeasureFolkloreFeast = 4,
     MeasureOrgy = 5,
 
+    -- Units
     LeaderSword1 = 6,
     LeaderSword2 = 7,
     LeaderSword3 = 8,
@@ -71,5 +77,70 @@ PlayerRight = {
     Serf = 38,
     Scout = 39,
     Thief = 40,
+
+    -- Buildings
+    BallistaTower = 41,
+    CannonTower = 42,
+    Inn = 43,
+    University = 44,
+    Market = 45,
+    Cottage = 46,
+    Manor = 47,
+    Mill = 48,
+    Estate = 49,
+    Archery = 50,
+    Garnison = 51,
+    Stables = 52,
+    CannonFactory = 53,
+    Tavern = 54,
+    ShootingRange = 55,
+    Barracks = 56,
+    Barn = 57,
+    Foundry = 58,
+    Brickmaker = 59,
+    Brickworks = 60,
+    Smithy = 61,
+    Blacksmith = 62,
+    FinishingSmithy = 63,
+    GunWorkshop = 64,
+    GunFactory = 65,
+    Sawmill = 66,
+    LumberMill = 67,
+    MasonHut = 68,
+    MasonWorkshop = 69,
+    Alchemist = 70,
+    Laboratory = 71,
+    ArchitectShop = 72,
+    Bridge = 73,
+    Bank = 74,
+    Treasury = 75,
+    WeatherTower = 76,
+    PowerPlant = 77,
+    WatchTower = 78,
+    House = 79,
+    Farm = 80,
+    Highschool = 81,
+    VillageCenter = 82,
+    TownCenter = 83,
+    CityCenter = 84,
+    Chapel = 85,
+    Church = 86,
+    Cathedral = 87,
+    Store = 88,
+    Keep = 89,
+    Fortress = 90,
+    Zitadel = 91,
+    ClayPit = 92,
+    IronPit = 93,
+    StonePit = 94,
+    SulfurPit = 95,
+    ClayGallery = 96,
+    IronGallery = 97,
+    StoneGallery = 98,
+    SulfurGallery = 99,
+    ClayMine = 100,
+    IronMine = 101,
+    StoneMine = 102,
+    SulfurMine = 103,
 }
 
