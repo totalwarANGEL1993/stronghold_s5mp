@@ -29,7 +29,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.MeasureLevyTax,
                 PlayerRight.LeaderPoleArm1,
                 PlayerRight.Serf,
-                PlayerRight.Scout,
+                PlayerRight.Barracks,
 
                 PlayerRight.BlackKnight3,
             },
@@ -42,6 +42,10 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.MeasureLawAndOrder,
                 PlayerRight.LeaderBow1,
+                PlayerRight.Scout,
+                PlayerRight.Cottage,
+                PlayerRight.Tavern,
+                PlayerRight.ShootingRange,
 
                 PlayerRight.LeaderSword1,
                 PlayerRight.BanditBow1,
@@ -63,7 +67,11 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderSword2,
                 PlayerRight.Cannon1,
                 PlayerRight.Cannon2,
-                PlayerRight.Thief,
+                PlayerRight.University,
+                PlayerRight.Market,
+                PlayerRight.Archery,
+                PlayerRight.Garnison,
+                PlayerRight.Foundry,
 
                 PlayerRight.LeaderBow2,
                 PlayerRight.LeaderPoleArm4,
@@ -79,6 +87,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.MeasureFolkloreFeast,
                 PlayerRight.LeaderBow3,
                 PlayerRight.LeaderBow4,
+                PlayerRight.BallistaTower,
+                PlayerRight.Mill,
 
                 PlayerRight.Bearman1,
                 PlayerRight.Skirmisher,
@@ -94,6 +104,9 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderRifle1,
                 PlayerRight.LeaderCavalry1,
                 PlayerRight.LeaderSword3,
+                PlayerRight.Thief,
+                PlayerRight.Inn,
+                PlayerRight.Barn,
 
                 PlayerRight.LeaderCavalry2,
                 PlayerRight.LeaderSword4,
@@ -111,6 +124,8 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.MeasureOrgy,
                 PlayerRight.LeaderHeavyCavalry1,
+                PlayerRight.Stables,
+                PlayerRight.CannonTower,
 
                 PlayerRight.LeaderHeavyCavalry2,
             },
@@ -126,6 +141,9 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderRifle2,
                 PlayerRight.Cannon3,
                 PlayerRight.Cannon4,
+                PlayerRight.CannonFactory,
+                PlayerRight.Manor,
+                PlayerRight.Estate,
             },
         },
     }

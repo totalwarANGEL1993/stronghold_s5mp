@@ -52,6 +52,7 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         end
     end
 
+    -- Create costs tooltip
     local CostString = "";
     local ShortCutToolTip = "";
     local Type = Logic.GetBuildingTypeByUpgradeCategory(_UpgradeCategory, PlayerID);
@@ -81,6 +82,7 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
             end
         end
 
+        -- Special effects
         if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.Tavern then
             EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.Tavern[Language];
         end
@@ -93,7 +95,22 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
             Text = DefaultText[1] .. " @cr " .. DefaultText[2];
         end
 
-        for i= 3, table.getn(DefaultText) do
+        -- Rank requirement
+        local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
+        if CheckRight then
+            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
+            if RequiredRank ~= 0 and GetRank(PlayerID) < RequiredRank then
+                local RankName = GetRankName(RequiredRank, PlayerID);
+                if not DefaultText[3] then
+                    DefaultText[3] = self.Text.UI.Require[Language] .. RankName;
+                else
+                    DefaultText[3] = DefaultText[3] .. ", " .. RankName;
+                end
+            end
+        end
+
+        -- Add rest of text
+        for i= 4, table.getn(DefaultText) do
             Text = Text .. " @cr " .. DefaultText[i];
         end
         Text = Text .. EffectText;
@@ -110,20 +127,27 @@ function Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology)
     local PlayerID = Stronghold:GetLocalPlayerID();
     if Stronghold:IsPlayer(PlayerID) then
         if not Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology) then
-            local LimitReached = false;
-            local CheckList = Stronghold.Construction.Config.TypesToCheckForUpgrade[_Technology] or {};
-
+            local Disable = false;
+            local CheckTechnologies = Stronghold.Construction.Config.TypesToCheckForUpgrade[_Technology] or {};
+            local CheckRight = Stronghold.Construction.Config.RightsToCheckForUpgrade[_Technology];
             local Type = Logic.GetEntityType(GUI.GetSelectedEntity()) +1;
+
+            -- Check limit
             local Limit = EntityTracker.GetLimitOfType(Type);
             local Usage = 0;
             if Limit > -1 then
-                for i= 1, table.getn(CheckList) do
-                    Usage = Usage + EntityTracker.GetUsageOfType(PlayerID, CheckList[i]);
+                for i= 1, table.getn(CheckTechnologies) do
+                    Usage = Usage + EntityTracker.GetUsageOfType(PlayerID, CheckTechnologies[i]);
                 end
-                LimitReached = Limit <= Usage;
+                Disable = Limit <= Usage;
+            end
+            -- Check right
+            local Right = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
+            if Right > 0 and GetRank(PlayerID) < Right then
+                Disable = true;
             end
 
-            if LimitReached then
+            if Disable then
                 XGUIEng.DisableButton(_Button, 1);
                 return true;
             end
@@ -137,10 +161,13 @@ end
 -- upgrade button instead of the construction button. A classical case of the
 -- infamos "BB-Logic".... To avoid boilerplate we outsource the changes.
 function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Button, _Technology)
-    local LimitReached = false;
+    local Disable = false;
     local CheckList = Stronghold.Construction.Config.TypesToCheckForConstruction[_Technology];
+    local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
 
     local Usage = 0;
+
+    -- Check limit
     local Limit = -1;
     if CheckList then
         Limit = EntityTracker.GetLimitOfType(CheckList[1]);
@@ -149,10 +176,15 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
         for i= 1, table.getn(CheckList) do
             Usage = Usage + EntityTracker.GetUsageOfType(_PlayerID, CheckList[i]);
         end
-        LimitReached = Limit <= Usage;
+        Disable = Limit <= Usage;
+    end
+    -- Check right
+    local Right = Stronghold.Rights:GetRankRequiredForRight(_PlayerID, CheckRight);
+    if Right > 0 and GetRank(_PlayerID) < Right then
+        Disable = true;
     end
 
-    if LimitReached then
+    if Disable then
         XGUIEng.DisableButton(_Button, 1);
         return true;
     end
@@ -183,6 +215,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
         end
     end
 
+    -- Create costs tooltip
     local CostString = "";
     local ShortCutToolTip = "";
     if not IsForbidden then
@@ -208,6 +241,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
             end
         end
 
+        -- Special effects
         if Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tavern then
             EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.Tavern[Language];
         end
@@ -227,7 +261,22 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
             Text = DefaultText[1] .. " @cr " .. DefaultText[2];
         end
 
-        for i= 3, table.getn(DefaultText) do
+        -- Rank requirement
+        local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
+        if CheckRight then
+            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
+            if RequiredRank ~= 0 and GetRank(PlayerID) < RequiredRank then
+                local RankName = GetRankName(RequiredRank, PlayerID);
+                if not DefaultText[3] then
+                    DefaultText[3] = self.Text.UI.Require[Language] .. RankName;
+                else
+                    DefaultText[3] = DefaultText[3] .. ", " .. RankName;
+                end
+            end
+        end
+
+        -- Add rest of text
+        for i= 4, table.getn(DefaultText) do
             Text = Text .. " @cr " .. DefaultText[i];
         end
         Text = Text .. EffectText;

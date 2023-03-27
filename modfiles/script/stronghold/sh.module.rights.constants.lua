@@ -2,11 +2,13 @@
 --- Constants for Rights
 --- 
 
+-- Genders
 Gender = {
     Male = 1,
     Female = 2
 }
 
+-- Ranks to achive
 PlayerRank = {
     Commoner = 0,
     Noble = 1,
@@ -18,6 +20,7 @@ PlayerRank = {
     Duke = 7
 };
 
+-- Types of conditions for promotion
 PlayerDuty = {
     Headquarters = 1,
     Cathedral = 2,
@@ -29,13 +32,16 @@ PlayerDuty = {
     Technology = 8,
 }
 
+-- Rights for the player
 PlayerRight = {
+    -- Measures
     MeasureLevyTax = 1,
     MeasureLawAndOrder = 2,
     MeasureWelcomeCulture = 3,
     MeasureFolkloreFeast = 4,
     MeasureOrgy = 5,
 
+    -- Units
     LeaderSword1 = 6,
     LeaderSword2 = 7,
     LeaderSword3 = 8,
@@ -71,5 +77,25 @@ PlayerRight = {
     Serf = 38,
     Scout = 39,
     Thief = 40,
+
+    -- Buildings
+    BallistaTower = 41,
+    CannonTower = 42,
+    Inn = 43,
+    University = 44,
+    Market = 45,
+    Cottage = 46,
+    Manor = 47,
+    Mill = 48,
+    Estate = 49,
+    Archery = 50,
+    Garnison = 51,
+    Stable = 52,
+    CannonFactory = 53,
+    Tavern = 54,
+    ShootingRange = 55,
+    Barracks = 56,
+    Barn = 57,
+    Foundry = 58,
 }
 
