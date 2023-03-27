@@ -89,7 +89,7 @@
 	        <ProjectileEffectID>FXArrow</ProjectileEffectID>
 	        
 	        <MaxRange>2700</MaxRange>
-	        <MinRange>800.0f</MinRange>
+	        <MinRange>0</MinRange>
 	        <AutoAttackRange>2700</AutoAttackRange>
 	        
 	        <BattleWaitUntil>3000</BattleWaitUntil>

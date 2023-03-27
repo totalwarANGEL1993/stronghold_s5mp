@@ -598,7 +598,7 @@ function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptN
             -- Get initial experience
             local Experience = 0;
             if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
-                Experience = 3;
+                Experience = Stronghold.Hero.Config.Hero4.TrainExperience;
             end
             -- Create entity
             local Orientation = Logic.GetEntityOrientation(GetID(_ScriptName));

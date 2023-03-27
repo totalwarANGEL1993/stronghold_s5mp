@@ -312,29 +312,6 @@ Stronghold.Hero.Text.Hero = {
                 "He can bless allied troops, doubleing their armor raiting "..
                 "temporarily.",
         },
-        [Entities.CU_Mary_de_Mortfichet] = {
-            de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
-                "Arbaleastschützen, keine schweren Scharfschützen "..
-                "@cr @cr @color:255,255,255 " ..
-                "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
-                "Die Sabotage wird freigeschaltet, sobald sie gewählt wird. "..
-                "Diebe belegen weniger Platz und können bereits in Tavernen "..
-                "rekrutiert werden. "..
-                "@cr @cr "..
-                "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
-                "Sie hohlt zu einem Rundumschlag aus, der nahestehenden Feinde "..
-                "verletzt und die Angriffskraft der Überlebenden halbiert.",
-            en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
-                "Arbaleast archers, no heavy sharpshooters "..
-                "@cr @cr @color:255,255,255 " ..
-                "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                "She unlocks sabotage when chosen. Thieves occupy less population "..
-                "places and can be recruited without upgrading taverns. "..
-                "@cr @cr @color:255,255,255 "..
-                "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
-                "She can inflict damage to close enemies and also lower the "..
-                "damage surviving enemies inflict.",
-        },
         [Entities.CU_BlackKnight]        = {
             de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                 "Leichte und schwere schwarze Ritter "..
@@ -356,6 +333,30 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                 "He can temporarily reduce the armor of close by enemies to 0.",
+        },
+        [Entities.CU_Mary_de_Mortfichet] = {
+            de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
+                "Arbaleastschützen, keine schweren Scharfschützen "..
+                "@cr @cr @color:255,255,255 " ..
+                "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
+                "Die Sabotage wird freigeschaltet, sobald sie gewählt wird. "..
+                "Diebe verlangen halben Sold, belegen weniger Platz und können "..
+                "bereits in Tavernen rekrutiert werden. "..
+                "@cr @cr "..
+                "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
+                "Sie hohlt zu einem Rundumschlag aus, der nahestehenden Feinde "..
+                "verletzt und die Angriffskraft der Überlebenden halbiert.",
+            en = "@color:55,145,155 Special units: @cr @color:255,255,255 "..
+                "Arbaleast archers, no heavy sharpshooters "..
+                "@cr @cr @color:255,255,255 " ..
+                "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
+                "She unlocks sabotage when chosen. Upkeep costs of thieves, "..
+                "are halved, they occupy less population places and can be "..
+                "hired in taverns. "..
+                "@cr @cr @color:255,255,255 "..
+                "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
+                "She can inflict damage to close enemies and also lower the "..
+                "damage surviving enemies inflict.",
         },
         [Entities.CU_Barbarian_Hero]     = {
             de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..

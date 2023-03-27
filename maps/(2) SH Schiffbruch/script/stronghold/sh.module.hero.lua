@@ -363,14 +363,15 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
 
         if _Type == Entities.PU_Hero11 then
             -- Update motivation soft cap
-            ExpectedSoftCap = 3;
+            ExpectedSoftCap = Stronghold.Hero.Config.Hero11.ReputationCap / 100;
             -- Give motivation for Yuki
-            Stronghold:UpdateMotivationOfPlayersWorkers(_PlayerID, 50);
-            Stronghold:AddPlayerReputation(_PlayerID, 100);
+            local RepuBonus = Stronghold.Hero.Config.Hero11.InitialReputation;
+            Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, RepuBonus);
+            Stronghold:AddPlayerReputation(_PlayerID, RepuBonus);
         end
         if _Type == Entities.CU_BlackKnight then
             -- Update motivation soft cap
-            ExpectedSoftCap = 1.75;
+            ExpectedSoftCap = Stronghold.Hero.Config.Hero7.ReputationCap / 100;
             -- Create guard for Kerberos
             Tools.CreateSoldiersForLeader(_ID, 3);
             Logic.LeaderChangeFormationType(_ID, 1);
@@ -533,10 +534,12 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
                 end
                 if not self.Data.ConvertBlacklist[AttackerID] then
                     if Logic.GetEntityHealth(AttackerID) > 0 and Logic.IsHero(AttackerID) == 0 then
-                        if math.random(1, 1000) <= 3 and GetDistance(AttackerID, k) <= 1000 then
-                            ChangePlayer(AttackerID, HeliasPlayerID);
-                            if GUI.GetPlayerID() == HeliasPlayerID then
-                                Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
+                        if math.random(1, self.Config.Hero6.ConversionMax) <= self.Config.Hero6.ConversionChance then
+                            if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
+                                ChangePlayer(AttackerID, HeliasPlayerID);
+                                if GUI.GetPlayerID() == HeliasPlayerID then
+                                    Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
+                                end
                             end
                         end
                     end
@@ -555,7 +558,8 @@ function Stronghold.Hero:VargWolvesController(_PlayerID)
                 WolvesBatteling = WolvesBatteling +1;
             end
         end
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, 0.05 * WolvesBatteling);
+        local Honor = self.Config.Hero9.WolfHonorRate * WolvesBatteling;
+        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Honor);
     end
 end
 
@@ -751,37 +755,39 @@ end
 function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     local Costs = _Costs;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
+        local Factor = self.Config.Hero4.UnitCostFactor;
         local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1
         local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1
         local IsThief = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Thief) == 1
         if not IsCannon and not IsScout and not IsThief then
             if Costs[ResourceType.Gold] then
-                Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 1.5);
+                Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
             end
             if Costs[ResourceType.Clay] then
-                Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * 1.5);
+                Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * Factor);
             end
             if Costs[ResourceType.Wood] then
-                Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 1.5);
+                Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
             end
             if Costs[ResourceType.Stone] then
-                Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * 1.5);
+                Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * Factor);
             end
             if Costs[ResourceType.Iron] then
-                Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 1.5);
+                Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
             end
             if Costs[ResourceType.Sulfur] then
-                Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 1.5);
+                Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
             end
         end
     end
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
+        local Factor = self.Config.Hero3.UnitCostFactor;
         if Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1 then
             Costs[ResourceType.Honor] = nil;
-            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 0.9);
-            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 0.9);
-            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 0.9);
-            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 0.9);
+            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
+            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
+            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
+            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
         end
     end
     return Costs;
@@ -791,23 +797,24 @@ end
 function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, _Costs)
     local Costs = _Costs;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
+        local Factor = self.Config.Hero11.UnitCostFactor;
         if Costs[ResourceType.Gold] then
-            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * 0.9);
+            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
         end
         if Costs[ResourceType.Clay] then
-            Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * 0.9);
+            Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * Factor);
         end
         if Costs[ResourceType.Wood] then
-            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * 0.9);
+            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
         end
         if Costs[ResourceType.Stone] then
-            Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * 0.9);
+            Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * Factor);
         end
         if Costs[ResourceType.Iron] then
-            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * 0.9);
+            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
         end
         if Costs[ResourceType.Sulfur] then
-            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * 0.9);
+            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
         end
     end
     return Costs;
@@ -817,7 +824,7 @@ function Stronghold.Hero:ApplyRecruitTimePassiveAbility(_PlayerID, _LeaderType, 
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero10) then
         if Logic.IsEntityTypeInCategory(_LeaderType, EntityCategories.Rifle) == 1 then
-            Value = Value * 0.5;
+            Value = Value * self.Config.Hero10.TrainTimeFactor;
         end
     end
     return Value;
@@ -834,7 +841,7 @@ end
 function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        Value = Value * 1.15;
+        Value = Value * self.Config.Hero12;
     end
     return Value;
 end
@@ -842,7 +849,7 @@ end
 -- Passive Ability: Change millitary places usage
 function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
+    if self:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
         local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
         Value = Value - (ThiefCount * 3);
     end
@@ -860,9 +867,9 @@ end
 function Stronghold.Hero:ApplyMaxReputationPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_BlackKnight) then
-        Value = 175;
+        Value = self.Config.Hero7.ReputationCap;
     elseif self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
-        Value = 300;
+        Value = self.Config.Hero11.ReputationCap;
     end
     return Value;
 end
@@ -878,7 +885,7 @@ end
 function Stronghold.Hero:ApplyReputationDecreasePassiveAbility(_PlayerID, _Decrease)
     local Decrease = _Decrease;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_BlackKnight) then
-        Decrease = Decrease * 0.6;
+        Decrease = Decrease * self.Config.Hero7;
     end
     return Decrease;
 end
@@ -889,7 +896,7 @@ function Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _B
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
         local Type = Logic.GetEntityType(_BuildingID);
         if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
-            Value = Value * 2;
+            Value = Value * self.Config.Hero9.TavernEfficiency;
         end
     end
     return Value;
@@ -908,7 +915,7 @@ function Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Buildi
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
         local Type = Logic.GetEntityType(_BuildingID);
         if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
-            Value = Value * 2;
+            Value = Value * self.Config.Hero9.TavernEfficiency;
         end
     end
     return Value;
@@ -918,7 +925,7 @@ end
 function Stronghold.Hero:ApplyIncomeBonusPassiveAbility(_PlayerID, _Income)
     local Income = _Income;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero5) then
-        Income = Income * 1.3;
+        Income = Income * self.Config.Hero5.TaxIncomeFactor;
     end
     return Income;
 end
@@ -934,14 +941,14 @@ end
 -- This function is called for each unit type individually.
 function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type, _Upkeep)
     local Upkeep = _Upkeep;
-    -- if self:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
-    --     if _Type == Entities.PU_Scout or _Type == Entities.PU_Thief then
-    --         Upkeep = 0;
-    --     end
-    -- end
+    if self:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
+        if _Type == Entities.PU_Thief then
+            Upkeep = self.Config.Hero8.UpkeepFactor;
+        end
+    end
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero10) then
         if _Type == Entities.PU_LeaderRifle1 or _Type == Entities.PU_LeaderRifle2 then
-            Upkeep = Upkeep * 0.7;
+            Upkeep = Upkeep * self.Config.Hero10.UpkeepFactor;
         end
     end
     return Upkeep;
@@ -951,7 +958,7 @@ end
 function Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, "^PU_Hero1[abc]+$") then
-        Value = Value * 2.0;
+        Value = Value * self.Config.Hero1.MeasureFactor;
     end
     return Value;
 end
@@ -960,7 +967,7 @@ end
 function Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero6) then
-        Value = Value * 0.25;
+        Value = Value * self.Config.Hero6.CrimeRateFactor;
     end
     return Value;
 end
@@ -969,7 +976,7 @@ end
 function Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, _Chance)
     local Value = _Chance;
     if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero6) then
-        Value = Value * 0.75;
+        Value = Value * self.Config.Hero9.WolfHonorRate;
     end
     return Value;
 end
