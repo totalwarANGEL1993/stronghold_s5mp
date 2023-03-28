@@ -15,7 +15,7 @@
 	<AutomaticResearch>true</AutomaticResearch>
 	<UseForStatisticsFlag>false</UseForStatisticsFlag>
 	<Conditions>
-		<TecCondition>
+		<!-- <TecCondition>
 			<TecType>GT_GearWheel</TecType>
 		</TecCondition>
 
@@ -27,7 +27,7 @@
 		<EntityCondition>
 			<EntityType>PB_Headquarters3</EntityType>
 			<Amount>1</Amount>
-		</EntityCondition>
+		</EntityCondition> -->
 
 	</Conditions>
 </root>

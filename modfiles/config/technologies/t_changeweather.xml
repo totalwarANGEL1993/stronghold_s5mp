@@ -15,7 +15,7 @@
 	<AutomaticResearch>true</AutomaticResearch>
 	<UseForStatisticsFlag>false</UseForStatisticsFlag>
 	<Conditions>
-		<TecCondition>
+		<!-- <TecCondition>
 			<TecType>T_WeatherForecast</TecType>
 		</TecCondition>
 
@@ -24,6 +24,6 @@
 		<EntityCondition>
 			<EntityType>PB_Alchemist2</EntityType>
 			<Amount>1</Amount>
-		</EntityCondition>
+		</EntityCondition> -->
 	</Conditions>
 </root>

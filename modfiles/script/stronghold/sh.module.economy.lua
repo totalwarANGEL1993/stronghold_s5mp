@@ -518,7 +518,7 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
         end
         -- External
         Upkeep = GameCallback_Calculate_TotalPaydayUpkeep(_PlayerID, Upkeep);
-        return math.floor(Upkeep + 0.5);
+        return math.floor(Upkeep);
     end
     return 0;
 end

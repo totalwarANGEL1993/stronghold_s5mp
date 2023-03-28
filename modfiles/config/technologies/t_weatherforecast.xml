@@ -16,9 +16,9 @@
 	<UseForStatisticsFlag>false</UseForStatisticsFlag>
 
 	<Conditions>
-		<EntityCondition>
+		<!-- <EntityCondition>
 			<EntityType>PB_Alchemist2</EntityType>
 			<Amount>1</Amount>
-		</EntityCondition>
+		</EntityCondition> -->
 	</Conditions>
 </root>

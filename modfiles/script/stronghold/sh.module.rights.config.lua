@@ -39,22 +39,14 @@ Stronghold.Rights.Config = {
                 -- DO NOT MOVE THIS!!! --
 
                 PlayerRight.Keep,
-                PlayerRight.Fortress,
-                PlayerRight.Zitadel,
                 PlayerRight.MeasureLevyTax,
                 PlayerRight.Serf,
                 ---
                 PlayerRight.Chapel,
-                PlayerRight.Church,
-                PlayerRight.Cathedral,
                 ---
                 PlayerRight.Barracks,
                 PlayerRight.LeaderPoleArm1,
                 PlayerRight.BlackKnight3,
-                ---
-                PlayerRight.Beautification4,
-                PlayerRight.Beautification6,
-                PlayerRight.Beautification9,
             },
         },
         [PlayerRank.Mayor]    = {
@@ -65,6 +57,7 @@ Stronghold.Rights.Config = {
             },
             Rights = {
                 PlayerRight.MeasureLawAndOrder,
+                PlayerRight.Fortress,
                 PlayerRight.Cottage,
                 PlayerRight.Mill,
                 PlayerRight.Brickmaker,
@@ -82,8 +75,9 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderBow1,
                 PlayerRight.BanditBow1,
                 ---
-                PlayerRight.Tavern,
-                PlayerRight.Scout,
+                PlayerRight.Beautification4,
+                PlayerRight.Beautification6,
+                PlayerRight.Beautification9,
             },
         },
         [PlayerRank.Earl]     = {
@@ -96,6 +90,7 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.MeasureWelcomeCulture,
                 ---
+                PlayerRight.Church,
                 PlayerRight.Manor,
                 PlayerRight.Estate,
                 PlayerRight.Market,
@@ -103,6 +98,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.MasonHut,
                 PlayerRight.ArchitectShop,
                 PlayerRight.Bridge,
+                PlayerRight.Tavern,
+                PlayerRight.Scout,
                 ---
                 PlayerRight.Garnison,
                 PlayerRight.LeaderPoleArm3,
@@ -137,6 +134,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.IronGallery,
                 PlayerRight.StoneGallery,
                 PlayerRight.SulfurGallery,
+                PlayerRight.PowerPlant,
                 ---
                 PlayerRight.BallistaTower,
                 ---
@@ -155,11 +153,11 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Beautification, 1, 12},
             },
             Rights = {
+                PlayerRight.Cathedral,
                 PlayerRight.Bank,
                 PlayerRight.Brickworks,
                 PlayerRight.LumberMill,
                 PlayerRight.MasonWorkshop,
-                PlayerRight.PowerPlant,
                 ---
                 PlayerRight.LeaderSword3,
                 PlayerRight.LeaderSword4,
@@ -176,6 +174,10 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.GunWorkshop,
                 PlayerRight.LeaderRifle1,
+                ---
+                PlayerRight.Beautification5,
+                PlayerRight.Beautification7,
+                PlayerRight.Beautification8,
             },
         },
         [PlayerRank.Margrave] = {
@@ -185,6 +187,7 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Cathedral, 2},
             },
             Rights = {
+                PlayerRight.Zitadel,
                 PlayerRight.MeasureOrgy,
                 ---
                 PlayerRight.Laboratory,
@@ -196,9 +199,9 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.CannonTower,
                 ---
-                PlayerRight.Beautification5,
-                PlayerRight.Beautification7,
-                PlayerRight.Beautification8,
+                PlayerRight.Beautification3,
+                PlayerRight.Beautification10,
+                PlayerRight.Beautification11,
             },
         },
         [PlayerRank.Duke]     = {
@@ -222,10 +225,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.CannonFactory,
                 PlayerRight.Cannon3,
                 PlayerRight.Cannon4,
-                ---
-                PlayerRight.Beautification3,
-                PlayerRight.Beautification10,
-                PlayerRight.Beautification11,
             },
         },
     }
