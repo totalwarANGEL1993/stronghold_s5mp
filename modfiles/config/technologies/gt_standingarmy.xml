@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+	<TecCategoryType>TC_Military</TecCategoryType>
+	<TimeToResearch>40</TimeToResearch>
+	<ResourceCosts>
+		<Gold>200</Gold>
+		<Iron>200</Iron>
+		<Clay/>
+		<Wood/>
+		<Stone/>
+		<Sulfur/>
+	</ResourceCosts>
+	<!-- <AutomaticResearch>false</AutomaticResearch>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
+	<AutomaticResearch>true</AutomaticResearch>
+	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+
+	<Conditions>
+		<TecCondition>
+			<TecType>GT_Mercenaries</TecType>
+		</TecCondition>
+
+		<RequiredEntityConditions>1</RequiredEntityConditions>
+		<EntityCondition>
+			<EntityType>PB_Headquarters2</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
+		<EntityCondition>
+			<EntityType>PB_Headquarters3</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
+	</Conditions>
+</root>

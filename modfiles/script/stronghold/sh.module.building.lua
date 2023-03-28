@@ -707,6 +707,22 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
 end
 
 -- -------------------------------------------------------------------------- --
+-- Alchemist
+
+function Stronghold.Building:OnAlchemistSelected(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if not Stronghold:IsPlayer(PlayerID) then
+        return;
+    end
+    local Type = Logic.GetEntityType(_EntityID);
+    if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Alchemist then
+        return;
+    end
+    XGUIEng.ShowWidget("Research_WeatherForecast", 0);
+    XGUIEng.ShowWidget("Research_ChangeWeather", 0);
+end
+
+-- -------------------------------------------------------------------------- --
 -- Rally Points
 
 function InputCallback_ShiftRightClick()

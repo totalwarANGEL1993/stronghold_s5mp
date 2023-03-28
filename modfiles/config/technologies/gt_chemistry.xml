@@ -1,19 +1,27 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
-	<TecCategoryType>TC_Administration</TecCategoryType>
-	<TimeToResearch>20</TimeToResearch>
+	<TecCategoryType>TC_Resources</TecCategoryType>
+	<TimeToResearch>80</TimeToResearch>
 	<ResourceCosts>
-		<Gold>50</Gold>
+		<Gold>0</Gold>
+		<Sulfur>600</Sulfur>
 		<Clay/>
-		<Wood>100</Wood>
+		<Wood/>
 		<Stone/>
-		<Iron/>
-		<Sulfur/>
+		<Iron>500</Iron>
 	</ResourceCosts>
 	<!-- <AutomaticResearch>false</AutomaticResearch>
 	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
 	<AutomaticResearch>true</AutomaticResearch>
 	<UseForStatisticsFlag>false</UseForStatisticsFlag>
 	<Conditions>
+		<TecCondition>
+			<TecType>GT_Metallurgy</TecType>
+		</TecCondition>
+
+		<EntityCondition>
+			<EntityType>PB_Headquarters3</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
 	</Conditions>
 </root>

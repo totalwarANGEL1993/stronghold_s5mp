@@ -789,6 +789,9 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
 
     self.Building:OnHeadquarterSelected(SelectedID);
     self.Building:OnMonasterySelected(SelectedID);
+    self.Building:OnAlchemistSelected(SelectedID);
+
+    self.Construction:OnSelectSerf(SelectedID);
 
     self.Recruitment:OnBarracksSelected(SelectedID);
     self.Recruitment:OnArcherySelected(SelectedID);

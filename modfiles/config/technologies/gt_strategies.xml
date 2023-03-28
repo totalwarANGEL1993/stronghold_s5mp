@@ -1,19 +1,28 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
-	<TecCategoryType>TC_Administration</TecCategoryType>
-	<TimeToResearch>20</TimeToResearch>
+	<TecCategoryType>TC_Military</TecCategoryType>
+	<TimeToResearch>80</TimeToResearch>
 	<ResourceCosts>
-		<Gold>50</Gold>
+		<Gold>600</Gold>
+		<Iron>600</Iron>
 		<Clay/>
-		<Wood>100</Wood>
+		<Wood/>
 		<Stone/>
-		<Iron/>
 		<Sulfur/>
 	</ResourceCosts>
 	<!-- <AutomaticResearch>false</AutomaticResearch>
 	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
 	<AutomaticResearch>true</AutomaticResearch>
 	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+
 	<Conditions>
+		<TecCondition>
+			<TecType>GT_Tactics</TecType>
+		</TecCondition>
+
+		<EntityCondition>
+			<EntityType>PB_Headquarters3</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
 	</Conditions>
 </root>

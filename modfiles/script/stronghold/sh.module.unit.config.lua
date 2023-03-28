@@ -34,8 +34,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Light spearmen that should only be used against cavalry.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Sägemühle, #Rank#",
-            en = "@color:244,184,0 requires:{white} Sawmill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
             [1] = {5, 75, 0, 55, 0, 10, 0},
@@ -56,8 +56,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Diese Männer führen eine Streitlanze gegen Kavallerie, können aber auch Schwertkämpfer beschäftigen.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Garnison, Sägemühle, #Rank#",
-            en = "@color:244,184,0 requires:{white} Garnison, Sawmill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Garnison, Sägemühle",
+            en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Sawmill",
         },
         Costs             = {
             [1] = {10, 170, 0, 60, 0, 15, 0},
@@ -78,8 +78,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Halberdiers are strong against cavalry and can hold their position for a long time thanks to good armor.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Garnison, Sägewerk, #Rank#",
-            en = "@color:244,184,0 requires:{white} Garnison, Lumber Mill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Garnison, Sägewerk",
+            en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Lumber Mill",
         },
         Costs             = {
             [1] = {15, 235, 0, 75, 0, 35, 0},
@@ -125,8 +125,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}{cr}Broadswordsmen can be used against spearmen and ranged troops.",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Schmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Smithy, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Schmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Smithy",
         },
         Costs             = {
             [1] = {10, 170, 0, 0, 0, 75, 0},
@@ -147,8 +147,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Experienced and well-equipped soldiers who make short work of infantry.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Garnison, Grobschmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Garnison, Blacksmith, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Garnison, Grobschmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Blacksmith",
         },
         Costs             = {
             [1] = {20, 230, 0, 0, 0, 95, 0},
@@ -169,8 +169,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}{cr}Elite Swordsmen are the best of the best and strong against all other foot soldiers.",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Garnison, Feinschmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Garnison, Finishing Smithy, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Garnison, Feinschmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Finishing Smithy",
         },
         Costs             = {
             [1] = {30, 285, 0, 0, 0, 100, 0},
@@ -216,8 +216,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}These professional archers are effective against other lightly armored troops.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Sägemühle, #Rank#",
-            en = "@color:244,184,0 requires:{white} Sawmill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
             [1] = {6, 130, 0, 75, 0, 0, 0},
@@ -238,8 +238,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Crossbowmen can deal a lot of damage but need to be guarded with melee troops.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Schießanlage, Sägemühle, #Rank#",
-            en = "@color:244,184,0 requires:{white} Archery, Sawmill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Schießanlage, Sägemühle",
+            en = "@color:244,184,0 requires:{white}#Rank#, Archery, Sawmill",
         },
         Costs             = {
             [1] = {12, 230, 0, 35, 0, 45, 0},
@@ -260,8 +260,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}The high medieval crossbow is very strong against foot soldiers.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Schießanlage, Sägewerk, #Rank#",
-            en = "@color:244,184,0 requires:{white} Archery, Lumber Mill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Schießanlage, Sägewerk",
+            en = "@color:244,184,0 requires:{white}#Rank#, Archery, Lumber Mill",
         },
         Costs             = {
             [1] = {16, 300, 0, 40, 0, 55, 0},
@@ -285,8 +285,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}{cr}Sharpshooters are good to use against all other troops, but should stay out of close combat.",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Büchsenmacher, #Rank#",
-            en = "@color:244,184,0 requires:{white} Gunsmith's Shop, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Büchsenmacher",
+            en = "@color:244,184,0 requires:{white}#Rank#, Gunsmith's Shop",
         },
         Costs             = {
             [1] = {28, 340, 0, 20, 0, 0, 60},
@@ -307,8 +307,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}The heavy sharpshooters traded a higher firerate for collosal damage against all other troop types.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Schießanlage, Büchsenmanufaktur, #Rank#",
-            en = "@color:244,184,0 requires:{white} Archery, Gun Factory, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Schießanlage, Büchsenmanufaktur",
+            en = "@color:244,184,0 requires:{white}#Rank#, Archery, Gun Factory",
         },
         Costs             = {
             [1] = {36, 420, 0, 0, 0, 35, 75},
@@ -332,8 +332,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Mounted archers are fast and strong against light troops.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Sägewerk, #Rank#",
-            en = "@color:244,184,0 requires:{white} Lumber Mill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Sägewerk",
+            en = "@color:244,184,0 requires:{white}#Rank#, Lumber Mill",
         },
         Costs             = {
             [1] = {12, 220, 0, 45, 0, 25, 0},
@@ -354,8 +354,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Mounted crossbowmen are no less deadly against infantry, but are faster on foot.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Sägewerk, #Rank#",
-            en = "@color:244,184,0 requires:{white} Lumber Mill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Sägewerk",
+            en = "@color:244,184,0 requires:{white}#Rank#, Lumber Mill",
         },
         Costs             = {
             [1] = {24, 265, 0, 20, 0, 50, 0},
@@ -378,8 +378,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}The mounted swordsmen can slice apart enemy infantry very well. Especially swordsmen will fall to their hands.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Reitanlage, Feinschmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Stables, Finishing Smithy, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Reitanlage, Feinschmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Stables, Finishing Smithy",
         },
         Costs             = {
             [1] = {40, 320, 0, 0, 0, 90, 0},
@@ -400,8 +400,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}These brutal warriors wield axes on horseback and enjoy choping enemy troops to pieces.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Reitanlage, Feinschmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Stables, Finishing Smithy, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Reitanlage, Feinschmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Stables, Finishing Smithy",
         },
         Costs             = {
             [1] = {50, 430, 0, 0, 0, 110, 0},
@@ -425,8 +425,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}The bombard is strong against units.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Kanonengießerei, Alchemistenhütte, #Rank#",
-            en = "@color:244,184,0 requires:{white} Foundry, Alchemist's Hut, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Kanonengießerei, Alchemistenhütte",
+            en = "@color:244,184,0 requires:{white}#Rank#, Foundry, Alchemist's Hut",
         },
         Costs             = {
             [1] = {25, 350, 0, 50, 0, 250, 100},
@@ -447,8 +447,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}The bronze cannon is strong against buildings.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Kanonengießerei, Alchemistenhütte, #Rank#",
-            en = "@color:244,184,0 requires:{white} Foundry, Alchemist's Hut, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Kanonengießerei, Alchemistenhütte",
+            en = "@color:244,184,0 requires:{white}#Rank#, Foundry, Alchemist's Hut",
         },
         Costs             = {
             [1] = {25, 350, 0, 50, 0, 100, 250},
@@ -469,8 +469,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}A heavy cannon used against military units.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Kanonenmanufaktur, Laboratorium, #Rank#",
-            en = "@color:244,184,0 requires:{white} Cannon Factory, Laboratory, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Kanonenmanufaktur, Laboratorium",
+            en = "@color:244,184,0 requires:{white}#Rank#, Cannon Factory, Laboratory",
         },
         Costs             = {
             [1] = {50, 950, 0, 100, 0, 600, 450},
@@ -491,8 +491,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}This heavy cannon is particularly efficient at destroying buildings.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Kanonenmanufaktur, Laboratorium, #Rank#",
-            en = "@color:244,184,0 requires:{white} Cannon Factory, Laboratory, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Kanonenmanufaktur, Laboratorium",
+            en = "@color:244,184,0 requires:{white}#Rank#, Cannon Factory, Laboratory",
         },
         Costs             = {
             [1] = {50, 950, 0, 100, 0, 450, 600},
@@ -538,8 +538,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Some criminals would rather work for you than steal from you. Teaches them later how to use explosives.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Wirtshaus, #Rank#",
-            en = "@color:244,184,0 requires:{white} Inn, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Wirtshaus",
+            en = "@color:244,184,0 requires:{white}#Rank#, Inn",
         },
         Costs             = {
             [1] = {30, 500, 0, 0, 0, 100, 100},
@@ -585,8 +585,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Raiders and highwaymen who are good at using their axes against other infantry.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Schmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Smithy, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Schmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Smithy",
         },
         Costs             = {
             [1] = {7, 120, 0, 10, 0, 50, 0},
@@ -607,8 +607,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}These experienced outlaws wield their ax and slice through the lines of the enemy.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Grobschmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Blacksmith, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Grobschmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Blacksmith",
         },
         Costs             = {
             [1] = {18, 260, 0, 0, 0, 65, 0},
@@ -629,8 +629,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}These archers are used to combat and are therefore excellent against lightly armored troops.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Sägemühle, #Rank#",
-            en = "@color:244,184,0 requires:{white} Sawmill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
             [1] = {5, 100, 0, 70, 0, 0, 0},
@@ -675,8 +675,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}These elite warriors are good against armored troops and can deal high critical damage.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Garnison, Schmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Garnison, Smithy, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Garnison, Schmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Smithy",
         },
         Costs             = {
             [1] = {22, 170, 0, 75, 0, 45, 0},
@@ -700,8 +700,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}{cr}These troops are best used against armored troops.",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Schmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Smithy, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Schmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Smithy",
         },
         Costs             = {
             [1] = {7, 135, 0, 0, 0, 45, 0},
@@ -722,8 +722,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}The noble black knights can dent armor with their clubs and become a real nightmare.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Garnison, Grobschmiede, #Rank#",
-            en = "@color:244,184,0 requires:{white} Garnison, Blacksmith, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Garnison, Grobschmiede",
+            en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Blacksmith",
         },
         Costs             = {
             [1] = {18, 250, 0, 0, 0, 85, 0},
@@ -747,8 +747,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}Fanatics in ritual bear costumes who will show no mercy to ordinary infantry.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Sägemühle, #Rank#",
-            en = "@color:244,184,0 requires:{white} Sawmill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
             [1] = {12, 70, 0, 150, 0, 40, 0},
@@ -769,8 +769,8 @@ Stronghold.Unit.Config = {
             en = "{cr}{white}No less fanatical than the bearmen, the javelin throwers are strong against common troops.{cr}",
         },
         TextDisabled      = {
-            de = "@color:244,184,0 benötigt:{white} Sägemühle, #Rank#",
-            en = "@color:244,184,0 requires:{white} Sawmill, #Rank#",
+            de = "@color:244,184,0 benötigt:{white}#Rank#, Sägemühle",
+            en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
             [1] = {8, 90, 0, 200, 0, 0, 0},

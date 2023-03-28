@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+	<TecCategoryType>TC_Resources</TecCategoryType>
+	<TimeToResearch>60</TimeToResearch>
+	<ResourceCosts>
+		<Gold>0</Gold>
+		<Sulfur>400</Sulfur>
+		<Clay/>
+		<Wood/>
+		<Stone/>
+		<Iron>400</Iron>
+	</ResourceCosts>
+	<!-- <AutomaticResearch>false</AutomaticResearch>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
+	<AutomaticResearch>true</AutomaticResearch>
+	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+	<Conditions>
+		<TecCondition>
+			<TecType>GT_Alloying</TecType>
+		</TecCondition>
+
+		<RequiredEntityConditions>1</RequiredEntityConditions>
+		<EntityCondition>
+			<EntityType>PB_Headquarters2</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
+		<EntityCondition>
+			<EntityType>PB_Headquarters3</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
+	</Conditions>
+</root>

@@ -77,12 +77,13 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
             if RequiredRank ~= 0 and IsDisabled then
                 local RankText = self.Text.UI.Title[Language]
                 local RankName = GetRankName(RequiredRank, PlayerID);
-                if not DefaultText[2] then
-                    DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
-                else
-                    DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
-                    DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
-                end
+                -- if not DefaultText[2] then
+                --     DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
+                -- else
+                --     DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
+                --     DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
+                -- end
+                DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
             end
         end
         Text = DefaultText[1] .. " @cr " .. DefaultText[2];
@@ -219,12 +220,13 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
             if RequiredRank ~= 0 and IsDisabled then
                 local RankText = self.Text.UI.Title[Language]
                 local RankName = GetRankName(RequiredRank, PlayerID);
-                if not DefaultText[2] then
-                    DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
-                else
-                    DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
-                    DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
-                end
+                -- if not DefaultText[2] then
+                --     DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
+                -- else
+                --     DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
+                --     DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
+                -- end
+                DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
             end
         end
         Text = DefaultText[1] .. " @cr " .. DefaultText[2];
@@ -425,5 +427,19 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_Archery2, 3);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry1, 12);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry2, 12);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Serf selection
+
+function Stronghold.Construction:OnSelectSerf(_SelectedID)
+    local PlayerID = Logic.EntityGetPlayer(_SelectedID);
+    if not Stronghold:IsPlayer(PlayerID) then
+        return;
+    end
+    if Logic.GetEntityType(_SelectedID) ~= Entities.PU_Serf then
+        return;
+    end
+    XGUIEng.ShowWidget("Build_University", 0);
 end
 

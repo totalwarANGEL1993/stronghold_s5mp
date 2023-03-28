@@ -1,19 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
-	<TecCategoryType>TC_Administration</TecCategoryType>
-	<TimeToResearch>20</TimeToResearch>
+	<TecCategoryType>TC_Technologies</TecCategoryType>
+	<TimeToResearch>30</TimeToResearch>
 	<ResourceCosts>
-		<Gold>50</Gold>
+		<Gold>400</Gold>
 		<Clay/>
-		<Wood>100</Wood>
+		<Wood/>
 		<Stone/>
 		<Iron/>
-		<Sulfur/>
+		<Sulfur>400</Sulfur>
 	</ResourceCosts>
 	<!-- <AutomaticResearch>false</AutomaticResearch>
 	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
 	<AutomaticResearch>true</AutomaticResearch>
 	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+
 	<Conditions>
+		<EntityCondition>
+			<EntityType>PB_Alchemist2</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
 	</Conditions>
 </root>
