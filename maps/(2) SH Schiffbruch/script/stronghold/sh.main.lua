@@ -169,6 +169,7 @@ function Stronghold:Init()
 
     self:StartTurnDelayTrigger();
     self:StartPlayerPaydayUpdater();
+    self:UnlockAllTechnologies();
     self:StartTriggers();
 
     self:OverrideStringTableText();
@@ -337,6 +338,34 @@ function Stronghold:InitalizePlayer(_PlayerID)
     AddHonor(_PlayerID, self.Config.Base.InitialResources[1]);
 
     self.Players[_PlayerID].IsInitalized = true;
+end
+
+function Stronghold:UnlockAllTechnologies()
+    for i= 1, table.getn(Score.Player) do
+        ResearchTechnology(Technologies.GT_Alchemy, i);
+        ResearchTechnology(Technologies.GT_Alloying, i);
+        ResearchTechnology(Technologies.GT_Architecture, i);
+        ResearchTechnology(Technologies.GT_Binocular, i);
+        ResearchTechnology(Technologies.GT_ChainBlock, i);
+        ResearchTechnology(Technologies.GT_Chemistry, i);
+        ResearchTechnology(Technologies.GT_Construction, i);
+        ResearchTechnology(Technologies.GT_GearWheel, i);
+        ResearchTechnology(Technologies.GT_Library, i);
+        ResearchTechnology(Technologies.GT_Literacy, i);
+        ResearchTechnology(Technologies.GT_Matchlock, i);
+        ResearchTechnology(Technologies.GT_Mathematics, i);
+        ResearchTechnology(Technologies.GT_Mercenaries, i);
+        ResearchTechnology(Technologies.GT_Metallurgy, i);
+        ResearchTechnology(Technologies.GT_Printing, i);
+        ResearchTechnology(Technologies.GT_PulledBarrel, i);
+        ResearchTechnology(Technologies.GT_StandingArmy, i);
+        ResearchTechnology(Technologies.GT_Strategies, i);
+        ResearchTechnology(Technologies.GT_Tactics, i);
+        ResearchTechnology(Technologies.GT_Trading, i);
+        ResearchTechnology(Technologies.GT_Trading, i);
+        ResearchTechnology(Technologies.T_ChangeWeather, i);
+        ResearchTechnology(Technologies.T_WeatherForecast, i);
+    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -789,6 +818,9 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
 
     self.Building:OnHeadquarterSelected(SelectedID);
     self.Building:OnMonasterySelected(SelectedID);
+    self.Building:OnAlchemistSelected(SelectedID);
+
+    self.Construction:OnSelectSerf(SelectedID);
 
     self.Recruitment:OnBarracksSelected(SelectedID);
     self.Recruitment:OnArcherySelected(SelectedID);
@@ -997,6 +1029,8 @@ function Stronghold:OverrideWidgetUpdates()
         Overwrite.CallOriginal();
         Stronghold.Rights:OnlineHelpUpdate(PlayerID, _Button, _Technology);
         Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
+        Stronghold.Building:OnAlchemistSelected(EntityID);
+        Stronghold.Construction:OnSelectSerf(EntityID);
         Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
     end);
 

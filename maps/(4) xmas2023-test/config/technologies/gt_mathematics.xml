@@ -1,16 +1,19 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Inventions</TecCategoryType>
-	<TimeToResearch>20</TimeToResearch>
-	<ResourceCosts>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Inventions</TecCategoryType>
+    <TimeToResearch>20</TimeToResearch>
+    <ResourceCosts>
         <Gold>50</Gold>
         <Stone/>
         <Clay/>
         <Wood>200</Wood>
         <Iron>50</Iron>
         <Sulfur/>
-	</ResourceCosts>		
-    <AutomaticResearch>false</AutomaticResearch>
-	<Conditions>
-	</Conditions>	
-	<UseForStatisticsFlag>true</UseForStatisticsFlag>
+    </ResourceCosts>
+	<!-- <AutomaticResearch>false</AutomaticResearch>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
+	<AutomaticResearch>true</AutomaticResearch>
+	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+    <Conditions>
+    </Conditions>
 </root>

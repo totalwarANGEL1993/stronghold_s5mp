@@ -885,7 +885,7 @@ end
 function Stronghold.Hero:ApplyReputationDecreasePassiveAbility(_PlayerID, _Decrease)
     local Decrease = _Decrease;
     if self:HasValidHeroOfType(_PlayerID, Entities.CU_BlackKnight) then
-        Decrease = Decrease * self.Config.Hero7;
+        Decrease = Decrease * self.Config.Hero7.ReputationLossFactor;
     end
     return Decrease;
 end

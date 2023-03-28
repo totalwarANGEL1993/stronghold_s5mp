@@ -1,6 +1,7 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Military</TecCategoryType>
-	<TimeToResearch>20</TimeToResearch>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Military</TecCategoryType>
+    <TimeToResearch>20</TimeToResearch>
     <ResourceCosts>
         <Gold>50</Gold>
         <Iron/>
@@ -9,9 +10,10 @@
         <Stone/>
         <Sulfur/>
     </ResourceCosts>
-    <AutomaticResearch>false</AutomaticResearch>	
-    <UseForStatisticsFlag>true</UseForStatisticsFlag>	
-	<Conditions>
-
-	</Conditions>	
+    <!-- <AutomaticResearch>false</AutomaticResearch>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
+    <AutomaticResearch>true</AutomaticResearch>
+    <UseForStatisticsFlag>false</UseForStatisticsFlag>
+    <Conditions>
+    </Conditions>
 </root>

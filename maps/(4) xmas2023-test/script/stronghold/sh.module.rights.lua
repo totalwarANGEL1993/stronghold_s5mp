@@ -103,7 +103,10 @@ function Stronghold.Rights:CreateButtonHandlers()
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Rights.SyncEvents.RankUp then
                 Stronghold.Rights:PromotePlayer(_PlayerID);
-                Stronghold.Rights:OnlineHelpUpdate("OnlineHelpButton", Technologies.T_OnlineHelp);
+                if GUI.GetPlayerID() == _PlayerID then
+                    Stronghold.Rights:OnlineHelpUpdate("OnlineHelpButton", Technologies.T_OnlineHelp);
+                    GameCallback_GUI_SelectionChanged();
+                end
             end
         end
     );
@@ -300,18 +303,14 @@ function Stronghold.Rights:ArePromotionRequirementsFulfilled(_PlayerID, _Rank)
             else
                 Fulfilled = Fulfilled and self:DoesWorkerAmountInSettlementExist(_PlayerID, Condition[3]);
             end
-        elseif Condition[1] == PlayerDuty.Buildings then
-            if Condition[2] == 1 then
-                Fulfilled = Fulfilled and self:DoBuildingsOfTypeInSettlementExist(_PlayerID, Condition[3], Condition[4]);
-            else
-                Fulfilled = Fulfilled and self:DooesBuildingAmountInSettlementExist(_PlayerID, Condition[3]);
-            end
         elseif Condition[1] == PlayerDuty.Beautification then
             if Condition[2] == 1 then
                 Fulfilled = Fulfilled and self:DoesBeautificationAmountInSettlementExist(_PlayerID, Condition[3]);
             else
                 Fulfilled = Fulfilled and self:DoAllBeautificationsInSettlementExist(_PlayerID);
             end
+        elseif Condition[1] == PlayerDuty.Buildings then
+            Fulfilled = Fulfilled and self:DooesBuildingAmountInSettlementExist(_PlayerID, Condition[2]);
         elseif Condition[1] == PlayerDuty.Soldiers then
             Fulfilled = Fulfilled and self:DoesSoldierAmountInSettlementExist(_PlayerID, Condition[2]);
         elseif Condition[1] == PlayerDuty.Technology then

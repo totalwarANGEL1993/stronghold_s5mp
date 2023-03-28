@@ -34,54 +34,36 @@ Stronghold.Rights.Config = {
                 PlayerRight.StonePit,
                 PlayerRight.SulfurPit,
                 PlayerRight.Highschool,
+                PlayerRight.University,
                 PlayerRight.VillageCenter,
                 -- DO NOT MOVE THIS!!! --
 
                 PlayerRight.Keep,
-                PlayerRight.Fortress,
-                PlayerRight.Zitadel,
                 PlayerRight.MeasureLevyTax,
                 PlayerRight.Serf,
                 ---
-                PlayerRight.WatchTower,
+                PlayerRight.Chapel,
+                ---
                 PlayerRight.Barracks,
                 PlayerRight.LeaderPoleArm1,
                 PlayerRight.BlackKnight3,
-                ---
-                PlayerRight.University,
-                PlayerRight.Chapel,
-                PlayerRight.Church,
-                PlayerRight.Cathedral,
-                ---
-                PlayerRight.Brickmaker,
-                PlayerRight.Sawmill,
-                PlayerRight.MasonHut,
-                PlayerRight.ArchitectShop,
-                PlayerRight.Bridge,
-                PlayerRight.WeatherTower,
-                PlayerRight.Store,
-                PlayerRight.ClayGallery,
-                PlayerRight.IronGallery,
-                PlayerRight.StoneGallery,
-                PlayerRight.SulfurGallery,
-                PlayerRight.ClayMine,
-                PlayerRight.IronMine,
-                PlayerRight.StoneMine,
-                PlayerRight.SulfurMine,
             },
         },
         [PlayerRank.Mayor]    = {
             Costs  = {10, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Cathedral, 0},
-                {PlayerDuty.Settlers, 1, Entities.PU_Serf, 12},
+                {PlayerDuty.Settlers, 1, Entities.PU_Serf, 18},
             },
             Rights = {
                 PlayerRight.MeasureLawAndOrder,
+                PlayerRight.Fortress,
                 PlayerRight.Cottage,
                 PlayerRight.Mill,
-                PlayerRight.Alchemist,
-                PlayerRight.Smithy,
+                PlayerRight.Brickmaker,
+                PlayerRight.Sawmill,
+                PlayerRight.Store,
+                PlayerRight.WatchTower,
                 ---
                 PlayerRight.LeaderSword1,
                 PlayerRight.BanditSword2,
@@ -93,23 +75,31 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderBow1,
                 PlayerRight.BanditBow1,
                 ---
-                PlayerRight.Tavern,
-                PlayerRight.Scout,
+                PlayerRight.Beautification4,
+                PlayerRight.Beautification6,
+                PlayerRight.Beautification9,
             },
         },
         [PlayerRank.Earl]     = {
             Costs  = {25, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Headquarters, 1},
-                {PlayerDuty.Technology, Technologies.GT_Trading},
+                -- {PlayerDuty.Technology, Technologies.GT_Trading},
+                {PlayerDuty.Buildings, 6},
             },
             Rights = {
                 PlayerRight.MeasureWelcomeCulture,
                 ---
+                PlayerRight.Church,
                 PlayerRight.Manor,
                 PlayerRight.Estate,
                 PlayerRight.Market,
-                PlayerRight.Blacksmith,
+                PlayerRight.Smithy,
+                PlayerRight.MasonHut,
+                PlayerRight.ArchitectShop,
+                PlayerRight.Bridge,
+                PlayerRight.Tavern,
+                PlayerRight.Scout,
                 ---
                 PlayerRight.Garnison,
                 PlayerRight.LeaderPoleArm3,
@@ -121,24 +111,30 @@ Stronghold.Rights.Config = {
                 PlayerRight.Foundry,
                 PlayerRight.Cannon1,
                 PlayerRight.Cannon2,
+                ---
+                PlayerRight.Beautification1,
+                PlayerRight.Beautification2,
+                PlayerRight.Beautification12,
             },
         },
         [PlayerRank.Baron]    = {
             Costs  = {50, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Cathedral, 1},
-                {PlayerDuty.Settlers, 1, Entities.PU_Smith, 6},
                 {PlayerDuty.Soldiers, 50},
             },
             Rights = {
                 PlayerRight.MeasureFolkloreFeast,
                 ---
-                PlayerRight.Laboratory,
-                PlayerRight.FinishingSmithy,
-                PlayerRight.Brickworks,
-                PlayerRight.LumberMill,
-                PlayerRight.MasonWorkshop,
                 PlayerRight.TownCenter,
+                PlayerRight.Blacksmith,
+                PlayerRight.Alchemist,
+                PlayerRight.WeatherTower,
+                PlayerRight.ClayGallery,
+                PlayerRight.IronGallery,
+                PlayerRight.StoneGallery,
+                PlayerRight.SulfurGallery,
+                PlayerRight.PowerPlant,
                 ---
                 PlayerRight.BallistaTower,
                 ---
@@ -153,10 +149,16 @@ Stronghold.Rights.Config = {
         [PlayerRank.Count]    = {
             Costs  = {100, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Buildings, 8},
+                {PlayerDuty.Buildings, 12},
                 {PlayerDuty.Beautification, 1, 12},
             },
             Rights = {
+                PlayerRight.Cathedral,
+                PlayerRight.Bank,
+                PlayerRight.Brickworks,
+                PlayerRight.LumberMill,
+                PlayerRight.MasonWorkshop,
+                ---
                 PlayerRight.LeaderSword3,
                 PlayerRight.LeaderSword4,
                 PlayerRight.BanditSword1,
@@ -173,8 +175,9 @@ Stronghold.Rights.Config = {
                 PlayerRight.GunWorkshop,
                 PlayerRight.LeaderRifle1,
                 ---
-                PlayerRight.Bank,
-                PlayerRight.PowerPlant,
+                PlayerRight.Beautification5,
+                PlayerRight.Beautification7,
+                PlayerRight.Beautification8,
             },
         },
         [PlayerRank.Margrave] = {
@@ -184,13 +187,21 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Cathedral, 2},
             },
             Rights = {
+                PlayerRight.Zitadel,
                 PlayerRight.MeasureOrgy,
+                ---
+                PlayerRight.Laboratory,
+                PlayerRight.FinishingSmithy,
                 ---
                 PlayerRight.Stables,
                 PlayerRight.LeaderHeavyCavalry1,
                 PlayerRight.LeaderHeavyCavalry2,
                 ---
                 PlayerRight.CannonTower,
+                ---
+                PlayerRight.Beautification3,
+                PlayerRight.Beautification10,
+                PlayerRight.Beautification11,
             },
         },
         [PlayerRank.Duke]     = {
@@ -203,6 +214,10 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.CityCenter,
                 PlayerRight.Treasury,
+                PlayerRight.ClayMine,
+                PlayerRight.IronMine,
+                PlayerRight.StoneMine,
+                PlayerRight.SulfurMine,
                 ---
                 PlayerRight.GunFactory,
                 PlayerRight.LeaderRifle2,

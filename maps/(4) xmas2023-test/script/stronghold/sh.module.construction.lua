@@ -59,6 +59,10 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
     local CostString = "";
     local ShortCutToolTip = "";
     local Type = Logic.GetBuildingTypeByUpgradeCategory(_UpgradeCategory, PlayerID);
+    local TypeName = Logic.GetEntityTypeName(Type);
+    if _Technology ==  nil then
+        _Technology = Technologies[string.sub(TypeName, 2)];
+    end
     if not IsForbidden then
         Logic.FillBuildingCostsTable(Type, InterfaceGlobals.CostTable);
         CostString = InterfaceTool_CreateCostString(InterfaceGlobals.CostTable);
@@ -75,13 +79,11 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         if CheckRight then
             local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
             if RequiredRank ~= 0 and IsDisabled then
-                local RankText = self.Text.UI.Title[Language]
                 local RankName = GetRankName(RequiredRank, PlayerID);
-                if not DefaultText[2] then
-                    DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
-                else
-                    DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
-                    DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
+                DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
+                if _UpgradeCategory == UpgradeCategories.GenericBridge then
+                    local BuildingName = XGUIEng.GetStringTableText("Names/PB_MasterBuilderWorkshop");
+                    DefaultText[2] = DefaultText[2] .. ", " .. BuildingName;
                 end
             end
         end
@@ -103,7 +105,7 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         end
 
         -- Special effects
-        if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.Tavern then
+        if _UpgradeCategory == UpgradeCategories.Tavern then
             EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.Tavern[Language];
         end
 
@@ -111,14 +113,8 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         if BuildingMax > -1 then
             local BuildingCount = EntityTracker.GetUsageOfType(PlayerID, Type);
             Text = DefaultText[1].. " (" ..BuildingCount.. "/" ..BuildingMax.. ") @cr " .. DefaultText[2];
-        else
-            Text = DefaultText[1] .. " @cr " .. DefaultText[2];
         end
 
-        -- Add rest of text
-        for i= 3, table.getn(DefaultText) do
-            Text = Text .. " @cr " .. DefaultText[i];
-        end
         Text = Text .. EffectText;
     end
 
@@ -215,16 +211,10 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
         -- Rank requirement
         local CheckRight = Stronghold.Construction.Config.RightsToCheckForUpgrade[_Technology];
         if CheckRight then
-            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
+            local RequiredRank = GetRankRequired(PlayerID, CheckRight);
             if RequiredRank ~= 0 and IsDisabled then
-                local RankText = self.Text.UI.Title[Language]
                 local RankName = GetRankName(RequiredRank, PlayerID);
-                if not DefaultText[2] then
-                    DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
-                else
-                    DefaultText[2] = string.gsub(DefaultText[2], "%s+$", "");
-                    DefaultText[2] = DefaultText[2].. ", " .. RankText .. RankName;
-                end
+                DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
             end
         end
         Text = DefaultText[1] .. " @cr " .. DefaultText[2];
@@ -260,8 +250,6 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
         if BuildingMax > -1 then
             local BuildingCount = EntityTracker.GetUsageOfType(PlayerID, _Type +1);
             Text = DefaultText[1].. " (" ..BuildingCount.. "/" ..BuildingMax.. ") @cr " .. DefaultText[2];
-        else
-            Text = DefaultText[1] .. " @cr " .. DefaultText[2];
         end
 
         -- Add rest of text
@@ -425,5 +413,19 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_Archery2, 3);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry1, 12);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry2, 12);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Serf selection
+
+function Stronghold.Construction:OnSelectSerf(_SelectedID)
+    local PlayerID = Logic.EntityGetPlayer(_SelectedID);
+    if not Stronghold:IsPlayer(PlayerID) then
+        return;
+    end
+    if Logic.GetEntityType(_SelectedID) ~= Entities.PU_Serf then
+        return;
+    end
+    XGUIEng.ShowWidget("Build_University", 0);
 end
 

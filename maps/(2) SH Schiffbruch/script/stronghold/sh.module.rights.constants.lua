@@ -142,5 +142,19 @@ PlayerRight = {
     IronMine = 101,
     StoneMine = 102,
     SulfurMine = 103,
+
+    -- Beautifications
+    Beautification1 = 104,
+    Beautification2 = 105,
+    Beautification3 = 106,
+    Beautification4 = 107,
+    Beautification5 = 108,
+    Beautification6 = 109,
+    Beautification7 = 110,
+    Beautification8 = 111,
+    Beautification9 = 112,
+    Beautification10 = 113,
+    Beautification11 = 114,
+    Beautification12 = 115,
 }
 
