@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# This shell script combines the source files into the archive.
+
+echo "Compile archive..."
+
+# pre build cleanup
+rm -rf var
+
+# pack archive
+mkdir -p var/stronghold_s5mp.s5x.unpacked
+cp -r modfiles/config var/stronghold_s5mp.s5x.unpacked
+cp -r modfiles/graphics var/stronghold_s5mp.s5x.unpacked
+cp -r modfiles/menu var/stronghold_s5mp.s5x.unpacked
+cp -r modfiles/script var/stronghold_s5mp.s5x.unpacked
+bin/bba5.exe var/stronghold_s5mp.s5x.unpacked
+
+# create mod folder
+mkdir -p var/stronghold_s5mp/script
+cp modfiles/loader.lua var/stronghold_s5mp
+
+# copy cerberus folder
+cp -r "E:/Repositories/cerberus" var/stronghold_s5mp
+rm -rf var/stronghold_s5mp/cerberus/.git
+
+# post build cleanup
+rm -rf var/stronghold_s5mp.s5x.unpacked
+
+echo "Done!"

@@ -8,18 +8,14 @@
 -- #                                                                                                 #
 -- ###################################################################################################
 
+local Path = "E:/Siedler/Projekte/stronghold_s5mp/dev/devload.lua";
+if false then
+    Path = "data\\maps\\user\\stronghold_s5mp\\loader.lua";
+end
+Script.Load(Path);
+
 function OnMapStart()
     Player_Teams = {[1] = {1, 2}, [2] = {3, 4}};
-
-    local Path = "E:/Siedler/Projekte/xmas2023/dev/devload.lua";
-    if false then
-        Path = "script/stronghold/loader.lua";
-    end
-    Script.Load(Path);
-
-    if not DetectStronghold or DetectStronghold() == false then
-        return;
-    end
 
     ---
 
@@ -46,7 +42,7 @@ function GameCallback_OnGameStart()
 	Script.Load("Data\\Script\\MapTools\\WeatherSets.lua");
 	IncludeGlobals("Comfort");
 
-	Script.Load("E:/Siedler/Projekte/xmas2023/maps/(4) xmas2023-test/maps/externalmap/script/main.lua");
+	Script.Load("E:/Siedler/Projekte/stronghold_s5mp/maps/(4) xmas2023-test/maps/externalmap/script/main.lua");
 
 	MultiplayerTools.InitCameraPositionsForPlayers();
 	MultiplayerTools.SetUpGameLogicOnMPGameConfig();

@@ -136,6 +136,8 @@ end
 -- Starts the script
 function Stronghold:Init()
     Archive.Install();
+    Archive.Push("stronghold_s5mp.s5x");
+    Archive.ReloadGUI("data\\menu\\projects\\ingame.xml");
     Archive.ReloadEntities();
 
     Placeholder.Install();
@@ -187,6 +189,8 @@ function Stronghold:OnSaveGameLoaded()
         Message("The S5 Community Server is required!");
         return false;
     end
+    Archive.Push("stronghold_s5mp.s5x");
+    Archive.ReloadGUI("data\\menu\\projects\\ingame.xml");
     Archive.ReloadEntities();
 
     Stronghold:AddDelayedAction(1, function(_PlayerID)
@@ -304,6 +308,10 @@ function Stronghold:InitalizePlayer(_PlayerID)
     local HQName = "HQ" .._PlayerID;
     local DoorPosName = "DoorP" .._PlayerID;
     local CampName = "CampP" .._PlayerID;
+
+    -- Replace headquarters
+    local HQID = GetID(self.Players[_PlayerID].HQScriptName);
+    ReplaceEntity(HQID, Logic.GetEntityType(HQID));
 
     -- Create door pos
     local DoorPos = GetCirclePosition(HQName, 800, 180);
@@ -834,7 +842,7 @@ function Stronghold:OverwriteCommonCallbacks()
         Overwrite.CallOriginal();
         local EntityID = GUI.GetSelectedEntity();
         local GuiPlayer = Stronghold:GetLocalPlayerID();
-        self.Building:OnRallyPointHolderSelected(GuiPlayer, EntityID);
+        Stronghold.Building:OnRallyPointHolderSelected(GuiPlayer, EntityID);
         Stronghold:OnSelectionMenuChanged(EntityID);
     end);
 
