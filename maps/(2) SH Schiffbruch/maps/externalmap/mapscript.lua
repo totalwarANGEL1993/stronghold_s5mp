@@ -13,11 +13,12 @@
 function OnMapStart()
     Player_Teams = {[1] = {1}, [2] = {2}};
 
-    gvBasePath = "script/stronghold/";
+    local Path = "data\\maps\\user\\stronghold_s5mp\\";
     if false then
-        gvBasePath = "E:/Siedler/Projekte/xmas2023/modfiles/script/stronghold/";
+        Path = "E:/Siedler/Projekte/stronghold_s5mp/modfiles/";
+        gvTestPath = Path.. "script/stronghold/";
     end
-    Script.Load(gvBasePath.. "loader.lua");
+    Script.Load(Path.. "loader.lua");
 
     Lib.Require("comfort/CreateWoodPile");
     Lib.Require("module/weather/WeatherMaker");

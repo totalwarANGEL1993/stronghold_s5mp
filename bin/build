@@ -16,12 +16,17 @@ cp -r modfiles/script var/stronghold_s5mp.s5x.unpacked
 bin/bba5.exe var/stronghold_s5mp.s5x.unpacked
 
 # create mod folder
-mkdir -p var/stronghold_s5mp/script
+mkdir -p var/stronghold_s5mp
 cp modfiles/loader.lua var/stronghold_s5mp
 
 # copy cerberus folder
 cp -r "E:/Repositories/cerberus" var/stronghold_s5mp
 rm -rf var/stronghold_s5mp/cerberus/.git
+rm -rf var/stronghold_s5mp/cerberus/.vscode
+rm -rf var/stronghold_s5mp/cerberus/test
+rm var/stronghold_s5mp/cerberus/.gitignore
+rm var/stronghold_s5mp/cerberus/changelog.md
+rm var/stronghold_s5mp/cerberus/readme.md
 
 # post build cleanup
 rm -rf var/stronghold_s5mp.s5x.unpacked
