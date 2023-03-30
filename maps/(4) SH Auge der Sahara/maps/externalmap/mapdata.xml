@@ -5,29 +5,59 @@
  </MapProps>
  <Entities>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Bridge1</Type>
+   <Type>PB_Headquarters1</Type>
    <Position>
-    <X>3.710820e+004</X>
-    <Y>6.462599e+004</Y>
+    <X>4.340000e+004</X>
+    <Y>5.810000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
+   <PlayerID>1</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>9.238808e-001</Scale>
+   <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>PB_Bridge1</Type>
+   <Type>PB_Headquarters1</Type>
    <Position>
-    <X>3.710820e+004</X>
-    <Y>6.462599e+004</Y>
+    <X>2.390000e+004</X>
+    <Y>5.810000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
+   <PlayerID>1</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>PB_Headquarters1</Type>
+   <Position>
+    <X>4.340000e+004</X>
+    <Y>9.200000e+003</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>1</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>PB_Headquarters1</Type>
+   <Position>
+    <X>2.390000e+004</X>
+    <Y>9.200000e+003</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>1</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
@@ -50,36 +80,6 @@
    <Scale>0.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Bridge1</Type>
-   <Position>
-    <X>3.019180e+004</X>
-    <Y>6.462599e+004</Y>
-   </Position>
-   <Orientation>0.000000e+000</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
-   <Health>-1</Health>
-   <Name></Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>9.238808e-001</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>PB_Bridge1</Type>
-   <Position>
-    <X>3.019180e+004</X>
-    <Y>6.462599e+004</Y>
-   </Position>
-   <Orientation>0.000000e+000</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
-   <Health>-1</Health>
-   <Name></Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_NeutralBridge1</Type>
    <Position>
     <X>3.019180e+004</X>
@@ -93,6 +93,156 @@
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>0.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_NeutralBridge1</Type>
+   <Position>
+    <X>3.710820e+004</X>
+    <Y>6.462599e+004</Y>
+   </Position>
+   <Orientation>1.799998e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>0.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_NeutralBridge1</Type>
+   <Position>
+    <X>3.019180e+004</X>
+    <Y>6.462599e+004</Y>
+   </Position>
+   <Orientation>1.799998e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>0.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bridge1</Type>
+   <Position>
+    <X>2.899180e+004</X>
+    <Y>1.947401e+004</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.238808e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>PB_Bridge1</Type>
+   <Position>
+    <X>2.899180e+004</X>
+    <Y>1.947401e+004</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bridge1</Type>
+   <Position>
+    <X>3.830820e+004</X>
+    <Y>1.947401e+004</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.238808e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>PB_Bridge1</Type>
+   <Position>
+    <X>3.830820e+004</X>
+    <Y>1.947401e+004</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bridge1</Type>
+   <Position>
+    <X>2.899180e+004</X>
+    <Y>4.782599e+004</Y>
+   </Position>
+   <Orientation>1.799998e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.238808e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>PB_Bridge1</Type>
+   <Position>
+    <X>2.899180e+004</X>
+    <Y>4.782599e+004</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Bridge1</Type>
+   <Position>
+    <X>3.830820e+004</X>
+    <Y>4.782599e+004</Y>
+   </Position>
+   <Orientation>1.799998e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>9.238808e-001</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>PB_Bridge1</Type>
+   <Position>
+    <X>3.830820e+004</X>
+    <Y>4.782599e+004</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
   </Entity>
  </Entities>
 </root>

@@ -1,16 +1,13 @@
-Script.Load("data\\maps\\user\\detecter.lua");
 if not CMod then
     GUI.AddStaticNote("@color:255,0,0 ERROR: Community Server is required!");
     return false;
 end
 
-Script.Load("maps\\user\\stronghold_s5mp\\cerberus\\loader.lua");
+Script.Load("cerberus\\loader.lua");
 if Lib == nil then
     Script.Load("maps\\externalmap\\cerberus\\loader.lua");
 end
 assert(Lib ~= nil);
-
-table.insert(Lib.Paths, 1, "maps/user/stronghold_s5mp/");
 
 Lib.Require("comfort/AreEnemiesInArea");
 Lib.Require("comfort/ArePositionsConnected");
@@ -49,20 +46,10 @@ DetectStronghold = function()
     return false;
 end
 
-Archive.Install();
-Archive.Push("stronghold_s5mp.s5x");
-Archive.ReloadEntities();
-
 Script.Load("data\\maps\\user\\stronghold_s5mp\\script\\detecter.lua");
 if not DetectStronghold() then
     GUI.AddStaticNote("@color:255,0,0 ERROR: Can not find Stronghold!");
     return false;
-end
-
-GameCallback_Logic_BeforeMapUnloaded_Orig_Stronghold = GameCallback_Logic_BeforeMapUnloaded;
-GameCallback_Logic_BeforeMapUnloaded = function()
-    GameCallback_Logic_BeforeMapUnloaded_Orig_Stronghold();
-    Archive.Pop();
 end
 
 -- ---------- --

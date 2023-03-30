@@ -10,15 +10,10 @@
 
 -- -------------------------------------------------------------------------- --
 
+Script.Load("data\\maps\\user\\stronghold_s5mp\\loader.lua");
+
 function OnMapStart()
     Player_Teams = {[1] = {1}, [2] = {2}};
-
-    local Path = "data\\maps\\user\\stronghold_s5mp\\";
-    if false then
-        Path = "E:/Siedler/Projekte/stronghold_s5mp/modfiles/";
-        gvTestPath = Path.. "script/stronghold/";
-    end
-    Script.Load(Path.. "loader.lua");
 
     Lib.Require("comfort/CreateWoodPile");
     Lib.Require("module/weather/WeatherMaker");

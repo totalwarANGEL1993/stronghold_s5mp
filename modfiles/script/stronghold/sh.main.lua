@@ -136,10 +136,6 @@ end
 -- Starts the script
 function Stronghold:Init()
     Archive.Install();
-    Archive.Push("stronghold_s5mp.s5x");
-    Archive.ReloadGUI("data\\menu\\projects\\ingame.xml");
-    Archive.ReloadEntities();
-
     Placeholder.Install();
     Syncer.Install(999);
     EntityTracker.Install();
