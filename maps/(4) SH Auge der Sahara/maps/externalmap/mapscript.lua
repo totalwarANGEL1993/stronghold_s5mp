@@ -19,9 +19,95 @@ function OnMapStart()
 
     SetupStronghold();
     SetupHumanPlayer(1);
+    Tools.GiveResouces(1, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(2);
+    Tools.GiveResouces(2, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(3);
+    Tools.GiveResouces(3, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(4);
+    Tools.GiveResouces(4, 600, 1200, 1500, 550, 0, 0);
+
+    SetHostile(1,7);
+    SetHostile(2,7);
+    SetHostile(3,7);
+    SetHostile(4,7);
+
+    SetupProvinces();
+    SetupCamps();
+end
+
+function SetupProvinces()
+    CreateHonorProvince(
+        "Oasis de Lune",
+        "Province1Pos",
+        30,
+        1.5,
+        "Province1Hut1",
+        "Province1Hut2",
+        "Province1Hut3",
+        "Province1Hut4",
+        "Province1Hut5",
+        "Province1Hut6",
+        "Province1Hut7",
+        "Province1Hut8"
+    );
+
+    CreateHonorProvince(
+        "Oasis de Sene",
+        "Province2Pos",
+        30,
+        1.5,
+        "Province2Hut1",
+        "Province2Hut2",
+        "Province2Hut3",
+        "Province2Hut4",
+        "Province2Hut5",
+        "Province2Hut6",
+        "Province2Hut7",
+        "Province2Hut8"
+    );
+
+    CreateResourceProvince(
+        "la Source de Mystere",
+        "Province3Pos",
+        ResourceType.WoodRaw,
+        600,
+        1.5,
+        "Province3Hut1",
+        "Province3Hut2"
+    )
+end
+
+function SetupCamps()
+    CreateTroopSpawner(
+        7, "Outpost1", nil, 3, 60, 3000,
+        Entities.PU_LeaderSword3,
+        Entities.PV_Cannon1,
+        Entities.PV_Cannon1
+    );
+    for i= 1, 4 do
+        CreateTroopSpawner(
+            7, "OP1Tent"..i, nil, 1, 60, 3000,
+            Entities.PU_LeaderPoleArm1,
+            Entities.PU_LeaderPoleArm1,
+            Entities.PU_LeaderBow1
+        );
+    end
+
+    CreateTroopSpawner(
+        7, "Outpost2", nil, 3, 60, 3000,
+        Entities.PU_LeaderSword3,
+        Entities.PV_Cannon1,
+        Entities.PV_Cannon1
+    );
+    for i= 1, 4 do
+        CreateTroopSpawner(
+            7, "OP2Tent"..i, nil, 1, 60, 3000,
+            Entities.PU_LeaderPoleArm1,
+            Entities.PU_LeaderPoleArm1,
+            Entities.PU_LeaderBow1
+        );
+    end
 end
 
 -- -------------------------------------------------------------------------- --

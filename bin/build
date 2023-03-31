@@ -25,7 +25,7 @@ rm -rf var/stronghold_s5mp/archive.bba.unpacked/cerberus/.vscode
 rm -rf var/stronghold_s5mp/archive.bba.unpacked/cerberus/test
 rm var/stronghold_s5mp/archive.bba.unpacked/cerberus/.gitignore
 rm var/stronghold_s5mp/archive.bba.unpacked/cerberus/changelog.md
-rm var/stronghold_s5mp/sarchive.bba.unpacked/cerberus/readme.md
+rm var/stronghold_s5mp/archive.bba.unpacked/cerberus/readme.md
 
 # pack archive
 bin/bba5.exe var/stronghold_s5mp/archive.bba.unpacked

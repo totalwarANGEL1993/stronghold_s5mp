@@ -47,6 +47,10 @@ Stronghold.Rights.Config = {
                 PlayerRight.Barracks,
                 PlayerRight.LeaderPoleArm1,
                 PlayerRight.BlackKnight3,
+                ---
+                PlayerRight.Beautification4,
+                PlayerRight.Beautification6,
+                PlayerRight.Beautification9,
             },
         },
         [PlayerRank.Mayor]    = {
@@ -74,10 +78,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.ShootingRange,
                 PlayerRight.LeaderBow1,
                 PlayerRight.BanditBow1,
-                ---
-                PlayerRight.Beautification4,
-                PlayerRight.Beautification6,
-                PlayerRight.Beautification9,
             },
         },
         [PlayerRank.Earl]     = {

@@ -56,9 +56,9 @@ function SetupStronghold()
 end
 
 --- Creates a new human player.
-function SetupHumanPlayer(_PlayerID)
+function SetupHumanPlayer(_PlayerID, _Serfs)
     if not Stronghold:IsPlayer(_PlayerID) then
-        Stronghold:AddPlayer(_PlayerID);
+        Stronghold:AddPlayer(_PlayerID, _Serfs);
     end
 end
 
@@ -216,7 +216,7 @@ end
 
 -- Add player
 -- This function adds a new player.
-function Stronghold:AddPlayer(_PlayerID)
+function Stronghold:AddPlayer(_PlayerID, _Serfs)
     local LordName = "LordP" .._PlayerID;
     local HQName = "HQ" .._PlayerID;
 
@@ -244,16 +244,16 @@ function Stronghold:AddPlayer(_PlayerID)
         SendEvent.SetTaxes(_PlayerID, 0);
     end
 
-    Job.Turn(function(_PlayerID)
-        return Stronghold:WaitForInitalizePlayer(_PlayerID);
-    end, _PlayerID);
+    Job.Turn(function(_PlayerID, _Serfs)
+        return Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs);
+    end, _PlayerID, _Serfs);
 end
 
-function Stronghold:WaitForInitalizePlayer(_PlayerID)
+function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs)
     local HQID = self:GetPlayerHeadquarter(_PlayerID);
     if  Logic.IsEntityInCategory(HQID, EntityCategories.Headquarters) == 1
     and Logic.IsConstructionComplete(HQID) == 1 then
-        self:InitalizePlayer(_PlayerID);
+        self:InitalizePlayer(_PlayerID, _Serfs);
         return true;
     end
     return false;
@@ -300,7 +300,7 @@ function Stronghold:GetLocalPlayerID()
     return PlayerID1;
 end
 
-function Stronghold:InitalizePlayer(_PlayerID)
+function Stronghold:InitalizePlayer(_PlayerID, _Serfs)
     local HQName = "HQ" .._PlayerID;
     local DoorPosName = "DoorP" .._PlayerID;
     local CampName = "CampP" .._PlayerID;
@@ -321,7 +321,7 @@ function Stronghold:InitalizePlayer(_PlayerID)
     Logic.SetEntityName(ID, CampName);
 
     -- Create serfs
-    local SerfCount = self.Config.Base.StartingSerfs;
+    local SerfCount = _Serfs or self.Config.Base.StartingSerfs;
     for i= 1, SerfCount do
         local SerfPos = GetCirclePosition(CampPos, 250, (360/SerfCount) * i);
         local ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
@@ -694,9 +694,6 @@ end
 function Stronghold:AddPlayerHonor(_PlayerID, _Amount)
     if self:IsPlayer(_PlayerID) then
         self.Players[_PlayerID].Honor = self.Players[_PlayerID].Honor + _Amount;
-        if self.Players[_PlayerID].Honor > self.Config.Base.MaxHonor then
-            self.Players[_PlayerID].Honor = self.Config.Base.MaxHonor;
-        end
         if self.Players[_PlayerID].Honor < 0 then
             self.Players[_PlayerID].Honor = 0;
         end

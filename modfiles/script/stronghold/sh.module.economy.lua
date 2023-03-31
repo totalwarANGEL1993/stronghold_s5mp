@@ -608,7 +608,6 @@ function Stronghold.Economy:HonorMenu()
     local Reputation = 100;
     local ReputationLimit = 200;
     local Honor = 0;
-    local MaxHonor = Stronghold.Config.Base.MaxHonor;
     if Stronghold:IsPlayer(PlayerID) then
         Reputation = Stronghold:GetPlayerReputation(PlayerID);
         ReputationLimit = Stronghold:GetPlayerReputationLimit(PlayerID);
@@ -627,7 +626,7 @@ function Stronghold.Economy:HonorMenu()
 	XGUIEng.SetWidgetPositionAndSize("GCWindowWelcome", 0, 0, WOffset, 0);
 	XGUIEng.SetText(
         "GCWindowWelcome",
-        Honor.. "/" ..MaxHonor.. " @cr " ..Reputation.. "/" ..ReputationLimit
+        Honor.. " @cr " ..Reputation.. "/" ..ReputationLimit
     );
     XGUIEng.SetTextColor("GCWindowWelcome", 255, 255, 255);
     if Game.GameTimeGetFactor() == 0 then

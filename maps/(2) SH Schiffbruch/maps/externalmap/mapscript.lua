@@ -21,7 +21,10 @@ function OnMapStart()
     ---
 
     SetupStronghold();
+
+    Tools.GiveResouces(1, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(1);
+    Tools.GiveResouces(2, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(2);
 
     -- Cut off half of the map in Singleplayer

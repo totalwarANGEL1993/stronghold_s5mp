@@ -3,7 +3,7 @@
  <NameKey>MapDescription/Peaceful_Land_name</NameKey>
  <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
  <Name>(4) @color:200,70,40 SH @color:255,255,255 Auge der Sahara</Name>
- <Desc>@color:200,70,40 von totalwarANGEL @cr @cr ...</Desc>
+ <Desc>@color:200,70,40 von totalwarANGEL @cr @cr @color:255,255,255 Tief in der Wüste liegt Guelb er Richat, das "Auge der Sahara". Vier Burgherren kämpfen um die Vorherrschaft in diesem kargen Land. Wer wird bestehen und wer wird sich den Sand demnächst von unten ansehen? @cr @cr Empfohlene Teams: @cr Spieler 1 und 2 vs. Spieler 3 und 4</Desc>
  <SizeX>673</SizeX>
  <SizeY>673</SizeY>
  <MPFlag>false</MPFlag>
@@ -12,6 +12,6 @@
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>7f0b5539-4173-4a0e-bd1a-1f9784601828</Data>
+  <Data>6b0ee440-e742-4b6f-87b8-a903c8ed43c0</Data>
  </GUID>
 </root>
