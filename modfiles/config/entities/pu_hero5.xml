@@ -160,13 +160,13 @@
 	        <RechargeTimeSeconds>30</RechargeTimeSeconds>
 	        <TaskList>TL_SHURIKEN_SPECIAL</TaskList>
 	        <Animation>PU_Hero5_Attack2</Animation> 
-	        <Range>3000.0</Range>
-	        <MaxArcDegree>120</MaxArcDegree>
-	        <NumberShuriken>12</NumberShuriken>
+	        <Range>2700.0</Range>
+	        <MaxArcDegree>90</MaxArcDegree>
+	        <NumberShuriken>8</NumberShuriken>
 	        <ProjectileType>FXArrow</ProjectileType> 
 	        <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight> 
 	        <DamageClass>DC_Hero</DamageClass>
-	        <DamageAmount>75</DamageAmount>
+	        <DamageAmount>150</DamageAmount>
 	    </Logic>
 	</Behavior>
 	
