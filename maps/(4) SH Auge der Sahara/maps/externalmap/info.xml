@@ -2,7 +2,7 @@
 <root>
  <NameKey>MapDescription/Peaceful_Land_name</NameKey>
  <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
- <Name>(4) @color:200,70,40 SH @color:255,255,255 SH Auge der Sahara</Name>
+ <Name>(4) @color:200,70,40 SH @color:255,255,255 Auge der Sahara</Name>
  <Desc>@color:200,70,40 von totalwarANGEL @cr @cr ...</Desc>
  <SizeX>673</SizeX>
  <SizeY>673</SizeY>
@@ -12,6 +12,6 @@
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>3cf8b1b7-a9d2-424b-8dba-f9453d44f9e6</Data>
+  <Data>7f0b5539-4173-4a0e-bd1a-1f9784601828</Data>
  </GUID>
 </root>

@@ -228,7 +228,8 @@
         "CreateNameForEntity",
         "GetResourceName",
         "ArePositionsConnected",
-        "KeyOf"
+        "KeyOf",
+        "MEDITERANEANMUSIC"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
