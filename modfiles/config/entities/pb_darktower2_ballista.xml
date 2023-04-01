@@ -30,7 +30,7 @@
             <MaxAttackRange>3000.0f</MaxAttackRange>
             <MinRange>800.0f</MinRange>
             <DamageClass>DC_Chaos</DamageClass>
-            <DamageAmount>30</DamageAmount>
+            <DamageAmount>35</DamageAmount>
             <DamageRange>500</DamageRange>
             <AutoAttackRange>3000</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

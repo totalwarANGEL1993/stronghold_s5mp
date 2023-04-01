@@ -29,13 +29,13 @@
     	    <CannonBallEffectType>FXArrow</CannonBallEffectType>
   			<ProjectileOffsetFront>100</ProjectileOffsetFront>
     	    <ReloadTime>500</ReloadTime>
-    	    <MaxAttackRange>2800.0f</MaxAttackRange>
+    	    <MaxAttackRange>2900.0f</MaxAttackRange>
     	     <MinRange>200.0f</MinRange>
     	    <DamageClass>DC_Evil</DamageClass>
             <!-- Note: That is single target damage! -->
-    	    <DamageAmount>65</DamageAmount>
+    	    <DamageAmount>50</DamageAmount>
     	    <DamageRange>300</DamageRange>
-    	    <AutoAttackRange>2800</AutoAttackRange>
+    	    <AutoAttackRange>2900</AutoAttackRange>
     	    <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>
     	</Logic>
 		<Display classname="ED::CBehaviorProps">

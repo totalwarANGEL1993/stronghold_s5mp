@@ -14,7 +14,6 @@
         <Category>MilitaryBuilding</Category>
         <Category>Military</Category>
         <Category>Cannon</Category>
-        <Category>SplashDamage</Category>
         <SnapTolerance>40.0f</SnapTolerance>
         <MapFileDontSave>true</MapFileDontSave>
         <Visible>false</Visible>
@@ -27,14 +26,14 @@
             <RotationSpeed>20</RotationSpeed>
             <CannonBallEffectType>FXTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
-            <ReloadTime>1000</ReloadTime>
-            <MaxAttackRange>2800.0f</MaxAttackRange>
+            <ReloadTime>1500</ReloadTime>
+            <MaxAttackRange>2500.0f</MaxAttackRange>
             <MinRange>200.0f</MinRange>
             <DamageClass>DC_Chaos</DamageClass>
             <!-- Note: That is single target damage! -->
-            <DamageAmount>50</DamageAmount>
-            <DamageRange>500</DamageRange>
-            <AutoAttackRange>2800</AutoAttackRange>
+            <DamageAmount>30</DamageAmount>
+            <DamageRange>300</DamageRange>
+            <AutoAttackRange>2500</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>
         </Logic>
         <Display classname="ED::CBehaviorProps">
