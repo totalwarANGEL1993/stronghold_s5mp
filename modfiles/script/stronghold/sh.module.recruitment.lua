@@ -220,6 +220,17 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
         return true;
     end
     if _UnitToRecruit[_Type] then
+        -- If the building can have a worker than the worker must be at
+        -- the building to recruit units.
+        if Logic.GetBuildingWorkPlaceLimit(EntityID) > 0 then
+            local Worker = {Logic.GetAttachedWorkersToBuilding(EntityID)};
+            if not Worker[1] or (Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 0) then
+                Sound.PlayQueuedFeedbackSound(Sounds.VoicesWorker_WORKER_FunnyNo_rnd_01, 100);
+                Message(self.Text.Msg.NoWorker[Language]);
+                return true;
+            end
+        end
+
         local Button = _UnitToRecruit[_Type][1];
         if self.Data[PlayerID].Roster[Button] then
             local UnitType = self.Data[PlayerID].Roster[Button];

@@ -11,5 +11,9 @@ Stronghold.Recruitment.Text.Msg = {
         de = "Euere Heeresstärke ist an ihrem Limit, Hochwohlgeboren!",
         en = "Your army strength is at its limit, Your Highness!",
     },
+    NoWorker = {
+        de = "Kein Arbeiter im Gebäude, Hochwohlgeboren!",
+        en = "There is no worker present, Your Highness!",
+    },
 }
 
