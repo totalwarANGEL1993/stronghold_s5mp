@@ -10,7 +10,7 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
-        <MaxHealth>400</MaxHealth>
+        <MaxHealth>600</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>5</ArmorAmount>
         <Category>MilitaryBuilding</Category>

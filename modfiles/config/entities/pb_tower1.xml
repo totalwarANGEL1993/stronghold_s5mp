@@ -10,7 +10,7 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
-        <MaxHealth>200</MaxHealth>
+        <MaxHealth>400</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <Category>MilitaryBuilding</Category>
@@ -131,15 +131,11 @@
             <NumDestroyEffects>9</NumDestroyEffects>
         </Display>
     </Behavior>
-
-
-
-
-
-
-
-
-
-
-
+    
+    <Behavior>
+        <Logic classname="GGL::CFoundationBehaviorProps">
+            <Class>GGL::CFoundationBehavior</Class>
+            <TopEntityType>PB_Tower1_ArrowLauncher</TopEntityType>
+        </Logic>
+    </Behavior>
 </root>

@@ -74,8 +74,8 @@
 	</Behavior>
 	<Behavior>
 		  <Logic classname="GGL::CLeaderBehaviorProps">
-			  <Class>GGL::CLeaderBehavior</Class>
-			  <SoldierType>PU_SoldierSword4</SoldierType>
+			<Class>GGL::CLeaderBehavior</Class>
+			<SoldierType>PU_SoldierSword4</SoldierType>
 			
 	        <BattleTaskList>TL_BATTLE_RIFLE</BattleTaskList>
 	        

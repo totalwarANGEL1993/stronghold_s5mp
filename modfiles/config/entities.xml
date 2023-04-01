@@ -1037,4 +1037,11 @@
 		<Entity>XD_Sunflower4</Entity>
 
 		<Entity>XD_TemplarAltar</Entity>
+
+
+
+<!--Stronghold-->
+
+        <Entity>PB_DarkTower1_ArrowLauncher</Entity>
+        <Entity>PB_Tower1_ArrowLauncher</Entity>
 </root>
