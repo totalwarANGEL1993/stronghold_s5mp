@@ -428,7 +428,7 @@ end
 -- Play a funny comment when the hero is selected.
 function Stronghold.Hero:PlayFunnyComment(_PlayerID)
     -- It's not intended anymore that other players hear the funny comment.
-    if Stronghold:GetLocalPlayerID() ~= _PlayerID then
+    if GetLocalPlayerID() ~= _PlayerID then
         return;
     end
 
@@ -830,7 +830,6 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
         local Factor = self.Config.Hero3.UnitCostFactor;
         if Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1 then
-            Costs[ResourceType.Honor] = nil;
             Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
             Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
             Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
@@ -899,6 +898,12 @@ function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
         local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
         Value = Value - (ThiefCount * 3);
+    elseif self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+        local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon1);
+        local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon2);
+        local Cannon3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon3);
+        local Cannon4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon4);
+        Value = Value - ((Cannon1 * 5) + (Cannon2 * 5) + (Cannon3 * 5) + (Cannon4 * 5));
     end
     return Value;
 end

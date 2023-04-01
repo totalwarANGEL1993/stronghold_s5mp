@@ -132,7 +132,7 @@ end
 function Stronghold.Unit:BuySoldierButtonAction()
     local Language = GetLanguage();
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     if not IsHumanPlayer(PlayerID) then
         return true;
@@ -187,7 +187,7 @@ end
 function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _ShortCut)
     local Language = GetLanguage();
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     if not IsHumanPlayer(PlayerID) then
         return false;
@@ -272,7 +272,7 @@ end
 
 function Stronghold.Unit:ExpelSettlerButtonTooltip(_Key)
     local Language = GetLanguage();
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     if IsHumanPlayer(PlayerID) then
         if _Key == "MenuCommandsGeneric/expel" then
             local Index = (XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 and "All") or "Single";
@@ -286,7 +286,7 @@ end
 
 function Stronghold.Unit:ExpelSettlerButtonAction()
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     if not IsHumanPlayer(PlayerID) then
         return true;

@@ -111,7 +111,7 @@ function Stronghold.Building:OverrideHeadquarterButtons()
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxesButtons", function()
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         local TaxLevel = Stronghold.Players[PlayerID].TaxHeight -1;
         XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
         XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
@@ -130,7 +130,7 @@ function Stronghold.Building:OverrideHeadquarterButtons()
 end
 
 function Stronghold.Building:AdjustTax(_Level)
-    local GuiPlayer = Stronghold:GetLocalPlayerID();
+    local GuiPlayer = GetLocalPlayerID();
     local PlayerID = GUI.GetPlayerID();
     if GuiPlayer ~= PlayerID then
         return false;
@@ -147,7 +147,7 @@ function Stronghold.Building:AdjustTax(_Level)
 end
 
 function Stronghold.Building:HeadquartersBuySerf()
-    local GuiPlayer = Stronghold:GetLocalPlayerID();
+    local GuiPlayer = GetLocalPlayerID();
     local PlayerID = GUI.GetPlayerID();
     if Stronghold.Players[PlayerID].BuyUnitLock then
         return false;
@@ -765,7 +765,7 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
         end
         -- Get model
         local Model = Models.Effects_XF_ExtractStone;
-        if Stronghold:GetLocalPlayerID() == _PlayerID then
+        if GetLocalPlayerID() == _PlayerID then
             Model = Models.Banners_XB_LargeFull;
         end
         Logic.SetModelAndAnimSet(ID, Model);
@@ -791,7 +791,7 @@ function Stronghold.Building:CanHaveRallyPoint(_Building)
 end
 
 function Stronghold.Building:OnShiftRightClick()
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     if self.Data[PlayerID] then
         if self:CanHaveRallyPoint(EntityID) then

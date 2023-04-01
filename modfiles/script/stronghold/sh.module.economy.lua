@@ -603,7 +603,7 @@ function Stronghold.Economy:GetLeaderTypesInUpgradeCategories(...)
 end
 
 function Stronghold.Economy:HonorMenu()
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
 
     local Reputation = 100;
     local ReputationLimit = 200;
@@ -652,7 +652,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxPaydayIncome", function()
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         if not Stronghold.Economy.Data[PlayerID] then
             return Overwrite.CallOriginal();
         end
@@ -668,7 +668,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxSumOfTaxes", function()
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         if not Stronghold.Economy.Data[PlayerID] then
             return Overwrite.CallOriginal();
         end
@@ -677,7 +677,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxLeaderCosts", function()
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         if not Stronghold.Economy.Data[PlayerID] then
             return Overwrite.CallOriginal();
         end
@@ -686,7 +686,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_AverageMotivation", function()
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         if not IsHumanPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end

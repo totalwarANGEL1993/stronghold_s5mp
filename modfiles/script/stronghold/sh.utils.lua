@@ -27,7 +27,7 @@ end
 
 function HasPlayerEnoughResourcesFeedback(_Costs)
     local Language = GetLanguage();
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     if not Stronghold.Players[PlayerID] then
         return InterfaceTool_HasPlayerEnoughResources_Feedback(_Costs) == 1;
     end

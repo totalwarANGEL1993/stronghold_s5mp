@@ -199,7 +199,7 @@ function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
         -- camouflage is blown they will be caught.
         for i= table.getn(self.Data[_PlayerID].Criminals), 1, -1 do
             local Data = self.Data[_PlayerID].Criminals[i];
-            if not IsExisting(Data[2]) then
+            if not IsExisting(Data[1]) or not IsExisting(Data[2]) then
                 self:RemoveCriminal(_PlayerID, Data[1]);
             else
                 local MaxVeil = self.Config.Crime.Unveil.Points;

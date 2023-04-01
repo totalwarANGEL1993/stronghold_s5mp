@@ -69,6 +69,13 @@ function SetupHumanPlayer(_PlayerID, _Serfs)
     end
 end
 
+--- Returns the GUI player. If the owner of an selected entity differs from the
+--- GUI player then the owner player ID is returned.
+--- @return number Player ID of player
+function GetLocalPlayerID()
+    return Stronghold:GetLocalPlayerID();
+end
+
 --- Returns if a player is a human player.
 --- @param _PlayerID number ID of player
 --- @return boolean IsPlayer Is human player
@@ -521,7 +528,7 @@ function Stronghold:OnEntityCreated()
 
     if Logic.IsBuilding(EntityID) == 1 then
         if GUI.GetPlayerID() == PlayerID then
-            self:OnSelectionMenuChanged(EntityID, GUI.GetSelectedEntity());
+            self:OnSelectionMenuChanged(EntityID);
         end
     end
     if Logic.IsSettler(EntityID) == 1 then
@@ -865,14 +872,14 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         return;
     end
 
-    self.Hero:OnSelectLeader(SelectedID);
-    self.Hero:OnSelectHero(SelectedID);
-
     self.Building:OnHeadquarterSelected(SelectedID);
     self.Building:OnMonasterySelected(SelectedID);
     self.Building:OnAlchemistSelected(SelectedID);
 
     self.Construction:OnSelectSerf(SelectedID);
+
+    self.Hero:OnSelectLeader(SelectedID);
+    self.Hero:OnSelectHero(SelectedID);
 
     self.Recruitment:OnBarracksSelected(SelectedID);
     self.Recruitment:OnArcherySelected(SelectedID);
@@ -885,7 +892,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_GUI_SelectionChanged", function()
         Overwrite.CallOriginal();
         local EntityID = GUI.GetSelectedEntity();
-        local GuiPlayer = Stronghold:GetLocalPlayerID();
+        local GuiPlayer = GetLocalPlayerID();
         Stronghold.Building:OnRallyPointHolderSelected(GuiPlayer, EntityID);
         Stronghold:OnSelectionMenuChanged(EntityID);
     end);
@@ -899,6 +906,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnBuildingUpgradeComplete", function(_EntityIDOld, _EntityIDNew)
         Overwrite.CallOriginal();
         local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
+        Stronghold:OnSelectionMenuChanged(_EntityIDNew);
         Stronghold.Province:OnBuildingUpgraded(_EntityIDNew, PlayerID);
     end);
 
@@ -966,14 +974,14 @@ function Stronghold:OverrideWidgetActions()
 
     Overwrite.CreateOverwrite("GUIAction_ChangeBuildingMenu", function(_WidgetID)
         local EntityID = GUI.GetSelectedEntity();
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         if not Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(PlayerID, EntityID, _WidgetID) then
             Overwrite.CallOriginal();
         end
     end);
 
     Overwrite.CreateOverwrite("GUIAction_BlessSettlers", function(_BlessCategory)
-        local GuiPlayer = Stronghold:GetLocalPlayerID();
+        local GuiPlayer = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         if InterfaceTool_IsBuildingDoingSomething(EntityID) == true then
             return true;
@@ -1004,14 +1012,14 @@ function Stronghold:OverrideWidgetTooltips()
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_BuyMilitaryUnit", function(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         Overwrite.CallOriginal();
         Stronghold.Recruitment:UpdateTavernBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
         Stronghold.Recruitment:UpdateFoundryBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_BlessSettlers", function(_TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-        local GuiPlayer = Stronghold:GetLocalPlayerID();
+        local GuiPlayer = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
         Stronghold.Building:MonasteryBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
@@ -1019,14 +1027,14 @@ function Stronghold:OverrideWidgetTooltips()
     end);
 
     Overwrite.CreateOverwrite( "GUITooltip_ConstructBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
-        local GuiPlayer = Stronghold:GetLocalPlayerID();
+        local GuiPlayer = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
         Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_Generic", function(_Key)
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         if not IsHumanPlayer(PlayerID) then
             return Overwrite.CallOriginal();
@@ -1053,7 +1061,7 @@ function Stronghold:OverrideWidgetTooltips()
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_ResearchTechnologies", function(_Technology, _TextKey, _ShortCut)
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         if not IsHumanPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
@@ -1076,7 +1084,7 @@ end
 -- Button Update Generic Override
 function Stronghold:OverrideWidgetUpdates()
     Overwrite.CreateOverwrite("GUIUpdate_BuildingButtons", function(_Button, _Technology)
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
         Stronghold.Rights:OnlineHelpUpdate(PlayerID, _Button, _Technology);
@@ -1112,7 +1120,7 @@ function Stronghold:OverrideWidgetUpdates()
 
     Overwrite.CreateOverwrite("GUIUpdate_FaithProgress", function()
         local WidgetID = XGUIEng.GetCurrentWidgetID();
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
         Stronghold.Building:HeadquartersFaithProgressGuiUpdate(PlayerID, EntityID, WidgetID);

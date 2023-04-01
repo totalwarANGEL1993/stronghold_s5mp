@@ -88,11 +88,11 @@
 	        <BattleWalkAnim>PV_Cannon3_Drive</BattleWalkAnim>
 	        
 	        <DamageClass>DC_Chaos</DamageClass>
-	        <DamageAmount>65</DamageAmount>
+	        <DamageAmount>40</DamageAmount>
 	        <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
 	        <DamageRange>600</DamageRange>
 	        
-	        <BattleWaitUntil>2000</BattleWaitUntil>
+	        <BattleWaitUntil>2500</BattleWaitUntil>
 	        
 	        <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
 	        <MaxRange>2700</MaxRange>

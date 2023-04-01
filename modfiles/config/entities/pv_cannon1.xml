@@ -91,11 +91,11 @@
 	        <BattleWalkAnim>PV_Cannon1_Drive</BattleWalkAnim>
 	    
 	        <DamageClass>DC_Chaos</DamageClass>
-	        <DamageAmount>30</DamageAmount>
+	        <DamageAmount>20</DamageAmount>
 	        <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
-	        <DamageRange>300</DamageRange>
+	        <DamageRange>600</DamageRange>
 	        
-	        <BattleWaitUntil>2000</BattleWaitUntil>
+	        <BattleWaitUntil>2500</BattleWaitUntil>
   			<ProjectileOffsetFront>40</ProjectileOffsetFront>
   			<ProjectileOffsetRight/>
 	        <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>

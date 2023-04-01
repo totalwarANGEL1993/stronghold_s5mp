@@ -429,7 +429,7 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Foundry, Alchemist's Hut",
         },
         Costs             = {
-            [1] = {25, 350, 0, 50, 0, 250, 100},
+            [1] = {25, 450, 0, 50, 0, 300, 150},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.Cannon1,
@@ -451,7 +451,7 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Foundry, Alchemist's Hut",
         },
         Costs             = {
-            [1] = {25, 350, 0, 50, 0, 100, 250},
+            [1] = {25, 450, 0, 50, 0, 150, 300},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.Cannon2,
@@ -645,7 +645,8 @@ Stronghold.Unit.Config = {
         ProviderBuilding  = {},
     },
 
-    -- Barbarians
+    -- Barbarians --
+
     [Entities.CU_Barbarian_LeaderClub2]     = {
         Button            = "Buy_LeaderSword",
         TextNormal        = {

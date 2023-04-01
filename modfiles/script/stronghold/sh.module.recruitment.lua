@@ -209,7 +209,7 @@ end
 
 function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecruit, _Type)
     local Language = GetLanguage();
-    local GuiPlayer = Stronghold:GetLocalPlayerID();
+    local GuiPlayer = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
     local AutoFillActive = Logic.IsAutoFillActive(EntityID) == 1;
@@ -311,7 +311,7 @@ end
 
 function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_UnitToRecruit, _Technology)
     local Language = GetLanguage();
-    local GuiPlayer = Stronghold:GetLocalPlayerID();
+    local GuiPlayer = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
     local AutoFillActive = Logic.IsAutoFillActive(EntityID) == 1;
@@ -844,6 +844,10 @@ function Stronghold.Recruitment:GetOccupiedSpacesFromCannonsInProgress(_PlayerID
     if self.Data[_PlayerID] then
         for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
             local Size = Stronghold.Attraction:GetRequiredSpaceForUnitType(v, 1);
+            -- Salim passive skill
+            if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+                Size = math.floor((Size * 0.5) + 0.5);
+            end
             Places = Places + Size;
         end
     end
@@ -867,7 +871,7 @@ GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
     local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
     local EntityID = GUI.GetSelectedEntity();
     local ScriptName = Logic.GetEntityName(EntityID);
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
 
     if not Stronghold.Recruitment.Data[PlayerID] then
         XGUIEng.SetMaterialColor(CurrentWidgetID,1,0,0,0,0);

@@ -232,7 +232,7 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 " ..
                 "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                 "Wissen ist Macht. Und er weiß sein Wissen einzusetzen. Kanonen "..
-                "benötigen keine Ehre und die Kosten sind um 10% reduziert. "..
+                "belegen weniger Plätze und die Kosten sind um 10% reduziert. "..
                 "@cr @cr "..
                 "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                 "Er kann eine Falle verstecken, die explodiert, sobald der Feind "..
@@ -242,7 +242,7 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                 "Knowledge equals power. And he knows how to use it. Cannons do "..
-                "not require honor and their costs are reduced by 10%. "..
+                "occupy less places and their costs are reduced by 10%. "..
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                 "He can hide a trap that explodes when reckless enemies come "..

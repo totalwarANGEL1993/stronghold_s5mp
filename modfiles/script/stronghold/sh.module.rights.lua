@@ -395,7 +395,7 @@ end
 -- Rank Up Button
 
 function Stronghold.Rights:OnlineHelpAction()
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     if not IsHumanPlayerInitalized(PlayerID) then
         return false;
     end
@@ -428,7 +428,7 @@ function Stronghold.Rights:OnlineHelpTooltip(_Key)
         local CostText = "";
         local Text = "";
 
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         local NextRank = GetRank(PlayerID) +1;
         if  PlayerID ~= 17 and self.Config.Titles[NextRank]
         and NextRank <= self.Data[PlayerID].MaxRank

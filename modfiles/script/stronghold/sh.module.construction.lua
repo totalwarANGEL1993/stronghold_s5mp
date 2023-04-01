@@ -34,7 +34,7 @@ end
 
 function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
     local Language = GetLanguage();
-    local PlayerID = Stronghold:GetLocalPlayerID();
+    local PlayerID = GetLocalPlayerID();
     if not IsHumanPlayer(PlayerID) then
         return false;
     end
@@ -335,7 +335,7 @@ function Stronghold.Construction:OverridePlaceBuildingAction()
     end
 
     Overwrite.CreateOverwrite("GUIAction_PlaceBuilding", function(_UpgradeCategory)
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         Overwrite.CallOriginal();
         Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory = _UpgradeCategory;
         return false;
@@ -343,7 +343,7 @@ function Stronghold.Construction:OverridePlaceBuildingAction()
 
     Overwrite.CreateOverwrite("GUIUpdate_FindView", function()
         Overwrite.CallOriginal();
-        local PlayerID = Stronghold:GetLocalPlayerID();
+        local PlayerID = GetLocalPlayerID();
         Stronghold.Construction:CancelBuildingPlacementForUpgradeCategory(
             PlayerID,
             Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory
