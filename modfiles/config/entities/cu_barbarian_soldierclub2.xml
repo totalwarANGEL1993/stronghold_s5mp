@@ -34,15 +34,15 @@
         </Cost>
 
         <ModifyArmor>
-        	<Technology>T_SoftArcherArmor</Technology>
+        	<Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
         
         <ModifyArmor>
-        	<Technology>T_PaddedArcherArmor</Technology>
+        	<Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
         
         <ModifyArmor>
-        	<Technology>T_LeatherArcherArmor</Technology>
+        	<Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
 
          <ModifyDamage>
