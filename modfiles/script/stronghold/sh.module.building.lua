@@ -98,7 +98,7 @@ end
 -- Headquarters
 
 function Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, _Level)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         Stronghold.Players[_PlayerID].TaxHeight = math.min(math.max(_Level +1, 0), 5);
     end
 end
@@ -174,10 +174,8 @@ end
 
 function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not Stronghold:IsPlayer(PlayerID) then
-        return;
-    end
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
+    if not IsHumanPlayer(PlayerID)
+    or Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return;
     end
 
@@ -565,19 +563,17 @@ end
 
 function Stronghold.Building:OnMonasterySelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not Stronghold:IsPlayer(PlayerID) then
-        return;
-    end
     local Type = Logic.GetEntityType(_EntityID);
-    if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
+    if not IsHumanPlayer(PlayerID)
+    or Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
         return;
     end
 
     local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
-    if Level < 2 then
+    if Level == 1 then
         XGUIEng.ShowWidget("Upgrade_Monastery2", 1);
     end
-    if Level < 1 then
+    if Level == 0 then
         XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
     end
     XGUIEng.TransferMaterials("Research_PickAxe", "BlessSettlers1");
@@ -711,11 +707,9 @@ end
 
 function Stronghold.Building:OnAlchemistSelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not Stronghold:IsPlayer(PlayerID) then
-        return;
-    end
     local Type = Logic.GetEntityType(_EntityID);
-    if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Alchemist then
+    if not IsHumanPlayer(PlayerID)
+    or Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Alchemist then
         return;
     end
     XGUIEng.ShowWidget("Research_WeatherForecast", 0);
@@ -867,7 +861,7 @@ function Stronghold.Building:InitalizeBuyUnitKeybindings()
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _EntityID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
@@ -890,7 +884,7 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _EntityID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
@@ -909,7 +903,7 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _E
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _EntityID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then

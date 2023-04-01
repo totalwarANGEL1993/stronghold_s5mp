@@ -108,13 +108,11 @@
 	        
 	        <DamageClass>DC_Hero</DamageClass>
 	        <DamageAmount>25</DamageAmount>
-	        <MaxRandomDamageBonus>10</MaxRandomDamageBonus>
+	        <MaxRandomDamageBonus>25</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2000</BattleWaitUntil>
 	        
-	        <AutoAttackRange>2000</AutoAttackRange>
-	        
-	        <MaxRange>300</MaxRange>
+	        <MaxRange>200</MaxRange>
 	        <MinRange>0</MinRange>
 
             <HealingPoints>4</HealingPoints>

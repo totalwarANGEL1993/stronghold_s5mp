@@ -51,7 +51,7 @@ function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
 end
 
 function Stronghold.Unit:RefillUnit(_PlayerID, _UnitID, _Amount, _Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local LeaderType = Logic.GetEntityType(_UnitID);
         if Stronghold.Unit.Config:Get(LeaderType, _PlayerID) then
             if Logic.GetEntityHealth(_UnitID) > 0 then
@@ -134,7 +134,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Stronghold:GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not Stronghold:IsPlayer(PlayerID) then
+    if not IsHumanPlayer(PlayerID) then
         return true;
     end
     if GuiPlayer ~= PlayerID then
@@ -189,7 +189,7 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Stronghold:GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not Stronghold:IsPlayer(PlayerID) then
+    if not IsHumanPlayer(PlayerID) then
         return false;
     end
     if GuiPlayer ~= PlayerID then
@@ -220,7 +220,7 @@ function Stronghold.Unit:BuySoldierButtonUpdate()
     local PlayerID = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     local Type = Logic.GetEntityType(EntityID);
-    if Stronghold:IsPlayer(PlayerID) then
+    if IsHumanPlayer(PlayerID) then
         local BarracksID = Logic.LeaderGetNearbyBarracks(EntityID);
         local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(EntityID);
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(EntityID);
@@ -273,7 +273,7 @@ end
 function Stronghold.Unit:ExpelSettlerButtonTooltip(_Key)
     local Language = GetLanguage();
     local PlayerID = Stronghold:GetLocalPlayerID();
-    if Stronghold:IsPlayer(PlayerID) then
+    if IsHumanPlayer(PlayerID) then
         if _Key == "MenuCommandsGeneric/expel" then
             local Index = (XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 and "All") or "Single";
             local Text = Placeholder.Replace(self.Text["Expell" ..Index][Language]);
@@ -288,7 +288,7 @@ function Stronghold.Unit:ExpelSettlerButtonAction()
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Stronghold:GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not Stronghold:IsPlayer(PlayerID) then
+    if not IsHumanPlayer(PlayerID) then
         return true;
     end
     if GuiPlayer ~= PlayerID then

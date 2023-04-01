@@ -27,13 +27,28 @@ Stronghold.Hero = {
 -- API
 
 --- Creates an hero for the player.
+--- 
+--- This is supposed to be used when the player has no choice which hero
+--- they have to use.
 function PlayerCreateNoble(_PlayerID, _Type, _Position)
     Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position);
 end
 
+--- Activates the hero selection for the player.
+function PlayerActivateNobleSelection(_PlayerID)
+    Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, true);
+end
+
+--- Deactivates the hero selection for the player.
+function PlayerDeactivateNobleSelection(_PlayerID)
+    Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, false);
+end
+
 --- Returns if the player has the type as hero.
-function PlayerHasHeroOfType(_PlayerID, _Type)
-    return Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type);
+---
+--- If a hero is not the lord (or lady) then this hero does not count.
+function PlayerHasLordOfType(_PlayerID, _Type)
+    return Stronghold.Hero:HasValidLordOfType(_PlayerID, _Type);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -41,6 +56,9 @@ end
 function Stronghold.Hero:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {};
+
+        -- NEVER EVER CHANGE THIS - unless you know what you are doing!!!
+        BuyHero.SetNumberOfBuyableHeroes(i, 1);
     end
 
     self:ConfigureBuyHero();
@@ -86,12 +104,17 @@ function Stronghold.Hero:SetHeroDescription(_Type, _Text)
     self.Text.Hero.Description[_Type] = Text;
 end
 
+function Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, _Flag)
+    -- Deactivates both the selection and the buy hero window.
+    BuyHero.SetNumberOfBuyableHeroes(_PlayerID, (_Flag and 1) or 0);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Hero Selection
 
 function Stronghold.Hero:OnSelectLeader(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not Stronghold:IsPlayer(PlayerID) or Logic.IsLeader(_EntityID) == 0 then
+    if not IsHumanPlayer(PlayerID) or Logic.IsLeader(_EntityID) == 0 then
         return;
     end
 
@@ -120,7 +143,7 @@ end
 
 function Stronghold.Hero:OnSelectHero(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not Stronghold:IsPlayer(PlayerID) or Logic.IsHero(_EntityID) == 0 then
+    if not IsHumanPlayer(PlayerID) or Logic.IsHero(_EntityID) == 0 then
         return;
     end
 
@@ -282,7 +305,7 @@ end
 function Stronghold.Hero:PrintSelectionName()
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
-    if Stronghold:IsPlayer(PlayerID) then
+    if IsHumanPlayer(PlayerID) then
 		if EntityID == GetID(Stronghold.Players[PlayerID].LordScriptName) then
             local Type = Logic.GetEntityType(EntityID);
             local TypeName = Logic.GetEntityTypeName(Type);
@@ -299,7 +322,7 @@ end
 
 function Stronghold.Hero:ConfigureBuyHero()
     Overwrite.CreateOverwrite("GameCallback_Logic_BuyHero_OnHeroSelected", function(_PlayerID, _ID, _Type)
-        if Stronghold:IsPlayer(_PlayerID) then
+        if IsHumanPlayer(_PlayerID) then
             Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type);
             Stronghold.Hero:PlayFunnyComment(_PlayerID);
             Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type);
@@ -309,7 +332,7 @@ function Stronghold.Hero:ConfigureBuyHero()
     end);
 
     Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetHeadline", function(_PlayerID)
-        if Stronghold:IsPlayer(_PlayerID) then
+        if IsHumanPlayer(_PlayerID) then
             local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
             local Caption = (LordID ~= 0 and "Alea Iacta Est!") or "Wählt Euren Adligen!";
             return Caption;
@@ -318,7 +341,7 @@ function Stronghold.Hero:ConfigureBuyHero()
     end);
 
     Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetMessage", function(_PlayerID, _Type)
-        if Stronghold:IsPlayer(_PlayerID) then
+        if IsHumanPlayer(_PlayerID) then
             local Lang = GetLanguage();
             local DisplayName = Stronghold.Hero.Text.Hero.Names[_Type][Lang];
             local Biography = Stronghold.Hero.Text.Hero.Biography[_Type][Lang];
@@ -335,7 +358,7 @@ function Stronghold.Hero:ConfigureBuyHero()
 end
 
 function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Position = _Position;
         if type(Position) ~= "table" then
             Position = GetPosition(Position);
@@ -347,7 +370,7 @@ function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
 end
 
 function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         -- Get motivation cap
         local ExpectedSoftCap = 2;
         local CurrentSoftCap = CUtil.GetPlayersMotivationSoftcap(_PlayerID);
@@ -390,7 +413,7 @@ function Stronghold.Hero:ConfigurePlayersHeroPet(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if Type == Entities.CU_Barbarian_Hero_wolf then
-        if self:HasValidHeroOfType(PlayerID, Entities.CU_Barbarian_Hero) then
+        if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
             local CurrentRank = GetRank(PlayerID);
             local Armor = 2 + math.floor(CurrentRank * 0.5);
             local Damage = 13 + math.floor(CurrentRank * 3);
@@ -486,7 +509,7 @@ end
 -- Trigger
 
 function Stronghold.Hero:EntityAttackedController(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             -- Count down and remove
             Stronghold.Players[_PlayerID].AttackMemory[k][1] = v[1] -1;
@@ -524,7 +547,7 @@ function Stronghold.Hero:EntityAttackedController(_PlayerID)
 end
 
 function Stronghold.Hero:HeliasConvertController(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             if Logic.GetEntityType(k) == Entities.PU_Hero6 then
                 local HeliasPlayerID = Logic.EntityGetPlayer(k);
@@ -550,7 +573,7 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
 end
 
 function Stronghold.Hero:VargWolvesController(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local WolvesBatteling = 0;
         for k,v in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Barbarian_Hero_wolf)) do
             local Task = Logic.GetCurrentTaskList(v);
@@ -614,7 +637,7 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
     -- Generic --
     Overwrite.CreateOverwrite("GameCallback_GainedResources", function(_PlayerID, _ResourceType, _Amount)
         Overwrite.CallOriginal();
-        if Stronghold:IsPlayer(_PlayerID) then
+        if IsHumanPlayer(_PlayerID) then
             Stronghold.Hero:ResourceProductionBonus(_PlayerID, _ResourceType, _Amount);
         end
     end);
@@ -718,15 +741,20 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
     end);
 end
 
-function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
-    if Stronghold:IsPlayer(_PlayerID) then
+function Stronghold.Hero:HasValidLordOfType(_PlayerID, _Type)
+    if IsHumanPlayer(_PlayerID) then
         local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
-        if IsEntityValid(LordID) then
-            local HeroType = Logic.GetEntityType(LordID);
-            local TypeName = Logic.GetEntityTypeName(HeroType);
-            if type(_Type) == "string" and TypeName and string.find(TypeName, _Type) then
-                return true;
-            elseif type(_Type) == "number" and HeroType == _Type then
+        if self:IsValidHero(LordID, _Type) then
+            return true;
+        end
+    end
+    return false;
+end
+
+function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
+    if IsHumanPlayer(_PlayerID) then
+        for k, HeroID in pairs(self:GetHeroes(_PlayerID)) do
+            if self:IsValidHero(HeroID, _Type) then
                 return true;
             end
         end
@@ -734,11 +762,30 @@ function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
     return false;
 end
 
+function Stronghold.Hero:IsValidHero(_HeroID, _Type)
+    local HeroType = Logic.GetEntityType(_HeroID);
+    local TypeName = Logic.GetEntityTypeName(HeroType);
+    if IsEntityValid(_HeroID) then
+        if type(_Type) == "string" and TypeName and string.find(TypeName, _Type) then
+            return true;
+        elseif type(_Type) == "number" and HeroType == _Type then
+            return true;
+        end
+    end
+    return false;
+end
+
+function Stronghold.Hero:GetHeroes(_PlayerID)
+    local HeroList = {};
+    Logic.GetHeroes(_PlayerID, HeroList);
+    return HeroList;
+end
+
 -- Passive Ability: Resource production bonus
 -- (Callback is only called for main resource types)
 -- TODO: Replace this with server functions?
 function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _Type, _Amount)
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero2) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
         if _Amount >= 4 then
             if _Type == ResourceType.SulfurRaw
             or _Type == ResourceType.ClayRaw
@@ -754,7 +801,7 @@ end
 -- Passive Ability: leader costs
 function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     local Costs = _Costs;
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
         local Factor = self.Config.Hero4.UnitCostFactor;
         local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1
         local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1
@@ -780,7 +827,7 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
             end
         end
     end
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero3) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
         local Factor = self.Config.Hero3.UnitCostFactor;
         if Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1 then
             Costs[ResourceType.Honor] = nil;
@@ -796,7 +843,7 @@ end
 -- Passive Ability: soldier costs
 function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, _Costs)
     local Costs = _Costs;
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero11) then
         local Factor = self.Config.Hero11.UnitCostFactor;
         if Costs[ResourceType.Gold] then
             Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
@@ -822,7 +869,7 @@ end
 
 function Stronghold.Hero:ApplyRecruitTimePassiveAbility(_PlayerID, _LeaderType, _Value)
     local Value = _Value;
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero10) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10) then
         if Logic.IsEntityTypeInCategory(_LeaderType, EntityCategories.Rifle) == 1 then
             Value = Value * self.Config.Hero10.TrainTimeFactor;
         end
@@ -840,7 +887,7 @@ end
 -- Passive Ability: Increase of max civil attraction
 function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidHeroOfType(_PlayerID, Entities.CU_Evil_Queen) then
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
         Value = Value * self.Config.Hero12.PupulationFactor;
     end
     return Value;
@@ -849,7 +896,7 @@ end
 -- Passive Ability: Change millitary places usage
 function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
         local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
         Value = Value - (ThiefCount * 3);
     end
@@ -866,9 +913,9 @@ end
 -- Passive Ability: Increase of reputation
 function Stronghold.Hero:ApplyMaxReputationPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidHeroOfType(_PlayerID, Entities.CU_BlackKnight) then
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_BlackKnight) then
         Value = self.Config.Hero7.ReputationCap;
-    elseif self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero11) then
+    elseif self:HasValidLordOfType(_PlayerID, Entities.PU_Hero11) then
         Value = self.Config.Hero11.ReputationCap;
     end
     return Value;
@@ -884,7 +931,7 @@ end
 -- Passive Ability: Decrease of reputation
 function Stronghold.Hero:ApplyReputationDecreasePassiveAbility(_PlayerID, _Decrease)
     local Decrease = _Decrease;
-    if self:HasValidHeroOfType(_PlayerID, Entities.CU_BlackKnight) then
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_BlackKnight) then
         Decrease = Decrease * self.Config.Hero7.ReputationLossFactor;
     end
     return Decrease;
@@ -893,7 +940,7 @@ end
 -- Passive Ability: Improve dynamic reputation generation
 function Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, _Amount)
     local Value = _Amount;
-    if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
         local Type = Logic.GetEntityType(_BuildingID);
         if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
             Value = Value * self.Config.Hero9.TavernEfficiency;
@@ -912,7 +959,7 @@ end
 -- Passive Ability: Improve dynamic honor generation
 function Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, _Amount)
     local Value = _Amount;
-    if self:HasValidHeroOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
         local Type = Logic.GetEntityType(_BuildingID);
         if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
             Value = Value * self.Config.Hero9.TavernEfficiency;
@@ -924,7 +971,7 @@ end
 -- Passive Ability: Tax income bonus
 function Stronghold.Hero:ApplyIncomeBonusPassiveAbility(_PlayerID, _Income)
     local Income = _Income;
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero5) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         Income = Income * self.Config.Hero5.TaxIncomeFactor;
     end
     return Income;
@@ -941,12 +988,12 @@ end
 -- This function is called for each unit type individually.
 function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type, _Upkeep)
     local Upkeep = _Upkeep;
-    if self:HasValidHeroOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
         if _Type == Entities.PU_Thief then
             Upkeep = self.Config.Hero8.UpkeepFactor;
         end
     end
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero10) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10) then
         if _Type == Entities.PU_LeaderRifle1 or _Type == Entities.PU_LeaderRifle2 then
             Upkeep = Upkeep * self.Config.Hero10.UpkeepFactor;
         end
@@ -957,7 +1004,7 @@ end
 -- Passive Ability: Generating measure points
 function Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidHeroOfType(_PlayerID, "^PU_Hero1[abc]+$") then
+    if self:HasValidLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
         Value = Value * self.Config.Hero1.MeasureFactor;
     end
     return Value;
@@ -966,7 +1013,7 @@ end
 -- Passive Ability: Change factor of becoming a criminal
 function Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero6) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
         Value = Value * self.Config.Hero6.CrimeRateFactor;
     end
     return Value;
@@ -975,7 +1022,7 @@ end
 -- Passive Ability: Chance the chance of becoming a criminal
 function Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, _Chance)
     local Value = _Chance;
-    if self:HasValidHeroOfType(_PlayerID, Entities.PU_Hero6) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
         Value = Value * self.Config.Hero9.WolfHonorRate;
     end
     return Value;

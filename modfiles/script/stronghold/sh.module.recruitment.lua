@@ -213,7 +213,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
     local AutoFillActive = Logic.IsAutoFillActive(EntityID) == 1;
-    if PlayerID ~= GuiPlayer or not Stronghold:IsPlayer(PlayerID) then
+    if PlayerID ~= GuiPlayer or not IsHumanPlayer(PlayerID) then
         return false;
     end
     if Stronghold.Players[PlayerID].BuyUnitLock then
@@ -304,7 +304,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
     local AutoFillActive = Logic.IsAutoFillActive(EntityID) == 1;
-    if PlayerID ~= GuiPlayer or not Stronghold:IsPlayer(PlayerID) then
+    if PlayerID ~= GuiPlayer or not IsHumanPlayer(PlayerID) then
         return false;
     end
     if Stronghold.Players[PlayerID].BuyUnitLock then
@@ -430,7 +430,7 @@ end
 
 function Stronghold.Recruitment:OnRecruiterSelected(_ButtonsToUpdate, _EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not Stronghold:IsPlayer(PlayerID) then
+    if not IsHumanPlayer(PlayerID) then
         return;
     end
     for k, v in pairs(_ButtonsToUpdate) do
@@ -597,7 +597,7 @@ function Stronghold.Recruitment:ProduceUnitFromQueue(_PlayerID, _Queue, _ScriptN
             end
             -- Get initial experience
             local Experience = 0;
-            if Stronghold.Hero:HasValidHeroOfType(_PlayerID, Entities.PU_Hero4) then
+            if PlayerHasLordOfType(_PlayerID, Entities.PU_Hero4) then
                 Experience = Stronghold.Hero.Config.Hero4.TrainExperience;
             end
             -- Create entity
@@ -651,7 +651,7 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
         Stronghold.Players[_PlayerID].BuyUnitLock = nil;
         return;
     end
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
         if Stronghold.Unit.Config:Get(_Type, _PlayerID) then
             local ScriptName = Logic.GetEntityName(_BarracksID);

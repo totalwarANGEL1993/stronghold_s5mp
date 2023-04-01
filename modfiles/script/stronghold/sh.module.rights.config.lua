@@ -22,7 +22,7 @@ Stronghold.Rights.Config = {
     },
 
     Titles = {
-        [PlayerRank.Noble]    = {
+        [PlayerRank.Commoner] = {
             Costs  = {0, 0, 0, 0, 0, 0, 0},
             Duties = {},
             Rights = {
@@ -39,14 +39,23 @@ Stronghold.Rights.Config = {
                 -- DO NOT MOVE THIS!!! --
 
                 PlayerRight.Keep,
-                PlayerRight.MeasureLevyTax,
                 PlayerRight.Serf,
+                ---
+                PlayerRight.BlackKnight3,
+            }
+        },
+        [PlayerRank.Noble]    = {
+            Costs  = {0, 300, 0, 0, 0, 0, 0},
+            Duties = {
+                {PlayerDuty.Headquarters, 0},
+            },
+            Rights = {
+                PlayerRight.MeasureLevyTax,
                 ---
                 PlayerRight.Chapel,
                 ---
                 PlayerRight.Barracks,
                 PlayerRight.LeaderPoleArm1,
-                PlayerRight.BlackKnight3,
                 ---
                 PlayerRight.Beautification4,
                 PlayerRight.Beautification6,
@@ -57,7 +66,6 @@ Stronghold.Rights.Config = {
             Costs  = {10, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Cathedral, 0},
-                {PlayerDuty.Settlers, 1, Entities.PU_Serf, 18},
             },
             Rights = {
                 PlayerRight.MeasureLawAndOrder,

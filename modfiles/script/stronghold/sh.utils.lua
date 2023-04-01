@@ -50,7 +50,7 @@ end
 function FormatCostString(_PlayerID, _Costs)
     local Language = GetLanguage();
     local CostString = "";
-    if not Stronghold:IsPlayer(_PlayerID) then
+    if not IsHumanPlayer(_PlayerID) then
         return CostString;
     end
 

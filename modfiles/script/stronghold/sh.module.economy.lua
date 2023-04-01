@@ -197,7 +197,7 @@ end
 -- Income & Upkeep
 
 function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local MaxReputation = self.Config.Income.MaxReputation;
         MaxReputation = GameCallback_Calculate_ReputationMax(_PlayerID, MaxReputation);
         Stronghold:SetPlayerReputationLimit(_PlayerID, MaxReputation);
@@ -276,7 +276,7 @@ end
 -- Reputation is produced by buildings and units.
 -- Reputation can only increase if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Income = 0;
         local WorkerList = GetAllWorker(_PlayerID, 0);
         if table.getn(WorkerList) > 0 then
@@ -354,7 +354,7 @@ end
 -- provide a farm or house are negative factors.
 -- Reputation can only decrease if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Decrease = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
@@ -406,7 +406,7 @@ end
 -- Honor is influenced by tax, buildings and units.
 -- A player can only gain honor if they have workers and a noble.
 function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Income = 0;
         if GetID(Stronghold.Players[_PlayerID].LordScriptName) ~= 0 then
             local WorkerList = GetAllWorker(_PlayerID, 0);
@@ -478,7 +478,7 @@ end
 -- Calculate tax income
 -- The tax income is mostly unchanged. A worker pays 5 gold times the tax level.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local WorkerList = GetAllWorker(_PlayerID, 0);
         local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
         local PerWorker = self.Config.Income.TaxPerWorker;
@@ -493,7 +493,7 @@ end
 -- The upkeep is not for the leader himself. Soldiers are also incluced in the
 -- calculation. The upkeep decreases if the group looses soldiers.
 function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Upkeep = 0;
         for k, v in pairs(Stronghold.Unit.Config) do
             if type(k) == "number" then
@@ -524,14 +524,14 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
 end
 
 function Stronghold.Economy:AddOneTimeHonor(_PlayerID, _Amount)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Old = self.Data[_PlayerID].IncomeHonorSingle;
         self.Data[_PlayerID].IncomeHonorSingle = Old + _Amount;
     end
 end
 
 function Stronghold.Economy:AddOneTimeReputation(_PlayerID, _Amount)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local Old = self.Data[_PlayerID].IncomeReputationSingle;
         self.Data[_PlayerID].IncomeReputationSingle = Old + _Amount;
     end
@@ -541,7 +541,7 @@ end
 -- Measure Points
 
 function Stronghold.Economy:AddPlayerMeasure(_PlayerID, _Amount)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local MeasurePoints = self:GetPlayerMeasure(_PlayerID);
         MeasurePoints = math.max(MeasurePoints + _Amount, 0);
         MeasurePoints = math.min(MeasurePoints, self:GetPlayerMeasureLimit(_PlayerID));
@@ -550,7 +550,7 @@ function Stronghold.Economy:AddPlayerMeasure(_PlayerID, _Amount)
 end
 
 function Stronghold.Economy:GetPlayerMeasure(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         return self.Data[_PlayerID].MeasurePoints;
     end
     return 0;
@@ -561,7 +561,7 @@ function Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID)
 end
 
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         local CurrentRank = GetRank(_PlayerID)
         local MeasurePoints = 0;
         for k, v in pairs(GetAllWorker(_PlayerID, 0)) do
@@ -608,7 +608,7 @@ function Stronghold.Economy:HonorMenu()
     local Reputation = 100;
     local ReputationLimit = 200;
     local Honor = 0;
-    if Stronghold:IsPlayer(PlayerID) then
+    if IsHumanPlayer(PlayerID) then
         Reputation = Stronghold:GetPlayerReputation(PlayerID);
         ReputationLimit = Stronghold:GetPlayerReputationLimit(PlayerID);
         Honor = Stronghold.Players[PlayerID].Honor;
@@ -687,7 +687,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 
     Overwrite.CreateOverwrite("GUIUpdate_AverageMotivation", function()
         local PlayerID = Stronghold:GetLocalPlayerID();
-        if not Stronghold:IsPlayer(PlayerID) then
+        if not IsHumanPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         XGUIEng.SetMaterialTexture("IconMotivation", 0, "graphics/textures/gui/i_res_arms.png");
@@ -790,14 +790,23 @@ end
 
 function Stronghold.Economy:ShowHeadquartersDetail(_PlayerID)
     local GuiPlayer = GUI.GetPlayerID();
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         if GuiPlayer == 17 or GuiPlayer == _PlayerID then
             local Selected = GUI.GetSelectedEntity();
-            if Selected == GetID(Stronghold.Players[_PlayerID].HQScriptName) then
-                local Language = GetLanguage();
-                local Headline = self.Text.CourtClerk[1][Language];
-                local Content = self:CreateHeadquarterDetailsText(_PlayerID);
-                ShowInfoWindow(Headline, Content);
+            local Language = GetLanguage();
+            local Headline = self.Text.CourtClerk[1][Language];
+            local Content = self:CreateHeadquarterDetailsText(_PlayerID);
+
+            -- If player has a castle show window for the castle
+            if IsHumanPlayerInitalized(_PlayerID) then
+                if Selected == GetID(Stronghold.Players[_PlayerID].HQScriptName) then
+                    ShowInfoWindow(Headline, Content);
+                end
+            -- Instead if not show it for the hero
+            else
+                if Selected == GetID(Stronghold.Players[_PlayerID].LordScriptName) then
+                    ShowInfoWindow(Headline, Content);
+                end
             end
         end
     end

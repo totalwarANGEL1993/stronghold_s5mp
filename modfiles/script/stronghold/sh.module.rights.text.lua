@@ -54,8 +54,8 @@ Stronghold.Rights.Text = {
 
     Title = {
         [PlayerRank.Commoner] = {
-            [Gender.Male]   = {de = "Pöbel", en = "Rabble"},
-            [Gender.Female] = {de = "Pöbel", en = "Rabble"}
+            [Gender.Male]   = {de = "Gewöhnlicher", en = "Commoner"},
+            [Gender.Female] = {de = "Gewöhnliche", en = "Commoner"}
         },
         [PlayerRank.Noble]    = {
             [Gender.Male]   = {de = "Adliger", en = "Nobleman"},

@@ -4,11 +4,9 @@
 --- This script implements everything reguarding the player.
 ---
 --- Managed by the script:
---- - Players rank
 --- - Players honor
 --- - Players reputation
 --- - Players payday
---- - Players attraction limit
 --- - Defeat condition
 --- - Shared UI stuff
 --- - automatic archive loading
@@ -50,54 +48,96 @@ Stronghold = {
 -- -------------------------------------------------------------------------- --
 -- API
 
---- Starts the Stronghold script
+--- Starts the Stronghold script.
 function SetupStronghold()
     Stronghold:Init();
 end
 
+--- Sets the inital rank for all players.
+--- (Must be done *before* setting up players because it changes the config!)
+--- @param _Rank number ID of rank
+function SetInitialRank(_Rank)
+    Stronghold:SetInitialRank(_Rank);
+end
+
 --- Creates a new human player.
+--- @param _PlayerID number ID of player
+--- @param _Serfs?   number Amount of serfs
 function SetupHumanPlayer(_PlayerID, _Serfs)
-    if not Stronghold:IsPlayer(_PlayerID) then
+    if not IsHumanPlayer(_PlayerID) then
         Stronghold:AddPlayer(_PlayerID, _Serfs);
     end
 end
 
+--- Returns if a player is a human player.
+--- @param _PlayerID number ID of player
+--- @return boolean IsPlayer Is human player
+function IsHumanPlayer(_PlayerID)
+    return Stronghold:IsPlayer(_PlayerID);
+end
+
+--- Returns if a player is a human player and is initalized.
+--- (A player is initalized when the headquarters is placed.)
+--- @param _PlayerID number ID of player
+--- @return boolean IsInitalized Is initalized player
+function IsHumanPlayerInitalized(_PlayerID)
+    return Stronghold:IsPlayerInitalized(_PlayerID);
+end
+
 --- Gives reputation to the player.
+--- @param _PlayerID number ID of player
+--- @param _Amount   number Amount of Reputation
 function AddReputation(_PlayerID, _Amount)
     Stronghold:AddPlayerReputation(_PlayerID, _Amount)
 end
 
 --- Returns the reputation of the player.
+--- @param _PlayerID number ID of player
+--- @return number Amount Amount of reputation
 function GetReputation(_PlayerID)
     return Stronghold:GetPlayerReputation(_PlayerID);
 end
 
 --- Returns the max reputation of the player.
+--- @param _PlayerID number ID of player
+--- @return number Amount Limit of reputation
 function GetMaxReputation(_PlayerID)
     return Stronghold:GetPlayerReputationLimit(_PlayerID);
 end
 
 --- Adds honor to the player.
+--- @param _PlayerID number ID of player
+--- @param _Amount   number Amount of Honor
 function AddHonor(_PlayerID, _Amount)
     Stronghold:AddPlayerHonor(_PlayerID, _Amount);
 end
 
 --- Returns the amount of honor of the player.
+--- @param _PlayerID number ID of player
+--- @return number Amount Amount of honor
 function GetHonor(_PlayerID)
     return Stronghold:GetPlayerHonor(_PlayerID);
 end
 
 --- Returns the ID of the players headquarter.
+--- @param _PlayerID number ID of player
+--- @return number ID ID of Headquarters
 function GetHeadquarterID(_PlayerID)
     return Stronghold:GetPlayerHeadquarter(_PlayerID);
 end
 
 --- Alters the purchase price of the resource.
+--- @param _PlayerID number ID of player
+--- @param _Resource number Resource type
+--- @param _Price    number Price factor
 function SetPurchasePrice(_PlayerID, _Resource, _Price)
     Stronghold:ManipulateGoodPurchasePrice(_PlayerID, _Resource, _Price);
 end
 
 --- Alters the selling price of the resource.
+--- @param _PlayerID number ID of player
+--- @param _Resource number Resource type
+--- @param _Price    number Price factor
 function SetSellingPrice(_PlayerID, _Resource, _Price)
     Stronghold:ManipulateGoodSellPrice(_PlayerID, _Resource, _Price);
 end
@@ -185,16 +225,20 @@ function Stronghold:OnSaveGameLoaded()
         Message("The S5 Community Server is required!");
         return false;
     end
-    Archive.Push("stronghold_s5mp.s5x");
+    -- FIXME: Do I still need next line?
+    Archive.Push("stronghold_s5mp.bba");
     Archive.ReloadGUI("data\\menu\\projects\\ingame.xml");
     Archive.ReloadEntities();
 
     Stronghold:AddDelayedAction(1, function(_PlayerID)
         Stronghold:LoadGUIElements(_PlayerID);
     end, GUI.GetPlayerID());
+    -- Force UI update
     GUI.ClearSelection();
+    -- Init new resource
     ResourceType.Honor = 20;
 
+    -- Call save game stuff
     self.Rights:OnSaveGameLoaded();
     self.Construction:OnSaveGameLoaded();
     self.Building:OnSaveGameLoaded();
@@ -207,12 +251,21 @@ function Stronghold:OnSaveGameLoaded()
     self.Outlaw:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();
 
+    -- Change texts
     self:OverrideStringTableText();
     return true;
 end
 
 -- -------------------------------------------------------------------------- --
 -- Initalize Player
+
+function Stronghold:SetInitialRank(_Rank)
+    assert(_Rank >= PlayerRank.Commoner and _Rank <= PlayerRank.Duke, "Invalid rank!");
+    for k,v in pairs(self.Players) do
+        assert(false, "A player was already setup!");
+    end
+    self.Config.Base.InitialRank = _Rank;
+end
 
 -- Add player
 -- This function adds a new player.
@@ -238,8 +291,6 @@ function Stronghold:AddPlayer(_PlayerID, _Serfs)
         AttackMemory = {},
     };
 
-    -- NEVER EVER CHANGE THIS!!!
-    BuyHero.SetNumberOfBuyableHeroes(_PlayerID, 1);
     if CNetwork then
         SendEvent.SetTaxes(_PlayerID, 0);
     end
@@ -977,7 +1028,7 @@ function Stronghold:OverrideWidgetTooltips()
     Overwrite.CreateOverwrite("GUITooltip_Generic", function(_Key)
         local PlayerID = Stronghold:GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
-        if not Stronghold:IsPlayer(PlayerID) then
+        if not IsHumanPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         local TooltipSet = false;
@@ -1003,7 +1054,7 @@ function Stronghold:OverrideWidgetTooltips()
 
     Overwrite.CreateOverwrite("GUITooltip_ResearchTechnologies", function(_Technology, _TextKey, _ShortCut)
         local PlayerID = Stronghold:GetLocalPlayerID();
-        if not Stronghold:IsPlayer(PlayerID) then
+        if not IsHumanPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         local TooltipSet = false;

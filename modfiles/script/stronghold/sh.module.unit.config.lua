@@ -806,7 +806,7 @@ Stronghold.Unit.Config = {
 }
 
 function Stronghold.Unit.Config:Get(_Type, _PlayerID)
-    if not _PlayerID or not Stronghold:IsPlayer(_PlayerID) then
+    if not _PlayerID or not IsHumanPlayer(_PlayerID) then
         return self[_Type];
     end
     return Stronghold.Recruitment.Data[_PlayerID].Config[_Type];

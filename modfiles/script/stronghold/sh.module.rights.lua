@@ -115,14 +115,14 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Rights:GetPlayerRank(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         return self.Data[_PlayerID].Rank;
     end
     return 1;
 end
 
 function Stronghold.Rights:SetPlayerRank(_PlayerID, _Rank)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         self.Data[_PlayerID].Rank = _Rank;
         self:GrantPlayerRights(_PlayerID, _Rank);
     end
@@ -143,7 +143,7 @@ function Stronghold.Rights:GetPlayerRankName(_Rank, _PlayerID)
 
     if _PlayerID ~= 17 then
         CurrentRank = _Rank;
-        if Stronghold:IsPlayer(_PlayerID) then
+        if IsHumanPlayer(_PlayerID) then
             local LordID = Stronghold:GetPlayerHero(_PlayerID);
             if LordID ~= 0 then
                 Gender = GetGender(Logic.GetEntityType(LordID)) or 1;
@@ -160,7 +160,7 @@ end
 -- Rights
 
 function Stronghold.Rights:InitDutiesAndRights(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         for k,v in pairs(self.Config.Titles) do
             for _, RightToUnlock in pairs(self.Config.Titles[k].Rights) do
                 self.Data[_PlayerID].Rights[RightToUnlock] = 0;
@@ -170,7 +170,7 @@ function Stronghold.Rights:InitDutiesAndRights(_PlayerID)
 end
 
 function Stronghold.Rights:ChangeRightsAndDutiesForPlayer(_PlayerID, _Data)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         -- Change player rights and duties
         for k,v in pairs(_Data) do
             local RankKey = KeyOf(k, PlayerRank);
@@ -187,19 +187,19 @@ function Stronghold.Rights:ChangeRightsAndDutiesForPlayer(_PlayerID, _Data)
 end
 
 function Stronghold.Rights:LockPlayerRank(_PlayerID, _Rank)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         self.Data[_PlayerID].LockRank = _Rank;
     end
 end
 
 function Stronghold.Rights:LockPlayerRight(_PlayerID, _RightToLock)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         self.Data[_PlayerID].Rights[_RightToLock] = -1;
     end
 end
 
 function Stronghold.Rights:UnlockPlayerRight(_PlayerID, _RightToLock)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         self.Data[_PlayerID].Rights[_RightToLock] = 0;
         for i= 1, GetRank(_PlayerID) do
             self:GrantPlayerRights(_PlayerID, i);
@@ -208,7 +208,7 @@ function Stronghold.Rights:UnlockPlayerRight(_PlayerID, _RightToLock)
 end
 
 function Stronghold.Rights:GrantPlayerRights(_PlayerID, _Rank)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         for i= 1, table.getn(self.Data[_PlayerID].Titles[_Rank].Rights) do
             local RightToGrant = self.Data[_PlayerID].Titles[_Rank].Rights[i];
             if self.Data[_PlayerID].Rights[RightToGrant] ~= -1 then
@@ -219,13 +219,13 @@ function Stronghold.Rights:GrantPlayerRights(_PlayerID, _Rank)
 end
 
 function Stronghold.Rights:HasPlayerRight(_PlayerID, _Right)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         return self.Data[_PlayerID].Rights[_Right] == 1;
     end
 end
 
 function Stronghold.Rights:GetRankRequiredForRight(_PlayerID, _Right)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         for t,_ in pairs(self.Data[_PlayerID].Titles) do
             for j= 1, table.getn(self.Data[_PlayerID].Titles[t].Rights) do
                 if self.Data[_PlayerID].Titles[t].Rights[j] == _Right then
@@ -277,7 +277,7 @@ end
 
 function Stronghold.Rights:GetDutiesDescription(_PlayerID, _Rank)
     local Duties = self.Config.Titles[_Rank].Duties;
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         Duties = self.Data[_PlayerID].Titles[_Rank].Duties;
     end
 
@@ -396,7 +396,7 @@ end
 
 function Stronghold.Rights:OnlineHelpAction()
     local PlayerID = Stronghold:GetLocalPlayerID();
-    if not Stronghold:IsPlayerInitalized(PlayerID) then
+    if not IsHumanPlayerInitalized(PlayerID) then
         return false;
     end
     local CurrentRank = GetRank(PlayerID);
@@ -457,7 +457,7 @@ function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
     if _Button == "OnlineHelpButton" then
         local Texture = "graphics/textures/gui/b_rank_f2.png";
         if GUI.GetPlayerID() == _PlayerID then
-            if Stronghold:IsPlayerInitalized(_PlayerID) then
+            if IsHumanPlayerInitalized(_PlayerID) then
                 local CurrentRank = GetRank(_PlayerID);
                 Texture = "graphics/textures/gui/b_rank_" ..CurrentRank.. ".png";
                 if CurrentRank >= self.Data[_PlayerID].LockRank
@@ -503,7 +503,7 @@ function Stronghold.Rights:PromotePlayer(_PlayerID)
 end
 
 function Stronghold.Rights:CanPlayerBePromoted(_PlayerID)
-    if Stronghold:IsPlayer(_PlayerID) then
+    if IsHumanPlayer(_PlayerID) then
         if IsExisting(Stronghold.Players[_PlayerID].LordScriptName) then
             local CurrentRank = GetRank(_PlayerID);
             if CurrentRank < self.Data[_PlayerID].MaxRank and CurrentRank < self.Data[_PlayerID].LockRank then
