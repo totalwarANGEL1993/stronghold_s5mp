@@ -33,7 +33,7 @@
             <ArmorClassIronFactor>2.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Any swordman on foot -->
@@ -45,7 +45,7 @@
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.4</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Black Knights and Barbarians -->
@@ -69,7 +69,7 @@
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Cannons, towers, bombs -->
@@ -81,7 +81,7 @@
             <ArmorClassIronFactor>1.4</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>            
-            <ArmorClassFurFactor>0.4</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <DamageClass id="DC_Siege">
@@ -104,7 +104,7 @@
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>1.4</ArmorClassFurFactor>
+            <ArmorClassFurFactor>1.6</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Shrouded -->

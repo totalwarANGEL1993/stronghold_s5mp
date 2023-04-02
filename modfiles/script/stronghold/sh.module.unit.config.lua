@@ -752,8 +752,8 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
-            [1] = {6, 70, 0, 150, 0, 40, 0},
-            [2] = {0, 6, 0, 20, 0, 10, 0},
+            [1] = {6, 65, 0, 140, 0, 30, 0},
+            [2] = {0, 5, 0, 15, 0, 5, 0},
         },
         Right             = PlayerRight.Bearman,
         IsCivil           = false,
@@ -774,8 +774,8 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
-            [1] = {3, 90, 0, 200, 0, 0, 0},
-            [2] = {0, 8, 0, 35, 0, 0, 0},
+            [1] = {3, 80, 0, 180, 0, 0, 0},
+            [2] = {0, 5, 0, 25, 0, 0, 0},
         },
         Right             = PlayerRight.Skirmisher,
         IsCivil           = false,
