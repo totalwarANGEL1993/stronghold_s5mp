@@ -1,6 +1,5 @@
 --- 
 --- Config for heroes
---- (Can this be deleted?)
 --- 
 
 -- Hero 1 properties
@@ -60,6 +59,8 @@ Stronghold.Hero.Config.Hero11 = {
 Stronghold.Hero.Config.Hero12 = {
     PupulationFactor = 1.2,
 }
+
+-- FIXME: Can the following be deleted?
 
 Stronghold.Hero.Config.Nobles = {
     {Entities.PU_Hero1c,             true},

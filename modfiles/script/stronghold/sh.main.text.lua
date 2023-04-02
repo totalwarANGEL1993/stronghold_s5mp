@@ -1,5 +1,5 @@
 --- 
---- 
+--- Texts for the main module.
 --- 
 
 Stronghold.Text = {
