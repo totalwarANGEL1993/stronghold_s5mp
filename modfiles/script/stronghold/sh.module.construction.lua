@@ -33,21 +33,18 @@ end
 -- Construction
 
 function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
-    local Language = GetLanguage();
     local PlayerID = GetLocalPlayerID();
     if not IsHumanPlayer(PlayerID) then
         return false;
     end
     local IsForbidden = false;
-    local IsDisabled = false;
 
     -- Get default text
-    local ForbiddenText = GetSeparatedTooltipText("MenuGeneric/BuildingNotAvailable")
-    local NormalText = GetSeparatedTooltipText(_KeyNormal);
-    local DisabledText = GetSeparatedTooltipText(_KeyDisabled);
+    local ForbiddenText = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable")
+    local NormalText = XGUIEng.GetStringTableText(_KeyNormal);
+    local DisabledText = XGUIEng.GetStringTableText(_KeyDisabled);
     local DefaultText = NormalText;
     if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-        IsDisabled = true;
         DefaultText = DisabledText;
         if _Technology and Logic.GetTechnologyState(PlayerID, _Technology) == 0 then
             DefaultText = ForbiddenText;
@@ -72,53 +69,52 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
         end
     end
 
-    local Text = DefaultText[1];
+    local EffectText = "";
+    local LimitText = "";
     if not IsForbidden then
-        -- Rank requirement
-        local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
-        if CheckRight then
-            local RequiredRank = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
-            if RequiredRank ~= 0 and IsDisabled then
-                local RankName = GetRankName(RequiredRank, PlayerID);
-                DefaultText[2] = self.Text.UI.Require[Language] .. RankName;
-                if _UpgradeCategory == UpgradeCategories.GenericBridge then
-                    local BuildingName = XGUIEng.GetStringTableText("Names/PB_MasterBuilderWorkshop");
-                    DefaultText[2] = DefaultText[2] .. ", " .. BuildingName;
-                end
-            end
-        end
-        Text = DefaultText[1] .. " @cr " .. DefaultText[2];
-
-        -- Effect text
-        local EffectText = "";
-        local Effects = Stronghold.Economy:GetStaticTypeConfiguration(Type);
-        if Effects then
-            if Effects.Reputation > 0 then
-                EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language] .. " ";
-            end
-            if Effects.Honor > 0 then
-                EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-            end
-            if EffectText ~= "" then
-                EffectText = self.Text.UI.Effect[Language] .. EffectText;
-            end
-        end
-
-        -- Special effects
-        if _UpgradeCategory == UpgradeCategories.Tavern then
-            EffectText = self.Text.UI.Effect[Language] .. self.Text.Effects.Tavern[Language];
-        end
-
+        -- Building limits
         local BuildingMax = EntityTracker.GetLimitOfType(Type);
         if BuildingMax > -1 then
             local BuildingCount = EntityTracker.GetUsageOfType(PlayerID, Type);
-            Text = DefaultText[1].. " (" ..BuildingCount.. "/" ..BuildingMax.. ") @cr " .. DefaultText[2];
+            LimitText = "(" ..BuildingCount.. "/" ..BuildingMax.. ")";
         end
 
-        Text = Text .. EffectText;
+        -- Effect text
+        local Effects = Stronghold.Economy:GetStaticTypeConfiguration(Type);
+        if Effects then
+            if Effects.Reputation > 0 then
+                local ReputationText = XGUIEng.GetStringTableText("shinterface/Reputation");
+                EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..ReputationText .. " ";
+            end
+            if Effects.Honor > 0 then
+                local HonorText = XGUIEng.GetStringTableText("shinterface/Honor");
+                EffectText = EffectText.. "+" ..Effects.Honor.. " " ..HonorText;
+            end
+            if EffectText ~= "" then
+                local EffectDesc = XGUIEng.GetStringTableText("shinterface/TooltipEffect");
+                EffectText = EffectDesc .. EffectText;
+            end
+        end
+        -- Special effects
+        if _UpgradeCategory == UpgradeCategories.Tavern then
+            EffectText = XGUIEng.GetStringTableText("shinterface/TooltipEffect") ..
+                         XGUIEng.GetStringTableText("shinterface/TooltipTavernEffect");
+        end
+
+        DefaultText = string.format(DefaultText, LimitText, EffectText);
+
+        -- Rank requirement
+        local RankName = "";
+        local Right = self.Config.RightsToCheckForConstruction[_Technology];
+        if Right then
+            local RequiredRank = GetRankRequired(PlayerID, Right);
+            RankName = GetRankName(RequiredRank, PlayerID);
+        end
+        DefaultText = string.gsub(DefaultText, "#Rank#", RankName);
     end
 
     -- Set text
+    local Text = DefaultText;
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);

@@ -13,6 +13,7 @@ cp -r modfiles/config var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/graphics var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/script var/stronghold_s5mp/archive.bba.unpacked
+cp -r modfiles/text var/stronghold_s5mp/archive.bba.unpacked
 
 # create mod folder
 mkdir -p var/stronghold_s5mp
