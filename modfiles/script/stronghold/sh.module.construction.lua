@@ -95,12 +95,6 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
                 EffectText = EffectDesc .. EffectText;
             end
         end
-        -- Special effects
-        if _UpgradeCategory == UpgradeCategories.Tavern then
-            EffectText = XGUIEng.GetStringTableText("shinterface/TooltipEffect") ..
-                         XGUIEng.GetStringTableText("shinterface/TooltipTavernEffect");
-        end
-
         DefaultText = string.format(DefaultText, LimitText, EffectText);
 
         -- Rank requirement
@@ -163,7 +157,7 @@ function Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology)
             return self:UpdateBuildingUpgradeButtons(_Button, _Technology);
         end
     end
-    return false;Text.UI
+    return false;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -225,25 +219,11 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
                 EffectText = EffectDesc .. EffectText;
             end
         end
-        -- Special effects
-        if Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tavern then
-            EffectText = XGUIEng.GetStringTableText("shinterface/TooltipEffect") ..
-                         XGUIEng.GetStringTableText("shinterface/TooltipTavernEffect");
-        end
-        if Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Farm then
-            EffectText = XGUIEng.GetStringTableText("shinterface/TooltipEffect") ..
-                         XGUIEng.GetStringTableText("shinterface/TooltipFarmEffect");
-        end
-        if Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Residence then
-            EffectText = XGUIEng.GetStringTableText("shinterface/TooltipEffect") ..
-                         XGUIEng.GetStringTableText("shinterface/TooltipHouseEffect");
-        end
-
         DefaultText = string.format(DefaultText, LimitText, EffectText);
 
         -- Rank requirement
         local RankName = "";
-        local Right = self.Config.RightsToCheckForConstruction[_Technology];
+        local Right = self.Config.RightsToCheckForUpgrade[_Technology];
         if Right then
             local RequiredRank = GetRankRequired(PlayerID, Right);
             RankName = GetRankName(RequiredRank, PlayerID);
