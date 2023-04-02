@@ -431,7 +431,7 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 " ..
                 "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                 "Die gesteigerte Geburtenrate sorgt für einen demographischen "..
-                "Wandel. Sie steigert Euer Bevölkerungslimit um 15%. "..
+                "Wandel. Sie steigert Euer Bevölkerungslimit um 20%. "..
                 "@cr @cr "..
                 "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                 "Sie kann nahestehende Feinde mit Gift schädigen.",
@@ -440,7 +440,7 @@ Stronghold.Hero.Text.Hero = {
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                 "The increased birth rate is causing demographic change. She "..
-                "increases your attraction limit by 15%. "..
+                "increases your attraction limit by 20%. "..
                 "@cr @cr @color:255,255,255 "..
                 "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                 "She can inflict poison damage to enemies.",

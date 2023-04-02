@@ -82,7 +82,7 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Lumber Mill",
         },
         Costs             = {
-            [1] = {15, 235, 0, 75, 0, 35, 0},
+            [1] = {10, 235, 0, 75, 0, 35, 0},
             [2] = {0, 78, 0, 40, 0, 12, 0},
         },
         Right             = PlayerRight.PU_LeaderPoleArm4,
@@ -173,7 +173,7 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Garnison, Finishing Smithy",
         },
         Costs             = {
-            [1] = {30, 285, 0, 0, 0, 100, 0},
+            [1] = {20, 285, 0, 0, 0, 100, 0},
             [2] = {0, 85, 0, 0, 0, 65, 0},
         },
         Right             = PlayerRight.LeaderSword4,
@@ -358,7 +358,7 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Lumber Mill",
         },
         Costs             = {
-            [1] = {24, 265, 0, 20, 0, 50, 0},
+            [1] = {12, 265, 0, 20, 0, 50, 0},
             [2] = {0, 80, 0, 20, 0, 10, 0},
         },
         Right             = PlayerRight.LeaderCavalry2,
@@ -404,7 +404,7 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Stables, Finishing Smithy",
         },
         Costs             = {
-            [1] = {50, 430, 0, 0, 0, 110, 0},
+            [1] = {40, 430, 0, 0, 0, 110, 0},
             [2] = {0, 120, 0, 0, 0, 40, 0},
         },
         Right             = PlayerRight.LeaderHeavyCavalry2,
@@ -752,8 +752,8 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
-            [1] = {12, 70, 0, 150, 0, 40, 0},
-            [2] = {0, 8, 0, 20, 0, 10, 0},
+            [1] = {6, 70, 0, 150, 0, 40, 0},
+            [2] = {0, 6, 0, 20, 0, 10, 0},
         },
         Right             = PlayerRight.Bearman,
         IsCivil           = false,
@@ -774,8 +774,8 @@ Stronghold.Unit.Config = {
             en = "@color:244,184,0 requires:{white}#Rank#, Sawmill",
         },
         Costs             = {
-            [1] = {8, 90, 0, 200, 0, 0, 0},
-            [2] = {0, 9, 0, 35, 0, 0, 0},
+            [1] = {3, 90, 0, 200, 0, 0, 0},
+            [2] = {0, 8, 0, 35, 0, 0, 0},
         },
         Right             = PlayerRight.Skirmisher,
         IsCivil           = false,

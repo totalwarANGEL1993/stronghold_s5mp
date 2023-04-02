@@ -109,12 +109,12 @@
 	        <HitAnim>PU_SoldierBow4_Hit</HitAnim>
 	        
 	        <DamageClass>DC_Arrow</DamageClass>
-	        <DamageAmount>30</DamageAmount>
+	        <DamageAmount>32</DamageAmount>
 	        <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2000</BattleWaitUntil>
 	        
-	        <MissChance>5</MissChance>
+	        <MissChance>0</MissChance>
 	        
 	        <ProjectileEffectID>FXCrossBowArrow</ProjectileEffectID>
 	        <MaxRange>2900</MaxRange>

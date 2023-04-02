@@ -58,7 +58,7 @@ Stronghold.Hero.Config.Hero11 = {
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {
-    PupulationFactor = 1.15,
+    PupulationFactor = 1.2,
 }
 
 Stronghold.Hero.Config.Nobles = {

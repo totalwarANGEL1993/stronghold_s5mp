@@ -66,8 +66,8 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>25</Exploration>
 		  <ArmorClass>ArmorClassNone</ArmorClass> 
-		  <ArmorAmount>2</ArmorAmount>
-		  <DodgeChance>20</DodgeChance> 
+		  <ArmorAmount>3</ArmorAmount>
+		  <DodgeChance>30</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>10</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
@@ -110,11 +110,11 @@
 	        
 	        <DamageClass>DC_Arrow</DamageClass>
 	        <DamageAmount>10</DamageAmount>
-	        <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+	        <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 	        
-	        <BattleWaitUntil>2500</BattleWaitUntil>
+	        <BattleWaitUntil>2000</BattleWaitUntil>
 	        
-	        <MissChance>5</MissChance>
+	        <MissChance>0</MissChance>
 	        
 	        <ProjectileEffectID>FXArrow</ProjectileEffectID>
 	        
