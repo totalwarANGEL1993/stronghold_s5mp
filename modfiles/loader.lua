@@ -95,7 +95,6 @@ Script.Load(ModPath.. "sh.module.province.text.lua");
 
 Script.Load(ModPath.. "sh.module.construction.lua");
 Script.Load(ModPath.. "sh.module.construction.config.lua");
-Script.Load(ModPath.. "sh.module.construction.text.lua");
 
 Script.Load(ModPath.. "sh.module.building.lua");
 Script.Load(ModPath.. "sh.module.building.config.lua");

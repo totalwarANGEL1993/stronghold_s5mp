@@ -163,7 +163,7 @@ function Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology)
             return self:UpdateBuildingUpgradeButtons(_Button, _Technology);
         end
     end
-    return false;
+    return false;Text.UI
 end
 
 -- -------------------------------------------------------------------------- --
