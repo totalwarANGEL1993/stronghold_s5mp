@@ -5,7 +5,7 @@
 Stronghold.Config = {
     Base = {
         InitialResources = {0, 0, 0, 0, 0, 0, 0},
-        InitialRank = 1,
+        InitialRank = 0,
         MaxRank = 7,
         StartingSerfs = 6,
     },

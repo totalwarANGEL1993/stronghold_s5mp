@@ -566,7 +566,8 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
         local MeasurePoints = 0;
         for k, v in pairs(GetAllWorker(_PlayerID, 0)) do
             if Logic.IsSettlerAtWork(v) == 1 then
-                MeasurePoints = MeasurePoints + ((10 * 0.1) * (1.1 - (CurrentRank/10)));
+                -- This formula is very stupid but I suck at math :D
+                MeasurePoints = MeasurePoints + ((10 * 0.4) * (1.1 - (CurrentRank/20)));
             end
         end
         MeasurePoints = GameCallback_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);

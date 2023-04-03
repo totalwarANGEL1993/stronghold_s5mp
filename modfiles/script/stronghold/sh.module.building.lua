@@ -305,7 +305,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     if _BlessCategory == BlessCategories.Construction then
         local RandomTax = 0;
         for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
-            RandomTax = RandomTax + math.random(3, 7);
+            RandomTax = RandomTax + math.random(4, 8);
         end
         Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
 

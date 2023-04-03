@@ -846,7 +846,7 @@ function Stronghold.Recruitment:GetOccupiedSpacesFromCannonsInProgress(_PlayerID
             local Size = Stronghold.Attraction:GetRequiredSpaceForUnitType(v, 1);
             -- Salim passive skill
             if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-                Size = math.floor((Size * 0.5) + 0.5);
+                Size = math.floor((Size * Stronghold.Hero.Config.Hero3.UnitPlaceFactor) + 0.5);
             end
             Places = Places + Size;
         end

@@ -289,7 +289,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Als Banditenfürstin kennt sie alle Tricks, um an Gold zu "..
-                 "kommen. Die Steuereinnahmen werden um 30% erhöht. "..
+                 "kommen. Die Steuereinnahmen werden um 50% erhöht. "..
                  "@cr @cr "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                  "Sie kann einen Pfeilhagel auf Feinde hernieder gehen lassen.",
@@ -298,7 +298,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                  "Her upbringing taught her where to search for money. The "..
-                 "tax income is increased by 30%. "..
+                 "tax income is increased by 50%. "..
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                  "She can unleash a hail of arrows upon the enemy.",
@@ -333,7 +333,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Er kann eine persönliche Leibgarde mit sich führen. Malus "..
-                 "auf die Beliebtheit verringern sich um 40%. Dafür sinkt die "..
+                 "auf die Beliebtheit verringern sich um 50%. Dafür sinkt die "..
                  "maximale Beliebtheit auf 175. " ..
                  "@cr @cr "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
@@ -344,7 +344,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                  "He can employ personal bodyguards. Negative effects on "..
-                 "reputation are decreased by 40%. The reputation maximum "..
+                 "reputation are decreased by 50%. The reputation maximum "..
                  "becomes 175. @cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                  "He can temporarily reduce the armor of close by enemies "..
@@ -356,7 +356,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Die Sabotage wird freigeschaltet, sobald sie gewählt wird. "..
-                 "Diebe verlangen halben Sold, belegen weniger Platz und "..
+                 "Diebe verlangen keinen Sold, belegen weniger Platz und "..
                  "können bereits in Tavernen rekrutiert werden. "..
                  "@cr @cr "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
@@ -367,9 +367,9 @@ Stronghold.Hero.Text.Hero = {
                  "Arbaleast archers, no heavy sharpshooters "..
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                 "She unlocks sabotage when chosen. Upkeep costs of thieves, "..
-                 "are halved, they occupy less population places and can be "..
-                 "hired in taverns. "..
+                 "She unlocks sabotage when chosen. Thieves do not have any, "..
+                 "upkeep costs, they occupy less population places and can "..
+                 "be hired in taverns. "..
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                  "She can inflict damage to close enemies and also lower the "..
@@ -404,7 +404,7 @@ Stronghold.Hero.Text.Hero = {
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Seine effizienteren Trainingsmethoden senken die Zeit für "..
                  "die Ausbildung von Scharfschützen um 50% und ihren Sold um "..
-                 "30%. @cr @cr @color:255,255,255 "..
+                 "40%. @cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                  "Er kann den Schaden von verbündeten Fernkämpfern in seiner "..
                  "Nähe kurzzeitig um 150% erhöhen.",
@@ -413,7 +413,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                  "Through the efficient methods he lowers the training time "..
-                 "of all sharpshooters by 50% and their upkeep costs by 30%. "..
+                 "of all sharpshooters by 50% and their upkeep costs by 40%. "..
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                  "He can increase the damage of allied ranged troops that "..
@@ -426,7 +426,7 @@ Stronghold.Hero.Text.Hero = {
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Die maximale Beliebtheit wird 300. Sie gewährt einmalig 100 "..
                  "Beliebtheit, sobald sie erscheint. Soldaten für einen "..
-                 "Hauptmann anzuwerben ist 10% billiger. "..
+                 "Hauptmann anzuwerben ist 15% billiger. "..
                  "@cr @cr "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                  "Sie kann feindliche Einheiten in einem weitem Umkreis "..
@@ -436,7 +436,7 @@ Stronghold.Hero.Text.Hero = {
                  "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                  "The reputation limit is raised to 300. She gives a one time "..
                  "bonus of 100 reputation when selected. The costs of "..
-                 "recruiting soldiers is reduced by 10%. "..
+                 "recruiting soldiers is reduced by 15%. "..
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                  "She can inflict fear to enemies in a wide area "..
@@ -448,7 +448,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Die gesteigerte Geburtenrate sorgt für einen demographischen "..
-                 "Wandel. Sie steigert Euer Bevölkerungslimit um 20%. "..
+                 "Wandel. Sie steigert Euer Bevölkerungslimit um 30%. "..
                  "@cr @cr "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                  "Sie kann nahestehende Feinde mit Gift schädigen.",
@@ -457,7 +457,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
                  "The increased birth rate is causing demographic change. She "..
-                 "increases your attraction limit by 20%. "..
+                 "increases your attraction limit by 30%. "..
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                  "She can inflict poison damage to enemies.",

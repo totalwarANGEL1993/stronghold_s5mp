@@ -68,9 +68,12 @@ function Stronghold.Construction:GetBuildingLimit(_PlayerID, _Type)
     return LimitText;
 end
 
-function Stronghold.Construction:GetBuildingRequiredRank(_PlayerID, _Technology, _Text)
+function Stronghold.Construction:GetBuildingRequiredRank(_PlayerID, _Technology, _Text, _IsUpgrade)
     local RankName = GetRankName(0, _PlayerID);
     local Right = self.Config.RightsToCheckForConstruction[_Technology];
+    if _IsUpgrade then
+        Right = self.Config.RightsToCheckForUpgrade[_Technology];
+    end
     if Right then
         local RequiredRank = GetRankRequired(_PlayerID, Right);
         RankName = GetRankName(RequiredRank, _PlayerID);
@@ -208,7 +211,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
         ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
             ": [" .. XGUIEng.GetStringTableText("KeyBindings/UpgradeBuilding") .. "]"
         DefaultText = string.format(
-            self:GetBuildingRequiredRank(PlayerID, _Technology, DefaultText),
+            self:GetBuildingRequiredRank(PlayerID, _Technology, DefaultText, true),
             self:GetBuildingLimit(PlayerID, _Type +1),
             self:GetBuildingEffects(_Type +1, _Technology)
         );
@@ -245,6 +248,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
             Disable = true;
         end
 
+        
         if Disable then
             XGUIEng.DisableButton(_Button, 1);
             return true;
