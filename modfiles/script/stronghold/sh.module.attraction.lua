@@ -331,17 +331,24 @@ function Stronghold.Attraction:GetSettlersExposition(_PlayerID, _CriminalID)
     local Exposition = 0;
     if IsHumanPlayerInitalized(_PlayerID) then
         local x,y,z = Logic.EntityGetPos(_CriminalID);
-        if Logic.IsPlayerEntityOfCategoryInArea(_PlayerID, x, y, self.Config.Crime.Unveil.Area, "Military") == 1 then
-            Exposition = Exposition + self.Config.Crime.Unveil.SoldierRate;
+        -- Check militia
+        local _, MilitiaID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PU_BattleSerf, x, y, self.Config.Crime.Unveil.SerfArea, 1);
+        if MilitiaID then
+            Exposition = Exposition + (1 * self.Config.Crime.Unveil.SerfRate);
         end
-        if Logic.IsPlayerEntityOfCategoryInArea(_PlayerID, x, y, self.Config.Crime.Unveil.Area, "MilitaryBuilding") == 1 then
-            Exposition = Exposition + self.Config.Crime.Unveil.SoldierRate;
+        -- Check watchtowers
+        local _, DarkTowerID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower1, x, y, self.Config.Crime.Unveil.TowerArea, 1);
+        local _, TowerID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, x, y, self.Config.Crime.Unveil.TowerArea, 1);
+        if (DarkTowerID and Logic.IsConstructionComplete(DarkTowerID) == 1)
+        or (TowerID and Logic.IsConstructionComplete(TowerID) == 1) then
+            Exposition = Exposition + (1 * self.Config.Crime.Unveil.RateRate);
         end
+        -- Check town guard
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TownGuard) == 1 then
             Exposition = Exposition * self.Config.Crime.Unveil.TownGuardFactor;
         end
     end
-    return math.floor(Exposition + 0.5);
+    return Exposition;
 end
 
 function Stronghold.Attraction:CountCriminals(_PlayerID)

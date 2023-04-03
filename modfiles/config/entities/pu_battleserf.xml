@@ -52,7 +52,7 @@
 
         <Category>Military</Category>
 		<AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		<Exploration>15</Exploration>
+		<Exploration>24</Exploration>
 		<ArmorClass>ArmorClassJerkin</ArmorClass>
 		<ArmorAmount>2</ArmorAmount> 
 		<DodgeChance>0</DodgeChance> 

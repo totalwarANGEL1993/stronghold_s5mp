@@ -28,7 +28,7 @@
     	    <CannonBallEffectType>FXCannonTowerBall</CannonBallEffectType>
   			<ProjectileOffsetFront>100</ProjectileOffsetFront>
     	    <ReloadTime>6000</ReloadTime>
-    	    <MaxAttackRange>3000.0f</MaxAttackRange>
+    	    <MaxAttackRange>2800.0f</MaxAttackRange>
     	    <MinRange>800.0f</MinRange>
     	    <DamageClass>DC_Chaos</DamageClass>
     	    <DamageAmount>65</DamageAmount>

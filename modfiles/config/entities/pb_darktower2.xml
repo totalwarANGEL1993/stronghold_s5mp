@@ -41,7 +41,7 @@
             </Cost>
             <Type>PB_Tower3</Type>
         </Upgrade>
-		  <Exploration>33</Exploration>        
+		  <Exploration>30</Exploration>        
         <ConstructionInfo>
             <BuilderSlot>
                 <Position>

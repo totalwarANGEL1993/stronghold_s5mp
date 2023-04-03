@@ -14,9 +14,10 @@ Stronghold.Attraction.Config.Attraction = {
 Stronghold.Attraction.Config.Crime = {
     Unveil = {
         Points = 180,
-        Area = 3500,
-        SoldierRate = 2,
-        BuildingRate = 4,
+        SerfArea = 2400,
+        TowerArea = 4500,
+        SerfRate = 1.8,
+        RateRate = 2.5,
         TownGuardFactor = 1.5,
     },
     Effects = {

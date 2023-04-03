@@ -44,7 +44,7 @@
             </Cost>
             <Type>PB_Tower2</Type>
         </Upgrade>
-		  <Exploration>33</Exploration>
+		  <Exploration>45</Exploration>
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
