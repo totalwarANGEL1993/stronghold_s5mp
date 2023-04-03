@@ -115,7 +115,7 @@
     <Behavior>
         <Logic classname="GGL::CMineBehaviorProperties">
             <Class>GGL::CMineBehavior</Class>
-            <AmountToMine>4</AmountToMine>
+            <AmountToMine>6</AmountToMine>
         </Logic>
     </Behavior>
     

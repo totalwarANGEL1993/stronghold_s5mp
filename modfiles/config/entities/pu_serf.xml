@@ -150,8 +150,8 @@
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_ResourceTree</ResourceEntityType>
-                <Delay>6</Delay>
-                <Amount>2</Amount>
+                <Delay>5</Delay>
+                <Amount>3</Amount>
             </ExtractionInfo>
 		</Logic>
 	</Behavior>
