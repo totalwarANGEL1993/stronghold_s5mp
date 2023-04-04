@@ -37,11 +37,11 @@ function Stronghold.Building:Install()
 end
 
 function Stronghold.Building:OnSaveGameLoaded()
-    XGUIEng.TransferMaterials("BlessSettlers1", "Research_PickAxe");
-    XGUIEng.TransferMaterials("BlessSettlers2", "Research_LightBricks");
-    XGUIEng.TransferMaterials("BlessSettlers3", "Research_Taxation");
-    XGUIEng.TransferMaterials("BlessSettlers4", "Research_Debenture");
-    XGUIEng.TransferMaterials("BlessSettlers5", "Research_Scale");
+    XGUIEng.TransferMaterials("BlessSettlers1", "BlessSettlers1Source");
+    XGUIEng.TransferMaterials("BlessSettlers2", "BlessSettlers2Source");
+    XGUIEng.TransferMaterials("BlessSettlers3", "BlessSettlers3Source");
+    XGUIEng.TransferMaterials("BlessSettlers4", "BlessSettlers4Source");
+    XGUIEng.TransferMaterials("BlessSettlers5", "BlessSettlers5Source");
 
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
@@ -576,11 +576,11 @@ function Stronghold.Building:OnMonasterySelected(_EntityID)
     if Level == 0 then
         XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
     end
-    XGUIEng.TransferMaterials("Research_PickAxe", "BlessSettlers1");
-    XGUIEng.TransferMaterials("Research_LightBricks", "BlessSettlers2");
-    XGUIEng.TransferMaterials("Research_Taxation", "BlessSettlers3");
-    XGUIEng.TransferMaterials("Research_Debenture", "BlessSettlers4");
-    XGUIEng.TransferMaterials("Research_Scale", "BlessSettlers5");
+    XGUIEng.TransferMaterials("BlessSettlers1Source", "BlessSettlers1");
+    XGUIEng.TransferMaterials("BlessSettlers2Source", "BlessSettlers2");
+    XGUIEng.TransferMaterials("BlessSettlers3Source", "BlessSettlers3");
+    XGUIEng.TransferMaterials("BlessSettlers4Source", "BlessSettlers4");
+    XGUIEng.TransferMaterials("BlessSettlers5Source", "BlessSettlers5");
 end
 
 function Stronghold.Building:MonasteryBlessSettlersGuiAction(_PlayerID, _EntityID, _BlessCategory)

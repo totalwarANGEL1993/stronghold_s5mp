@@ -816,11 +816,11 @@ function Stronghold:LoadGUIElements(_PlayerID)
     if GUI.GetPlayerID() == _PlayerID then
         XGUIEng.SetMaterialTexture("BackGround_BottomLeft", 1, "graphics/textures/gui/bg_bottom_left2.png");
         XGUIEng.SetMaterialTexture("BackGround_BottomTexture", 0, "graphics/textures/gui/bg_bottom2.png");
-        XGUIEng.TransferMaterials("BlessSettlers1", "Research_PickAxe");
-        XGUIEng.TransferMaterials("BlessSettlers2", "Research_LightBricks");
-        XGUIEng.TransferMaterials("BlessSettlers3", "Research_Taxation");
-        XGUIEng.TransferMaterials("BlessSettlers4", "Research_Debenture");
-        XGUIEng.TransferMaterials("BlessSettlers5", "Research_Scale");
+        XGUIEng.TransferMaterials("BlessSettlers1", "BlessSettlers1Source");
+        XGUIEng.TransferMaterials("BlessSettlers2", "BlessSettlers2Source");
+        XGUIEng.TransferMaterials("BlessSettlers3", "BlessSettlers3Source");
+        XGUIEng.TransferMaterials("BlessSettlers4", "BlessSettlers4Source");
+        XGUIEng.TransferMaterials("BlessSettlers5", "BlessSettlers5Source");
         Camera.ZoomSetFactorMax(2.0);
     end
 end
