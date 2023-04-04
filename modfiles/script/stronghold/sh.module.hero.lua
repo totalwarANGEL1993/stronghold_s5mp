@@ -557,11 +557,15 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
                 end
                 if not self.Data.ConvertBlacklist[AttackerID] then
                     if Logic.GetEntityHealth(AttackerID) > 0 and Logic.IsHero(AttackerID) == 0 then
-                        if math.random(1, self.Config.Hero6.ConversionMax) <= self.Config.Hero6.ConversionChance then
-                            if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
-                                ChangePlayer(AttackerID, HeliasPlayerID);
-                                if GUI.GetPlayerID() == HeliasPlayerID then
-                                    Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
+                        local UnitType = Logic.GetEntityType(AttackerID);
+                        local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
+                        if Config and GetRank(_PlayerID) >= GetRankRequired(UnitType, Config.Right) -1 then
+                            if math.random(1, self.Config.Hero6.ConversionMax) <= self.Config.Hero6.ConversionChance then
+                                if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
+                                    ChangePlayer(AttackerID, HeliasPlayerID);
+                                    if GUI.GetPlayerID() == HeliasPlayerID then
+                                        Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
+                                    end
                                 end
                             end
                         end

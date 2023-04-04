@@ -309,8 +309,8 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Durch seinen Beistand brechen Arbeter seltener das Gesetz. "..
-                 "Außerdem hat er eine geringe Chance, nahe Feinde zu bekehren, "..
-                 "wenn sie ihn angreifen. "..
+                 "Er kann Feinde im Kampf bekehren, wenn sein Rang wenigstens "..
+                 "eins geringer ist, als für die Einheit benötigt würde. " ..
                  "@cr @cr "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                  "Er kann die Rüstung von verbündeten Einheiten für einen "..
@@ -319,8 +319,9 @@ Stronghold.Hero.Text.Hero = {
                  "- "..
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Ability: @cr @color:255,255,255 "..
-                 "Workers are less likely to become criminals. Additionally "..
-                 "he can convert enemies closeby when they attack him. "..
+                 "Workers are less likely to become criminals. He can convert "..
+                 "enemies closeby if his rank is at least one below the rank"..
+                 "required to recruit the unit. "..
                  "@cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Active Ability: @cr @color:255,255,255 "..
                  "He can bless allied troops, doubleing their armor raiting "..

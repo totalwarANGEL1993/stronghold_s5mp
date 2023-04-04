@@ -25,9 +25,9 @@ Stronghold.Hero.Config.Hero5 = {
 }
 -- Hero 6 properties
 Stronghold.Hero.Config.Hero6 = {
-    CrimeRateFactor = 0.75,
+    CrimeRateFactor = 0.5,
     ConversionArea = 600,
-    ConversionChance = 3,
+    ConversionChance = 6,
     ConversionMax = 1000,
 }
 -- Hero 7 properties
