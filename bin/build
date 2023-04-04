@@ -6,9 +6,9 @@ echo "Compile archive..."
 
 # pre build cleanup
 rm -rf var
-mkdir -p var/stronghold_s5mp/archive.bba.unpacked
 
 # fill archive
+mkdir -p var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/config var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/graphics var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
@@ -16,16 +16,17 @@ cp -r modfiles/script var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/text var/stronghold_s5mp/archive.bba.unpacked
 
 # fill mod folder
-cp modfiles/loader.lua var/stronghold_s5mp
+#cp modfiles/loader.lua var/stronghold_s5mp
 
 # copy cerberus folder
-cp -r "E:/Repositories/cerberus" var/stronghold_s5mp/archive.bba.unpacked
-rm -rf var/stronghold_s5mp/archive.bba.unpacked/cerberus/.git
-rm -rf var/stronghold_s5mp/archive.bba.unpacked/cerberus/.vscode
-rm -rf var/stronghold_s5mp/archive.bba.unpacked/cerberus/test
-rm var/stronghold_s5mp/archive.bba.unpacked/cerberus/.gitignore
-rm var/stronghold_s5mp/archive.bba.unpacked/cerberus/changelog.md
-rm var/stronghold_s5mp/archive.bba.unpacked/cerberus/readme.md
+mkdir -p var/stronghold_s5mp/archive.bba.unpacked/script
+cp -r "E:/Repositories/cerberus" var/stronghold_s5mp/archive.bba.unpacked/script
+rm -rf var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/.git
+rm -rf var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/.vscode
+rm -rf var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/test
+rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/.gitignore
+rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/changelog.md
+rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/readme.md
 
 # pack archive
 bin/bba5.exe var/stronghold_s5mp/archive.bba.unpacked

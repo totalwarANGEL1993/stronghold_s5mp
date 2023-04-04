@@ -8,10 +8,7 @@
 -- #                                                                                                 #
 -- ###################################################################################################
 
-local Path = "data\\maps\\user\\stronghold_s5mp\\loader.lua";
-if true then
-    Path = "E:/Siedler/Projekte/stronghold_s5mp/dev/devload.lua";
-end
+local Path = "data\\script\\stronghold\\sh.loader.lua";
 Script.Load(Path);
 
 function OnMapStart()

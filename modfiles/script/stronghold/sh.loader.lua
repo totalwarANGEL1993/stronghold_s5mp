@@ -19,7 +19,7 @@ end
 
 -- Try loading lib from the archive
 -- (Using the path that is supposed to be used for bba files)
-Script.Load("data\\cerberus\\loader.lua");
+Script.Load("data\\script\\cerberus\\loader.lua");
 -- Check lib has been loaded
 gvStrongholdLoaded = Lib ~= nil;
 assert(Lib ~= nil);
@@ -70,7 +70,7 @@ DetectStronghold = function()
 end
 -- Load detecter script
 -- (It redefines the function above to return true)
-Script.Load(gvTestPath.. "detecter.lua");
+Script.Load(ModPath.. "sh.detecter.lua");
 -- Check if stronghold has been loaded
 if not DetectStronghold() then
     GUI.AddStaticNote("@color:255,0,0 ERROR: Can not find Stronghold!");

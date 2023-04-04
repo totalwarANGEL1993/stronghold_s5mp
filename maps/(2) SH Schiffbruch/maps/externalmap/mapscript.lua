@@ -10,7 +10,8 @@
 
 -- -------------------------------------------------------------------------- --
 
-Script.Load("data\\maps\\user\\stronghold_s5mp\\loader.lua");
+local Path = "data\\script\\stronghold\\sh.loader.lua";
+Script.Load(Path);
 
 function OnMapStart()
     Player_Teams = {[1] = {1}, [2] = {2}};
