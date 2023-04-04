@@ -1,14 +1,30 @@
+gvStrongholdLoaded = true;
+
+-- -------------------------------------------------------------------------- --
+-- CHECK COMMUNITY SERVER                                                     --
+-- -------------------------------------------------------------------------- --
+
+-- Check if the game is runnung on the community server. Singleplayer Extended
+-- and Multiplayer are both fine.
+-- (SP Ext may have some questionable hacks going on though...)
 if not CMod then
     GUI.AddStaticNote("@color:255,0,0 ERROR: Community Server is required!");
+    gvStrongholdLoaded = false;
     return false;
 end
 
-Script.Load("cerberus\\loader.lua");
-if Lib == nil then
-    Script.Load("maps\\externalmap\\cerberus\\loader.lua");
-end
+-- -------------------------------------------------------------------------- --
+-- LOAD CERBERUS                                                              --
+-- -------------------------------------------------------------------------- --
+
+-- Try loading lib from the archive
+-- (Using the path that is supposed to be used for bba files)
+Script.Load("data\\cerberus\\loader.lua");
+-- Check lib has been loaded
+gvStrongholdLoaded = Lib ~= nil;
 assert(Lib ~= nil);
 
+-- Load comforts
 Lib.Require("comfort/AreEnemiesInArea");
 Lib.Require("comfort/ArePositionsConnected");
 Lib.Require("comfort/CreateNameForEntity");
@@ -29,6 +45,7 @@ Lib.Require("comfort/IsInTable");
 Lib.Require("comfort/IsValidEntity");
 Lib.Require("comfort/KeyOf");
 
+-- Load modules
 Lib.Require("module/archive/Archive");
 Lib.Require("module/entity/EntityTracker");
 Lib.Require("module/entity/SVLib");
@@ -40,22 +57,29 @@ Lib.Require("module/ui/BuyHero");
 Lib.Require("module/ui/Placeholder");
 Lib.Require("module/weather/WeatherMaker");
 
--- ---------- --
-
-DetectStronghold = function()
-    return false;
-end
-
-Script.Load("data\\maps\\user\\stronghold_s5mp\\script\\detecter.lua");
-if not DetectStronghold() then
-    GUI.AddStaticNote("@color:255,0,0 ERROR: Can not find Stronghold!");
-    return false;
-end
-
--- ---------- --
+-- -------------------------------------------------------------------------- --
+-- LOAD STRONGHOLD                                                            --
+-- -------------------------------------------------------------------------- --
 
 ---@diagnostic disable-next-line: undefined-global
 local ModPath = gvTestPath or "data\\script\\stronghold\\";
+
+-- Define check function
+DetectStronghold = function()
+    return false;
+end
+-- Load detecter script
+-- (It redefines the function above to return true)
+Script.Load(gvTestPath.. "detecter.lua");
+-- Check if stronghold has been loaded
+if not DetectStronghold() then
+    GUI.AddStaticNote("@color:255,0,0 ERROR: Can not find Stronghold!");
+    gvStrongholdLoaded = false;
+    return false;
+end
+
+-- Finally load the mod.
+-- (A nightmarish orgy of cross-dependencies...)
 
 Script.Load(ModPath.. "sh.main.lua");
 Script.Load(ModPath.. "sh.main.config.lua");
