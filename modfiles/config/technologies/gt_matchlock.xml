@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
+	<TecCategoryType>TC_Inventions</TecCategoryType>
+	<TimeToResearch>50</TimeToResearch>
+	<ResourceCosts>
+		  <Gold>0</Gold>
+		  <Stone>0</Stone>
+		  <Clay>0</Clay>
+		  <Wood>0</Wood>
+		  <Iron>300</Iron>
+		  <Sulfur>300</Sulfur>
+	</ResourceCosts>
+	<AutomaticResearch>true</AutomaticResearch>
+	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+	<Conditions>
+	   <TecCondition>
+			  <TecType>GT_Binocular</TecType>			
+		</TecCondition>	
+		   <RequiredEntityConditions>1</RequiredEntityConditions>
+		  <EntityCondition>
+			  <EntityType>PB_Headquarters2</EntityType>
+			  <Amount>1</Amount>
+		</EntityCondition>
+		  <EntityCondition>
+			  <EntityType>PB_Headquarters3</EntityType>
+			  <Amount>1</Amount>
+		</EntityCondition>	
+		 
+	</Conditions>
+</root>

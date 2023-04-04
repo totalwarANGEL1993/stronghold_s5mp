@@ -639,11 +639,10 @@ end
 
 function Stronghold.Hero:OverrideCalculationCallbacks()
     -- Generic --
-    Overwrite.CreateOverwrite("GameCallback_GainedResources", function(_PlayerID, _ResourceType, _Amount)
-        Overwrite.CallOriginal();
-        if IsHumanPlayer(_PlayerID) then
-            Stronghold.Hero:ResourceProductionBonus(_PlayerID, _ResourceType, _Amount);
-        end
+    Overwrite.CreateOverwrite("GameCallback_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _ResourceType, _Amount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
+        return CurrentAmount;
     end);
 
     -- Noble --
@@ -786,20 +785,12 @@ function Stronghold.Hero:GetHeroes(_PlayerID)
 end
 
 -- Passive Ability: Resource production bonus
--- (Callback is only called for main resource types)
--- TODO: Replace this with server functions?
-function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _Type, _Amount)
+function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Type, _Amount)
+    local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
-        if _Amount >= 6 then
-            if _Type == ResourceType.SulfurRaw
-            or _Type == ResourceType.ClayRaw
-            or _Type == ResourceType.StoneRaw
-            or _Type == ResourceType.IronRaw then
-                -- TODO: Maybe use the non-raw here?
-                Logic.AddToPlayersGlobalResource(_PlayerID, _Type, math.max(_Amount-4, 1));
-            end
-        end
+        Amount = Amount + (1 + Logic.GetUpgradeLevelForBuilding(_BuildingID));
     end
+    return Amount;
 end
 
 -- Passive Ability: leader costs

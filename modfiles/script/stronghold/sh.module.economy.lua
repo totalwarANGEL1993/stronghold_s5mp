@@ -100,6 +100,7 @@ function Stronghold.Economy:Install()
         };
     end
 
+    self:OverrideResourceCallbacks();
     self:OverrideFindViewUpdate();
     self:OverrideTaxAndPayStatistics();
 end
@@ -190,6 +191,14 @@ function GameCallback_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _Amount)
 end
 
 function GameCallback_Calculate_MeasureIncrease(_PlayerID, _Amount)
+    return _Amount;
+end
+
+function GameCallback_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, _Amount)
+    return _Amount;
+end
+
+function GameCallback_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
     return _Amount;
 end
 
@@ -573,6 +582,52 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
         MeasurePoints = GameCallback_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
         self:AddPlayerMeasure(_PlayerID, MeasurePoints);
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Resource Mining
+
+function Stronghold.Economy:OverrideResourceCallbacks()
+    GameCallback_GainedResourcesFromMine = function(_WorkerID, _e, _ResourceType, _Amount)
+        local PlayerID = Logic.EntityGetPlayer(_WorkerID);
+        local BuildingID = Logic.GetSettlersWorkBuilding(_WorkerID);
+        local Amount = Stronghold.Economy:OnMineExtractedResource(PlayerID, BuildingID, _ResourceType, _Amount);
+        return _WorkerID, _e, _ResourceType, Amount;
+    end
+
+    GameCallback_RefinedResource = function(_WorkerID, _ResourceType, _Amount)
+        local PlayerID = Logic.EntityGetPlayer(_WorkerID);
+        local BuildingID = Logic.GetSettlersWorkBuilding(_WorkerID);
+        local Amount = Stronghold.Economy:OnWorkplaceRefinedResource(PlayerID, BuildingID, _ResourceType, _Amount);
+        return _WorkerID, _ResourceType, Amount;
+    end
+end
+
+function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _ResourceType, _Amount)
+    local Type = Logic.GetEntityType(_BuildingID);
+    local Amount = self.Config.Resource.Mining[Type] or _Amount;
+    -- Pickaxes
+    if _ResourceType == ResourceType.ClayRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeClay) == 1 then
+        Amount = Amount +1;
+    elseif _ResourceType == ResourceType.IronRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeIron) == 1  then
+        Amount = Amount +1;
+    elseif _ResourceType == ResourceType.StoneRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeStone) == 1  then
+        Amount = Amount +1;
+    elseif _ResourceType == ResourceType.SulfurRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1  then
+        Amount = Amount +1;
+    end
+    -- External changes
+    Amount = GameCallback_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, Amount);
+    return Amount;
+end
+
+function Stronghold.Economy:OnWorkplaceRefinedResource(_PlayerID, _BuildingID, _ResourceType, _Amount)
+    local Type = Logic.GetEntityType(_BuildingID);
+    local Amount = self.Config.Resource.Refining[Type] or _Amount;
+
+    -- External changes
+    Amount = GameCallback_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, Amount);
+    return Amount;
 end
 
 -- -------------------------------------------------------------------------- --

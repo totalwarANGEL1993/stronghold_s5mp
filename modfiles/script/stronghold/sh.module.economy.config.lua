@@ -2,6 +2,40 @@
 --- Configuration for economy script
 --- 
 
+Stronghold.Economy.Config.Resource = {
+    Mining = {
+        [Entities.PB_ClayMine1] = 4,
+        [Entities.PB_ClayMine2] = 5,
+        [Entities.PB_ClayMine3] = 6,
+        [Entities.PB_IronMine1] = 4,
+        [Entities.PB_IronMine2] = 5,
+        [Entities.PB_IronMine3] = 6,
+        [Entities.PB_StoneMine1] = 4,
+        [Entities.PB_StoneMine2] = 5,
+        [Entities.PB_StoneMine3] = 6,
+        [Entities.PB_SulfurMine1] = 4,
+        [Entities.PB_SulfurMine2] = 5,
+        [Entities.PB_SulfurMine3] = 6,
+    },
+    Refining = {
+        [Entities.PB_Bank1] = 2,
+        [Entities.PB_Bank2] = 2,
+        [Entities.PB_Brickworks1] = 4;
+        [Entities.PB_Brickworks2] = 4;
+        [Entities.PB_StoneMason1] = 4;
+        [Entities.PB_StoneMason2] = 4;
+        [Entities.PB_Sawmill1] = 4;
+        [Entities.PB_Sawmill2] = 4;
+        [Entities.PB_Blacksmith1] = 4;
+        [Entities.PB_Blacksmith2] = 4;
+        [Entities.PB_Blacksmith3] = 4;
+        [Entities.PB_Alchemist1] = 4;
+        [Entities.PB_Alchemist2] = 4;
+        [Entities.PB_GunsmithWorkshop1] = 4;
+        [Entities.PB_GunsmithWorkshop2] = 4;
+    },
+}
+
 Stronghold.Economy.Config.Income = {
     MaxMeasurePoints = 5000,
     MaxReputation = 200,
