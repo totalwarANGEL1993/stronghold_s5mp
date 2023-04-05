@@ -303,8 +303,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderRifle2]              = {
         Button            = "Buy_LeaderRifle",
         TextNormal        = {
-            de = "{cr}{white}Die schweren Scharfschützen haben Feuerrate gegen Schaden gegen alle anderen Truppentypen eingetauscht.{cr}",
-            en = "{cr}{white}The heavy sharpshooters traded a higher firerate for collosal damage against all other troop types.{cr}",
+            de = "{cr}{white}Die Musketenschützen haben Feuerrate gegen Schaden gegen alle anderen Truppentypen eingetauscht.{cr}",
+            en = "{cr}{white}The Musketeers traded a higher firerate for collosal damage against all other troop types.{cr}",
         },
         TextDisabled      = {
             de = "@color:244,184,0 benötigt:{white}#Rank#, Schießanlage, Büchsenmanufaktur",

@@ -262,7 +262,7 @@ Stronghold.Hero.Text.Hero = {
         [Entities.PU_Hero4]              = {
             de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
                  "Berittene Streitaxtkämpfer und berittene Armbrustschützen, "..
-                 "keine schweren Scharfschützen " ..
+                 "keine Musketenschützen " ..
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Er rekrutiert Soldaten mit der maximalen Erfahrung, wodurch "..
@@ -352,7 +352,7 @@ Stronghold.Hero.Text.Hero = {
         },
         [Entities.CU_Mary_de_Mortfichet] = {
             de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
-                 "Arbaleastschützen, keine schweren Scharfschützen "..
+                 "Arbaleastschützen, keine Musketenschützen "..
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Die Sabotage wird freigeschaltet, sobald sie gewählt wird. "..
@@ -403,7 +403,7 @@ Stronghold.Hero.Text.Hero = {
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Seine effizienteren Trainingsmethoden senken die Zeit für "..
-                 "die Ausbildung von Scharfschützen um 50% und ihren Sold um "..
+                 "die Ausbildung von Gewehrschützen um 50% und ihren Sold um "..
                  "40%. @cr @cr @color:255,255,255 "..
                  "@color:55,145,155 Aktive Fähigkeit: @cr @color:255,255,255 "..
                  "Er kann den Schaden von verbündeten Fernkämpfern in seiner "..
@@ -444,7 +444,7 @@ Stronghold.Hero.Text.Hero = {
         },
         [Entities.CU_Evil_Queen]         = {
             de = "@color:55,145,155 Spezialeinheiten: @cr @color:255,255,255 "..
-                 "Bärenmenschen und Speerwerfer, keine Scharfschützen "..
+                 "Bärenmenschen und Speerwerfer, keine Gewehrschützen "..
                  "@cr @cr @color:255,255,255 " ..
                  "@color:55,145,155 Passive Fähigkeit: @cr @color:255,255,255 "..
                  "Die gesteigerte Geburtenrate sorgt für einen demographischen "..
