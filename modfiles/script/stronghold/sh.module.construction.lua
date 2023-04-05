@@ -35,7 +35,7 @@ end
 function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
     local EffectText = "";
     local TechnologyName = KeyOf(_Technology, Technologies);
-    local EffectStringTable = XGUIEng.GetStringTableText("shinterface/BuildingEffect_" ..TechnologyName);
+    local EffectStringTable = XGUIEng.GetStringTableText("sh_effects/BuildingEffect_" ..TechnologyName);
     if EffectStringTable then
         EffectText = XGUIEng.GetStringTableText("shinterface/TooltipEffect") .. EffectStringTable;
     else
