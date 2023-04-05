@@ -91,7 +91,6 @@ Script.Load(ModPath.. "sh.module.attraction.config.lua");
 Script.Load(ModPath.. "sh.module.rights.lua");
 Script.Load(ModPath.. "sh.module.rights.constants.lua");
 Script.Load(ModPath.. "sh.module.rights.config.lua");
-Script.Load(ModPath.. "sh.module.rights.text.lua");
 
 Script.Load(ModPath.. "sh.module.unit.lua");
 Script.Load(ModPath.. "sh.module.unit.config.lua");

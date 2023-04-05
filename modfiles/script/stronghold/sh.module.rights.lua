@@ -153,7 +153,8 @@ function Stronghold.Rights:GetPlayerRankName(_Rank, _PlayerID)
     if CurrentRank == -1 then
         return "-";
     end
-    return Stronghold.Rights.Text.Title[CurrentRank][Gender][Language];
+    local Key = "Rank" ..CurrentRank.. "_" ..((Gender == 1 and "Male") or "Female");
+    return XGUIEng.GetStringTableText("sh_rights/" ..Key);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -245,27 +246,27 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
     local Lang = GetLanguage();
     local Text = "";
     if _Type == PlayerDuty.Headquarters then
-        Text = self.Text.RequireCastle[arg[1] +1][Lang];
+        Text = XGUIEng.GetStringTableText("sh_rights/Require_Headquarters" ..(arg[1] +1));
     elseif _Type == PlayerDuty.Cathedral then
-        Text = self.Text.RequireCathedral[arg[1] +1][Lang];
+        Text = XGUIEng.GetStringTableText("sh_rights/Require_Monastery" ..(arg[1] +1));
     elseif _Type == PlayerDuty.Settlers then
         if arg[1] == 1 then
             local TypeName = Logic.GetEntityTypeName(arg[2]);
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
             Text = string.format("%dx %s", arg[3], Name);
         else
-            Text = arg[2].. " ".. self.Text.RequireTaxPayer[Lang];
+            Text = arg[2].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Worker");
         end
     elseif _Type == PlayerDuty.Beautification then
         if arg[1] == 1 then
-            Text = arg[2].. " ".. self.Text.RequireBeautification[1][Lang];
+            Text = arg[2].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Beautification");
         else
-            Text = self.Text.RequireBeautification[2][Lang];
+            Text = XGUIEng.GetStringTableText("sh_rights/Require_Beautifications");
         end
     elseif _Type == PlayerDuty.Soldiers then
-        Text = arg[1].. " ".. self.Text.RequireSoldiers[Lang];
+        Text = arg[1].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Soldiers");
     elseif _Type == PlayerDuty.Buildings then
-        Text = arg[1].. " ".. self.Text.RequireWorkplaces[Lang];
+        Text = arg[1].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Workplaces");
     elseif _Type == PlayerDuty.Technology then
         local TechnologyKey = KeyOf(arg[1], Technologies);
         Text = XGUIEng.GetStringTableText("Names/" ..TechnologyKey);
@@ -414,9 +415,8 @@ function Stronghold.Rights:OnlineHelpAction()
         );
     else
         if GUI.GetPlayerID() == PlayerID then
-            local Lang = GetLanguage();
             Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
-            Message(self.Text.PromoteLocked[Lang]);
+            XGUIEng.GetStringTableText("sh_rights/PromoteLocked")
         end
     end
     return true;
@@ -424,7 +424,6 @@ end
 
 function Stronghold.Rights:OnlineHelpTooltip(_Key)
     if _Key == "MenuMap/OnlineHelp" then
-        local Language = GetLanguage();
         local CostText = "";
         local Text = "";
 
@@ -436,13 +435,13 @@ function Stronghold.Rights:OnlineHelpTooltip(_Key)
             local Config = self.Config.Titles[NextRank];
             local Costs = CreateCostTable(unpack(Config.Costs));
             Text = string.format(
-                Stronghold.Rights.Text.NewRank[Language],
+                XGUIEng.GetStringTableText("sh_rights/NewRank"),
                 GetRankName(NextRank, PlayerID),
                 self:GetDutiesDescription(PlayerID, NextRank)
             );
             CostText = FormatCostString(PlayerID, Costs);
         else
-            Text = Stronghold.Rights.Text.FinalRank[Language];
+            Text = XGUIEng.GetStringTableText("sh_rights/FinalRank");
         end
 
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
@@ -475,21 +474,20 @@ function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
 end
 
 function Stronghold.Rights:PromotePlayer(_PlayerID)
-    local Language = GetLanguage();
     if self:CanPlayerBePromoted(_PlayerID) then
         local CurrentRank = GetRank(_PlayerID);
         local Costs = CreateCostTable(unpack(self.Data[_PlayerID].Titles[CurrentRank +1].Costs));
         SetRank(_PlayerID, CurrentRank +1);
         RemoveResourcesFromPlayer(_PlayerID, Costs);
         local MsgText = string.format(
-            self.Text.PromoteSelf[Language],
+            XGUIEng.GetStringTableText("sh_rights/PromoteSelf"),
             GetRankName(CurrentRank +1, _PlayerID)
         );
         if GUI.GetPlayerID() == _PlayerID then
             Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
         else
             MsgText = string.format(
-                self.Text.PromoteOther[Language],
+                XGUIEng.GetStringTableText("sh_rights/PromoteOther"),
                 UserTool_GetPlayerName(_PlayerID),
                 "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ","),
                 GetRankName(CurrentRank +1, _PlayerID)
