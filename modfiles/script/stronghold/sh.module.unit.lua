@@ -14,7 +14,6 @@ Stronghold.Unit = {
     SyncEvents = {},
     Data = {},
     Config = {},
-    Text = {},
 }
 
 function Stronghold.Unit:Install()
@@ -152,7 +151,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     end
     if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, BuyAmount) then
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-        Message(self.Text.MilitaryLimit[Language]);
+        Message(XGUIEng.GetStringTableText("sh_text/UI_MilitaryLimit"));
         return true;
     end
 
@@ -185,7 +184,6 @@ function Stronghold.Unit:BuySoldierButtonAction()
 end
 
 function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _ShortCut)
-    local Language = GetLanguage();
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
@@ -207,8 +205,11 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
     local Costs = Stronghold.Recruitment:GetSoldierCostsByLeaderType(PlayerID, Type, BuyAmount);
 
     local Index = (BuyAmount > 1 and "All") or "Single";
-    local Text = Placeholder.Replace(self.Text["Recruit" ..Index][Language]);
+    local Text = XGUIEng.GetStringTableText("sh_text/UI_Recruit" ..Index);
     local CostText = FormatCostString(PlayerID, Costs);
+    if BuyAmount == 0 then
+        CostText = "";
+    end
     if _KeyNormal == "MenuCommandsGeneric/Buy_Soldier" then
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostText);
@@ -271,12 +272,11 @@ end
 -- Expel
 
 function Stronghold.Unit:ExpelSettlerButtonTooltip(_Key)
-    local Language = GetLanguage();
     local PlayerID = GetLocalPlayerID();
     if IsHumanPlayer(PlayerID) then
         if _Key == "MenuCommandsGeneric/expel" then
             local Index = (XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 and "All") or "Single";
-            local Text = Placeholder.Replace(self.Text["Expell" ..Index][Language]);
+            local Text = XGUIEng.GetStringTableText("sh_text/UI_Expell" ..Index);
             XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
             return true;
         end

@@ -761,22 +761,26 @@ end
 function Stronghold.Economy:PrintTooltipGenericForEcoGeneral(_PlayerID, _Key)
     local Language = GetLanguage();
     if _Key == "sh_menuheadquarter/TaxWorker" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.TaxWorker[Language]);
+        local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewTaxWorker")
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
     elseif _Key == "sh_menuheadquarter/TaxLeader" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.TaxLeader[Language]);
+        local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewTaxLeader")
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
     elseif _Key == "MenuResources/population" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.Population[Language]);
+        local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewPopulation")
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
     elseif _Key == "MenuResources/Motivation" then
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.Military[Language]);
+        local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewMilitary")
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
@@ -834,8 +838,8 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
         return false;
     end
 
-    local UpkeepText = string.format(self.Text.FindView.Upkeep[Language], Upkeep);
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text .. UpkeepText);
+    local UpkeepText = XGUIEng.GetStringTableText("sh_text/UI_FindView");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text .. string.format(UpkeepText, Upkeep));
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;

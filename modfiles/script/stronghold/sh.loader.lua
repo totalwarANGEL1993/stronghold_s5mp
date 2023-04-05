@@ -95,7 +95,6 @@ Script.Load(ModPath.. "sh.module.rights.text.lua");
 
 Script.Load(ModPath.. "sh.module.unit.lua");
 Script.Load(ModPath.. "sh.module.unit.config.lua");
-Script.Load(ModPath.. "sh.module.unit.text.lua");
 
 Script.Load(ModPath.. "sh.module.hero.lua");
 Script.Load(ModPath.. "sh.module.hero.config.lua");
