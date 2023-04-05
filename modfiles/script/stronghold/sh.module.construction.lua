@@ -42,11 +42,11 @@ function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(_Type);
         if Effects then
             if Effects.Reputation > 0 then
-                local ReputationText = XGUIEng.GetStringTableText("shinterface/Reputation");
+                local ReputationText = XGUIEng.GetStringTableText("sh_names/Reputation");
                 EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..ReputationText .. " ";
             end
             if Effects.Honor > 0 then
-                local HonorText = XGUIEng.GetStringTableText("shinterface/Honor");
+                local HonorText = XGUIEng.GetStringTableText("sh_names/Honor");
                 EffectText = EffectText.. "+" ..Effects.Honor.. " " ..HonorText;
             end
             if EffectText ~= "" then
