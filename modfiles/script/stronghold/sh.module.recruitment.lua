@@ -505,21 +505,21 @@ function Stronghold.Recruitment:UpdateRecruiterBuyUnitTooltip(_TextToPrint, _Pla
             local Soldiers = (Logic.IsAutoFillActive(EntityID) == 1 and Config.Soldiers) or 0;
             local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, UnitType, Soldiers);
             CostsText = FormatCostString(_PlayerID, Costs);
-            local Name = XGUIEng.GetStringTableText("names/".. TypeName);
-            Text = Placeholder.Replace("{grey} " .. Name .. Config.TextNormal[GetLanguage()]);
+            local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);
+            Text = Name.. " @cr " ..XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_normal");
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
-                local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
+                local DisabledText = XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_disabled");
                 local Rank = Stronghold.Rights:GetRankRequiredForRight(_PlayerID, Config.Right);
                 local RankName = GetRankName(Rank, _PlayerID);
                 DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
-                Text = Text .. DisabledText;
+                Text = Text.. " @cr " ..DisabledText;
             end
         end
     else
         return false;
     end
 
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, "@color:180,180,180,255 " .. Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostsText);
     return true;
 end
@@ -574,13 +574,13 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersRecruiterTooltip(_TextToPri
             local Soldiers = (Logic.IsAutoFillActive(EntityID) == 1 and Config.Soldiers) or 0;
             local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, UnitType, Soldiers);
             CostsText = FormatCostString(_PlayerID, Costs);
-            local Name = XGUIEng.GetStringTableText("names/".. TypeName);
-            Text = Placeholder.Replace("{grey}" .. Name .. Config.TextNormal[GetLanguage()]);
+            local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);
+            Text = Name.. " @cr " ..XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_normal");
             if XGUIEng.IsButtonDisabled(WidgetID) == 1 then
-                local DisabledText = Placeholder.Replace(Config.TextDisabled[GetLanguage()]);
+                local DisabledText = XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_disabled");
                 local RankName = GetRankName(GetRankRequired(_PlayerID, Config.Right), _PlayerID);
                 DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
-                Text = Text .. DisabledText;
+                Text = Text .. " @cr " ..DisabledText;
             end
         end
     else
