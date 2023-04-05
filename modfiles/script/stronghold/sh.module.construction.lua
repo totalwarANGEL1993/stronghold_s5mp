@@ -37,7 +37,7 @@ function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
     local TechnologyName = KeyOf(_Technology, Technologies);
     local EffectStringTable = XGUIEng.GetStringTableText("sh_effects/BuildingEffect_" ..TechnologyName);
     if EffectStringTable then
-        EffectText = XGUIEng.GetStringTableText("shinterface/TooltipEffect") .. EffectStringTable;
+        EffectText = XGUIEng.GetStringTableText("sh_text/TooltipEffect") .. EffectStringTable;
     else
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(_Type);
         if Effects then
@@ -50,7 +50,7 @@ function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
                 EffectText = EffectText.. "+" ..Effects.Honor.. " " ..HonorText;
             end
             if EffectText ~= "" then
-                local EffectDesc = XGUIEng.GetStringTableText("shinterface/TooltipEffect");
+                local EffectDesc = XGUIEng.GetStringTableText("sh_text/TooltipEffect");
                 EffectText = EffectDesc .. EffectText;
             end
         end
