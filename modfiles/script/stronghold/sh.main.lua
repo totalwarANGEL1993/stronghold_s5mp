@@ -597,7 +597,6 @@ end
 -- much like Stronghold but having 1 super strong hero as the main target
 -- might be a bit risky.
 function Stronghold:PlayerDefeatCondition(_PlayerID)
-    local Language = GetLanguage();
     if not self:IsPlayer(_PlayerID) then
         return;
     end
@@ -623,7 +622,7 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
                 Message(string.format(
-                    self.Text.Player[1][Language],
+                    XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
                     PlayerColor,
                     PlayerName
                 ));
@@ -643,7 +642,7 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
                 Message(string.format(
-                    self.Text.Player[2][Language],
+                    XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
                     PlayerColor,
                     PlayerName
                 ));
@@ -658,7 +657,7 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
         Message(string.format(
-            self.Text.Player[3][Language],
+            XGUIEng.GetStringTableText("sh_text/Player_IsDead"),
             PlayerColor,
             PlayerName
         ));
@@ -826,38 +825,11 @@ function Stronghold:LoadGUIElements(_PlayerID)
 end
 
 function Stronghold:OverrideStringTableText()
-    local Lang = GetLanguage();
     local Text;
-
-    Text = self.Text.HQUpgrade[1][Lang];
+    Text = XGUIEng.GetStringTableText("sh_text/Player_UpgradeStronghold");
     CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisKeep", Text);
-    Text = self.Text.HQUpgrade[2][Lang];
+    Text = XGUIEng.GetStringTableText("sh_text/Player_UpgradeFortress");
     CUtil.SetStringTableText("InGameMessages/GUI_PlayerXHasUpgradeHisCastle", Text);
-
-    Text = self.Text.Bandit[2][Lang];
-    CUtil.SetStringTableText("names/CU_BanditLeaderSword1", Text);
-    Text = self.Text.Bandit[1][Lang];
-    CUtil.SetStringTableText("names/CU_BanditLeaderSword2", Text);
-
-    Text = self.Text.BlackKnight[2][Lang];
-    CUtil.SetStringTableText("names/CU_BlackKnight_LeaderMace1", Text);
-    Text = self.Text.BlackKnight[1][Lang];
-    CUtil.SetStringTableText("names/CU_BlackKnight_LeaderMace2", Text);
-
-    Text = self.Text.Barbarian[2][Lang];
-    CUtil.SetStringTableText("names/CU_Barbarian_LeaderClub1", Text);
-    Text = self.Text.Barbarian[1][Lang];
-    CUtil.SetStringTableText("names/CU_Barbarian_LeaderClub2", Text);
-
-    Text = self.Text.Spearman[1][Lang];
-    CUtil.SetStringTableText("names/PU_LeaderPoleArm1", Text);
-    Text = self.Text.Spearman[2][Lang];
-    CUtil.SetStringTableText("names/PU_LeaderPoleArm3", Text);
-
-    Text = self.Text.Knight[1][Lang];
-    CUtil.SetStringTableText("names/PU_LeaderHeavyCavalry1", Text);
-    Text = self.Text.Knight[2][Lang];
-    CUtil.SetStringTableText("names/PU_LeaderHeavyCavalry2", Text);
 end
 
 -- Menu update

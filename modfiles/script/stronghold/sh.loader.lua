@@ -83,13 +83,10 @@ end
 
 Script.Load(ModPath.. "sh.main.lua");
 Script.Load(ModPath.. "sh.main.config.lua");
-Script.Load(ModPath.. "sh.main.text.lua");
-
 Script.Load(ModPath.. "sh.utils.lua");
 
 Script.Load(ModPath.. "sh.module.attraction.lua");
 Script.Load(ModPath.. "sh.module.attraction.config.lua");
-Script.Load(ModPath.. "sh.module.attraction.text.lua");
 
 Script.Load(ModPath.. "sh.module.rights.lua");
 Script.Load(ModPath.. "sh.module.rights.constants.lua");

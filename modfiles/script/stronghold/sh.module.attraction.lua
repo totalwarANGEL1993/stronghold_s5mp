@@ -167,8 +167,7 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
             TotalAmount = TotalAmount + Amount;
         end
         if TotalAmount > 0 and GUI.GetPlayerID() == _PlayerID then
-            local Language = GetLanguage();
-            local Text = self.Text.Msg.CriminalsStoleResources[Language];
+            local Text = XGUIEng.GetStringTableText("sh_text/CriminalsStoleResources");
             Message(string.format(Text, TotalAmount));
         end
         RemoveResourcesFromPlayer(_PlayerID, ResourcesToSub);
@@ -252,8 +251,7 @@ function Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID)
 
         -- Show message
         if GUI.GetPlayerID() == _PlayerID then
-            local Language = GetLanguage();
-            Message(self.Text.Msg.ConvertedToCriminal[Language]);
+            Message(XGUIEng.GetStringTableText("sh_text/ConvertedToCriminal"));
         end
         -- Trigger callback
         GameCallback_Logic_CriminalAppeared(_PlayerID, ID, _BuildingID);
@@ -272,8 +270,7 @@ function Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID)
                 DestroyEntity(_EntityID);
                 -- Show message
                 if GUI.GetPlayerID() == _PlayerID then
-                    local Language = GetLanguage();
-                    Message(self.Text.Msg.CriminalResocialized[Language]);
+                    Message(XGUIEng.GetStringTableText("sh_text/CriminalResocialized"));
                 end
                 -- Invoke callback
                 GameCallback_Logic_CriminalCatched(_PlayerID, Data[1], Data[2]);
