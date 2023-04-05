@@ -194,7 +194,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
     local Text = XGUIEng.GetStringTableText(_Key);
     local EffectText = "";
 
-    if _Key == "MenuHeadquarter/SetVeryLowTaxes" then
+    if _Key == "sh_menuheadquarter/SetVeryLowTaxes" then
         Text = self.Text.TaxLevel[1][Language];
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[1];
         EffectText = self.Text.UI.Effect[Language];
@@ -204,7 +204,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
-    elseif _Key == "MenuHeadquarter/SetLowTaxes" then
+    elseif _Key == "sh_menuheadquarter/SetLowTaxes" then
         Text = self.Text.TaxLevel[2][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 2);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[2];
@@ -214,7 +214,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
-    elseif _Key == "MenuHeadquarter/SetNormalTaxes" then
+    elseif _Key == "sh_menuheadquarter/SetNormalTaxes" then
         Text = self.Text.TaxLevel[3][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 3);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[3];
@@ -224,7 +224,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
-    elseif _Key == "MenuHeadquarter/SetHighTaxes" then
+    elseif _Key == "sh_menuheadquarter/SetHighTaxes" then
         Text = self.Text.TaxLevel[4][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 4);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[4];
@@ -234,7 +234,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
-    elseif _Key == "MenuHeadquarter/SetVeryHighTaxes" then
+    elseif _Key == "sh_menuheadquarter/SetVeryHighTaxes" then
         Text = self.Text.TaxLevel[5][Language];
         local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 5);
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[5];
@@ -244,7 +244,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         if Effects.Honor > 0 then
             EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
         end
-    elseif _Key == "MenuHeadquarter/CallMilitia" then
+    elseif _Key == "sh_menuheadquarter/CallMilitia" then
         if Logic.IsEntityInCategory(GUI.GetSelectedEntity(), EntityCategories.Headquarters) == 1 then
             Text = self.Text.SelectLord[Language];
         end
@@ -365,7 +365,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
         return false;
     end
 
-    if _TooltipNormal == "AOMenuMonastery/BlessSettlers1_normal" then
+    if _TooltipNormal == "AOsh_menumonastery/BlessSettlers1_normal" then
         Text = self.Text.Measure[BlessCategories.Construction][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLevyTax);
@@ -376,7 +376,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Construction];
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers2_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers2_normal" then
         Text = self.Text.Measure[BlessCategories.Research][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLawAndOrder);
@@ -387,7 +387,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Research];
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers3_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers3_normal" then
         Text = self.Text.Measure[BlessCategories.Weapons][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureWelcomeCulture);
@@ -398,7 +398,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Weapons];
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers4_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers4_normal" then
         Text = self.Text.Measure[BlessCategories.Financial][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureFolkloreFeast);
@@ -409,7 +409,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Financial];
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers5_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers5_normal" then
         Text = self.Text.Measure[BlessCategories.Canonisation][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureOrgy);
@@ -612,7 +612,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
     end
     local Text = "";
 
-    if _TooltipNormal == "AOMenuMonastery/BlessSettlers1_normal" then
+    if _TooltipNormal == "AOsh_menumonastery/BlessSettlers1_normal" then
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers1) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
@@ -626,7 +626,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
                 Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers2_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers2_normal" then
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers2) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
@@ -640,7 +640,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
                 Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers3_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers3_normal" then
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers3) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
@@ -658,7 +658,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
                 Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers4_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers4_normal" then
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers4) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else
@@ -676,7 +676,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
                 Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
             end
         end
-    elseif _TooltipNormal == "AOMenuMonastery/BlessSettlers5_normal" then
+    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers5_normal" then
         if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers5) == 0 then
             Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
         else

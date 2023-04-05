@@ -528,30 +528,30 @@ end
 
 function Stronghold.Recruitment:UpdateUpgradeSettlersBarracksTooltip(_PlayerID, _Technology, _TextKey, _ShortCut)
     local TextToPrint = {
-        ["MenuBarracks/UpgradeSword1"] = {"Research_UpgradeSword1", " [A]"},
-        ["MenuBarracks/UpgradeSword2"] = {"Research_UpgradeSword2", " [S]"},
-        ["MenuBarracks/UpgradeSword3"] = {"Research_UpgradeSword3", " [D]"},
-        ["MenuBarracks/UpgradeSpear1"] = {"Research_UpgradeSpear1", " [F]"},
-        ["MenuBarracks/UpgradeSpear2"] = {"Research_UpgradeSpear2", " [G]"},
-        ["MenuBarracks/UpgradeSpear3"] = {"Research_UpgradeSpear3", " [H]"},
+        ["sh_menubarracks/UpgradeSword1"] = {"Research_UpgradeSword1", " [A]"},
+        ["sh_menubarracks/UpgradeSword2"] = {"Research_UpgradeSword2", " [S]"},
+        ["sh_menubarracks/UpgradeSword3"] = {"Research_UpgradeSword3", " [D]"},
+        ["sh_menubarracks/UpgradeSpear1"] = {"Research_UpgradeSpear1", " [F]"},
+        ["sh_menubarracks/UpgradeSpear2"] = {"Research_UpgradeSpear2", " [G]"},
+        ["sh_menubarracks/UpgradeSpear3"] = {"Research_UpgradeSpear3", " [H]"},
     };
     return self:UpdateUpgradeSettlersRecruiterTooltip(TextToPrint, _PlayerID, _Technology, _TextKey, _ShortCut);
 end
 
 function Stronghold.Recruitment:UpdateUpgradeSettlersArcheryTooltip(_PlayerID, _Technology, _TextKey, _ShortCut)
     local TextToPrint = {
-        ["MenuArchery/UpgradeBow1"] = {"Research_UpgradeBow1", " [A]"},
-        ["MenuArchery/UpgradeBow2"] = {"Research_UpgradeBow2", " [S]"},
-        ["MenuArchery/UpgradeBow3"] = {"Research_UpgradeBow3", " [D]"},
-        ["AOMenuArchery/UpgradeRifle1"] = {"Research_UpgradeRifle1", " [F]"},
+        ["sh_menuarchery/UpgradeBow1"] = {"Research_UpgradeBow1", " [A]"},
+        ["sh_menuarchery/UpgradeBow2"] = {"Research_UpgradeBow2", " [S]"},
+        ["sh_menuarchery/UpgradeBow3"] = {"Research_UpgradeBow3", " [D]"},
+        ["AOsh_menuarchery/UpgradeRifle1"] = {"Research_UpgradeRifle1", " [F]"},
     };
     return self:UpdateUpgradeSettlersRecruiterTooltip(TextToPrint, _PlayerID, _Technology, _TextKey, _ShortCut);
 end
 
 function Stronghold.Recruitment:UpdateUpgradeSettlersStableTooltip(_PlayerID, _Technology, _TextKey, _ShortCut)
     local TextToPrint = {
-        ["MenuStables/UpgradeCavalryLight1"] = {"Research_UpgradeCavalryLight1", " [A]"},
-        ["MenuStables/UpgradeCavalryHeavy1"] = {"Research_UpgradeCavalryHeavy1", " [S]"},
+        ["sh_menustable/UpgradeCavalryLight1"] = {"Research_UpgradeCavalryLight1", " [A]"},
+        ["sh_menustable/UpgradeCavalryHeavy1"] = {"Research_UpgradeCavalryHeavy1", " [S]"},
     };
     return self:UpdateUpgradeSettlersRecruiterTooltip(TextToPrint, _PlayerID, _Technology, _TextKey, _ShortCut);
 end

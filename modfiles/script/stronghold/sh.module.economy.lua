@@ -760,12 +760,12 @@ end
 
 function Stronghold.Economy:PrintTooltipGenericForEcoGeneral(_PlayerID, _Key)
     local Language = GetLanguage();
-    if _Key == "MenuHeadquarter/TaxWorker" then
+    if _Key == "sh_menuheadquarter/TaxWorker" then
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.TaxWorker[Language]);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
-    elseif _Key == "MenuHeadquarter/TaxLeader" then
+    elseif _Key == "sh_menuheadquarter/TaxLeader" then
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, self.Text.Overview.TaxLeader[Language]);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
