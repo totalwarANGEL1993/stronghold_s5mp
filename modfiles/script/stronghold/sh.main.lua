@@ -208,6 +208,7 @@ function Stronghold:Init()
     self.Hero:Install();
     self.Unit:Install();
     self.Attraction:Install();
+    self.Multiplayer:Install();
     self.Spawner:Install();
     self.Outlaw:Install();
     self.Province:Install();
@@ -254,6 +255,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Hero:OnSaveGameLoaded();
     self.Unit:OnSaveGameLoaded();
     self.Attraction:OnSaveGameLoaded();
+    self.Multiplayer:OnSaveGameLoaded();
     self.Spawner:OnSaveGameLoaded();
     self.Outlaw:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();

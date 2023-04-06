@@ -128,6 +128,12 @@ function Stronghold.Rights:SetPlayerRank(_PlayerID, _Rank)
     end
 end
 
+function Stronghold.Rights:SetPlayerMaxRank(_PlayerID, _Rank)
+    if IsHumanPlayer(_PlayerID) then
+        self.Data[_PlayerID].LockRank = _Rank;
+    end
+end
+
 function Stronghold.Rights:GetHeroGender(_Type)
     if self.Config.Gender[_Type] then
         return self.Config.Gender[_Type];

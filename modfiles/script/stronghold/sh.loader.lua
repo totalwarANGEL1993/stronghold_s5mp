@@ -84,42 +84,38 @@ end
 Script.Load(ModPath.. "sh.main.lua");
 Script.Load(ModPath.. "sh.main.config.lua");
 Script.Load(ModPath.. "sh.utils.lua");
-
+---
 Script.Load(ModPath.. "sh.module.attraction.lua");
 Script.Load(ModPath.. "sh.module.attraction.config.lua");
-
-Script.Load(ModPath.. "sh.module.rights.lua");
-Script.Load(ModPath.. "sh.module.rights.constants.lua");
-Script.Load(ModPath.. "sh.module.rights.config.lua");
-
-Script.Load(ModPath.. "sh.module.unit.lua");
-Script.Load(ModPath.. "sh.module.unit.config.lua");
-
-Script.Load(ModPath.. "sh.module.hero.lua");
-Script.Load(ModPath.. "sh.module.hero.config.lua");
-Script.Load(ModPath.. "sh.module.hero.text.lua");
-
+Script.Load(ModPath.. "sh.module.building.lua");
+Script.Load(ModPath.. "sh.module.building.config.lua");
+Script.Load(ModPath.. "sh.module.building.text.lua");
+Script.Load(ModPath.. "sh.module.construction.lua");
+Script.Load(ModPath.. "sh.module.construction.config.lua");
 Script.Load(ModPath.. "sh.module.economy.lua");
 Script.Load(ModPath.. "sh.module.economy.config.lua");
 Script.Load(ModPath.. "sh.module.economy.text.lua");
-
-Script.Load(ModPath.. "sh.module.recruitment.lua");
-Script.Load(ModPath.. "sh.module.recruitment.config.lua");
-Script.Load(ModPath.. "sh.module.recruitment.text.lua");
-
+Script.Load(ModPath.. "sh.module.hero.lua");
+Script.Load(ModPath.. "sh.module.hero.config.lua");
+Script.Load(ModPath.. "sh.module.hero.text.lua");
 Script.Load(ModPath.. "sh.module.province.lua");
 Script.Load(ModPath.. "sh.module.province.constants.lua");
 Script.Load(ModPath.. "sh.module.province.config.lua");
 Script.Load(ModPath.. "sh.module.province.text.lua");
-
-Script.Load(ModPath.. "sh.module.construction.lua");
-Script.Load(ModPath.. "sh.module.construction.config.lua");
-
-Script.Load(ModPath.. "sh.module.building.lua");
-Script.Load(ModPath.. "sh.module.building.config.lua");
-Script.Load(ModPath.. "sh.module.building.text.lua");
-
+Script.Load(ModPath.. "sh.module.recruitment.lua");
+Script.Load(ModPath.. "sh.module.recruitment.config.lua");
+Script.Load(ModPath.. "sh.module.recruitment.text.lua");
+Script.Load(ModPath.. "sh.module.rights.lua");
+Script.Load(ModPath.. "sh.module.rights.constants.lua");
+Script.Load(ModPath.. "sh.module.rights.config.lua");
+Script.Load(ModPath.. "sh.module.unit.lua");
+Script.Load(ModPath.. "sh.module.unit.config.lua");
+---
 Script.Load(ModPath.. "sh.module.spawner.lua");
 Script.Load(ModPath.. "sh.module.outlaw.lua");
 Script.Load(ModPath.. "sh.module.outlaw.constants.lua");
+---
+Script.Load(ModPath.. "sh.module.multiplayer.lua");
+Script.Load(ModPath.. "sh.module.multiplayer.config.lua");
+Script.Load(ModPath.. "sh.module.multiplayer.text.lua");
 

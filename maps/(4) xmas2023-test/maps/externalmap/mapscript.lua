@@ -22,6 +22,8 @@ function OnMapStart()
     SetupHumanPlayer(3);
     SetupHumanPlayer(4);
 
+    SetupStrongholdMultiplayerConfig();
+
     for i= 1, 4 do
         Tools.GiveResouces(i, 999999, 999999, 999999, 999999, 999999, 999999);
         AddHonor(i, 1000);
