@@ -85,6 +85,10 @@ Script.Load(ModPath.. "sh.main.lua");
 Script.Load(ModPath.. "sh.main.config.lua");
 Script.Load(ModPath.. "sh.utils.lua");
 ---
+Script.Load(ModPath.. "sh.module.rights.lua");
+Script.Load(ModPath.. "sh.module.rights.constants.lua");
+Script.Load(ModPath.. "sh.module.rights.config.lua");
+---
 Script.Load(ModPath.. "sh.module.attraction.lua");
 Script.Load(ModPath.. "sh.module.attraction.config.lua");
 Script.Load(ModPath.. "sh.module.building.lua");
@@ -105,9 +109,6 @@ Script.Load(ModPath.. "sh.module.province.text.lua");
 Script.Load(ModPath.. "sh.module.recruitment.lua");
 Script.Load(ModPath.. "sh.module.recruitment.config.lua");
 Script.Load(ModPath.. "sh.module.recruitment.text.lua");
-Script.Load(ModPath.. "sh.module.rights.lua");
-Script.Load(ModPath.. "sh.module.rights.constants.lua");
-Script.Load(ModPath.. "sh.module.rights.config.lua");
 Script.Load(ModPath.. "sh.module.unit.lua");
 Script.Load(ModPath.. "sh.module.unit.config.lua");
 ---

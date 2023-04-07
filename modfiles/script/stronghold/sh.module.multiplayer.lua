@@ -89,7 +89,6 @@ end
 function ShowStrongholdConfiguration()
     Stronghold.Multiplayer:ConfigureReset();
     Stronghold.Multiplayer:ShowRuleSelection();
-    -- TODO !!!
 end
 
 -- -------------------------------------------------------------------------- --
@@ -190,45 +189,38 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function GUITooltip_SHMP_Config_SetHeroAllowed(_Type, _TextKey)
+function GUITooltip_SHMP_Config_SetHeroAllowed(_Type)
     local TypeName = Logic.GetEntityTypeName(_Type);
-    local Name = XGUIEng.GetStringTableText("names/" ..TypeName);
-    local Text = string.format(XGUIEng.GetStringTableText(_TextKey), Name);
+    local Text = XGUIEng.GetStringTableText("sh_shs5mp/hero_" ..TypeName);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
 end
 
-function GUITooltip_SHMP_Config_SetResource(_Amount, _TextKey)
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, _TextKey .. _Amount);
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
-end
-
-function GUITooltip_SHMP_Config_SetInitialRank(_Rank, _TextKey)
-    local Name = GetRankName(_Rank, GUI.GetPlayerID());
-    local Text = string.format(XGUIEng.GetStringTableText(_TextKey), Name);
+function GUITooltip_SHMP_Config_SetResource(_TextKey)
+    local Text = XGUIEng.GetStringTableText(_TextKey);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
 end
 
-function GUITooltip_SHMP_Config_SetFinalRank(_Rank, _TextKey)
-    local Name = GetRankName(_Rank, GUI.GetPlayerID());
-    local Text = string.format(XGUIEng.GetStringTableText(_TextKey), Name);
+function GUITooltip_SHMP_Config_SetPeacetime(_TextKey)
+    local Text = XGUIEng.GetStringTableText(_TextKey);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
 end
 
-function GUITooltip_SHMP_Config_Reset(_TextKey)
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, _TextKey);
+function GUITooltip_SHMP_Config_SetInitialRank(_TextKey)
+    local Text = XGUIEng.GetStringTableText(_TextKey);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
 end
 
-function GUITooltip_SHMP_Config_Confirm(_TextKey)
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, _TextKey);
+function GUITooltip_SHMP_Config_SetFinalRank(_TextKey)
+    local Text = XGUIEng.GetStringTableText(_TextKey);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
 end
@@ -237,25 +229,31 @@ end
 
 function GUIUpdate_SHMP_Config_SetHeroAllowed(_Widget, _Type)
     local Flag = (Stronghold.Multiplayer.Data.Config.AllowedHeroes[_Type] and 0) or 1;
-    XGUIEng.HighlightButton(_Widget, Flag);
+    XGUIEng.HighLightButton(_Widget, Flag);
 end
 
-function GUIUpdate_SHMP_Config_SetResource(_Widget, _Type)
-    local Selected = Stronghold.Multiplayer.Data.Config.ResourceSelected or 0;
-    local Flag = (string.find(_Widget, "ResourceAmount" ..Selected) ~= nil and 1) or 0;
-    XGUIEng.HighlightButton(_Widget, Flag);
+function GUIUpdate_SHMP_Config_SetResource(_Widget)
+    local Selected = Stronghold.Multiplayer.Data.Config.ResourceSelected or 1;
+    local Flag = (string.find(_Widget, "Resource" ..Selected) ~= nil and 1) or 0;
+    XGUIEng.HighLightButton(_Widget, Flag);
+end
+
+function GUIUpdate_SHMP_Config_SetPeacetime(_Widget)
+    local Selected = Stronghold.Multiplayer.Data.Config.PeacetimeSelected or 1;
+    local Flag = (string.find(_Widget, "Peacetime" ..Selected) ~= nil and 1) or 0;
+    XGUIEng.HighLightButton(_Widget, Flag);
 end
 
 function GUIUpdate_SHMP_Config_SetInitialRank(_Widget)
     local Rank = Stronghold.Multiplayer.Data.Config.Rank.Initial;
-    local Flag = (string.find(_Widget, "InitialRank" ..Rank) ~= nil and 1) or 0;
-    XGUIEng.HighlightButton(_Widget, Flag);
+    local Flag = (string.find(_Widget, "InitialRank_Rank" ..Rank) ~= nil and 1) or 0;
+    XGUIEng.HighLightButton(_Widget, Flag);
 end
 
 function GUIUpdate_SHMP_Config_SetFinalRank(_Widget)
     local Rank = Stronghold.Multiplayer.Data.Config.Rank.Final;
-    local Flag = (string.find(_Widget, "FinalRank" ..Rank) ~= nil and 1) or 0;
-    XGUIEng.HighlightButton(_Widget, Flag);
+    local Flag = (string.find(_Widget, "FinalRank_Rank" ..Rank) ~= nil and 1) or 0;
+    XGUIEng.HighLightButton(_Widget, Flag);
 end
 
 function GUIUpdate_SHMP_Config_Reset(_Widget)
@@ -270,6 +268,9 @@ function GUIUpdate_SHMP_Config_Confirm(_Widget)
     if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
         XGUIEng.ShowWidget(_Widget, 0);
     end
+end
+
+function GUIUpdate_SHMP_TimerText()
 end
 
 -- -------------------------------------------------------------------------- --
@@ -308,34 +309,60 @@ function Stronghold.Multiplayer:ConfigureFinalRank(_Rank)
 end
 
 function Stronghold.Multiplayer:ConfigurePeaceTime(_Time)
-    self.Data.Config.PeaceTime = _Time * 10;
+    self.Data.Config.PeacetimeSelected = _Time;
+    self.Data.Config.PeaceTime = (_Time -1) * 10;
     -- TODO: Update UI
 end
 
 function Stronghold.Multiplayer:ConfigureReset()
     self.Data.Config = self.Config.DefaultSettings;
-    -- TODO: Update UI (if visible)
+
+    self.Data.Config.ResourceSelected = 1;
+    self.Data.Config.PeacetimeSelected = 1;
+    self.Data.Config.Rank.Initial = 0;
+    self.Data.Config.Rank.Final = 7;
+    if self.Data.Config.AllowedHeroes then
+        for k,v in pairs(self.Data.Config.AllowedHeroes) do
+            self.Data.Config.AllowedHeroes[k] = true;
+        end
+    end
 end
 
 function Stronghold.Multiplayer:Configure()
-    self:HideRuleSelection();
-
     -- Setup ranks
     if self.Data.Config.Rank then
-        local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
-        for PlayerID= 1, HumenPlayer, 1 do
-            SetRank(PlayerID, self.Data.Config.Rank.Initial or 0);
-            Stronghold.Rights:SetPlayerMaxRank(PlayerID, self.Data.Config.Rank.Final or 7);
+        if XNetwork.Manager_DoesExist() == 1 then
+            local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
+            for PlayerID= 1, HumenPlayer, 1 do
+                SetRank(PlayerID, self.Data.Config.Rank.Initial or 0);
+                Stronghold.Rights:SetPlayerMaxRank(PlayerID, self.Data.Config.Rank.Final or 7);
+            end
+        else
+            SetRank(1, self.Data.Config.Rank.Initial or 0);
+            Stronghold.Rights:SetPlayerMaxRank(1, self.Data.Config.Rank.Final or 7);
         end
     end
 
     -- Setup resources
     if self.Data.Config.Resources then
-        local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
-        for PlayerID= 1, HumenPlayer, 1 do
-            AddHonor(PlayerID, self.Data.Config.Resources[1] or 0);
+        if XNetwork.Manager_DoesExist() == 1 then
+            local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
+            for PlayerID= 1, HumenPlayer, 1 do
+                AddHonor(PlayerID, self.Data.Config.Resources[1] or 0);
+                Tools.GiveResouces(
+                    PlayerID,
+                    self.Data.Config.Resources[2] or 0,
+                    self.Data.Config.Resources[3] or 0,
+                    self.Data.Config.Resources[4] or 0,
+                    self.Data.Config.Resources[5] or 0,
+                    self.Data.Config.Resources[6] or 0,
+                    self.Data.Config.Resources[7] or 0
+                );
+            end
+        else
+            AddHonor(1, self.Data.Config.Resources[1] or 0);
             Tools.GiveResouces(
-                PlayerID,
+                1,
                 self.Data.Config.Resources[2] or 0,
                 self.Data.Config.Resources[3] or 0,
                 self.Data.Config.Resources[4] or 0,
@@ -354,6 +381,7 @@ function Stronghold.Multiplayer:Configure()
     end
 
     -- Finally setup game
+    self:HideRuleSelection();
     self:OnGameModeSet();
 end
 
@@ -363,25 +391,36 @@ function Stronghold.Multiplayer:ShowRuleSelection()
     -- Register rule selection active
     self.Data.IsRuleConfigurationActive = true;
     -- Suspend players
-    local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
-    for PlayerID= 1, HumenPlayer do
-        self:SuspendPlayer(PlayerID);
+    if XNetwork.Manager_DoesExist() == 1 then
+        local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
+        for PlayerID= 1, HumenPlayer do
+            self:SuspendPlayer(PlayerID);
+        end
+    else
+        self:SuspendPlayer(1);
     end
-    -- TODO: Show window
+    -- Show window
+    XGUIEng.ShowWidget("SHS5MP", 1);
 end
 
 function Stronghold.Multiplayer:HideRuleSelection()
     -- Register rule selection inactive
     self.Data.IsRuleConfigurationActive = false;
     -- Resume players
-    local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
-    for PlayerID= 1, HumenPlayer do
-        self:ResumePlayer(PlayerID);
+    if XNetwork.Manager_DoesExist() == 1 then
+        local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
+        for PlayerID= 1, HumenPlayer do
+            self:ResumePlayer(PlayerID);
+        end
+    else
+        self:ResumePlayer(1);
     end
-    -- TODO: Hide window
+    -- Hide Window
+    XGUIEng.ShowWidget("SHS5MP", 0);
 end
 
 function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
+    LuaDebugger.Log();
     self:ResumePlayer(_PlayerID);
     for k,v in pairs(GetPlayerEntities(_PlayerID, 0)) do
         if Logic.IsBuilding(v) == 1 then
@@ -393,12 +432,14 @@ function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
             end
         elseif Logic.IsSettler(v) == 1 then
             local Soldiers = {Logic.GetSoldiersAttachedToLeader(v)};
-            for i= 1, Soldiers[1] +1 do
-                DestroyEntity(Soldiers[i]);
+            if Soldiers[1] then
+                for i= 1, Soldiers[1] +1 do
+                    DestroyEntity(Soldiers[i]);
+                end
             end
             local Type = Logic.GetEntityType(v);
             local ID = ReplaceEntity(v, Entities.XD_ScriptEntity);
-            table.insert(self.Data[_PlayerID].ReplacedEntities, {ID, Type, Soldiers[1]});
+            table.insert(self.Data[_PlayerID].ReplacedEntities, {ID, Type, Soldiers[1] or 0});
         end
     end
 end
@@ -468,33 +509,31 @@ function Stronghold.Multiplayer:OnPeaceTimeOver()
 end
 
 function Stronghold.Multiplayer:OnGameModeSet()
-    if XNetwork ~= nil then
-        Script.Load("Data\\Script\\MapTools\\MultiPlayer\\VC_Deathmatch.lua");
-        Script.Load("Data\\Script\\MapTools\\MultiPlayer\\PeaceTime.lua");
+    Script.Load("Data\\Script\\MapTools\\MultiPlayer\\VC_Deathmatch.lua");
+    Script.Load("Data\\Script\\MapTools\\MultiPlayer\\PeaceTime.lua");
 
-        Action_PeaceTime = function()
-            GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/Note_PeaceTimeOver"));
-	        GUIAction_ToggleStopWatch(0, 0);
-	        Sound.PlayGUISound(Sounds.OnKlick_Select_kerberos, 127);
-            Stronghold.Multiplayer:OnPeaceTimeOver();
-        end
+    Action_PeaceTime = function()
+        GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/Note_PeaceTimeOver"));
+        GUIAction_ToggleStopWatch(0, 0);
+        Sound.PlayGUISound(Sounds.OnKlick_Select_kerberos, 127);
+        Stronghold.Multiplayer:OnPeaceTimeOver();
+    end
 
-        -- Start default victory condition?
-        if not self.Data.Config.DisableDefaultWinCondition then
-		    Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, nil, "VC_Deathmatch", 1);
-        end
+    -- Start default victory condition?
+    if not self.Data.Config.DisableDefaultWinCondition then
+        Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, nil, "VC_Deathmatch", 1);
+    end
 
-        -- Start peacetime?
-        local PeaceTime = self.Data.Config.PeaceTime or 0;
-        if PeaceTime > 0 then
-            MultiplayerTools.PeaceTime = math.ceil(PeaceTime) * 60;
-            GUIAction_ToggleStopWatch(MultiplayerTools.PeaceTime, 1);
-            Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, "Condition_PeaceTime", "Action_PeaceTime", 1);
-            GameCallback_Logic_OnConfigurated();
-        else
-            GameCallback_Logic_OnConfigurated();
-            self:OnPeaceTimeOver();
-        end
+    -- Start peacetime?
+    local PeaceTime = self.Data.Config.PeaceTime or 0;
+    if PeaceTime > 0 then
+        MultiplayerTools.PeaceTime = math.ceil(PeaceTime) * 60;
+        GUIAction_ToggleStopWatch(MultiplayerTools.PeaceTime, 1);
+        Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, "Condition_PeaceTime", "Action_PeaceTime", 1);
+        GameCallback_Logic_OnConfigurated();
+    else
+        GameCallback_Logic_OnConfigurated();
+        self:OnPeaceTimeOver();
     end
 end
 

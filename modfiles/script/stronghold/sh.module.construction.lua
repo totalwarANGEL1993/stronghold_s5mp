@@ -264,13 +264,14 @@ end
 -- Prevents towers from being placed if another tower of the same player is
 -- to close. Type of tower does not matter.
 function Stronghold.Construction:StartCheckTowerDistanceCallback()
-    if not GameCallback_PlaceBuildingAdditionalCheck then
-        return false;
-    end
-    self.Orig_GameCallback_PlaceBuildingAdditionalCheck = GameCallback_PlaceBuildingAdditionalCheck;
+    -- if not GameCallback_PlaceBuildingAdditionalCheck then
+    --     return false;
+    -- end
+    -- self.Orig_GameCallback_PlaceBuildingAdditionalCheck = GameCallback_PlaceBuildingAdditionalCheck;
     GameCallback_PlaceBuildingAdditionalCheck = function(_ucat, _x, _y, _rotation, _isBuildOn)
         local PlayerID = GUI.GetPlayerID();
-        local Allowed = Stronghold.Construction.Orig_GameCallback_PlaceBuildingAdditionalCheck(_ucat, _x, _y, _rotation, _isBuildOn);
+        local Allowed = true;
+        -- local Allowed = Stronghold.Construction.Orig_GameCallback_PlaceBuildingAdditionalCheck(_ucat, _x, _y, _rotation, _isBuildOn);
         if IsHumanPlayer(PlayerID) then
             if Allowed and _ucat == EntityCategories.Tower then
                 local AreaSize = self.Config.TowerDistance;

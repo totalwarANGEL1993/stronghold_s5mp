@@ -14,8 +14,8 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
 
     -- Rank
     Rank = {
-        Initial = PlayerRank.Commoner,
-        Final = PlayerRank.Duke,
+        Initial = 0,
+        Final = 7,
     },
 
     -- Resources

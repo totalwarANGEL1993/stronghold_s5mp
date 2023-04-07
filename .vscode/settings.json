@@ -229,7 +229,8 @@
         "GetResourceName",
         "ArePositionsConnected",
         "KeyOf",
-        "MEDITERANEANMUSIC"
+        "MEDITERANEANMUSIC",
+        "GUIAction_ToggleStopWatch"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
