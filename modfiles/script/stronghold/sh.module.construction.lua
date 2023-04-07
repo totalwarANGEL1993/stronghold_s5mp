@@ -270,8 +270,8 @@ function Stronghold.Construction:StartCheckTowerDistanceCallback()
             local Allowed = true;
             if IsHumanPlayer(PlayerID) then
                 if Allowed and Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tower then
-                    local AreaSize = self.Config.TowerDistance;
-                    if self:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
+                    local AreaSize = Stronghold.Construction.Config.TowerDistance;
+                    if Stronghold.Construction:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
                         Allowed = false;
                     end
                 end
@@ -281,6 +281,16 @@ function Stronghold.Construction:StartCheckTowerDistanceCallback()
         return true;
     end
     return false;
+end
+
+function Stronghold.Construction:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, _AreaSize)
+    local DarkTower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower1, _X, _Y, _AreaSize, 1)};
+    local DarkTower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower2, _X, _Y, _AreaSize, 1)};
+    local DarkTower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower3, _X, _Y, _AreaSize, 1)};
+    local Tower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, _X, _Y, _AreaSize, 1)};
+    local Tower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower2, _X, _Y, _AreaSize, 1)};
+    local Tower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower3, _X, _Y, _AreaSize, 1)};
+    return Tower1[1] + Tower2[1] + Tower3[1] + DarkTower1[1] + DarkTower2[1] + DarkTower3[1] > 0;
 end
 
 -- -------------------------------------------------------------------------- --

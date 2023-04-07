@@ -22,7 +22,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>225</MaxHealth>
+		  <MaxHealth>125</MaxHealth>
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -119,7 +119,7 @@
 	        <HitAnim>CU_Barbarian_LeaderClub1_Hit</HitAnim>
 
 	        <DamageClass>DC_Blunt</DamageClass>
-	        <DamageAmount>8</DamageAmount>	        
+	        <DamageAmount>9</DamageAmount>	        
 	        <MaxRandomDamageBonus>12</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2500</BattleWaitUntil>
