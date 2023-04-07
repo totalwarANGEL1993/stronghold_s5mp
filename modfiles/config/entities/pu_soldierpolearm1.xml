@@ -1,178 +1,178 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>GD::CDisplaySettler</Class>
-		  <Model>PU_SoldierPoleArm1</Model> 
-		  <DrawPlayerColor>True</DrawPlayerColor>		
-		  <Anim>PU_SoldierPoleArm1_Walk</Anim>
-		  <Anim>PU_SoldierPoleArm1_Run1</Anim>
-		  <Anim>PU_SoldierPoleArm1_Idle1</Anim>		
-		  <Anim>PU_SoldierPoleArm1_Idle2</Anim>	
-		  <Anim>PU_SoldierPoleArm1_Idle3</Anim>	
-		  <Anim>PU_SoldierPoleArm1_Idle4</Anim>	
-		  <Anim>PU_SoldierPoleArm1_Idle5</Anim>	
-		  <Anim>PU_SoldierPoleArm1_Idle6</Anim>	
-		  <Anim>PU_SoldierPoleArm1_Attack1</Anim>
-		  <Anim>PU_SoldierPoleArm1_Attack2</Anim>
-		  <Anim>PU_SoldierPoleArm1_IdleAttack1</Anim>
-		  <Anim>PU_SoldierPoleArm1_Finish</Anim>
-		  <Anim>PU_SoldierPoleArm1_Dying1</Anim>
-		  <Anim>PU_SoldierPoleArm1_Hit</Anim>	
-		
-	</Display>
-	<Logic classname="GGL::CGLSettlerProps">
-		  <Class>GGL::CSettler</Class>
-		  <AccessCategory>AccessCategorySettler</AccessCategory>		
-		  <MaxHealth>100</MaxHealth>
-		  <DodgeChance>10</DodgeChance> 
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>PU_SoldierPoleArm1</Model>
+        <DrawPlayerColor>True</DrawPlayerColor>
+        <Anim>PU_SoldierPoleArm1_Walk</Anim>
+        <Anim>PU_SoldierPoleArm1_Run1</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle1</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle2</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle3</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle4</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle5</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle6</Anim>
+        <Anim>PU_SoldierPoleArm1_Attack1</Anim>
+        <Anim>PU_SoldierPoleArm1_Attack2</Anim>
+        <Anim>PU_SoldierPoleArm1_IdleAttack1</Anim>
+        <Anim>PU_SoldierPoleArm1_Finish</Anim>
+        <Anim>PU_SoldierPoleArm1_Dying1</Anim>
+        <Anim>PU_SoldierPoleArm1_Hit</Anim>
+
+    </Display>
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
+        <MaxHealth>100</MaxHealth>
+        <DodgeChance>10</DodgeChance>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-			  <Gold>30</Gold>
-			  <Iron>0</Iron>
-			  <Wood>20</Wood>
+            <Gold>30</Gold>
+            <Iron>0</Iron>
+            <Wood>20</Wood>
         </Cost>
 
         <ModifyArmor>
-        	<Technology>T_SoftArcherArmor</Technology>
-        </ModifyArmor>
-        
-        <ModifyArmor>
-        	<Technology>T_PaddedArcherArmor</Technology>
-        </ModifyArmor>
-        
-        <ModifyArmor>
-        	<Technology>T_LeatherArcherArmor</Technology>
+            <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
 
-         <ModifyDamage>
-        	<Technology>T_WoodAging</Technology>
+        <ModifyArmor>
+            <Technology>T_PaddedArcherArmor</Technology>
+        </ModifyArmor>
+
+        <ModifyArmor>
+            <Technology>T_LeatherArcherArmor</Technology>
+        </ModifyArmor>
+
+        <ModifyDamage>
+            <Technology>T_WoodAging</Technology>
         </ModifyDamage>
-         <ModifyDamage>
-        	<Technology>T_Turnery</Technology>
+        <ModifyDamage>
+            <Technology>T_Turnery</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
-        	<Technology>T_BetterTrainingBarracks</Technology>
+            <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-        
+
         <Category>Military</Category>
         <Category>Soldier</Category>
         <Category>Spear</Category>
         <Category>Melee</Category>
-		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <Exploration>20</Exploration>
-		  <ArmorClass>ArmorClassJerkin</ArmorClass> 
-		  <ArmorAmount>1</ArmorAmount>
-		  <DodgeChance>10</DodgeChance> 
-    	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-    	<ExperiencePoints>10</ExperiencePoints>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorAmount>1</ArmorAmount>
+        <DodgeChance>10</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>10</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-    	<Upgrade>            
-            <Type>PU_SoldierPoleArm2</Type> 
+        <Upgrade>
+            <Type>PU_SoldierPoleArm2</Type>
             <Category>SoldierPoleArm</Category>
         </Upgrade>
-	</Logic>
-	<Behavior>
-		  <Logic classname="GGL::CGLAnimationBehaviorExProps">
-			  <Class>GGL::CGLBehaviorAnimationEx</Class>
-			  <SuspensionAnimation>PU_SoldierPoleArm1_Idle1</SuspensionAnimation>			
-			  <AnimSet>SET_SOLDIERPOLEARM1</AnimSet>
-		  </Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CMovementBehaviorProps">
-			  <Class>GGL::CSoldierMovement</Class>
-			  <Speed>370</Speed>
-			  <RotationSpeed>30</RotationSpeed>
-			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
-			  <MoveIdleAnim>PU_SoldierPoleArm1_Idle1</MoveIdleAnim>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorMovement</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CSoldierBehaviorProps">
-			  <Class>GGL::CSoldierBehavior</Class>
+    </Logic>
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>PU_SoldierPoleArm1_Idle1</SuspensionAnimation>
+            <AnimSet>SET_SOLDIERPOLEARM1</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CSoldierMovement</Class>
+            <Speed>370</Speed>
+            <RotationSpeed>30</RotationSpeed>
+            <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
+            <MoveIdleAnim>PU_SoldierPoleArm1_Idle1</MoveIdleAnim>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="GGL::CSoldierBehaviorProps">
+            <Class>GGL::CSoldierBehavior</Class>
 
-	        <BattleTaskList>TL_BATTLE_POLEARM</BattleTaskList>
-	        <NormalAttackAnim1>PU_SoldierPoleArm1_Attack1</NormalAttackAnim1>
-	        <NormalAttackAnim2>PU_SoldierPoleArm1_Attack2</NormalAttackAnim2>
-	        <CounterAttackAnim>PU_SoldierPoleArm1_Finish</CounterAttackAnim> 
-	        <FinishingMoveAnim>PU_SoldierPoleArm1_Finish</FinishingMoveAnim>
-	        <MissAttackAnim>PU_SoldierPoleArm1_IdleAttack1</MissAttackAnim> 
-	        <BattleIdleAnim>PU_SoldierPoleArm1_IdleAttack1</BattleIdleAnim>
-	        <BattleWalkAnim>PU_SoldierPoleArm1_Run1</BattleWalkAnim> 
-	        <HitAnim>PU_SoldierPoleArm1_Hit</HitAnim>
-	        
-	        <DamageClass>DC_Pole</DamageClass>
-	        <DamageAmount>7</DamageAmount>
-	        <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
-	        
-	        <BattleWaitUntil>2500</BattleWaitUntil>
-	        
-	        <MaxRange>350</MaxRange>
-	        <MinRange>0.0f</MinRange>
-		</Logic>
-	</Behavior>
-	
-	<Behavior>
-		  <Logic classname="GGL::CFormationBehaviorProperties">
-			  <Class>GGL::CFormationBehavior</Class>
-    		<IdleAnim>
-    		    <AnimID>PU_SoldierPoleArm1_Idle1</AnimID>
-    		    <Frequency>5</Frequency>
-    		</IdleAnim>
-    		<IdleAnim>
-    		    <AnimID>PU_SoldierPoleArm1_Idle2</AnimID>
-    		    <Frequency>1</Frequency>
-    		</IdleAnim>
-    		<IdleAnim>
-    		    <AnimID>PU_SoldierPoleArm1_Idle3</AnimID>
-    		    <Frequency>1</Frequency>
-    		</IdleAnim>
-    		<IdleAnim>
-    		    <AnimID>PU_SoldierPoleArm1_Idle4</AnimID>
-    		    <Frequency>1</Frequency>
-    		</IdleAnim>
-    		<IdleAnim>
-    		    <AnimID>PU_SoldierPoleArm1_Idle5</AnimID>
-    		    <Frequency>1</Frequency>
-    		</IdleAnim>
-    		<IdleAnim>
-    		    <AnimID>PU_SoldierPoleArm1_Idle6</AnimID>
-    		    <Frequency>1</Frequency>
-    		</IdleAnim>		
-		</Logic>
-	</Behavior>
-	
-	<Behavior>
-		  <Logic classname="GGL::CGLBehaviorPropsDying">
-			  <Class>GGL::CGLBehaviorDying</Class>
-			  <DyingTaskList>TL_DIE</DyingTaskList>
-		</Logic>
-	</Behavior>
+            <BattleTaskList>TL_BATTLE_POLEARM</BattleTaskList>
+            <NormalAttackAnim1>PU_SoldierPoleArm1_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_SoldierPoleArm1_Attack2</NormalAttackAnim2>
+            <CounterAttackAnim>PU_SoldierPoleArm1_Finish</CounterAttackAnim>
+            <FinishingMoveAnim>PU_SoldierPoleArm1_Finish</FinishingMoveAnim>
+            <MissAttackAnim>PU_SoldierPoleArm1_IdleAttack1</MissAttackAnim>
+            <BattleIdleAnim>PU_SoldierPoleArm1_IdleAttack1</BattleIdleAnim>
+            <BattleWalkAnim>PU_SoldierPoleArm1_Run1</BattleWalkAnim>
+            <HitAnim>PU_SoldierPoleArm1_Hit</HitAnim>
+
+            <DamageClass>DC_Pole</DamageClass>
+            <DamageAmount>7</DamageAmount>
+            <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
+
+            <BattleWaitUntil>2500</BattleWaitUntil>
+
+            <MaxRange>350</MaxRange>
+            <MinRange>0.0f</MinRange>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CFormationBehaviorProperties">
+            <Class>GGL::CFormationBehavior</Class>
+            <IdleAnim>
+                <AnimID>PU_SoldierPoleArm1_Idle1</AnimID>
+                <Frequency>5</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>PU_SoldierPoleArm1_Idle2</AnimID>
+                <Frequency>1</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>PU_SoldierPoleArm1_Idle3</AnimID>
+                <Frequency>1</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>PU_SoldierPoleArm1_Idle4</AnimID>
+                <Frequency>1</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>PU_SoldierPoleArm1_Idle5</AnimID>
+                <Frequency>1</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>PU_SoldierPoleArm1_Idle6</AnimID>
+                <Frequency>1</Frequency>
+            </IdleAnim>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
 
 
 
-	<Behavior>
-	    <Logic classname="EGL::CGLEBehaviorProps">
-	        <Class>GGL::CSoldierEvadeBehavior</Class>
-	    </Logic>
-	</Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CSoldierEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
 
-	<Behavior>
-	    <Logic classname="GGL::CEvadeExecutionBehaviorProps">
-	        <Class>GGL::CEvadeExecutionBehavior</Class>
-	        <BasePriority>300</BasePriority>
-	        <ShouldEvade>false</ShouldEvade>
-	    </Logic>
-	</Behavior>
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>300</BasePriority>
+            <ShouldEvade>false</ShouldEvade>
+        </Logic>
+    </Behavior>
 
 
     <Behavior>
@@ -181,15 +181,4 @@
             <EntityType>XD_DroppedPoleArm</EntityType>
         </Logic>
     </Behavior>
-
-
-
-
-
-
-
-
-
-
-
 </root>

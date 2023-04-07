@@ -22,7 +22,7 @@
 	<Logic classname="GGL::CGLSettlerProps">
 		  <Class>GGL::CSettler</Class>
 		  <AccessCategory>AccessCategorySettler</AccessCategory>	
-		  <MaxHealth>275</MaxHealth>
+		  <MaxHealth>250</MaxHealth>
 		  <NeedsPlayer>true</NeedsPlayer>
 		  <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -117,8 +117,8 @@
 	        
             <!-- That is on purpose -->
 	        <DamageClass>DC_Strike</DamageClass>
-	        <DamageAmount>23</DamageAmount>	        
-	        <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
+	        <DamageAmount>22</DamageAmount>	        
+	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 	        
 	        <MaxRange>200</MaxRange>
 	        <MinRange>0.0f</MinRange>

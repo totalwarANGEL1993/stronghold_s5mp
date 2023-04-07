@@ -171,8 +171,6 @@
 		</Logic>
 	</Behavior>
 
-
-
 	<Behavior>
 	    <Logic classname="EGL::CGLEBehaviorProps">
 	        <Class>GGL::CSoldierEvadeBehavior</Class>
@@ -187,19 +185,10 @@
 	    </Logic>
 	</Behavior>
 
-
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
             <EntityType>XD_DroppedBow</EntityType>
         </Logic>
     </Behavior>
-
-
-
-
-
-
-
-
 </root>

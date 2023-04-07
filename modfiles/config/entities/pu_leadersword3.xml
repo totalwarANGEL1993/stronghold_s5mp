@@ -31,14 +31,13 @@
 			  <Wood/>
         </Cost>
 
+
         <ModifyArmor>
         	<Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
-        
         <ModifyArmor>
         	<Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
-        
         <ModifyArmor>
         	<Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
@@ -54,6 +53,7 @@
         	<Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
         
+
         <Category>Military</Category>
         <Category>Leader</Category>
         <Category>Sword</Category>
@@ -178,16 +178,4 @@
             <EntityType>XD_DroppedSwordShield</EntityType>
         </Logic>
     </Behavior>
-
-
-
-
-
-
-
-
-
-
-
-
 </root>

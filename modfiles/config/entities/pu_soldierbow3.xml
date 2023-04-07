@@ -163,8 +163,6 @@
 		</Logic>
 	</Behavior>
 
-
-
 	<Behavior>
 	    <Logic classname="EGL::CGLEBehaviorProps">
 	        <Class>GGL::CSoldierEvadeBehavior</Class>
@@ -185,16 +183,4 @@
             <EntityType>XD_DroppedBow</EntityType>
         </Logic>
     </Behavior>
-
-
-
-
-
-
-
-
-
-
-
-
 </root>

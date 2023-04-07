@@ -635,7 +635,9 @@ end
 
 function Stronghold.Economy:OverrideFindViewUpdate()
     Overwrite.CreateOverwrite("GUIUpdate_FindView", function()
-        Overwrite.CallOriginal();
+        -- FIXME: Can not call original here...
+        -- Overwrite.CallOriginal();
+
         local PlayerID = GUI.GetPlayerID();
         if PlayerID == 17 then
             local EntityID = GUI.GetSelectedEntity();
@@ -790,46 +792,54 @@ function Stronghold.Economy:PrintTooltipGenericForEcoGeneral(_PlayerID, _Key)
 end
 
 function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
-    local Language = GetLanguage();
     local Text = XGUIEng.GetStringTableText(_Key);
     local Upkeep = 0;
 
     if _Key == "MenuTop/Find_spear" then
-        local SpeerT1 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm1] or 0;
-        local SpeerT2 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm2] or 0;
-        local SpeerT3 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm3] or 0;
-        local SpeerT4 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm4] or 0;
-        Upkeep = SpeerT1+SpeerT2+SpeerT3+SpeerT4;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm3] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm4] or 0);
     elseif _Key == "MenuTop/Find_sword" then
-        local SwordT1 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword1] or 0;
-        local SwordT2 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword2] or 0;
-        local SwordT3 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword3] or 0;
-        local SwordT4 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword4] or 0;
-        Upkeep = SwordT1+SwordT2+SwordT3+SwordT4;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderClub1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderClub2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderMace1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderMace2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderBearman1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword3] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword4] or 0);
     elseif _Key == "MenuTop/Find_bow" then
-        local BowT1 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow1] or 0;
-        local BowT2 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow2] or 0;
-        local BowT3 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow3] or 0;
-        local BowT4 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow4] or 0;
-        Upkeep = BowT1+BowT2+BowT3+BowT4;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderBow1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderSkirmisher1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow3] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow4] or 0);
     elseif _Key == "MenuTop/Find_cannon" then
-        local CannonT1 = self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon1] or 0;
-        local CannonT2 = self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon2] or 0;
-        local CannonT3 = self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon3] or 0;
-        local CannonT4 = self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon4] or 0;
-        Upkeep = CannonT1+CannonT2+CannonT3+CannonT4;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon3] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon4] or 0);
     elseif _Key == "MenuTop/Find_lightcavalry" then
-        local LCavT1 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry1] or 0;
-        local LcavT2 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry2] or 0;
-        Upkeep = LCavT1+LcavT2;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry2] or 0);
     elseif _Key == "MenuTop/Find_heavycavalry" then
-        local SCavT1 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry1] or 0;
-        local ScavT2 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry2] or 0;
-        Upkeep = SCavT1+ScavT2;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry2] or 0);
     elseif _Key == "AOMenuTop/Find_rifle" then
-        local RifleT1 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle1] or 0;
-        local RifleT2 = self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle2] or 0;
-        Upkeep = RifleT1+RifleT2;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle2] or 0);
     elseif _Key == "AOMenuTop/Find_scout" then
         Upkeep = self.Data[_PlayerID].UpkeepDetails[Entities.PU_Scout] or 0;
     elseif _Key == "AOMenuTop/Find_Thief" then
