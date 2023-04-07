@@ -13,25 +13,25 @@
 --- - trade
 ---
 --- Defined game callbacks:
---- - GameCallback_Logic_Payday(_PlayerID)
+--- - GameCallback_SH_Logic_Payday(_PlayerID)
 ---   Called after the payday is done.
 --- 
---- - GameCallback_Logic_HonorGained(_PlayerID, _Amount)
+--- - GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount)
 ---   Called after a player gained honor.
 --- 
---- - GameCallback_Logic_ReputationGained(_PlayerID, _Amount)
+--- - GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount)
 ---   Called after a player gained reputation.
 --- 
---- - <number> GameCallback_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
+--- - <number> GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
 ---   Calculates the minimum of the purchase price factor of the resource.
 --- 
---- - <number> GameCallback_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource)
+--- - <number> GameCallback_SH_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource)
 ---   Calculates the maximum of the purchase price factor of the resource.
 --- 
---- - <number> GameCallback_Calculate_SellMinPriceFactor(_PlayerID, _Resource)
+--- - <number> GameCallback_SH_Calculate_SellMinPriceFactor(_PlayerID, _Resource)
 ---   Calculates the minimum of the sell price factor of the resource.
 --- 
---- - <number> GameCallback_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
+--- - <number> GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
 ---   Calculates the maximum of the sell price factor of the resource.
 ---
 
@@ -152,28 +152,28 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
-function GameCallback_Logic_Payday(_PlayerID)
+function GameCallback_SH_Logic_Payday(_PlayerID)
 end
 
-function GameCallback_Logic_HonorGained(_PlayerID, _Amount)
+function GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount)
 end
 
-function GameCallback_Logic_ReputationGained(_PlayerID, _Amount)
+function GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount)
 end
 
-function GameCallback_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
+function GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][1] or 0.75;
 end
 
-function GameCallback_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource)
+function GameCallback_SH_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][2] or 1.25;
 end
 
-function GameCallback_Calculate_SellMinPriceFactor(_PlayerID, _Resource)
+function GameCallback_SH_Calculate_SellMinPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][3] or 0.75;
 end
 
-function GameCallback_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
+function GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][4] or 1.25;
 end
 
@@ -581,14 +581,14 @@ function Stronghold:OnGoodsTraded()
 end
 
 function Stronghold:ManipulateGoodPurchasePrice(_PlayerID, _Resource, _Price)
-    local MinBuyCap = GameCallback_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource);
-    local MaxBuyCap = GameCallback_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource);
+    local MinBuyCap = GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource);
+    local MaxBuyCap = GameCallback_SH_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource);
     Logic.SetCurrentPrice(_PlayerID, _Resource, math.max(math.min(_Price, MaxBuyCap), MinBuyCap));
 end
 
 function Stronghold:ManipulateGoodSellPrice(_PlayerID, _Resource, _Price)
-    local MinSellCap = GameCallback_Calculate_SellMinPriceFactor(_PlayerID, _Resource);
-    local MaxSellCap = GameCallback_Calculate_SellMaxPriceFactor(_PlayerID, _Resource);
+    local MinSellCap = GameCallback_SH_Calculate_SellMinPriceFactor(_PlayerID, _Resource);
+    local MaxSellCap = GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource);
     Logic.SetCurrentPrice(_PlayerID, _Resource, math.max(math.min(_Price, MaxSellCap), MinSellCap));
 end
 
@@ -743,7 +743,7 @@ function Stronghold:OnPlayerPayday(_PlayerID)
         self:AddPlayerHonor(_PlayerID, Honor);
 
         -- Payday done
-        GameCallback_Logic_Payday(_PlayerID);
+        GameCallback_SH_Logic_Payday(_PlayerID);
     end
 end
 
@@ -756,7 +756,7 @@ function Stronghold:AddPlayerHonor(_PlayerID, _Amount)
         if self.Players[_PlayerID].Honor < 0 then
             self.Players[_PlayerID].Honor = 0;
         end
-        GameCallback_Logic_HonorGained(_PlayerID, _Amount);
+        GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount);
     end
 end
 
@@ -786,7 +786,7 @@ function Stronghold:SetPlayerReputation(_PlayerID, _Amount)
         if self.Players[_PlayerID].Reputation < 0 then
             self.Players[_PlayerID].Reputation = 0;
         end
-        GameCallback_Logic_ReputationGained(_PlayerID, _Amount);
+        GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount);
     end
 end
 
@@ -837,7 +837,9 @@ end
 -- Menu update
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
-    HideInfoWindow();
+    if Logic.GetCurrentTurn() > 1 then
+        HideInfoWindow();
+    end
 
     local GuiPlayer = self:GetLocalPlayerID();
     local SelectedID = GUI.GetSelectedEntity();

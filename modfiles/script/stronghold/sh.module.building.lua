@@ -83,9 +83,9 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
 end
 
 function Stronghold.Building:OverrideCalculationCallbacks()
-    self.Orig_GameCallback_Calculate_MeasureIncrease = GameCallback_Calculate_MeasureIncrease;
-    GameCallback_Calculate_MeasureIncrease = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Building.Orig_GameCallback_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount);
+    self.Orig_GameCallback_SH_Calculate_MeasureIncrease = GameCallback_SH_Calculate_MeasureIncrease;
+    GameCallback_SH_Calculate_MeasureIncrease = function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Stronghold.Building.Orig_GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount);
         if Stronghold.Building.Data[_PlayerID] then
             local Factor = Stronghold.Building.Data[_PlayerID].Measure.RechargeFactor;
             CurrentAmount = CurrentAmount * Factor;

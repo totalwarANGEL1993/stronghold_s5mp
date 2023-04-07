@@ -639,7 +639,7 @@ end
 
 function Stronghold.Hero:OverrideCalculationCallbacks()
     -- Generic --
-    Overwrite.CreateOverwrite("GameCallback_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _ResourceType, _Amount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _ResourceType, _Amount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
         return CurrentAmount;
@@ -647,37 +647,37 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Noble --
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxReputationPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationIncrease", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationIncrease", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyReputationIncreasePassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_DynamicReputationIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicReputationIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationDecrease", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationDecrease", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyReputationDecreasePassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_HonorIncrease", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorIncrease", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyHonorBonusPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_DynamicHonorIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicHonorIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, CurrentAmount);
         return CurrentAmount;
@@ -685,19 +685,19 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Money --
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_TotalPaydayIncome", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_TotalPaydayIncome", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyIncomeBonusPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_TotalPaydayUpkeep", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_TotalPaydayUpkeep", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyUpkeepDiscountPassiveAbility(_PlayerID, _CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_PaydayUpkeep", function(_PlayerID, _UnitType, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_PaydayUpkeep", function(_PlayerID, _UnitType, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _UnitType, CurrentAmount)
         return CurrentAmount;
@@ -705,25 +705,25 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Attraction --
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_CivilAttrationLimit", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CivilAttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_CivilAttrationUsage", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CivilAttrationUsage", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationLimit", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MilitaryAttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
@@ -731,13 +731,13 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Social --
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_MeasureIncrease", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MeasureIncrease", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_CrimeRate", function(_PlayerID, _Rate)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CrimeRate", function(_PlayerID, _Rate)
         local CrimeRate = Overwrite.CallOriginal();
         CrimeRate = Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, CrimeRate);
         return CrimeRate;

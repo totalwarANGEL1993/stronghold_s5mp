@@ -7,28 +7,28 @@
 --- limit. Civil units are all workers and military is the rest.
 ---
 --- Defined game callbacks:
---- - <number> GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
+--- - <number> GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
 ---   Allows to overwrite the max usage of civil places.
 ---
---- - <number> GameCallback_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
+--- - <number> GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
 ---   Allows to overwrite the current overall usage of civil places.
 ---
---- - <number> GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
+--- - <number> GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
 ---   Allows to overwrite the max usage of military places.
 ---
---- - <number> GameCallback_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
+--- - <number> GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
 ---   Allows to overwrite the current overall usage of military places.
 ---
---- - <number> GameCallback_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Places)
+--- - <number> GameCallback_SH_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Places)
 ---   Allows to overwrite the places a unit is occupying.
 --- 
---- - <number> GameCallback_Calculate_CrimeRate(_PlayerID, _Rate)
+--- - <number> GameCallback_SH_Calculate_CrimeRate(_PlayerID, _Rate)
 ---   Allows to overwrite the crime rate.
 ---
---- - <number> GameCallback_Logic_CriminalAppeared(_PlayerID, _EntityID, _BuildingID)
+--- - <number> GameCallback_SH_Logic_CriminalAppeared(_PlayerID, _EntityID, _BuildingID)
 ---   Allows to overwrite the crime chance.
 ---
---- - <number> GameCallback_Logic_CriminalCatched(_PlayerID, _OldEntityID, _BuildingID)
+--- - <number> GameCallback_SH_Logic_CriminalCatched(_PlayerID, _OldEntityID, _BuildingID)
 ---   Allows to overwrite the crime chance.
 ---
 
@@ -106,34 +106,34 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
-function GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Usage)
+function GameCallback_SH_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Usage)
     return _Usage;
 end
 
-function GameCallback_Calculate_CrimeRate(_PlayerID, _Rate)
+function GameCallback_SH_Calculate_CrimeRate(_PlayerID, _Rate)
     return _Rate;
 end
 
-function GameCallback_Logic_CriminalAppeared(_PlayerID, _EntityID, _BuildingID)
+function GameCallback_SH_Logic_CriminalAppeared(_PlayerID, _EntityID, _BuildingID)
 end
 
-function GameCallback_Logic_CriminalCatched(_PlayerID, _OldEntityID, _BuildingID)
+function GameCallback_SH_Logic_CriminalCatched(_PlayerID, _OldEntityID, _BuildingID)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -144,7 +144,7 @@ end
 -- will also have effect on the reputation.
 function Stronghold.Attraction:InitCriminalsEffects()
     -- Criminals steal goods at the payday.
-    Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_Payday", function(_PlayerID)
         Overwrite.CallOriginal();
         Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
     end);
@@ -254,7 +254,7 @@ function Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID)
             Message(XGUIEng.GetStringTableText("sh_text/ConvertedToCriminal"));
         end
         -- Trigger callback
-        GameCallback_Logic_CriminalAppeared(_PlayerID, ID, _BuildingID);
+        GameCallback_SH_Logic_CriminalAppeared(_PlayerID, ID, _BuildingID);
     end
     return ID;
 end
@@ -273,7 +273,7 @@ function Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID)
                     Message(XGUIEng.GetStringTableText("sh_text/CriminalResocialized"));
                 end
                 -- Invoke callback
-                GameCallback_Logic_CriminalCatched(_PlayerID, Data[1], Data[2]);
+                GameCallback_SH_Logic_CriminalCatched(_PlayerID, Data[1], Data[2]);
                 break;
             end
         end
@@ -292,7 +292,7 @@ end
 function Stronghold.Attraction:DoesSettlerTurnCriminal(_PlayerID, _WorkerID)
     if IsHumanPlayerInitalized(_PlayerID) then
         local Motivation = Logic.GetSettlersMotivation(_WorkerID);
-        local CrimeRate = GameCallback_Calculate_CrimeRate(_PlayerID, self.Config.Crime.Convert.Rate);
+        local CrimeRate = GameCallback_SH_Calculate_CrimeRate(_PlayerID, self.Config.Crime.Convert.Rate);
         local Exposition = self:GetSettlersExposition(_PlayerID, _WorkerID);
         -- Oppurtunity makes the thief...
         if Exposition > 0 then
@@ -426,7 +426,7 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
         local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
         RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQCivil[3]);
         -- External
-        Limit = GameCallback_Calculate_CivilAttrationLimit(_PlayerID, RawLimit);
+        Limit = GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, RawLimit);
         -- Virtual settlers
         Limit = Limit + self.Data[_PlayerID].VirtualSettlers;
 
@@ -440,7 +440,7 @@ end
 function Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(_PlayerID)
     if IsHumanPlayerInitalized(_PlayerID) then
         local RealUsage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
-        local Usage = GameCallback_Calculate_CivilAttrationUsage(_PlayerID, RealUsage);
+        local Usage = GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, RealUsage);
         local FakeUsage = RealUsage - math.floor(Usage + 0.5);
         Stronghold.Attraction.Data[_PlayerID].VirtualSettlers = FakeUsage;
     end
@@ -493,7 +493,7 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
         -- Rank
         Limit = RawLimit + (RawLimit * (0.2 * (GetRank(_PlayerID)-1)));
         -- External
-        Limit = GameCallback_Calculate_MilitaryAttrationLimit(_PlayerID, Limit);
+        Limit = GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, Limit);
     end
     return math.ceil(Limit);
 end
@@ -510,7 +510,7 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
         Usage = self:GetMillitarySize(_PlayerID);
         -- External
-        Usage = GameCallback_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
+        Usage = GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
     end
     return Usage;
 end
@@ -538,7 +538,7 @@ function Stronghold.Attraction:GetMillitarySize(_PlayerID)
                     Usage = Usage + (Usage * Soldiers[1]);
                 end
                 -- External
-                Usage = GameCallback_Calculate_UnitPlaces(_PlayerID, UnitList[i], k, Usage);
+                Usage = GameCallback_SH_Calculate_UnitPlaces(_PlayerID, UnitList[i], k, Usage);
 
                 Size = Size + Usage;
             end

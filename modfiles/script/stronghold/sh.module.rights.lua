@@ -6,10 +6,10 @@
 --- a higher rank.
 ---
 --- Defined game callbacks:
---- - GameCallback_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
+--- - GameCallback_SH_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
 ---   Called after a player has been promoted.
 --- 
---- - GameCallback_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
+--- - GameCallback_SH_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
 ---   Called after a player reached the highest rank.
 --- 
 
@@ -67,10 +67,10 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
-function GameCallback_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
+function GameCallback_SH_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
 end
 
-function GameCallback_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
+function GameCallback_SH_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -119,6 +119,10 @@ function Stronghold.Rights:GetPlayerRank(_PlayerID)
         return self.Data[_PlayerID].Rank;
     end
     return 1;
+end
+
+function Stronghold.Rights:GetPlayerMaxRank(_PlayerID)
+    return math.min(self.Data[_PlayerID].MaxRank, self.Data[_PlayerID].LockRank);
 end
 
 function Stronghold.Rights:SetPlayerRank(_PlayerID, _Rank)
@@ -500,9 +504,10 @@ function Stronghold.Rights:PromotePlayer(_PlayerID)
             );
         end
         Message(MsgText);
-        GameCallback_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);
-
-        GameCallback_Logic_PlayerReachedHighestRank(_PlayerID, CurrentRank +1);
+        GameCallback_SH_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);
+        if CurrentRank + 1 >= self:GetPlayerMaxRank(_PlayerID) then
+            GameCallback_SH_Logic_PlayerReachedHighestRank(_PlayerID, CurrentRank +1);
+        end
     end
 end
 

@@ -7,49 +7,49 @@
 --- and reputation and privides calculation callbacks for external changes.
 ---
 --- Defined game callbacks:
---- - <number> GameCallback_Calculate_ReputationMax(_PlayerID, _Amount)
+--- - <number> GameCallback_SH_Calculate_ReputationMax(_PlayerID, _Amount)
 ---   Allows to overwrite the max reputation.
 ---
---- - <number> GameCallback_Calculate_ReputationIncrease(_PlayerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_ReputationIncrease(_PlayerID, _CurrentAmount)
 ---   Allows to overwrite the reputation income.
 ---
---- - <number> GameCallback_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
 ---   Allows to overwrite the reputation income from settlers.
 ---
---- - <number> GameCallback_Calculate_StaticReputationIncrease(_PlayerID, _Type, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_StaticReputationIncrease(_PlayerID, _Type, _CurrentAmount)
 ---   Allows to overwrite the reputation income from buildings.
 ---
---- - <number> GameCallback_Calculate_ReputationIncreaseExternal(_PlayerID)
+--- - <number> GameCallback_SH_Calculate_ReputationIncreaseExternal(_PlayerID)
 ---   Allows to overwrite the external income.
 ---   
---- - <number> GameCallback_Calculate_ReputationDecrease(_PlayerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_ReputationDecrease(_PlayerID, _CurrentAmount)
 ---   Allows to overwrite the reputation malus.
 ---   
---- - <number> GameCallback_Calculate_ReputationDecreaseExternal(_PlayerID)
+--- - <number> GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID)
 ---   Allows to overwrite the external reputation malus.
 ---   
---- - <number> GameCallback_Calculate_HonorIncrease(_PlayerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_HonorIncrease(_PlayerID, _CurrentAmount)
 ---   Allows to overwrite the honor income.
 ---
---- - <number> GameCallback_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
 ---   Allows to overwrite the honor income from settlers.
 ---
---- - <number> GameCallback_Calculate_StaticHonorIncrease(_PlayerID, _Type, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_StaticHonorIncrease(_PlayerID, _Type, _CurrentAmount)
 ---   Allows to overwrite the honor income from buildings.
 ---   
---- - <number> GameCallback_Calculate_HonorIncreaseSpecial(_PlayerID)
+--- - <number> GameCallback_SH_Calculate_HonorIncreaseSpecial(_PlayerID)
 ---   Allows to overwrite the external honor income.
 ---   
---- - <number> GameCallback_Calculate_TotalPaydayIncome(_PlayerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, _CurrentAmount)
 ---   Allows to overwrite the total money income.
 ---   
---- - <number> GameCallback_Calculate_TotalPaydayUpkeep(_PlayerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, _CurrentAmount)
 ---   Allows to overwrite the total upkeep.
 ---   
---- - <number> GameCallback_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _CurrentAmount)
 ---   Allows to overwite the upkeep of a unit type.
 ---
---- - <number> GameCallback_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount)
+--- - <number> GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount)
 ---   Allows to overwrite the measure points income.
 ---
 
@@ -134,71 +134,71 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
-function GameCallback_Calculate_ReputationMax(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_ReputationMax(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_ReputationDecrease(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_ReputationDecrease(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_ReputationDecreaseExternal(_PlayerID)
+function GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID)
     return 0;
 end
 
-function GameCallback_Calculate_ReputationIncrease(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_ReputationIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_StaticReputationIncrease(_PlayerID, _Type, _Amount)
+function GameCallback_SH_Calculate_StaticReputationIncrease(_PlayerID, _Type, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
+function GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_ReputationIncreaseExternal(_PlayerID)
+function GameCallback_SH_Calculate_ReputationIncreaseExternal(_PlayerID)
     return 0;
 end
 
-function GameCallback_Calculate_HonorIncrease(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_HonorIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_StaticHonorIncrease(_PlayerID, _Type, _Amount)
+function GameCallback_SH_Calculate_StaticHonorIncrease(_PlayerID, _Type, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
+function GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_HonorIncreaseSpecial(_PlayerID)
+function GameCallback_SH_Calculate_HonorIncreaseSpecial(_PlayerID)
     return 0;
 end
 
-function GameCallback_Calculate_TotalPaydayIncome(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_TotalPaydayUpkeep(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _Amount)
+function GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_MeasureIncrease(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, _Amount)
+function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, _Amount)
     return _Amount;
 end
 
-function GameCallback_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
+function GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
     return _Amount;
 end
 
@@ -208,7 +208,7 @@ end
 function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
         local MaxReputation = self.Config.Income.MaxReputation;
-        MaxReputation = GameCallback_Calculate_ReputationMax(_PlayerID, MaxReputation);
+        MaxReputation = GameCallback_SH_Calculate_ReputationMax(_PlayerID, MaxReputation);
         Stronghold:SetPlayerReputationLimit(_PlayerID, MaxReputation);
 
         -- Calculate reputation bonus
@@ -229,7 +229,7 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         if self.Data[_PlayerID].ReputationDetails.OtherBonus > 0 then
             ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.OtherBonus;
         end
-        ReputationPlus = GameCallback_Calculate_ReputationIncrease(_PlayerID, ReputationPlus);
+        ReputationPlus = GameCallback_SH_Calculate_ReputationIncrease(_PlayerID, ReputationPlus);
 
         -- Calculate reputation penalty
         local ReputationMinus = 0;
@@ -249,7 +249,7 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         if self.Data[_PlayerID].ReputationDetails.OtherMalus > 0 then
             ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.OtherMalus;
         end
-        ReputationMinus = GameCallback_Calculate_ReputationDecrease(_PlayerID, ReputationMinus);
+        ReputationMinus = GameCallback_SH_Calculate_ReputationDecrease(_PlayerID, ReputationMinus);
 
         -- Calculate honor
         local HonorPlus = 0;
@@ -269,7 +269,7 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         if self.Data[_PlayerID].HonorDetails.OtherBonus > 0 then
             HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.OtherBonus;
         end
-        HonorPlus = GameCallback_Calculate_HonorIncrease(_PlayerID, HonorPlus);
+        HonorPlus = GameCallback_SH_Calculate_HonorIncrease(_PlayerID, HonorPlus);
 
         local Upkeep = self:CalculateMoneyUpkeep(_PlayerID);
         local Income = self:CalculateMoneyIncome(_PlayerID);
@@ -309,7 +309,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
                     local Type = Logic.GetEntityType(FarmID);
                     if self.Config.Income.Dynamic[Type] then
                         Bonus = self.Config.Income.Dynamic[Type].Reputation;
-                        Bonus = GameCallback_Calculate_DynamicReputationIncrease(_PlayerID, FarmID, v, Bonus);
+                        Bonus = GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, FarmID, v, Bonus);
                         Providing = Providing + Bonus;
                         Income = Income + Bonus;
                     end
@@ -320,7 +320,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
                     local Type = Logic.GetEntityType(ResidenceID);
                     if self.Config.Income.Dynamic[Type] then
                         Bonus = self.Config.Income.Dynamic[Type].Reputation;
-                        Bonus = GameCallback_Calculate_DynamicReputationIncrease(_PlayerID, ResidenceID, v, Bonus);
+                        Bonus = GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, ResidenceID, v, Bonus);
                         Housing = Housing + Bonus;
                         Income = Income + Bonus;
                     end
@@ -341,14 +341,14 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
                     end
                 end
                 local BuildingIncome = (table.getn(Buildings) * v.Reputation);
-                BuildingIncome = GameCallback_Calculate_StaticReputationIncrease(_PlayerID, k, BuildingIncome);
+                BuildingIncome = GameCallback_SH_Calculate_StaticReputationIncrease(_PlayerID, k, BuildingIncome);
                 Income = Income + BuildingIncome;
                 Beauty = Beauty + BuildingIncome;
             end
             self.Data[_PlayerID].ReputationDetails.Buildings = Beauty;
 
             -- External calculations
-            local Special = GameCallback_Calculate_ReputationIncreaseExternal(_PlayerID);
+            local Special = GameCallback_SH_Calculate_ReputationIncreaseExternal(_PlayerID);
             local ReputationOneshot = self.Data[_PlayerID].IncomeReputationSingle;
             if ReputationOneshot > 0 then
                 Special = Special + ReputationOneshot;
@@ -385,7 +385,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             Decrease = Decrease + NoFarmPenalty + NoHousePenalty;
 
             -- External calculations
-            local Special = GameCallback_Calculate_ReputationDecreaseExternal(_PlayerID);
+            local Special = GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID);
             local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
             self.Data[_PlayerID].ReputationDetails.Criminals = Criminals;
             self.Data[_PlayerID].ReputationDetails.OtherMalus = Special - Criminals;
@@ -436,7 +436,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                         local Type = Logic.GetEntityType(FarmID);
                         if self.Config.Income.Dynamic[Type] then
                             Bonus = self.Config.Income.Dynamic[Type].Honor;
-                            Bonus = GameCallback_Calculate_DynamicHonorIncrease(_PlayerID, FarmID, v, Bonus);
+                            Bonus = GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, FarmID, v, Bonus);
                             Providing = Providing + Bonus;
                             Income = Income + Bonus;
                         end
@@ -447,7 +447,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                         local Type = Logic.GetEntityType(ResidenceID);
                         if self.Config.Income.Dynamic[Type] then
                             Bonus = self.Config.Income.Dynamic[Type].Honor;
-                            Bonus = GameCallback_Calculate_DynamicHonorIncrease(_PlayerID, ResidenceID, v, Bonus);
+                            Bonus = GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, ResidenceID, v, Bonus);
                             Housing = Housing + Bonus;
                             Income = Income + Bonus;
                         end
@@ -469,14 +469,14 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                         end
                     end
                     local BuildingBonus = (table.getn(Buildings) * v.Honor);
-                    BuildingBonus = GameCallback_Calculate_StaticHonorIncrease(_PlayerID, k, BuildingBonus);
+                    BuildingBonus = GameCallback_SH_Calculate_StaticHonorIncrease(_PlayerID, k, BuildingBonus);
                     Beauty = Beauty + BuildingBonus
                     Income = Income + BuildingBonus;
                 end
                 self.Data[_PlayerID].HonorDetails.Buildings = Beauty;
 
                 -- External calculations
-                local Special = GameCallback_Calculate_HonorIncreaseSpecial(_PlayerID);
+                local Special = GameCallback_SH_Calculate_HonorIncreaseSpecial(_PlayerID);
                 local HonorOneshot = self.Data[_PlayerID].IncomeHonorSingle;
                 self.Data[_PlayerID].HonorDetails.OtherBonus = Special + HonorOneshot;
             end
@@ -492,7 +492,7 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
         local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
         local PerWorker = self.Config.Income.TaxPerWorker;
         local Income = (table.getn(WorkerList) * PerWorker) * (TaxHeight -1);
-        Income = GameCallback_Calculate_TotalPaydayIncome(_PlayerID, Income);
+        Income = GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, Income);
         return math.floor(Income + 0.5);
     end
     return 0;
@@ -519,14 +519,14 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
                     TypeUpkeep = TypeUpkeep + UnitUpkeep;
                 end
                 -- External calculations
-                TypeUpkeep = GameCallback_Calculate_PaydayUpkeep(_PlayerID, k, TypeUpkeep)
+                TypeUpkeep = GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, k, TypeUpkeep)
 
                 self.Data[_PlayerID].UpkeepDetails[k] = TypeUpkeep;
                 Upkeep = Upkeep + TypeUpkeep;
             end
         end
         -- External
-        Upkeep = GameCallback_Calculate_TotalPaydayUpkeep(_PlayerID, Upkeep);
+        Upkeep = GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, Upkeep);
         return math.floor(Upkeep);
     end
     return 0;
@@ -579,7 +579,7 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
                 MeasurePoints = MeasurePoints + ((10 * 0.4) * (1.1 - (CurrentRank/20)));
             end
         end
-        MeasurePoints = GameCallback_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
+        MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
         self:AddPlayerMeasure(_PlayerID, MeasurePoints);
     end
 end
@@ -617,7 +617,7 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Res
         Amount = Amount +1;
     end
     -- External changes
-    Amount = GameCallback_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, Amount);
+    Amount = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, Amount);
     return Amount;
 end
 
@@ -626,7 +626,7 @@ function Stronghold.Economy:OnWorkplaceRefinedResource(_PlayerID, _BuildingID, _
     local Amount = self.Config.Resource.Refining[Type] or _Amount;
 
     -- External changes
-    Amount = GameCallback_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, Amount);
+    Amount = GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, Amount);
     return Amount;
 end
 
@@ -691,7 +691,7 @@ function Stronghold.Economy:HonorMenu()
 end
 
 function Stronghold.Economy:OverrideTaxAndPayStatistics()
-    Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_Payday", function(_PlayerID)
         Overwrite.CallOriginal();
         -- Remove the one time bonuses
         if Stronghold.Economy.Data[_PlayerID] then
@@ -700,7 +700,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         end
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Logic_CriminalCatched", function(_PlayerID, _OldEntityID, _BuildingID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_CriminalCatched", function(_PlayerID, _OldEntityID, _BuildingID)
         Overwrite.CallOriginal();
         if Stronghold.Economy.Data[_PlayerID] then
             Stronghold.Economy:AddOneTimeHonor(_PlayerID, 1);

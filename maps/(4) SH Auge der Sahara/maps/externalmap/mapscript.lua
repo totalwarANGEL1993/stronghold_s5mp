@@ -18,15 +18,14 @@ function OnMapStart()
     AddPeriodicSummer(360);
     LocalMusic.UseSet = MEDITERANEANMUSIC;
 
+    ---
     SetupStronghold();
     SetupHumanPlayer(1);
-    Tools.GiveResouces(1, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(2);
-    Tools.GiveResouces(2, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(3);
-    Tools.GiveResouces(3, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(4);
-    Tools.GiveResouces(4, 600, 1200, 1500, 550, 0, 0);
+    ShowStrongholdConfiguration();
+    ---
 
     SetHostile(1,7);
     SetHostile(2,7);

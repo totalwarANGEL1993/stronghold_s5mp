@@ -4,16 +4,16 @@
 --- Provinces are special locations a player can claim to get their benefits.
 ---
 --- Defined game callbacks:
---- - GameCallback_Logic_OnProvinceClaimed(_PlayerID, _ProvinceID, _BuildingID)
+--- - GameCallback_SH_Logic_OnProvinceClaimed(_PlayerID, _ProvinceID, _BuildingID)
 ---   A player claimed a province.
 --- 
---- - GameCallback_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
+--- - GameCallback_SH_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
 ---   A player has upgraded a province.
 --- 
---- - GameCallback_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
+--- - GameCallback_SH_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
 ---   A player controlled a province at the payday.
 --- 
---- - GameCallback_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
+--- - GameCallback_SH_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
 ---   A player lost a province.
 --- 
 
@@ -118,39 +118,39 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function GameCallback_Logic_OnProvinceClaimed(_PlayerID, _ProvinceID, _BuildingID)
+function GameCallback_SH_Logic_OnProvinceClaimed(_PlayerID, _ProvinceID, _BuildingID)
 end
 
-function GameCallback_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
+function GameCallback_SH_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
 end
 
-function GameCallback_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
+function GameCallback_SH_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
 end
 
-function GameCallback_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
+function GameCallback_SH_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
 end
 
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Province:StartTriggers()
-    Overwrite.CreateOverwrite("GameCallback_Logic_Payday", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_Payday", function(_PlayerID)
         Overwrite.CallOriginal();
         Stronghold.Province:OnPayday(_PlayerID);
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_HonorIncreaseSpecial", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorIncreaseSpecial", function(_PlayerID)
         local Amount = Overwrite.CallOriginal();
         Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Honor, _PlayerID);
         return Amount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_ReputationIncreaseExternal", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationIncreaseExternal", function(_PlayerID)
         local Amount = Overwrite.CallOriginal();
         Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Reputation, _PlayerID);
         return Amount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationLimit", function(_PlayerID, _Amount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MilitaryAttrationLimit", function(_PlayerID, _Amount)
         local Amount = Overwrite.CallOriginal();
         Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Military, _PlayerID);
         return Amount;
@@ -214,7 +214,7 @@ function Stronghold.Province:ClaimProvince(_ID, _PlayerID, _BuildingID)
             end
         end
         -- Extern effects
-        GameCallback_Logic_OnProvinceClaimed(_PlayerID, _ID, _BuildingID);
+        GameCallback_SH_Logic_OnProvinceClaimed(_PlayerID, _ID, _BuildingID);
     end
 end
 
@@ -237,7 +237,7 @@ function Stronghold.Province:UpgradeProvince(_ID, _PlayerID, _BuildingID)
             end
         end
         -- Extern effects
-        GameCallback_Logic_OnProvinceUpgraded(_PlayerID, _ID, _BuildingID);
+        GameCallback_SH_Logic_OnProvinceUpgraded(_PlayerID, _ID, _BuildingID);
     end
 end
 
@@ -258,7 +258,7 @@ function Stronghold.Province:LooseProvince(_ID, _PlayerID)
             self.Data.Provinces[_ID].DisplayName
         ));
         -- Extern effects
-        GameCallback_Logic_OnProvinceLost(_PlayerID, _ID);
+        GameCallback_SH_Logic_OnProvinceLost(_PlayerID, _ID);
     end
 end
 
@@ -347,7 +347,7 @@ function Stronghold.Province:OnPayday(_PlayerID)
                     local Amount = Stronghold.Province:GetProvinceRevenue(k, v.Owner);
                     Logic.AddToPlayersGlobalResource(v.Owner, v.Resource, Amount);
                 end
-                GameCallback_Logic_OnProvincePayday(v.Owner, k);
+                GameCallback_SH_Logic_OnProvincePayday(v.Owner, k);
             end
         end
     end

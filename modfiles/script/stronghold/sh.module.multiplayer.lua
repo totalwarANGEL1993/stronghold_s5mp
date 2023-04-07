@@ -4,13 +4,13 @@
 --- Implements a rudimentary rule system to configure a multiplayer match.
 ---
 --- Defined game callbacks:
---- - GameCallback_Logic_OnGameStart()
+--- - GameCallback_SH_Logic_OnGameStart()
 ---   Called when the map is loaded.
 ---   
---- - GameCallback_Logic_OnConfigurated()
+--- - GameCallback_SH_Logic_OnConfigurated()
 ---   Called when configuration is confirmed by the host.
 ---   
---- - GameCallback_Logic_OnPeaceTimeOver()
+--- - GameCallback_SH_Logic_OnPeaceTimeOver()
 ---   Called when peacetime is over.
 --- 
 
@@ -98,13 +98,13 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function GameCallback_Logic_OnGameStart()
+function GameCallback_SH_Logic_OnGameStart()
 end
 
-function GameCallback_Logic_OnConfigurated()
+function GameCallback_SH_Logic_OnConfigurated()
 end
 
-function GameCallback_Logic_OnPeaceTimeOver()
+function GameCallback_SH_Logic_OnPeaceTimeOver()
 end
 
 -- -------------------------------------------------------------------------- --
@@ -315,6 +315,25 @@ function GUIUpdate_SHMP_Config_Confirm(_Widget)
 end
 
 function GUIUpdate_SHMP_TimerText()
+    local TimerBase = math.floor(Stronghold.Multiplayer.Data.StartGameTimer or 0);
+    local ConfirmTime = math.floor(Stronghold.Multiplayer.Data.RulesConfirmedTime or 0);
+
+    local Timer = TimerBase - (math.floor(Logic.GetTime()) - ConfirmTime);
+    if Timer < 0 then
+        XGUIEng.ShowWidget("SHS5MP_Counter", 0);
+        return;
+    end
+
+    local Text = "@center --- " ..Timer.. " ---";
+    local Red, Green, Blue = 66, 245, 69;
+    if Timer < 7 then
+        Red, Green, Blue = 209, 183, 52;
+    end
+    if Timer < 4 then
+        Red, Green, Blue = 209, 52, 52;
+    end
+    XGUIEng.SetTextColor("SHS5MP_CounterText", Red, Green, Blue);
+    XGUIEng.SetText("SHS5MP_CounterText", Text);
 end
 
 function GUIUpdate_SHMP_ShowRules(_Widget)
@@ -446,8 +465,20 @@ function Stronghold.Multiplayer:Configure()
     -- Finally setup game
     self:HideRuleSelection();
     if not self:HaveRulesBeenConfigured() then
-        self:ResumePlayers();
-        self:OnGameModeSet();
+        local Timer = 10;
+        local Turns = Timer * 10;
+        self.Data.StartGameTimer = Timer;
+        self.Data.RulesConfirmedTime = Logic.GetTime();
+        self:ShowRuleTimer();
+
+        -- Start the delay
+        Stronghold:AddDelayedAction(Turns, function()
+            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+            Message(XGUIEng.GetStringTableText("sh_shs5mp/rulesset"));
+            Stronghold.Multiplayer:HideRuleTimer();
+            Stronghold.Multiplayer:ResumePlayers();
+            Stronghold.Multiplayer:OnGameModeSet();
+        end);
     end
     self.Data.RulesHaveBeenConfirmed = true;
 end
@@ -468,7 +499,7 @@ function Stronghold.Multiplayer:SuspendPlayers()
             self:SuspendPlayer(PlayerID);
         end
     else
-        self:SuspendPlayer(1);
+        self:SuspendPlayer(GUI.GetPlayerID());
     end
 end
 
@@ -482,49 +513,11 @@ function Stronghold.Multiplayer:ResumePlayers()
             self:ResumePlayer(PlayerID);
         end
     else
-        self:ResumePlayer(1);
+        self:ResumePlayer(GUI.GetPlayerID());
     end
 end
 
-function Stronghold.Multiplayer:ShowRuleSelection()
-    GUI.ClearSelection();
-    XGUIEng.SetWidgetPosition("Windows", 64, 148);
-    XGUIEng.ShowWidget("GCWindow", 0);
-    XGUIEng.ShowWidget("BackGround_Top", 0);
-    XGUIEng.ShowWidget("Top", 0);
-    XGUIEng.ShowWidget("BackGroundBottomContainer", 0);
-    XGUIEng.ShowWidget("ResourceView", 0);
-    XGUIEng.ShowWidget("SelectionView", 0);
-    XGUIEng.ShowWidget("MiniMap", 0);
-    XGUIEng.ShowWidget("MiniMapOverlay", 0);
-    XGUIEng.ShowWidget("MinimapButtons", 0);
-    XGUIEng.ShowWidget("Movie", 1);
-    XGUIEng.ShowWidget("MovieBarTop", 1);
-    XGUIEng.ShowWidget("MovieBarBottom", 1);
-    XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 1);
-    XGUIEng.ShowWidget("CreditsWindow", 0);
-    XGUIEng.ShowWidget("SHS5MP", 1);
-    XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
-end
-
-function Stronghold.Multiplayer:HideRuleSelection()
-    XGUIEng.ShowWidget("GCWindow", 1);
-    XGUIEng.ShowWidget("BackGround_Top", 1);
-    XGUIEng.ShowWidget("Top", 1);
-    XGUIEng.ShowWidget("BackGroundBottomContainer", 1);
-    XGUIEng.ShowWidget("ResourceView", 1);
-    XGUIEng.ShowWidget("SelectionView", 1);
-    XGUIEng.ShowWidget("MiniMap", 1);
-    XGUIEng.ShowWidget("MiniMapOverlay", 1);
-    XGUIEng.ShowWidget("MinimapButtons", 1);
-    XGUIEng.ShowWidget("Movie", 0);
-    XGUIEng.ShowWidget("CreditsWindow", 1);
-    XGUIEng.ShowWidget("SHS5MP", 0);
-    XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
-end
-
 function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
-    LuaDebugger.Log();
     self:ResumePlayer(_PlayerID);
     for k,v in pairs(GetPlayerEntities(_PlayerID, 0)) do
         if Logic.IsBuilding(v) == 1 then
@@ -571,12 +564,97 @@ function Stronghold.Multiplayer:DeselectAll()
     end
 end
 
+function Stronghold.Multiplayer:ShowRuleSelection()
+    GUI.ClearSelection();
+    XGUIEng.SetWidgetPosition("Windows", 64, 148);
+    XGUIEng.ShowWidget("GCWindow", 0);
+    XGUIEng.ShowWidget("BackGround_Top", 0);
+    XGUIEng.ShowWidget("Top", 0);
+    XGUIEng.ShowWidget("BackGroundBottomContainer", 0);
+    XGUIEng.ShowWidget("ResourceView", 0);
+    XGUIEng.ShowWidget("SelectionView", 0);
+    XGUIEng.ShowWidget("MiniMap", 0);
+    XGUIEng.ShowWidget("MiniMapOverlay", 0);
+    XGUIEng.ShowWidget("MinimapButtons", 0);
+    XGUIEng.ShowWidget("Movie", 1);
+    XGUIEng.ShowWidget("MovieBarTop", 1);
+    XGUIEng.ShowWidget("MovieBarBottom", 1);
+    XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 1);
+    XGUIEng.ShowWidget("CreditsWindow", 0);
+    XGUIEng.ShowWidget("SHS5MP", 1);
+    XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
+end
+
+function Stronghold.Multiplayer:HideRuleSelection()
+    XGUIEng.SetWidgetPosition("Windows", 64, 94);
+    XGUIEng.ShowWidget("GCWindow", 1);
+    XGUIEng.ShowWidget("BackGround_Top", 1);
+    XGUIEng.ShowWidget("Top", 1);
+    XGUIEng.ShowWidget("BackGroundBottomContainer", 1);
+    XGUIEng.ShowWidget("ResourceView", 1);
+    XGUIEng.ShowWidget("SelectionView", 1);
+    XGUIEng.ShowWidget("MiniMap", 1);
+    XGUIEng.ShowWidget("MiniMapOverlay", 1);
+    XGUIEng.ShowWidget("MinimapButtons", 1);
+    XGUIEng.ShowWidget("Movie", 0);
+    XGUIEng.ShowWidget("MovieBarTop", 0);
+    XGUIEng.ShowWidget("MovieBarBottom", 0);
+    XGUIEng.ShowWidget("CreditsWindow", 1);
+    XGUIEng.ShowWidget("SHS5MP", 0);
+    XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
+end
+
+function Stronghold.Multiplayer:ShowRuleTimer()
+    GUI.ClearSelection();
+    XGUIEng.SetWidgetPosition("Windows", 64, 148);
+    XGUIEng.ShowWidget("GCWindow", 0);
+    XGUIEng.ShowWidget("BackGround_Top", 0);
+    XGUIEng.ShowWidget("Top", 0);
+    XGUIEng.ShowWidget("BackGroundBottomContainer", 0);
+    XGUIEng.ShowWidget("ResourceView", 0);
+    XGUIEng.ShowWidget("SelectionView", 0);
+    XGUIEng.ShowWidget("MiniMap", 0);
+    XGUIEng.ShowWidget("MiniMapOverlay", 0);
+    XGUIEng.ShowWidget("MinimapButtons", 0);
+    XGUIEng.ShowWidget("Movie", 1);
+    XGUIEng.ShowWidget("MovieBarTop", 0);
+    XGUIEng.ShowWidget("MovieBarBottom", 0);
+    XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 1);
+    XGUIEng.ShowWidget("CreditsWindow", 0);
+    XGUIEng.ShowWidget("SHS5MP", 1);
+    XGUIEng.ShowWidget("SHS5MP_Configure", 0);
+    XGUIEng.ShowWidget("SHS5MP_Counter", 1);
+    XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
+end
+
+function Stronghold.Multiplayer:HideRuleTimer()
+    XGUIEng.SetWidgetPosition("Windows", 64, 94);
+    XGUIEng.ShowWidget("GCWindow", 1);
+    XGUIEng.ShowWidget("BackGround_Top", 1);
+    XGUIEng.ShowWidget("Top", 1);
+    XGUIEng.ShowWidget("BackGroundBottomContainer", 1);
+    XGUIEng.ShowWidget("ResourceView", 1);
+    XGUIEng.ShowWidget("SelectionView", 1);
+    XGUIEng.ShowWidget("MiniMap", 1);
+    XGUIEng.ShowWidget("MiniMapOverlay", 1);
+    XGUIEng.ShowWidget("MinimapButtons", 1);
+    XGUIEng.ShowWidget("Movie", 0);
+    XGUIEng.ShowWidget("MovieBarTop", 0);
+    XGUIEng.ShowWidget("MovieBarBottom", 0);
+    XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 0);
+    XGUIEng.ShowWidget("CreditsWindow", 1);
+    XGUIEng.ShowWidget("SHS5MP", 0);
+    XGUIEng.ShowWidget("SHS5MP_Configure", 1);
+    XGUIEng.ShowWidget("SHS5MP_Counter", 0);
+    XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
+end
+
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Multiplayer:OnGameStart()
     -- Do it delayed by 1 turn just to be sure all went trought.
     Stronghold:AddDelayedAction(1, function()
-        GameCallback_Logic_OnGameStart();
+        GameCallback_SH_Logic_OnGameStart();
     end);
 end
 
@@ -609,7 +687,7 @@ function Stronghold.Multiplayer:OnPeaceTimeOver()
     MultiplayerTools.SetUpDiplomacyOnMPGameConfig();
 
     -- Peacetime callback
-    GameCallback_Logic_OnPeaceTimeOver();
+    GameCallback_SH_Logic_OnPeaceTimeOver();
 end
 
 function Stronghold.Multiplayer:OnGameModeSet()
@@ -634,9 +712,9 @@ function Stronghold.Multiplayer:OnGameModeSet()
         MultiplayerTools.PeaceTime = math.ceil(PeaceTime) * 60;
         GUIAction_ToggleStopWatch(MultiplayerTools.PeaceTime, 1);
         Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, "Condition_PeaceTime", "Action_PeaceTime", 1);
-        GameCallback_Logic_OnConfigurated();
+        GameCallback_SH_Logic_OnConfigurated();
     else
-        GameCallback_Logic_OnConfigurated();
+        GameCallback_SH_Logic_OnConfigurated();
         self:OnPeaceTimeOver();
     end
 end

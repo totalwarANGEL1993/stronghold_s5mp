@@ -20,20 +20,22 @@ function OnMapStart()
     Lib.Require("module/weather/WeatherMaker");
 
     ---
-
     SetupStronghold();
-
-    Tools.GiveResouces(1, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(1);
-    Tools.GiveResouces(2, 600, 1200, 1500, 550, 0, 0);
     SetupHumanPlayer(2);
+    ShowStrongholdConfiguration();
+    ---
 
-    -- Cut off half of the map in Singleplayer
-    if XNetwork.Manager_DoesExist() == 0 then
-        Message("@color:255,0,0 SINGLEPLAYER MODUS");
-        Message("Im Singleplayer sind Brücken und Wetteränderung gesperrt!");
-        ForbidTechnology(Technologies.B_Bridge, 1);
-        ForbidTechnology(Technologies.T_ChangeWeather, 1);
+    -- Peacetime stuff
+    for k,v in pairs(Syncer.GetActivePlayers()) do
+        ForbidTechnology(Technologies.B_Bridge, v);
+        ForbidTechnology(Technologies.B_PowerPlant, v);
+    end
+    GameCallback_SH_Logic_OnPeaceTimeOver = function()
+        for k,v in pairs(Syncer.GetActivePlayers()) do
+            AllowTechnology(Technologies.B_Bridge, v);
+            AllowTechnology(Technologies.B_PowerPlant, v);
+        end
     end
 
     StockResourceEntities();

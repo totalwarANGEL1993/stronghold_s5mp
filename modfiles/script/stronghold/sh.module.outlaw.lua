@@ -82,15 +82,15 @@ end
 -- -------------------------------------------------------------------------- --
 
 --- A camp starts an attack.
-function GameCallback_Logic_OutlawAttackStarted(_PlayerID, _CampID)
+function GameCallback_SH_Logic_OutlawAttackStarted(_PlayerID, _CampID)
 end
 
 --- The attack troops of a camp arrived at the target.
-function GameCallback_Logic_OutlawAttackArrived(_PlayerID, _CampID)
+function GameCallback_SH_Logic_OutlawAttackArrived(_PlayerID, _CampID)
 end
 
 --- An attack of a camp ended.
-function GameCallback_Logic_OutlawAttackFinished(_PlayerID, _CampID, _AttackResult)
+function GameCallback_SH_Logic_OutlawAttackFinished(_PlayerID, _CampID, _AttackResult)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -281,7 +281,7 @@ function Stronghold.Outlaw:ExecuteRecruitUnitsBehavior(_PlayerID, _CampID)
                     if Data.AttackTimer <= 0 then
                         self.Data[_PlayerID].Camps[_CampID].AttackTimer = 0;
                         self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.AdvanceUnits;
-                        GameCallback_Logic_OutlawAttackStarted(_PlayerID, _CampID);
+                        GameCallback_SH_Logic_OutlawAttackStarted(_PlayerID, _CampID);
                     end
                 end
                 return;
@@ -338,7 +338,7 @@ function Stronghold.Outlaw:ExecuteAdvanceUnitsBehavior(_PlayerID, _CampID)
         for i= table.getn(Data.Troops), 1, -1 do
             if GetDistance(Data.Troops[i], Data.AttackTarget) <= Data.ActionArea then
                 self.Data[_PlayerID].Camps[_CampID].State = OutlawAttackState.PillageArea;
-                GameCallback_Logic_OutlawAttackArrived(_PlayerID, _CampID);
+                GameCallback_SH_Logic_OutlawAttackArrived(_PlayerID, _CampID);
                 return;
             end
         end
@@ -459,7 +459,7 @@ function Stronghold.Outlaw:ExecutePillageAreaBehavior(_PlayerID, _CampID)
             for i= table.getn(Data.Troops), 1, -1 do
                 Logic.MoveSettler(Data.Troops[i], Data.Position.X, Data.Position.Y);
             end
-            GameCallback_Logic_OutlawAttackFinished(_PlayerID, _CampID, AttackDone);
+            GameCallback_SH_Logic_OutlawAttackFinished(_PlayerID, _CampID, AttackDone);
         end
     end
 end

@@ -857,7 +857,7 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Recruitment:OverrideLogic()
-    Overwrite.CreateOverwrite("GameCallback_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         local CannonPlaces = Stronghold.Recruitment:GetOccupiedSpacesFromCannonsInProgress(_PlayerID);
         return CurrentAmount + CannonPlaces;
