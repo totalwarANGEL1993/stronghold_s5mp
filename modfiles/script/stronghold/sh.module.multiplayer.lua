@@ -1,7 +1,7 @@
 --- 
 --- Multiplayer Script
 ---
---- Implements a rudimentary rule system to configure a multiplayer game.
+--- Implements a rudimentary rule system to configure a multiplayer match.
 ---
 --- Defined game callbacks:
 --- - GameCallback_Logic_OnGameStart()
@@ -76,18 +76,23 @@ end
 -- -------------------------------------------------------------------------- --
 
 --- Takes a configuration and immediately confirms it.
---- @param _Config table Configuration
+--- @param _Config? table Overwrite configuration
 function SetupStrongholdMultiplayerConfig(_Config)
-    if not _Config then
-        _Config = Stronghold.Multiplayer.Config.DefaultSettings;
+    if _Config then
+        Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
     end
-    Stronghold.Multiplayer.Data.Config = _Config;
+    Stronghold.Multiplayer:ConfigureReset();
     Stronghold.Multiplayer:Configure();
 end
 
 --- Displays the configuration window for the host.
-function ShowStrongholdConfiguration()
-    Stronghold.Multiplayer:ConfigureReset();
+--- @param _Config? table Overwrite default configuration
+function ShowStrongholdConfiguration(_Config)
+    if not Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+        Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
+        Stronghold.Multiplayer:ConfigureReset();
+        Stronghold.Multiplayer:SuspendPlayers();
+    end
     Stronghold.Multiplayer:ShowRuleSelection();
 end
 
@@ -105,8 +110,11 @@ end
 -- -------------------------------------------------------------------------- --
 
 function GUIAction_SHMP_Config_SetHeroAllowed(_Type)
+    local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    if (PlayerID ~= 17 and PlayerID ~= Syncer.GetHostPlayerID())
+    -- AND only if not already confirmed
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         return;
     end
     local Flag = not Stronghold.Multiplayer.Data.Config.AllowedHeroes[_Type];
@@ -118,8 +126,11 @@ function GUIAction_SHMP_Config_SetHeroAllowed(_Type)
 end
 
 function GUIAction_SHMP_Config_SetResource(_Amount)
+    local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    if (PlayerID ~= 17 and PlayerID ~= Syncer.GetHostPlayerID())
+    -- AND only if not already confirmed
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         return;
     end
     Syncer.InvokeEvent(
@@ -130,8 +141,11 @@ function GUIAction_SHMP_Config_SetResource(_Amount)
 end
 
 function GUIAction_SHMP_Config_SetInitialRank(_Rank)
+    local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    if (PlayerID ~= 17 and PlayerID ~= Syncer.GetHostPlayerID())
+    -- AND only if not already confirmed
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         return;
     end
     Syncer.InvokeEvent(
@@ -142,8 +156,11 @@ function GUIAction_SHMP_Config_SetInitialRank(_Rank)
 end
 
 function GUIAction_SHMP_Config_SetFinalRank(_Rank)
+    local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    if (PlayerID ~= 17 and PlayerID ~= Syncer.GetHostPlayerID())
+    -- AND only if not already confirmed
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         return;
     end
     Syncer.InvokeEvent(
@@ -154,8 +171,11 @@ function GUIAction_SHMP_Config_SetFinalRank(_Rank)
 end
 
 function GUIAction_SHMP_Config_SetPeaceTime(_Time)
+    local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    if (PlayerID ~= 17 and PlayerID ~= Syncer.GetHostPlayerID())
+    -- AND only if not already confirmed
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         return;
     end
     Syncer.InvokeEvent(
@@ -166,8 +186,11 @@ function GUIAction_SHMP_Config_SetPeaceTime(_Time)
 end
 
 function GUIAction_SHMP_Config_Reset()
+    local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    if (PlayerID ~= 17 and PlayerID ~= Syncer.GetHostPlayerID())
+    -- AND only if not already confirmed
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         return;
     end
     Syncer.InvokeEvent(
@@ -177,14 +200,24 @@ function GUIAction_SHMP_Config_Reset()
 end
 
 function GUIAction_SHMP_Config_Confirm()
+    local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    if PlayerID ~= 17 and not Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+        if (PlayerID == Syncer.GetHostPlayerID()) then
+            Syncer.InvokeEvent(
+                Stronghold.Multiplayer.NetworkCall,
+                Stronghold.Multiplayer.SyncEvents.Confirm
+            );
+        end
         return;
     end
-    Syncer.InvokeEvent(
-        Stronghold.Multiplayer.NetworkCall,
-        Stronghold.Multiplayer.SyncEvents.Confirm
-    );
+    if PlayerID == 17 or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+        Stronghold.Multiplayer:HideRuleSelection();
+    end
+end
+
+function GUIAction_SHMP_ShowRules()
+    ShowStrongholdConfiguration();
 end
 
 -- -------------------------------------------------------------------------- --
@@ -225,6 +258,13 @@ function GUITooltip_SHMP_Config_SetFinalRank(_TextKey)
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
 end
 
+function GUITooltip_SHMP_ShowRules(_TextKey)
+    local Text = XGUIEng.GetStringTableText(_TextKey);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+end
+
 -- -------------------------------------------------------------------------- --
 
 function GUIUpdate_SHMP_Config_SetHeroAllowed(_Widget, _Type)
@@ -257,39 +297,46 @@ function GUIUpdate_SHMP_Config_SetFinalRank(_Widget)
 end
 
 function GUIUpdate_SHMP_Config_Reset(_Widget)
-    -- Only show for host
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    -- Only show for host and if not already configured
+    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID()
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         XGUIEng.ShowWidget(_Widget, 0);
     end
 end
 
 function GUIUpdate_SHMP_Config_Confirm(_Widget)
-    -- Only show for host
-    if GUI.GetPlayerID() ~= Syncer.GetHostPlayerID() then
+    -- Only show for host and if not already configured
+    if  GUI.GetPlayerID() ~= Syncer.GetHostPlayerID()
+    and not Stronghold.Multiplayer:HaveRulesBeenConfigured() then
         XGUIEng.ShowWidget(_Widget, 0);
+    else
+        XGUIEng.ShowWidget(_Widget, 1);
     end
 end
 
 function GUIUpdate_SHMP_TimerText()
 end
 
+function GUIUpdate_SHMP_ShowRules(_Widget)
+    local Visible = Stronghold.Multiplayer:HaveRulesBeenConfigured();
+    XGUIEng.ShowWidget(_Widget, (Visible and 1) or 0);
+end
+
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Multiplayer:ConfigureResource(_Amount)
-    if _Amount == 0 then
+    if _Amount == 1 then
         self.Data.Config.Resources = {0, 600, 1200, 1500, 550, 0, 0};
-    elseif _Amount == 1 then
-        self.Data.Config.Resources = {50, 2500, 3000, 3500, 2000, 800, 800};
     elseif _Amount == 2 then
-        self.Data.Config.Resources = {300, 5000, 6000, 8000, 4500, 3000, 3000};
+        self.Data.Config.Resources = {50, 2500, 3000, 3500, 2000, 500, 500};
+    elseif _Amount == 3 then
+        self.Data.Config.Resources = {300, 7500, 6000, 7000, 5000, 3000, 3000};
     end
     self.Data.Config.ResourceSelected = _Amount;
-    -- TODO: Update UI
 end
 
 function Stronghold.Multiplayer:ConfigureHeroAllowed(_Type, _Allowed)
     self.Data.Config.AllowedHeroes[_Type] = _Allowed == true;
-    -- TODO: Update UI
 end
 
 function Stronghold.Multiplayer:ConfigureInitialRank(_Rank)
@@ -297,7 +344,6 @@ function Stronghold.Multiplayer:ConfigureInitialRank(_Rank)
     -- Update final rank as well
     local FinalRank = self.Data.Config.Rank.Final;
     self.Data.Config.Rank.Final = math.max(FinalRank, _Rank);
-    -- TODO: Update UI
 end
 
 function Stronghold.Multiplayer:ConfigureFinalRank(_Rank)
@@ -305,13 +351,30 @@ function Stronghold.Multiplayer:ConfigureFinalRank(_Rank)
     -- Update initial rank as well
     local StartingRank = self.Data.Config.Rank.Initial;
     self.Data.Config.Rank.Initial = math.min(StartingRank, _Rank);
-    -- TODO: Update UI
 end
 
 function Stronghold.Multiplayer:ConfigurePeaceTime(_Time)
     self.Data.Config.PeacetimeSelected = _Time;
     self.Data.Config.PeaceTime = (_Time -1) * 10;
-    -- TODO: Update UI
+end
+
+function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
+    if _Config then
+        local Default = self.Config.DefaultSettings;
+        if _Config.DisableDefaultWinCondition then
+            self.Config.DisableDefaultWinCondition = _Config.DisableDefaultWinCondition == true;
+        end
+        if _Config.PeaceTimeOpenGates ~= nil then
+            self.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
+        end
+        self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime or Default.PeaceTime;
+        self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
+        self.Config.DefaultSettings.Rank.Final = _Config.Rank.Initial or Default.Rank.Final;
+        self.Config.DefaultSettings.Resources = _Config.Rank.Initial or Default.Resources;
+        for k,v in pairs(Default.AllowedHeroes) do
+            self.Config.DefaultSettings.AllowedHeroes[k] = _Config.AllowedHeroes[k] or v;
+        end
+    end
 end
 
 function Stronghold.Multiplayer:ConfigureReset()
@@ -382,12 +445,20 @@ function Stronghold.Multiplayer:Configure()
 
     -- Finally setup game
     self:HideRuleSelection();
-    self:OnGameModeSet();
+    if not self:HaveRulesBeenConfigured() then
+        self:ResumePlayers();
+        self:OnGameModeSet();
+    end
+    self.Data.RulesHaveBeenConfirmed = true;
 end
 
 -- -------------------------------------------------------------------------- --
 
-function Stronghold.Multiplayer:ShowRuleSelection()
+function Stronghold.Multiplayer:HaveRulesBeenConfigured()
+    return self.Data.RulesHaveBeenConfirmed;
+end
+
+function Stronghold.Multiplayer:SuspendPlayers()
     -- Register rule selection active
     self.Data.IsRuleConfigurationActive = true;
     -- Suspend players
@@ -399,11 +470,9 @@ function Stronghold.Multiplayer:ShowRuleSelection()
     else
         self:SuspendPlayer(1);
     end
-    -- Show window
-    XGUIEng.ShowWidget("SHS5MP", 1);
 end
 
-function Stronghold.Multiplayer:HideRuleSelection()
+function Stronghold.Multiplayer:ResumePlayers()
     -- Register rule selection inactive
     self.Data.IsRuleConfigurationActive = false;
     -- Resume players
@@ -415,8 +484,43 @@ function Stronghold.Multiplayer:HideRuleSelection()
     else
         self:ResumePlayer(1);
     end
-    -- Hide Window
+end
+
+function Stronghold.Multiplayer:ShowRuleSelection()
+    GUI.ClearSelection();
+    XGUIEng.SetWidgetPosition("Windows", 64, 148);
+    XGUIEng.ShowWidget("GCWindow", 0);
+    XGUIEng.ShowWidget("BackGround_Top", 0);
+    XGUIEng.ShowWidget("Top", 0);
+    XGUIEng.ShowWidget("BackGroundBottomContainer", 0);
+    XGUIEng.ShowWidget("ResourceView", 0);
+    XGUIEng.ShowWidget("SelectionView", 0);
+    XGUIEng.ShowWidget("MiniMap", 0);
+    XGUIEng.ShowWidget("MiniMapOverlay", 0);
+    XGUIEng.ShowWidget("MinimapButtons", 0);
+    XGUIEng.ShowWidget("Movie", 1);
+    XGUIEng.ShowWidget("MovieBarTop", 1);
+    XGUIEng.ShowWidget("MovieBarBottom", 1);
+    XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 1);
+    XGUIEng.ShowWidget("CreditsWindow", 0);
+    XGUIEng.ShowWidget("SHS5MP", 1);
+    XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
+end
+
+function Stronghold.Multiplayer:HideRuleSelection()
+    XGUIEng.ShowWidget("GCWindow", 1);
+    XGUIEng.ShowWidget("BackGround_Top", 1);
+    XGUIEng.ShowWidget("Top", 1);
+    XGUIEng.ShowWidget("BackGroundBottomContainer", 1);
+    XGUIEng.ShowWidget("ResourceView", 1);
+    XGUIEng.ShowWidget("SelectionView", 1);
+    XGUIEng.ShowWidget("MiniMap", 1);
+    XGUIEng.ShowWidget("MiniMapOverlay", 1);
+    XGUIEng.ShowWidget("MinimapButtons", 1);
+    XGUIEng.ShowWidget("Movie", 0);
+    XGUIEng.ShowWidget("CreditsWindow", 1);
     XGUIEng.ShowWidget("SHS5MP", 0);
+    XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
 end
 
 function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
@@ -541,6 +645,21 @@ function Stronghold.Multiplayer:OverrideFunctions()
     Overwrite.CreateOverwrite("GameCallback_GUI_SelectionChanged", function()
         Overwrite.CallOriginal();
         Stronghold.Multiplayer:DeselectAll();
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_Logic_BriefingStarted", function(_PlayerID, _Briefing)
+        Overwrite.CallOriginal();
+        if Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+            Stronghold.Multiplayer:HideRuleSelection();
+            XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
+        end
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_Logic_BriefingFinished", function(_PlayerID, _Briefing)
+        Overwrite.CallOriginal();
+        if Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+            XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
+        end
     end);
 
     if MultiplayerTools then
