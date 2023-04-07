@@ -230,7 +230,8 @@
         "ArePositionsConnected",
         "KeyOf",
         "MEDITERANEANMUSIC",
-        "GUIAction_ToggleStopWatch"
+        "GUIAction_ToggleStopWatch",
+        "ShowStrongholdConfiguration"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

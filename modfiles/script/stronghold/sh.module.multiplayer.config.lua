@@ -21,7 +21,7 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
 
     -- Resources
     -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
-    Resources = {0, 600, 1200, 1500, 550, 0, 0},
+    Resources = {0, 750, 1200, 1500, 550, 0, 0},
 
     -- Setup heroes allowed
     AllowedHeroes = {

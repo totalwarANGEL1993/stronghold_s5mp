@@ -345,11 +345,11 @@ end
 
 function Stronghold.Multiplayer:ConfigureResource(_Amount)
     if _Amount == 1 then
-        self.Data.Config.Resources = {0, 600, 1200, 1500, 550, 0, 0};
+        self.Data.Config.Resources = {0, 750, 1200, 1500, 550, 0, 0};
     elseif _Amount == 2 then
-        self.Data.Config.Resources = {50, 2500, 3000, 3500, 2000, 500, 500};
+        self.Data.Config.Resources = {50, 1500, 2400, 3000, 1500, 600, 0};
     elseif _Amount == 3 then
-        self.Data.Config.Resources = {300, 7500, 6000, 7000, 5000, 3000, 3000};
+        self.Data.Config.Resources = {300, 6000, 3500, 6000, 3000, 1500, 900};
     end
     self.Data.Config.ResourceSelected = _Amount;
 end
@@ -566,6 +566,11 @@ end
 
 function Stronghold.Multiplayer:ShowRuleSelection()
     GUI.ClearSelection();
+    local PlayerID = GUI.GetPlayerID();
+    if PlayerID == 17 or self:HaveRulesBeenConfigured() then
+        local Text = XGUIEng.GetStringTableText("sh_shs5mp/button_close");
+        XGUIEng.SetText("SHS5MP_ControlsConfirm", Text);
+    end
     XGUIEng.SetWidgetPosition("Windows", 64, 148);
     XGUIEng.ShowWidget("GCWindow", 0);
     XGUIEng.ShowWidget("BackGround_Top", 0);

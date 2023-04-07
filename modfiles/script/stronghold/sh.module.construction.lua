@@ -23,7 +23,7 @@ function Stronghold.Construction:Install()
     end
 
     self:InitBuildingLimits();
-    self:OverridePlaceBuildingAction();
+    self:StartCheckTowerDistanceCallback();
 end
 
 function Stronghold.Construction:OnSaveGameLoaded()
@@ -264,78 +264,23 @@ end
 -- Prevents towers from being placed if another tower of the same player is
 -- to close. Type of tower does not matter.
 function Stronghold.Construction:StartCheckTowerDistanceCallback()
-    -- if not GameCallback_PlaceBuildingAdditionalCheck then
-    --     return false;
-    -- end
-    -- self.Orig_GameCallback_PlaceBuildingAdditionalCheck = GameCallback_PlaceBuildingAdditionalCheck;
-    GameCallback_PlaceBuildingAdditionalCheck = function(_ucat, _x, _y, _rotation, _isBuildOn)
-        local PlayerID = GUI.GetPlayerID();
-        local Allowed = true;
-        -- local Allowed = Stronghold.Construction.Orig_GameCallback_PlaceBuildingAdditionalCheck(_ucat, _x, _y, _rotation, _isBuildOn);
-        if IsHumanPlayer(PlayerID) then
-            if Allowed and _ucat == EntityCategories.Tower then
-                local AreaSize = self.Config.TowerDistance;
-                if self:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
-                    Allowed = false;
+    if CMod then
+        GameCallback_PlaceBuildingAdditionalCheck = function(_Type, _x, _y, _rotation, _isBuildOn)
+            local PlayerID = GUI.GetPlayerID();
+            local Allowed = true;
+            if IsHumanPlayer(PlayerID) then
+                if Allowed and Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tower then
+                    local AreaSize = self.Config.TowerDistance;
+                    if self:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
+                        Allowed = false;
+                    end
                 end
             end
+            return Allowed;
         end
-        return Allowed;
+        return true;
     end
-    return true;
-end
-
--- Check tower placement (Vanilla)
--- Prevents towers from being placed if another tower of the same player is
--- to close. Type of tower does not matter.
--- Does overwrite place building and find view but only if the initalization
--- for the community server variant previously failed.
-function Stronghold.Construction:OverridePlaceBuildingAction()
-    if self:StartCheckTowerDistanceCallback() then
-        return;
-    end
-
-    Overwrite.CreateOverwrite("GUIAction_PlaceBuilding", function(_UpgradeCategory)
-        local PlayerID = GetLocalPlayerID();
-        Overwrite.CallOriginal();
-        Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory = _UpgradeCategory;
-        return false;
-    end);
-
-    Overwrite.CreateOverwrite("GUIUpdate_FindView", function()
-        Overwrite.CallOriginal();
-        local PlayerID = GetLocalPlayerID();
-        Stronghold.Construction:CancelBuildingPlacementForUpgradeCategory(
-            PlayerID,
-            Stronghold.Construction.Data[PlayerID].LastPlacedUpgradeCategory
-        );
-    end);
-end
-
-function Stronghold.Construction:CancelBuildingPlacementForUpgradeCategory(_PlayerID, _UpgradeCategory)
-    local StateID = GUI.GetCurrentStateID();
-    if StateID == gvGUI_StateID.PlaceBuilding then
-        if _UpgradeCategory == UpgradeCategories.Tower then
-            AreaSize = self.Config.TowerDistance;
-            local x, y = GUI.Debug_GetMapPositionUnderMouse();
-            if self:AreTowersOfPlayerInArea(_PlayerID, x, y, AreaSize) then
-                Message("Ihr könnt Türme nicht so na aneinander bauen!");
-                Sound.PlayQueuedFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 100);
-                self.Data[_PlayerID].LastPlacedUpgradeCategory = nil;
-                GUI.CancelState();
-            end
-        end
-    end
-end
-
-function Stronghold.Construction:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, _AreaSize)
-    local DarkTower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower1, _X, _Y, _AreaSize, 1)};
-    local DarkTower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower2, _X, _Y, _AreaSize, 1)};
-    local DarkTower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower3, _X, _Y, _AreaSize, 1)};
-    local Tower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, _X, _Y, _AreaSize, 1)};
-    local Tower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower2, _X, _Y, _AreaSize, 1)};
-    local Tower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower3, _X, _Y, _AreaSize, 1)};
-    return Tower1[1] + Tower2[1] + Tower3[1] + DarkTower1[1] + DarkTower2[1] + DarkTower3[1] > 0;
+    return false;
 end
 
 -- -------------------------------------------------------------------------- --
