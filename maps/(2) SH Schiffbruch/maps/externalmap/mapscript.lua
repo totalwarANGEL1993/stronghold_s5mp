@@ -26,18 +26,6 @@ function OnMapStart()
     ShowStrongholdConfiguration();
     ---
 
-    -- Peacetime stuff
-    for k,v in pairs(Syncer.GetActivePlayers()) do
-        ForbidTechnology(Technologies.B_Bridge, v);
-        ForbidTechnology(Technologies.B_PowerPlant, v);
-    end
-    GameCallback_SH_Logic_OnPeaceTimeOver = function()
-        for k,v in pairs(Syncer.GetActivePlayers()) do
-            AllowTechnology(Technologies.B_Bridge, v);
-            AllowTechnology(Technologies.B_PowerPlant, v);
-        end
-    end
-
     StockResourceEntities();
     CreatePilesOfWood();
 
@@ -50,6 +38,18 @@ function OnMapStart()
     AddPeriodicSummer(360);
     AddPeriodicRain(90);
     LocalMusic.UseSet = HIGHLANDMUSIC;
+
+    -- Peacetime stuff
+    for k,v in pairs(Syncer.GetActivePlayers()) do
+        ForbidTechnology(Technologies.B_Bridge, v);
+        ForbidTechnology(Technologies.B_PowerPlant, v);
+    end
+    GameCallback_SH_Logic_OnPeaceTimeOver = function()
+        for k,v in pairs(Syncer.GetActivePlayers()) do
+            AllowTechnology(Technologies.B_Bridge, v);
+            AllowTechnology(Technologies.B_PowerPlant, v);
+        end
+    end
 end
 
 -- Create wood piles

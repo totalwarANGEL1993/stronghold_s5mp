@@ -695,10 +695,12 @@ function Stronghold.Multiplayer:OnGameModeSet()
     Script.Load("Data\\Script\\MapTools\\MultiPlayer\\PeaceTime.lua");
 
     Action_PeaceTime = function()
-        GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/Note_PeaceTimeOver"));
+        local Text = XGUIEng.GetStringTableText("InGameMessages/Note_PeaceTimeOver");
+        GUI.AddNote("@color:209,52,52,255 " ..Text);
         GUIAction_ToggleStopWatch(0, 0);
         Sound.PlayGUISound(Sounds.OnKlick_Select_kerberos, 127);
         Stronghold.Multiplayer:OnPeaceTimeOver();
+        return true;
     end
 
     -- Start default victory condition?
