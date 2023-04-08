@@ -5,24 +5,6 @@
 --- 
 
 -- -------------------------------------------------------------------------- --
--- Credits Window
-
-function ShowInfoWindow(_Title, _Text)
-    XGUIEng.ShowWidget("Movie", 1);
-    XGUIEng.ShowWidget("Cinematic_Text", 0);
-    XGUIEng.ShowWidget("CreditsWindowLogo", 0);
-    XGUIEng.ShowWidget("MovieBarTop", 0);
-    XGUIEng.ShowWidget("MovieBarBottom", 0);
-    XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 0);
-    XGUIEng.SetText("CreditsWindowTextTitle", Placeholder.Replace(_Title));
-    XGUIEng.SetText("CreditsWindowText", Placeholder.Replace(_Text));
-end
-
-function HideInfoWindow()
-    XGUIEng.ShowWidget("Movie", 0);
-end
-
--- -------------------------------------------------------------------------- --
 -- UI Tools
 
 function HasPlayerEnoughResourcesFeedback(_Costs)

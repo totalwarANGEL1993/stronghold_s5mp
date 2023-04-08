@@ -856,33 +856,59 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
 end
 
 -- -------------------------------------------------------------------------- --
--- HQ Details
+-- Payday Clock
 
-function Stronghold.Economy:ShowHeadquartersDetail(_PlayerID)
-    local GuiPlayer = GUI.GetPlayerID();
+function Stronghold.Economy:CreatePaydayClockTooltipText(_PlayerID)
+    local AmendText = "";
+    local ScreenSize = {GUI.GetScreenSize()};
+    local Graphic = "data\\graphics\\textures\\gui\\bg_tooltip_top.png";
+    local ExtGraphic = "data\\graphics\\textures\\gui\\bg_tooltip_top_ext_768.png";
+    if ScreenSize[2] >= 900 then
+        ExtGraphic = "data\\graphics\\textures\\gui\\bg_tooltip_top_ext_900.png";
+    end
+    if ScreenSize[2] >= 1080 then
+        ExtGraphic = "data\\graphics\\textures\\gui\\bg_tooltip_top_ext_1080.png";
+    end
+
     if IsHumanPlayer(_PlayerID) then
-        if GuiPlayer == 17 or GuiPlayer == _PlayerID then
-            local Selected = GUI.GetSelectedEntity();
-            local Language = GetLanguage();
-            local Headline = self.Text.CourtClerk[1][Language];
-            local Content = self:CreateHeadquarterDetailsText(_PlayerID);
-
-            -- If player has a castle show window for the castle
-            if IsHumanPlayerInitalized(_PlayerID) then
-                if Selected == GetID(Stronghold.Players[_PlayerID].HQScriptName) then
-                    ShowInfoWindow(Headline, Content);
-                end
-            -- Instead if not show it for the hero
-            else
-                if Selected == GetID(Stronghold.Players[_PlayerID].LordScriptName) then
-                    ShowInfoWindow(Headline, Content);
-                end
-            end
+        if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
+            -- Get Text
+            local Text = self:FormatExtendedPaydayClockText(_PlayerID);
+            AmendText = " @cr @cr " .. Placeholder.Replace(Text);
+            -- Resize
+            XGUIEng.SetWidgetSize("TooltipTop", 172, 300);
+            XGUIEng.SetWidgetSize("TooltipTopText", 164, 300);
+            XGUIEng.SetWidgetSize("TooltipTopBackground", 172, 300);
+            XGUIEng.SetMaterialTexture("TooltipTopBackground", 1, ExtGraphic);
+        else
+            -- Get Text
+            local Text = self:FormatPaydayClockText(_PlayerID);
+            AmendText = " @cr @cr " .. Placeholder.Replace(Text);
+            -- Resize
+            XGUIEng.SetWidgetSize("TooltipTop", 172, 104);
+            XGUIEng.SetWidgetSize("TooltipTopText", 164, 104);
+            XGUIEng.SetWidgetSize("TooltipTopBackground", 172, 104);
+            XGUIEng.SetMaterialTexture("TooltipTopBackground", 1, Graphic);
         end
     end
+    return AmendText;
 end
 
-function Stronghold.Economy:CreateHeadquarterDetailsText(_PlayerID)
+function Stronghold.Economy:FormatPaydayClockText(_PlayerID)
+    local irep = self.Data[_PlayerID].IncomeReputation;
+    local ihon = self.Data[_PlayerID].IncomeHonor;
+
+    local Language = GetLanguage();
+    return string.format(
+        self.Text.PaydayClock[1][Language],
+        -- Honor
+        ((ihon < 0 and "{scarlet}") or "{green}") ..ihon,
+        -- Reputation
+        ((irep < 0 and "{scarlet}") or "{green}") ..irep
+    );
+end
+
+function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
     local irep = self.Data[_PlayerID].IncomeReputation;
 
     local ihon = self.Data[_PlayerID].IncomeHonor;
@@ -905,7 +931,7 @@ function Stronghold.Economy:CreateHeadquarterDetailsText(_PlayerID)
 
     local Language = GetLanguage();
     return string.format(
-        self.Text.CourtClerk[2][Language],
+        self.Text.PaydayClock[2][Language],
         -- Honor
         ((ihon < 0 and "{scarlet}") or "{green}") ..ihon,
         ((htb < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", htb),

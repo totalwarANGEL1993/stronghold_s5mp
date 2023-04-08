@@ -501,7 +501,6 @@ function Stronghold:OnEveryTurn()
         Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(i);
         Stronghold.Hero:EntityAttackedController(i);
         Stronghold.Hero:HeliasConvertController(i);
-        Stronghold.Economy:ShowHeadquartersDetail(i);
         Stronghold.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
         Stronghold.Recruitment:ControlProductionQueues(i);
         Stronghold.Recruitment:ControlCannonProducers(i);
@@ -837,10 +836,6 @@ end
 -- Menu update
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
-    if Logic.GetCurrentTurn() > 1 then
-        HideInfoWindow();
-    end
-
     local GuiPlayer = self:GetLocalPlayerID();
     local SelectedID = GUI.GetSelectedEntity();
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
@@ -1002,11 +997,28 @@ function Stronghold:OverrideWidgetTooltips()
         Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
     end);
 
-    Overwrite.CreateOverwrite( "GUITooltip_ConstructBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
+    Overwrite.CreateOverwrite("GUITooltip_ConstructBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
         local GuiPlayer = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
         Overwrite.CallOriginal();
         Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
+    end);
+
+    Overwrite.CreateOverwrite("GUITooltip_Payday", function()
+        local PlayerID = GUI.GetPlayerID();
+        local PaydayTimeLeft = math.ceil(Logic.GetPlayerPaydayTimeLeft(PlayerID)/1000);
+        local PaydayFrequency = Logic.GetPlayerPaydayFrequency(PlayerID);
+        local PaydayCosts = Logic.GetPlayerPaydayCost(PlayerID);
+
+        local TooltipString = string.format(
+            " @color:200,200,200,255 %s @cr %d @color:255,255,255,255 %s ",
+            XGUIEng.GetStringTableText("IngameMenu/NameTaxday"),
+            PaydayTimeLeft,
+            XGUIEng.GetStringTableText("IngameMenu/TimeUntilTaxday")
+        );
+        local AmendText = Stronghold.Economy:CreatePaydayClockTooltipText(PlayerID);
+        TooltipString = TooltipString .. AmendText;
+        XGUIEng.SetText("TooltipTopText", TooltipString);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_Generic", function(_Key)
