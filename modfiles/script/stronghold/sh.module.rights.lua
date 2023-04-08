@@ -59,6 +59,10 @@ function HasRight(_PlayerID, _Right)
     return Stronghold.Rights:HasPlayerRight(_PlayerID, _Right);
 end
 
+function IsRightUnlockable(_PlayerID, _Right)
+    return Stronghold.Rights:IsRightUnlockable(_PlayerID, _Right);
+end
+
 --- Returns the gender of the entity type.
 function GetGender(_Type)
     return Stronghold.Rights:GetHeroGender(_Type);
@@ -233,6 +237,19 @@ function Stronghold.Rights:HasPlayerRight(_PlayerID, _Right)
     if IsHumanPlayer(_PlayerID) then
         return self.Data[_PlayerID].Rights[_Right] == 1;
     end
+end
+
+function Stronghold.Rights:IsRightUnlockable(_PlayerID, _Right)
+    if IsHumanPlayer(_PlayerID) then
+        for Title,_ in pairs(self.Data[_PlayerID].Titles) do
+            for k,v in pairs(self.Data[_PlayerID].Titles[Title].Rights) do
+                if v == _Right then
+                    return true;
+                end
+            end
+        end
+    end
+    return false;
 end
 
 function Stronghold.Rights:GetRankRequiredForRight(_PlayerID, _Right)

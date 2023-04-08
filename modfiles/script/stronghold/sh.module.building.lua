@@ -298,7 +298,8 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     self.Data[_PlayerID].Measure.RechargeFactor = RechargeFactor;
     -- Show message
     local Language = GetLanguage();
-    Message(self.Text.Measure[_BlessCategory][2][Language]);
+    local TextKey = self.Config.Headquarters[_BlessCategory].Text;
+    Message(XGUIEng.GetStringTableText(TextKey.. "_message"));
 
     -- Execute effects
     local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
@@ -356,87 +357,64 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _Enti
 end
 
 function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-    local Language = GetLanguage();
-    local Text = "";
-    local Effects;
-    local RequireText = "";
-    local EffectText = self.Text.UI.Effect[Language];
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
 
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers1_normal" then
-        Text = self.Text.Measure[BlessCategories.Construction][1][Language];
-        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-            local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLevyTax);
-            RequireText = string.gsub(
-                self.Text.UI.Require[Language] ..
-                self.Text.Measure[BlessCategories.Construction][3][Language],
-                "#Rank#", GetRankName(Rank, _PlayerID)
-            );
-        end
-        Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Construction];
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
-        Text = self.Text.Measure[BlessCategories.Research][1][Language];
-        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-            local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLawAndOrder);
-            RequireText = string.gsub(
-                self.Text.UI.Require[Language] ..
-                self.Text.Measure[BlessCategories.Research][3][Language],
-                "#Rank#", GetRankName(Rank, _PlayerID)
-            );
-        end
-        Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Research];
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
-        Text = self.Text.Measure[BlessCategories.Weapons][1][Language];
-        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-            local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureWelcomeCulture);
-            RequireText = string.gsub(
-                self.Text.UI.Require[Language] ..
-                self.Text.Measure[BlessCategories.Weapons][3][Language],
-                "#Rank#", GetRankName(Rank, _PlayerID)
-            );
-        end
-        Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Weapons];
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
-        Text = self.Text.Measure[BlessCategories.Financial][1][Language];
-        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-            local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureFolkloreFeast);
-            RequireText = string.gsub(
-                self.Text.UI.Require[Language] ..
-                self.Text.Measure[BlessCategories.Financial][3][Language],
-                "#Rank#", GetRankName(Rank, _PlayerID)
-            );
-        end
-        Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Financial];
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
-        Text = self.Text.Measure[BlessCategories.Canonisation][1][Language];
-        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-            local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureOrgy);
-            RequireText = string.gsub(
-                self.Text.UI.Require[Language] ..
-                self.Text.Measure[BlessCategories.Canonisation][3][Language],
-                "#Rank#", GetRankName(Rank, _PlayerID)
-            );
-        end
-        Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Canonisation];
+    -- Map technology and bless category
+    local BlessCategory = BlessCategories.Construction;
+    local Right = PlayerRight.MeasureLevyTax;
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
+        BlessCategory = BlessCategories.Research;
+        Right = PlayerRight.MeasureLawAndOrder;
+    end
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
+        BlessCategory = BlessCategories.Weapons;
+        Right = PlayerRight.MeasureWelcomeCulture;
+    end
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
+        BlessCategory = BlessCategories.Financial;
+        Right = PlayerRight.MeasureFolkloreFeast;
+    end
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
+        BlessCategory = BlessCategories.Canonisation;
+        Right = PlayerRight.MeasureOrgy;
+    end
+
+    local Text = "";
+    if not IsRightUnlockable(_PlayerID, Right) then
+        Text = XGUIEng.GetStringTableText("MenuGeneric/TechnologyNotAvailable");
     else
-        return false;
-    end
+        if Right ~= PlayerRight.MeasureWelcomeCulture then
+            local EffectText = "";
+            local Effects = Stronghold.Building.Config.Headquarters[BlessCategory];
+            if Effects.Reputation ~= 0 then
+                local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
+                local Operator = (Effects.Reputation >= 0 and "+") or "";
+                EffectText = EffectText .. Operator .. Effects.Reputation.. " " ..Name.. " ";
+            end
+            if Effects.Honor ~= 0 then
+                local Name = XGUIEng.GetStringTableText("sh_names/Honor");
+                local Operator = (Effects.Honor >= 0 and "+") or "";
+                EffectText = EffectText .. Operator .. Effects.Honor.. " " ..Name;
+            end
 
-    if Effects.Reputation > 0 then
-        EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
-    elseif Effects.Reputation < 0 then
-        EffectText = EffectText .. Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
+            local MainKey = self.Config.Headquarters[BlessCategory].Text;
+            local TextKey = MainKey.. "_normal";
+            if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+                TextKey = MainKey.. "_disabled";
+            end
+            Text = string.format(XGUIEng.GetStringTableText(TextKey), EffectText);
+        else
+            local MainKey = self.Config.Headquarters[BlessCategory].Text;
+            local TextKey = MainKey.. "_normal";
+            if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+                TextKey = MainKey.. "_disabled";
+            end
+            Text = XGUIEng.GetStringTableText(TextKey);
+        end
     end
-    if Effects.Honor > 0 then
-        EffectText = EffectText.. "+" ..Effects.Honor.." " ..self.Text.UI.Honor[Language];
-    end
-
-    XGUIEng.SetText(
-        gvGUI_WidgetID.TooltipBottomText,
-        Placeholder.Replace(Text .. RequireText .. EffectText)
-    );
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
     return true;
 end
 
@@ -444,28 +422,26 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
-
     local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
-    local CurrentRank = GetRank(_PlayerID);
     local ButtonDisabled = 0;
     if _Button == "BlessSettlers1" then
-        if GetRankRequired(_PlayerID, PlayerRight.MeasureLevyTax) > CurrentRank then
+        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLevyTax) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers2" then
-        if GetRankRequired(_PlayerID, PlayerRight.MeasureLawAndOrder) > CurrentRank then
+        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLawAndOrder) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers3" then
-        if GetRankRequired(_PlayerID, PlayerRight.MeasureWelcomeCulture) > CurrentRank then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureWelcomeCulture) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers4" then
-        if GetRankRequired(_PlayerID, PlayerRight.MeasureFolkloreFeast) > CurrentRank then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFolkloreFeast) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers5" then
-        if GetRankRequired(_PlayerID, PlayerRight.MeasureOrgy) > CurrentRank then
+        if Level < 2 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureOrgy) then
             ButtonDisabled = 1;
         end
     end
@@ -605,7 +581,6 @@ function Stronghold.Building:MonasteryBlessSettlersGuiAction(_PlayerID, _EntityI
 end
 
 function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-    local Language = GetLanguage();
     local Type = Logic.GetEntityType(_EntityID);
     if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
         return false;
@@ -647,7 +622,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         end
 
         local MainKey = self.Config.Monastery[BlessCategory].Text;
-        TextKey = MainKey.. "_normal";
+        local TextKey = MainKey.. "_normal";
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             TextKey = MainKey.. "_disabled";
         end

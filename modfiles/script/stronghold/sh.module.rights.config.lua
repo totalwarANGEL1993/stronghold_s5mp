@@ -27,6 +27,11 @@ Stronghold.Rights.Config = {
             Duties = {},
             Rights = {
                 -- DO NOT MOVE THIS!!! --
+                PlayerRight.MeasureLevyTax,
+                PlayerRight.MeasureLawAndOrder,
+                PlayerRight.MeasureWelcomeCulture,
+                PlayerRight.MeasureFolkloreFeast,
+                PlayerRight.MeasureOrgy,
                 PlayerRight.House,
                 PlayerRight.Farm,
                 PlayerRight.ClayPit,
@@ -54,7 +59,6 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Headquarters, 0},
             },
             Rights = {
-                PlayerRight.MeasureLevyTax,
                 ---
                 PlayerRight.Chapel,
                 ---
@@ -68,7 +72,6 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Cathedral, 0},
             },
             Rights = {
-                PlayerRight.MeasureLawAndOrder,
                 PlayerRight.Fortress,
                 PlayerRight.Cottage,
                 PlayerRight.Mill,
@@ -100,8 +103,6 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Buildings, 6},
             },
             Rights = {
-                PlayerRight.MeasureWelcomeCulture,
-                ---
                 PlayerRight.Church,
                 PlayerRight.Smithy,
                 PlayerRight.MasonHut,
@@ -128,8 +129,6 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Soldiers, 50},
             },
             Rights = {
-                PlayerRight.MeasureFolkloreFeast,
-                ---
                 PlayerRight.Blacksmith,
                 PlayerRight.Alchemist,
                 PlayerRight.WeatherTower,
@@ -222,8 +221,6 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Beautification, 2},
             },
             Rights = {
-                PlayerRight.MeasureOrgy,
-                ---
                 PlayerRight.CityCenter,
                 PlayerRight.Treasury,
                 PlayerRight.ClayMine,
