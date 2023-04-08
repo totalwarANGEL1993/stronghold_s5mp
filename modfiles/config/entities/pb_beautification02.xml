@@ -26,9 +26,9 @@
             <Cost>
 				    <Clay/>
 				    <Wood>0</Wood>
-				    <Stone>200</Stone>
+				    <Stone>150</Stone>
 				    <Gold>200</Gold>
-				    <Iron/>
+				    <Iron>50</Iron>
 				    <Sulfur/>
             </Cost>
             <BuilderSlot>
