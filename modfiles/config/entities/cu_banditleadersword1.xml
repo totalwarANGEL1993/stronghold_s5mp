@@ -62,7 +62,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>		
 		  <ArmorClass>ArmorClassLeather</ArmorClass>
-		  <ArmorAmount>5</ArmorAmount> 
+		  <ArmorAmount>6</ArmorAmount> 
 		  <DodgeChance>10</DodgeChance> 
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>10</ExperiencePoints>
@@ -120,7 +120,7 @@
 	        <DamageAmount>22</DamageAmount>	        
 	        <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 	        
-	        <MaxRange>200</MaxRange>
+	        <MaxRange>150</MaxRange>
 	        <MinRange>0.0f</MinRange>
 	        <AutoAttackRange>2000</AutoAttackRange>
 	        

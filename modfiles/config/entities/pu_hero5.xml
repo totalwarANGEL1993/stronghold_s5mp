@@ -157,7 +157,7 @@
     <Behavior>
         <Logic classname="GGL::CShurikenAbilityProps">
             <Class>GGL::CShurikenAbility</Class>
-            <RechargeTimeSeconds>30</RechargeTimeSeconds>
+            <RechargeTimeSeconds>60</RechargeTimeSeconds>
             <TaskList>TL_SHURIKEN_SPECIAL</TaskList>
             <Animation>PU_Hero5_Attack2</Animation>
             <Range>2700.0</Range>

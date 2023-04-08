@@ -3,24 +3,15 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>50</TimeToResearch>
     <ResourceCosts>
-        <Gold>400</Gold>
-        <Clay/>
-        <Wood>400</Wood>
-        <Stone/>
-        <Iron/>
-        <Sulfur/>
+        <Gold>200</Gold>
+        <Clay>0</Clay>
+        <Wood>500</Wood>
+        <Stone>0</Stone>
+        <Iron>0</Iron>
+        <Sulfur>0</Sulfur>
     </ResourceCosts>
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
-        <!-- <RequiredEntityConditions>1</RequiredEntityConditions>
-        <EntityCondition>
-            <EntityType>PB_ClayMine2</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition>
-        <EntityCondition>
-            <EntityType>PB_ClayMine3</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition> -->
     </Conditions>
 </root>
