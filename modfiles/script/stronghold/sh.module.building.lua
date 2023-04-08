@@ -365,7 +365,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
         return false;
     end
 
-    if _TooltipNormal == "AOsh_menumonastery/BlessSettlers1_normal" then
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers1_normal" then
         Text = self.Text.Measure[BlessCategories.Construction][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLevyTax);
@@ -376,7 +376,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Construction];
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers2_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
         Text = self.Text.Measure[BlessCategories.Research][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureLawAndOrder);
@@ -387,7 +387,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Research];
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers3_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
         Text = self.Text.Measure[BlessCategories.Weapons][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureWelcomeCulture);
@@ -398,7 +398,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Weapons];
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers4_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
         Text = self.Text.Measure[BlessCategories.Financial][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureFolkloreFeast);
@@ -409,7 +409,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             );
         end
         Effects = Stronghold.Building.Config.Headquarters[BlessCategories.Financial];
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers5_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
         Text = self.Text.Measure[BlessCategories.Canonisation][1][Language];
         if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
             local Rank = GetRankRequired(_PlayerID, PlayerRight.MeasureOrgy);
@@ -554,8 +554,8 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
     end
 
     if GUI.GetPlayerID() == _PlayerID then
-        local Language = GetLanguage();
-        Message(self.Text.PrayerMess[_BlessCategory][2][Language]);
+        local TextKey = self.Config.Monastery[_BlessCategory].Text;
+        Message(XGUIEng.GetStringTableText(TextKey.. "_message"));
         Sound.PlayGUISound(Sounds.Buildings_Monastery, 0);
         Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_SettlersBlessed_rnd_01, 0);
     end
@@ -610,94 +610,49 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
     if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
         return false;
     end
-    local Text = "";
 
-    if _TooltipNormal == "AOsh_menumonastery/BlessSettlers1_normal" then
-        if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers1) == 0 then
-            Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
-        else
-            Text = self.Text.PrayerMess[BlessCategories.Construction][1][Language];
-            Text = Text .. self.Text.UI.Effect[Language];
-            local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Construction];
-            if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
-            end
-            if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-            end
-        end
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers2_normal" then
-        if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers2) == 0 then
-            Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
-        else
-            Text = self.Text.PrayerMess[BlessCategories.Research][1][Language];
-            Text = Text .. self.Text.UI.Effect[Language];
-            local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Research];
-            if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
-            end
-            if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-            end
-        end
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers3_normal" then
-        if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers3) == 0 then
-            Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
-        else
-            Text = self.Text.PrayerMess[BlessCategories.Weapons][1][Language];
-            if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                Text = Text .. self.Text.UI.Require[Language] ..
-                       self.Text.PrayerMess[BlessCategories.Weapons][3][Language];
-            end
-            Text = Text .. self.Text.UI.Effect[Language];
-            local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Weapons];
-            if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
-            end
-            if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-            end
-        end
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers4_normal" then
-        if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers4) == 0 then
-            Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
-        else
-            Text = self.Text.PrayerMess[BlessCategories.Financial][1][Language];
-            if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                Text = Text .. self.Text.UI.Require[Language] ..
-                       self.Text.PrayerMess[BlessCategories.Financial][3][Language];
-            end
-            Text = Text .. self.Text.UI.Effect[Language];
-            local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Financial];
-            if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
-            end
-            if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-            end
-        end
-    elseif _TooltipNormal == "AOsh_menumonastery/BlessSettlers5_normal" then
-        if Logic.GetTechnologyState(_PlayerID, Technologies.T_BlessSettlers5) == 0 then
-            Text = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
-        else
-            Text = self.Text.PrayerMess[BlessCategories.Canonisation][1][Language];
-            if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                Text = Text .. self.Text.UI.Require[Language] ..
-                       self.Text.PrayerMess[BlessCategories.Canonisation][3][Language];
-            end
-            Text = Text .. self.Text.UI.Effect[Language];
-            local Effects = Stronghold.Building.Config.Monastery[BlessCategories.Canonisation];
-            if Effects.Reputation > 0 then
-                Text = Text.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
-            end
-            if Effects.Honor > 0 then
-                Text = Text.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-            end
-        end
-    else
-        return false;
+    -- Map technology and bless category
+    local BlessCategory = BlessCategories.Construction;
+    local Technology = Technologies.T_BlessSettlers1;
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
+        BlessCategory = BlessCategories.Research;
+        Technology = Technologies.T_BlessSettlers2;
+    end
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
+        BlessCategory = BlessCategories.Weapons;
+        Technology = Technologies.T_BlessSettlers3;
+    end
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
+        BlessCategory = BlessCategories.Financial;
+        Technology = Technologies.T_BlessSettlers4;
+    end
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
+        BlessCategory = BlessCategories.Canonisation;
+        Technology = Technologies.T_BlessSettlers5;
     end
 
+    local Text = "";
+    if Logic.GetTechnologyState(_PlayerID, Technology) == 0 then
+        Text = XGUIEng.GetStringTableText("MenuGeneric/TechnologyNotAvailable");
+    else
+        local EffectText = "";
+        local Effects = Stronghold.Building.Config.Monastery[BlessCategory];
+        if Effects.Reputation > 0 then
+            local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
+            EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Name.. " ";
+        end
+        if Effects.Honor > 0 then
+            local Name = XGUIEng.GetStringTableText("sh_names/Honor");
+            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Name;
+        end
+
+        local MainKey = self.Config.Monastery[BlessCategory].Text;
+        TextKey = MainKey.. "_normal";
+        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+            TextKey = MainKey.. "_disabled";
+        end
+        Text = string.format(XGUIEng.GetStringTableText(TextKey), EffectText);
+    end
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
     return true;
 end

@@ -543,7 +543,7 @@ function Stronghold.Recruitment:UpdateUpgradeSettlersArcheryTooltip(_PlayerID, _
         ["sh_menuarchery/UpgradeBow1"] = {"Research_UpgradeBow1", " [A]"},
         ["sh_menuarchery/UpgradeBow2"] = {"Research_UpgradeBow2", " [S]"},
         ["sh_menuarchery/UpgradeBow3"] = {"Research_UpgradeBow3", " [D]"},
-        ["AOsh_menuarchery/UpgradeRifle1"] = {"Research_UpgradeRifle1", " [F]"},
+        ["sh_menuarchery/UpgradeRifle1"] = {"Research_UpgradeRifle1", " [F]"},
     };
     return self:UpdateUpgradeSettlersRecruiterTooltip(TextToPrint, _PlayerID, _Technology, _TextKey, _ShortCut);
 end
