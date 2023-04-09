@@ -197,11 +197,10 @@ function Stronghold.Province:ClaimProvince(_ID, _PlayerID, _BuildingID)
             table.insert(self.Data.Provinces[_ID].Explorers.Entities, ID);
         end
         -- Print message
-        local Lang = GetLanguage();
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
         Message(string.format(
-            self.Text.Msg.Claimed[Lang],
+            XGUIEng.GetStringTableText("sh_text/Province_Claimed"),
             PlayerColor.. " " ..PlayerName,
             self.Data.Provinces[_ID].DisplayName
         ));
@@ -225,7 +224,7 @@ function Stronghold.Province:UpgradeProvince(_ID, _PlayerID, _BuildingID)
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
         Message(string.format(
-            self.Text.Msg.Upgraded[Lang],
+            XGUIEng.GetStringTableText("sh_text/Province_Upgraded"),
             PlayerColor.. " " ..PlayerName,
             self.Data.Provinces[_ID].DisplayName
         ));
@@ -254,7 +253,7 @@ function Stronghold.Province:LooseProvince(_ID, _PlayerID)
         -- Print message
         local Lang = GetLanguage();
         Message(string.format(
-            self.Text.Msg.Lost[Lang],
+            XGUIEng.GetStringTableText("sh_text/Province_Lost"),
             self.Data.Provinces[_ID].DisplayName
         ));
         -- Extern effects
@@ -303,18 +302,18 @@ function Stronghold.Province:CreateProvinceEffectMessage(_ID, _PlayerID, _Buildi
         local Template;
 
         if self.Data.Provinces[_ID].Type == ProvinceType.Honor then
-            Template = self.Text.Msg.Revenue[3];
-            local ResourceName = self.Text.UI.Honor[Lang];
+            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Bonus");
+            local ResourceName = XGUIEng.GetStringTableText("sh_names/Honor");
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Reputation then
-            Template = self.Text.Msg.Revenue[3];
-            local ResourceName = self.Text.UI.Reputation[Lang];
+            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Bonus");
+            local ResourceName = XGUIEng.GetStringTableText("sh_names/Reputation");
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Military then
-            Template = self.Text.Msg.Revenue[2];
+            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Military");
             Text = "" ..self:GetProvinceRevenue(_ID, _PlayerID);
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Resource then
-            Template = self.Text.Msg.Revenue[1];
+            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Resource");
             local ResourceName = GetResourceName(self.Data.Provinces[_ID].Resource);
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         end
@@ -363,7 +362,7 @@ function Stronghold.Province:OnBuildingCreated(_BuildingID, _PlayerID)
                         if GetDistance(VillagePosition, v.Position) <= 4000 then
                             if AreEnemiesInArea(_PlayerID, v.Position, 7000) then
                                 if _PlayerID == GUI.GetPlayerID() then
-                                    Message(self.Text.Msg.Denyed[GetLanguage()]);
+                                    Message(XGUIEng.GetStringTableText("sh_text/Province_Denyed"));
                                 end
                                 SetHealth(_BuildingID, 0);
                             end

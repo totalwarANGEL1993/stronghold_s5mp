@@ -104,7 +104,6 @@ Script.Load(ModPath.. "sh.module.hero.text.lua");
 Script.Load(ModPath.. "sh.module.province.lua");
 Script.Load(ModPath.. "sh.module.province.constants.lua");
 Script.Load(ModPath.. "sh.module.province.config.lua");
-Script.Load(ModPath.. "sh.module.province.text.lua");
 Script.Load(ModPath.. "sh.module.recruitment.lua");
 Script.Load(ModPath.. "sh.module.recruitment.config.lua");
 Script.Load(ModPath.. "sh.module.recruitment.text.lua");
@@ -117,5 +116,4 @@ Script.Load(ModPath.. "sh.module.outlaw.constants.lua");
 ---
 Script.Load(ModPath.. "sh.module.multiplayer.lua");
 Script.Load(ModPath.. "sh.module.multiplayer.config.lua");
-Script.Load(ModPath.. "sh.module.multiplayer.text.lua");
 
