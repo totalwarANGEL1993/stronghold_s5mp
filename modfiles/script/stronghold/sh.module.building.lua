@@ -21,9 +21,7 @@ Stronghold.Building = Stronghold.Building or {
 function Stronghold.Building:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {
-            Measure = {
-                RechargeFactor = 6.0,
-            },
+            Measure = {},
             RallyPoint = {},
         };
     end
@@ -32,7 +30,6 @@ function Stronghold.Building:Install()
     self:OverrideHeadquarterButtons();
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
-    self:OverrideCalculationCallbacks();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -80,18 +77,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             end
         end
     );
-end
-
-function Stronghold.Building:OverrideCalculationCallbacks()
-    self.Orig_GameCallback_SH_Calculate_MeasureIncrease = GameCallback_SH_Calculate_MeasureIncrease;
-    GameCallback_SH_Calculate_MeasureIncrease = function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Stronghold.Building.Orig_GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount);
-        if Stronghold.Building.Data[_PlayerID] then
-            local Factor = Stronghold.Building.Data[_PlayerID].Measure.RechargeFactor;
-            CurrentAmount = CurrentAmount * Factor;
-        end
-        return CurrentAmount;
-    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -273,9 +258,6 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     Stronghold.Economy:AddPlayerMeasure(_PlayerID, (-1) * MeasurePoints);
     -- Update recharge factor
     local CurrentRank = math.max(GetRank(_PlayerID), 1);
-    local RechargeFactor = self.Config.Headquarters[_BlessCategory].RechargeFactor;
-    RechargeFactor = RechargeFactor * (7/CurrentRank);
-    self.Data[_PlayerID].Measure.RechargeFactor = RechargeFactor;
     -- Show message
     local Language = GetLanguage();
     local TextKey = self.Config.Headquarters[_BlessCategory].Text;
@@ -287,7 +269,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         local MsgText = XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers1_message_2");
         local RandomTax = 0;
         for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
-            RandomTax = RandomTax + math.random(4, 8);
+            RandomTax = RandomTax + math.random(5, 8);
         end
         Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
         Message(string.format(MsgText, RandomTax));
@@ -300,7 +282,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
 
     elseif _BlessCategory == BlessCategories.Weapons then
         local WorkerList = GetAllWorker(_PlayerID, 0);
-        table.sort(WorkerList, function(a, b) return a > b; end);
+        table.sort(WorkerList, function(a, b) return a < b; end);
         for i= 1, table.getn(WorkerList) do
             local MotivationBonus = 150 - ((i-1) * 3);
             local OldMotivation = Logic.GetSettlersMotivation(WorkerList[i]) * 100;

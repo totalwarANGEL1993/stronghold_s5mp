@@ -4,37 +4,32 @@
 
 Stronghold.Building.Config.Headquarters = {
     [BlessCategories.Construction] = {
-        Reputation = -10,
+        Reputation = -15,
         Honor = 0,
-        RechargeFactor = 0.34,
 
         Text = "sh_menuheadquarter/blesssettlers1",
     },
     [BlessCategories.Research] = {
-        Reputation = 5,
-        Honor = 10,
-        RechargeFactor = 0.29,
+        Reputation = 7,
+        Honor = 7,
 
         Text = "sh_menuheadquarter/blesssettlers2",
     },
     [BlessCategories.Weapons] = {
-        Reputation = 150,
+        Reputation = 100,
         Honor = 0,
-        RechargeFactor = 0.37,
 
         Text = "sh_menuheadquarter/blesssettlers3",
     },
     [BlessCategories.Financial] = {
-        Reputation = 22,
+        Reputation = 25,
         Honor = 0,
-        RechargeFactor = 0.21,
 
         Text = "sh_menuheadquarter/blesssettlers4",
     },
     [BlessCategories.Canonisation] = {
-        Reputation = -30,
-        Honor = 150,
-        RechargeFactor = 0.14,
+        Reputation = -45,
+        Honor = 200,
 
         Text = "sh_menuheadquarter/blesssettlers5",
     },
