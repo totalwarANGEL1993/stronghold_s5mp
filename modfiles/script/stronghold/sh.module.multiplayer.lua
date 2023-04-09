@@ -581,13 +581,16 @@ function Stronghold.Multiplayer:ShowRuleSelection()
     XGUIEng.ShowWidget("MiniMap", 0);
     XGUIEng.ShowWidget("MiniMapOverlay", 0);
     XGUIEng.ShowWidget("MinimapButtons", 0);
+    XGUIEng.ShowWidget("NotesWindow", 0);
+    XGUIEng.ShowWidget("ShortMessagesListWindow", 0);
     XGUIEng.ShowWidget("Movie", 1);
-    XGUIEng.ShowWidget("MovieBarTop", 1);
-    XGUIEng.ShowWidget("MovieBarBottom", 1);
+    XGUIEng.ShowWidget("MovieBarTop", 0);
+    XGUIEng.ShowWidget("MovieBarBottom", 0);
     XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 1);
     XGUIEng.ShowWidget("CreditsWindow", 0);
     XGUIEng.ShowWidget("SHS5MP", 1);
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
+    XGUIEng.ShowWidget("GameClock", 0);
 end
 
 function Stronghold.Multiplayer:HideRuleSelection()
@@ -601,12 +604,17 @@ function Stronghold.Multiplayer:HideRuleSelection()
     XGUIEng.ShowWidget("MiniMap", 1);
     XGUIEng.ShowWidget("MiniMapOverlay", 1);
     XGUIEng.ShowWidget("MinimapButtons", 1);
+    XGUIEng.ShowWidget("NotesWindow", 1);
+    XGUIEng.ShowWidget("ShortMessagesListWindow", 1);
     XGUIEng.ShowWidget("Movie", 0);
     XGUIEng.ShowWidget("MovieBarTop", 0);
     XGUIEng.ShowWidget("MovieBarBottom", 0);
     XGUIEng.ShowWidget("CreditsWindow", 1);
     XGUIEng.ShowWidget("SHS5MP", 0);
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
+    if gvKeyBindings_GameClockFlag == 0 then
+        XGUIEng.ShowWidget("GameClock", 1);
+    end
 end
 
 function Stronghold.Multiplayer:ShowRuleTimer()
@@ -621,6 +629,8 @@ function Stronghold.Multiplayer:ShowRuleTimer()
     XGUIEng.ShowWidget("MiniMap", 0);
     XGUIEng.ShowWidget("MiniMapOverlay", 0);
     XGUIEng.ShowWidget("MinimapButtons", 0);
+    XGUIEng.ShowWidget("NotesWindow", 0);
+    XGUIEng.ShowWidget("ShortMessagesListWindow", 0);
     XGUIEng.ShowWidget("Movie", 1);
     XGUIEng.ShowWidget("MovieBarTop", 0);
     XGUIEng.ShowWidget("MovieBarBottom", 0);
@@ -630,6 +640,7 @@ function Stronghold.Multiplayer:ShowRuleTimer()
     XGUIEng.ShowWidget("SHS5MP_Configure", 0);
     XGUIEng.ShowWidget("SHS5MP_Counter", 1);
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
+    XGUIEng.ShowWidget("GameClock", 0);
 end
 
 function Stronghold.Multiplayer:HideRuleTimer()
@@ -643,6 +654,8 @@ function Stronghold.Multiplayer:HideRuleTimer()
     XGUIEng.ShowWidget("MiniMap", 1);
     XGUIEng.ShowWidget("MiniMapOverlay", 1);
     XGUIEng.ShowWidget("MinimapButtons", 1);
+    XGUIEng.ShowWidget("NotesWindow", 1);
+    XGUIEng.ShowWidget("ShortMessagesListWindow", 1);
     XGUIEng.ShowWidget("Movie", 0);
     XGUIEng.ShowWidget("MovieBarTop", 0);
     XGUIEng.ShowWidget("MovieBarBottom", 0);
@@ -652,6 +665,9 @@ function Stronghold.Multiplayer:HideRuleTimer()
     XGUIEng.ShowWidget("SHS5MP_Configure", 1);
     XGUIEng.ShowWidget("SHS5MP_Counter", 0);
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
+    if gvKeyBindings_GameClockFlag == 0 then
+        XGUIEng.ShowWidget("GameClock", 1);
+    end
 end
 
 -- -------------------------------------------------------------------------- --

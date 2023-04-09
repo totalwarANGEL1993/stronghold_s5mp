@@ -231,7 +231,8 @@
         "KeyOf",
         "MEDITERANEANMUSIC",
         "GUIAction_ToggleStopWatch",
-        "ShowStrongholdConfiguration"
+        "ShowStrongholdConfiguration",
+        "gvKeyBindings_GameClockFlag"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
