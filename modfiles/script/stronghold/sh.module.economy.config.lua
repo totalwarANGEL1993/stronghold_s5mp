@@ -40,6 +40,9 @@ Stronghold.Economy.Config.Income = {
     MaxMeasurePoints = 5000,
     MaxReputation = 200,
     TaxPerWorker = 6,
+    ScaleBonusFactor = 1.05,
+    DebentureBonusFactor = 1,
+    CoinageBonusFactor = 1,
 
     TaxEffect = {
         [1] = {Honor = 4, Reputation = 10,},

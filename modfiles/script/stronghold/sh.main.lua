@@ -13,7 +13,7 @@
 --- - trade
 ---
 --- Defined game callbacks:
---- - GameCallback_SH_Logic_Payday(_PlayerID)
+--- - <number> GameCallback_SH_Calculate_Payday(_PlayerID, _Amount)
 ---   Called after the payday is done.
 --- 
 --- - GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount)
@@ -152,7 +152,8 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
-function GameCallback_SH_Logic_Payday(_PlayerID)
+function GameCallback_SH_Calculate_Payday(_PlayerID, _Amount)
+    return _Amount
 end
 
 function GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount)
@@ -213,6 +214,8 @@ function Stronghold:Init()
     self.Outlaw:Install();
     self.Province:Install();
 
+    self:SetupPaydayForAllPlayers();
+    self:ConfigurePaydayForAllPlayers();
     self:StartTurnDelayTrigger();
     self:StartPlayerPaydayUpdater();
     self:UnlockAllTechnologies();
@@ -260,7 +263,8 @@ function Stronghold:OnSaveGameLoaded()
     self.Outlaw:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();
 
-    -- Change texts
+    self:SetupPaydayForAllPlayers();
+    self:ConfigurePaydayForAllPlayers();
     self:OverrideStringTableText();
     return true;
 end
@@ -669,37 +673,37 @@ end
 -- -------------------------------------------------------------------------- --
 -- Payday
 
--- Payday updater
--- The real payday is deactivated. We simultate the payday by using a job the
--- old fashioned way.
-function Stronghold:StartPlayerPaydayUpdater()
+function Stronghold:SetupPaydayForAllPlayers()
+    for i= 1, table.getn(Score.Player) do
+        CUtil.Payday_SetActive(i, true);
+    end
+end
 
-    function Stronghold_Trigger_OnPayday()
-        Stronghold.Shared.PaydayTriggerFlag = Stronghold.Shared.PaydayTriggerFlag or {};
-        Stronghold.Shared.PaydayOverFlag = Stronghold.Shared.PaydayOverFlag or {};
-
-        for i= 1, table.getn(Score.Player) do
-            if Stronghold.Shared.PaydayTriggerFlag[i] == nil then
-                Stronghold.Shared.PaydayTriggerFlag[i] = false;
-            end
-            if Stronghold.Shared.PaydayOverFlag[i] == nil then
-                Stronghold.Shared.PaydayOverFlag[i] = false;
-            end
-
-            local TimeLeft = Logic.GetPlayerPaydayTimeLeft(i);
-            if TimeLeft > 119900 and TimeLeft <= 120000 then
-                Stronghold.Shared.PaydayTriggerFlag[i] = true;
-            elseif TimeLeft > 119600 and TimeLeft <= 119900 then
-                Stronghold.Shared.PaydayTriggerFlag[i] = false;
-                Stronghold.Shared.PaydayOverFlag[i] = false;
-            end
-            if Stronghold.Shared.PaydayTriggerFlag[i] and not Stronghold.Shared.PaydayOverFlag[i] then
-                Stronghold:OnPlayerPayday(i);
-                Stronghold.Shared.PaydayOverFlag[i] = true;
-            end
+function Stronghold:ConfigurePaydayForAllPlayers()
+    for i= 1, table.getn(Score.Player) do
+        if Logic.IsTechnologyResearched(i,Technologies.T_BookKeeping) == 0 then
+            CUtil.Payday_SetFrequency(i, self.Config.Payday.Base);
+        else
+            CUtil.Payday_SetFrequency(i, self.Config.Payday.Improved);
         end
     end
-    StartSimpleHiResJob("Stronghold_Trigger_OnPayday");
+end
+
+-- Payday updater
+function Stronghold:StartPlayerPaydayUpdater()
+    GameCallback_PaydayPayed = function(_PlayerID, _Amount)
+        if _Amount ~= nil and IsHumanPlayer(_PlayerID) then
+            -- Change frequency on next payday
+            if  Logic.IsTechnologyResearched(_PlayerID,Technologies.T_BookKeeping) == 1
+            and CUtil.Payday_GetFrequency(_PlayerID) == self.Config.Payday.Base then
+                CUtil.Payday_SetFrequency(_PlayerID, self.Config.Payday.Improved);
+            end
+
+            -- Execute payday
+            return Stronghold:OnPlayerPayday(_PlayerID);
+        end
+        return 0;
+    end
 end
 
 -- Payday controller
@@ -710,10 +714,6 @@ function Stronghold:OnPlayerPayday(_PlayerID)
         if Logic.GetNumberOfAttractedWorker(_PlayerID) > 0 and Logic.GetTime() > 1 then
             self.Players[_PlayerID].HasHadRegularPayday = true;
         end
-
-        Tools.GiveResouces(_PlayerID, Logic.GetNumberOfLeader(_PlayerID) * 20, 0, 0, 0, 0, 0);
-        Tools.GiveResouces(_PlayerID, Stronghold.Economy.Data[_PlayerID].IncomeMoney, 0, 0, 0, 0, 0);
-        AddGold(_PlayerID, -Stronghold.Economy.Data[_PlayerID].UpkeepMoney);
 
         -- Reputation
         local OldReputation = self:GetPlayerReputation(_PlayerID);
@@ -742,8 +742,10 @@ function Stronghold:OnPlayerPayday(_PlayerID)
         local Honor = Stronghold.Economy.Data[_PlayerID].IncomeHonor;
         self:AddPlayerHonor(_PlayerID, Honor);
 
-        -- Payday done
-        GameCallback_SH_Logic_Payday(_PlayerID);
+        -- Tax and Upkeep
+        local Income = Stronghold.Economy.Data[_PlayerID].IncomeMoney;
+        local Upkeep = Stronghold.Economy.Data[_PlayerID].UpkeepMoney;
+        return GameCallback_SH_Calculate_Payday(_PlayerID, Income - Upkeep);
     end
 end
 

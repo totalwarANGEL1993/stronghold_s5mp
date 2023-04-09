@@ -21,10 +21,8 @@
 			  <TecCategoryType/>
 		</TecCondition>
 	</Conditions>
-	
-		
-		<EntityCondition>
-			  <EntityType>PB_Blacksmith3</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
+    <EntityCondition>
+            <EntityType>PB_Blacksmith3</EntityType>
+            <Amount>1</Amount>
+    </EntityCondition>	
 </root>

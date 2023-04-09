@@ -144,9 +144,10 @@ end
 -- will also have effect on the reputation.
 function Stronghold.Attraction:InitCriminalsEffects()
     -- Criminals steal goods at the payday.
-    Overwrite.CreateOverwrite("GameCallback_SH_Logic_Payday", function(_PlayerID)
-        Overwrite.CallOriginal();
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
+        local Amount = Overwrite.CallOriginal();
         Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
+        return Amount;
     end);
 end
 
@@ -399,7 +400,8 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
         end
         -- Restore reputation when workers are all gone
         if  Stronghold.Players[_PlayerID].HasHadRegularPayday
-        and Logic.GetNumberOfAttractedWorker(_PlayerID) == 0 then
+        and Logic.GetNumberOfAttractedWorker(_PlayerID) == 0
+        and Logic.AreVillageCentersLocked(_PlayerID) == 1 then
             Stronghold:SetPlayerReputation(_PlayerID, 50);
             return;
         end

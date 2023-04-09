@@ -133,9 +133,10 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Province:StartTriggers()
-    Overwrite.CreateOverwrite("GameCallback_SH_Logic_Payday", function(_PlayerID)
-        Overwrite.CallOriginal();
-        Stronghold.Province:OnPayday(_PlayerID);
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
+        local Amount = Overwrite.CallOriginal();
+        Amount = Stronghold.Province:OnPayday(_PlayerID, Amount);
+        return Amount;
     end);
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorIncreaseSpecial", function(_PlayerID)
@@ -337,7 +338,8 @@ function Stronghold.Province:ControlProvince()
     end
 end
 
-function Stronghold.Province:OnPayday(_PlayerID)
+function Stronghold.Province:OnPayday(_PlayerID, _Amount)
+    local TaxAmount = _Amount;
     if IsHumanPlayer(_PlayerID) then
         for k,v in pairs(self.Data.Provinces) do
             if v and v.Owner == _PlayerID then
@@ -349,6 +351,7 @@ function Stronghold.Province:OnPayday(_PlayerID)
             end
         end
     end
+    return TaxAmount;
 end
 
 function Stronghold.Province:OnBuildingCreated(_BuildingID, _PlayerID)

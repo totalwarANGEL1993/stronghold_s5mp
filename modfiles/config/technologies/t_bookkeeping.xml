@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>50</TimeToResearch>
+    <ResourceCosts>
+        <Gold>600</Gold>
+        <Clay/>
+        <Wood>200</Wood>
+        <Stone/>
+        <Iron/>
+        <Sulfur/>
+    </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <Conditions>
+        <TecCondition>
+            <TecType>T_Scale</TecType>
+        </TecCondition>
+
+        <EntityCondition>
+            <EntityType>PB_Bank2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

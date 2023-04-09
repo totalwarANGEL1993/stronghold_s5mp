@@ -492,7 +492,14 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
         local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
         local PerWorker = self.Config.Income.TaxPerWorker;
         local Income = (table.getn(WorkerList) * PerWorker) * (TaxHeight -1);
+
+        -- Scale
+        if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Scale) == 1 then
+            Income = Income * self.Config.Income.ScaleBonusFactor;
+        end
+        -- External
         Income = GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, Income);
+
         return math.floor(Income + 0.5);
     end
     return 0;
@@ -646,6 +653,14 @@ function Stronghold.Economy:OnWorkplaceRefinedResource(_PlayerID, _BuildingID, _
     local Type = Logic.GetEntityType(_BuildingID);
     local Amount = self.Config.Resource.Refining[Type] or _Amount;
 
+    -- Debenture
+    if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Debenture) == 1 then
+        Amount = Amount + (1 * self.Config.Income.DebentureBonusFactor);
+    end
+    -- Coinage
+    if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Coinage) == 1 then
+        Amount = Amount + (1 * self.Config.Income.CoinageBonusFactor);
+    end
     -- External changes
     Amount = GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, Amount);
     return Amount;
@@ -714,13 +729,14 @@ function Stronghold.Economy:HonorMenu()
 end
 
 function Stronghold.Economy:OverrideTaxAndPayStatistics()
-    Overwrite.CreateOverwrite("GameCallback_SH_Logic_Payday", function(_PlayerID)
-        Overwrite.CallOriginal();
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
+        local Amount = Overwrite.CallOriginal();
         -- Remove the one time bonuses
         if Stronghold.Economy.Data[_PlayerID] then
             Stronghold.Economy.Data[_PlayerID].IncomeReputationSingle = 0;
             Stronghold.Economy.Data[_PlayerID].IncomeHonorSingle = 0;
         end
+        return Amount;
     end);
 
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_CriminalCatched", function(_PlayerID, _OldEntityID, _BuildingID)

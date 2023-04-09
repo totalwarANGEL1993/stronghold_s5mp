@@ -10,6 +10,11 @@ Stronghold.Config = {
         StartingSerfs = 6,
     },
 
+    Payday = {
+        Base = 1200,
+        Improved = 1080,
+    },
+
     Trade = {
         -- {buy min, buy max, sell min, sell max}
         [ResourceType.Gold]   = {0.85, 1.25, 0.85, 1.25},
