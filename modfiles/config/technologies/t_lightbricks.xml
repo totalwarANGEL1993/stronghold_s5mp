@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>50</TimeToResearch>
+    <ResourceCosts>
+        <Gold/>
+        <Clay>200</Clay>
+        <Wood>200</Wood>
+        <Stone>200</Stone>
+        <Iron/>
+        <Sulfur/>
+    </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <Conditions>
+        <EntityCondition>
+            <EntityType>PB_Brickworks2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

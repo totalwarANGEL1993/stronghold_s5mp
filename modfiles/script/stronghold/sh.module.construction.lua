@@ -24,6 +24,7 @@ function Stronghold.Construction:Install()
 
     self:InitBuildingLimits();
     self:StartCheckTowerDistanceCallback();
+    self:InitLightBricks();
 end
 
 function Stronghold.Construction:OnSaveGameLoaded()
@@ -255,6 +256,21 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         end
     end
     return false;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Light Bricks
+
+function Stronghold.Construction:InitLightBricks()
+    if CMod then
+        GameCallback_ConstructBuilding = function(_SiteID, _SerfCount, _Amount)
+            local PlayerID = Logic.EntityGetPlayer(_SiteID);
+            if Logic.IsTechnologyResearched(PlayerID, Technologies.T_LightBricks) == 1 then
+                _Amount = (_Amount * self.Config.LightBricksFactor) or _Amount;
+            end
+            return _Amount;
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --
