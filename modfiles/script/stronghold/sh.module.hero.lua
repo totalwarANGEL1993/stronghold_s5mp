@@ -451,7 +451,7 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
         if not _Silent then
             local PlayerName = UserTool_GetPlayerName(_PlayerID);
             local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-            local Text = XGUIEng.GetStringTableText("sh_names/Player_NobleChosen");
+            local Text = XGUIEng.GetStringTableText("sh_text/Player_NobleChosen");
             Message(string.format(Text, PlayerColor, PlayerName));
         end
 
@@ -598,7 +598,7 @@ function Stronghold.Hero:EntityAttackedController(_PlayerID)
                     -- Send message
                     local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(k));
                     local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-                    local Text = XGUIEng.GetStringTableText("sh_names/Player_NobleDefeated");
+                    local Text = XGUIEng.GetStringTableText("sh_text/Player_NobleDefeated");
                     Message(string.format(Text, PlayerColor, Name));
                     -- Place hero
                     Logic.CreateEffect(GGL_Effects.FXDieHero, x, y, _PlayerID);

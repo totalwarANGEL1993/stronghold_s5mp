@@ -297,8 +297,7 @@ end
 function Stronghold.Province:CreateProvinceEffectMessage(_ID, _PlayerID, _BuildingID)
     local Msg;
     if self.Data.Provinces[_ID] then
-        local Lang = GetLanguage();
-        local Text = "[Text]";
+        local Text = "";
         local Template;
 
         if self.Data.Provinces[_ID].Type == ProvinceType.Honor then
@@ -318,7 +317,7 @@ function Stronghold.Province:CreateProvinceEffectMessage(_ID, _PlayerID, _Buildi
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         end
         if Template then
-            Msg = string.format(Template[Lang], Text);
+            Msg = string.format(Template, Text);
         end
     end
     return Msg;
