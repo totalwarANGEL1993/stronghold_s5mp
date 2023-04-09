@@ -61,35 +61,49 @@ Stronghold.Hero.Config.Hero12 = {
     PupulationFactor = 1.3,
 }
 
--- FIXME: Can the following be deleted?
-
-Stronghold.Hero.Config.Nobles = {
-    {Entities.PU_Hero1c,             true},
-    {Entities.PU_Hero2,              true},
-    {Entities.PU_Hero3,              true},
-    {Entities.PU_Hero4,              true},
-    {Entities.PU_Hero5,              true},
-    {Entities.PU_Hero6,              true},
-    {Entities.CU_BlackKnight,        true},
-    {Entities.CU_Mary_de_Mortfichet, true},
-    {Entities.CU_Barbarian_Hero,     true},
-    {Entities.PU_Hero10,             true},
-    {Entities.PU_Hero11,             true},
-    {Entities.CU_Evil_Queen,         true},
-}
-
-Stronghold.Hero.Config.TypeToBuyHeroButton = {
-    [Entities.PU_Hero1c]             = "BuyHeroWindowBuyHero1",
-    [Entities.PU_Hero2]              = "BuyHeroWindowBuyHero5",
-    [Entities.PU_Hero3]              = "BuyHeroWindowBuyHero4",
-    [Entities.PU_Hero4]              = "BuyHeroWindowBuyHero3",
-    [Entities.PU_Hero5]              = "BuyHeroWindowBuyHero2",
-    [Entities.PU_Hero6]              = "BuyHeroWindowBuyHero6",
-    [Entities.CU_Mary_de_Mortfichet] = "BuyHeroWindowBuyHero7",
-    [Entities.CU_BlackKnight]        = "BuyHeroWindowBuyHero8",
-    [Entities.CU_Barbarian_Hero]     = "BuyHeroWindowBuyHero9",
-    [Entities.PU_Hero10]             = "BuyHeroWindowBuyHero10",
-    [Entities.PU_Hero11]             = "BuyHeroWindowBuyHero11",
-    [Entities.CU_Evil_Queen]         = "BuyHeroWindowBuyHero12",
+-- Text overwrite
+Stronghold.Hero.Config.Hero = {
+    Name = {
+        [Entities.PU_Hero1c]             = nil,
+        [Entities.PU_Hero2]              = nil,
+        [Entities.PU_Hero3]              = nil,
+        [Entities.PU_Hero4]              = nil,
+        [Entities.PU_Hero5]              = nil,
+        [Entities.PU_Hero6]              = nil,
+        [Entities.CU_Mary_de_Mortfichet] = nil,
+        [Entities.CU_BlackKnight]        = nil,
+        [Entities.CU_Barbarian_Hero]     = nil,
+        [Entities.PU_Hero10]             = nil,
+        [Entities.PU_Hero11]             = nil,
+        [Entities.CU_Evil_Queen]         = nil,
+    },
+    Biography = {
+        [Entities.PU_Hero1c]             = nil,
+        [Entities.PU_Hero2]              = nil,
+        [Entities.PU_Hero3]              = nil,
+        [Entities.PU_Hero4]              = nil,
+        [Entities.PU_Hero5]              = nil,
+        [Entities.PU_Hero6]              = nil,
+        [Entities.CU_Mary_de_Mortfichet] = nil,
+        [Entities.CU_BlackKnight]        = nil,
+        [Entities.CU_Barbarian_Hero]     = nil,
+        [Entities.PU_Hero10]             = nil,
+        [Entities.PU_Hero11]             = nil,
+        [Entities.CU_Evil_Queen]         = nil,
+    },
+    Description = {
+        [Entities.PU_Hero1c]             = nil,
+        [Entities.PU_Hero2]              = nil,
+        [Entities.PU_Hero3]              = nil,
+        [Entities.PU_Hero4]              = nil,
+        [Entities.PU_Hero5]              = nil,
+        [Entities.PU_Hero6]              = nil,
+        [Entities.CU_BlackKnight]        = nil,
+        [Entities.CU_Mary_de_Mortfichet] = nil,
+        [Entities.CU_Barbarian_Hero]     = nil,
+        [Entities.PU_Hero10]             = nil,
+        [Entities.PU_Hero11]             = nil,
+        [Entities.CU_Evil_Queen]         = nil,
+    }
 }
 

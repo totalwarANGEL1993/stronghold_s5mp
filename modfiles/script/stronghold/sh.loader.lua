@@ -100,7 +100,6 @@ Script.Load(ModPath.. "sh.module.economy.config.lua");
 Script.Load(ModPath.. "sh.module.economy.text.lua");
 Script.Load(ModPath.. "sh.module.hero.lua");
 Script.Load(ModPath.. "sh.module.hero.config.lua");
-Script.Load(ModPath.. "sh.module.hero.text.lua");
 Script.Load(ModPath.. "sh.module.province.lua");
 Script.Load(ModPath.. "sh.module.province.constants.lua");
 Script.Load(ModPath.. "sh.module.province.config.lua");

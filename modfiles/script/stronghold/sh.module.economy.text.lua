@@ -2,6 +2,8 @@
 --- Texts for economy script
 --- 
 
+-- This will stay in Lua for better readability. Because it is not planned to
+-- provide languages other than de and en this is more reasonable.
 Stronghold.Economy.Text.PaydayClock = {
     [1] = {
         de = " @color:255,255,255,255 Erwartete Ehre: %s @cr "..

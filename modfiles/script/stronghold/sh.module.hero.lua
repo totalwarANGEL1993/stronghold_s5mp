@@ -30,25 +30,67 @@ Stronghold.Hero = {
 --- 
 --- This is supposed to be used when the player has no choice which hero
 --- they have to use.
+--- @param _PlayerID number ID of player
+--- @param _Type number Entity type
+--- @param _Position any Spawn position
 function PlayerCreateNoble(_PlayerID, _Type, _Position)
     Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position);
 end
 
 --- Activates the hero selection for the player.
+--- @param _PlayerID number ID of player
 function PlayerActivateNobleSelection(_PlayerID)
     Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, true);
 end
 
 --- Deactivates the hero selection for the player.
+--- @param _PlayerID number ID of player
 function PlayerDeactivateNobleSelection(_PlayerID)
     Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, false);
 end
 
---- Returns if the player has the type as hero.
+--- Returns if the Noble of the player is of the type.
 ---
---- If a hero is not the lord (or lady) then this hero does not count.
+--- If the hero is downed then this function returns false.
+---
+--- @param _PlayerID number ID of player
+--- @param _Type number Entity type
+--- @return boolean HasHero Player has hero of type
 function PlayerHasLordOfType(_PlayerID, _Type)
     return Stronghold.Hero:HasValidLordOfType(_PlayerID, _Type);
+end
+
+--- Returns if the player has a hero of the type.
+---
+--- He hero doesn't need to be the Noble.
+--- If the hero is downed then this function returns false.
+---
+--- @param _PlayerID number ID of player
+--- @param _Type number Entity type
+--- @return boolean HasHero Player has hero of type
+function PlayerHasHeroOfType(_PlayerID, _Type)
+    return Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type);
+end
+
+--- Changes the name of the hero in the selection screen.
+--- @param _Type number Entity type
+--- @param _Text any New name (string or table)
+function SetHeroSelectionName(_Type, _Text)
+    Stronghold.Hero:SetHeroName(_Type, _Text)
+end
+
+--- Changes the biography of the hero in the selection screen.
+--- @param _Type number Entity type
+--- @param _Text any New biography (string or table)
+function SetHeroSelectionBiography(_Type, _Text)
+    Stronghold.Hero:SetHeroBiography(_Type, _Text)
+end
+
+--- Changes the effect description of the hero in the selection screen.
+--- @param _Type number Entity type
+--- @param _Text any New effect description (string or table)
+function SetHeroSelectionDescription(_Type, _Text)
+    Stronghold.Hero:SetHeroDescription(_Type, _Text)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -56,8 +98,7 @@ end
 function Stronghold.Hero:Install()
     for i= 1, table.getn(Score.Player) do
         self.Data[i] = {};
-
-        -- NEVER EVER CHANGE THIS - unless you know what you are doing!!!
+        -- NEVER EVER CHANGE THIS!!!
         BuyHero.SetNumberOfBuyableHeroes(i, 1);
     end
 
@@ -85,7 +126,7 @@ function Stronghold.Hero:SetHeroName(_Type, _Text)
     if type(Text) ~= "table" then
         Text = {de = _Text, en = _Text};
     end
-    self.Text.Hero.Name[_Type] = Text;
+    self.Config.Hero.Name[_Type] = Text;
 end
 
 function Stronghold.Hero:SetHeroBiography(_Type, _Text)
@@ -93,7 +134,7 @@ function Stronghold.Hero:SetHeroBiography(_Type, _Text)
     if type(Text) ~= "table" then
         Text = {de = _Text, en = _Text};
     end
-    self.Text.Hero.Biography[_Type] = Text;
+    self.Config.Hero.Biography[_Type] = Text;
 end
 
 function Stronghold.Hero:SetHeroDescription(_Type, _Text)
@@ -101,7 +142,7 @@ function Stronghold.Hero:SetHeroDescription(_Type, _Text)
     if type(Text) ~= "table" then
         Text = {de = _Text, en = _Text};
     end
-    self.Text.Hero.Description[_Type] = Text;
+    self.Config.Hero.Description[_Type] = Text;
 end
 
 function Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, _Flag)
@@ -343,15 +384,45 @@ function Stronghold.Hero:ConfigureBuyHero()
     Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetMessage", function(_PlayerID, _Type)
         if IsHumanPlayer(_PlayerID) then
             local Lang = GetLanguage();
-            local DisplayName = Stronghold.Hero.Text.Hero.Names[_Type][Lang];
-            local Biography = Stronghold.Hero.Text.Hero.Biography[_Type][Lang];
-            local Description = Stronghold.Hero.Text.Hero.Description[_Type][Lang];
-            return string.format(
-                "%s @cr @cr @color:180,180,180 %s @cr @cr %s",
+            local TypeName = Logic.GetEntityTypeName(_Type);
+
+            -- Displayed name
+            local DisplayName = XGUIEng.GetStringTableText("sh_names/Name_" ..TypeName);
+            if Stronghold.Hero.Config.Hero.Name[_Type] then
+                if type(Stronghold.Hero.Config.Hero.Name[_Type]) == "table" then
+                    DisplayName = Stronghold.Hero.Config.Hero.Name[_Type][Lang];
+                else
+                    DisplayName = Stronghold.Hero.Config.Hero.Name[_Type];
+                end
+            end
+            -- Displayed biography
+            local Biography = XGUIEng.GetStringTableText("sh_text/Biography_" ..TypeName);
+            if Stronghold.Hero.Config.Hero.Biography[_Type] then
+                if type(Stronghold.Hero.Config.Hero.Biography[_Type]) == "table" then
+                    Biography = Stronghold.Hero.Config.Hero.Biography[_Type][Lang];
+                else
+                    Biography = Stronghold.Hero.Config.Hero.Biography[_Type];
+                end
+            end
+            -- Displayed skills
+            local Description = XGUIEng.GetStringTableText("sh_text/Effects_" ..TypeName);
+            -- Line breaks in string tables are NOT ignored!
+            Description = string.gsub(Description, "\r\n", "");
+            Description = string.gsub(Description, "\n", "");
+            if Stronghold.Hero.Config.Hero.Description[_Type] then
+                if type(Stronghold.Hero.Config.Hero.Description[_Type]) == "table" then
+                    Description = Stronghold.Hero.Config.Hero.Description[_Type][Lang];
+                else
+                    Description = Stronghold.Hero.Config.Hero.Description[_Type];
+                end
+            end
+
+            return Placeholder.Replace(string.format(
+                "%s{cr}{cr}{grey}%s{cr}{cr}{white}%s",
                 DisplayName,
                 Biography,
                 Description
-            );
+            ));
         end
         return Overwrite.CallOriginal();
     end);
@@ -378,10 +449,10 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
         Logic.SetEntityName(_ID, Stronghold.Players[_PlayerID].LordScriptName);
         -- Display info message
         if not _Silent then
-            local Language = GetLanguage();
             local PlayerName = UserTool_GetPlayerName(_PlayerID);
             local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-            Message(string.format(self.Text.Player[1][Language], PlayerColor, PlayerName));
+            local Text = XGUIEng.GetStringTableText("sh_names/Player_NobleChosen");
+            Message(string.format(Text, PlayerColor, PlayerName));
         end
 
         if _Type == Entities.PU_Hero11 then
@@ -525,10 +596,10 @@ function Stronghold.Hero:EntityAttackedController(_PlayerID)
                     local x,y,z = Logic.EntityGetPos(k);
 
                     -- Send message
-                    local Language = GetLanguage();
                     local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(k));
                     local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-                    Message(string.format(self.Text.Player[2][Language], PlayerColor, Name));
+                    local Text = XGUIEng.GetStringTableText("sh_names/Player_NobleDefeated");
+                    Message(string.format(Text, PlayerColor, Name));
                     -- Place hero
                     Logic.CreateEffect(GGL_Effects.FXDieHero, x, y, _PlayerID);
                     local ID = SetPosition(k, Stronghold.Players[_PlayerID].DoorPos);
@@ -601,8 +672,7 @@ function Stronghold.Hero:OverrideHero5AbilityArrowRain()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "AOMenuHero5/command_poisonarrows" then
-            local Language = GetLanguage();
-            local Text = Stronghold.Hero.Text.Hero.Skill[Entities.PU_Hero5][Language];
+            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_PU_Hero5");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 
@@ -622,8 +692,7 @@ function Stronghold.Hero:OverrideHero8AbilityMoralDamage()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "MenuHero8/command_moraledamage" then
-            local Language = GetLanguage();
-            local Text = Stronghold.Hero.Text.Hero.Skill[Entities.CU_Mary_de_Mortfichet][Language];
+            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_CU_Mary_de_Mortfichet");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 
