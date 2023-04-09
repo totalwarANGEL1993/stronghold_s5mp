@@ -420,8 +420,8 @@ function Stronghold.Multiplayer:Configure()
                 Stronghold.Rights:SetPlayerMaxRank(PlayerID, self.Data.Config.Rank.Final or 7);
             end
         else
-            SetRank(1, self.Data.Config.Rank.Initial or 0);
-            Stronghold.Rights:SetPlayerMaxRank(1, self.Data.Config.Rank.Final or 7);
+            SetRank(GUI.GetPlayerID(), self.Data.Config.Rank.Initial or 0);
+            Stronghold.Rights:SetPlayerMaxRank(GUI.GetPlayerID(), self.Data.Config.Rank.Final or 7);
         end
     end
 
@@ -442,9 +442,9 @@ function Stronghold.Multiplayer:Configure()
                 );
             end
         else
-            AddHonor(1, self.Data.Config.Resources[1] or 0);
+            AddHonor(GUI.GetPlayerID(), self.Data.Config.Resources[1] or 0);
             Tools.GiveResouces(
-                1,
+                GUI.GetPlayerID(),
                 self.Data.Config.Resources[2] or 0,
                 self.Data.Config.Resources[3] or 0,
                 self.Data.Config.Resources[4] or 0,
@@ -692,7 +692,6 @@ function Stronghold.Multiplayer:OnPeaceTimeOver()
             local ID = GetID("PTGate" ..Index);
             local Type = Logic.GetEntityType(ID);
             if Type == Entities.XD_PalisadeGate1 then
-                -- FIXME: Was that the opened one?
                 ReplaceEntity(ID, Entities.XD_PalisadeGate2);
             end
             if Type == Entities.XD_DarkWallStraightGate_Closed then
