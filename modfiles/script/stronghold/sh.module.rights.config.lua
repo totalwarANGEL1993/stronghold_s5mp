@@ -89,23 +89,19 @@ Stronghold.Rights.Config = {
                 PlayerRight.ShootingRange,
                 PlayerRight.LeaderBow1,
                 PlayerRight.BanditBow1,
-                ---
-                PlayerRight.Beautification1,
-                PlayerRight.Beautification2,
-                PlayerRight.Beautification12,
             },
         },
         [PlayerRank.Earl]     = {
             Costs  = {25, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Headquarters, 1},
-                -- {PlayerDuty.Technology, Technologies.GT_Trading},
                 {PlayerDuty.Buildings, 6},
             },
             Rights = {
                 PlayerRight.Church,
                 PlayerRight.Smithy,
                 PlayerRight.MasonHut,
+                PlayerRight.Bank,
                 PlayerRight.ArchitectShop,
                 PlayerRight.Bridge,
                 PlayerRight.Tavern,
@@ -120,6 +116,10 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Foundry,
                 PlayerRight.Cannon2,
+                ---
+                PlayerRight.Beautification1,
+                PlayerRight.Beautification2,
+                PlayerRight.Beautification12,
             },
         },
         [PlayerRank.Baron]    = {
@@ -150,10 +150,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.Skirmisher,
                 ---
                 PlayerRight.Cannon1,
-                ---
-                PlayerRight.Beautification5,
-                PlayerRight.Beautification7,
-                PlayerRight.Beautification8,
             },
         },
         [PlayerRank.Count]    = {
@@ -165,7 +161,6 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.TownCenter,
                 PlayerRight.Cathedral,
-                PlayerRight.Bank,
                 PlayerRight.Brickworks,
                 PlayerRight.LumberMill,
                 PlayerRight.MasonWorkshop,
@@ -185,6 +180,10 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.GunWorkshop,
                 PlayerRight.LeaderRifle1,
+                ---
+                PlayerRight.Beautification5,
+                PlayerRight.Beautification7,
+                PlayerRight.Beautification8,
             },
         },
         [PlayerRank.Margrave] = {

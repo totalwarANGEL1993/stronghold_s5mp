@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!-- This is the file for the Asian female -->
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
@@ -105,8 +104,6 @@
         </Logic>
     </Behavior>
 
-
-
     <Behavior>
         <Logic classname="GGL::CInflictFearAbilityProps">
             <Class>GGL::CInflictFearAbility</Class>
@@ -120,7 +117,6 @@
         </Logic>
     </Behavior>
 
-
     <Behavior>
         <Logic classname="GGL::CMotivateWorkersAbilityProps">
             <Class>GGL::CMotivateWorkersAbility</Class>
@@ -132,7 +128,6 @@
             <Effect>FXYukiFireworksJoy</Effect>
         </Logic>
     </Behavior>
-
 
     <Behavior>
         <Logic classname="GGL::CShurikenAbilityProps">
@@ -149,8 +144,6 @@
             <DamageAmount>150</DamageAmount>
         </Logic>
     </Behavior>
-
-
 
     <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
@@ -171,6 +164,4 @@
             <BasePriority>500</BasePriority>
         </Logic>
     </Behavior>
-
-
 </root>

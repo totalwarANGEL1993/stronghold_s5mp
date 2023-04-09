@@ -128,11 +128,11 @@
 	<Behavior>
 	    <Logic classname="GGL::CRangedEffectAbilityProps">
 	        <Class>GGL::CRangedEffectAbility</Class>
-	        <RechargeTimeSeconds>120</RechargeTimeSeconds><!--120-->
+	        <RechargeTimeSeconds>60</RechargeTimeSeconds><!--120-->
 	        <AffectsHostiles>true</AffectsHostiles>
 	        <AffectsOnlyMilitary>true</AffectsOnlyMilitary>
 	        <Range>1500.0</Range>
-	        <DurationInSeconds>90</DurationInSeconds>
+	        <DurationInSeconds>45</DurationInSeconds>
 	        <Effect>FXKerberosFear</Effect>
 	        <ArmorFactor>0</ArmorFactor><!--0.8-->
 	    </Logic>

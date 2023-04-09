@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!-- This is the file for the Headhunter -->
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
@@ -107,8 +106,6 @@
         </Logic>
     </Behavior>
 
-
-
     <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
             <Class>GGL::CGLBehaviorDying</Class>
@@ -121,7 +118,6 @@
             <Class>GGL::CHeroBehavior</Class>
         </Logic>
     </Behavior>
-
 
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
@@ -159,6 +155,4 @@
             <Range>5500.0</Range>
         </Logic>
     </Behavior>
-
-
 </root>

@@ -107,7 +107,7 @@
     <Behavior>
         <Logic classname="GGL::CInflictFearAbilityProps">
             <Class>GGL::CInflictFearAbility</Class>
-            <RechargeTimeSeconds>120</RechargeTimeSeconds>
+            <RechargeTimeSeconds>90</RechargeTimeSeconds>
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>PU_Hero1c_Order1</Animation>
             <Range>1500.0</Range>
