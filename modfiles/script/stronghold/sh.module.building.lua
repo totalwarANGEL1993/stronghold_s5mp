@@ -187,72 +187,52 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
 end
 
 function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _EntityID, _Key)
-    local Language = GetLanguage();
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
-    local Text = XGUIEng.GetStringTableText(_Key);
-    local EffectText = "";
+    if GetLocalPlayerID() ~= _PlayerID then
+        return false;
+    end
 
+    -- Map index
+    local Index = -1;
     if _Key == "sh_menuheadquarter/SetVeryLowTaxes" then
-        Text = self.Text.TaxLevel[1][Language];
-        local Effects = Stronghold.Economy.Config.Income.TaxEffect[1];
-        EffectText = self.Text.UI.Effect[Language];
-        if Effects.Reputation ~= 0 then
-            EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..self.Text.UI.Reputation[Language].. " ";
-        end
-        if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-        end
+        Index = 1;
     elseif _Key == "sh_menuheadquarter/SetLowTaxes" then
-        Text = self.Text.TaxLevel[2][Language];
-        local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 2);
-        local Effects = Stronghold.Economy.Config.Income.TaxEffect[2];
-        EffectText = self.Text.UI.Effect[Language];
-        EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..self.Text.UI.Reputation[Language].. " ";
-        if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-        end
+        Index = 2;
     elseif _Key == "sh_menuheadquarter/SetNormalTaxes" then
-        Text = self.Text.TaxLevel[3][Language];
-        local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 3);
-        local Effects = Stronghold.Economy.Config.Income.TaxEffect[3];
-        EffectText = self.Text.UI.Effect[Language];
-        EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..self.Text.UI.Reputation[Language].. " ";
-        if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-        end
+        Index = 3;
     elseif _Key == "sh_menuheadquarter/SetHighTaxes" then
-        Text = self.Text.TaxLevel[4][Language];
-        local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 4);
-        local Effects = Stronghold.Economy.Config.Income.TaxEffect[4];
-        EffectText = self.Text.UI.Effect[Language];
-        EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..self.Text.UI.Reputation[Language].. " ";
-        if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-        end
+        Index = 4;
     elseif _Key == "sh_menuheadquarter/SetVeryHighTaxes" then
-        Text = self.Text.TaxLevel[5][Language];
-        local Penalty = Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, 5);
-        local Effects = Stronghold.Economy.Config.Income.TaxEffect[5];
-        EffectText = self.Text.UI.Effect[Language];
-        EffectText = EffectText .. ((-1) * ((Penalty > 0 and Penalty) or Effects.Reputation))..
-                     " " ..self.Text.UI.Reputation[Language].. " ";
-        if Effects.Honor > 0 then
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..self.Text.UI.Honor[Language];
-        end
+        Index = 5;
     elseif _Key == "sh_menuheadquarter/CallMilitia" then
-        if Logic.IsEntityInCategory(GUI.GetSelectedEntity(), EntityCategories.Headquarters) == 1 then
-            Text = self.Text.SelectLord[Language];
-        end
+        Index = 0;
     else
         return false;
     end
 
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text.. " " ..EffectText));
+    -- Set Text
+    local Text = XGUIEng.GetStringTableText(_Key);
+    if Index > 0 then
+        local Effects = Stronghold.Economy.Config.Income.TaxEffect[Index];
+        local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
+        if Effects.Reputation ~= 0 then
+            local Unit = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Operator = (Effects.Reputation >= 0 and "+") or "";
+            EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        end
+        if Effects.Honor ~= 0 then
+            local Unit = XGUIEng.GetStringTableText("sh_names/Honor");
+            local Operator = (Effects.Reputation >= 0 and "+") or "";
+            EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit;
+        end
+        Text = string.format(Text, EffectText);
+    elseif Index == 0 then
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_hero");
+    end
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;
@@ -304,13 +284,13 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     -- Execute effects
     local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
     if _BlessCategory == BlessCategories.Construction then
+        local MsgText = XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers1_message_2");
         local RandomTax = 0;
         for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
             RandomTax = RandomTax + math.random(4, 8);
         end
         Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
-
-        Message(string.format(self.Text.Msg.MeasureRandomTax[Language], RandomTax));
+        Message(string.format(MsgText, RandomTax));
         Sound.PlayGUISound(Sounds.LevyTaxes, 100);
         AddGold(_PlayerID, RandomTax);
 
@@ -338,13 +318,12 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
 end
 
 function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _EntityID, _BlessCategory)
-    local Language = GetLanguage();
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
     if Stronghold.Economy:GetPlayerMeasure(_PlayerID) < Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID) then
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
-        Message(self.Text.Msg.MeasureNotReady[Language]);
+        Message(XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers_error"));
         return true;
     end
 
@@ -362,23 +341,25 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
     end
 
     -- Map technology and bless category
-    local BlessCategory = BlessCategories.Construction;
-    local Right = PlayerRight.MeasureLevyTax;
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
+    local BlessCategory = -1;
+    local Right = -1;
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers1_normal" then
+        BlessCategory = BlessCategories.Construction;
+        Right = PlayerRight.MeasureLevyTax;
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
         BlessCategory = BlessCategories.Research;
         Right = PlayerRight.MeasureLawAndOrder;
-    end
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
         BlessCategory = BlessCategories.Weapons;
         Right = PlayerRight.MeasureWelcomeCulture;
-    end
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
         BlessCategory = BlessCategories.Financial;
         Right = PlayerRight.MeasureFolkloreFeast;
-    end
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
         BlessCategory = BlessCategories.Canonisation;
         Right = PlayerRight.MeasureOrgy;
+    else
+        return false;
     end
 
     local Text = "";
@@ -496,19 +477,18 @@ function Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(_PlayerID, 
 end
 
 function Stronghold.Building:HeadquartersBuildingTabsGuiTooltip(_PlayerID, _EntityID, _Key)
-    local Language = GetLanguage();
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
     local Text = "";
     if _Key == "MenuBuildingGeneric/ToBuildingcommandmenu" then
-        Text = self.Text.SubMenu.Treasury[Language];
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/submenu_treasury");
     elseif _Key == "MenuBuildingGeneric/tobuildingsettlersmenu" then
-        Text = self.Text.SubMenu.Administration[Language];
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/submenu_administration");
     else
         return false;
     end
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;
@@ -587,23 +567,25 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
     end
 
     -- Map technology and bless category
-    local BlessCategory = BlessCategories.Construction;
-    local Technology = Technologies.T_BlessSettlers1;
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
+    local BlessCategory = -1;
+    local Technology = -1;
+    if _TooltipNormal == "sh_menumonastery/BlessSettlers1_normal" then
+        BlessCategory = BlessCategories.Construction;
+        Technology = Technologies.T_BlessSettlers1;
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
         BlessCategory = BlessCategories.Research;
         Technology = Technologies.T_BlessSettlers2;
-    end
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
         BlessCategory = BlessCategories.Weapons;
         Technology = Technologies.T_BlessSettlers3;
-    end
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
         BlessCategory = BlessCategories.Financial;
         Technology = Technologies.T_BlessSettlers4;
-    end
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
+    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
         BlessCategory = BlessCategories.Canonisation;
         Technology = Technologies.T_BlessSettlers5;
+    else
+        return false;
     end
 
     local Text = "";

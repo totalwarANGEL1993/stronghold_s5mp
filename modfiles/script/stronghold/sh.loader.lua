@@ -93,7 +93,6 @@ Script.Load(ModPath.. "sh.module.attraction.lua");
 Script.Load(ModPath.. "sh.module.attraction.config.lua");
 Script.Load(ModPath.. "sh.module.building.lua");
 Script.Load(ModPath.. "sh.module.building.config.lua");
-Script.Load(ModPath.. "sh.module.building.text.lua");
 Script.Load(ModPath.. "sh.module.construction.lua");
 Script.Load(ModPath.. "sh.module.construction.config.lua");
 Script.Load(ModPath.. "sh.module.economy.lua");
