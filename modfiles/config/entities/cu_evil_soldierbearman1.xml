@@ -63,7 +63,7 @@
         <Category>Melee</Category>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>6</ArmorAmount>
+        <ArmorAmount>8</ArmorAmount>
         <DodgeChance>10</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
