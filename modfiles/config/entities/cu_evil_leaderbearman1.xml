@@ -64,7 +64,7 @@
 		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
 		  <Exploration>20</Exploration>
 		  <ArmorClass>ArmorClassFur</ArmorClass>
-		  <ArmorAmount>8</ArmorAmount>
+		  <ArmorAmount>6</ArmorAmount>
         <DodgeChance>10</DodgeChance>
     	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
     	<ExperiencePoints>20</ExperiencePoints>
@@ -119,7 +119,7 @@
 
 	        <DamageClass>DC_Evil</DamageClass>
 	        <DamageAmount>12</DamageAmount>
-	        <MaxRandomDamageBonus>12</MaxRandomDamageBonus>
+	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>2500</BattleWaitUntil>
 	        

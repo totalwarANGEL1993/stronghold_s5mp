@@ -571,16 +571,37 @@ end
 
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
-        local CurrentRank = GetRank(_PlayerID)
-        local MeasurePoints = 0;
-        for k, v in pairs(GetAllWorker(_PlayerID, 0)) do
-            if Logic.IsSettlerAtWork(v) == 1 then
-                -- This formula is very stupid but I suck at math :D
-                MeasurePoints = MeasurePoints + ((10 * 0.4) * (1.1 - (CurrentRank/20)));
+        local CurrentRank = GetRank(_PlayerID);
+        local Motivation = 0;
+        local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
+        local MeasurePoints = 4;
+        if WorkerCount == 0 then
+            MeasurePoints = 0;
+        else
+            local RankFactor = 1.0 + (0.1 * CurrentRank);
+            -- FIXME: Does average motivation still work even if the motivation
+            -- of the settlers is manipulated by CEntity?
+            for k, v in pairs(GetAllWorker(_PlayerID, 0)) do
+                Motivation = Motivation + Logic.GetSettlersMotivation(v);
             end
+            Motivation = Motivation / WorkerCount;
+            MeasurePoints = (MeasurePoints * Motivation) * RankFactor;
         end
         MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
         self:AddPlayerMeasure(_PlayerID, MeasurePoints);
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Settlers
+
+function Stronghold.Economy:SetSettlersMotivation(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsHumanPlayer(PlayerID) then
+        if Logic.IsEntityInCategory(_EntityID, EntityCategories.Worker) == 1 then
+            local Motivation = GetReputation(PlayerID) / 100;
+            CEntity.SetMotivation(_EntityID, Motivation);
+        end
     end
 end
 

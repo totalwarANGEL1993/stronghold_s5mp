@@ -21,7 +21,7 @@
             <ArmorClassIronFactor>1.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- All spearmen -->
@@ -57,7 +57,7 @@
             <ArmorClassIronFactor>1.6</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Heavy cavalry and axe bandits -->
@@ -69,7 +69,7 @@
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Cannons, towers, bombs -->
@@ -81,7 +81,7 @@
             <ArmorClassIronFactor>1.4</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>            
-            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.5</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <DamageClass id="DC_Siege">

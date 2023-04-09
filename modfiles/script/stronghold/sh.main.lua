@@ -507,7 +507,7 @@ function Stronghold:OnEveryTurn()
     end
     -- Player jobs on modified turns
     ---@diagnostic disable-next-line: undefined-field
-    local PlayerID = math.mod(math.floor(Logic.GetTime() * 10), Players);
+    local PlayerID = math.mod(Logic.GetCurrentTurn(), Players);
     Stronghold.Attraction:ManageCriminalsOfPlayer(PlayerID);
     Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
     Stronghold.Economy:UpdateIncomeAndUpkeep(PlayerID);
@@ -535,6 +535,7 @@ function Stronghold:OnEntityCreated()
     if Logic.IsSettler(EntityID) == 1 then
         Stronghold.Hero:ConfigurePlayersHeroPet(EntityID);
     end
+    Stronghold.Economy:SetSettlersMotivation(EntityID);
     Stronghold.Unit:SetFormationOnCreate(EntityID);
     Stronghold.Province:OnBuildingCreated(EntityID, PlayerID);
     Stronghold.Recruitment:InitQueuesForProducer(EntityID);

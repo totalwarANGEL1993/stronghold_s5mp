@@ -121,7 +121,7 @@
 	        
 	        <DamageClass>DC_Evil</DamageClass>
 	        <DamageAmount>16</DamageAmount>
-	        <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
+	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 	        
 	        <BattleWaitUntil>3000</BattleWaitUntil>
 	        
