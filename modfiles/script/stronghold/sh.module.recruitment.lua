@@ -208,7 +208,6 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromTavernAction(_UpgradeCategory
 end
 
 function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecruit, _Type)
-    local Language = GetLanguage();
     local GuiPlayer = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
@@ -226,7 +225,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local Worker = {Logic.GetAttachedWorkersToBuilding(EntityID)};
             if not Worker[1] or (Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 0) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesWorker_WORKER_FunnyNo_rnd_01, 100);
-                Message(self.Text.Msg.NoWorker[Language]);
+                Message(XGUIEng.GetStringTableText("sh_text/Player_NoWorker"));
                 return true;
             end
         end
@@ -241,7 +240,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-                Message(self.Text.Msg.MilitaryLimit[Language]);
+                Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
@@ -310,7 +309,6 @@ function Stronghold.Recruitment:OnStableSettlerUpgradeTechnologyClicked(_Technol
 end
 
 function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_UnitToRecruit, _Technology)
-    local Language = GetLanguage();
     local GuiPlayer = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
@@ -332,7 +330,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
             if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
                 Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-                Message(self.Text.Msg.MilitaryLimit[Language]);
+                Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);

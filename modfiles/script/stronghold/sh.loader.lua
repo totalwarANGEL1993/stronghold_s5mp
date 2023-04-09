@@ -106,7 +106,6 @@ Script.Load(ModPath.. "sh.module.province.constants.lua");
 Script.Load(ModPath.. "sh.module.province.config.lua");
 Script.Load(ModPath.. "sh.module.recruitment.lua");
 Script.Load(ModPath.. "sh.module.recruitment.config.lua");
-Script.Load(ModPath.. "sh.module.recruitment.text.lua");
 Script.Load(ModPath.. "sh.module.unit.lua");
 Script.Load(ModPath.. "sh.module.unit.config.lua");
 ---
