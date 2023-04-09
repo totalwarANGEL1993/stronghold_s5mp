@@ -354,6 +354,13 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
                 Special = Special + ReputationOneshot;
             end
             self.Data[_PlayerID].ReputationDetails.OtherBonus = Special;
+        else
+            -- Reset all caches
+            self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;
+            self.Data[_PlayerID].ReputationDetails.Providing = 0;
+            self.Data[_PlayerID].ReputationDetails.Housing = 0;
+            self.Data[_PlayerID].ReputationDetails.Buildings = 0;
+            self.Data[_PlayerID].ReputationDetails.OtherBonus = 0;
         end
     end
 end
@@ -394,6 +401,13 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
                 Special = Special + ((-1) * ReputationOneshot);
             end
             self.Data[_PlayerID].ReputationDetails.OtherMalus = Special;
+        else
+            -- Reset all caches
+            self.Data[_PlayerID].ReputationDetails.TaxPenalty = 0;
+            self.Data[_PlayerID].ReputationDetails.Hunger = 0;
+            self.Data[_PlayerID].ReputationDetails.Homelessness = 0;
+            self.Data[_PlayerID].ReputationDetails.Criminals = 0;
+            self.Data[_PlayerID].ReputationDetails.OtherMalus = 0;
         end
     end
 end
@@ -479,6 +493,13 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 local Special = GameCallback_SH_Calculate_HonorIncreaseSpecial(_PlayerID);
                 local HonorOneshot = self.Data[_PlayerID].IncomeHonorSingle;
                 self.Data[_PlayerID].HonorDetails.OtherBonus = Special + HonorOneshot;
+            else
+                -- Reset all caches
+                self.Data[_PlayerID].HonorDetails.Buildings = 0;
+                self.Data[_PlayerID].HonorDetails.TaxBonus = 0;
+                self.Data[_PlayerID].HonorDetails.Housing = 0;
+                self.Data[_PlayerID].HonorDetails.Providing = 0;
+                self.Data[_PlayerID].HonorDetails.OtherBonus = 0;
             end
         end
     end
@@ -605,6 +626,17 @@ end
 function Stronghold.Economy:SetSettlersMotivation(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if IsHumanPlayer(PlayerID) then
+        -- Restore reputation when workers are all gone
+        -- (This will restore the reputation when a worker is created so that
+        -- the worker won't leave immedaitly after. Workers won't be created
+        -- unless the 4 minute lock of the attraction ended. So if a settler
+        -- appears and the reputation is below 25 it must be set to 50. This
+        -- is a safety mesure to avoid timing problems.)
+        if GetReputation(PlayerID) <= 25 then
+            Stronghold:SetPlayerReputation(PlayerID, 50);
+            return;
+        end
+        -- Set motivation of settler
         if Logic.IsEntityInCategory(_EntityID, EntityCategories.Worker) == 1 then
             local Motivation = GetReputation(PlayerID) / 100;
             CEntity.SetMotivation(_EntityID, Motivation);

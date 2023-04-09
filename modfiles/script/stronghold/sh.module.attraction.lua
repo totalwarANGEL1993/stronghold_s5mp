@@ -399,9 +399,8 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
             end
         end
         -- Restore reputation when workers are all gone
-        if  Stronghold.Players[_PlayerID].HasHadRegularPayday
-        and Logic.GetNumberOfAttractedWorker(_PlayerID) == 0
-        and Logic.AreVillageCentersLocked(_PlayerID) == 1 then
+        -- (Must be done so that they don't leave immedaitly when they return.)
+        if GetReputation(_PlayerID) <= 25 and Logic.GetNumberOfAttractedWorker(_PlayerID) == 0 then
             Stronghold:SetPlayerReputation(_PlayerID, 50);
             return;
         end
