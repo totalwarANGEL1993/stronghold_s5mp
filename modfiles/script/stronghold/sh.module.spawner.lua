@@ -71,9 +71,9 @@ function Stronghold.Spawner:CreateSpawner(_PlayerID, _ScriptName, _SpawnPosition
         _SpawnPosition = {X= x, Y= y, Z= z};
     end
 
-    assert(_SpawnMax >= 1);
-    assert(_RespawnTime >= 15);
-    assert(_DefArea >= 1500);
+    assert(_SpawnMax >= self.Config.Values.SpawnMax);
+    assert(_RespawnTime >= self.Config.Values.RespawnTime);
+    assert(_DefArea >= self.Config.Values.DefArea);
 
     self.Data.SpawnerSequenceID = self.Data.SpawnerSequenceID +1;
     local Spawner = {
@@ -149,9 +149,14 @@ function Stronghold.Spawner:CreateTroop(_PlayerID, _SpawnerID)
     local ID = AI.Entity_CreateFormation(
         _PlayerID,
         Data.AllowedTypes[math.random(1, table.getn(Data.AllowedTypes))],
-        0, 16,
-        Data.SpawnPosition.X, Data.SpawnPosition.Y,
-        0, 0, 3, 16
+        0,
+        16,
+        Data.SpawnPosition.X,
+        Data.SpawnPosition.Y,
+        0,
+        0,
+        self.Config.Values.Experience,
+        16
     );
     table.insert(self.Data[_PlayerID].Spawner[_SpawnerID].SpawnedTroops, ID);
     return ID;

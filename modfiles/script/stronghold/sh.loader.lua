@@ -109,6 +109,7 @@ Script.Load(ModPath.. "sh.module.unit.lua");
 Script.Load(ModPath.. "sh.module.unit.config.lua");
 ---
 Script.Load(ModPath.. "sh.module.spawner.lua");
+Script.Load(ModPath.. "sh.module.spawner.config.lua");
 Script.Load(ModPath.. "sh.module.outlaw.lua");
 Script.Load(ModPath.. "sh.module.outlaw.constants.lua");
 ---
