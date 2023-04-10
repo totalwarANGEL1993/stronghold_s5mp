@@ -68,7 +68,7 @@
         <ArmorAmount>5</ArmorAmount>
         <DodgeChance>5</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>20</ExperiencePoints>
+        <ExperiencePoints>18</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Type>PU_SoldierPoleArm4</Type>

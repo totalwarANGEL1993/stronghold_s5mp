@@ -56,7 +56,7 @@
         <ArmorAmount>2</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>0</ExperiencePoints>
+        <ExperiencePoints>10</ExperiencePoints>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

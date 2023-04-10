@@ -1,147 +1,148 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?><root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>GD::CDisplaySettler</Class>
-		  <Model>CU_SoldierOutlaw1</Model> 
-		  <DrawPlayerColor>True</DrawPlayerColor>		
-		  <Anim>CU_SoldierOutlaw1_Walk</Anim>
-		  <Anim>CU_SoldierOutlaw1_Idle1</Anim>
-		  <Anim>CU_SoldierOutlaw1_Idle2</Anim>
-		  <Anim>CU_SoldierOutlaw1_Idle3</Anim>
-		  <Anim>CU_SoldierOutlaw1_Idle4</Anim>
-		  <Anim>CU_SoldierOutlaw1_Idle5</Anim>
-		  <Anim>CU_SoldierOutlaw1_Idle6</Anim>
-		  <Anim>CU_SoldierOutlaw1_IdleAttack1</Anim>
-		  <Anim>CU_SoldierOutlaw1_Dying1</Anim>
-		  <Anim>CU_SoldierOutlaw1_Attack1</Anim>
-		  <Anim>CU_SoldierOutlaw1_Attack2</Anim>
-		  <Anim>CU_SoldierOutlaw1_Finish</Anim>
-		  <Anim>CU_SoldierOutlaw1_Hit</Anim>
-		  <Anim>CU_SoldierOutlaw1_Run1</Anim>
-						
-	</Display>
-	<Logic classname="GGL::CGLSettlerProps">
-		  <Class>GGL::CSettler</Class>
-		  <AccessCategory>AccessCategorySettler</AccessCategory>	
-		  <MaxHealth>100</MaxHealth>
-		  <ArmorClass>ArmorClassLeather</ArmorClass>
-		  <ArmorAmount>1</ArmorAmount> 
-		  <DodgeChance>10</DodgeChance>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>CU_SoldierOutlaw1</Model>
+        <DrawPlayerColor>True</DrawPlayerColor>
+        <Anim>CU_SoldierOutlaw1_Walk</Anim>
+        <Anim>CU_SoldierOutlaw1_Idle1</Anim>
+        <Anim>CU_SoldierOutlaw1_Idle2</Anim>
+        <Anim>CU_SoldierOutlaw1_Idle3</Anim>
+        <Anim>CU_SoldierOutlaw1_Idle4</Anim>
+        <Anim>CU_SoldierOutlaw1_Idle5</Anim>
+        <Anim>CU_SoldierOutlaw1_Idle6</Anim>
+        <Anim>CU_SoldierOutlaw1_IdleAttack1</Anim>
+        <Anim>CU_SoldierOutlaw1_Dying1</Anim>
+        <Anim>CU_SoldierOutlaw1_Attack1</Anim>
+        <Anim>CU_SoldierOutlaw1_Attack2</Anim>
+        <Anim>CU_SoldierOutlaw1_Finish</Anim>
+        <Anim>CU_SoldierOutlaw1_Hit</Anim>
+        <Anim>CU_SoldierOutlaw1_Run1</Anim>
+
+    </Display>
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
+        <MaxHealth>100</MaxHealth>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>1</ArmorAmount>
+        <DodgeChance>10</DodgeChance>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-			  <Gold>40</Gold>
-			  <Iron>30</Iron>
-			  <Wood/>
+            <Gold>40</Gold>
+            <Iron>30</Iron>
+            <Wood/>
         </Cost>
 
         <ModifyArmor>
-        	<Technology>T_LeatherMailArmor</Technology>
-        </ModifyArmor>
-        
-        <ModifyArmor>
-        	<Technology>T_ChainMailArmor</Technology>
-        </ModifyArmor>
-        
-        <ModifyArmor>
-        	<Technology>T_PlateMailArmor</Technology>
+            <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
 
-         <ModifyDamage>
-        	<Technology>T_MasterOfSmithery</Technology>
+        <ModifyArmor>
+            <Technology>T_ChainMailArmor</Technology>
+        </ModifyArmor>
+
+        <ModifyArmor>
+            <Technology>T_PlateMailArmor</Technology>
+        </ModifyArmor>
+
+        <ModifyDamage>
+            <Technology>T_MasterOfSmithery</Technology>
         </ModifyDamage>
-         <ModifyDamage>
-        	<Technology>T_IronCasting</Technology>
+        <ModifyDamage>
+            <Technology>T_IronCasting</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
-        	<Technology>T_BetterTrainingBarracks</Technology>
+            <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-        
+
         <Category>Military</Category>
         <Category>Soldier</Category>
         <Category>Melee</Category>
         <Category>Sword</Category>
-		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <Exploration>20</Exploration>
-		  <ArmorClass>ArmorClassLeather</ArmorClass>
-		  <ArmorAmount>3</ArmorAmount> 
-		  <DodgeChance>10</DodgeChance> 
-    	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-    	<ExperiencePoints>10</ExperiencePoints>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>10</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>5</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-    	<Upgrade>                       
+        <Upgrade>
             <Category>SoldierBandit</Category>
         </Upgrade>
-	</Logic>
-	<Behavior>
-		  <Logic classname="GGL::CGLAnimationBehaviorExProps">
-			  <Class>GGL::CGLBehaviorAnimationEx</Class>			
-			  <AnimSet>SET_CU_SOLDIEROUTLAW1</AnimSet>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CMovementBehaviorProps">
-			  <Class>GGL::CSettlerMovement</Class>
-			  <Speed>380</Speed>
-			  <RotationSpeed>30</RotationSpeed>
-			  <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorMovement</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-		  
-			  <Class>GGL::CBehaviorWalkCommand</Class>
-		</Logic>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CSoldierBehaviorProps">
-			  <Class>GGL::CSoldierBehavior</Class>
-			
-	        <BattleTaskList>TL_BATTLE</BattleTaskList>
-	        <NormalAttackAnim1>CU_SoldierOutlaw1_Attack1</NormalAttackAnim1>
-	        <NormalAttackAnim2>CU_SoldierOutlaw1_Attack2</NormalAttackAnim2>
-	        <CounterAttackAnim>CU_SoldierOutlaw1_Finish</CounterAttackAnim>
-	        <FinishingMoveAnim>CU_SoldierOutlaw1_Finish</FinishingMoveAnim>
-	        <MissAttackAnim>CU_SoldierOutlaw1_Attack1</MissAttackAnim> 
-	        <BattleIdleAnim>CU_SoldierOutlaw1_Idle1</BattleIdleAnim>
-	        <BattleWalkAnim>CU_SoldierOutlaw1_Run1</BattleWalkAnim> 	        
-	        <HitAnim>CU_SoldierOutlaw1_Hit</HitAnim>
-	        
+    </Logic>
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <AnimSet>SET_CU_SOLDIEROUTLAW1</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CSettlerMovement</Class>
+            <Speed>380</Speed>
+            <RotationSpeed>30</RotationSpeed>
+            <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+
+            <Class>GGL::CBehaviorWalkCommand</Class>
+        </Logic>
+    </Behavior>
+    <Behavior>
+        <Logic classname="GGL::CSoldierBehaviorProps">
+            <Class>GGL::CSoldierBehavior</Class>
+
+            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <NormalAttackAnim1>CU_SoldierOutlaw1_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>CU_SoldierOutlaw1_Attack2</NormalAttackAnim2>
+            <CounterAttackAnim>CU_SoldierOutlaw1_Finish</CounterAttackAnim>
+            <FinishingMoveAnim>CU_SoldierOutlaw1_Finish</FinishingMoveAnim>
+            <MissAttackAnim>CU_SoldierOutlaw1_Attack1</MissAttackAnim>
+            <BattleIdleAnim>CU_SoldierOutlaw1_Idle1</BattleIdleAnim>
+            <BattleWalkAnim>CU_SoldierOutlaw1_Run1</BattleWalkAnim>
+            <HitAnim>CU_SoldierOutlaw1_Hit</HitAnim>
+
             <!-- That is on purpose -->
-	        <DamageClass>DC_Strike</DamageClass>
-	        <DamageAmount>10</DamageAmount>
-	        <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
-	        
-	        <MaxRange>150</MaxRange>
-	        <MinRange>0.0f</MinRange>
-	        <AutoAttackRange>1500</AutoAttackRange>
-	        
-	        <BattleWaitUntil>2000</BattleWaitUntil>
-		</Logic>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CFormationBehaviorProperties">
-			  <Class>GGL::CFormationBehavior</Class>
-    		<IdleAnim>
-    		    <AnimID>CU_SoldierOutlaw1_Idle1</AnimID>
-    		    <Frequency>1</Frequency>
-    		</IdleAnim>		
-		</Logic>
-	</Behavior>
-	
-	<Behavior>
-		  <Logic classname="GGL::CGLBehaviorPropsDying">
-			  <Class>GGL::CGLBehaviorDying</Class>
-			  <DyingTaskList>TL_DIE</DyingTaskList>
-		</Logic>
-	</Behavior>
+            <DamageClass>DC_Strike</DamageClass>
+            <DamageAmount>9</DamageAmount>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+
+            <MaxRange>150</MaxRange>
+            <MinRange>0.0f</MinRange>
+            <AutoAttackRange>1500</AutoAttackRange>
+
+            <BattleWaitUntil>2000</BattleWaitUntil>
+        </Logic>
+    </Behavior>
+    <Behavior>
+        <Logic classname="GGL::CFormationBehaviorProperties">
+            <Class>GGL::CFormationBehavior</Class>
+            <IdleAnim>
+                <AnimID>CU_SoldierOutlaw1_Idle1</AnimID>
+                <Frequency>1</Frequency>
+            </IdleAnim>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
 
 
 </root>

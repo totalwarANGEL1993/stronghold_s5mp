@@ -65,7 +65,7 @@
         <ArmorAmount>6</ArmorAmount>
         <DodgeChance>3</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>40</ExperiencePoints>
+        <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>
@@ -115,7 +115,7 @@
 
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>22</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2700</BattleWaitUntil>
 

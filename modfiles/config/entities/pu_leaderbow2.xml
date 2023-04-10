@@ -1,178 +1,176 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>GD::CDisplaySettler</Class>
-		  <Model>PU_LeaderBow2</Model> 
-		  <DrawPlayerColor>True</DrawPlayerColor>
-		  <Anim>PU_LeaderBow2_Walk</Anim>
-		  <Anim>PU_LeaderBow2_Run1</Anim>
-		  <Anim>PU_LeaderBow2_Idle1</Anim>
-		  <Anim>PU_LeaderBow2_Idle2</Anim>
-		  <Anim>PU_LeaderBow2_Idle3</Anim>
-		  <Anim>PU_LeaderBow2_Idle4</Anim>
-		  <Anim>PU_LeaderBow2_Idle5</Anim>
-		  <Anim>PU_LeaderBow2_Idle6</Anim>
-		  <Anim>PU_LeaderBow2_IdleAttack1</Anim>
-		  <Anim>PU_LeaderBow2_Attack1</Anim>
-		  <Anim>PU_LeaderBow2_Hit</Anim>		
-		  <Anim>PU_LeaderBow2_Dying1</Anim>
-	</Display>
-	<Logic classname="GGL::CGLSettlerProps">
-		  <Class>GGL::CSettler</Class>	
-		  <AccessCategory>AccessCategorySettler</AccessCategory>			
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>PU_LeaderBow2</Model>
+        <DrawPlayerColor>True</DrawPlayerColor>
+        <Anim>PU_LeaderBow2_Walk</Anim>
+        <Anim>PU_LeaderBow2_Run1</Anim>
+        <Anim>PU_LeaderBow2_Idle1</Anim>
+        <Anim>PU_LeaderBow2_Idle2</Anim>
+        <Anim>PU_LeaderBow2_Idle3</Anim>
+        <Anim>PU_LeaderBow2_Idle4</Anim>
+        <Anim>PU_LeaderBow2_Idle5</Anim>
+        <Anim>PU_LeaderBow2_Idle6</Anim>
+        <Anim>PU_LeaderBow2_IdleAttack1</Anim>
+        <Anim>PU_LeaderBow2_Attack1</Anim>
+        <Anim>PU_LeaderBow2_Hit</Anim>
+        <Anim>PU_LeaderBow2_Dying1</Anim>
+    </Display>
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-			  <Gold>200</Gold>
-			  <Iron>0</Iron>
-			  <Wood>70</Wood>
+            <Gold>200</Gold>
+            <Iron>0</Iron>
+            <Wood>70</Wood>
         </Cost>
 
         <ModifyArmor>
-        	<Technology>T_SoftArcherArmor</Technology>
+            <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
-        
         <ModifyArmor>
-        	<Technology>T_PaddedArcherArmor</Technology>
+            <Technology>T_PaddedArcherArmor</Technology>
         </ModifyArmor>
-        
         <ModifyArmor>
-        	<Technology>T_LeatherArcherArmor</Technology>
+            <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
 
         <ModifyExploration>
-        	<Technology>T_Fletching</Technology>
+            <Technology>T_Fletching</Technology>
         </ModifyExploration>
-        
-         <ModifyMaxRange>
-			  <Technology>T_Fletching</Technology>
-		</ModifyMaxRange>
-         <ModifyDamage>
-        	<Technology>T_BodkinArrow</Technology>
+
+        <ModifyMaxRange>
+            <Technology>T_Fletching</Technology>
+        </ModifyMaxRange>
+        <ModifyDamage>
+            <Technology>T_BodkinArrow</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
-        	<Technology>T_BetterTrainingArchery</Technology>
+            <Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
-        
+
         <Category>Military</Category>
         <Category>Leader</Category>
         <Category>Bow</Category>
         <Category>LongRange</Category>
-		  <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-		  <MaxHealth>150</MaxHealth>
-		  <Exploration>25</Exploration>
-		  <ArmorClass>ArmorClassNone</ArmorClass> 
-		  <ArmorAmount>1</ArmorAmount>
-		  <DodgeChance>10</DodgeChance> 
-    	<IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-    	<ExperiencePoints>30</ExperiencePoints>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>150</MaxHealth>
+        <Exploration>25</Exploration>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>1</ArmorAmount>
+        <DodgeChance>10</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>30</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-    	
-    	<Upgrade>           
-            <Type>PU_LeaderBow3</Type> 
+
+        <Upgrade>
+            <Type>PU_LeaderBow3</Type>
             <Category>LeaderBow</Category>
         </Upgrade>
-	</Logic>
-	<Behavior>
-		  <Logic classname="GGL::CGLAnimationBehaviorExProps">
-			  <Class>GGL::CGLBehaviorAnimationEx</Class>
-			  <SuspensionAnimation>PU_LeaderBow2_Idle1</SuspensionAnimation>			
-			  <AnimSet>SET_LEADERBOW2</AnimSet>
-		  </Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CMovementBehaviorProps">
-			  <Class>GGL::CLeaderMovement</Class>
-			  <Speed>360</Speed>
-			  <RotationSpeed>30</RotationSpeed>
-			  <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
-			  <MoveIdleAnim>PU_LeaderBow2_Idle1</MoveIdleAnim>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorMovement</Class>
-		</Display>
-	</Behavior>
-	<Behavior> 
-    
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBehaviorWalkCommand</Class>
-		</Logic>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CLeaderBehaviorProps">
-			  <Class>GGL::CLeaderBehavior</Class>
-			  <BarrackUpgradeCategory>Archery</BarrackUpgradeCategory>
-            <HomeRadius>2000</HomeRadius>
-	
-			  <SoldierType>PU_SoldierBow2</SoldierType>
-			
-	        <BattleTaskList>TL_BATTLE_BOW</BattleTaskList>
-	        
-	        <NormalAttackAnim1>PU_LeaderBow2_Attack1</NormalAttackAnim1>
-	        <NormalAttackAnim2>PU_LeaderBow2_Attack1</NormalAttackAnim2>
-	        <CounterAttackAnim>PU_LeaderBow2_Attack1</CounterAttackAnim>
-	        <FinishingMoveAnim>PU_LeaderBow2_Attack1</FinishingMoveAnim>
-	        <MissAttackAnim>PU_LeaderBow2_Attack1</MissAttackAnim>
-	        <BattleIdleAnim>PU_LeaderBow2_IdleAttack1</BattleIdleAnim>
-	        <BattleWalkAnim>PU_LeaderBow2_Run1</BattleWalkAnim>
-	        <HitAnim>PU_LeaderBow2_Hit</HitAnim>
-	        
-	        <DamageClass>DC_Arrow</DamageClass>
-	        <DamageAmount>11</DamageAmount>
-	        <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
-	        
-	        <BattleWaitUntil>2500</BattleWaitUntil>
-	        
-	        <MissChance>10</MissChance>
-	        
-	        <ProjectileEffectID>FXArrow</ProjectileEffectID>
-	        <MaxRange>2500</MaxRange>
-	        <MinRange>0.0f</MinRange>
-	        <AutoAttackRange>2500</AutoAttackRange>
-	        
-			<HealingPoints>5</HealingPoints>
-	        <HealingSeconds>3</HealingSeconds>
-	        
-	        <UpkeepCost>20</UpkeepCost>
-		  </Logic>
-	</Behavior>
+    </Logic>
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>PU_LeaderBow2_Idle1</SuspensionAnimation>
+            <AnimSet>SET_LEADERBOW2</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CLeaderMovement</Class>
+            <Speed>360</Speed>
+            <RotationSpeed>30</RotationSpeed>
+            <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
+            <MoveIdleAnim>PU_LeaderBow2_Idle1</MoveIdleAnim>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
 
-	<Behavior>
-		  <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
-			  <Class>GGL::CLimitedAttachmentBehavior</Class>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBehaviorWalkCommand</Class>
+        </Logic>
+    </Behavior>
+    <Behavior>
+        <Logic classname="GGL::CLeaderBehaviorProps">
+            <Class>GGL::CLeaderBehavior</Class>
+            <BarrackUpgradeCategory>Archery</BarrackUpgradeCategory>
+            <HomeRadius>2000</HomeRadius>
+
+            <SoldierType>PU_SoldierBow2</SoldierType>
+
+            <BattleTaskList>TL_BATTLE_BOW</BattleTaskList>
+
+            <NormalAttackAnim1>PU_LeaderBow2_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_LeaderBow2_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>PU_LeaderBow2_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_LeaderBow2_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_LeaderBow2_Attack1</MissAttackAnim>
+            <BattleIdleAnim>PU_LeaderBow2_IdleAttack1</BattleIdleAnim>
+            <BattleWalkAnim>PU_LeaderBow2_Run1</BattleWalkAnim>
+            <HitAnim>PU_LeaderBow2_Hit</HitAnim>
+
+            <DamageClass>DC_Arrow</DamageClass>
+            <DamageAmount>11</DamageAmount>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+
+            <BattleWaitUntil>2500</BattleWaitUntil>
+
+            <MissChance>10</MissChance>
+
+            <ProjectileEffectID>FXArrow</ProjectileEffectID>
+            <MaxRange>2500</MaxRange>
+            <MinRange>0.0f</MinRange>
+            <AutoAttackRange>2500</AutoAttackRange>
+
+            <HealingPoints>5</HealingPoints>
+            <HealingSeconds>3</HealingSeconds>
+
+            <UpkeepCost>20</UpkeepCost>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
                 <Limit>12</Limit>
             </Attachment>
-		</Logic>
-	</Behavior>
-	
-	<Behavior>
-		  <Logic classname="GGL::CGLBehaviorPropsDying">
-			  <Class>GGL::CGLBehaviorDying</Class>
-			  <DyingTaskList>TL_DIE</DyingTaskList>
-		</Logic>
-	</Behavior>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
 
 
 
-	<Behavior>
-	    <Logic classname="EGL::CGLEBehaviorProps">
-	        <Class>GGL::CLeaderEvadeBehavior</Class>
-	    </Logic>
-	</Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CLeaderEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
 
-	<Behavior>
-	    <Logic classname="GGL::CEvadeExecutionBehaviorProps">
-	        <Class>GGL::CEvadeExecutionBehavior</Class>
-	        <BasePriority>400</BasePriority>
-	    </Logic>
-	</Behavior>
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>400</BasePriority>
+        </Logic>
+    </Behavior>
 
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">

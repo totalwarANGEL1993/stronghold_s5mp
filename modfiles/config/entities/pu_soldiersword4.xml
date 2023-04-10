@@ -106,7 +106,7 @@
 
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>22</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2700</BattleWaitUntil>
 

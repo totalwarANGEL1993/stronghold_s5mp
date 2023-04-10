@@ -63,10 +63,10 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>1</ArmorAmount>
         <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>20</ExperiencePoints>
+        <ExperiencePoints>18</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Type>PU_SoldierRifle2</Type>
@@ -110,7 +110,7 @@
             <HitAnim>PU_SoldierRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>22</DamageAmount>
+            <DamageAmount>20</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <AutoAttackRange>2800</AutoAttackRange>

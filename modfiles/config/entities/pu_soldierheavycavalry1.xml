@@ -45,7 +45,7 @@
             <Category>SoldierHeavyCavalry</Category>
         </Upgrade>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>20</ExperiencePoints>
+        <ExperiencePoints>25</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
 
 

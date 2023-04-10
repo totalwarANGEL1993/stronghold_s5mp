@@ -83,8 +83,6 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.LeaderSword1,
                 PlayerRight.BanditSword2,
-                PlayerRight.Barbarian2,
-                PlayerRight.BlackKnight2,
                 PlayerRight.LeaderPoleArm2,
                 ---
                 PlayerRight.ShootingRange,
@@ -112,6 +110,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderPoleArm3,
                 PlayerRight.LeaderPoleArm4,
                 PlayerRight.LeaderSword2,
+                PlayerRight.Barbarian2,
+                PlayerRight.BlackKnight2,
                 ---
                 PlayerRight.LeaderBow2,
                 ---

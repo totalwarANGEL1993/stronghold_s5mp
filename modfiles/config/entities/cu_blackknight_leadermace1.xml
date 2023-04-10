@@ -66,7 +66,7 @@
         <ArmorAmount>9</ArmorAmount>
         <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>30</ExperiencePoints>
+        <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
 
         <Upgrade>
@@ -122,8 +122,8 @@
             <HitAnim>CU_BlackKnight_LeaderMace1_Hit</HitAnim>
 
             <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageAmount>17</DamageAmount>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

@@ -89,18 +89,14 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
         return;
     end
 
-    -- Circle formation
-    if Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
-    or Logic.GetEntityType(_ID) == Entities.CU_Barbarian_LeaderClub1
+    -- Line formation
+    if Logic.GetEntityType(_ID) == Entities.CU_BanditLeaderBow1
+    or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
+    or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace2
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderSword2
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderSword3
-    or Logic.GetEntityType(_ID) == Entities.PU_LeaderSword4 then
-        Logic.LeaderChangeFormationType(_ID, 5);
-        return;
-    end
-
-    -- Line formation
-    if Logic.GetEntityType(_ID) == Entities.PU_LeaderRifle1
+    or Logic.GetEntityType(_ID) == Entities.PU_LeaderSword4
+    or Logic.GetEntityType(_ID) == Entities.PU_LeaderRifle1
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderRifle2
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderPoleArm3
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderPoleArm4
