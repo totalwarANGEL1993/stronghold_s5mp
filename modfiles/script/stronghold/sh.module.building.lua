@@ -265,37 +265,28 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
 
     -- Execute effects
     local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
+    Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
+    Stronghold.Economy:AddOneTimeHonor(_PlayerID, Effects.Honor);
+
     if _BlessCategory == BlessCategories.Construction then
         local MsgText = XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers1_message_2");
         local RandomTax = 0;
         for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
             RandomTax = RandomTax + math.random(5, 8);
         end
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
         Message(string.format(MsgText, RandomTax));
         Sound.PlayGUISound(Sounds.LevyTaxes, 100);
         AddGold(_PlayerID, RandomTax);
 
-    elseif _BlessCategory == BlessCategories.Research then
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Effects.Honor);
-
-    elseif _BlessCategory == BlessCategories.Weapons then
-        local WorkerList = GetAllWorker(_PlayerID, 0);
-        table.sort(WorkerList, function(a, b) return a < b; end);
-        for i= 1, table.getn(WorkerList) do
-            local MotivationBonus = 150 - ((i-1) * 3);
-            local OldMotivation = Logic.GetSettlersMotivation(WorkerList[i]) * 100;
-            local NewMotivation = math.max(OldMotivation - MotivationBonus, 35);
-            CEntity.SetMotivation(WorkerList[i], NewMotivation / 100);
-        end
-
     elseif _BlessCategory == BlessCategories.Financial then
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
-
-    elseif _BlessCategory == BlessCategories.Canonisation then
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Effects.Honor);
+        local Workplaces = GetAllWorkplaces(_PlayerID, 0);
+        for i= 1, table.getn(Workplaces) do
+            local Workers = {Logic.GetAttachedWorkersToBuilding(Workplaces[i])};
+            if Workers[1] > 0 and Logic.IsConstructionComplete(Workplaces[i]) == 1 then
+                local x,y,z = Logic.EntityGetPos(Workplaces[i]);
+                Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
+            end
+        end
     end
 end
 
@@ -348,34 +339,25 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
     if not IsRightUnlockable(_PlayerID, Right) then
         Text = XGUIEng.GetStringTableText("MenuGeneric/TechnologyNotAvailable");
     else
-        if Right ~= PlayerRight.MeasureWelcomeCulture then
-            local EffectText = "";
-            local Effects = Stronghold.Building.Config.Headquarters[BlessCategory];
-            if Effects.Reputation ~= 0 then
-                local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
-                local Operator = (Effects.Reputation >= 0 and "+") or "";
-                EffectText = EffectText .. Operator .. Effects.Reputation.. " " ..Name.. " ";
-            end
-            if Effects.Honor ~= 0 then
-                local Name = XGUIEng.GetStringTableText("sh_names/Honor");
-                local Operator = (Effects.Honor >= 0 and "+") or "";
-                EffectText = EffectText .. Operator .. Effects.Honor.. " " ..Name;
-            end
-
-            local MainKey = self.Config.Headquarters[BlessCategory].Text;
-            local TextKey = MainKey.. "_normal";
-            if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                TextKey = MainKey.. "_disabled";
-            end
-            Text = string.format(XGUIEng.GetStringTableText(TextKey), EffectText);
-        else
-            local MainKey = self.Config.Headquarters[BlessCategory].Text;
-            local TextKey = MainKey.. "_normal";
-            if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-                TextKey = MainKey.. "_disabled";
-            end
-            Text = XGUIEng.GetStringTableText(TextKey);
+        local EffectText = "";
+        local Effects = Stronghold.Building.Config.Headquarters[BlessCategory];
+        if Effects.Reputation ~= 0 then
+            local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Operator = (Effects.Reputation >= 0 and "+") or "";
+            EffectText = EffectText .. Operator .. Effects.Reputation.. " " ..Name.. " ";
         end
+        if Effects.Honor ~= 0 then
+            local Name = XGUIEng.GetStringTableText("sh_names/Honor");
+            local Operator = (Effects.Honor >= 0 and "+") or "";
+            EffectText = EffectText .. Operator .. Effects.Honor.. " " ..Name;
+        end
+
+        local MainKey = self.Config.Headquarters[BlessCategory].Text;
+        local TextKey = MainKey.. "_normal";
+        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+            TextKey = MainKey.. "_disabled";
+        end
+        Text = string.format(XGUIEng.GetStringTableText(TextKey), EffectText);
     end
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
     return true;
@@ -433,7 +415,7 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
 
     XGUIEng.TransferMaterials("Levy_Duties", "BlessSettlers1");
     XGUIEng.TransferMaterials("Research_Laws", "BlessSettlers2");
-    XGUIEng.TransferMaterials("Statistics_SubSettlers_Worker", "BlessSettlers3");
+    XGUIEng.TransferMaterials("ForeignButtonRow1_Source3", "BlessSettlers3");
     XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "BlessSettlers4");
     XGUIEng.TransferMaterials("Build_Tavern", "BlessSettlers5");
 

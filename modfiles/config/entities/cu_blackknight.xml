@@ -148,4 +148,11 @@
 		</Logic>
 	</Behavior>
 
+    <!-- <Behavior>
+        <Logic classname="GGL::CAffectMotivationBehaviorProps">
+            <Class>GGL::CAffectMotivationBehavior</Class>
+            <MotivationEffect>0.75</MotivationEffect>
+        </Logic>
+    </Behavior> -->
+
 </root>

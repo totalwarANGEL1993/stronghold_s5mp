@@ -83,12 +83,12 @@
         </Display>
     </Behavior>
 
-    <Behavior>
+    <!-- <Behavior>
         <Logic classname="GGL::CAffectMotivationBehaviorProps">
             <Class>GGL::CAffectMotivationBehavior</Class>
             <MotivationEffect>0.05</MotivationEffect>
         </Logic>
-    </Behavior>
+    </Behavior> -->
 
 
 

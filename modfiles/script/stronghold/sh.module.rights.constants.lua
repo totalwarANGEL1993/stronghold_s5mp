@@ -30,6 +30,7 @@ PlayerDuty = {
     Beautification = 6,
     Custom = 7,
     Technology = 8,
+    Noble = 9,
 }
 
 -- Rights for the player

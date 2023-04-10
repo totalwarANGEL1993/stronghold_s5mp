@@ -56,6 +56,7 @@ Stronghold.Rights.Config = {
         [PlayerRank.Noble]    = {
             Costs  = {5, 0, 0, 0, 0, 0, 0},
             Duties = {
+                {PlayerDuty.Noble},
                 {PlayerDuty.Headquarters, 0},
             },
             Rights = {

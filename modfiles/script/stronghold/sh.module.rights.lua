@@ -299,6 +299,8 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
         Text = XGUIEng.GetStringTableText("Names/" ..TechnologyKey);
     elseif _Type == PlayerDuty.Custom then
         Text = (type(arg[1]) == "table" and arg[1][Lang]) or arg[1];
+    elseif _Type == PlayerDuty.Noble then
+        Text = XGUIEng.GetStringTableText("sh_rights/Require_Noble");
     end
     return Text;
 end
@@ -443,7 +445,11 @@ function Stronghold.Rights:OnlineHelpAction()
     else
         if GUI.GetPlayerID() == PlayerID then
             Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
-            Message(XGUIEng.GetStringTableText("sh_rights/PromoteLocked"));
+            if not IsExisting(Stronghold.Players[PlayerID].LordScriptName) then
+                Message(XGUIEng.GetStringTableText("sh_rights/PromoteHero"));
+            else
+                Message(XGUIEng.GetStringTableText("sh_rights/PromoteLocked"));
+            end
         end
     end
     return true;
