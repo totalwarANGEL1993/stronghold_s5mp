@@ -10,7 +10,7 @@
 
 -- -------------------------------------------------------------------------- --
 
-local Path = "data\\script\\stronghold\\sh.loader.lua";
+local Path = "data\\maps\\user\\stronghold_s5mp\\sh.loader.lua";
 Script.Load(Path);
 
 function OnMapStart()

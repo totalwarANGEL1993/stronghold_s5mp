@@ -28,6 +28,9 @@ rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/.gitignore
 rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/changelog.md
 rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/readme.md
 
+# copy additional files
+cp modfiles/sh.loader.lua var/stronghold_s5mp/sh.loader.lua
+
 # pack archive
 bin/bba5.exe var/stronghold_s5mp/archive.bba.unpacked
 
