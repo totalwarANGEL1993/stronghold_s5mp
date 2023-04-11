@@ -233,7 +233,8 @@
         "GUIAction_ToggleStopWatch",
         "ShowStrongholdConfiguration",
         "gvKeyBindings_GameClockFlag",
-        "CEntityIterator"
+        "CEntityIterator",
+        "FreeCam"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

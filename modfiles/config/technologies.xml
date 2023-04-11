@@ -355,4 +355,7 @@
     <Technology>T_PickAxeIron</Technology>
     <Technology>T_PickAxeStone</Technology>
     <Technology>T_PickAxeSulfur</Technology>
+
+    <!-- Free camera -->
+    <Technology>T_FreeCamera</Technology>
 </root>
