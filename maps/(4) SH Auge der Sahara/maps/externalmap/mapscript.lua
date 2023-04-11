@@ -39,11 +39,13 @@ function OnMapStart()
 end
 
 function SetupProvinces()
+    local Peacetime = GetSelectedPeacetime();
+
     CreateHonorProvince(
         "Oasis de Lune",
         "Province1Pos",
-        30,
-        1.5,
+        math.floor((30 + (10 * (Peacetime -1))) + 0.5),
+        0.5,
         "Province1Hut1",
         "Province1Hut2",
         "Province1Hut3",
@@ -57,8 +59,8 @@ function SetupProvinces()
     CreateHonorProvince(
         "Oasis de Sene",
         "Province2Pos",
-        30,
-        1.5,
+        math.floor((30 + (10 * (Peacetime -1))) + 0.5),
+        0.5,
         "Province2Hut1",
         "Province2Hut2",
         "Province2Hut3",
@@ -73,8 +75,8 @@ function SetupProvinces()
         "la Source de Mystere",
         "Province3Pos",
         ResourceType.WoodRaw,
-        600,
-        1.5,
+        math.floor((600 + (100 * (Peacetime -1))) + 0.5),
+        0.75,
         "Province3Hut1",
         "Province3Hut2"
     )
