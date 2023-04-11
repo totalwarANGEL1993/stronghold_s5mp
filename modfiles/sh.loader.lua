@@ -47,6 +47,7 @@ Lib.Require("comfort/KeyOf");
 
 -- Load modules
 Lib.Require("module/archive/Archive");
+Lib.Require("module/camera/FreeCam");
 Lib.Require("module/entity/EntityTracker");
 Lib.Require("module/entity/SVLib");
 Lib.Require("module/entity/Treasure");
