@@ -603,9 +603,9 @@ end
 function Stronghold.Building:MoveToRallyPoint(_Building, _EntityID)
     local Position = self:GetRallyPointPosition(_Building);
     if Position then
-        -- (TODO) Make serf extract nearby resources and construct buildings
+        -- Make serf extract nearby resources
         if Logic.IsEntityInCategory(_EntityID, EntityCategories.Serf) == 1 then
-            Logic.MoveSettler(_EntityID, Position.X, Position.Y, -1);
+            self:CommandSerfToExtractCloseResource(_EntityID, Position.X, Position.Y, 800);
         -- Just move scouts and thieves
         elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.Scout) == 1
         or     Logic.IsEntityInCategory(_EntityID, EntityCategories.Thief) == 1 then
@@ -625,6 +625,26 @@ function Stronghold.Building:GetRallyPointPosition(_Building)
     end
 end
 
+function Stronghold.Building:CommandSerfToExtractCloseResource(_SerfID, _x, _y, _Area)
+    -- Resource entities
+    local Resources = {Logic.GetEntitiesInArea(0, _x, _y, _Area, 1, 16)};
+    if Resources[1] > 0 then
+        local x,y,z = Logic.EntityGetPos(Resources[2]);
+        local Type = Logic.GetResourceDoodadGoodType(Resources[2]);
+        SendEvent.SerfExtractResource(_SerfID, Type, x, y);
+        return;
+    end
+    -- Trees
+    local Trees = GetTreeAtPosition(_x, _y, _Area, 1);
+    if Trees[1] then
+        local x,y,z = Logic.EntityGetPos(Trees[1]);
+        SendEvent.SerfExtractResource(_SerfID, ResourceType.WoodRaw, x, y);
+        return;
+    end
+    -- Just move
+    Logic.MoveSettler(_SerfID, _x, _y, -1);
+end
+
 function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
     if self.Data[_PlayerID] then
         -- No rally points on uncharted territory
@@ -639,13 +659,9 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
             DestroyEntity(ID);
             return;
         end
-        -- Get model
-        local Model = Models.Effects_XF_ExtractStone;
-        if GetLocalPlayerID() == _PlayerID then
-            Model = Models.Banners_XB_LargeFull;
-        end
-        Logic.SetModelAndAnimSet(ID, Model);
-        SVLib.SetInvisibility(ID, false);
+        -- Set visibility
+        SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
+        Logic.SetModelAndAnimSet(ID, Models.Banners_XB_LargeFull);
         -- Save new entity
         DestroyEntity(self.Data[_PlayerID].RallyPoint[ScriptName]);
         self.Data[_PlayerID].RallyPoint[ScriptName] = ID;
@@ -700,7 +716,7 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
         -- Hide all rally points of the player
         for k,v in pairs(self.Data[_PlayerID].RallyPoint) do
             if IsExisting(v) then
-                Logic.SetModelAndAnimSet(v, Models.Effects_XF_ExtractStone);
+                SVLib.SetInvisibility(v, true);
                 Logic.SetEntityExplorationRange(v, 0);
             end
         end
@@ -708,10 +724,8 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
         if _EntityID and IsExisting(_EntityID) then
             local ScriptName = CreateNameForEntity(_EntityID);
             if self.Data[_PlayerID].RallyPoint[ScriptName] then
-                Logic.SetModelAndAnimSet(
-                    GetID(self.Data[_PlayerID].RallyPoint[ScriptName]),
-                    Models.Banners_XB_LargeFull
-                );
+                local ID = GetID(self.Data[_PlayerID].RallyPoint[ScriptName]);
+                SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
             end
         end
     end

@@ -5,6 +5,83 @@
 --- 
 
 -- -------------------------------------------------------------------------- --
+-- Find trees
+-- (Limited to 16 per type but Vanilla compatible)
+
+gvTreeTypeTable = {};
+
+function GetTreeAtPosition(_X, _Y, _Range, _Amount, _Type)
+    FillTreeTable();
+    if CEntityIterator then
+        return GetTreeAtPositionWithIterator(_X, _Y, _Range, _Amount);
+    end
+
+    _Amount = math.max(_Amount or 1, 1);
+    _Type = _Type or 0;
+
+    local List = {};
+    local Statics = {Logic.GetEntitiesInArea(_Type, _X, _Y, _Range, 16, 32)};
+    if Statics[1] <= 16 then
+        for i= 2, Statics[1]+1 do
+            if table.getn(List) >= _Amount then
+                break;
+            end
+            if IsTree(Statics[i]) then
+                table.insert(List, Statics[i]);
+            end
+        end
+    end
+    for k,v in pairs(gvTreeTypeTable) do
+        if table.getn(List) >= _Amount then
+            break;
+        end
+        for _, Tree in (GetTreeAtPosition(_X, _Y, _Range, Entities[k])) do
+            if table.getn(List) >= _Amount then
+                break;
+            end
+            table.insert(List, Tree);
+        end
+    end
+    return List;
+end
+
+function GetTreeAtPositionWithIterator(_X, _Y, _Range, _Amount)
+    local List = {};
+    for ID in CEntityIterator.Iterator(CEntityIterator.InRangeFilter(_X, _Y, _Range)) do
+        if table.getn(List) >= _Amount then
+            break;
+        end
+        if IsTree(ID) then
+            table.insert(List, ID);
+        end
+    end
+    return List;
+end
+
+function IsTree(_Entity)
+    if _Entity and IsExisting(_Entity) then
+        local ID = GetID(_Entity);
+        local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(ID));
+        return gvTreeTypeTable[TypeName] == true;
+    end
+    return false;
+end
+
+function FillTreeTable()
+    gvTreeTypeTable = gvTreeTypeTable or {};
+    for k,v in pairs(Entities) do
+        if v ~= Entities.XD_TreeStump1 then
+            for _, TypePart in pairs{"Tree", "Pine", "Fir", "Cypress", "Willow"} do
+                if (string.find(k, TypePart)) then
+                    gvTreeTypeTable[k] = true;
+                    break;
+                end
+            end
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- UI Tools
 
 function HasPlayerEnoughResourcesFeedback(_Costs)
