@@ -27,13 +27,15 @@ function OnMapStart()
     ShowStrongholdConfiguration();
     ---
 
-    SetHostile(1,7);
-    SetHostile(2,7);
-    SetHostile(3,7);
-    SetHostile(4,7);
+    GameCallback_SH_Logic_OnPeaceTimeOver = function()
+        SetHostile(1,7);
+        SetHostile(2,7);
+        SetHostile(3,7);
+        SetHostile(4,7);
 
-    SetupProvinces();
-    SetupCamps();
+        SetupProvinces();
+        SetupCamps();
+    end
 end
 
 function SetupProvinces()
@@ -79,34 +81,120 @@ function SetupProvinces()
 end
 
 function SetupCamps()
-    CreateTroopSpawner(
-        7, "Outpost1", nil, 3, 60, 3000,
-        Entities.PU_LeaderSword3,
-        Entities.PV_Cannon1,
-        Entities.PV_Cannon1
-    );
-    for i= 1, 4 do
-        CreateTroopSpawner(
-            7, "OP1Tent"..i, nil, 1, 60, 3000,
-            Entities.PU_LeaderPoleArm1,
-            Entities.PU_LeaderPoleArm1,
-            Entities.PU_LeaderBow1
-        );
+    local Peacetime = GetSelectedPeacetime();
+    if Peacetime == 1 then
+        SetupCampsWS0();
+    elseif Peacetime == 2 then
+        SetupCampsWS10();
+    elseif Peacetime == 3 then
+        SetupCampsWS20();
+    elseif Peacetime == 4 then
+        SetupCampsWS30();
+    else
+        SetupCampsWS40();
     end
+end
 
-    CreateTroopSpawner(
-        7, "Outpost2", nil, 3, 60, 3000,
-        Entities.PU_LeaderSword3,
-        Entities.PV_Cannon1,
-        Entities.PV_Cannon1
-    );
-    for i= 1, 4 do
+function SetupCampsWS0()
+    for j= 1,2 do
         CreateTroopSpawner(
-            7, "OP2Tent"..i, nil, 1, 60, 3000,
-            Entities.PU_LeaderPoleArm1,
-            Entities.PU_LeaderPoleArm1,
-            Entities.PU_LeaderBow1
+            7, "Outpost" ..j, nil, 3, 120, 3000,
+            Entities.PU_LeaderSword2,
+            Entities.PU_LeaderBow2,
+            Entities.PU_LeaderBow2
         );
+        for i= 1, 4 do
+            CreateTroopSpawner(
+                7, "OP" ..j.. "Tent"..i, nil, 1, 120, 3000,
+                Entities.PU_LeaderPoleArm1,
+                Entities.PU_LeaderPoleArm1,
+                Entities.PU_LeaderBow1
+            );
+        end
+    end
+end
+
+function SetupCampsWS10()
+    for j= 1,2 do
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower2);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower2);
+        CreateTroopSpawner(
+            7, "Outpost" ..j, nil, 4, 90, 3000,
+            Entities.PU_LeaderSword2,
+            Entities.PU_LeaderBow2,
+            Entities.PU_LeaderBow2
+        );
+        for i= 1, 4 do
+            CreateTroopSpawner(
+                7, "OP" ..j.. "Tent"..i, nil, 1, 90, 3000,
+                Entities.PU_LeaderPoleArm2,
+                Entities.PU_LeaderBow2
+            );
+        end
+    end
+end
+
+function SetupCampsWS20()
+    for j= 1,2 do
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_DarkTower2);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_DarkTower2);
+        CreateTroopSpawner(
+            7, "Outpost" ..j, nil, 3, 90, 3000,
+            Entities.PU_LeaderSword3,
+            Entities.PU_LeaderRifle1,
+            Entities.PV_Cannon1
+        );
+        for i= 1, 4 do
+            CreateTroopSpawner(
+                7, "OP" ..j.. "Tent"..i, nil, 2, 90, 3000,
+                Entities.PU_LeaderPoleArm2,
+                Entities.PU_LeaderPoleArm2,
+                Entities.PU_LeaderBow2
+            );
+        end
+    end
+end
+
+function SetupCampsWS30()
+    for j= 1,2 do
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower3);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower3);
+        CreateTroopSpawner(
+            7, "Outpost" ..j, nil, 3, 60, 3000,
+            Entities.PU_LeaderSword3,
+            Entities.PU_LeaderRifle1,
+            Entities.PU_LeaderRifle1,
+            Entities.PV_Cannon3
+        );
+        for i= 1, 4 do
+            CreateTroopSpawner(
+                7, "OP" ..j.. "Tent"..i, nil, 2, 60, 3000,
+                Entities.PU_LeaderPoleArm2,
+                Entities.PU_LeaderPoleArm2,
+                Entities.PV_Cannon1
+            );
+        end
+    end
+end
+
+function SetupCampsWS40()
+    for j= 1,2 do
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_DarkTower3);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_DarkTower3);
+        CreateTroopSpawner(
+            7, "Outpost" ..j, nil, 4, 60, 3000,
+            Entities.PU_LeaderSword3,
+            Entities.PU_LeaderRifle2,
+            Entities.PV_Cannon3
+        );
+        for i= 1, 4 do
+            CreateTroopSpawner(
+                7, "OP" ..j.. "Tent"..i, nil, 2, 60, 3000,
+                Entities.PU_LeaderPoleArm2,
+                Entities.PU_LeaderRifle1,
+                Entities.PV_Cannon1
+            );
+        end
     end
 end
 

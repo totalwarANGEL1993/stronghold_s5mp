@@ -34,10 +34,10 @@
             <Cost>
                 <Clay>0</Clay>
                 <Wood/>
-                <Stone>200</Stone>
+                <Stone>400</Stone>
                 <Gold/>
                 <Iron>0</Iron>
-                <Sulfur>200</Sulfur>
+                <Sulfur>300</Sulfur>
             </Cost>
             <Type>PB_Tower3</Type>
         </Upgrade>

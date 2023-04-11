@@ -96,6 +96,72 @@ function ShowStrongholdConfiguration(_Config)
     Stronghold.Multiplayer:ShowRuleSelection();
 end
 
+--- Returns the selected peacetime.
+---
+--- Possible values:
+--- * 1: no peacetime
+--- * 2: 10 minutes
+--- * 3: 20 minutes
+--- * 4: 30 minutes
+--- * 5: 40 minutes
+--- @return number Selected Selected peacetime
+function GetSelectedPeacetime()
+    return Stronghold.Multiplayer.Data.Config.PeacetimeSelected;
+end
+
+--- Returns the resources selected.
+---
+--- Possible values:
+--- * 1: normal
+--- * 2: more
+--- * 3: many
+--- @return number Selected Selected resources
+function GetSelectedResource()
+    return Stronghold.Multiplayer.Data.Config.ResourceSelected;
+end
+
+--- Returns the rank all players start with.
+---
+--- Possible ranks:
+--- * 0: Commoner
+--- * 1: Nobleman/Noblewoman
+--- * 2: Bailiff
+--- * 3: Lord/Lady
+--- * 4: Baron/Baroness
+--- * 5: Count/Countess
+--- * 6: Margrave/Margravine
+--- * 7: Duke/Duchess
+--- @return number Rank Initial rank
+function GetSelectedStartingRank()
+    return Stronghold.Multiplayer.Data.Config.Rank.Initial;
+end
+
+--- Returns the highest rank possible.
+---
+--- Possible ranks:
+--- * 0: Commoner
+--- * 1: Nobleman/Noblewoman
+--- * 2: Bailiff
+--- * 3: Lord/Lady
+--- * 4: Baron/Baroness
+--- * 5: Count/Countess
+--- * 6: Margrave/Margravine
+--- * 7: Duke/Duchess
+--- @return number Rank Final rank
+function GetSelectedFinalRank()
+    return Stronghold.Multiplayer.Data.Config.Rank.Final;
+end
+
+--- Returns if a hero is allowed to be chosen as Noble.
+--- @param _Type number Type of hero
+--- @return boolean Allowed Hero is allowed
+function IsHeroAllowedAsNoble(_Type)
+    if Stronghold.Multiplayer.Data.Config.AllowedHeroes then
+        return Stronghold.Multiplayer.Data.Config.AllowedHeroes[_Type] == true;
+    end
+    return false;
+end
+
 -- -------------------------------------------------------------------------- --
 
 function GameCallback_SH_Logic_OnGameStart()
