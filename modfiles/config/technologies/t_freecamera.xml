@@ -2,7 +2,7 @@
 	<TecCategoryType>TC_Technologies</TecCategoryType>
 	<TimeToResearch>1</TimeToResearch>
 	<ResourceCosts>
-		<Clay>100</Clay>
+		<Clay>0</Clay>
 	</ResourceCosts>
 	<Conditions>
 	</Conditions>

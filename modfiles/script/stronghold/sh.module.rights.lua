@@ -427,41 +427,29 @@ end
 function Stronghold.Rights:OnlineHelpAction()
     local PlayerID = GetLocalPlayerID();
     local WidgetID = XGUIEng.GetCurrentWidgetID();
-    if WidgetID == XGUIEng.GetWidgetID("FreeCamButton") then
-        if not Syncer.IsMultiplayer() or PlayerID == 17 then
-            FreeCam.Toggle();
-            XGUIEng.ShowWidget("FreeCamCancelButton", 1);
+    if not IsHumanPlayerInitalized(PlayerID) then
+        return false;
+    end
+    local CurrentRank = GetRank(PlayerID);
+    local NextRank = self.Config.Titles[CurrentRank+1];
+    if NextRank then
+        local Costs = CreateCostTable(unpack(NextRank.Costs));
+        if not HasPlayerEnoughResourcesFeedback(Costs) then
+            return true;
         end
-    elseif WidgetID == XGUIEng.GetWidgetID("FreeCamCancelButton") then
-        if not Syncer.IsMultiplayer() or PlayerID == 17 then
-            FreeCam.Toggle();
-            XGUIEng.ShowWidget("FreeCamCancelButton", 0);
-        end
+    end
+    if self:CanPlayerBePromoted(PlayerID) then
+        Syncer.InvokeEvent(
+            Stronghold.Rights.NetworkCall,
+            Stronghold.Rights.SyncEvents.RankUp
+        );
     else
-        if not IsHumanPlayerInitalized(PlayerID) then
-            return false;
-        end
-        local CurrentRank = GetRank(PlayerID);
-        local NextRank = self.Config.Titles[CurrentRank+1];
-        if NextRank then
-            local Costs = CreateCostTable(unpack(NextRank.Costs));
-            if not HasPlayerEnoughResourcesFeedback(Costs) then
-                return true;
-            end
-        end
-        if self:CanPlayerBePromoted(PlayerID) then
-            Syncer.InvokeEvent(
-                Stronghold.Rights.NetworkCall,
-                Stronghold.Rights.SyncEvents.RankUp
-            );
-        else
-            if GUI.GetPlayerID() == PlayerID then
-                Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
-                if not IsExisting(Stronghold.Players[PlayerID].LordScriptName) then
-                    Message(XGUIEng.GetStringTableText("sh_rights/PromoteHero"));
-                else
-                    Message(XGUIEng.GetStringTableText("sh_rights/PromoteLocked"));
-                end
+        if GUI.GetPlayerID() == PlayerID then
+            Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
+            if not IsExisting(Stronghold.Players[PlayerID].LordScriptName) then
+                Message(XGUIEng.GetStringTableText("sh_rights/PromoteHero"));
+            else
+                Message(XGUIEng.GetStringTableText("sh_rights/PromoteLocked"));
             end
         end
     end
@@ -494,8 +482,6 @@ function Stronghold.Rights:OnlineHelpTooltip(_Key)
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostText);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
         return true;
-    elseif _Key == "sh_menu/FreeCam" then
-    elseif _Key == "sh_menu/FreeCamCancel" then
     end
     return false;
 end
@@ -516,14 +502,6 @@ function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
                 XGUIEng.SetMaterialTexture(_Button, i, Texture);
             end
             return true;
-        end
-    elseif _Button == "FreeCamButton" then
-        if Syncer.IsMultiplayer() and GUI.GetPlayerID() ~= 17 then
-            XGUIEng.ShowWidget(_Button, 0);
-        end
-    elseif _Button == "FreeCamCancelButton" then
-        if Syncer.IsMultiplayer() and GUI.GetPlayerID() ~= 17 then
-            XGUIEng.ShowWidget(_Button, 0);
         end
     end
     return false;
@@ -567,5 +545,40 @@ function Stronghold.Rights:CanPlayerBePromoted(_PlayerID)
         end
     end
     return false;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Free Camera Buttons
+
+gvToggleFreeCamera = 0;
+
+GUIAction_FreeCameraButton = function (_Button)
+    local PlayerID = GUI.GetPlayerID();
+    if _Button == "FreeCamButton" then
+        if not Syncer.IsMultiplayer() or PlayerID == 17 then
+            FreeCam.Toggle();
+            XGUIEng.ShowWidget("FreeCamControls", 1);
+        end
+    elseif _Button == "FreeCamCancelButton" then
+        FreeCam.Toggle();
+        XGUIEng.ShowWidget("FreeCamControls", 0);
+    elseif _Button == "FreeCamHelpButton" then
+        gvToggleFreeCamera = 1 - gvToggleFreeCamera;
+        XGUIEng.ShowWidget("FreeCameraHelp", gvToggleFreeCamera);
+    end
+end
+
+GUIUpdate_FreeCameraButton = function(_Button)
+    if _Button == "FreeCamButton" then
+        local PlayerID = GUI.GetPlayerID();
+        local DisabledFlag = 0;
+        if (Syncer.IsMultiplayer() and GUI.GetPlayerID() ~= 17)
+        or Logic.GetTechnologyState(PlayerID, Technologies.T_FreeCamera) == 0 then
+            DisabledFlag = 1;
+        end
+        XGUIEng.DisableButton(_Button, DisabledFlag);
+    elseif _Button == "FreeCamCancelButton" then
+    elseif _Button == "FreeCamHelpButton" then
+    end
 end
 
