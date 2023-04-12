@@ -19,7 +19,7 @@
             <ArmorClassJerkinFactor>1.7</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.5</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
@@ -67,7 +67,7 @@
             <ArmorClassJerkinFactor>0.5</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.5</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>0.5</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
             <ArmorClassFurFactor>0.1</ArmorClassFurFactor>        
         </Logic>

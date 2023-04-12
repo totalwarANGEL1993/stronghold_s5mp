@@ -536,7 +536,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     Stronghold.Recruitment:InitDefaultRoster(_PlayerID);
 
     local ThiefRecruiter = {Entities.PB_Tavern2};
-    if string.find(Logic.GetEntityTypeName(_Type), "PU_Hero1") then
+    if string.find(Logic.GetEntityTypeName(_Type), "^PU_Hero1[abc]+$") then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm4;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword4;
     elseif _Type == Entities.PU_Hero4 then
