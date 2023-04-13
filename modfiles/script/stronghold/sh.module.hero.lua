@@ -630,10 +630,14 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
                             AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
                         end
                         if not self.Data.ConvertBlacklist[AttackerID] then
-                            if Logic.GetEntityHealth(AttackerID) > 0 and Logic.IsHero(AttackerID) == 0 then
-                                local UnitType = Logic.GetEntityType(AttackerID);
-                                local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
-                                if Config and GetRank(_PlayerID) >= GetRankRequired(UnitType, Config.Right) -1 then
+                            local UnitType = Logic.GetEntityType(AttackerID);
+                            local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
+                            if Config then
+                                local RankRequired = GetRankRequired(UnitType, Config.Right);
+                                if  (RankRequired ~= -1 and GetRank(_PlayerID) >= RankRequired)
+                                and Logic.GetEntityHealth(AttackerID) > 0
+                                and Logic.IsSettler(AttackerID) == 1
+                                and Logic.IsHero(AttackerID) == 0 then
                                     if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
                                         ChangePlayer(AttackerID, HeliasPlayerID);
                                         if GUI.GetPlayerID() == HeliasPlayerID then
@@ -678,7 +682,10 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
                             if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
                                 AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
                             end
-                            if Logic.GetEntityHealth(AttackerID) > 0 and IsNear(k, AttackerID, 3000) then
+                            if Logic.IsSettler(AttackerID) == 1
+                            and Logic.IsHero(AttackerID) == 0
+                            and Logic.GetEntityHealth(AttackerID) > 0
+                            and IsNear(k, AttackerID, 3000) then
                                 SendEvent.HeroShuriken(k, AttackerID);
                                 if GUI.GetPlayerID() == YukiPlayerID then
                                     Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 0);
