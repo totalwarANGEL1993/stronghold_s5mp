@@ -41,6 +41,7 @@ Stronghold = {
         HQInfo = {},
     },
     Players = {},
+    Record = {},
     Config = {},
     Text = {},
 }
@@ -194,7 +195,8 @@ function Stronghold:Init()
         return false;
     end
 
-    Stronghold:AddDelayedAction(1, function(_PlayerID)
+    self:InitPlayerEntityRecord();
+    self:AddDelayedAction(1, function(_PlayerID)
         Stronghold:LoadGUIElements(_PlayerID);
     end, GUI.GetPlayerID());
     GUI.SetTaxLevel(0);
@@ -531,6 +533,7 @@ function Stronghold:OnEntityCreated()
     local EntityID = Event.GetEntityID();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
 
+    self:AddEntityToPlayerRecordOnCreate(EntityID);
     if Logic.IsBuilding(EntityID) == 1 then
         if GUI.GetPlayerID() == PlayerID then
             self:OnSelectionMenuChanged(EntityID);
@@ -548,6 +551,7 @@ end
 function Stronghold:OnEntityDestroyed()
     local EntityID = Event.GetEntityID();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
+    self:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
     Stronghold.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
 end
 
@@ -668,6 +672,119 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
             PlayerName
         ));
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Entity Record
+
+function Stronghold:InitPlayerEntityRecord()
+    for i= 1, table.getn(Score.Player) do
+        self.Record[i] = {
+            All = {},
+            Building = {},
+            Fortification = {},
+            Workplace = {},
+            Settler = {},
+            Leader = {},
+            Worker = {},
+        };
+
+        for k,v in pairs(GetPlayerEntities(i, 0)) do
+            self:AddEntityToPlayerRecordOnCreate(v);
+        end
+    end
+end
+
+function Stronghold:AddEntityToPlayerRecordOnCreate(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if self.Record[PlayerID] then
+        if Logic.IsBuilding(_EntityID) == 1 or Logic.IsSettler(_EntityID) == 1 then
+            -- Insert to all
+            self.Record[PlayerID].All[_EntityID] = true;
+            -- Insert to buildings
+            if Logic.IsBuilding(_EntityID) == 1 then
+                self.Record[PlayerID].Building[_EntityID] = true;
+                if Logic.IsEntityInCategory(_EntityID, EntityCategories.MilitaryBuilding) == 1 then
+                    self.Record[PlayerID].Fortification[_EntityID] = true;
+                end
+                if Logic.GetBuildingWorkPlaceLimit(_EntityID) > 0 then
+                    self.Record[PlayerID].Workplace[_EntityID] = true;
+                end
+            end
+            -- Insert to settlers
+            if Logic.IsSettler(_EntityID) == 1 then
+                self.Record[PlayerID].Settler[_EntityID] = true;
+                if (Logic.IsLeader(_EntityID) == 1 and Logic.IsHero(_EntityID) == 0)
+                or Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 1 then
+                    self.Record[PlayerID].Leader[_EntityID] = true;
+                end
+                if Logic.IsWorker(_EntityID) == 1 then
+                    self.Record[PlayerID].Worker[_EntityID] = true;
+                end
+            end
+        end
+    end
+end
+
+function Stronghold:RemoveEntityFromPlayerRecordOnDestroy(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if self.Record[PlayerID] then
+        self.Record[PlayerID].All[_EntityID] = nil;
+        self.Record[PlayerID].Building[_EntityID] = nil;
+        self.Record[PlayerID].Fortification[_EntityID] = nil;
+        self.Record[PlayerID].Workplace[_EntityID] = nil;
+        self.Record[PlayerID].Settler[_EntityID] = nil;
+        self.Record[PlayerID].Leader[_EntityID] = nil;
+        self.Record[PlayerID].Worker[_EntityID] = nil;
+    end
+end
+
+function Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed, _Group)
+    _Group = _Group or "Building";
+    local List = {};
+    if self:IsPlayer(_PlayerID) then
+        for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
+            if IsExisting(ID) then
+                if _Type == 0 or Logic.GetEntityType(ID) == _Type then
+                    if not _IsConstructed or Logic.IsConstructionComplete(ID) == 1 then
+                        table.insert(List, ID);
+                    end
+                end
+            end
+        end
+    end
+    return List;
+end
+
+function Stronghold:GetFortificationOfType(_PlayerID, _Type, _IsConstructed)
+    return self:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Fortification");
+end
+
+function Stronghold:GetWorkplacesOfType(_PlayerID, _Type, _IsConstructed)
+    return self:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Workplace");
+end
+
+function Stronghold:GetSettlersOfType(_PlayerID, _Type, _Group)
+    _Group = _Group or "Settler";
+    local List = {};
+    if self:IsPlayer(_PlayerID) then
+        for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
+            if IsExisting(ID) then
+                if _Type == 0 or Logic.GetEntityType(ID) == _Type then
+                    table.insert(List, ID);
+                end
+            end
+        end
+    end
+    return List;
+end
+
+function Stronghold:GetLeadersOfType(_PlayerID, _Type)
+    return self:GetSettlersOfType(_PlayerID, _Type, "Leader");
+end
+
+function Stronghold:GetWorkersOfType(_PlayerID, _Type)
+    return self:GetSettlersOfType(_PlayerID, _Type, "Worker");
 end
 
 -- -------------------------------------------------------------------------- --
