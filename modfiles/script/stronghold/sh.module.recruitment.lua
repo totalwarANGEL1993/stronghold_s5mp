@@ -126,7 +126,7 @@ function Stronghold.Recruitment:HasSufficientProviderBuilding(_BuildingID, _Type
         end
         for i= 1, Providers do
             local BuildingType = Config.ProviderBuilding[i];
-            local Buildings = GetValidEntitiesOfType(PlayerID, BuildingType);
+            local Buildings = Stronghold:GetBuildingsOfType(PlayerID, BuildingType, true);
             if table.getn(Buildings) > 0 then
                 return true;
             end

@@ -739,6 +739,27 @@ function Stronghold:RemoveEntityFromPlayerRecordOnDestroy(_EntityID)
     end
 end
 
+function Stronghold:GetEntitiesOfType(_PlayerID, _Type, _IsConstructed, _Group)
+    _Group = _Group or "All";
+    local List = {};
+    if self:IsPlayer(_PlayerID) then
+        for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
+            if IsExisting(ID) then
+                if _Type == 0 or Logic.GetEntityType(ID) == _Type then
+                    if Logic.IsBuilding(ID) == 1 then
+                        if not _IsConstructed or Logic.IsConstructionComplete(ID) == 1 then
+                            table.insert(List, ID);
+                        end
+                    else
+                        table.insert(List, ID);
+                    end
+                end
+            end
+        end
+    end
+    return List;
+end
+
 function Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed, _Group)
     _Group = _Group or "Building";
     local List = {};

@@ -585,7 +585,7 @@ end
 
 function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
     self:ResumePlayer(_PlayerID);
-    for k,v in pairs(GetPlayerEntities(_PlayerID, 0)) do
+    for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, 0)) do
         if Logic.IsBuilding(v) == 1 then
             local Type = Logic.GetEntityType(v);
             local TypeName = Logic.GetEntityTypeName(Type);

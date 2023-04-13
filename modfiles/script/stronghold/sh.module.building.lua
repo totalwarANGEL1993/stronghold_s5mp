@@ -279,7 +279,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         AddGold(_PlayerID, RandomTax);
 
     elseif _BlessCategory == BlessCategories.Financial then
-        local Workplaces = GetAllWorkplaces(_PlayerID, 0);
+        local Workplaces = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
         for i= 1, table.getn(Workplaces) do
             local Workers = {Logic.GetAttachedWorkersToBuilding(Workplaces[i])};
             if Workers[1] > 0 and Logic.IsConstructionComplete(Workplaces[i]) == 1 then

@@ -287,7 +287,7 @@ end
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
         local Income = 0;
-        local WorkerList = GetAllWorker(_PlayerID, 0);
+        local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
         if table.getn(WorkerList) > 0 then
             -- Tax height
             local TaxtHeight = Stronghold.Players[_PlayerID].TaxHeight;
@@ -332,7 +332,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             -- Building bonuses
             local Beauty = 0;
             for k, v in pairs(self.Config.Income.Static) do
-                local Buildings = GetValidEntitiesOfType(_PlayerID, k);
+                local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, k, true);
                 for i= table.getn(Buildings), 1, -1 do
                     if Logic.GetBuildingWorkPlaceLimit(Buildings[i]) > 0 then
                         if Logic.GetBuildingWorkPlaceUsage(Buildings[i]) == 0 then
@@ -432,7 +432,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
         local Income = 0;
         if GetID(Stronghold.Players[_PlayerID].LordScriptName) ~= 0 then
-            local WorkerList = GetAllWorker(_PlayerID, 0);
+            local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
             if table.getn(WorkerList) > 0 then
                 -- Tax height
                 local TaxHight = Stronghold.Players[_PlayerID].TaxHeight;
@@ -473,7 +473,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 -- Buildings bonuses
                 local Beauty = 0;
                 for k, v in pairs(self.Config.Income.Static) do
-                    local Buildings = GetValidEntitiesOfType(_PlayerID, k);
+                    local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, k, true);
                     for i= table.getn(Buildings), 1, -1 do
                         local WorkplaceLimit = Logic.GetBuildingWorkPlaceLimit(Buildings[i]);
                         if WorkplaceLimit then
@@ -509,7 +509,7 @@ end
 -- The tax income is mostly unchanged. A worker pays 5 gold times the tax level.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
-        local WorkerList = GetAllWorker(_PlayerID, 0);
+        local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
         local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
         local PerWorker = self.Config.Income.TaxPerWorker;
         local Income = (table.getn(WorkerList) * PerWorker) * (TaxHeight -1);
@@ -534,7 +534,7 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
         local Upkeep = 0;
         for k, v in pairs(Stronghold.Unit.Config) do
             if type(k) == "number" then
-                local Military = GetValidEntitiesOfType(_PlayerID, k);
+                local Military = Stronghold:GetLeadersOfType(_PlayerID, k);
                 -- Calculate regular upkeep
                 local TypeUpkeep = 0;
                 for i= 1, table.getn(Military) do
@@ -609,7 +609,7 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
             local RankFactor = 1.0 + (0.1 * CurrentRank);
             -- FIXME: Does average motivation still work even if the motivation
             -- of the settlers is manipulated by CEntity?
-            for k, v in pairs(GetAllWorker(_PlayerID, 0)) do
+            for k, v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
                 Motivation = Motivation + Logic.GetSettlersMotivation(v);
             end
             Motivation = Motivation / WorkerCount;

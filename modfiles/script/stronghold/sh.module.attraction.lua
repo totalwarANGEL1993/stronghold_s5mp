@@ -308,7 +308,7 @@ end
 -- Returns all workers that can become criminal.
 function Stronghold.Attraction:GetPotentialCriminalSettlers(_PlayerID)
     local WorkerList = {};
-    for k, v in pairs(GetAllWorkplaces(_PlayerID)) do
+    for k, v in pairs(Stronghold:GetWorkplacesOfType(_PlayerID, 0, true)) do
         local Type = Logic.GetEntityType(v);
         if Type ~= Entities.PB_Foundry1 and Type ~= Entities.PB_Foundry2 then
             local WorkerOfBuilding = {Logic.GetAttachedWorkersToBuilding(v)};
@@ -385,7 +385,7 @@ end
 function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
     if IsHumanPlayer(_PlayerID) then
         -- Update Motivation of workers
-        for k,v in pairs(GetAllWorker(_PlayerID)) do
+        for k,v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
             local WorkplaceID = Logic.GetSettlersWorkBuilding(v);
             if  (WorkplaceID ~= nil and WorkplaceID ~= 0)
             and Logic.IsOvertimeActiveAtBuilding(WorkplaceID) == 0
@@ -413,14 +413,14 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
         local RawLimit = 0;
 
         -- Village Centers
-        local VC1 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_VillageCenter1));
+        local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
         RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCCivil[1]);
         local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
         RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCCivil[2]);
         local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
         RawLimit = RawLimit + (VC3 * self.Config.Attraction.VCCivil[3]);
         -- Headquarters
-        local HQ1 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Headquarters1));
+        local HQ1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true));
         RawLimit = RawLimit + (HQ1 * self.Config.Attraction.HQCivil[1]);
         local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
         RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQCivil[2]);
@@ -478,14 +478,14 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
         local RawLimit = 0;
 
         -- Village Centers
-        local VC1 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_VillageCenter1));
+        local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
         RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCMilitary[1]);
         local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
         RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCMilitary[2]);
         local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
         RawLimit = RawLimit + (VC3 * self.Config.Attraction.VCMilitary[3]);
         -- Headquarters
-        local HQ1 = table.getn(GetValidEntitiesOfType(_PlayerID, Entities.PB_Headquarters1));
+        local HQ1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true));
         RawLimit = RawLimit + (HQ1 * self.Config.Attraction.HQMilitary[1]);
         local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
         RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
@@ -530,7 +530,7 @@ function Stronghold.Attraction:GetMillitarySize(_PlayerID)
     for k,v in pairs(self.Config.UsedSpace) do
         local Config = Stronghold.Unit.Config:Get(k, _PlayerID);
         if not Config or Config.IsCivil ~= true then
-            local UnitList = GetPlayerEntities(_PlayerID, k);
+            local UnitList = Stronghold:GetLeadersOfType(_PlayerID, k);
             for i= 1, table.getn(UnitList) do
                 -- Get unit size
                 local Usage = v;

@@ -361,9 +361,9 @@ function Stronghold.Rights:DoesHeadquarterOfUpgradeLevelExist(_PlayerID, _Level)
 end
 
 function Stronghold.Rights:DoesCathedralOfUpgradeLevelExist(_PlayerID, _Level)
-    local Cathedral1 = GetValidEntitiesOfType(_PlayerID, Entities.PB_Monastery1);
-    local Cathedral2 = GetValidEntitiesOfType(_PlayerID, Entities.PB_Monastery2);
-    local Cathedral3 = GetValidEntitiesOfType(_PlayerID, Entities.PB_Monastery3);
+    local Cathedral1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
+    local Cathedral2 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
+    local Cathedral3 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery3, true);
     local ID = Cathedral3[1] or Cathedral2[1] or Cathedral1[1] or 0;
     if ID ~= 0 then
         return Logic.GetUpgradeLevelForBuilding(ID) >= _Level;
@@ -390,19 +390,19 @@ function Stronghold.Rights:DoSettlersOfTypeInSettlementExist(_PlayerID, _Type, _
 end
 
 function Stronghold.Rights:DooesBuildingAmountInSettlementExist(_PlayerID, _Amount)
-    local WorkplaceAmount = table.getn(GetAllWorkplaces(_PlayerID, 0));
+    local WorkplaceAmount = table.getn(Stronghold:GetWorkplacesOfType(_PlayerID, 0, true));
     return WorkplaceAmount >= _Amount;
 end
 
 function Stronghold.Rights:DoBuildingsOfTypeInSettlementExist(_PlayerID, _Type, _Amount)
-    return table.getn(GetValidEntitiesOfType(_PlayerID, _Type)) >= _Amount;
+    return table.getn(Stronghold:GetBuildingsOfType(_PlayerID, _Type, true)) >= _Amount;
 end
 
 function Stronghold.Rights:DoesBeautificationAmountInSettlementExist(_PlayerID, _Amount)
     local Amount = 0;
     for i= 1, 12 do
         local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-        Amount = Amount + table.getn(GetValidEntitiesOfType(_PlayerID, Entities[Type]));
+        Amount = Amount + table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true));
     end
     return Amount >= _Amount;
 end
@@ -410,7 +410,7 @@ end
 function Stronghold.Rights:DoAllBeautificationsInSettlementExist(_PlayerID)
     for i= 1, 12 do
         local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-        if table.getn(GetValidEntitiesOfType(_PlayerID, Entities[Type])) < 1 then
+        if table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true)) < 1 then
             return false;
         end
     end

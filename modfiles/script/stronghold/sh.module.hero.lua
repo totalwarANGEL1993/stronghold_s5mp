@@ -110,8 +110,8 @@ end
 
 function Stronghold.Hero:OnSaveGameLoaded()
     for i= 1, table.getn(Score.Player) do
-        local Wolves = {Logic.GetPlayerEntities(i, Entities.CU_Barbarian_Hero_wolf, 48)};
-        for j=2, Wolves[1] +1 do
+        local Wolves = Stronghold:GetLeadersOfType(i, Entities.CU_Barbarian_Hero_wolf);
+        for j=1, table.getn(Wolves) do
             self:ConfigurePlayersHeroPet(Wolves[j]);
         end
     end
@@ -651,7 +651,7 @@ end
 function Stronghold.Hero:VargWolvesController(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
         local WolvesBatteling = 0;
-        for k,v in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Barbarian_Hero_wolf)) do
+        for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, Entities.CU_Barbarian_Hero_wolf)) do
             local Task = Logic.GetCurrentTaskList(v);
             if Task and string.find(Task, "BATTLE") then
                 WolvesBatteling = WolvesBatteling +1;
