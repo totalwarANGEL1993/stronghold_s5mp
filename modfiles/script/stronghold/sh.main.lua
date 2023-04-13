@@ -507,6 +507,7 @@ function Stronghold:OnEveryTurn()
         Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(i);
         Stronghold.Hero:EntityAttackedController(i);
         Stronghold.Hero:HeliasConvertController(i);
+        Stronghold.Hero:YukiShurikenConterController(i);
         Stronghold.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
         Stronghold.Recruitment:ControlProductionQueues(i);
         Stronghold.Recruitment:ControlCannonProducers(i);

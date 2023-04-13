@@ -52,9 +52,10 @@ Stronghold.Hero.Config.Hero10 = {
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {
-    UnitCostFactor = 0.85,
     InitialReputation = 100,
     ReputationCap = 300,
+    ShurikenChance = 6,
+    ShurikenMax = 1000,
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {

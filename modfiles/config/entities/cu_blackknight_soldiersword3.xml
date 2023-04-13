@@ -57,7 +57,7 @@
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <ArmorClass>ArmorClassHero</ArmorClass>
-        <ArmorAmount>6</ArmorAmount>
+        <ArmorAmount>10</ArmorAmount>
         <DodgeChance>20</DodgeChance>
         <Exploration>20</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -111,7 +111,7 @@
             <DamageAmount>25</DamageAmount>
             <MaxRandomDamageBonus>25</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MaxRange>150</MaxRange>
             <MinRange>0</MinRange>

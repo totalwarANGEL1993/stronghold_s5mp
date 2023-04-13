@@ -622,21 +622,23 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
     if IsHumanPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             if Logic.GetEntityType(k) == Entities.PU_Hero6 then
-                local HeliasPlayerID = Logic.EntityGetPlayer(k);
-                local AttackerID = v[2];
-                if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
-                    AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
-                end
-                if not self.Data.ConvertBlacklist[AttackerID] then
-                    if Logic.GetEntityHealth(AttackerID) > 0 and Logic.IsHero(AttackerID) == 0 then
-                        local UnitType = Logic.GetEntityType(AttackerID);
-                        local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
-                        if Config and GetRank(_PlayerID) >= GetRankRequired(UnitType, Config.Right) -1 then
-                            if math.random(1, self.Config.Hero6.ConversionMax) <= self.Config.Hero6.ConversionChance then
-                                if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
-                                    ChangePlayer(AttackerID, HeliasPlayerID);
-                                    if GUI.GetPlayerID() == HeliasPlayerID then
-                                        Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
+                if Logic.GetEntityHealth(k) > 0 then
+                    if math.random(1, self.Config.Hero6.ConversionMax) <= self.Config.Hero6.ConversionChance then
+                        local HeliasPlayerID = Logic.EntityGetPlayer(k);
+                        local AttackerID = v[2];
+                        if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
+                            AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
+                        end
+                        if not self.Data.ConvertBlacklist[AttackerID] then
+                            if Logic.GetEntityHealth(AttackerID) > 0 and Logic.IsHero(AttackerID) == 0 then
+                                local UnitType = Logic.GetEntityType(AttackerID);
+                                local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
+                                if Config and GetRank(_PlayerID) >= GetRankRequired(UnitType, Config.Right) -1 then
+                                    if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
+                                        ChangePlayer(AttackerID, HeliasPlayerID);
+                                        if GUI.GetPlayerID() == HeliasPlayerID then
+                                            Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
+                                        end
                                     end
                                 end
                             end
@@ -659,6 +661,34 @@ function Stronghold.Hero:VargWolvesController(_PlayerID)
         end
         local Honor = self.Config.Hero9.WolfHonorRate * WolvesBatteling;
         Stronghold.Economy:AddOneTimeHonor(_PlayerID, Honor);
+    end
+end
+
+function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
+    if CMod and IsHumanPlayer(_PlayerID) then
+        for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
+            if Logic.GetEntityType(k) == Entities.PU_Hero11 then
+                if Logic.GetEntityHealth(k) > 0 then
+                    local RechargeTime = Logic.HeroGetAbilityRechargeTime(k, Abilities.AbilityShuriken);
+                    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(k, Abilities.AbilityShuriken);
+                    if TimeLeft == RechargeTime then
+                        if math.random(1, self.Config.Hero11.ShurikenMax) <= self.Config.Hero11.ShurikenChance then
+                            local YukiPlayerID = Logic.EntityGetPlayer(k);
+                            local AttackerID = v[2];
+                            if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
+                                AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
+                            end
+                            if Logic.GetEntityHealth(AttackerID) > 0 and IsNear(k, AttackerID, 3000) then
+                                SendEvent.HeroShuriken(k, AttackerID);
+                                if GUI.GetPlayerID() == YukiPlayerID then
+                                    Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 0);
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
     end
 end
 
@@ -907,27 +937,7 @@ end
 -- Passive Ability: soldier costs
 function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, _Costs)
     local Costs = _Costs;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero11) then
-        local Factor = self.Config.Hero11.UnitCostFactor;
-        if Costs[ResourceType.Gold] then
-            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
-        end
-        if Costs[ResourceType.Clay] then
-            Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * Factor);
-        end
-        if Costs[ResourceType.Wood] then
-            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
-        end
-        if Costs[ResourceType.Stone] then
-            Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * Factor);
-        end
-        if Costs[ResourceType.Iron] then
-            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
-        end
-        if Costs[ResourceType.Sulfur] then
-            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
-        end
-    end
+    -- Do nothing
     return Costs;
 end
 
