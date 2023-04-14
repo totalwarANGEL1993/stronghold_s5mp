@@ -144,11 +144,13 @@ Stronghold.Rights.Config = {
                 PlayerRight.BallistaTower,
                 ---
                 PlayerRight.Bearman,
+                PlayerRight.Skirmisher,
                 ---
                 PlayerRight.Archery,
                 PlayerRight.LeaderBow3,
                 PlayerRight.LeaderBow4,
-                PlayerRight.Skirmisher,
+                PlayerRight.GunWorkshop,
+                PlayerRight.LeaderRifle1,
                 ---
                 PlayerRight.Cannon1,
             },
@@ -178,9 +180,6 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Thief,
                 PlayerRight.Inn,
-                ---
-                PlayerRight.GunWorkshop,
-                PlayerRight.LeaderRifle1,
                 ---
                 PlayerRight.Beautification5,
                 PlayerRight.Beautification7,

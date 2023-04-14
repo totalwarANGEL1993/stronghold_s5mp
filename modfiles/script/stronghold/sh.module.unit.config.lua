@@ -185,12 +185,12 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderRifle1]              = {
         Button            = "Buy_LeaderRifle",
         Costs             = {
-            [1] = {18, 340, 0, 20, 0, 0, 60},
-            [2] = {0, 75, 0, 10, 0, 0, 35},
+            [1] = {16, 290, 0, 20, 0, 0, 50},
+            [2] = {0, 60, 0, 10, 0, 0, 35},
         },
         Right             = PlayerRight.LeaderRifle1,
         IsCivil           = false,
-        Upkeep            = 70,
+        Upkeep            = 50,
         Turns             = 150,
         Soldiers          = 6,
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
@@ -199,7 +199,7 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderRifle2]              = {
         Button            = "Buy_LeaderRifle",
         Costs             = {
-            [1] = {26, 420, 0, 0, 0, 35, 75},
+            [1] = {28, 420, 0, 0, 0, 35, 75},
             [2] = {0, 85, 0, 0, 0, 15, 35},
         },
         Right             = PlayerRight.LeaderRifle2,

@@ -108,8 +108,8 @@
             <BattleWalkAnim>PU_SoldierBow4_Run1</BattleWalkAnim>
             <HitAnim>PU_SoldierBow4_Hit</HitAnim>
 
-            <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>32</DamageAmount>
+            <DamageClass>DC_Bolt</DamageClass>
+            <DamageAmount>33</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>

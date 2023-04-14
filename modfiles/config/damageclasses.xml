@@ -24,6 +24,18 @@
             <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
+    <!-- All crossbow -->
+    <DamageClass id="DC_Bolt">
+        <Logic classname="GGL::CDamageClassProps">
+            <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.5</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
+            <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
+            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
+        </Logic>
+    </DamageClass>
     <!-- All spearmen -->
     <DamageClass id="DC_Pole">
         <Logic classname="GGL::CDamageClassProps">
@@ -33,7 +45,7 @@
             <ArmorClassIronFactor>2.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Any swordman on foot -->
@@ -69,7 +81,7 @@
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.5</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>0.5</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Cannons, towers, bombs -->
@@ -81,7 +93,7 @@
             <ArmorClassIronFactor>1.4</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>            
-            <ArmorClassFurFactor>0.5</ArmorClassFurFactor>
+            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <DamageClass id="DC_Siege">
@@ -98,13 +110,13 @@
     <!-- All Riflemen -->
     <DamageClass id="DC_Bullet">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.6</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
+            <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.8</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>1.6</ArmorClassFurFactor>
+            <ArmorClassFurFactor>1.4</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Shrouded -->

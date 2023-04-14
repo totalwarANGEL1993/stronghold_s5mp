@@ -55,6 +55,9 @@ function Stronghold.Unit:RefillUnit(_PlayerID, _UnitID, _Amount, _Honor, _Gold, 
                 local Task = Logic.GetCurrentTaskList(_UnitID);
                 if not Task or (not string.find(Task, "DIE") and not string.find(Task, "BATTLE")) then
                     local BuildingID = Logic.LeaderGetNearbyBarracks(_UnitID);
+                    if Logic.IsConstructionComplete(BuildingID) == 0 then
+                        return;
+                    end
                     local Position = self:GetBarracksDoorPosition((BuildingID ~= 0 and BuildingID) or _UnitID);
 
                     local Costs = CreateCostTable(unpack({
