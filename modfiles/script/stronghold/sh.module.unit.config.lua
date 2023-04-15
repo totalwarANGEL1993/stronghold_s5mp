@@ -520,7 +520,7 @@ Stronghold.Unit.Config = {
         Button            = "Buy_LeaderSword",
         Costs             = {
             [1] = {0, 0, 0, 0, 0, 0, 0},
-            [2] = {10, 150, 0, 0, 0, 0, 0},
+            [2] = {0, 300, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.BlackKnight3,
         IsCivil           = false,
