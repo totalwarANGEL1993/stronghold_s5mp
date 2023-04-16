@@ -173,7 +173,7 @@ Stronghold.Unit.Config = {
         },
         Right             = PlayerRight.LeaderBow4,
         IsCivil           = false,
-        Upkeep            = 50,
+        Upkeep            = 55,
         Turns             = 150,
         Soldiers          = 6,
         RecruiterBuilding = {Entities.PB_Archery2},

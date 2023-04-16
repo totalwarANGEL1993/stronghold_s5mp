@@ -110,7 +110,7 @@
 
             <DamageClass>DC_Bolt</DamageClass>
             <DamageAmount>33</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>7</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 

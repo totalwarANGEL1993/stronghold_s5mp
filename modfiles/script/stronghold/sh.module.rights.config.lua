@@ -148,7 +148,6 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Archery,
                 PlayerRight.LeaderBow3,
-                PlayerRight.LeaderBow4,
                 PlayerRight.GunWorkshop,
                 PlayerRight.LeaderRifle1,
                 ---
@@ -173,6 +172,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.BanditSword1,
                 PlayerRight.Barbarian1,
                 PlayerRight.BlackKnight1,
+                ---
+                PlayerRight.LeaderBow4,
                 ---
                 PlayerRight.Barn,
                 PlayerRight.LeaderCavalry1,
