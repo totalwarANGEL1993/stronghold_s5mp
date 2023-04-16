@@ -752,6 +752,12 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceRefined", function(_PlayerID, _BuildingID, _ResourceType, Amount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
+        return CurrentAmount;
+    end);
+
     -- Noble --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
@@ -895,7 +901,24 @@ end
 function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Type, _Amount)
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
-        Amount = Amount + (1 + Logic.GetUpgradeLevelForBuilding(_BuildingID));
+        if _Type == ResourceType.ClayRaw
+        or _Type == ResourceType.IronRaw
+        or _Type == ResourceType.StoneRaw
+        or _Type == ResourceType.SulfurRaw
+        then
+            Amount = Amount + (1 + Logic.GetUpgradeLevelForBuilding(_BuildingID));
+        end
+    end
+    return Amount;
+end
+
+-- Passive Ability: Resource refining bonus
+function Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _Type, _Amount)
+    local Amount = _Amount;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
+        if _Type == ResourceType.Wood then
+            Amount = Amount + 1;
+        end
     end
     return Amount;
 end

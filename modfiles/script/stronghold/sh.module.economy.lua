@@ -685,13 +685,14 @@ function Stronghold.Economy:OnWorkplaceRefinedResource(_PlayerID, _BuildingID, _
     local Type = Logic.GetEntityType(_BuildingID);
     local Amount = self.Config.Resource.Refining[Type] or _Amount;
 
-    -- Debenture
-    if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Debenture) == 1 then
-        Amount = Amount + (1 * self.Config.Income.DebentureBonusFactor);
-    end
-    -- Coinage
-    if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Coinage) == 1 then
-        Amount = Amount + (1 * self.Config.Income.CoinageBonusFactor);
+    -- Bank technologies
+    if _ResourceType == ResourceType.Gold then
+        if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Debenture) == 1 then
+            Amount = Amount + (1 * self.Config.Income.DebentureBonusFactor);
+        end
+        if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Coinage) == 1 then
+            Amount = Amount + (1 * self.Config.Income.CoinageBonusFactor);
+        end
     end
     -- External changes
     Amount = GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, Amount);
