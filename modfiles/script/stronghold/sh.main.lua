@@ -559,9 +559,12 @@ end
 function Stronghold:OnEntityHurtEntity()
     local Attacker = Event.GetEntityID1();
     local AttackerPlayer = Logic.EntityGetPlayer(Attacker);
+    local AttackerType = Logic.GetEntityType(Attacker);
     local Attacked = Event.GetEntityID2();
     local AttackedPlayer = Logic.EntityGetPlayer(Attacked);
+    local AttackedType = Logic.GetEntityType(Attacked);
     if Attacker and Attacked then
+        -- Get attacker ID
         local ID = Attacked;
         if Logic.IsEntityInCategory(ID, EntityCategories.Leader) == 1 then
             local Soldiers = {Logic.GetSoldiersAttachedToLeader(ID)};
@@ -570,8 +573,17 @@ function Stronghold:OnEntityHurtEntity()
             end
         end
         if Logic.GetEntityHealth(ID) > 0 then
+            -- Save in attack memory
             if self.Players[AttackedPlayer] then
                 self.Players[AttackedPlayer].AttackMemory[Attacked] = {15, Attacker};
+            end
+            -- prevent serf harrasment
+            local DamageSource = CEntity.HurtTrigger.GetDamageSourceType();
+            if DamageSource == CEntity.HurtTrigger.DamageSources.BOMB
+            or Logic.IsHero(Attacker) == 1 then
+                if AttackedType == Entities.PU_Serf then
+                    CEntity.HurtTrigger.SetDamage(0);
+                end
             end
         end
     end
