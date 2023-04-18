@@ -47,9 +47,9 @@ Lib.Require("module/entity/EntityTracker");
 Lib.Require("module/entity/SVLib");
 Lib.Require("module/entity/Treasure");
 Lib.Require("module/lua/Overwrite");
+Lib.Require("module/mp/BuyHero");
 Lib.Require("module/mp/Syncer");
 Lib.Require("module/trigger/Job");
-Lib.Require("module/ui/BuyHero");
 Lib.Require("module/ui/Placeholder");
 Lib.Require("module/weather/WeatherMaker");
 

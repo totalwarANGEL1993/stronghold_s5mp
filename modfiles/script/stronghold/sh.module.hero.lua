@@ -467,7 +467,7 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
             -- Update motivation soft cap
             ExpectedSoftCap = Stronghold.Hero.Config.Hero7.ReputationCap / 100;
             -- Create guard for Kerberos
-            -- Tools.CreateSoldiersForLeader(_ID, 3);
+            Tools.CreateSoldiersForLeader(_ID, 3);
             Logic.LeaderChangeFormationType(_ID, 1);
         end
 
