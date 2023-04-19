@@ -119,12 +119,12 @@
             <HitAnim>PU_LeaderCavalry1_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>22</DamageAmount>
+            <DamageAmount>28</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2300</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <MissChance>20</MissChance>
+            <MissChance>12</MissChance>
 
             <ProjectileEffectID>FXCavalryArrow</ProjectileEffectID>
             <MaxRange>2800</MaxRange>
@@ -143,7 +143,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>5</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>
