@@ -123,7 +123,7 @@
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
 
-            <BattleWaitUntil>3400</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MissChance>10</MissChance>
 
@@ -144,7 +144,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>6</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>
