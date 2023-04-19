@@ -135,7 +135,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>12</Limit>
+                <Limit>8</Limit>
             </Attachment>
         </Logic>
     </Behavior>

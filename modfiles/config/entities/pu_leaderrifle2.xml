@@ -112,7 +112,7 @@
             <HitAnim>PU_LeaderRifle2_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>30</DamageAmount>
+            <DamageAmount>36</DamageAmount>
             <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
@@ -136,7 +136,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>3</Limit>
+                <Limit>4</Limit>
             </Attachment>
         </Logic>
     </Behavior>

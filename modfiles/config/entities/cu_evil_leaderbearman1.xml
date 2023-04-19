@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>75</MaxHealth>
+        <MaxHealth>50</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Fearless>true</Fearless>
@@ -64,8 +64,8 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>10</DodgeChance>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>20</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>30</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
