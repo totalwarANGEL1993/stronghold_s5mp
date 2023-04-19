@@ -57,10 +57,10 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PU_LeaderRifle1] = 2,
     [Entities.PU_LeaderRifle2] = 2,
     ---
-    [Entities.PU_LeaderCavalry1] = 1,
-    [Entities.PU_LeaderCavalry2] = 1,
-    [Entities.PU_LeaderHeavyCavalry1] = 3,
-    [Entities.PU_LeaderHeavyCavalry2] = 3,
+    [Entities.PU_LeaderCavalry1] = 2,
+    [Entities.PU_LeaderCavalry2] = 2,
+    [Entities.PU_LeaderHeavyCavalry1] = 2,
+    [Entities.PU_LeaderHeavyCavalry2] = 2,
     ---
     [Entities.PV_Cannon1] = 10,
     [Entities.PV_Cannon2] = 10,
