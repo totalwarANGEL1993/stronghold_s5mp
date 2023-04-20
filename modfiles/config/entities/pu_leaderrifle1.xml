@@ -58,10 +58,10 @@
         <Category>Rifle</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>200</MaxHealth>
+        <MaxHealth>250</MaxHealth>
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
+        <ArmorAmount>5</ArmorAmount>
         <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
@@ -119,17 +119,17 @@
             <HitAnim>PU_LeaderRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>28</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <DamageAmount>32</DamageAmount>
+            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>1800</BattleWaitUntil>
 
             <MissChance>20</MissChance>
 
             <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
             <MaxRange>2800</MaxRange>
-            <MinRange>0.0f</MinRange>
+            <MinRange>0</MinRange>
             <AutoAttackRange>2800</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
@@ -144,7 +144,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>4</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>

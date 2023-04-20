@@ -118,8 +118,8 @@
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
-            <MaxRange>200</MaxRange>
-            <MinRange>0.0f</MinRange>
+            <MaxRange>250</MaxRange>
+            <MinRange>0</MinRange>
             <AutoAttackRange>2000</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
