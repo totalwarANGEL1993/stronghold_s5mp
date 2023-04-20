@@ -106,6 +106,7 @@ function Stronghold.Hero:Install()
     self:OverrideCalculationCallbacks();
     self:OverrideHero5AbilityArrowRain();
     self:OverrideHero8AbilityMoralDamage();
+    self:OverrideDetailsPayAndSlots();
 end
 
 function Stronghold.Hero:OnSaveGameLoaded()
@@ -168,6 +169,9 @@ function Stronghold.Hero:OnSelectLeader(_EntityID)
     XGUIEng.ShowWidget("Selection_MilitaryUnit", 1);
 
     XGUIEng.TransferMaterials("Research_Gilds", "Formation01");
+    XGUIEng.ShowWidget("DetailsGroupStrength", 0);
+    XGUIEng.ShowWidget("DetailsSoldiers", 1);
+    XGUIEng.ShowWidget("DetailsPayAndSlots", 1);
     XGUIEng.ShowWidget("Selection_Leader", 1);
 
     local ShowFormations = 0;
@@ -739,6 +743,37 @@ function Stronghold.Hero:OverrideHero8AbilityMoralDamage()
             XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
         end
     end);
+end
+
+function Stronghold.Hero:OverrideDetailsPayAndSlots()
+    GUIUpdate_DetailsSoldiers = function()
+        local ID = GUI.GetSelectedEntity();
+        local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(ID);
+        local Soldiers = Logic.LeaderGetNumberOfSoldiers(ID);
+        if Logic.IsLeader(ID) == 1 and MaxSoldiers > 0 then
+            XGUIEng.ShowWidget("DetailsSoldiers", 1);
+            local Text = "@ra " ..Soldiers.. "/" ..MaxSoldiers;
+            XGUIEng.SetText("DetailsSoldiers_Amount", Text);
+        else
+            XGUIEng.ShowWidget("DetailsSoldiers", 0);
+        end
+    end
+
+    GUIUpdate_DetailsSlots = function()
+        local ID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(ID);
+        local Type = Logic.GetEntityType(ID);
+        local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(ID);
+        local Soldiers = Logic.LeaderGetNumberOfSoldiers(ID);
+        local Config = Stronghold.Unit.Config:Get(Type, PlayerID);
+        if Logic.IsLeader(ID) == 1 and Config and Type ~= Entities.CU_BlackKnight then
+            local Upkeep = math.ceil((Config.Upkeep or 0) * ((Soldiers +1) / (MaxSoldiers +1)));
+            XGUIEng.ShowWidget("DetailsPayAndSlots", 1);
+            XGUIEng.SetText("DetailsPayAndSlots_SlotAmount", "@ra " ..Upkeep);
+        else
+            XGUIEng.ShowWidget("DetailsPayAndSlots", 0);
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --
