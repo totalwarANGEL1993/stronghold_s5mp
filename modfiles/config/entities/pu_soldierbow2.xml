@@ -112,10 +112,10 @@
             <HitAnim>PU_SoldierBow2_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>11</DamageAmount>
+            <DamageAmount>12</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <MissChance>10</MissChance>
 

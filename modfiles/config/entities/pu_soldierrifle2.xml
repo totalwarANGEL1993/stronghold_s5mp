@@ -21,7 +21,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>200</MaxHealth>
+        <MaxHealth>250</MaxHealth>
         <DodgeChance>5</DodgeChance>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
@@ -63,7 +63,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>8</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <DodgeChance>5</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>32</ExperiencePoints>
@@ -106,12 +106,12 @@
             <HitAnim>PU_SoldierRifle2_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>46</DamageAmount>
-            <MaxRandomDamageBonus>10</MaxRandomDamageBonus>
+            <DamageAmount>60</DamageAmount>
+            <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
 
             <AutoAttackRange>3000</AutoAttackRange>
 
-            <BattleWaitUntil>1800</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MissChance>5</MissChance>
 

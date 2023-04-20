@@ -105,7 +105,7 @@
             <HitAnim>PU_SoldierSword4_Hit</HitAnim>
 
             <DamageClass>DC_Slash</DamageClass>
-            <DamageAmount>22</DamageAmount>
+            <DamageAmount>26</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2700</BattleWaitUntil>

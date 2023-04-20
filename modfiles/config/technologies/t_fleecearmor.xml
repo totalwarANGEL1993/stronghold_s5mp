@@ -13,7 +13,7 @@
 	<UseForStatisticsFlag>true</UseForStatisticsFlag>
 	
 	<ArmorModifier>
-		<Value>2</Value>
+		<Value>3</Value>
 		<Operation>+</Operation>
 	</ArmorModifier>
 

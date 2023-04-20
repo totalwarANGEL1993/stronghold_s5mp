@@ -56,10 +56,10 @@
         <Category>Rifle</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>250</MaxHealth>
+        <MaxHealth>300</MaxHealth>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>8</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <DodgeChance>5</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>65</ExperiencePoints>
@@ -112,10 +112,10 @@
             <HitAnim>PU_LeaderRifle2_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>46</DamageAmount>
-            <MaxRandomDamageBonus>10</MaxRandomDamageBonus>
+            <DamageAmount>60</DamageAmount>
+            <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>1800</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MissChance>5</MissChance>
 

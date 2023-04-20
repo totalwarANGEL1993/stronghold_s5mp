@@ -61,7 +61,7 @@
         <MaxHealth>250</MaxHealth>
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
@@ -119,11 +119,11 @@
             <HitAnim>PU_LeaderRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>32</DamageAmount>
-            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
+            <DamageAmount>40</DamageAmount>
+            <MaxRandomDamageBonus>10</MaxRandomDamageBonus>
 
 
-            <BattleWaitUntil>1800</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MissChance>20</MissChance>
 

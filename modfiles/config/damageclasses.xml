@@ -110,9 +110,9 @@
     <!-- All Riflemen -->
     <DamageClass id="DC_Bullet">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
+            <ArmorClassNoneFactor>1.6</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.6</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.6</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>

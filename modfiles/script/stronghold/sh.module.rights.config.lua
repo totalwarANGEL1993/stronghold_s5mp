@@ -173,8 +173,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.Barbarian1,
                 PlayerRight.BlackKnight1,
                 ---
-                PlayerRight.LeaderBow4,
-                ---
                 PlayerRight.Barn,
                 PlayerRight.LeaderCavalry1,
                 PlayerRight.LeaderCavalry2,
@@ -199,6 +197,8 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Laboratory,
                 PlayerRight.FinishingSmithy,
+                ---
+                PlayerRight.LeaderBow4,
                 ---
                 PlayerRight.Stables,
                 PlayerRight.LeaderHeavyCavalry1,
