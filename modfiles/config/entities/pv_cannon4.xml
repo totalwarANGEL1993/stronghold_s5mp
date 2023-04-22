@@ -125,4 +125,16 @@
         </Display>
     </Behavior>
 
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CLeaderEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>200</BasePriority>
+        </Logic>
+    </Behavior>
 </root>

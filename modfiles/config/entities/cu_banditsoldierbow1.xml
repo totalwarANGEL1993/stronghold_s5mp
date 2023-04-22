@@ -32,14 +32,13 @@
             <Wood>30</Wood>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PaddedArcherArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
@@ -58,6 +57,7 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
+
 
         <Category>Military</Category>
         <Category>Bow</Category>
@@ -165,8 +165,6 @@
         </Logic>
     </Behavior>
 
-
-
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CSoldierEvadeBehavior</Class>
@@ -181,19 +179,11 @@
         </Logic>
     </Behavior>
 
-
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
             <EntityType>XD_DroppedBow</EntityType>
         </Logic>
     </Behavior>
-
-
-
-
-
-
-
 
 </root>

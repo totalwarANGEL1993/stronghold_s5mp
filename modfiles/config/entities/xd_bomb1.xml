@@ -15,7 +15,7 @@
             <Class>GGL::CBombBehavior</Class>
             <Radius>1500</Radius>
             <Delay>2.0</Delay>
-            <Damage>95</Damage>
+            <Damage>125</Damage>
             <DamageClass>DC_Chaos</DamageClass>
             <ExplodeEffectID>FXExplosionPilgrim</ExplodeEffectID>
 

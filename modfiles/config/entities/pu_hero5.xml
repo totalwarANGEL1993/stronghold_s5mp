@@ -30,7 +30,7 @@
         <Category>Military</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>27</Exploration>
+        <Exploration>28</Exploration>
         <ArmorClass>ArmorClassHero</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
         <DodgeChance>30</DodgeChance>
@@ -87,13 +87,13 @@
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
 
-            <MaxRange>2700</MaxRange>
+            <MaxRange>2800</MaxRange>
             <MinRange>0</MinRange>
-            <AutoAttackRange>2700</AutoAttackRange>
+            <AutoAttackRange>2800</AutoAttackRange>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
 
-            <MissChance>5</MissChance>
+            <MissChance>0</MissChance>
 
             <HealingPoints>4</HealingPoints>
             <HealingSeconds>1</HealingSeconds>

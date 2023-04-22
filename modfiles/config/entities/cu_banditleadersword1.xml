@@ -32,6 +32,7 @@
             <Wood/>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
@@ -55,6 +56,7 @@
 
 
         <Category>Military</Category>
+        <Category>Leader</Category>
         <Category>Melee</Category>
         <Category>Sword</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
@@ -115,8 +117,8 @@
 
             <!-- That is on purpose -->
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>20</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageAmount>22</DamageAmount>
+            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
@@ -147,5 +149,23 @@
         </Logic>
     </Behavior>
 
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CLeaderEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
 
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>400</BasePriority>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
+            <Class>GGL::CReplaceableEntityBehavior</Class>
+            <EntityType>XD_DroppedShield</EntityType>
+        </Logic>
+    </Behavior>
 </root>

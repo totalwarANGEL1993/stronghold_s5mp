@@ -582,7 +582,7 @@ function Stronghold:OnEntityHurtEntity()
             if DamageSource == CEntity.HurtTrigger.DamageSources.BOMB
             or Logic.IsHero(Attacker) == 1 then
                 if AttackedType == Entities.PU_Serf then
-                    CEntity.HurtTrigger.SetDamage(0);
+                    CEntity.HurtTrigger.SetDamage(1);
                 end
             end
         end

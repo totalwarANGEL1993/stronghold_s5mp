@@ -23,8 +23,8 @@
             <DamageClass>DC_Siege</DamageClass>
             <Damage>50</Damage>
 
-<!-- Damage done to target building -->
-<DamagePercentage>70</DamagePercentage>
+            <!-- Damage done to target building -->
+            <DamagePercentage>70</DamagePercentage>
         </Logic>
     </Behavior>
 </root>

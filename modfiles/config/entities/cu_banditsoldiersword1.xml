@@ -36,14 +36,13 @@
             <Wood/>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
@@ -58,6 +57,7 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
+
 
         <Category>Military</Category>
         <Category>Soldier</Category>
@@ -118,8 +118,8 @@
 
             <!-- That is on purpose -->
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>20</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageAmount>22</DamageAmount>
+            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
@@ -145,5 +145,24 @@
         </Logic>
     </Behavior>
 
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CSoldierEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
 
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>300</BasePriority>
+            <ShouldEvade>false</ShouldEvade>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
+            <Class>GGL::CReplaceableEntityBehavior</Class>
+            <EntityType>XD_DroppedShield</EntityType>
+        </Logic>
+    </Behavior>
 </root>

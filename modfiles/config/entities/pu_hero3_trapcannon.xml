@@ -29,9 +29,9 @@
             <ReloadTime>5000</ReloadTime>
             <MaxAttackRange>1000.0f</MaxAttackRange>
             <DamageClass>DC_Chaos</DamageClass>
-            <DamageAmount>65</DamageAmount>
+            <DamageAmount>75</DamageAmount>
             <DamageRange>3000</DamageRange>
-            <AutoAttackRange>1000</AutoAttackRange>
+            <AutoAttackRange>1500</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_TRAP</BattleTaskList>
         </Logic>
         <Display classname="ED::CBehaviorProps">

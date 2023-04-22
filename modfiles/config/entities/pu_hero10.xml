@@ -36,7 +36,7 @@
         <Category>Rifle</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>29</Exploration>
+        <Exploration>28</Exploration>
         <ArmorClass>ArmorClassHero</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
         <DodgeChance>20</DodgeChance>
@@ -94,12 +94,12 @@
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <MissChance>2</MissChance>
+            <MissChance>0</MissChance>
 
             <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
-            <MaxRange>2900</MaxRange>
+            <MaxRange>2800</MaxRange>
             <MinRange>0</MinRange>
-            <AutoAttackRange>2900</AutoAttackRange>
+            <AutoAttackRange>2800</AutoAttackRange>
 
             <HealingPoints>4</HealingPoints>
             <HealingSeconds>1</HealingSeconds>
