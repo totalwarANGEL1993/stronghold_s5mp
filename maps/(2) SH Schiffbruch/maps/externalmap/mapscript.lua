@@ -136,3 +136,7 @@ function GameCallback_OnGameStart()
     OnMapStart();
 end
 
+-- Must remain empty in the script because it is called by the game.
+function Mission_InitWeatherGfxSets()
+end
+
