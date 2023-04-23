@@ -176,7 +176,7 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
 end
 
 function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
-    if IsHumanPlayerInitalized(_PlayerID) then
+    if IsPlayerInitalized(_PlayerID) then
         -- Converting workers to criminals
         -- Depending on the crime rate each x seconds a settler can become a
         -- criminal by a chance of y%.
@@ -291,7 +291,7 @@ end
 -- influences the chance. The cance can never drop below 0.1% per second
 -- and never rise about 10% per second.
 function Stronghold.Attraction:DoesSettlerTurnCriminal(_PlayerID, _WorkerID)
-    if IsHumanPlayerInitalized(_PlayerID) then
+    if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Motivation = Logic.GetSettlersMotivation(_WorkerID);
         local CrimeRate = GameCallback_SH_Calculate_CrimeRate(_PlayerID, self.Config.Crime.Convert.Rate);
         local Exposition = self:GetSettlersExposition(_PlayerID, _WorkerID);
@@ -327,7 +327,7 @@ end
 -- chance to catches those who already broke the law.
 function Stronghold.Attraction:GetSettlersExposition(_PlayerID, _CriminalID)
     local Exposition = 0;
-    if IsHumanPlayerInitalized(_PlayerID) then
+    if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local x,y,z = Logic.EntityGetPos(_CriminalID);
         -- Check militia
         local _, MilitiaID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PU_BattleSerf, x, y, self.Config.Crime.Unveil.SerfArea, 1);
@@ -383,7 +383,7 @@ end
 -- Workers
 
 function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Update Motivation of workers
         for k,v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
             local WorkplaceID = Logic.GetSettlersWorkBuilding(v);
@@ -408,7 +408,7 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
 end
 
 function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Limit = 0;
         local RawLimit = 0;
 
@@ -439,7 +439,7 @@ end
 -- Virtual Settlers
 
 function Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(_PlayerID)
-    if IsHumanPlayerInitalized(_PlayerID) then
+    if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local RealUsage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
         local Usage = GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, RealUsage);
         local FakeUsage = RealUsage - math.floor(Usage + 0.5);
@@ -474,7 +474,7 @@ end
 
 function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local RawLimit = 0;
 
         -- Village Centers
@@ -508,7 +508,7 @@ end
 
 function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
     local Usage = 0;
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         Usage = self:GetMillitarySize(_PlayerID);
         -- External
         Usage = GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
@@ -517,12 +517,15 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
 end
 
 function Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount)
-    if IsHumanPlayer(_PlayerID) then
-        local Limit = self:GetPlayerMilitaryAttractionLimit(_PlayerID);
-        local Usage = self:GetPlayerMilitaryAttractionUsage(_PlayerID);
-        return Limit - Usage >= _Amount;
+    if IsPlayer(_PlayerID) then
+        if not IsAIPlayer(_PlayerID) then
+            local Limit = self:GetPlayerMilitaryAttractionLimit(_PlayerID);
+            local Usage = self:GetPlayerMilitaryAttractionUsage(_PlayerID);
+            return Limit - Usage >= _Amount;
+        end
+        return false;
     end
-    return false;
+    return true;
 end
 
 function Stronghold.Attraction:GetMillitarySize(_PlayerID)

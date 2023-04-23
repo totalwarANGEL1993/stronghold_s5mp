@@ -21,8 +21,8 @@ function OnMapStart()
 
     ---
     SetupStronghold();
-    SetupHumanPlayer(1);
-    SetupHumanPlayer(2);
+    SetupPlayer(1);
+    SetupPlayer(2);
     ShowStrongholdConfiguration();
     ---
 

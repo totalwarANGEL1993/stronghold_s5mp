@@ -54,22 +54,6 @@ function SetupStronghold()
     Stronghold:Init();
 end
 
---- Sets the inital rank for all players.
---- (Must be done *before* setting up players because it changes the config!)
---- @param _Rank number ID of rank
-function SetInitialRank(_Rank)
-    Stronghold:SetInitialRank(_Rank);
-end
-
---- Creates a new human player.
---- @param _PlayerID number ID of player
---- @param _Serfs?   number Amount of serfs
-function SetupHumanPlayer(_PlayerID, _Serfs)
-    if not IsHumanPlayer(_PlayerID) then
-        Stronghold:AddPlayer(_PlayerID, _Serfs);
-    end
-end
-
 --- Returns the GUI player. If the owner of an selected entity differs from the
 --- GUI player then the owner player ID is returned.
 --- @return number Player ID of player
@@ -77,18 +61,42 @@ function GetLocalPlayerID()
     return Stronghold:GetLocalPlayerID();
 end
 
---- Returns if a player is a human player.
+--- Sets the inital rank for all players.
+--- (Must be done *before* setting up players because it changes the config!)
+--- @param _Rank number ID of rank
+function SetInitialRank(_Rank)
+    Stronghold:SetInitialRank(_Rank);
+end
+
+--- Creates a new player.
+--- @param _PlayerID number  ID of player
+--- @param _IsAI?    boolean Player is AI
+--- @param _Serfs?   number  Amount of serfs
+function SetupPlayer(_PlayerID, _IsAI, _Serfs)
+    if not IsPlayer(_PlayerID) then
+        Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs);
+    end
+end
+
+--- Returns if a player is a player.
 --- @param _PlayerID number ID of player
 --- @return boolean IsPlayer Is human player
-function IsHumanPlayer(_PlayerID)
+function IsPlayer(_PlayerID)
     return Stronghold:IsPlayer(_PlayerID);
 end
 
---- Returns if a player is a human player and is initalized.
+--- Returns if a player is a AI player.
+--- @param _PlayerID number ID of player
+--- @return boolean IsPlayer Is AI player
+function IsAIPlayer(_PlayerID)
+    return Stronghold:IsAIPlayer(_PlayerID);
+end
+
+--- Returns if a player is a player and is initalized.
 --- (A player is initalized when the headquarters is placed.)
 --- @param _PlayerID number ID of player
 --- @return boolean IsInitalized Is initalized player
-function IsHumanPlayerInitalized(_PlayerID)
+function IsPlayerInitalized(_PlayerID)
     return Stronghold:IsPlayerInitalized(_PlayerID);
 end
 
@@ -284,13 +292,14 @@ end
 
 -- Add player
 -- This function adds a new player.
-function Stronghold:AddPlayer(_PlayerID, _Serfs)
+function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs)
     local LordName = "LordP" .._PlayerID;
     local HQName = "HQ" .._PlayerID;
 
     -- Create player data
     self.Players[_PlayerID] = {
         IsInitalized = false,
+        IsAI = _IsAI == true,
         LordScriptName = LordName,
         HQScriptName = HQName,
         DoorPos = nil;
@@ -331,6 +340,11 @@ end
 
 function Stronghold:IsPlayer(_PlayerID)
     return self:GetPlayer(_PlayerID) ~= nil;
+end
+
+function Stronghold:IsAIPlayer(_PlayerID)
+    local Player = self:GetPlayer(_PlayerID);
+    return Player and Player.IsAI == true;
 end
 
 function Stronghold:IsPlayerInitalized(_PlayerID)
@@ -843,7 +857,7 @@ end
 -- Payday updater
 function Stronghold:StartPlayerPaydayUpdater()
     GameCallback_PaydayPayed = function(_PlayerID, _Amount)
-        if _Amount ~= nil and IsHumanPlayer(_PlayerID) then
+        if _Amount ~= nil and IsPlayer(_PlayerID) then
             -- Change frequency on next payday
             if  Logic.IsTechnologyResearched(_PlayerID,Technologies.T_BookKeeping) == 1
             and CUtil.Payday_GetFrequency(_PlayerID) == self.Config.Payday.Base then
@@ -1178,7 +1192,7 @@ function Stronghold:OverrideWidgetTooltips()
     Overwrite.CreateOverwrite("GUITooltip_Generic", function(_Key)
         local PlayerID = GetLocalPlayerID();
         local EntityID = GUI.GetSelectedEntity();
-        if not IsHumanPlayer(PlayerID) then
+        if not IsPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         local TooltipSet = false;
@@ -1204,7 +1218,7 @@ function Stronghold:OverrideWidgetTooltips()
 
     Overwrite.CreateOverwrite("GUITooltip_ResearchTechnologies", function(_Technology, _TextKey, _ShortCut)
         local PlayerID = GetLocalPlayerID();
-        if not IsHumanPlayer(PlayerID) then
+        if not IsPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         local TooltipSet = false;

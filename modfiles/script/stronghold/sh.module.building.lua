@@ -83,7 +83,7 @@ end
 -- Headquarters
 
 function Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, _Level)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         Stronghold.Players[_PlayerID].TaxHeight = math.min(math.max(_Level +1, 0), 5);
     end
 end
@@ -159,7 +159,7 @@ end
 
 function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsHumanPlayer(PlayerID)
+    if not IsPlayer(PlayerID)
     or Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return;
     end
@@ -484,7 +484,7 @@ end
 function Stronghold.Building:OnMonasterySelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
-    if not IsHumanPlayer(PlayerID)
+    if not IsPlayer(PlayerID)
     or Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
         return;
     end
@@ -584,7 +584,7 @@ end
 function Stronghold.Building:OnAlchemistSelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
-    if not IsHumanPlayer(PlayerID)
+    if not IsPlayer(PlayerID)
     or Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Alchemist then
         return;
     end
@@ -751,7 +751,7 @@ function Stronghold.Building:InitalizeBuyUnitKeybindings()
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _EntityID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
@@ -774,7 +774,7 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _EntityID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
@@ -793,7 +793,7 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _E
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _EntityID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then

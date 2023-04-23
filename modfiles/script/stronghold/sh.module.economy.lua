@@ -206,7 +206,7 @@ end
 -- Income & Upkeep
 
 function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local MaxReputation = self.Config.Income.MaxReputation;
         MaxReputation = GameCallback_SH_Calculate_ReputationMax(_PlayerID, MaxReputation);
         Stronghold:SetPlayerReputationLimit(_PlayerID, MaxReputation);
@@ -285,7 +285,7 @@ end
 -- Reputation is produced by buildings and units.
 -- Reputation can only increase if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Income = 0;
         local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
         if table.getn(WorkerList) > 0 then
@@ -370,7 +370,7 @@ end
 -- provide a farm or house are negative factors.
 -- Reputation can only decrease if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Decrease = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
@@ -413,7 +413,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
 end
 
 function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxtHeight)
-    if Stronghold.Players[_PlayerID] then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local Penalty = 0;
         if _TaxtHeight > 1 then
@@ -429,7 +429,7 @@ end
 -- Honor is influenced by tax, buildings and units.
 -- A player can only gain honor if they have workers and a noble.
 function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Income = 0;
         if GetID(Stronghold.Players[_PlayerID].LordScriptName) ~= 0 then
             local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
@@ -508,7 +508,7 @@ end
 -- Calculate tax income
 -- The tax income is mostly unchanged. A worker pays 5 gold times the tax level.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
         local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
         local PerWorker = self.Config.Income.TaxPerWorker;
@@ -530,7 +530,7 @@ end
 -- The upkeep is not for the leader himself. Soldiers are also incluced in the
 -- calculation. The upkeep decreases if the group looses soldiers.
 function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Upkeep = 0;
         for k, v in pairs(Stronghold.Unit.Config) do
             if type(k) == "number" then
@@ -561,14 +561,14 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
 end
 
 function Stronghold.Economy:AddOneTimeHonor(_PlayerID, _Amount)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Old = self.Data[_PlayerID].IncomeHonorSingle;
         self.Data[_PlayerID].IncomeHonorSingle = Old + _Amount;
     end
 end
 
 function Stronghold.Economy:AddOneTimeReputation(_PlayerID, _Amount)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Old = self.Data[_PlayerID].IncomeReputationSingle;
         self.Data[_PlayerID].IncomeReputationSingle = Old + _Amount;
     end
@@ -578,7 +578,7 @@ end
 -- Measure Points
 
 function Stronghold.Economy:AddPlayerMeasure(_PlayerID, _Amount)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local MeasurePoints = self:GetPlayerMeasure(_PlayerID);
         MeasurePoints = math.max(MeasurePoints + _Amount, 0);
         MeasurePoints = math.min(MeasurePoints, self:GetPlayerMeasureLimit(_PlayerID));
@@ -587,7 +587,7 @@ function Stronghold.Economy:AddPlayerMeasure(_PlayerID, _Amount)
 end
 
 function Stronghold.Economy:GetPlayerMeasure(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         return self.Data[_PlayerID].MeasurePoints;
     end
     return 0;
@@ -598,7 +598,7 @@ function Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID)
 end
 
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local CurrentRank = GetRank(_PlayerID);
         local Motivation = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
@@ -625,7 +625,7 @@ end
 
 function Stronghold.Economy:SetSettlersMotivation(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if IsHumanPlayer(PlayerID) then
+    if IsPlayer(PlayerID) and not IsAIPlayer(PlayerID) then
         -- Restore reputation when workers are all gone
         -- (This will restore the reputation when a worker is created so that
         -- the worker won't leave immedaitly after. Workers won't be created
@@ -735,7 +735,7 @@ function Stronghold.Economy:HonorMenu()
     local Reputation = 100;
     local ReputationLimit = 200;
     local Honor = 0;
-    if IsHumanPlayer(PlayerID) then
+    if IsPlayer(PlayerID) then
         Reputation = Stronghold:GetPlayerReputation(PlayerID);
         ReputationLimit = Stronghold:GetPlayerReputationLimit(PlayerID);
         Honor = Stronghold.Players[PlayerID].Honor;
@@ -815,7 +815,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 
     Overwrite.CreateOverwrite("GUIUpdate_AverageMotivation", function()
         local PlayerID = GetLocalPlayerID();
-        if not IsHumanPlayer(PlayerID) then
+        if not IsPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         XGUIEng.SetMaterialTexture("IconMotivation", 0, "graphics/textures/gui/i_res_arms.png");
@@ -940,7 +940,7 @@ function Stronghold.Economy:CreatePaydayClockTooltipText(_PlayerID)
         ExtGraphic = "data\\graphics\\textures\\gui\\bg_tooltip_top_ext_1080.png";
     end
 
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
             -- Get Text
             local Text = self:FormatExtendedPaydayClockText(_PlayerID);

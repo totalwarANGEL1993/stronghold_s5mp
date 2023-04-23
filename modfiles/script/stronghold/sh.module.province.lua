@@ -329,7 +329,7 @@ end
 function Stronghold.Province:ControlProvince()
     for k,v in pairs(self.Data.Provinces) do
         if v.Owner ~= self.Config.NeutralPlayerID and v.Village ~= nil then
-            if IsHumanPlayer(v.Owner) then
+            if IsPlayer(v.Owner) then
                 if not IsExisting(v.Village) then
                     self:LooseProvince(k, v.Owner);
                 end
@@ -340,7 +340,7 @@ end
 
 function Stronghold.Province:OnPayday(_PlayerID, _Amount)
     local TaxAmount = _Amount;
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         for k,v in pairs(self.Data.Provinces) do
             if v and v.Owner == _PlayerID then
                 if v.Type == ProvinceType.Resource then
@@ -355,7 +355,7 @@ function Stronghold.Province:OnPayday(_PlayerID, _Amount)
 end
 
 function Stronghold.Province:OnBuildingCreated(_BuildingID, _PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         if Logic.IsEntityInCategory(_BuildingID, EntityCategories.VillageCenter) == 1 then
             if Logic.IsConstructionComplete(_BuildingID) == 0 then
                 local VillagePosition = GetPosition(_BuildingID);
@@ -377,7 +377,7 @@ function Stronghold.Province:OnBuildingCreated(_BuildingID, _PlayerID)
 end
 
 function Stronghold.Province:OnBuildingConstructed(_BuildingID, _PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         if Logic.IsEntityInCategory(_BuildingID, EntityCategories.VillageCenter) == 1 then
             local Position = GetPosition(_BuildingID);
             for k,v in pairs(self.Data.Provinces) do
@@ -392,7 +392,7 @@ function Stronghold.Province:OnBuildingConstructed(_BuildingID, _PlayerID)
 end
 
 function Stronghold.Province:OnBuildingUpgraded(_BuildingID, _PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         if Logic.IsEntityInCategory(_BuildingID, EntityCategories.VillageCenter) == 1 then
             local ScriptName = CreateNameForEntity(_BuildingID);
             for k,v in pairs(self.Data.Provinces) do

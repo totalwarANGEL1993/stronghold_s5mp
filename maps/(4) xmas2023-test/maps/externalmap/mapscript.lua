@@ -17,10 +17,10 @@ function OnMapStart()
     ---
 
     SetupStronghold();
-    SetupHumanPlayer(1);
-    SetupHumanPlayer(2);
-    SetupHumanPlayer(3);
-    SetupHumanPlayer(4);
+    SetupPlayer(1);
+    SetupPlayer(2);
+    SetupPlayer(3);
+    SetupPlayer(4);
 
     SetupStrongholdMultiplayerConfig();
 

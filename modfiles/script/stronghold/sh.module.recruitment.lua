@@ -212,7 +212,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
     local AutoFillActive = Logic.IsAutoFillActive(EntityID) == 1;
-    if PlayerID ~= GuiPlayer or not IsHumanPlayer(PlayerID) then
+    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) then
         return false;
     end
     if Stronghold.Players[PlayerID].BuyUnitLock then
@@ -313,7 +313,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = GUI.GetPlayerID();
     local AutoFillActive = Logic.IsAutoFillActive(EntityID) == 1;
-    if PlayerID ~= GuiPlayer or not IsHumanPlayer(PlayerID) then
+    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) then
         return false;
     end
     if Stronghold.Players[PlayerID].BuyUnitLock then
@@ -439,7 +439,7 @@ end
 
 function Stronghold.Recruitment:OnRecruiterSelected(_ButtonsToUpdate, _EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsHumanPlayer(PlayerID) then
+    if not IsPlayer(PlayerID) then
         return;
     end
     for k, v in pairs(_ButtonsToUpdate) do
@@ -660,7 +660,7 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
         Stronghold.Players[_PlayerID].BuyUnitLock = nil;
         return;
     end
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
         if Stronghold.Unit.Config:Get(_Type, _PlayerID) then
             local ScriptName = Logic.GetEntityName(_BarracksID);

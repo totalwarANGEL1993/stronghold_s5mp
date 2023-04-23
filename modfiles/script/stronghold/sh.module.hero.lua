@@ -28,8 +28,7 @@ Stronghold.Hero = {
 
 --- Creates an hero for the player.
 --- 
---- This is supposed to be used when the player has no choice which hero
---- they have to use.
+--- This is supposed to be used when the player has no choice.
 --- @param _PlayerID number ID of player
 --- @param _Type number Entity type
 --- @param _Position any Spawn position
@@ -58,18 +57,6 @@ end
 --- @return boolean HasHero Player has hero of type
 function PlayerHasLordOfType(_PlayerID, _Type)
     return Stronghold.Hero:HasValidLordOfType(_PlayerID, _Type);
-end
-
---- Returns if the player has a hero of the type.
----
---- He hero doesn't need to be the Noble.
---- If the hero is downed then this function returns false.
----
---- @param _PlayerID number ID of player
---- @param _Type number Entity type
---- @return boolean HasHero Player has hero of type
-function PlayerHasHeroOfType(_PlayerID, _Type)
-    return Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type);
 end
 
 --- Changes the name of the hero in the selection screen.
@@ -156,7 +143,7 @@ end
 
 function Stronghold.Hero:OnSelectLeader(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsHumanPlayer(PlayerID) or Logic.IsLeader(_EntityID) == 0 then
+    if not IsPlayer(PlayerID) or Logic.IsLeader(_EntityID) == 0 then
         return;
     end
 
@@ -188,7 +175,7 @@ end
 
 function Stronghold.Hero:OnSelectHero(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsHumanPlayer(PlayerID) or Logic.IsHero(_EntityID) == 0 then
+    if not IsPlayer(PlayerID) or Logic.IsHero(_EntityID) == 0 then
         return;
     end
 
@@ -350,7 +337,7 @@ end
 function Stronghold.Hero:PrintSelectionName()
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
-    if IsHumanPlayer(PlayerID) then
+    if IsPlayer(PlayerID) then
 		if EntityID == GetID(Stronghold.Players[PlayerID].LordScriptName) then
             local Type = Logic.GetEntityType(EntityID);
             local TypeName = Logic.GetEntityTypeName(Type);
@@ -367,7 +354,7 @@ end
 
 function Stronghold.Hero:ConfigureBuyHero()
     Overwrite.CreateOverwrite("GameCallback_Logic_BuyHero_OnHeroSelected", function(_PlayerID, _ID, _Type)
-        if IsHumanPlayer(_PlayerID) then
+        if IsPlayer(_PlayerID) then
             Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type);
             Stronghold.Hero:PlayFunnyComment(_PlayerID);
             Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type);
@@ -377,7 +364,7 @@ function Stronghold.Hero:ConfigureBuyHero()
     end);
 
     Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetHeadline", function(_PlayerID)
-        if IsHumanPlayer(_PlayerID) then
+        if IsPlayer(_PlayerID) then
             local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
             local Caption = (LordID ~= 0 and "Alea Iacta Est!") or "Wählt Euren Adligen!";
             return Caption;
@@ -386,7 +373,7 @@ function Stronghold.Hero:ConfigureBuyHero()
     end);
 
     Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetMessage", function(_PlayerID, _Type)
-        if IsHumanPlayer(_PlayerID) then
+        if IsPlayer(_PlayerID) then
             local Lang = GetLanguage();
             local TypeName = Logic.GetEntityTypeName(_Type);
 
@@ -433,19 +420,25 @@ function Stronghold.Hero:ConfigureBuyHero()
 end
 
 function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
-    if IsHumanPlayer(_PlayerID) then
-        local Position = _Position;
-        if type(Position) ~= "table" then
-            Position = GetPosition(Position);
+    if IsPlayer(_PlayerID) then
+        local ID = 0;
+        local HeroList = self:GetHeroes(_PlayerID);
+        if table.getn(HeroList) > 0 then
+            ID = ReplaceEntity(ID, _Type);
+        else
+            local Position = _Position;
+            if type(Position) ~= "table" then
+                Position = GetPosition(Position);
+            end
+            ID = Logic.CreateEntity(_Type, Position.X, Position.Y, 0, _PlayerID);
         end
-        local ID = Logic.CreateEntity(_Type, Position.X, Position.Y, 0, _PlayerID);
         self:BuyHeroSetupNoble(_PlayerID, ID, _Type, true);
         self:InitSpecialUnits(_PlayerID, _Type);
     end
 end
 
 function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         -- Get motivation cap
         local ExpectedSoftCap = 2;
         local CurrentSoftCap = CUtil.GetPlayersMotivationSoftcap(_PlayerID);
@@ -585,7 +578,7 @@ end
 -- Trigger
 
 function Stronghold.Hero:EntityAttackedController(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             -- Count down and remove
             Stronghold.Players[_PlayerID].AttackMemory[k][1] = v[1] -1;
@@ -623,7 +616,7 @@ function Stronghold.Hero:EntityAttackedController(_PlayerID)
 end
 
 function Stronghold.Hero:HeliasConvertController(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             if Logic.GetEntityType(k) == Entities.PU_Hero6 then
                 if Logic.GetEntityHealth(k) > 0 then
@@ -659,7 +652,7 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
 end
 
 function Stronghold.Hero:VargWolvesController(_PlayerID)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         local WolvesBatteling = 0;
         for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, Entities.CU_Barbarian_Hero_wolf)) do
             local Task = Logic.GetCurrentTaskList(v);
@@ -673,7 +666,7 @@ function Stronghold.Hero:VargWolvesController(_PlayerID)
 end
 
 function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
-    if CMod and IsHumanPlayer(_PlayerID) then
+    if CMod and IsPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             if Logic.GetEntityType(k) == Entities.PU_Hero11 then
                 if Logic.GetEntityHealth(k) > 0 then
@@ -893,21 +886,10 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 end
 
 function Stronghold.Hero:HasValidLordOfType(_PlayerID, _Type)
-    if IsHumanPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
         if self:IsValidHero(LordID, _Type) then
             return true;
-        end
-    end
-    return false;
-end
-
-function Stronghold.Hero:HasValidHeroOfType(_PlayerID, _Type)
-    if IsHumanPlayer(_PlayerID) then
-        for k, HeroID in pairs(self:GetHeroes(_PlayerID)) do
-            if self:IsValidHero(HeroID, _Type) then
-                return true;
-            end
         end
     end
     return false;

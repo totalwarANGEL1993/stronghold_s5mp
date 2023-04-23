@@ -109,7 +109,7 @@ end
 function FormatCostString(_PlayerID, _Costs)
     local Language = GetLanguage();
     local CostString = "";
-    if not IsHumanPlayer(_PlayerID) then
+    if not IsPlayer(_PlayerID) then
         return CostString;
     end
 

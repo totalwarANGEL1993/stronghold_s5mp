@@ -87,7 +87,7 @@ end
 
 function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
     local PlayerID = GetLocalPlayerID();
-    if not IsHumanPlayer(PlayerID) then
+    if not IsPlayer(PlayerID) then
         return false;
     end
     local IsForbidden = false;
@@ -172,7 +172,7 @@ end
 
 function Stronghold.Construction:UpdateSerfUpgradeButtons(_Button, _Technology)
     local PlayerID = GUI.GetPlayerID();
-    if IsHumanPlayer(PlayerID) then
+    if IsPlayer(PlayerID) then
         if not Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology) then
             return self:UpdateBuildingUpgradeButtons(_Button, _Technology);
         end
@@ -185,7 +185,7 @@ end
 
 function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDisabled, _KeyNormal, _Technology)
     local PlayerID = GUI.GetPlayerID();
-    if not IsHumanPlayer(PlayerID) then
+    if not IsPlayer(PlayerID) then
         return false;
     end
     local IsForbidden = false;
@@ -228,7 +228,7 @@ end
 
 function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technology)
     local PlayerID = GUI.GetPlayerID();
-    if IsHumanPlayer(PlayerID) then
+    if IsPlayer(PlayerID) then
         local Disable = false;
         local CheckTechnologies = Stronghold.Construction.Config.TypesToCheckForUpgrade[_Technology] or {};
         local CheckRight = Stronghold.Construction.Config.RightsToCheckForUpgrade[_Technology];
@@ -284,7 +284,7 @@ function Stronghold.Construction:StartCheckTowerDistanceCallback()
         GameCallback_PlaceBuildingAdditionalCheck = function(_Type, _x, _y, _rotation, _isBuildOn)
             local PlayerID = GUI.GetPlayerID();
             local Allowed = true;
-            if IsHumanPlayer(PlayerID) then
+            if IsPlayer(PlayerID) then
                 if Allowed and Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tower then
                     local AreaSize = Stronghold.Construction.Config.TowerDistance;
                     if Stronghold.Construction:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
@@ -352,7 +352,7 @@ end
 
 function Stronghold.Construction:OnSelectSerf(_SelectedID)
     local PlayerID = Logic.EntityGetPlayer(_SelectedID);
-    if not IsHumanPlayer(PlayerID) then
+    if not IsPlayer(PlayerID) then
         return;
     end
     if Logic.GetEntityType(_SelectedID) ~= Entities.PU_Serf then
