@@ -116,7 +116,7 @@
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 
-            <MaxRange>250</MaxRange>
+            <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>
         </Logic>
     </Behavior>

@@ -670,22 +670,25 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             if Logic.GetEntityType(k) == Entities.PU_Hero11 then
                 if Logic.GetEntityHealth(k) > 0 then
-                    local RechargeTime = Logic.HeroGetAbilityRechargeTime(k, Abilities.AbilityShuriken);
-                    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(k, Abilities.AbilityShuriken);
-                    if TimeLeft == RechargeTime then
-                        if math.random(1, self.Config.Hero11.ShurikenMax) <= self.Config.Hero11.ShurikenChance then
-                            local YukiPlayerID = Logic.EntityGetPlayer(k);
-                            local AttackerID = v[2];
-                            if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
-                                AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
-                            end
-                            if Logic.IsSettler(AttackerID) == 1
-                            and Logic.IsHero(AttackerID) == 0
-                            and Logic.GetEntityHealth(AttackerID) > 0
-                            and IsNear(k, AttackerID, 3000) then
-                                SendEvent.HeroShuriken(k, AttackerID);
-                                if GUI.GetPlayerID() == YukiPlayerID then
-                                    Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 0);
+                    local Task = Logic.GetCurrentTaskList(k);
+                    if not Task or not string.find(Task, "_SPECIAL") then
+                        local RechargeTime = Logic.HeroGetAbilityRechargeTime(k, Abilities.AbilityShuriken);
+                        local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(k, Abilities.AbilityShuriken);
+                        if TimeLeft == RechargeTime then
+                            if math.random(1, self.Config.Hero11.ShurikenMax) <= self.Config.Hero11.ShurikenChance then
+                                local YukiPlayerID = Logic.EntityGetPlayer(k);
+                                local AttackerID = v[2];
+                                if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
+                                    AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
+                                end
+                                if Logic.IsSettler(AttackerID) == 1
+                                and Logic.IsHero(AttackerID) == 0
+                                and Logic.GetEntityHealth(AttackerID) > 0
+                                and IsNear(k, AttackerID, 3000) then
+                                    SendEvent.HeroShuriken(k, AttackerID);
+                                    if GUI.GetPlayerID() == YukiPlayerID then
+                                        Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 0);
+                                    end
                                 end
                             end
                         end

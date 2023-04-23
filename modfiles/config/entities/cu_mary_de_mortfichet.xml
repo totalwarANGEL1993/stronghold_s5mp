@@ -113,7 +113,7 @@
             <AffectsOnlyMilitary>true</AffectsOnlyMilitary>
             <Range>1500.0</Range>
             <DurationInSeconds>60</DurationInSeconds>
-            <DamageFactor>0.75</DamageFactor>            <!--0.5-->
+            <DamageFactor>0.1</DamageFactor>            <!--0.5-->
             <Effect>FXMaryDemoralize</Effect>
         </Logic>
     </Behavior>

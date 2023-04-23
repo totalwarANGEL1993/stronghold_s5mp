@@ -69,7 +69,7 @@
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
 
-            <!--SoldierType>CU_BlackKnight_SoldierSword3</SoldierType-->
+            <SoldierType>CU_Evil_LeaderBearman1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_CLAW</BattleTaskList>
 
@@ -134,7 +134,7 @@
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>CU_Evil_Queen_PoisonAttack</Animation>
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>75</DamageAmount>
+            <DamageAmount>100</DamageAmount>
             <Range>1750.0</Range>
             <Effect>FXKalaPoison</Effect>
         </Logic>
