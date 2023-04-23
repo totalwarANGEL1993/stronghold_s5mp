@@ -415,7 +415,7 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
 
     XGUIEng.TransferMaterials("Levy_Duties", "BlessSettlers1");
     XGUIEng.TransferMaterials("Research_Laws", "BlessSettlers2");
-    XGUIEng.TransferMaterials("ForeignButtonRow1_Source3", "BlessSettlers3");
+    XGUIEng.TransferMaterials("Alms_Source", "BlessSettlers3");
     XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "BlessSettlers4");
     XGUIEng.TransferMaterials("Build_Tavern", "BlessSettlers5");
 
