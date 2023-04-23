@@ -153,24 +153,10 @@ function Stronghold.Hero:OnSelectLeader(_EntityID)
     XGUIEng.SetWidgetPosition("Command_Patrol", 106, 4);
     XGUIEng.SetWidgetPosition("Command_Guard", 140, 4);
     XGUIEng.SetWidgetPosition("Formation01", 4, 38);
+
     XGUIEng.ShowWidget("Selection_MilitaryUnit", 1);
-
-    XGUIEng.TransferMaterials("Research_Gilds", "Formation01");
-    XGUIEng.ShowWidget("DetailsGroupStrength", 0);
-    XGUIEng.ShowWidget("DetailsSoldiers", 1);
-    XGUIEng.ShowWidget("DetailsPayAndSlots", 1);
     XGUIEng.ShowWidget("Selection_Leader", 1);
-
-    local ShowFormations = 0;
-    XGUIEng.ShowWidget("Commands_Leader", ShowFormations);
-    for i= 1, 4 do
-        XGUIEng.ShowWidget("Formation0" ..i, 1);
-        if XGUIEng.IsButtonDisabled("Formation0" ..i) == 1 then
-            if Logic.IsTechnologyResearched(PlayerID, Technologies.GT_StandingArmy) == 1 then
-                XGUIEng.DisableButton("Formation0" ..i, 0);
-            end
-        end
-    end
+    XGUIEng.ShowWidget("Commands_Leader", 0);
 end
 
 function Stronghold.Hero:OnSelectHero(_EntityID)
@@ -185,6 +171,7 @@ function Stronghold.Hero:OnSelectHero(_EntityID)
     XGUIEng.SetWidgetPosition("Command_Patrol", 106, 4);
     XGUIEng.SetWidgetPosition("Command_Guard", 140, 4);
     XGUIEng.SetWidgetPosition("Formation01", 404, 4);
+
     XGUIEng.ShowWidget("Formation01", 0);
     XGUIEng.ShowWidget("Formation02", 0);
     XGUIEng.ShowWidget("Formation03", 0);
@@ -742,6 +729,42 @@ function Stronghold.Hero:OverrideHero8AbilityMoralDamage()
 end
 
 function Stronghold.Hero:OverrideDetailsPayAndSlots()
+    GUIUpdate_SelectionGeneric = function()
+        XGUIEng.ShowAllSubWidgets("Details_Generic", 0);
+
+        local EntityID = GUI.GetSelectedEntity();
+        if EntityID == nil then
+            return
+        end
+
+        local CurrentHealth = Logic.GetEntityHealth(EntityID);
+        if CurrentHealth ~= nil then
+            XGUIEng.ShowWidget("DetailsHealth", 1);
+        end
+
+        local Armor = Logic.GetEntityArmor(EntityID);
+        if Armor ~= nil then
+            XGUIEng.ShowWidget("DetailsArmor", 1);
+        end
+
+        local Damage = Logic.GetEntityDamage(EntityID);
+        if Damage ~= nil and Damage ~= 0 then
+            XGUIEng.ShowWidget("DetailsDamage", 1);
+        end
+
+        if  Logic.IsLeader(EntityID) == 1
+        and Logic.IsEntityInCategory(EntityID, EntityCategories.Cannon) == 0
+        and Logic.IsHero(EntityID) == 0 then
+            if 	Logic.GetEntityType(EntityID) ~= Entities.CU_Barbarian_Hero_wolf
+		    and	Logic.GetEntityType(EntityID) ~= Entities.PU_Hero5_Outlaw then
+                XGUIEng.ShowWidget("DetailsExperience", 1);
+            end
+        end
+
+        XGUIEng.ShowWidget("DetailsPayAndSlots", 1);
+        XGUIEng.ShowWidget("DetailsSoldiers", 1);
+    end
+
     GUIUpdate_DetailsSoldiers = function()
         local ID = GUI.GetSelectedEntity();
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(ID);
@@ -769,6 +792,10 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
         else
             XGUIEng.ShowWidget("DetailsPayAndSlots", 0);
         end
+    end
+
+    GUIUpdate_GroupStrength = function()
+        XGUIEng.ShowWidget("DetailsGroupStrength", 0);
     end
 end
 

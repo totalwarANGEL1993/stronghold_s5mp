@@ -556,6 +556,9 @@ function Stronghold:OnEntityCreated()
     end
     if Logic.IsSettler(EntityID) == 1 then
         Stronghold.Hero:ConfigurePlayersHeroPet(EntityID);
+        if GUI.GetPlayerID() == PlayerID then
+            self:OnSelectionMenuChanged(EntityID);
+        end
     end
     Stronghold.Economy:SetSettlersMotivation(EntityID);
     Stronghold.Unit:SetFormationOnCreate(EntityID);
