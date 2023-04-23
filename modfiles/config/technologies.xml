@@ -356,6 +356,9 @@
     <Technology>T_PickAxeStone</Technology>
     <Technology>T_PickAxeSulfur</Technology>
 
+    <!-- Slaves -->
+    <Technology>T_SlavePenny</Technology>
+
     <!-- Free camera -->
     <Technology>T_FreeCamera</Technology>
 </root>

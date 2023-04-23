@@ -163,6 +163,13 @@ function Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
 
         Costs = CopyTable(Config.Costs[1]);
         Costs = CreateCostTable(unpack(Costs));
+
+        if _Type == Entities.PU_Serf then
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SlavePenny) == 1 then
+                Costs[1] = math.floor((Costs[1] * self.Config.SlavePenny.CostsFactor) + 0.5);
+            end
+        end
+
         Costs = Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, Costs);
         if _SoldierAmount and _SoldierAmount > 0 then
             local SoldierCosts = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
@@ -669,6 +676,11 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
             local CostsLeader = self:GetLeaderCosts(_PlayerID, _Type, 0);
             local Places = Config.Places or Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type);
             local Turns = Stronghold.Hero:ApplyRecruitTimePassiveAbility(_PlayerID, _Type, Config.Turns);
+            if _Type == Entities.PU_Serf then
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SlavePenny) == 1 then
+                    Turns = math.floor((Turns * self.Config.SlavePenny.TimeFactor) + 0.5);
+                end
+            end
             self:CreateNewQueueEntry(
                 _PlayerID, _Queue, ScriptName, math.floor(Turns + 0.5), _Type,
                 Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier

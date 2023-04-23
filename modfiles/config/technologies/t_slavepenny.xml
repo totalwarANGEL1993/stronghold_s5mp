@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>30</TimeToResearch>
+    <ResourceCosts>
+        <Gold>400</Gold>
+    </ResourceCosts>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <Conditions>
+    </Conditions>
+</root>

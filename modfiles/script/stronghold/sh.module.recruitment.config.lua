@@ -2,6 +2,11 @@
 --- Config for Recruitment
 --- 
 
+Stronghold.Recruitment.Config.SlavePenny = {
+    CostsFactor = 1.0,
+    TimeFactor = 0.4,
+}
+
 Stronghold.Recruitment.Config.QueueMapping = {
     [Entities.PB_Headquarters1] = {
         "Buy_Serf"
