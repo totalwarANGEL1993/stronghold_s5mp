@@ -40,10 +40,10 @@
             <Category>Tavern</Category>
             <Time>60.0</Time>
             <Cost>
-                <Clay></Clay>
+                <Clay>200</Clay>
                 <Wood/>
-                <Stone>300</Stone>
-                <Gold>500</Gold>
+                <Stone>200</Stone>
+                <Gold>300</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>
@@ -53,10 +53,10 @@
         <ConstructionInfo>
             <Time>90</Time>
             <Cost>
-                <Clay>0</Clay>
+                <Clay>200</Clay>
                 <Wood>300</Wood>
                 <Stone>0</Stone>
-                <Gold>400</Gold>
+                <Gold>200</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>

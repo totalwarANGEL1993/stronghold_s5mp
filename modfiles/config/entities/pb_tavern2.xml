@@ -26,6 +26,7 @@
             <Start>TL_TAVERNBARKEEPER_WORK_START1</Start>
             <Work>TL_TAVERNBARKEEPER_WORK1</Work>
         </WorkTaskList>
+
         <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
