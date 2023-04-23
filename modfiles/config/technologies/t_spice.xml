@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>50</TimeToResearch>
+    <ResourceCosts>
+        <Gold>500</Gold>
+        <Clay/>
+        <Wood>0</Wood>
+        <Stone>0</Stone>
+        <Iron>0</Iron>
+        <Sulfur>400</Sulfur>
+    </ResourceCosts>
+    <AutomaticResearch>true</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <Conditions>
+        <TecCondition>
+            <TecType>T_CropCycle</TecType>
+        </TecCondition>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Farm3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

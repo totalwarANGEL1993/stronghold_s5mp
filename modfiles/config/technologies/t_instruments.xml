@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>50</TimeToResearch>
+    <ResourceCosts>
+        <Gold>500</Gold>
+        <Clay/>
+        <Wood>300</Wood>
+        <Stone>0</Stone>
+        <Iron>300</Iron>
+        <Sulfur/>
+    </ResourceCosts>
+    <AutomaticResearch>true</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <Conditions>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Tavern2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

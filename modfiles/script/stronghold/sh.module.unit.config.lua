@@ -395,7 +395,7 @@ Stronghold.Unit.Config = {
     [Entities.CU_BanditLeaderSword1]        = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {18, 250, 0, 0, 0, 74, 0},
+            [1] = {16, 250, 0, 0, 0, 74, 0},
             [2] = {0, 40, 0, 16, 0, 32, 0},
         },
         Right             = PlayerRight.BanditSword1,

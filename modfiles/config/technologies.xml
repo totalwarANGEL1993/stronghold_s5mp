@@ -359,6 +359,12 @@
     <!-- Slaves -->
     <Technology>T_SlavePenny</Technology>
 
+    <!-- Honor & Reputation -->
+    <Technology>T_Instruments</Technology>
+    <Technology>T_Spice</Technology>
+    <Technology>T_Hearthfire</Technology>
+    <Technology>T_RoomKeys</Technology>
+
     <!-- Free camera -->
     <Technology>T_FreeCamera</Technology>
 </root>
