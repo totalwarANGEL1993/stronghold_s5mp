@@ -1,44 +1,42 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Technologies</TecCategoryType>
-	<TimeToResearch>25</TimeToResearch>
-	<ResourceCosts>
-		  <Gold>100</Gold>
-		  <Clay/>
-		  <Wood>300</Wood>
-		  <Stone/>		
-		  <Iron/>
-		  <Sulfur/>
-	</ResourceCosts>
-	<AutomaticResearch>false</AutomaticResearch>
-	<UseForStatisticsFlag>true</UseForStatisticsFlag>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>25</TimeToResearch>
+    <ResourceCosts>
+        <Gold>100</Gold>
+        <Clay/>
+        <Wood>300</Wood>
+        <Stone/>
+        <Iron/>
+        <Sulfur/>
+    </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
 
-	<DamageModifier>
-		<Value>1.10</Value>
-		<Operation>*</Operation>
-	</DamageModifier>
+    <DamageModifier>
+        <Value>1.10</Value>
+        <Operation>*</Operation>
+    </DamageModifier>
 
     <MaxRangeModifier>
-		<Value>400</Value>
-		<Operation>+</Operation>
-	</MaxRangeModifier>
-	
-	<ExplorationModifier>
-		<Value>4</Value>
-		<Operation>+</Operation>	
-	</ExplorationModifier>
-	
-	<Conditions>
-		  <TecCondition>
-			  <TecType>T_WoodAging</TecType>			
-		</TecCondition>	
-		
-		  <RequiredEntityConditions>1</RequiredEntityConditions>
-	 	
-		
-		
-		  <EntityCondition>
-			  <EntityType>PB_Sawmill2</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-	</Conditions>
+        <Value>400</Value>
+        <Operation>+</Operation>
+    </MaxRangeModifier>
+
+    <ExplorationModifier>
+        <Value>4</Value>
+        <Operation>+</Operation>
+    </ExplorationModifier>
+
+    <Conditions>
+        <TecCondition>
+            <TecType>T_WoodAging</TecType>
+        </TecCondition>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Sawmill2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
 </root>

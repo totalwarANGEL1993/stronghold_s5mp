@@ -86,7 +86,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSettlerMovement</Class>
-            <Speed>380</Speed>
+            <Speed>420</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
         </Logic>

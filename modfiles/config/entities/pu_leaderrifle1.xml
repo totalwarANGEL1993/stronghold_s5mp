@@ -40,12 +40,22 @@
         <ModifyDamage>
             <Technology>T_LeadShot</Technology>
         </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyDamage>
 
         <ModifyExploration>
             <Technology>T_Sights</Technology>
         </ModifyExploration>
+        <ModifyExploration>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyExploration>
+
         <ModifyMaxRange>
             <Technology>T_Sights</Technology>
+        </ModifyMaxRange>
+        <ModifyMaxRange>
+            <Technology>T_BetterTrainingArchery</Technology>
         </ModifyMaxRange>
 
         <ModifySpeed>
@@ -85,7 +95,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>360</Speed>
+            <Speed>350</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>PU_LeaderRifle1_Idle1</MoveIdleAnim>
@@ -119,7 +129,7 @@
             <HitAnim>PU_LeaderRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>40</DamageAmount>
+            <DamageAmount>38</DamageAmount>
             <MaxRandomDamageBonus>10</MaxRandomDamageBonus>
 
 

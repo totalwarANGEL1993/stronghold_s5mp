@@ -43,11 +43,22 @@
         <ModifyExploration>
             <Technology>T_Fletching</Technology>
         </ModifyExploration>
+        <ModifyExploration>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyExploration>
+
         <ModifyMaxRange>
             <Technology>T_Fletching</Technology>
         </ModifyMaxRange>
+        <ModifyMaxRange>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyMaxRange>
+
         <ModifyDamage>
             <Technology>T_BodkinArrow</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingArchery</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -84,7 +95,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>280</Speed>
+            <Speed>350</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>PU_LeaderBow4_Idle1</MoveIdleAnim>
@@ -120,7 +131,7 @@
             <HitAnim>PU_LeaderBow4_Hit</HitAnim>
 
             <DamageClass>DC_Bolt</DamageClass>
-            <DamageAmount>32</DamageAmount>
+            <DamageAmount>29</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

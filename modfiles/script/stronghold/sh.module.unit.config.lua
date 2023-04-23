@@ -440,8 +440,8 @@ Stronghold.Unit.Config = {
     [Entities.CU_Barbarian_LeaderClub1]     = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {24, 124, 0, 60, 0, 40, 0},
-            [2] = {0, 40, 0, 24, 0, 14, 0},
+            [1] = {25, 115, 0, 60, 0, 35, 0},
+            [2] = {0, 30, 0, 20, 0, 15, 0},
         },
         Right             = PlayerRight.Barbarian1,
         IsCivil           = false,

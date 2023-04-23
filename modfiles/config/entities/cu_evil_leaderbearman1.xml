@@ -34,6 +34,7 @@
             <Wood/>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
@@ -49,6 +50,9 @@
         </ModifyDamage>
         <ModifyDamage>
             <Technology>T_Turnery</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingBarracks</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -84,7 +88,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>390</Speed>
+            <Speed>350</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>CU_Evil_LeaderBearman1_Idle1</MoveIdleAnim>
@@ -118,7 +122,7 @@
             <HitAnim>CU_Evil_LeaderBearman1_Hit</HitAnim>
 
             <DamageClass>DC_Evil</DamageClass>
-            <DamageAmount>16</DamageAmount>
+            <DamageAmount>13</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

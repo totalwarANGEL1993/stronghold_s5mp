@@ -32,14 +32,13 @@
             <Wood/>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
@@ -49,6 +48,9 @@
         </ModifyDamage>
         <ModifyDamage>
             <Technology>T_IronCasting</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingBarracks</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -88,7 +90,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>360</Speed>
+            <Speed>320</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>CU_BlackKnight_LeaderMace1_Idle1</MoveIdleAnim>

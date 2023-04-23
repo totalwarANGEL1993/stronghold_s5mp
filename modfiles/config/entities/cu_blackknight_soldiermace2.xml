@@ -34,14 +34,13 @@
             <Wood/>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
@@ -60,6 +59,7 @@
         <Upgrade>
             <Category>BlackKnightSoldierMace1</Category>
         </Upgrade>
+
 
         <Category>Military</Category>
         <Category>Soldier</Category>
@@ -87,7 +87,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>380</Speed>
+            <Speed>320</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>CU_BlackKnight_SoldierMace1_Idle1</MoveIdleAnim>

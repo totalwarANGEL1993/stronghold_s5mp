@@ -34,23 +34,25 @@
             <Wood/>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
 
         <ModifyDamage>
-            <Technology>T_MasterOfSmithery</Technology>
+            <Technology>T_WoodAging</Technology>
         </ModifyDamage>
         <ModifyDamage>
-            <Technology>T_IronCasting</Technology>
+            <Technology>T_Turnery</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingBarracks</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -64,7 +66,7 @@
         <Category>Melee</Category>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>3</ArmorAmount>
         <DodgeChance>10</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -90,7 +92,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>370</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>CU_Barbarian_SoldierClub1_Idle1</MoveIdleAnim>
@@ -120,7 +122,7 @@
 
             <DamageClass>DC_Blunt</DamageClass>
             <DamageAmount>26</DamageAmount>
-            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>10</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

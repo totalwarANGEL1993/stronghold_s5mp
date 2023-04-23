@@ -34,23 +34,22 @@
             <Wood/>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
 
         <ModifyDamage>
-            <Technology>T_MasterOfSmithery</Technology>
+            <Technology>T_WoodAging</Technology>
         </ModifyDamage>
         <ModifyDamage>
-            <Technology>T_IronCasting</Technology>
+            <Technology>T_Turnery</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -59,6 +58,7 @@
         <Upgrade>
             <Category>SoldierBarbarian</Category>
         </Upgrade>
+
 
         <Category>Military</Category>
         <Category>Soldier</Category>
@@ -86,7 +86,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>390</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>CU_Barbarian_SoldierClub1_Idle1</MoveIdleAnim>

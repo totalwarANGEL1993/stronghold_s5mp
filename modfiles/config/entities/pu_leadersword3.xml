@@ -48,6 +48,9 @@
         <ModifyDamage>
             <Technology>T_IronCasting</Technology>
         </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingBarracks</Technology>
+        </ModifyDamage>
 
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
@@ -90,7 +93,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>300</Speed>
+            <Speed>350</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>PU_LeaderSword3_Idle1</MoveIdleAnim>

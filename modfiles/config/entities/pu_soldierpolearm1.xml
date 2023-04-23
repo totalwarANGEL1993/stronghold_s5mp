@@ -34,14 +34,13 @@
             <Wood>20</Wood>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PaddedArcherArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
@@ -56,6 +55,7 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
+
 
         <Category>Military</Category>
         <Category>Soldier</Category>
@@ -87,7 +87,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>370</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>PU_SoldierPoleArm1_Idle1</MoveIdleAnim>

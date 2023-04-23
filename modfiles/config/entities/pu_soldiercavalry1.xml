@@ -57,9 +57,6 @@
             <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
 
-        <!--ModifyDamage>
-        	<Technology>T_Fletching</Technology>
-        </ModifyDamage-->
         <ModifyExploration>
             <Technology>T_Fletching</Technology>
         </ModifyExploration>
@@ -67,6 +64,7 @@
         <ModifyMaxRange>
             <Technology>T_Fletching</Technology>
         </ModifyMaxRange>
+
         <ModifyDamage>
             <Technology>T_BodkinArrow</Technology>
         </ModifyDamage>

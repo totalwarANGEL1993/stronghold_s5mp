@@ -42,24 +42,34 @@
             <Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
 
-        <ModifyMaxRange>
-            <Technology>T_Fletching</Technology>
-        </ModifyMaxRange>
         <ModifyExploration>
             <Technology>T_Fletching</Technology>
         </ModifyExploration>
-        <ModifyMaxRange>
-            <Technology>T_Turnery</Technology>
-        </ModifyMaxRange>
         <ModifyExploration>
             <Technology>T_Turnery</Technology>
         </ModifyExploration>
+        <ModifyExploration>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyExploration>
+
+        <ModifyMaxRange>
+            <Technology>T_Fletching</Technology>
+        </ModifyMaxRange>
+        <ModifyMaxRange>
+            <Technology>T_Turnery</Technology>
+        </ModifyMaxRange>
+        <ModifyMaxRange>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyMaxRange>
 
         <ModifyDamage>
             <Technology>T_WoodAging</Technology>
         </ModifyDamage>
         <ModifyDamage>
             <Technology>T_Turnery</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingArchery</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -99,7 +109,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>390</Speed>
+            <Speed>350</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>CU_Evil_LeaderSkirmisher1_Idle1</MoveIdleAnim>
@@ -133,7 +143,7 @@
             <HitAnim>CU_Evil_LeaderSkirmisher1_Hit</HitAnim>
 
             <DamageClass>DC_Evil</DamageClass>
-            <DamageAmount>12</DamageAmount>
+            <DamageAmount>15</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

@@ -29,14 +29,13 @@
             <Wood>60</Wood>
         </Cost>
 
+
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PaddedArcherArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
@@ -44,12 +43,22 @@
         <ModifyExploration>
             <Technology>T_Fletching</Technology>
         </ModifyExploration>
+        <ModifyExploration>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyExploration>
 
         <ModifyMaxRange>
             <Technology>T_Fletching</Technology>
         </ModifyMaxRange>
+        <ModifyMaxRange>
+            <Technology>T_BetterTrainingArchery</Technology>
+        </ModifyMaxRange>
+
         <ModifyDamage>
             <Technology>T_BodkinArrow</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingArchery</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -122,7 +131,7 @@
             <HitAnim>CU_BanditLeaderBow1_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>20</DamageAmount>
+            <DamageAmount>19</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>

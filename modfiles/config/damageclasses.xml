@@ -51,8 +51,8 @@
     <!-- Any swordman on foot -->
     <DamageClass id="DC_Slash">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.6</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.6</ArmorClassJerkinFactor>
+            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
@@ -69,7 +69,7 @@
             <ArmorClassIronFactor>1.6</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.3</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Heavy cavalry and axe bandits -->
@@ -98,13 +98,13 @@
     </DamageClass>
     <DamageClass id="DC_Siege">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>0.01</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>0.01</ArmorClassJerkinFactor>
+            <ArmorClassNoneFactor>0.05</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>0.05</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>0.01</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.01</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.8</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.01</ArmorClassHeroFactor>            
-            <ArmorClassFurFactor>0.01</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.05</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- All Riflemen -->

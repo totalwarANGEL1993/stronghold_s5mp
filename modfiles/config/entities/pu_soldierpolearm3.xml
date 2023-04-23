@@ -45,12 +45,14 @@
             <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
 
-
         <ModifyDamage>
             <Technology>T_WoodAging</Technology>
         </ModifyDamage>
         <ModifyDamage>
             <Technology>T_Turnery</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingBarracks</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
@@ -88,7 +90,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>330</Speed>
+            <Speed>300</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>PU_SoldierPoleArm3_Idle1</MoveIdleAnim>

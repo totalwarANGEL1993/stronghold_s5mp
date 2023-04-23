@@ -53,6 +53,9 @@
         <ModifyDamage>
             <Technology>T_IronCasting</Technology>
         </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingBarracks</Technology>
+        </ModifyDamage>
 
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
@@ -88,7 +91,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSettlerMovement</Class>
-            <Speed>350</Speed>
+            <Speed>420</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
         </Logic>

@@ -17,7 +17,7 @@
 	</SpeedModifier>
 
     <DamageModifier>
-		<Value>1</Value>
+		<Value>2</Value>
 		<Operation>+</Operation>
 	</DamageModifier>
 

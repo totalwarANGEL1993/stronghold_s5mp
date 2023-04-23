@@ -16,10 +16,19 @@
 		<Operation>*</Operation>
 	</SpeedModifier>
 
+    <DamageModifier>
+		<Value>2</Value>
+		<Operation>+</Operation>
+	</DamageModifier>
+
     <MaxRangeModifier>
-		<Value>100</Value>
+		<Value>200</Value>
 		<Operation>+</Operation>
 	</MaxRangeModifier>
+    <ExplorationModifier>
+		<Value>2</Value>
+		<Operation>+</Operation>	
+	</ExplorationModifier>
 
 	<Conditions>	
 		  <EntityCondition>

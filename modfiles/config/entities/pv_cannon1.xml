@@ -36,9 +36,13 @@
             <Technology>T_BetterChassis</Technology>
         </ModifySpeed>
 
-        <ModifyDamage>
+        <ModifyExploration>
             <Technology>T_EnhancedGunPowder</Technology>
-        </ModifyDamage>
+        </ModifyExploration>
+        <ModifyMaxRange>
+            <Technology>T_EnhancedGunPowder</Technology>
+        </ModifyMaxRange>
+
         <ModifyDamage>
             <Technology>T_BlisteringCannonballs</Technology>
         </ModifyDamage>
@@ -58,7 +62,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>290</Speed>
+            <Speed>370</Speed>
             <RotationSpeed>10</RotationSpeed>
             <MoveTaskList>TL_VEHICLE_DRIVE</MoveTaskList>
         </Logic>
