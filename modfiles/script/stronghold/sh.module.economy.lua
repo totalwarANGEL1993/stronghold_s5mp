@@ -51,6 +51,9 @@
 ---
 --- - <number> GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _CurrentAmount)
 ---   Allows to overwrite the Measrue points income.
+--- 
+--- - <number> GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
+---   Allows to overwrite the Knowledge points income.
 ---
 
 Stronghold = Stronghold or {};
@@ -104,6 +107,7 @@ function Stronghold.Economy:Install()
     self:OverrideResourceCallbacks();
     self:OverrideFindViewUpdate();
     self:OverrideTaxAndPayStatistics();
+    self:OverrideKnowledgeProgressUpdate();
 end
 
 function Stronghold.Economy:OnSaveGameLoaded()
@@ -709,20 +713,21 @@ function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
         -- Add points per working scholar
         local ScholarList = Stronghold:GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
         for i= 1, table.getn(ScholarList) do
-            local ID = self.Data[_PlayerID].WorkerRecord.AtWork[i];
-            if Logic.IsSettlerAtWork(ID) == 1 then
+            if Logic.IsSettlerAtWork(ScholarList[i]) == 1 then
+                local Motivation = Logic.GetSettlersMotivation(ScholarList[i]);
                 local CurrentAmount = self:GetPlayerKnowledgePoints(_PlayerID);
                 local Amount = self.Config.Income.KnowledgePointsPerWorker;
-                if false then
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_BetterStudies) == 1 then
                     Amount = Amount * self.Config.Income.BetterStudiesFactor;
                 end
                 Amount = GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, Amount);
 
+                Amount = Amount * Motivation;
                 self:SetPlayerKnowledgePoints(_PlayerID, CurrentAmount + Amount);
             end
         end
         -- Clear points and add 1 knowledge if produced enough
-        if self:GetPlayerKnowledge(_PlayerID) >= self:GetPlayerKnowledgePointsLimit() then
+        if self:GetPlayerKnowledgePoints(_PlayerID) >= self:GetPlayerKnowledgePointsLimit(_PlayerID) then
             self:SetPlayerKnowledgePoints(_PlayerID, 0);
             self:AddPlayerKnowledge(_PlayerID, 1);
         end
@@ -825,6 +830,16 @@ function Stronghold.Economy:OverrideFindViewUpdate()
         XGUIEng.ShowAllSubWidgets("FindView", 1);
         Stronghold.Economy:HonorMenu();
     end);
+end
+
+function Stronghold.Economy:OverrideKnowledgeProgressUpdate()
+    GUIUpdate_KnowledgeProgress = function()
+        local PlayerID = GetLocalPlayerID();
+        local WidgetID = XGUIEng.GetCurrentWidgetID()
+        local Maximum = GetPlayerMaxKnowledgePoints(PlayerID);
+        local Current = Stronghold.Economy:GetPlayerKnowledgePoints(PlayerID);
+        XGUIEng.SetProgressBarValues(WidgetID, Current, Maximum);
+    end
 end
 
 function Stronghold.Economy:GetLeaderTypesInUpgradeCategories(...)

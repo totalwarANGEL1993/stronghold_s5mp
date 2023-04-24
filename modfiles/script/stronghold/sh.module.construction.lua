@@ -249,7 +249,6 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
             Disable = true;
         end
 
-        
         if Disable then
             XGUIEng.DisableButton(_Button, 1);
             return true;
@@ -345,19 +344,5 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_Archery2, 2);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry1, 9);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry2, 9);
-end
-
--- -------------------------------------------------------------------------- --
--- Serf selection
-
-function Stronghold.Construction:OnSelectSerf(_SelectedID)
-    local PlayerID = Logic.EntityGetPlayer(_SelectedID);
-    if not IsPlayer(PlayerID) then
-        return;
-    end
-    if Logic.GetEntityType(_SelectedID) ~= Entities.PU_Serf then
-        return;
-    end
-    XGUIEng.ShowWidget("Build_University", 0);
 end
 

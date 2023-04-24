@@ -1019,8 +1019,6 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
     self.Building:OnMonasterySelected(SelectedID);
     self.Building:OnAlchemistSelected(SelectedID);
 
-    self.Construction:OnSelectSerf(SelectedID);
-
     self.Hero:OnSelectLeader(SelectedID);
     self.Hero:OnSelectHero(SelectedID);
 
@@ -1250,7 +1248,6 @@ function Stronghold:OverrideWidgetUpdates()
         Stronghold.Rights:OnlineHelpUpdate(PlayerID, _Button, _Technology);
         Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
         Stronghold.Building:OnAlchemistSelected(EntityID);
-        Stronghold.Construction:OnSelectSerf(EntityID);
         Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
     end);
 

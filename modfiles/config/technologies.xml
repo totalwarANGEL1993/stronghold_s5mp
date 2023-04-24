@@ -365,6 +365,9 @@
     <Technology>T_Hearthfire</Technology>
     <Technology>T_RoomKeys</Technology>
 
+    <!-- University -->
+    <Technology>T_BetterStudies</Technology>
+
     <!-- Free camera -->
     <Technology>T_FreeCamera</Technology>
 </root>

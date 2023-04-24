@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+	<TecCategoryType>TC_Administration</TecCategoryType>
+	<TimeToResearch>80</TimeToResearch>
+	<ResourceCosts>
+		<Gold>500</Gold>
+		<Clay/>
+		<Wood>300</Wood>
+		<Stone/>
+		<Iron>0</Iron>
+		<Sulfur/>
+	</ResourceCosts>
+	<!-- <AutomaticResearch>false</AutomaticResearch>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
+	<AutomaticResearch>true</AutomaticResearch>
+	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+	<Conditions>
+		<EntityCondition>
+			<EntityType>PB_University2</EntityType>
+			<Amount>1</Amount>
+		</EntityCondition>
+	</Conditions>
+</root>
