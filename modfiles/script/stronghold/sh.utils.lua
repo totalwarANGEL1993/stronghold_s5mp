@@ -84,11 +84,12 @@ end
 -- -------------------------------------------------------------------------- --
 -- UI Tools
 
-function HasPlayerEnoughResourcesFeedback(_Costs)
+InterfaceTool_HasPlayerEnoughResources_Feedback_OrigStronghold = InterfaceTool_HasPlayerEnoughResources_Feedback;
+InterfaceTool_HasPlayerEnoughResources_Feedback = function(_Costs)
     local Language = GetLanguage();
     local PlayerID = GetLocalPlayerID();
     if not Stronghold.Players[PlayerID] then
-        return InterfaceTool_HasPlayerEnoughResources_Feedback(_Costs) == 1;
+        return InterfaceTool_HasPlayerEnoughResources_Feedback_OrigStronghold(_Costs);
     end
 
     local CanBuy = true;
@@ -102,7 +103,7 @@ function HasPlayerEnoughResourcesFeedback(_Costs)
             _Costs[ResourceType.Honor] - Honor
         ));
 	end
-    CanBuy = InterfaceTool_HasPlayerEnoughResources_Feedback(_Costs) == 1 and CanBuy;
+    CanBuy = InterfaceTool_HasPlayerEnoughResources_Feedback_OrigStronghold(_Costs) == 1 and CanBuy;
     return CanBuy == true;
 end
 
@@ -114,6 +115,7 @@ function FormatCostString(_PlayerID, _Costs)
     end
 
 	local Honor     = GetHonor(_PlayerID);
+	local Knowledge = GetKnowledge(_PlayerID);
 	local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
 	local Gold      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Gold);
     local ClayRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw);
@@ -137,6 +139,14 @@ function FormatCostString(_PlayerID, _Costs)
             CostString = CostString .. ColRed;
         end
         CostString = CostString.. " " .._Costs[ResourceType.Honor];
+    end
+    if _Costs[ResourceType.Knowledge] ~= nil then
+		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
+        CostString = CostString .. ColWhite.. ((Language == "de" and " Wissen:") or " Grasp:");
+        if Knowledge < _Costs[ResourceType.Knowledge] then
+            CostString = CostString .. ColRed;
+        end
+        CostString = CostString.. " " .._Costs[ResourceType.Knowledge];
     end
     if _Costs[ResourceType.Gold] ~= nil then
 		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
@@ -198,6 +208,10 @@ function MergeCostTable(_Costs1, _Costs2)
     if _Costs2[ResourceType.Honor] ~= nil and _Costs2[ResourceType.Honor] > 0 then
         Costs[ResourceType.Honor] = (_Costs1[ResourceType.Honor] or 0) + _Costs2[ResourceType.Honor];
     end
+    Costs[ResourceType.Knowledge] = _Costs1[ResourceType.Knowledge];
+    if _Costs2[ResourceType.Knowledge] ~= nil and _Costs2[ResourceType.Knowledge] > 0 then
+        Costs[ResourceType.Knowledge] = (_Costs1[ResourceType.Knowledge] or 0) + _Costs2[ResourceType.Knowledge];
+    end
     Costs[ResourceType.Gold] = _Costs1[ResourceType.Gold];
     if _Costs2[ResourceType.Gold] ~= nil and _Costs2[ResourceType.Gold] > 0 then
         Costs[ResourceType.Gold] = (_Costs1[ResourceType.Gold] or 0) + _Costs2[ResourceType.Gold];
@@ -225,10 +239,13 @@ function MergeCostTable(_Costs1, _Costs2)
     return Costs
 end
 
-function CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur)
+function CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur, _Knowledge)
     local Costs = {};
     if _Honor ~= nil and _Honor > 0 then
         Costs[ResourceType.Honor] = _Honor;
+    end
+    if _Knowledge ~= nil and _Knowledge > 0 then
+        Costs[ResourceType.Knowledge] = _Knowledge;
     end
     if _Gold ~= nil and _Gold > 0 then
         Costs[ResourceType.Gold] = _Gold;
@@ -254,6 +271,7 @@ end
 function HasEnoughResources(_PlayerID, _Costs)
     if Stronghold:GetPlayer(_PlayerID) then
         local Honor     = GetHonor(_PlayerID);
+        local Knowledge = GetKnowledge(_PlayerID);
         local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
         local Gold      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Gold);
         local ClayRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw);
@@ -268,6 +286,9 @@ function HasEnoughResources(_PlayerID, _Costs)
         local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
 
         if _Costs[ResourceType.Honor] ~= nil and Honor < _Costs[ResourceType.Honor] then
+            return false;
+        end
+        if _Costs[ResourceType.Knowledge] ~= nil and Knowledge < _Costs[ResourceType.Knowledge] then
             return false;
         end
         if _Costs[ResourceType.Gold] ~= nil and Gold+GoldRaw < _Costs[ResourceType.Gold] then
@@ -297,6 +318,9 @@ function AddResourcesToPlayer(_PlayerID, _Resources)
         if _Resources[ResourceType.Honor] ~= nil then
             AddHonor(_PlayerID, _Resources[ResourceType.Honor]);
         end
+        if _Resources[ResourceType.Knowledge] ~= nil then
+            AddKnowledge(_PlayerID, _Resources[ResourceType.Knowledge]);
+        end
         if _Resources[ResourceType.Gold] ~= nil then
             AddGold(_PlayerID, _Resources[ResourceType.Gold] or _Resources[ResourceType.GoldRaw]);
         end
@@ -321,6 +345,7 @@ end
 function RemoveResourcesFromPlayer(_PlayerID, _Costs)
     if Stronghold:GetPlayer(_PlayerID) then
         local Honor     = GetHonor(_PlayerID);
+        local Knowledge = GetKnowledge(_PlayerID);
         local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
         local Gold      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Gold);
         local ClayRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw);
@@ -334,10 +359,15 @@ function RemoveResourcesFromPlayer(_PlayerID, _Costs)
         local SulfurRaw = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.SulfurRaw);
         local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
 
-        -- Silver cost
+        -- Honor cost
         if  _Costs[ResourceType.Honor] ~= nil and _Costs[ResourceType.Honor] > 0
         and Honor >= _Costs[ResourceType.Honor] then
             AddHonor(_PlayerID, _Costs[ResourceType.Honor] * (-1));
+        end
+        -- Knowledge cost
+        if  _Costs[ResourceType.Knowledge] ~= nil and _Costs[ResourceType.Knowledge] > 0
+        and Knowledge >= _Costs[ResourceType.Knowledge] then
+            AddKnowledge(_PlayerID, _Costs[ResourceType.Knowledge] * (-1));
         end
         -- Gold cost
         if  _Costs[ResourceType.Gold] ~= nil and _Costs[ResourceType.Gold] > 0

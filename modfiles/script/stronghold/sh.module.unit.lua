@@ -154,7 +154,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
 
     local Type = Logic.GetEntityType(EntityID);
     local Costs = Stronghold.Recruitment:GetSoldierCostsByLeaderType(PlayerID, Type, BuyAmount);
-    if not HasPlayerEnoughResourcesFeedback(Costs) then
+    if not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
         return true;
     end
 

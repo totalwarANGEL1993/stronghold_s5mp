@@ -27,11 +27,11 @@ Stronghold.Rights.Config = {
             Duties = {},
             Rights = {
                 -- DO NOT MOVE THIS!!! --
-                PlayerRight.MeasureLevyTax,
-                PlayerRight.MeasureLawAndOrder,
-                PlayerRight.MeasureWelcomeCulture,
-                PlayerRight.MeasureFolkloreFeast,
-                PlayerRight.MeasureOrgy,
+                PlayerRight.MeasrueLevyTax,
+                PlayerRight.MeasrueLawAndOrder,
+                PlayerRight.MeasrueWelcomeCulture,
+                PlayerRight.MeasrueFolkloreFeast,
+                PlayerRight.MeasrueOrgy,
                 PlayerRight.House,
                 PlayerRight.Farm,
                 PlayerRight.ClayPit,

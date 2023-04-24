@@ -251,7 +251,7 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
-            if not Modifier and not HasPlayerEnoughResourcesFeedback(Costs) then
+            if not Modifier and not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
                 return true;
             end
 
@@ -341,7 +341,7 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
                 return true;
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
-            if not Modifier and not HasPlayerEnoughResourcesFeedback(Costs) then
+            if not Modifier and not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
                 return true;
             end
             Stronghold.Players[PlayerID].BuyUnitLock = true;

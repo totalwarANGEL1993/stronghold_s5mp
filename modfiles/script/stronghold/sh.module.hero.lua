@@ -902,9 +902,9 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Social --
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MeasureIncrease", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MeasrueIncrease", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyMeasruePointsPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1162,11 +1162,11 @@ function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type,
     return Upkeep;
 end
 
--- Passive Ability: Generating measure points
-function Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, _Value)
+-- Passive Ability: Generating Measrue points
+function Stronghold.Hero:ApplyMeasruePointsPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
-        Value = Value * self.Config.Hero1.MeasureFactor;
+        Value = Value * self.Config.Hero1.MeasrueFactor;
     end
     return Value;
 end

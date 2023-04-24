@@ -49,8 +49,8 @@
 --- - <number> GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _CurrentAmount)
 ---   Allows to overwite the upkeep of a unit type.
 ---
---- - <number> GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount)
----   Allows to overwrite the measure points income.
+--- - <number> GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _CurrentAmount)
+---   Allows to overwrite the Measrue points income.
 ---
 
 Stronghold = Stronghold or {};
@@ -66,7 +66,8 @@ function Stronghold.Economy:Install()
         CUtil.AddToPlayersMotivationSoftcap(i, 1);
 
         self.Data[i] = {
-            MeasurePoints = 0,
+            MeasruePoints = 0,
+            KnowledgePoints = 0,
 
             IncomeMoney = 0,
             UpkeepMoney = 0,
@@ -116,19 +117,34 @@ function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
     return Stronghold.Economy.Config.Income.Dynamic[_Type];
 end
 
---- Gives measure points to the player.
+--- Gives measrue points to the player.
 function AddPlayerMeasrue(_PlayerID, _Amount)
-    Stronghold.Economy:AddPlayerMeasure(_PlayerID, _Amount)
+    Stronghold.Economy:AddPlayerMeasruePoints(_PlayerID, _Amount)
 end
 
---- Returns the measure points of the player.
+--- Returns the measrue points of the player.
 function GetPlayerMeasrue(_PlayerID)
-    return Stronghold.Economy:GetPlayerMeasure(_PlayerID);
+    return Stronghold.Economy:GetPlayerMeasruePoints(_PlayerID);
 end
 
---- Returns the max measure points of the player.
-function GetPlayerMaxMeasrue(_PlayerID)
-    return Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID);
+--- Returns the max measrue points of the player.
+function GetPlayerMaxMeasruePoints(_PlayerID)
+    return Stronghold.Economy:GetPlayerMeasruePointsPointsLimit(_PlayerID);
+end
+
+--- Gives knowledge to the player.
+function AddKnowledge(_PlayerID, _Amount)
+    Stronghold.Economy:AddPlayerKnowledge(_PlayerID, _Amount)
+end
+
+-- Returns the knowledge of the player.
+function GetKnowledge(_PlayerID)
+    return Stronghold.Economy:GetPlayerKnowledge(_PlayerID);
+end
+
+--- Returns the max knowledge points of the player.
+function GetPlayerMaxKnowledgePoints(_PlayerID)
+    return Stronghold.Economy:GetPlayerKnowledgePointsLimit(_PlayerID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -190,7 +206,7 @@ function GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _Amount)
     return _Amount;
 end
 
-function GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
@@ -199,6 +215,10 @@ function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _Resour
 end
 
 function GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
+    return _Amount;
+end
+
+function GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
@@ -604,36 +624,36 @@ function Stronghold.Economy:AddOneTimeReputation(_PlayerID, _Amount)
 end
 
 -- -------------------------------------------------------------------------- --
--- Measure Points
+-- Measrue Points
 
-function Stronghold.Economy:AddPlayerMeasure(_PlayerID, _Amount)
+function Stronghold.Economy:AddPlayerMeasruePoints(_PlayerID, _Amount)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local MeasurePoints = self:GetPlayerMeasure(_PlayerID);
-        MeasurePoints = math.max(MeasurePoints + _Amount, 0);
-        MeasurePoints = math.min(MeasurePoints, self:GetPlayerMeasureLimit(_PlayerID));
-        self.Data[_PlayerID].MeasurePoints = MeasurePoints;
+        local MeasruePoints = self:GetPlayerMeasruePoints(_PlayerID);
+        MeasruePoints = math.max(MeasruePoints + _Amount, 0);
+        MeasruePoints = math.min(MeasruePoints, self:GetPlayerMeasruePointsPointsLimit(_PlayerID));
+        self.Data[_PlayerID].MeasruePoints = MeasruePoints;
     end
 end
 
-function Stronghold.Economy:GetPlayerMeasure(_PlayerID)
+function Stronghold.Economy:GetPlayerMeasruePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        return self.Data[_PlayerID].MeasurePoints;
+        return self.Data[_PlayerID].MeasruePoints;
     end
     return 0;
 end
 
-function Stronghold.Economy:GetPlayerMeasureLimit(_PlayerID)
-    return self.Config.Income.MaxMeasurePoints;
+function Stronghold.Economy:GetPlayerMeasruePointsPointsLimit(_PlayerID)
+    return self.Config.Income.MaxMeasruePoints;
 end
 
-function Stronghold.Economy:GainMeasurePoints(_PlayerID)
+function Stronghold.Economy:GainMeasruePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local CurrentRank = GetRank(_PlayerID);
         local Motivation = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-        local MeasurePoints = 15;
+        local MeasruePoints = 15;
         if WorkerCount == 0 then
-            MeasurePoints = 0;
+            MeasruePoints = 0;
         else
             local RankFactor = 1.0 + (0.1 * CurrentRank);
             -- FIXME: Does average motivation still work even if the motivation
@@ -642,10 +662,70 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
                 Motivation = Motivation + Logic.GetSettlersMotivation(v);
             end
             Motivation = Motivation / WorkerCount;
-            MeasurePoints = (MeasurePoints * Motivation) * RankFactor;
+            MeasruePoints = (MeasruePoints * Motivation) * RankFactor;
         end
-        MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
-        self:AddPlayerMeasure(_PlayerID, MeasurePoints);
+        MeasruePoints = GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, MeasruePoints);
+        self:AddPlayerMeasruePoints(_PlayerID, MeasruePoints);
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Knowledge Points
+
+function Stronghold.Economy:AddPlayerKnowledge(_PlayerID, _Amount)
+    if _Amount > 0 then
+        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Knowledge, _Amount);
+    elseif _Amount < 0 then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Knowledge, _Amount);
+    end
+end
+
+function Stronghold.Economy:GetPlayerKnowledge(_PlayerID)
+    return Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Knowledge);
+end
+
+function Stronghold.Economy:SetPlayerKnowledgePoints(_PlayerID, _Amount)
+    if IsPlayer(_PlayerID) then
+        local Knowledge = _Amount;
+        Knowledge = math.max(Knowledge + _Amount, 0);
+        Knowledge = math.min(Knowledge, self:GetPlayerKnowledgePointsLimit());
+        self.Data[_PlayerID].KnowledgePoints = _Amount;
+    end
+end
+
+function Stronghold.Economy:GetPlayerKnowledgePoints(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].KnowledgePoints;
+    end
+    return 0;
+end
+
+function Stronghold.Economy:GetPlayerKnowledgePointsLimit(_PlayerID)
+    return self.Config.Income.MaxKnowledgePoints;
+end
+
+function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        -- Add points per working scholar
+        local ScholarList = Stronghold:GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
+        for i= 1, table.getn(ScholarList) do
+            local ID = self.Data[_PlayerID].WorkerRecord.AtWork[i];
+            if Logic.IsSettlerAtWork(ID) == 1 then
+                local CurrentAmount = self:GetPlayerKnowledgePoints(_PlayerID);
+                local Amount = self.Config.Income.KnowledgePointsPerWorker;
+                if false then
+                    Amount = Amount * self.Config.Income.BetterStudiesFactor;
+                end
+                Amount = GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, Amount);
+
+                self:SetPlayerKnowledgePoints(_PlayerID, CurrentAmount + Amount);
+            end
+        end
+        -- Clear points and add 1 knowledge if produced enough
+        if self:GetPlayerKnowledge(_PlayerID) >= self:GetPlayerKnowledgePointsLimit() then
+            self:SetPlayerKnowledgePoints(_PlayerID, 0);
+            self:AddPlayerKnowledge(_PlayerID, 1);
+        end
     end
 end
 

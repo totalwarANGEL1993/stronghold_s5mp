@@ -532,7 +532,8 @@ function Stronghold:OnEveryTurn()
     Stronghold.Attraction:ManageCriminalsOfPlayer(PlayerID);
     Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
     Stronghold.Economy:UpdateIncomeAndUpkeep(PlayerID);
-    Stronghold.Economy:GainMeasurePoints(PlayerID);
+    Stronghold.Economy:GainMeasruePoints(PlayerID);
+    Stronghold.Economy:GainKnowledgePoints(PlayerID);
     Stronghold.Hero:VargWolvesController(PlayerID);
 end
 
