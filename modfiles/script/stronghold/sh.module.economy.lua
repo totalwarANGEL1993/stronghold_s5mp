@@ -861,7 +861,7 @@ function Stronghold.Economy:HonorMenu()
     local IconOffset = 0;
     if ScreenSize[2] >= 960 then
         TextOffset = TextOffset + 4;
-        IconOffset = IconOffset - 3;
+        IconOffset = IconOffset - 2;
     end
 
     local Reputation = GetReputation(PlayerID);
@@ -886,14 +886,14 @@ function Stronghold.Economy:HonorMenu()
     XGUIEng.ShowWidget("GCWIcon2", 1);
 	XGUIEng.ShowWidget("GCWText2", 1);
     XGUIEng.SetWidgetPositionAndSize("GCWIcon2", 70, 25 + IconOffset, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText2", 85, 15 + TextOffset, 40, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText2", 85, 15 + TextOffset, 35, 18);
     XGUIEng.SetText("GCWText2", " @ra " ..Knowledge);
 
     -- Honor
     XGUIEng.ShowWidget("GCWIcon3", 1);
 	XGUIEng.ShowWidget("GCWText3", 1);
     XGUIEng.SetWidgetPositionAndSize("GCWIcon3", 0, 9 + IconOffset, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText3", 20, 1 + TextOffset, 105, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText3", 20, 1 + TextOffset, 100, 18);
     XGUIEng.SetText("GCWText3", " @ra " ..Honor);
 
     -- Pause color
