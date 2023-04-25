@@ -104,6 +104,7 @@ function Stronghold.Economy:Install()
         };
     end
 
+    self:HonorMenuInit();
     self:OverrideResourceCallbacks();
     self:OverrideFindViewUpdate();
     self:OverrideTaxAndPayStatistics();
@@ -111,6 +112,7 @@ function Stronghold.Economy:Install()
 end
 
 function Stronghold.Economy:OnSaveGameLoaded()
+    self:HonorMenuInit();
 end
 
 function Stronghold.Economy:GetStaticTypeConfiguration(_Type)
@@ -831,7 +833,7 @@ function Stronghold.Economy:OverrideFindViewUpdate()
         end
         XGUIEng.ShowWidget("FindView", 1);
         XGUIEng.ShowAllSubWidgets("FindView", 1);
-        Stronghold.Economy:HonorMenu();
+        Stronghold.Economy:HonorMenuUpdate();
     end);
 end
 
@@ -856,49 +858,66 @@ function Stronghold.Economy:GetLeaderTypesInUpgradeCategories(...)
     return Result;
 end
 
-function Stronghold.Economy:HonorMenu()
-    local PlayerID = GetLocalPlayerID();
-
+function Stronghold.Economy:HonorMenuInit()
     local ScreenSize = {GUI.GetScreenSize()}
-    local TextOffset = 0;
-    local IconOffset = 0;
+    local TextPos = {0, 1};
+    local TextWidth = {0, 0};
     if ScreenSize[2] >= 960 then
-        TextOffset = TextOffset + 4;
-        IconOffset = IconOffset - 2;
+        TextWidth[1] = TextWidth[1] - 2;
+        TextWidth[2] = TextWidth[2] + 0;
+        TextPos[1] = TextPos[1] + 0;
+        TextPos[2] = TextPos[2] + 2;
+    end
+    if ScreenSize[2] >= 1080 then
+        TextWidth[1] = TextWidth[1] - 2;
+        TextWidth[2] = TextWidth[2] + 0;
+        TextPos[1] = TextPos[1] + 0;
+        TextPos[2] = TextPos[2] + 3;
     end
 
+	XGUIEng.ShowWidget("GCWindow", 1);
+    XGUIEng.SetWidgetPositionAndSize("GCWindow", 868, 0, 156, 50);
+    XGUIEng.SetWidgetPositionAndSize("GCWindowNew", 0, 0, 0, 0);
+	XGUIEng.ShowAllSubWidgets("GCWindow", 0);
+
+    -- Reputation
+	XGUIEng.ShowWidget("GCWIcon1", 1);
+	XGUIEng.ShowWidget("GCWText1", 1);
+	XGUIEng.ShowWidget("GCWTooltip1", 1);
+    XGUIEng.SetWidgetPositionAndSize("GCWTooltip1", 0, 26, 58, 13);
+    XGUIEng.SetWidgetPositionAndSize("GCWIcon1", 0, 24, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText1", 28 + TextPos[1], 24 + TextPos[2], 35 + TextWidth[1], 18 + TextWidth[2]);
+
+    -- Knowledge
+    XGUIEng.ShowWidget("GCWIcon2", 1);
+	XGUIEng.ShowWidget("GCWText2", 1);
+	XGUIEng.ShowWidget("GCWTooltip2", 1);
+    XGUIEng.SetWidgetPositionAndSize("GCWTooltip2", 70, 26, 53, 13);
+    XGUIEng.SetWidgetPositionAndSize("GCWIcon2", 70, 24, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText2", 84 + TextPos[1], 24 + TextPos[2], 26 + TextWidth[1], 18 + TextWidth[2]);
+
+    -- Honor
+    XGUIEng.ShowWidget("GCWIcon3", 1);
+	XGUIEng.ShowWidget("GCWText3", 1);
+	XGUIEng.ShowWidget("GCWTooltip3", 1);
+    XGUIEng.SetWidgetPositionAndSize("GCWTooltip3", 0, 9, 118, 24);
+    XGUIEng.SetWidgetPositionAndSize("GCWIcon3", 0, 9, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText3", 18 + TextPos[1], 9 + TextPos[2], 91 + TextWidth[1], 18 + TextWidth[2]);
+end
+
+function Stronghold.Economy:HonorMenuUpdate()
+    local PlayerID = GetLocalPlayerID();
     local Reputation = GetReputation(PlayerID);
     local ReputationLimit = GetMaxReputation(PlayerID);
     local Honor = GetHonor(PlayerID);
     local Knowledge = GetKnowledge(PlayerID);
 
-	XGUIEng.ShowWidget("GCWindow", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWindow", 868, 0, 156, 50);
-	XGUIEng.ShowAllSubWidgets("GCWindow", 0);
-	XGUIEng.ShowWidget("GCWindowNew", 1);
-	XGUIEng.ShowAllSubWidgets("GCWindowNew", 0);
-
     -- Reputation
-	XGUIEng.ShowWidget("GCWIcon1", 1);
-	XGUIEng.ShowWidget("GCWText1", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon1", 0, 25 + IconOffset, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText1", 30, 15 + TextOffset, 40, 18);
     XGUIEng.SetText("GCWText1", " @ra " ..Reputation.. "/" ..ReputationLimit);
-
     -- Knowledge
-    XGUIEng.ShowWidget("GCWIcon2", 1);
-	XGUIEng.ShowWidget("GCWText2", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon2", 70, 25 + IconOffset, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText2", 85, 15 + TextOffset, 35, 18);
     XGUIEng.SetText("GCWText2", " @ra " ..Knowledge);
-
     -- Honor
-    XGUIEng.ShowWidget("GCWIcon3", 1);
-	XGUIEng.ShowWidget("GCWText3", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon3", 0, 9 + IconOffset, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText3", 20, 1 + TextOffset, 100, 18);
     XGUIEng.SetText("GCWText3", " @ra " ..Honor);
-
     -- Pause color
     for i= 1, 4 do
         XGUIEng.SetMaterialColor("GCWIcon" ..i, 1, 255, 255, 255, 255);
