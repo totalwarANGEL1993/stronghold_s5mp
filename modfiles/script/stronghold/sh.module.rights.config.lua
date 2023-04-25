@@ -39,7 +39,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.StonePit,
                 PlayerRight.SulfurPit,
                 PlayerRight.Highschool,
-                PlayerRight.University,
                 PlayerRight.VillageCenter,
                 -- DO NOT MOVE THIS!!! --
 
@@ -161,6 +160,7 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Beautification, 1, 12},
             },
             Rights = {
+                PlayerRight.University,
                 PlayerRight.TownCenter,
                 PlayerRight.Cathedral,
                 PlayerRight.Brickworks,
