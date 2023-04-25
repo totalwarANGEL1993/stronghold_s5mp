@@ -561,7 +561,8 @@ function Stronghold.Economy:CalculateHonorIncomeTechnologyBonus(_PlayerID, _Buil
 end
 
 -- Calculate tax income
--- The tax income is mostly unchanged. A worker pays 5 gold times the tax level.
+-- The tax income is mostly unchanged. A worker pays 6 gold times the tax level.
+-- If scale is researched, then taxes are increased by 5%.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
