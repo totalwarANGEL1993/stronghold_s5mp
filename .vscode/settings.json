@@ -234,7 +234,8 @@
         "ShowStrongholdConfiguration",
         "gvKeyBindings_GameClockFlag",
         "CEntityIterator",
-        "FreeCam"
+        "FreeCam",
+        "GetGold"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

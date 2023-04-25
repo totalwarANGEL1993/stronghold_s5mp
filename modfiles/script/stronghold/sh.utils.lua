@@ -4,6 +4,10 @@
 --- This script contains comforts specific to Stronghold.
 --- 
 
+Stronghold = Stronghold or {};
+
+Stronghold.Utils = {};
+
 -- -------------------------------------------------------------------------- --
 -- Find trees
 -- (Limited to 16 per type but Vanilla compatible)
@@ -84,35 +88,129 @@ end
 -- -------------------------------------------------------------------------- --
 -- UI Tools
 
-InterfaceTool_HasPlayerEnoughResources_Feedback_OrigStronghold = InterfaceTool_HasPlayerEnoughResources_Feedback;
-InterfaceTool_HasPlayerEnoughResources_Feedback = function(_Costs)
-    local Language = GetLanguage();
-    local PlayerID = GetLocalPlayerID();
-    if not Stronghold.Players[PlayerID] then
-        return InterfaceTool_HasPlayerEnoughResources_Feedback_OrigStronghold(_Costs);
+function Stronghold.Utils:OverwriteInterfaceTools()
+    InterfaceTool_HasPlayerEnoughResources_Feedback = function(_Costs)
+        local PlayerID = GetLocalPlayerID();
+        return HasPlayerEnoughResourcesFeedback(PlayerID, _Costs);
     end
 
-    local CanBuy = true;
-	local Honor = GetHonor(PlayerID);
-    if _Costs[ResourceType.Honor] ~= nil and _Costs[ResourceType.Honor] - Honor > 0 then
-		CanBuy = false;
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_INFO_NotEnough, 100);
-		GUI.AddNote(string.format(
-            (Language == "de" and "%d Ehre muss noch erlangt werden.") or
-            "%d honor must first be aquired.",
+    InterfaceTool_CreateCostString = function(_Costs)
+        local PlayerID = GUI.GetPlayerID();
+        return FormatCostString(PlayerID, _Costs);
+    end
+end
+
+function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
+    local MsgString = ""
+
+    local Honor     = GetHonor(_PlayerID);
+    local Knowledge = GetKnowledge(_PlayerID);
+    local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
+	local Gold      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Gold);
+    local ClayRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw);
+    local Clay      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Clay);
+	local WoodRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw);
+	local Wood      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Wood);
+	local IronRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.IronRaw);
+	local Iron      = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Iron);
+	local StoneRaw  = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.StoneRaw);
+	local Stone     = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Stone);
+    local SulfurRaw = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.SulfurRaw);
+    local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
+
+    if _Costs[ResourceType.Honor] ~= nil
+	and _Costs[ResourceType.Honor] ~= 0
+    and _Costs[ResourceType.Honor] - Honor > 0 then
+        MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughHonor"),
             _Costs[ResourceType.Honor] - Honor
-        ));
+        );
+		GUI.AddNote(MsgString);
+        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_INFO_NotEnough, 100);
+    end
+
+    if _Costs[ResourceType.Knowledge] ~= nil
+	and _Costs[ResourceType.Knowledge] ~= 0
+    and _Costs[ResourceType.Knowledge] - Knowledge > 0 then
+        MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughKnowledge"),
+            _Costs[ResourceType.Knowledge] - Knowledge
+        );
+		GUI.AddNote(MsgString);
+        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_INFO_NotEnough, 100);
+    end
+
+	if 	_Costs[ResourceType.Sulfur] ~= nil
+	and _Costs[ResourceType.Sulfur] ~= 0
+    and (Sulfur+SulfurRaw) < _Costs[ResourceType.Sulfur] then
+		MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughSulfur"),
+            _Costs[ResourceType.Sulfur] - (Sulfur+SulfurRaw)
+        );
+		GUI.AddNote(MsgString);
+		GUI.SendNotEnoughResourcesFeedbackEvent(ResourceType.Sulfur, _Costs[ResourceType.Sulfur] - (Sulfur+SulfurRaw));
 	end
-    CanBuy = InterfaceTool_HasPlayerEnoughResources_Feedback_OrigStronghold(_Costs) == 1 and CanBuy;
-    return CanBuy == true;
+
+	if _Costs[ResourceType.Iron] ~= nil
+	and _Costs[ResourceType.Iron] ~= 0
+    and (Iron+IronRaw) < _Costs[ResourceType.Iron] then
+		MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughIron"),
+            _Costs[ResourceType.Iron] - (Iron+IronRaw)
+        );
+		GUI.AddNote(MsgString);
+		GUI.SendNotEnoughResourcesFeedbackEvent(ResourceType.Iron, _Costs[ResourceType.Iron] - (Iron+IronRaw));
+	end
+
+	if _Costs[ResourceType.Stone] ~= nil
+	and _Costs[ResourceType.Stone] ~= 0
+    and (Stone+StoneRaw) < _Costs[ResourceType.Stone] then
+		MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughStone"),
+            _Costs[ResourceType.Stone] - (Stone+StoneRaw)
+        );
+		GUI.AddNote(MsgString);
+		GUI.SendNotEnoughResourcesFeedbackEvent(ResourceType.Stone, _Costs[ResourceType.Stone] - (Stone+StoneRaw));
+	end
+
+	if _Costs[ResourceType.Clay] ~= nil
+	and _Costs[ResourceType.Clay] ~= 0
+    and (Clay+ClayRaw) < _Costs[ResourceType.Clay]  then
+		MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughClay"),
+            _Costs[ResourceType.Clay] - (Clay+ClayRaw)
+        );
+		GUI.AddNote(MsgString);
+		GUI.SendNotEnoughResourcesFeedbackEvent(ResourceType.Clay, _Costs[ResourceType.Clay] - (Clay+ClayRaw));
+	end
+
+	if _Costs[ResourceType.Wood] ~= nil
+	and _Costs[ResourceType.Wood] ~= 0
+    and (Wood+WoodRaw) < _Costs[ResourceType.Wood]  then
+		MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughWood"),
+            _Costs[ResourceType.Wood] - (Wood+WoodRaw)
+        );
+		GUI.AddNote(MsgString);
+		GUI.SendNotEnoughResourcesFeedbackEvent(ResourceType.Wood, _Costs[ResourceType.Wood] - (Wood+WoodRaw));
+	end
+
+	if _Costs[ResourceType.Gold] ~= nil
+	and _Costs[ResourceType.Gold] ~= 0
+    and (Gold+GoldRaw) < _Costs[ResourceType.Gold] then
+		MsgString = string.format(
+            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughMoney"),
+            _Costs[ResourceType.Gold] - (Gold+GoldRaw)
+        );
+		GUI.AddNote(MsgString);
+		GUI.SendNotEnoughResourcesFeedbackEvent(ResourceType.Gold, _Costs[ResourceType.Gold] - (Gold+GoldRaw));
+	end
+
+    return (MsgString ~= "" and 0) or 1;
 end
 
 function FormatCostString(_PlayerID, _Costs)
-    local Language = GetLanguage();
     local CostString = "";
-    if not IsPlayer(_PlayerID) then
-        return CostString;
-    end
 
 	local Honor     = GetHonor(_PlayerID);
 	local Knowledge = GetKnowledge(_PlayerID);
@@ -129,73 +227,94 @@ function FormatCostString(_PlayerID, _Costs)
     local SulfurRaw = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.SulfurRaw);
     local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
 
-    local ColWhite = " @color:255,255,255 ";
-    local ColRed   = " @color:255,32,32 ";
+	if _Costs[ResourceType.Honor] ~= nil
+    and _Costs[ResourceType.Honor] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Honor") .. ": ";
+		if Honor >= _Costs[ResourceType.Honor] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Honor] .. " @color:255,255,255,255 @cr ";
+	end
 
-    if _Costs[ResourceType.Honor] ~= nil then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Ehre:") or " Honor:");
-        if Honor < _Costs[ResourceType.Honor] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Honor];
-    end
-    if _Costs[ResourceType.Knowledge] ~= nil then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Wissen:") or " Grasp:");
-        if Knowledge < _Costs[ResourceType.Knowledge] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Knowledge];
-    end
-    if _Costs[ResourceType.Gold] ~= nil then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Taler:") or " Gold:");
-        if Gold+GoldRaw < _Costs[ResourceType.Gold] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Gold];
-    end
-	if _Costs[ResourceType.Clay] ~= nil  then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Lehm:") or " Clay:");
-		if Clay+ClayRaw < _Costs[ResourceType.Clay] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Clay];
+	if  _Costs[ResourceType.Knowledge] ~= nil
+    and _Costs[ResourceType.Knowledge] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Knowledge") .. ": ";
+		if Knowledge >= _Costs[ResourceType.Knowledge] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Knowledge] .. " @color:255,255,255,255 @cr ";
 	end
-	if _Costs[ResourceType.Wood] ~= nil then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Holz:") or " Wood:");
-		if Wood+WoodRaw < _Costs[ResourceType.Wood] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Wood];
+
+    if  _Costs[ResourceType.Gold] ~= nil
+    and _Costs[ResourceType.Gold] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameMoney") .. ": ";
+		if GoldRaw + Gold >= _Costs[ResourceType.Gold] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Gold] .. " @color:255,255,255,255 @cr ";
 	end
-	if _Costs[ResourceType.Iron] ~= nil then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Eisen:") or " Iron:");
-		if Iron+IronRaw < _Costs[ResourceType.Iron] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Iron];
+
+	if  _Costs[ResourceType.Wood] ~= nil
+    and _Costs[ResourceType.Wood] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameWood") .. ": ";
+		if WoodRaw + Wood >= _Costs[ResourceType.Wood] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Wood] .. " @color:255,255,255,255 @cr ";
 	end
-	if _Costs[ResourceType.Stone] ~= nil then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Stein:") or " Stone:");
-		if Stone+StoneRaw < _Costs[ResourceType.Stone] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Stone];
+
+	if  _Costs[ResourceType.Clay] ~= nil
+    and _Costs[ResourceType.Clay] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameClay") .. ": ";
+		if ClayRaw + Clay >= _Costs[ResourceType.Clay] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Clay] .. " @color:255,255,255,255 @cr ";
 	end
-    if _Costs[ResourceType.Sulfur] ~= nil then
-		CostString = CostString .. ((string.len(CostString) > 0 and " @cr ") or "");
-        CostString = CostString .. ColWhite.. ((Language == "de" and " Schwefel:") or " Sulfur:");
-		if Sulfur+SulfurRaw < _Costs[ResourceType.Sulfur] then
-            CostString = CostString .. ColRed;
-        end
-        CostString = CostString.. " " .._Costs[ResourceType.Sulfur];
+
+	if  _Costs[ResourceType.Stone] ~= nil
+    and _Costs[ResourceType.Stone] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameStone") .. ": ";
+		if StoneRaw + Stone >= _Costs[ResourceType.Stone] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Stone] .. " @color:255,255,255,255 @cr ";
 	end
+
+	if  _Costs[ResourceType.Iron] ~= nil
+    and _Costs[ResourceType.Iron] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameIron") .. ": ";
+		if IronRaw + Iron >= _Costs[ResourceType.Iron] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Iron] .. " @color:255,255,255,255 @cr ";
+	end
+
+	if  _Costs[ResourceType.Sulfur] ~= nil
+    and _Costs[ResourceType.Sulfur] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameSulfur") .. ": ";
+		if SulfurRaw + Sulfur >= _Costs[ResourceType.Sulfur] then
+			CostString = CostString .. " @color:255,255,255,255 ";
+		else
+			CostString = CostString .. " @color:220,64,16,255 ";
+		end
+		CostString = CostString .. _Costs[ResourceType.Sulfur] .. " @color:255,255,255,255 @cr ";
+	end
+
     return CostString;
 end
 

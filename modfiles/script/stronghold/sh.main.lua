@@ -211,6 +211,7 @@ function Stronghold:Init()
     GUI.ClearSelection();
     ResourceType.Honor = 20;
 
+    self.Utils:OverwriteInterfaceTools();
     self.Rights:Install();
     self.Economy:Install();
     self.Construction:Install();
@@ -449,6 +450,7 @@ function Stronghold:UnlockAllTechnologies()
         ResearchTechnology(Technologies.GT_Trading, i);
         ResearchTechnology(Technologies.T_ChangeWeather, i);
         ResearchTechnology(Technologies.T_WeatherForecast, i);
+        ResearchTechnology(Technologies.UP2_Headquarter, i);
     end
 end
 
