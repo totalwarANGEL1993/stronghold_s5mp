@@ -1,0 +1,21 @@
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>60</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>8</Knowledge>
+        <Gold>200</Gold>
+        <Clay/>
+        <Wood/>
+        <Stone/>
+        <Iron>100</Iron>
+        <Sulfur>200</Sulfur>
+    </ResourceCosts>
+
+    <Conditions>
+        <EntityCondition>
+            <EntityType>PB_Tavern2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+
+    </Conditions>
+</root>

@@ -1,31 +1,33 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Technologies</TecCategoryType>
-	<TimeToResearch>30</TimeToResearch>
-	<ResourceCosts>
-		  <Gold>200</Gold>
-		  <Clay/>
-		  <Wood/>
-		  <Stone/>		
-		  <Iron>0</Iron>
-		  <Sulfur>100</Sulfur>
-	</ResourceCosts>
-	<AutomaticResearch>false</AutomaticResearch>
-	<UseForStatisticsFlag>true</UseForStatisticsFlag>
-	<ArmorModifier>
-		  <Value>3</Value>
-		  <Operation>+</Operation>
-	</ArmorModifier>
-	<Conditions>	
-		  <TecCondition>
-			  <TecType>T_FleeceArmor</TecType>
-			  <TecCategoryType/>
-		</TecCondition>
-				
-		
-		  <EntityCondition>
-			  <EntityType>PB_GunsmithWorkshop2</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-		
-	</Conditions>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>30</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>5</Knowledge>
+        <Gold>200</Gold>
+        <Clay/>
+        <Wood/>
+        <Stone/>
+        <Iron>0</Iron>
+        <Sulfur>100</Sulfur>
+    </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <ArmorModifier>
+        <Value>3</Value>
+        <Operation>+</Operation>
+    </ArmorModifier>
+    <Conditions>
+        <TecCondition>
+            <TecType>T_FleeceArmor</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+
+
+        <EntityCondition>
+            <EntityType>PB_GunsmithWorkshop2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+
+    </Conditions>
 </root>

@@ -45,7 +45,7 @@ Stronghold.Economy.Config.Income = {
     CoinageBonusFactor = 1,
     MaxKnowledgePoints = 5000,
     KnowledgePointsPerWorker = 6,
-    BetterStudiesFactor = 1.5,
+    BetterStudiesFactor = 1.8,
 
     TaxEffect = {
         [1] = {Honor = 4, Reputation = 10,},

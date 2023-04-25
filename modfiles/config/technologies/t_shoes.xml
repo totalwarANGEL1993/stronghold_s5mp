@@ -1,25 +1,27 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Technologies</TecCategoryType>
-	<TimeToResearch>25</TimeToResearch>
-	<ResourceCosts>
-		  <Gold>300</Gold>
-		  <Clay/>
-		  <Wood/>
-		  <Stone/>		
-		  <Iron/>
-		  <Sulfur/>
-	</ResourceCosts>	
-	<UseForStatisticsFlag>true</UseForStatisticsFlag>
-	
-	<SpeedModifier>
-		<Value>75</Value>
-		<Operation>+</Operation>
-	</SpeedModifier>
-	<Conditions>	
-		
-		  <EntityCondition>
-			  <EntityType>PB_VillageCenter3</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-	</Conditions>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>25</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>3</Knowledge>
+        <Gold>300</Gold>
+        <Clay/>
+        <Wood/>
+        <Stone/>
+        <Iron/>
+        <Sulfur/>
+    </ResourceCosts>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <SpeedModifier>
+        <Value>75</Value>
+        <Operation>+</Operation>
+    </SpeedModifier>
+    <Conditions>
+
+        <EntityCondition>
+            <EntityType>PB_VillageCenter3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
 </root>

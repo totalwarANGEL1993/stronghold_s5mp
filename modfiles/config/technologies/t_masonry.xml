@@ -4,24 +4,25 @@
     <TimeToResearch>20</TimeToResearch>
     <ResourceCosts>
         <Knowledge>3</Knowledge>
-        <Gold>50</Gold>
+        <Gold>0</Gold>
         <Clay/>
         <Wood>200</Wood>
-        <Stone/>
+        <Stone>400</Stone>
         <Iron/>
         <Sulfur/>
     </ResourceCosts>
-    <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <ArmorModifier>
+        <Value>3</Value>
+        <Operation>+</Operation>
+    </ArmorModifier>
 
-    <DamageModifier>
-        <Value>1.25</Value>
-        <Operation>*</Operation>
-    </DamageModifier>
-
+    <AutomaticResearch>false</AutomaticResearch>
     <Conditions>
+
+
         <EntityCondition>
-            <EntityType>PB_Sawmill2</EntityType>
+            <EntityType>PB_StoneMason2</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
     </Conditions>

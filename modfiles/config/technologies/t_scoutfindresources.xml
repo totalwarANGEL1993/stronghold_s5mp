@@ -1,0 +1,18 @@
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>30</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>1</Knowledge>
+        <Gold>20</Gold>
+        <Clay>20</Clay>
+        <Wood/>
+        <Stone>20</Stone>
+        <Iron>20</Iron>
+        <Sulfur>10</Sulfur>
+    </ResourceCosts>
+
+    <Conditions>
+
+
+    </Conditions>
+</root>

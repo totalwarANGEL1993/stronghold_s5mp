@@ -1,39 +1,41 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Technologies</TecCategoryType>
-	<TimeToResearch>50</TimeToResearch>
-	<ResourceCosts>
-		  <Gold>200</Gold>
-		  <Clay/>
-		  <Wood>200</Wood>
-		  <Stone/>		
-		  <Iron/>
-		  <Sulfur/>
-	</ResourceCosts>
-	<UseForStatisticsFlag>true</UseForStatisticsFlag>
-	
-	<SpeedModifier>
-		<Value>1.1</Value>
-		<Operation>*</Operation>
-	</SpeedModifier>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>50</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>2</Knowledge>
+        <Gold>200</Gold>
+        <Clay/>
+        <Wood>200</Wood>
+        <Stone/>
+        <Iron/>
+        <Sulfur/>
+    </ResourceCosts>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <SpeedModifier>
+        <Value>1.1</Value>
+        <Operation>*</Operation>
+    </SpeedModifier>
 
     <DamageModifier>
-		<Value>2</Value>
-		<Operation>+</Operation>
-	</DamageModifier>
+        <Value>2</Value>
+        <Operation>+</Operation>
+    </DamageModifier>
 
     <MaxRangeModifier>
-		<Value>200</Value>
-		<Operation>+</Operation>
-	</MaxRangeModifier>
+        <Value>200</Value>
+        <Operation>+</Operation>
+    </MaxRangeModifier>
     <ExplorationModifier>
-		<Value>2</Value>
-		<Operation>+</Operation>	
-	</ExplorationModifier>
+        <Value>2</Value>
+        <Operation>+</Operation>
+    </ExplorationModifier>
 
-	<Conditions>	
-		  <EntityCondition>
-			  <EntityType>PB_Archery2</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-	</Conditions>
+    <Conditions>
+        <EntityCondition>
+            <EntityType>PB_Archery2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
 </root>

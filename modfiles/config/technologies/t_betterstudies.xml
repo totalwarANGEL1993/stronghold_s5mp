@@ -3,6 +3,7 @@
 	<TecCategoryType>TC_Administration</TecCategoryType>
 	<TimeToResearch>80</TimeToResearch>
 	<ResourceCosts>
+		<Knowledge>5</Knowledge>
 		<Gold>500</Gold>
 		<Clay/>
 		<Wood>300</Wood>

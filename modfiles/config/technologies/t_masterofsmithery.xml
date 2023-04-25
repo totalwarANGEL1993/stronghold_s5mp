@@ -1,35 +1,37 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Technologies</TecCategoryType>
-	<TimeToResearch>20</TimeToResearch>
-	<ResourceCosts>
-		  <Gold>300</Gold>
-		  <Clay/>
-		  <Wood/>
-		  <Stone/>		
-		  <Iron>200</Iron>
-		  <Sulfur/>
-	</ResourceCosts>
-	<UseForStatisticsFlag>true</UseForStatisticsFlag>
-	
-	<DamageModifier>
-		<Value>1.25</Value>
-		<Operation>*</Operation>
-	</DamageModifier>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>20</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>5</Knowledge>
+        <Gold>300</Gold>
+        <Clay/>
+        <Wood/>
+        <Stone/>
+        <Iron>200</Iron>
+        <Sulfur/>
+    </ResourceCosts>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
 
-	<AutomaticResearch>false</AutomaticResearch>
-	<Conditions>	
-		  <RequiredEntityConditions>1</RequiredEntityConditions>
-	 	
-		
-		
-		  <EntityCondition>
-			  <EntityType>PB_Blacksmith2</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-		
-		  <EntityCondition>
-			  <EntityType>PB_Blacksmith3</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-	</Conditions>
+    <DamageModifier>
+        <Value>1.25</Value>
+        <Operation>*</Operation>
+    </DamageModifier>
+
+    <AutomaticResearch>false</AutomaticResearch>
+    <Conditions>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+
+
+
+        <EntityCondition>
+            <EntityType>PB_Blacksmith2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+
+        <EntityCondition>
+            <EntityType>PB_Blacksmith3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
 </root>

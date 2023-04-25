@@ -3,8 +3,10 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>30</TimeToResearch>
     <ResourceCosts>
+        <Knowledge>3</Knowledge>
         <Gold>400</Gold>
     </ResourceCosts>
+    <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
     </Conditions>

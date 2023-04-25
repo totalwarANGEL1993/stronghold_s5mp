@@ -1,25 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>50</TimeToResearch>
     <ResourceCosts>
-        <Knowledge>8</Knowledge>
+        <Knowledge>2</Knowledge>
         <Gold>200</Gold>
         <Clay/>
         <Wood/>
         <Stone/>
-        <Iron>600</Iron>
+        <Iron>200</Iron>
         <Sulfur/>
     </ResourceCosts>
-    <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <SpeedModifier>
+        <Value>1.1</Value>
+        <Operation>*</Operation>
+    </SpeedModifier>
+
+    <DamageModifier>
+        <Value>2</Value>
+        <Operation>+</Operation>
+    </DamageModifier>
+
     <Conditions>
-        <TecCondition>
-            <TecType>T_Debenture</TecType>
-        </TecCondition>
 
         <EntityCondition>
-            <EntityType>PB_Bank2</EntityType>
+            <EntityType>PB_Barracks2</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
     </Conditions>

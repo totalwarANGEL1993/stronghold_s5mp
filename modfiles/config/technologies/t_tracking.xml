@@ -3,6 +3,7 @@
 	<TecCategoryType>TC_Technologies</TecCategoryType>
 	<TimeToResearch>30</TimeToResearch>
 	<ResourceCosts>
+		<Knowledge>1</Knowledge>
 		<Gold>200</Gold>
 	</ResourceCosts>
 	<ExplorationModifier>

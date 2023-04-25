@@ -1,0 +1,25 @@
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>40</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>1</Knowledge>
+        <Gold>100</Gold>
+        <Clay/>
+        <Wood/>
+        <Stone/>
+        <Iron>0</Iron>
+        <Sulfur>100</Sulfur>
+    </ResourceCosts>
+
+    <Conditions>
+        <TecCondition>
+            <TecType>T_ScoutFindResources</TecType>
+        </TecCondition>
+
+        <EntityCondition>
+            <EntityType>PB_Tavern2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+
+    </Conditions>
+</root>

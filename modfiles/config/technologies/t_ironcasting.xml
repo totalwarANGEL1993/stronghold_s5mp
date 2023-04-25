@@ -1,38 +1,40 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><root>
-	<TecCategoryType>TC_Technologies</TecCategoryType>
-	<TimeToResearch>25</TimeToResearch>
-	<ResourceCosts>
-		  <Gold>500</Gold>
-		  <Clay/>
-		  <Wood/>
-		  <Stone/>		
-		  <Iron>400</Iron>
-		  <Sulfur/>
-	</ResourceCosts>
-	<UseForStatisticsFlag>true</UseForStatisticsFlag>
-	
-	<DamageModifier>
-		<Value>1.10</Value>
-		<Operation>*</Operation>
-	</DamageModifier>
-	<AutomaticResearch>false</AutomaticResearch>
-	<Conditions>	
-		  <TecCondition>
-			  <TecType>T_MasterOfSmithery</TecType>
-			  <TecCategoryType/>
-		</TecCondition>
-		  <RequiredEntityConditions>1</RequiredEntityConditions>
-	 	
-		
-		  <EntityCondition>
-			  <EntityType>PB_Blacksmith2</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-		
-		  <EntityCondition>
-			  <EntityType>PB_Blacksmith3</EntityType>
-			  <Amount>1</Amount>
-		</EntityCondition>	
-		
-	</Conditions>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>25</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>5</Knowledge>
+        <Gold>500</Gold>
+        <Clay/>
+        <Wood/>
+        <Stone/>
+        <Iron>400</Iron>
+        <Sulfur/>
+    </ResourceCosts>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <DamageModifier>
+        <Value>1.10</Value>
+        <Operation>*</Operation>
+    </DamageModifier>
+    <AutomaticResearch>false</AutomaticResearch>
+    <Conditions>
+        <TecCondition>
+            <TecType>T_MasterOfSmithery</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+
+
+        <EntityCondition>
+            <EntityType>PB_Blacksmith2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+
+        <EntityCondition>
+            <EntityType>PB_Blacksmith3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+
+    </Conditions>
 </root>
