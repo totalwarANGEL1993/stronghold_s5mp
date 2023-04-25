@@ -9,7 +9,7 @@
         <Wood/>
         <Stone/>
         <Iron/>
-        <Sulfur>400</Sulfur>
+        <Sulfur>300</Sulfur>
     </ResourceCosts>
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>

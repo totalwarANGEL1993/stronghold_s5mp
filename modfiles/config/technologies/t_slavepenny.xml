@@ -3,11 +3,20 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>30</TimeToResearch>
     <ResourceCosts>
-        <Knowledge>3</Knowledge>
+        <Knowledge>2</Knowledge>
         <Gold>400</Gold>
     </ResourceCosts>
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Headquarters2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Headquarters3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
     </Conditions>
 </root>

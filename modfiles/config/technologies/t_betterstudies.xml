@@ -4,7 +4,7 @@
 	<TimeToResearch>80</TimeToResearch>
 	<ResourceCosts>
 		<Knowledge>5</Knowledge>
-		<Gold>500</Gold>
+		<Gold>200</Gold>
 		<Clay/>
 		<Wood>300</Wood>
 		<Stone/>

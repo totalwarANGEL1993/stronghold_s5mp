@@ -4,11 +4,11 @@
     <TimeToResearch>50</TimeToResearch>
     <ResourceCosts>
         <Knowledge>10</Knowledge>
-        <Gold>500</Gold>
+        <Gold>300</Gold>
         <Clay/>
-        <Wood>300</Wood>
+        <Wood>100</Wood>
         <Stone>0</Stone>
-        <Iron>300</Iron>
+        <Iron>100</Iron>
         <Sulfur/>
     </ResourceCosts>
     <AutomaticResearch>true</AutomaticResearch>

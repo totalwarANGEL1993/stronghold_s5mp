@@ -143,6 +143,7 @@
 	
 	<!--Feature Technologies -->				
 	
+	<Technology>T_Tracking</Technology>	
 	<Technology>T_AdjustTaxes</Technology>	
 	<Technology>T_EnableMilitia</Technology>	
 	<Technology>T_BlessSettlers1</Technology>	
@@ -156,7 +157,7 @@
 	<Technology>T_MinimapNormalView</Technology>
 	
 	<!--For toggleing help (used in Tutorial) -->			
-	<Technology>T_OnlineHelp</Technology>	
+	<Technology>T_OnlineHelp</Technology>
 	
 	<!--Blacksmith Technologies -->			
 		<!--Armor: For Sword and Heavy cavalry-->						
@@ -335,8 +336,7 @@
 	<Technology>T_SuperTechnology</Technology>
 	
 	
-	<!-- NOT USED FOR THE MOMENT: -->
-	<Technology>T_Tracking</Technology>			
+	<!-- NOT USED FOR THE MOMENT: -->		
 	<Technology>T_CropCycle</Technology>	
 	<Technology>T_PickAxe</Technology>	
 	<Technology>T_SpinningWheel</Technology>	
@@ -365,9 +365,9 @@
     <Technology>T_Hearthfire</Technology>
     <Technology>T_RoomKeys</Technology>
 
-    <!-- University -->
+    <!-- University studies -->
     <Technology>T_BetterStudies</Technology>
 
-    <!-- Free camera -->
+    <!-- Toggle free camera -->
     <Technology>T_FreeCamera</Technology>
 </root>

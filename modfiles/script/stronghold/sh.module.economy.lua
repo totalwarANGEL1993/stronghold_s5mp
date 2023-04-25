@@ -714,16 +714,19 @@ function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
         local ScholarList = Stronghold:GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
         for i= 1, table.getn(ScholarList) do
             if Logic.IsSettlerAtWork(ScholarList[i]) == 1 then
-                local Motivation = Logic.GetSettlersMotivation(ScholarList[i]);
-                local CurrentAmount = self:GetPlayerKnowledgePoints(_PlayerID);
-                local Amount = self.Config.Income.KnowledgePointsPerWorker;
-                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_BetterStudies) == 1 then
-                    Amount = Amount * self.Config.Income.BetterStudiesFactor;
-                end
-                Amount = GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, Amount);
+                local BuildingID = Logic.GetSettlersWorkBuilding(ScholarList[i]);
+                if not InterfaceTool_IsBuildingDoingSomething(BuildingID) then
+                    local Motivation = Logic.GetSettlersMotivation(ScholarList[i]);
+                    local CurrentAmount = self:GetPlayerKnowledgePoints(_PlayerID);
+                    local Amount = self.Config.Income.KnowledgePointsPerWorker;
+                    if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_BetterStudies) == 1 then
+                        Amount = Amount * self.Config.Income.BetterStudiesFactor;
+                    end
+                    Amount = GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, Amount);
 
-                Amount = Amount * Motivation;
-                self:SetPlayerKnowledgePoints(_PlayerID, CurrentAmount + Amount);
+                    Amount = Amount * Motivation;
+                    self:SetPlayerKnowledgePoints(_PlayerID, CurrentAmount + Amount);
+                end
             end
         end
         -- Clear points and add 1 knowledge if produced enough

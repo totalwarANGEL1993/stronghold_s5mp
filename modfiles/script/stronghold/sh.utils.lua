@@ -122,7 +122,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Honor] ~= 0
     and _Costs[ResourceType.Honor] - Honor > 0 then
         MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughHonor"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughHonor"),
             _Costs[ResourceType.Honor] - Honor
         );
 		GUI.AddNote(MsgString);
@@ -133,7 +133,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Knowledge] ~= 0
     and _Costs[ResourceType.Knowledge] - Knowledge > 0 then
         MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughKnowledge"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughKnowledge"),
             _Costs[ResourceType.Knowledge] - Knowledge
         );
 		GUI.AddNote(MsgString);

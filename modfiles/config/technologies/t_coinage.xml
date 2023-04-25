@@ -8,7 +8,7 @@
         <Clay/>
         <Wood/>
         <Stone/>
-        <Iron>600</Iron>
+        <Iron>400</Iron>
         <Sulfur/>
     </ResourceCosts>
     <AutomaticResearch>false</AutomaticResearch>
