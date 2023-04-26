@@ -533,6 +533,7 @@ function Stronghold:OnEveryTurn()
     local PlayerID = math.mod(Logic.GetCurrentTurn(), Players);
     Stronghold.Attraction:ManageCriminalsOfPlayer(PlayerID);
     Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
+    Stronghold.Building:FoundryCannonAutoRepair(PlayerID);
     Stronghold.Economy:UpdateIncomeAndUpkeep(PlayerID);
     Stronghold.Economy:GainMeasruePoints(PlayerID);
     Stronghold.Economy:GainKnowledgePoints(PlayerID);
@@ -597,12 +598,19 @@ function Stronghold:OnEntityHurtEntity()
             if self.Players[AttackedPlayer] then
                 self.Players[AttackedPlayer].AttackMemory[Attacked] = {15, Attacker};
             end
-            -- prevent serf harrasment
             local DamageSource = CEntity.HurtTrigger.GetDamageSourceType();
+            -- prevent serf harrasment
             if DamageSource == CEntity.HurtTrigger.DamageSources.BOMB
             or Logic.IsHero(Attacker) == 1 then
                 if AttackedType == Entities.PU_Serf then
                     CEntity.HurtTrigger.SetDamage(1);
+                end
+            end
+            -- Vigilante
+            if Logic.IsBuilding(Attacker) == 1 then
+                if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then
+                    local Damage = CEntity.HurtTrigger.GetDamage();
+                    CEntity.HurtTrigger.SetDamage(Damage * 3);
                 end
             end
         end
@@ -719,6 +727,7 @@ function Stronghold:InitPlayerEntityRecord()
             Workplace = {},
             Settler = {},
             Leader = {},
+            Cannon = {},
             Worker = {},
         };
 
@@ -751,6 +760,9 @@ function Stronghold:AddEntityToPlayerRecordOnCreate(_EntityID)
                 or Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 1 then
                     self.Record[PlayerID].Leader[_EntityID] = true;
                 end
+                if Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 1 then
+                    self.Record[PlayerID].Cannon[_EntityID] = true;
+                end
                 if Logic.IsWorker(_EntityID) == 1 then
                     self.Record[PlayerID].Worker[_EntityID] = true;
                 end
@@ -768,6 +780,7 @@ function Stronghold:RemoveEntityFromPlayerRecordOnDestroy(_EntityID)
         self.Record[PlayerID].Workplace[_EntityID] = nil;
         self.Record[PlayerID].Settler[_EntityID] = nil;
         self.Record[PlayerID].Leader[_EntityID] = nil;
+        self.Record[PlayerID].Cannon[_EntityID] = nil;
         self.Record[PlayerID].Worker[_EntityID] = nil;
     end
 end
@@ -835,6 +848,10 @@ end
 
 function Stronghold:GetLeadersOfType(_PlayerID, _Type)
     return self:GetSettlersOfType(_PlayerID, _Type, "Leader");
+end
+
+function Stronghold:GetCannonsOfType(_PlayerID, _Type)
+    return self:GetSettlersOfType(_PlayerID, _Type, "Cannon");
 end
 
 function Stronghold:GetWorkersOfType(_PlayerID, _Type)

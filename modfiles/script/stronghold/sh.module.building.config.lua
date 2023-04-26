@@ -36,6 +36,9 @@ Stronghold.Building.Config.Headquarters = {
 }
 
 Stronghold.Building.Config.Monastery = {
+    SundayAssemblyHonorBonus = 3,
+    SundayAssemblyReputationBonus = 3,
+
     [BlessCategories.Construction] = {
         Reputation = 9,
         Honor = 0,

@@ -467,10 +467,18 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
 
     local BlessData = self.Config.Monastery[_BlessCategory];
     if BlessData.Reputation > 0 then
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, BlessData.Reputation);
+        local Reputation = BlessData.Reputation;
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
+            Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
+        end
+        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Reputation);
     end
     if BlessData.Honor > 0 then
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, BlessData.Honor);
+        local Honor = BlessData.Honor;
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
+            Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
+        end
+        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Honor);
     end
 
     if GUI.GetPlayerID() == _PlayerID then
@@ -560,11 +568,19 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         local Effects = Stronghold.Building.Config.Monastery[BlessCategory];
         if Effects.Reputation > 0 then
             local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
-            EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..Name.. " ";
+            local Reputation = Effects.Reputation;
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
+                Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
+            end
+            EffectText = EffectText.. "+" ..Reputation.. " " ..Name.. " ";
         end
         if Effects.Honor > 0 then
             local Name = XGUIEng.GetStringTableText("sh_names/Honor");
-            EffectText = EffectText.. "+" ..Effects.Honor.. " " ..Name;
+            local Honor = Effects.Honor;
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
+                Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
+            end
+            EffectText = EffectText.. "+" ..Honor.. " " ..Name;
         end
 
         local MainKey = self.Config.Monastery[BlessCategory].Text;
@@ -726,6 +742,25 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
             if self.Data[_PlayerID].RallyPoint[ScriptName] then
                 local ID = GetID(self.Data[_PlayerID].RallyPoint[ScriptName]);
                 SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
+            end
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Foundry
+
+function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
+    local Cannons = Stronghold:GetCannonsOfType(_PlayerID, 0);
+    for i= 1, table.getn(Cannons) do
+        local Position = GetPosition(Cannons[i]);
+        local MaxHealth = Logic.GetEntityMaxHealth(Cannons[i]);
+        local Health = Logic.GetEntityHealth(Cannons[i]);
+        if Health > 0 and Health < MaxHealth then
+            if AreEntitiesInArea(_PlayerID, Entities.PB_Foundry1, Position, 2000, 1)
+            or AreEntitiesInArea(_PlayerID, Entities.PB_Foundry2, Position, 2000, 1) then
+                local Healing = math.min(MaxHealth - Health, 4);
+                Logic.HealEntity(Cannons[i], Healing);
             end
         end
     end

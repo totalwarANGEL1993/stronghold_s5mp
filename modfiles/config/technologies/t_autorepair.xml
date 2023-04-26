@@ -3,7 +3,7 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>50</TimeToResearch>
     <ResourceCosts>
-		<Knowledge>3</Knowledge>
+		<Knowledge>4</Knowledge>
         <Gold>0</Gold>
         <Clay>0</Clay>
         <Wood>0</Wood>

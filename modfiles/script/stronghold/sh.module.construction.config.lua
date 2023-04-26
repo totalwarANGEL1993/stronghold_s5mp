@@ -25,17 +25,19 @@ Stronghold.Construction.Config = {
         [Technologies.B_Archery]          = {Entities.PB_Archery1, Entities.PB_Archery2,},
         [Technologies.B_Stables]          = {Entities.PB_Stable1, Entities.PB_Stable2,},
         [Technologies.B_Monastery]        = {Entities.PB_Monastery1, Entities.PB_Monastery2, Entities.PB_Monastery3},
+        [Technologies.B_University]       = {Entities.PB_University1, Entities.PB_University2},
         [Technologies.B_PowerPlant]       = {Entities.PB_PowerPlant1},
     },
 
     -- Check types for upgrade technologies
     TypesToCheckForUpgrade = {
-        [Technologies.UP1_Barracks]  = {Entities.PB_Barracks2,},
-        [Technologies.UP1_Archery]   = {Entities.PB_Archery2,},
-        [Technologies.UP1_Stables]   = {Entities.PB_Stable2,},
-        [Technologies.UP1_Monastery] = {Entities.PB_Monastery2, Entities.PB_Monastery3},
-        [Technologies.UP2_Monastery] = {Entities.PB_Monastery1, Entities.PB_Monastery3},
-        [Technologies.UP1_Market]    = {Entities.PB_Market2},
+        [Technologies.UP1_Barracks]   = {Entities.PB_Barracks2,},
+        [Technologies.UP1_Archery]    = {Entities.PB_Archery2,},
+        [Technologies.UP1_Stables]    = {Entities.PB_Stable2,},
+        [Technologies.UP1_Monastery]  = {Entities.PB_Monastery2, Entities.PB_Monastery3},
+        [Technologies.UP2_Monastery]  = {Entities.PB_Monastery1, Entities.PB_Monastery3},
+        [Technologies.UP1_Market]     = {Entities.PB_Market2},
+        [Technologies.UP1_University] = {Entities.PB_University2},
     },
 
     -- Building construction restricted by rights

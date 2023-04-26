@@ -768,11 +768,11 @@ end
 -- Resource Mining
 
 function Stronghold.Economy:OverrideResourceCallbacks()
-    GameCallback_GainedResourcesFromMine = function(_WorkerID, _e, _ResourceType, _Amount)
+    GameCallback_GainedResourcesFromMine = function(_WorkerID, _SourceID, _ResourceType, _Amount)
         local PlayerID = Logic.EntityGetPlayer(_WorkerID);
         local BuildingID = Logic.GetSettlersWorkBuilding(_WorkerID);
-        local Amount = Stronghold.Economy:OnMineExtractedResource(PlayerID, BuildingID, _ResourceType, _Amount);
-        return _WorkerID, _e, _ResourceType, Amount;
+        local Amount = Stronghold.Economy:OnMineExtractedResource(PlayerID, BuildingID, _SourceID, _ResourceType, _Amount);
+        return _WorkerID, _SourceID, _ResourceType, Amount;
     end
 
     GameCallback_RefinedResource = function(_WorkerID, _ResourceType, _Amount)
@@ -783,19 +783,47 @@ function Stronghold.Economy:OverrideResourceCallbacks()
     end
 end
 
-function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _ResourceType, _Amount)
+function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount)
     local Type = Logic.GetEntityType(_BuildingID);
     local Amount = self.Config.Resource.Mining[Type] or _Amount;
-    -- Pickaxes
-    if _ResourceType == ResourceType.ClayRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeClay) == 1 then
-        Amount = Amount +1;
-    elseif _ResourceType == ResourceType.IronRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeIron) == 1  then
-        Amount = Amount +1;
-    elseif _ResourceType == ResourceType.StoneRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeStone) == 1  then
-        Amount = Amount +1;
-    elseif _ResourceType == ResourceType.SulfurRaw and Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1  then
-        Amount = Amount +1;
+    local ResourceAmount = Logic.GetResourceDoodadGoodAmount(_SourceID);
+
+    if _ResourceType == ResourceType.ClayRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeClay) == 1 then
+            Amount = Amount +1;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableClayMining) == 1 then
+            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+        end
     end
+
+    if _ResourceType == ResourceType.IronRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeIron) == 1 then
+            Amount = Amount +1;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableIronMining) == 1 then
+            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+        end
+    end
+
+    if _ResourceType == ResourceType.StoneRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeStone) == 1 then
+            Amount = Amount +1;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableStoneMining) == 1 then
+            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+        end
+    end
+
+    if _ResourceType == ResourceType.SulfurRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1 then
+            Amount = Amount +1;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableSulfurMining) == 1 then
+            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+        end
+    end
+
     -- External changes
     Amount = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, Amount);
     return Amount;

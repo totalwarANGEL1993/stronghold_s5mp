@@ -144,7 +144,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Sulfur] ~= 0
     and (Sulfur+SulfurRaw) < _Costs[ResourceType.Sulfur] then
 		MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughSulfur"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughSulfur"),
             _Costs[ResourceType.Sulfur] - (Sulfur+SulfurRaw)
         );
 		GUI.AddNote(MsgString);
@@ -155,7 +155,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Iron] ~= 0
     and (Iron+IronRaw) < _Costs[ResourceType.Iron] then
 		MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughIron"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughIron"),
             _Costs[ResourceType.Iron] - (Iron+IronRaw)
         );
 		GUI.AddNote(MsgString);
@@ -166,7 +166,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Stone] ~= 0
     and (Stone+StoneRaw) < _Costs[ResourceType.Stone] then
 		MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughStone"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughStone"),
             _Costs[ResourceType.Stone] - (Stone+StoneRaw)
         );
 		GUI.AddNote(MsgString);
@@ -177,7 +177,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Clay] ~= 0
     and (Clay+ClayRaw) < _Costs[ResourceType.Clay]  then
 		MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughClay"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughClay"),
             _Costs[ResourceType.Clay] - (Clay+ClayRaw)
         );
 		GUI.AddNote(MsgString);
@@ -188,7 +188,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Wood] ~= 0
     and (Wood+WoodRaw) < _Costs[ResourceType.Wood]  then
 		MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughWood"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughWood"),
             _Costs[ResourceType.Wood] - (Wood+WoodRaw)
         );
 		GUI.AddNote(MsgString);
@@ -199,7 +199,7 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
 	and _Costs[ResourceType.Gold] ~= 0
     and (Gold+GoldRaw) < _Costs[ResourceType.Gold] then
 		MsgString = string.format(
-            XGUIEng.GetStringTableText("InGameMsgStrings/GUI_NotEnoughMoney"),
+            XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughMoney"),
             _Costs[ResourceType.Gold] - (Gold+GoldRaw)
         );
 		GUI.AddNote(MsgString);
