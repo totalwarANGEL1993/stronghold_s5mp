@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
     <TecCategoryType>TC_Technologies</TecCategoryType>
-    <TimeToResearch>50</TimeToResearch>
+    <TimeToResearch>25</TimeToResearch>
     <ResourceCosts>
-		<Knowledge>3</Knowledge>
+		<Knowledge>1</Knowledge>
         <Gold>200</Gold>
         <Clay>0</Clay>
         <Wood>300</Wood>
@@ -14,5 +14,14 @@
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_ClayIron2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_ClayIron3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
     </Conditions>
 </root>

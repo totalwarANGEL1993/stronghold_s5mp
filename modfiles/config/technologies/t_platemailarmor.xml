@@ -22,9 +22,9 @@
             <TecType>T_ChainMailArmor</TecType>
             <TecCategoryType/>
         </TecCondition>
+        <EntityCondition>
+            <EntityType>PB_Blacksmith3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
     </Conditions>
-    <EntityCondition>
-        <EntityType>PB_Blacksmith3</EntityType>
-        <Amount>1</Amount>
-    </EntityCondition>
 </root>

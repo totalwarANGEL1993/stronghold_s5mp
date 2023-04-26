@@ -3,25 +3,16 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>50</TimeToResearch>
     <ResourceCosts>
-        <Knowledge>3</Knowledge>
+		<Knowledge>3</Knowledge>
         <Gold>0</Gold>
-        <Clay/>
-        <Wood>300</Wood>
-        <Stone/>
+        <Clay>0</Clay>
+        <Wood>0</Wood>
+        <Stone>0</Stone>
         <Iron>200</Iron>
-        <Sulfur/>
+        <Sulfur>200</Sulfur>
     </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
-
-    <SpeedModifier>
-        <Value>1.15</Value>
-        <Operation>*</Operation>
-    </SpeedModifier>
-
     <Conditions>
-        <EntityCondition>
-            <EntityType>PB_Foundry2</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition>
     </Conditions>
 </root>
