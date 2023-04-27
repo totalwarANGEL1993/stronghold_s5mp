@@ -106,12 +106,32 @@ end
 
 -- -------------------------------------------------------------------------- --
 
+-- DEPRECATED
 function Stronghold.Recruitment:IsSufficientRecruiterBuilding(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
     local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
         local BuildingType = Logic.GetEntityType(_BuildingID);
         return IsInTable(BuildingType, Config.RecruiterBuilding);
+    end
+    return false;
+end
+
+function Stronghold.Recruitment:HasSufficientRecruiterBuilding(_BuildingID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_BuildingID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    if Config then
+        local Providers = table.getn(Config.RecruiterBuilding);
+        if Providers == 0 then
+            return false;
+        end
+        for i= 1, Providers do
+            local BuildingType = Config.RecruiterBuilding[i];
+            local Buildings = Stronghold:GetBuildingsOfType(PlayerID, BuildingType, true);
+            if table.getn(Buildings) > 0 then
+                return true;
+            end
+        end
     end
     return false;
 end
@@ -465,7 +485,7 @@ function Stronghold.Recruitment:OnRecruiterSelected(_ButtonsToUpdate, _EntityID)
 
             local Disabled = 1;
             if  self:IsUnitAllowed(_EntityID, UnitType)
-            and self:IsSufficientRecruiterBuilding(_EntityID, UnitType)
+            and self:HasSufficientRecruiterBuilding(_EntityID, UnitType)
             and self:HasSufficientProviderBuilding(_EntityID, UnitType)
             and self:HasSufficientRank(_EntityID, UnitType) then
                 Disabled = 0;

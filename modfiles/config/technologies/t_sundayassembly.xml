@@ -14,5 +14,9 @@
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
+        <EntityCondition>
+            <EntityType>PB_Monastery3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
     </Conditions>
 </root>

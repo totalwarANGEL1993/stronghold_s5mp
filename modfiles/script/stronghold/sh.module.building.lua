@@ -23,6 +23,8 @@ function Stronghold.Building:Install()
         self.Data[i] = {
             Measrue = {},
             RallyPoint = {},
+
+            HeadquarterLastWidgetID = 0,
         };
     end
 
@@ -168,7 +170,12 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     XGUIEng.ShowWidget("Buy_Serf_Recharge", 1);
     XGUIEng.ShowWidget("Buy_Serf_Amount", 1);
     -- XGUIEng.SetWidgetPositionAndSize("Research_Tracking", 4, 38, 31, 31);
-    self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, gvGUI_WidgetID.ToBuildingCommandMenu);
+
+    local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID;
+    if LastWidgetID == 0 then
+        LastWidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
+    end
+    self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, LastWidgetID);
 end
 
 function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _EntityID, _Key)
@@ -412,6 +419,7 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
     XGUIEng.ShowWidget("WorkerInBuilding", 0);
     XGUIEng.ShowWidget("Upgrade_Monastery1", 0);
     XGUIEng.ShowWidget("Upgrade_Monastery2", 0);
+    XGUIEng.ShowWidget("Research_SundayAssembly", 0);
 
     XGUIEng.TransferMaterials("Levy_Duties", "BlessSettlers1");
     XGUIEng.TransferMaterials("Research_Laws", "BlessSettlers2");
@@ -433,8 +441,10 @@ function Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(_PlayerID, 
         return false;
     end
     if _WidgetID == gvGUI_WidgetID.ToBuildingCommandMenu then
+        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
         self:HeadquartersShowNormalControls(_PlayerID, _EntityID, _WidgetID);
     elseif _WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu then
+        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
         self:HeadquartersShowMonasteryControls(_PlayerID, _EntityID, _WidgetID);
     end
     return true;
@@ -504,6 +514,7 @@ function Stronghold.Building:OnMonasterySelected(_EntityID)
     if Level == 0 then
         XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
     end
+    XGUIEng.ShowWidget("Research_SundayAssembly", 1);
     XGUIEng.TransferMaterials("BlessSettlers1Source", "BlessSettlers1");
     XGUIEng.TransferMaterials("BlessSettlers2Source", "BlessSettlers2");
     XGUIEng.TransferMaterials("BlessSettlers3Source", "BlessSettlers3");

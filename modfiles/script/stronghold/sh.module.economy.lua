@@ -913,25 +913,25 @@ function Stronghold.Economy:HonorMenuInit()
 	XGUIEng.ShowWidget("GCWIcon1", 1);
 	XGUIEng.ShowWidget("GCWText1", 1);
 	XGUIEng.ShowWidget("GCWTooltip1", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWTooltip1", 0, 26, 58, 13);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon1", 0, 24, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText1", 28 + TextPos[1], 24 + TextPos[2], 35 + TextWidth[1], 18 + TextWidth[2]);
+    XGUIEng.SetWidgetPositionAndSize("GCWTooltip1", 0, 22, 60, 13);
+    XGUIEng.SetWidgetPositionAndSize("GCWIcon1", 0, 19, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText1", 30 + TextPos[1], 19 + TextPos[2], 37 + TextWidth[1], 18 + TextWidth[2]);
 
     -- Knowledge
     XGUIEng.ShowWidget("GCWIcon2", 1);
 	XGUIEng.ShowWidget("GCWText2", 1);
 	XGUIEng.ShowWidget("GCWTooltip2", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWTooltip2", 70, 26, 53, 13);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon2", 70, 24, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText2", 84 + TextPos[1], 24 + TextPos[2], 26 + TextWidth[1], 18 + TextWidth[2]);
+    XGUIEng.SetWidgetPositionAndSize("GCWTooltip2", 75, 4, 53, 13);
+    XGUIEng.SetWidgetPositionAndSize("GCWIcon2", 75, 4, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText2", 89 + TextPos[1], 4 + TextPos[2], 26 + TextWidth[1], 18 + TextWidth[2]);
 
     -- Honor
     XGUIEng.ShowWidget("GCWIcon3", 1);
 	XGUIEng.ShowWidget("GCWText3", 1);
 	XGUIEng.ShowWidget("GCWTooltip3", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWTooltip3", 0, 9, 118, 24);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon3", 0, 9, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText3", 18 + TextPos[1], 9 + TextPos[2], 91 + TextWidth[1], 18 + TextWidth[2]);
+    XGUIEng.SetWidgetPositionAndSize("GCWTooltip3", 0, 4, 60, 13);
+    XGUIEng.SetWidgetPositionAndSize("GCWIcon3", 0, 4, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("GCWText3", 30 + TextPos[1], 4 + TextPos[2], 37 + TextWidth[1], 18 + TextWidth[2]);
 end
 
 function Stronghold.Economy:HonorMenuUpdate()
