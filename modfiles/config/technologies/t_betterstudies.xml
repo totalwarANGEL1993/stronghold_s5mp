@@ -11,9 +11,7 @@
 		<Iron>0</Iron>
 		<Sulfur/>
 	</ResourceCosts>
-	<!-- <AutomaticResearch>false</AutomaticResearch>
-	<UseForStatisticsFlag>true</UseForStatisticsFlag> -->
-	<AutomaticResearch>true</AutomaticResearch>
+	<AutomaticResearch>false</AutomaticResearch>
 	<UseForStatisticsFlag>false</UseForStatisticsFlag>
 	<Conditions>
 		<EntityCondition>
