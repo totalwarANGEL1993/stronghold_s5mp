@@ -11,7 +11,7 @@
 local Path = "data\\maps\\user\\stronghold_s5mp\\sh.loader.lua";
 Script.Load(Path);
 
-function OnMapStart()
+function OnGameHasBeenStarted()
     Lib.Require("module/weather/WeatherMaker");
 
     UseWeatherSet("DesertWeatherSet");
@@ -221,7 +221,7 @@ function GameCallback_OnGameStart()
 		Logic.PlayerSetIsHumanFlag(PlayerID, 1);
 		Logic.PlayerSetGameStateToPlaying(PlayerID);
 	end
-    OnMapStart();
+    OnGameHasBeenStarted();
 end
 
 -- Must remain empty in the script because it is called by the game.

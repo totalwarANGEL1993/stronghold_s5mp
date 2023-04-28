@@ -13,7 +13,7 @@
 local Path = "data\\maps\\user\\stronghold_s5mp\\sh.loader.lua";
 Script.Load(Path);
 
-function OnMapStart()
+function OnGameHasBeenStarted()
     Player_Teams = {[1] = {1}, [2] = {2}};
 
     Lib.Require("comfort/CreateWoodPile");
@@ -133,7 +133,7 @@ function GameCallback_OnGameStart()
 		Logic.PlayerSetIsHumanFlag(PlayerID, 1);
 		Logic.PlayerSetGameStateToPlaying(PlayerID);
 	end
-    OnMapStart();
+    OnGameHasBeenStarted();
 end
 
 -- Must remain empty in the script because it is called by the game.
