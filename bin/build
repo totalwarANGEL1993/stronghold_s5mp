@@ -11,9 +11,10 @@ rm -rf var
 mkdir -p var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/config var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/graphics var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/script var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/text var/stronghold_s5mp/archive.bba.unpacked
+# loaded externaly and is currently not needed in the archive
+#cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
 
 # fill mod folder
 #cp modfiles/loader.lua var/stronghold_s5mp
@@ -30,6 +31,7 @@ rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/readme.md
 
 # copy additional files
 cp modfiles/sh.loader.lua var/stronghold_s5mp/sh.loader.lua
+cp modfiles/menu/projects/ingame.xml var/stronghold_s5mp/SH_GUI.xml
 
 # pack archive
 bin/bba5.exe var/stronghold_s5mp/archive.bba.unpacked

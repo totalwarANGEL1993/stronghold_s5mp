@@ -204,9 +204,7 @@ function Stronghold:Init()
     end
 
     self:InitPlayerEntityRecord();
-    self:AddDelayedAction(1, function(_PlayerID)
-        Stronghold:LoadGUIElements(_PlayerID);
-    end, GUI.GetPlayerID());
+    Camera.ZoomSetFactorMax(2.0);
     GUI.SetTaxLevel(0);
     GUI.ClearSelection();
     ResourceType.Honor = 20;
@@ -252,12 +250,8 @@ function Stronghold:OnSaveGameLoaded()
     Archive.ReloadGUI("data\\menu\\projects\\ingame.xml");
     Archive.ReloadEntities();
 
-    Stronghold:AddDelayedAction(1, function(_PlayerID)
-        Stronghold:LoadGUIElements(_PlayerID);
-    end, GUI.GetPlayerID());
-    -- Force UI update
+    Camera.ZoomSetFactorMax(2.0);
     GUI.ClearSelection();
-    -- Init new resource
     ResourceType.Honor = 20;
 
     -- Call save game stuff
@@ -1002,19 +996,6 @@ end
 
 -- -------------------------------------------------------------------------- --
 -- UI Update
-
-function Stronghold:LoadGUIElements(_PlayerID)
-    if GUI.GetPlayerID() == _PlayerID then
-        XGUIEng.SetMaterialTexture("BackGround_BottomLeft", 1, "graphics/textures/gui/bg_bottom_left2.png");
-        XGUIEng.SetMaterialTexture("BackGround_BottomTexture", 0, "graphics/textures/gui/bg_bottom2.png");
-        XGUIEng.TransferMaterials("BlessSettlers1", "BlessSettlers1Source");
-        XGUIEng.TransferMaterials("BlessSettlers2", "BlessSettlers2Source");
-        XGUIEng.TransferMaterials("BlessSettlers3", "BlessSettlers3Source");
-        XGUIEng.TransferMaterials("BlessSettlers4", "BlessSettlers4Source");
-        XGUIEng.TransferMaterials("BlessSettlers5", "BlessSettlers5Source");
-        Camera.ZoomSetFactorMax(2.0);
-    end
-end
 
 function Stronghold:OverrideStringTableText()
     local Text;

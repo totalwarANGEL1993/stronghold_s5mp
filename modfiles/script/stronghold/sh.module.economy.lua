@@ -948,13 +948,18 @@ function Stronghold.Economy:HonorMenuUpdate()
     -- Honor
     XGUIEng.SetText("GCWText3", " @ra " ..Honor);
     -- Pause color
+    local IsPaused = Game.GameTimeGetFactor() == 0;
     for i= 1, 4 do
         XGUIEng.SetMaterialColor("GCWIcon" ..i, 1, 255, 255, 255, 255);
         XGUIEng.SetTextColor("GCWText" ..i, 178, 178, 178);
-        if Game.GameTimeGetFactor() == 0 then
+        if IsPaused then
             XGUIEng.SetMaterialColor("GCWIcon" ..i, 1, 80, 80, 80, 255);
             XGUIEng.SetTextColor("GCWText" ..i, 80, 80, 80);
         end
+    end
+    XGUIEng.SetMaterialColor("SHS5MP_ShowRules", 1, 255, 255, 255, 255);
+    if IsPaused then
+        XGUIEng.SetMaterialColor("SHS5MP_ShowRules", 1, 80, 80, 80);
     end
 end
 
