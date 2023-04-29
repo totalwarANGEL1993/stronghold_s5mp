@@ -41,7 +41,7 @@ function GameCallback_OnGameStart()
 	Script.Load("Data\\Script\\MapTools\\WeatherSets.lua");
 	IncludeGlobals("Comfort");
 
-	Script.Load("E:/Siedler/Projekte/stronghold_s5mp/maps/(4) xmas2023-test/maps/externalmap/script/main.lua");
+	Script.Load("E:/Siedler/Projekte/stronghold_s5mp/maps/(4) xmas2023-test.s5x.unpacked/maps/externalmap/script/main.lua");
 
 	MultiplayerTools.InitCameraPositionsForPlayers();
 	MultiplayerTools.SetUpGameLogicOnMPGameConfig();
