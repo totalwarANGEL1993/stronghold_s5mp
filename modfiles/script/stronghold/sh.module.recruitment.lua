@@ -265,14 +265,18 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
-            if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
-                Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-                Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
-                return true;
+            if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
+                if not Modifier then
+                    Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
+                    Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+                    return true;
+                end
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
-            if not Modifier and not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
-                return true;
+            if not Modifier then
+                if not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
+                    return true;
+                end
             end
 
             Stronghold.Players[PlayerID].BuyUnitLock = true;
@@ -355,14 +359,18 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
             local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
             local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
-            if not Modifier and not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
-                Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-                Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
-                return true;
+            if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
+                if not Modifier then
+                    Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
+                    Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+                    return true;
+                end
             end
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
-            if not Modifier and not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
-                return true;
+            if not Modifier then
+                if not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
+                    return true;
+                end
             end
             Stronghold.Players[PlayerID].BuyUnitLock = true;
             Syncer.InvokeEvent(
@@ -690,9 +698,9 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
     end
     if IsPlayer(_PlayerID) then
         local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
-        if Stronghold.Unit.Config:Get(_Type, _PlayerID) then
+        if Config then
             local ScriptName = Logic.GetEntityName(_BarracksID);
-            local Soldiers = (_AutoFill and  Config.Soldiers) or 0;
+            local Soldiers = (_AutoFill and Config.Soldiers) or 0;
             local CostsSoldier = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, Soldiers);
             local CostsLeader = self:GetLeaderCosts(_PlayerID, _Type, 0);
             local Places = Config.Places or Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type);
@@ -702,11 +710,16 @@ function Stronghold.Recruitment:OrderUnit(_PlayerID, _Queue, _Type, _BarracksID,
                     Turns = math.floor((Turns * self.Config.SlavePenny.TimeFactor) + 0.5);
                 end
             end
-            self:CreateNewQueueEntry(
-                _PlayerID, _Queue, ScriptName, math.floor(Turns + 0.5), _Type,
-                Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier
-            );
-            self:SubResourcesForUnit(_PlayerID, CostsLeader, CostsSoldier);
+
+            local CostsMerged = CopyTable(CostsLeader);
+            CostsMerged = MergeCostTable(CostsMerged, CostsSoldier);
+            if HasEnoughResources(_PlayerID, CostsMerged) then
+                self:CreateNewQueueEntry(
+                    _PlayerID, _Queue, ScriptName, math.floor(Turns + 0.5), _Type,
+                    Soldiers, Config.IsCivil, Places, CostsLeader, CostsSoldier
+                );
+                self:SubResourcesForUnit(_PlayerID, CostsLeader, CostsSoldier);
+            end
         end
         Stronghold.Players[_PlayerID].BuyUnitLock = nil;
     end
@@ -721,10 +734,12 @@ function Stronghold.Recruitment:SubResourcesForUnit(_PlayerID, _CostsLeader, _Co
 end
 
 function Stronghold.Recruitment:RefundUnit(_PlayerID, _CostsLeader, _CostsSoldier)
-    local CostsFull = _CostsLeader;
-    for k,v in pairs(_CostsSoldier) do
-        CostsFull[k] = (CostsFull[k] or 0) + (v or 0);
-    end
+    local CostsFull = CopyTable(_CostsLeader);
+    -- FIXME: For some reason I can not find, the soldier costs are already
+    -- added to the leader costs.
+    -- for k,v in pairs(_CostsSoldier) do
+    --     CostsFull[k] = (CostsFull[k] or 0) + (v or 0);
+    -- end
     AddResourcesToPlayer(_PlayerID, CostsFull);
 end
 
@@ -766,21 +781,6 @@ function Stronghold.Recruitment:GetFirstEntryFromQueue(_PlayerID, _Queue, _Scrip
     and self.Data[_PlayerID].Queues[_Queue][_ScriptName] then
         return self.Data[_PlayerID].Queues[_Queue][_ScriptName][1];
     end
-end
-
--- DEPRECATED!
-function Stronghold.Recruitment:GetOccupiedSpacesFromQueues(_PlayerID, _IsCivil)
-    local Places = 0;
-    for QueueName,_ in pairs(self.Data[_PlayerID].Queues) do
-        for ScriptName, Data in pairs(self.Data[_PlayerID].Queues[QueueName]) do
-            for k,v in pairs(Data) do
-                if v.IsCivil == _IsCivil then
-                    Places = Places + (v.Places + (v.Soldiers * v.Places));
-                end
-            end
-        end
-    end
-    return Places;
 end
 
 function Stronghold.Recruitment:AbortLatestQueueEntry(_PlayerID, _Queue, _ScriptName)

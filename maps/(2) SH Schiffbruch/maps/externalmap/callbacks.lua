@@ -6,12 +6,10 @@
 ---   put the changed files on the stack.
 --- 
 
-function OnMapStart()
-	CMod.PushArchive("stronghold_s5mp\\archive.bba");
-end;
-
 local Callbacks = {
-	OnMapStart = OnMapStart;
+	OnMapStart = function()
+        CMod.PushArchive("stronghold_s5mp\\archive.bba");
+    end;
 };
 return Callbacks;
 
