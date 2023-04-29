@@ -81,7 +81,7 @@ end
 -- Internal
 
 function Stronghold.Rights:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             MaxRank = Stronghold.Config.Base.MaxRank,
             LockRank = Stronghold.Config.Base.MaxRank +1,

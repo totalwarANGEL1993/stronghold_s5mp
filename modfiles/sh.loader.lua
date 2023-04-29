@@ -112,6 +112,3 @@ Script.Load(ModPath.. "sh.module.outlaw.constants.lua");
 Script.Load(ModPath.. "sh.module.multiplayer.lua");
 Script.Load(ModPath.. "sh.module.multiplayer.config.lua");
 
-
-CWidget.LoadGUINoPreserve("maps\\user\\stronghold_s5mp\\SH_GUI.xml");
-

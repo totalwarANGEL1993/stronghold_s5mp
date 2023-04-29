@@ -20,7 +20,7 @@ Stronghold.Outlaw = {
 }
 
 function Stronghold.Outlaw:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             Camps = {},
         };
@@ -119,7 +119,7 @@ function Stronghold.Outlaw:CreateCamp(_PlayerID, _HomePosition, _AtkTarget, _Atk
         ---@diagnostic disable-next-line: undefined-field
         local PlayerID = math.mod(
             math.floor(Logic.GetTime() * 10),
-            table.getn(Score.Player)
+            GetMaxPlayers()
         );
         if PlayerID == _PlayerID then
             Stronghold.Outlaw:ControlCamp(_PlayerID, _CampID);

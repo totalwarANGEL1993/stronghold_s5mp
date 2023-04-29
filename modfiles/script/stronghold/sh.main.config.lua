@@ -4,6 +4,8 @@
 
 Stronghold.Config = {
     Base = {
+        MaxPossiblePlayers = 8,
+        MaxHumanPlayers = 6,
         InitialResources = {0, 0, 0, 0, 0, 0, 0},
         InitialRank = 0,
         MaxRank = 7,

@@ -87,7 +87,7 @@ end
 -- Internal
 
 function Stronghold.Attraction:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             LastAttempt = 0,
             VirtualSettlers = 0,

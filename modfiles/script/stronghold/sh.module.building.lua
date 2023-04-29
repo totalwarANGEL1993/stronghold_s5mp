@@ -19,7 +19,7 @@ Stronghold.Building = Stronghold.Building or {
 }
 
 function Stronghold.Building:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             Measrue = {},
             RallyPoint = {},

@@ -83,7 +83,7 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Hero:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
         -- NEVER EVER CHANGE THIS!!!
         BuyHero.SetNumberOfBuyableHeroes(i, 1);
@@ -97,7 +97,7 @@ function Stronghold.Hero:Install()
 end
 
 function Stronghold.Hero:OnSaveGameLoaded()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         local Wolves = Stronghold:GetLeadersOfType(i, Entities.CU_Barbarian_Hero_wolf);
         for j=1, table.getn(Wolves) do
             self:ConfigurePlayersHeroPet(Wolves[j]);

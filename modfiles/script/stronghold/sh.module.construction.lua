@@ -14,7 +14,7 @@ Stronghold.Construction = {
 }
 
 function Stronghold.Construction:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
     end
     -- Don't let EMS fuck with my script...

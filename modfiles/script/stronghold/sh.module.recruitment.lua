@@ -19,7 +19,7 @@ Stronghold.Recruitment = Stronghold.Recruitment or {
 };
 
 function Stronghold.Recruitment:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             Config = CopyTable(Stronghold.Unit.Config),
             Roster = {},

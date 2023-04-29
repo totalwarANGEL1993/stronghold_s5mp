@@ -65,7 +65,7 @@ Stronghold.Economy = {
 };
 
 function Stronghold.Economy:Install()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         CUtil.AddToPlayersMotivationSoftcap(i, 1);
 
         self.Data[i] = {

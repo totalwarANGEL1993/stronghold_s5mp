@@ -158,6 +158,18 @@ function SetSellingPrice(_PlayerID, _Resource, _Price)
     Stronghold:ManipulateGoodSellPrice(_PlayerID, _Resource, _Price);
 end
 
+--- Returns the max amount of usable player IDs.
+--- @return number Amount Amount of player IDs
+function GetMaxPlayers()
+    return Stronghold:GetMaxAmountOfPlayersPossible();
+end
+
+--- Returns the max amount of human usable player IDs.
+--- @return number Amount Amount of human players
+function GetMaxHumanPlayers()
+    return Stronghold:GetMaxAmountOfHumanPlayersPossible();
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
@@ -420,7 +432,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs)
 end
 
 function Stronghold:UnlockAllTechnologies()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         ResearchTechnology(Technologies.GT_Alchemy, i);
         ResearchTechnology(Technologies.GT_Alloying, i);
         ResearchTechnology(Technologies.GT_Architecture, i);
@@ -446,6 +458,14 @@ function Stronghold:UnlockAllTechnologies()
         ResearchTechnology(Technologies.T_WeatherForecast, i);
         ResearchTechnology(Technologies.UP2_Headquarter, i);
     end
+end
+
+function Stronghold:GetMaxAmountOfPlayersPossible()
+    return self.Config.Base.MaxPossiblePlayers;
+end
+
+function Stronghold:GetMaxAmountOfHumanPlayersPossible()
+    return self.Config.Base.MaxHumanPlayers;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -511,7 +531,7 @@ function Stronghold:StartTriggers()
 end
 
 function Stronghold:OnEveryTurn()
-    local Players = table.getn(Score.Player);
+    local Players = GetMaxPlayers();
     -- Player jobs on each turn
     for i= 1, Players do
         Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(i);
@@ -535,7 +555,7 @@ function Stronghold:OnEveryTurn()
 end
 
 function Stronghold:OnEverySecond()
-    local Players = table.getn(Score.Player);
+    local Players = GetMaxPlayers();
     for i= 1, Players do
         self:PlayerDefeatCondition(i);
     end
@@ -713,7 +733,7 @@ end
 -- Entity Record
 
 function Stronghold:InitPlayerEntityRecord()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         self.Record[i] = {
             All = {},
             Building = {},
@@ -856,13 +876,13 @@ end
 -- Payday
 
 function Stronghold:SetupPaydayForAllPlayers()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         CUtil.Payday_SetActive(i, true);
     end
 end
 
 function Stronghold:ConfigurePaydayForAllPlayers()
-    for i= 1, table.getn(Score.Player) do
+    for i= 1, GetMaxPlayers() do
         if Logic.IsTechnologyResearched(i,Technologies.T_BookKeeping) == 0 then
             CUtil.Payday_SetFrequency(i, self.Config.Payday.Base);
         else
