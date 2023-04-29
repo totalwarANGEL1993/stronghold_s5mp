@@ -43,7 +43,7 @@ Stronghold.Hero.Config.Hero8 = {
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
     TavernEfficiency = 2.0,
-    WolfHonorRate = 0.10,
+    WolfHonorRate = 0.05,
 }
 -- Hero 10 properties
 Stronghold.Hero.Config.Hero10 = {

@@ -454,8 +454,9 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         end
         self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime or Default.PeaceTime;
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
-        self.Config.DefaultSettings.Rank.Final = _Config.Rank.Initial or Default.Rank.Final;
-        self.Config.DefaultSettings.Resources = _Config.Rank.Initial or Default.Resources;
+        self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
+        self.Config.DefaultSettings.Resources = _Config.Rank.Resources or Default.Resources;
+        self.Config.DefaultSettings.Knowledge = _Config.Rank.Knowledge or Default.Knowledge;
         for k,v in pairs(Default.AllowedHeroes) do
             self.Config.DefaultSettings.AllowedHeroes[k] = _Config.AllowedHeroes[k] or v;
         end
@@ -479,15 +480,19 @@ end
 function Stronghold.Multiplayer:Configure()
     -- Setup ranks
     if self.Data.Config.Rank then
+        local InitialRank = self.Data.Config.Rank.Initial or 0;
+        local FinalRank = self.Data.Config.Rank.Final or 7;
         if XNetwork.Manager_DoesExist() == 1 then
             local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
             for PlayerID= 1, HumenPlayer, 1 do
-                SetRank(PlayerID, self.Data.Config.Rank.Initial or 0);
-                Stronghold.Rights:SetPlayerMaxRank(PlayerID, self.Data.Config.Rank.Final or 7);
+                SetRank(PlayerID, InitialRank);
+                AddKnowledge(PlayerID, 5 * InitialRank);
+                Stronghold.Rights:SetPlayerMaxRank(PlayerID, FinalRank);
             end
         else
-            SetRank(GUI.GetPlayerID(), self.Data.Config.Rank.Initial or 0);
-            Stronghold.Rights:SetPlayerMaxRank(GUI.GetPlayerID(), self.Data.Config.Rank.Final or 7);
+            SetRank(GUI.GetPlayerID(), InitialRank);
+            AddKnowledge(GUI.GetPlayerID(), 5 * InitialRank);
+            Stronghold.Rights:SetPlayerMaxRank(GUI.GetPlayerID(), FinalRank);
         end
     end
 
