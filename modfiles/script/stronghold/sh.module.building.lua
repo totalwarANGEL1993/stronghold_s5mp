@@ -674,10 +674,6 @@ end
 
 function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
     if self.Data[_PlayerID] then
-        -- No rally points on uncharted territory
-        if Logic.IsMapPositionExplored(_PlayerID, _X, _Y) == 0 then
-            return;
-        end
         -- Create position entity
         local ScriptName = CreateNameForEntity(_EntityID);
         local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X, _Y, 0, _PlayerID);
@@ -689,6 +685,7 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
         -- Set visibility
         SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
         Logic.SetModelAndAnimSet(ID, Models.Banners_XB_LargeFull);
+        Logic.SetEntityExplorationRange(ID, 1);
         -- Save new entity
         DestroyEntity(self.Data[_PlayerID].RallyPoint[ScriptName]);
         self.Data[_PlayerID].RallyPoint[ScriptName] = ID;
