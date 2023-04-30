@@ -53,9 +53,6 @@
         <ModifyDamage>
             <Technology>T_Turnery</Technology>
         </ModifyDamage>
-        <ModifyDamage>
-            <Technology>T_BetterTrainingBarracks</Technology>
-        </ModifyDamage>
 
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>

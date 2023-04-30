@@ -39,9 +39,6 @@
         <ModifyDamage>
             <Technology>T_LeadShot</Technology>
         </ModifyDamage>
-        <ModifyDamage>
-            <Technology>T_BetterTrainingArchery</Technology>
-        </ModifyDamage>
 
         <ModifyExploration>
             <Technology>T_Sights</Technology>

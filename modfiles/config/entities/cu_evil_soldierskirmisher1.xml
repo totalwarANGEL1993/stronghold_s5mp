@@ -61,9 +61,6 @@
         <ModifyMaxRange>
             <Technology>T_Turnery</Technology>
         </ModifyMaxRange>
-        <ModifyMaxRange>
-            <Technology>T_BetterTrainingArchery</Technology>
-        </ModifyMaxRange>
 
         <ModifyDamage>
             <Technology>T_WoodAging</Technology>

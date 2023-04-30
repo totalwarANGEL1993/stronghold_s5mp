@@ -38,9 +38,13 @@ function OnGameHasBeenStarted()
     end
 end
 
+-- -------------------------------------------------------------------------- --
+
 function SetupProvinces()
     local Peacetime = GetSelectedPeacetime();
 
+    -- Province produces 30 + (10 * (Peacetime -1)) honor. Additionaly
+    -- upgrading the villge center increases the amount by 50% each.
     CreateHonorProvince(
         "Oasis de Lune",
         "Province1Pos",
@@ -56,6 +60,8 @@ function SetupProvinces()
         "Province1Hut8"
     );
 
+    -- Province produces 30 + (10 * (Peacetime -1)) honor. Additionaly
+    -- upgrading the villge center increases the amount by 50% each.
     CreateHonorProvince(
         "Oasis de Sene",
         "Province2Pos",
@@ -71,6 +77,8 @@ function SetupProvinces()
         "Province2Hut8"
     );
 
+    -- Central province produces 600 + (100 * (Peacetime -1)) wood. Additionaly
+    -- upgrading the villge center increases the amount by 75% each.
     CreateResourceProvince(
         "la Source de Mystere",
         "Province3Pos",
@@ -81,6 +89,8 @@ function SetupProvinces()
         "Province3Hut2"
     )
 end
+
+-- -------------------------------------------------------------------------- --
 
 function SetupCamps()
     local Peacetime = GetSelectedPeacetime();
@@ -118,6 +128,25 @@ end
 
 function SetupCampsWS10()
     for j= 1,2 do
+        CreateTroopSpawner(
+            7, "Outpost" ..j, nil, 3, 120, 3000,
+            Entities.PU_LeaderSword2,
+            Entities.PU_LeaderBow2,
+            Entities.PU_LeaderBow2
+        );
+        for i= 1, 4 do
+            CreateTroopSpawner(
+                7, "OP" ..j.. "Tent"..i, nil, 2, 120, 3000,
+                Entities.PU_LeaderPoleArm1,
+                Entities.PU_LeaderPoleArm1,
+                Entities.PU_LeaderBow1
+            );
+        end
+    end
+end
+
+function SetupCampsWS20()
+    for j= 1,2 do
         ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower2);
         ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower2);
         CreateTroopSpawner(
@@ -136,20 +165,19 @@ function SetupCampsWS10()
     end
 end
 
-function SetupCampsWS20()
+function SetupCampsWS30()
     for j= 1,2 do
-        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_DarkTower2);
-        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_DarkTower2);
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower2);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower2);
         CreateTroopSpawner(
-            7, "Outpost" ..j, nil, 3, 90, 3000,
-            Entities.PU_LeaderSword3,
-            Entities.PU_LeaderRifle1,
-            Entities.PV_Cannon1
+            7, "Outpost" ..j, nil, 4, 90, 3000,
+            Entities.PU_LeaderSword2,
+            Entities.PU_LeaderBow2,
+            Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
             CreateTroopSpawner(
                 7, "OP" ..j.. "Tent"..i, nil, 2, 90, 3000,
-                Entities.PU_LeaderPoleArm2,
                 Entities.PU_LeaderPoleArm2,
                 Entities.PU_LeaderBow2
             );
@@ -157,7 +185,7 @@ function SetupCampsWS20()
     end
 end
 
-function SetupCampsWS30()
+function SetupCampsWS40()
     for j= 1,2 do
         ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower3);
         ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower3);
@@ -173,27 +201,6 @@ function SetupCampsWS30()
                 7, "OP" ..j.. "Tent"..i, nil, 2, 60, 3000,
                 Entities.PU_LeaderPoleArm2,
                 Entities.PU_LeaderPoleArm2,
-                Entities.PV_Cannon1
-            );
-        end
-    end
-end
-
-function SetupCampsWS40()
-    for j= 1,2 do
-        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_DarkTower3);
-        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_DarkTower3);
-        CreateTroopSpawner(
-            7, "Outpost" ..j, nil, 4, 60, 3000,
-            Entities.PU_LeaderSword3,
-            Entities.PU_LeaderRifle2,
-            Entities.PV_Cannon3
-        );
-        for i= 1, 4 do
-            CreateTroopSpawner(
-                7, "OP" ..j.. "Tent"..i, nil, 2, 60, 3000,
-                Entities.PU_LeaderPoleArm2,
-                Entities.PU_LeaderRifle1,
                 Entities.PV_Cannon1
             );
         end

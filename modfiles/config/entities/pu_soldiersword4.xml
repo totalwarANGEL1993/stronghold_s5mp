@@ -50,9 +50,6 @@
         <ModifyDamage>
             <Technology>T_IronCasting</Technology>
         </ModifyDamage>
-        <ModifyDamage>
-            <Technology>T_BetterTrainingBarracks</Technology>
-        </ModifyDamage>
 
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>

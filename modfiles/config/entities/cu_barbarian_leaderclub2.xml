@@ -50,6 +50,9 @@
         <ModifyDamage>
             <Technology>T_Turnery</Technology>
         </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_BetterTrainingBarracks</Technology>
+        </ModifyDamage>
 
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
@@ -121,7 +124,7 @@
 
             <DamageClass>DC_Blunt</DamageClass>
             <DamageAmount>13</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

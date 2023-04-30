@@ -22,10 +22,10 @@
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>230</MaxHealth>
+        <MaxHealth>350</MaxHealth>
         <Exploration>33</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
         <ExperiencePoints>30</ExperiencePoints>
@@ -93,8 +93,8 @@
             <BattleWalkAnim>PV_Cannon4_Drive</BattleWalkAnim>
 
             <DamageClass>DC_Siege</DamageClass>
-            <DamageAmount>120</DamageAmount>
-            <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
+            <DamageAmount>150</DamageAmount>
+            <MaxRandomDamageBonus>32</MaxRandomDamageBonus>
             <DamageRange>100</DamageRange>
 
             <BattleWaitUntil>4500</BattleWaitUntil>

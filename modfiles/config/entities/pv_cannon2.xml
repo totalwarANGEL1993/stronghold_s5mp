@@ -22,7 +22,7 @@
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>190</MaxHealth>
+        <MaxHealth>200</MaxHealth>
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
@@ -93,8 +93,8 @@
             <BattleWalkAnim>PV_Cannon2_Drive</BattleWalkAnim>
 
             <DamageClass>DC_Siege</DamageClass>
-            <DamageAmount>60</DamageAmount>
-            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
+            <DamageAmount>75</DamageAmount>
+            <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
             <DamageRange>50</DamageRange>
 
             <BattleWaitUntil>4500</BattleWaitUntil>
