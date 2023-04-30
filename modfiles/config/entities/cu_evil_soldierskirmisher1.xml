@@ -36,13 +36,13 @@
 
 
         <ModifyArmor>
-            <Technology>T_LeatherMailArmor</Technology>
+            <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
         <ModifyArmor>
-            <Technology>T_ChainMailArmor</Technology>
+            <Technology>T_PaddedArcherArmor</Technology>
         </ModifyArmor>
         <ModifyArmor>
-            <Technology>T_PlateMailArmor</Technology>
+            <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
 
         <ModifyExploration>

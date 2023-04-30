@@ -126,7 +126,7 @@
 
             <DamageClass>DC_Blunt</DamageClass>
             <DamageAmount>26</DamageAmount>
-            <MaxRandomDamageBonus>14</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 
