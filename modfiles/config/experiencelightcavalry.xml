@@ -1,0 +1,34 @@
+<root>
+    <Table>LightCavalry</Table>
+    <Level>
+        <DamageAmount>1</DamageAmount>
+    </Level>
+    <Level>
+        <DamageAmount>1</DamageAmount>
+        <Exploration>1</Exploration>
+        <AutoAttackRange>100</AutoAttackRange>
+        <MaxRange>100</MaxRange>
+    </Level>
+    <Level>
+        <DamageAmount>2</DamageAmount>
+        <Exploration>1</Exploration>
+        <AutoAttackRange>100</AutoAttackRange>
+        <MaxRange>100</MaxRange>
+        <HealingPoints>4</HealingPoints>
+    </Level>
+    <Level>
+        <DamageAmount>2</DamageAmount>
+        <Exploration>2</Exploration>
+        <AutoAttackRange>200</AutoAttackRange>
+        <MaxRange>200</MaxRange>
+        <HealingPoints>8</HealingPoints>
+    </Level>
+    <Level>
+        <DamageAmount>3</DamageAmount>
+        <Exploration>4</Exploration>
+        <AutoAttackRange>400</AutoAttackRange>
+        <MaxRange>400</MaxRange>
+        <HealingPoints>12</HealingPoints>
+        <MissChance>-2</MissChance>
+    </Level>
+</root>

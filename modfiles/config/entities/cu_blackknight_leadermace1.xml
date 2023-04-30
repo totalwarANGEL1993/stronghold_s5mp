@@ -63,7 +63,7 @@
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassJerkin</ArmorClass>
         <ArmorAmount>9</ArmorAmount>
-        <DodgeChance>10</DodgeChance>
+        <DodgeChance>8</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>

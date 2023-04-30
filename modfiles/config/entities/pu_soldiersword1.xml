@@ -26,7 +26,6 @@
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <MaxHealth>125</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
-        <DodgeChance>10</DodgeChance>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>

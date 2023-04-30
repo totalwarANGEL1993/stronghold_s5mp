@@ -22,7 +22,7 @@
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <MaxHealth>125</MaxHealth>
-        <DodgeChance>15</DodgeChance>
+        <DodgeChance>12</DodgeChance>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -76,7 +76,6 @@
         <Exploration>25</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
-        <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>15</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
@@ -127,7 +126,7 @@
 
             <BattleWaitUntil>3000</BattleWaitUntil>
 
-            <MissChance>10</MissChance>
+            <MissChance>7</MissChance>
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
 

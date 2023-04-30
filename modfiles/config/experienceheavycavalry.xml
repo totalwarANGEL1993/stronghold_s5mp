@@ -1,0 +1,30 @@
+<root>
+	<Table>HeavyCavalry</Table>
+	<Level>		
+		<DamageAmount>1</DamageAmount>	
+	</Level>
+	<Level>
+		<DamageAmount>2</DamageAmount>	
+		<Exploration>1</Exploration>		
+		<AutoAttackRange>100</AutoAttackRange>			
+	</Level>
+	<Level>
+		<DamageAmount>3</DamageAmount>	
+		<Exploration>1</Exploration>		
+		<AutoAttackRange>100</AutoAttackRange>			
+		<HealingPoints>5</HealingPoints>		
+	</Level>
+	<Level>
+		<DamageAmount>4</DamageAmount>	
+		<Exploration>3</Exploration>		
+		<AutoAttackRange>300</AutoAttackRange>			
+		<HealingPoints>10</HealingPoints>	
+	</Level>
+	<Level>
+		<DamageAmount>5</DamageAmount>	
+		<Exploration>4</Exploration>		
+		<AutoAttackRange>400</AutoAttackRange>			
+		<HealingPoints>15</HealingPoints>	
+		<DodgeChance>5</DodgeChance>
+	</Level>
+</root>

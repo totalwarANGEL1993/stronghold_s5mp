@@ -22,7 +22,6 @@
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <MaxHealth>75</MaxHealth>
-        <DodgeChance>0</DodgeChance>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Fearless>true</Fearless>
@@ -84,7 +83,7 @@
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>20</DodgeChance>
+        <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>15</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>

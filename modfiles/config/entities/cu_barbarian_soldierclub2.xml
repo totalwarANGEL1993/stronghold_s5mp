@@ -70,7 +70,7 @@
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
-        <DodgeChance>10</DodgeChance>
+        <DodgeChance>8</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>5</ExperiencePoints>

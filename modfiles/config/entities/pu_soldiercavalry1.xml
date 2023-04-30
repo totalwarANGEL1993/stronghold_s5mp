@@ -120,7 +120,7 @@
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <MissChance>12</MissChance>
+            <MissChance>9</MissChance>
 
             <ProjectileEffectID>FXCavalryArrow</ProjectileEffectID>
             <MaxRange>2800</MaxRange>

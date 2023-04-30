@@ -24,7 +24,6 @@
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <MaxHealth>125</MaxHealth>
-        <DodgeChance>5</DodgeChance>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -68,7 +67,7 @@
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassJerkin</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>10</DodgeChance>
+        <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>7</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>

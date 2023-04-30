@@ -124,7 +124,7 @@
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <MissChance>5</MissChance>
+            <MissChance>2</MissChance>
 
             <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
             <MaxRange>3000</MaxRange>

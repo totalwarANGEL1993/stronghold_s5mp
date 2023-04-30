@@ -78,7 +78,7 @@
         <Exploration>25</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>30</DodgeChance>
+        <DodgeChance>22</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>25</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
@@ -136,7 +136,7 @@
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
-            <MissChance>0</MissChance>
+            <MissChance>2</MissChance>
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
             <MaxRange>2500</MaxRange>

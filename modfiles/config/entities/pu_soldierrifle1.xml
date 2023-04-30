@@ -22,7 +22,6 @@
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <MaxHealth>200</MaxHealth>
-        <DodgeChance>10</DodgeChance>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -124,7 +123,7 @@
 
             <BattleWaitUntil>1800</BattleWaitUntil>
 
-            <MissChance>20</MissChance>
+            <MissChance>13</MissChance>
 
             <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
             <MaxRange>2800</MaxRange>
