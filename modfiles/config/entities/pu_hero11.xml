@@ -141,7 +141,7 @@
             <ProjectileType>FXYukiShuriken</ProjectileType>
             <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight>
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>150</DamageAmount>
+            <DamageAmount>125</DamageAmount>
         </Logic>
     </Behavior>
 

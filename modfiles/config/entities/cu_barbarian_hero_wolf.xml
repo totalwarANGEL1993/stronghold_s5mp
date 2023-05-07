@@ -29,7 +29,7 @@
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassHero</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>22</DodgeChance>
+        <DodgeChance>30</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>10</ExperiencePoints>
 
@@ -82,7 +82,7 @@
 
             <DamageClass>DC_Hero</DamageClass>
             <DamageAmount>15</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>9</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

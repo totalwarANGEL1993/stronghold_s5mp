@@ -33,7 +33,7 @@
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassHero</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
-        <DodgeChance>30</DodgeChance>
+        <DodgeChance>20</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>150</ExperiencePoints>
         <Fearless>true</Fearless>
@@ -165,7 +165,7 @@
             <ProjectileType>FXArrow</ProjectileType>
             <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight>
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>150</DamageAmount>
+            <DamageAmount>125</DamageAmount>
         </Logic>
     </Behavior>
 
