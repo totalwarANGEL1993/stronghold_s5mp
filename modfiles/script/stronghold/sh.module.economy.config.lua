@@ -57,24 +57,24 @@ Stronghold.Economy.Config.Income = {
 
     TechnologyEffect = {
         [Technologies.T_CropCycle]   = {
-            [Entities.PB_Farm2]      = {Honor = 0.03, Reputation = 0.0,},
-            [Entities.PB_Farm3]      = {Honor = 0.03, Reputation = 0.0,},
-        },
-        [Technologies.T_Spice]       = {
             [Entities.PB_Farm2]      = {Honor = 0.06, Reputation = 0.0,},
             [Entities.PB_Farm3]      = {Honor = 0.06, Reputation = 0.0,},
         },
-        [Technologies.T_Hearthfire]  = {
-            [Entities.PB_Residence2] = {Honor = 0.0, Reputation = 0.03,},
-            [Entities.PB_Residence3] = {Honor = 0.0, Reputation = 0.03,},
+        [Technologies.T_Spice]       = {
+            [Entities.PB_Farm2]      = {Honor = 0.09, Reputation = 0.0,},
+            [Entities.PB_Farm3]      = {Honor = 0.09, Reputation = 0.0,},
         },
-        [Technologies.T_RoomKeys]    = {
+        [Technologies.T_Hearthfire]  = {
             [Entities.PB_Residence2] = {Honor = 0.0, Reputation = 0.06,},
             [Entities.PB_Residence3] = {Honor = 0.0, Reputation = 0.06,},
         },
+        [Technologies.T_RoomKeys]    = {
+            [Entities.PB_Residence2] = {Honor = 0.0, Reputation = 0.09,},
+            [Entities.PB_Residence3] = {Honor = 0.0, Reputation = 0.09,},
+        },
         [Technologies.T_Instruments] = {
-            [Entities.PB_Tavern1]    = {Honor = 0.20, Reputation = 0.0,},
-            [Entities.PB_Tavern2]    = {Honor = 0.30, Reputation = 0.0,},
+            [Entities.PB_Tavern1]    = {Honor = 0.26, Reputation = 0.0,},
+            [Entities.PB_Tavern2]    = {Honor = 0.38, Reputation = 0.0,},
         },
     },
 
