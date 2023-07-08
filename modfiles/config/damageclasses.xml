@@ -17,7 +17,7 @@
         <Logic classname="GGL::CDamageClassProps">
             <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
             <ArmorClassJerkinFactor>1.7</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
+            <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
@@ -30,7 +30,7 @@
             <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
             <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.5</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
+            <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>0.2</ArmorClassFurFactor>

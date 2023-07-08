@@ -36,13 +36,14 @@
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_ChainMailArmor</Technology>
         </ModifyArmor>
-
         <ModifyArmor>
             <Technology>T_PlateMailArmor</Technology>
+        </ModifyArmor>
+        <ModifyArmor>
+            <Technology>T_BetterTrainingBarracks</Technology>
         </ModifyArmor>
 
         <ModifyDamage>

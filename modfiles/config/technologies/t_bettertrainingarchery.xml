@@ -23,6 +23,11 @@
         <Operation>+</Operation>
     </DamageModifier>
 
+    <ArmorModifier>
+        <Value>1</Value>
+        <Operation>+</Operation>
+    </ArmorModifier>
+
     <MaxRangeModifier>
         <Value>200</Value>
         <Operation>+</Operation>

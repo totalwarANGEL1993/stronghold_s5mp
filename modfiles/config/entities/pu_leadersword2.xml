@@ -41,6 +41,9 @@
         <ModifyArmor>
             <Technology>T_PlateMailArmor</Technology>
         </ModifyArmor>
+        <ModifyArmor>
+            <Technology>T_BetterTrainingBarracks</Technology>
+        </ModifyArmor>
 
         <ModifyDamage>
             <Technology>T_MasterOfSmithery</Technology>
