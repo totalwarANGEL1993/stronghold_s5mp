@@ -35,7 +35,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassIron</ArmorClass>
-        <ArmorAmount>7</ArmorAmount>
+        <ArmorAmount>8</ArmorAmount>
         <DodgeChance>7</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>30</ExperiencePoints>
@@ -102,8 +102,8 @@
             <HitAnim>PU_SoldierCavalry4_Hit</HitAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>32</DamageAmount>
-            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
+            <DamageAmount>48</DamageAmount>
+            <MaxRandomDamageBonus>12</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

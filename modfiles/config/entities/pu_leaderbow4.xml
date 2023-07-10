@@ -128,7 +128,7 @@
             <HitAnim>PU_LeaderBow4_Hit</HitAnim>
 
             <DamageClass>DC_Bolt</DamageClass>
-            <DamageAmount>29</DamageAmount>
+            <DamageAmount>32</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
