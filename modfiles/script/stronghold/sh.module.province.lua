@@ -252,7 +252,6 @@ function Stronghold.Province:LooseProvince(_ID, _PlayerID)
         end
         self.Data.Provinces[_ID].Entities = {};
         -- Print message
-        local Lang = GetLanguage();
         Message(string.format(
             XGUIEng.GetStringTableText("sh_text/Province_Lost"),
             self.Data.Provinces[_ID].DisplayName

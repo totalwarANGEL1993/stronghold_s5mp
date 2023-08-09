@@ -94,7 +94,7 @@
 
             <DamageClass>DC_Siege</DamageClass>
             <DamageAmount>150</DamageAmount>
-            <MaxRandomDamageBonus>32</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>100</DamageRange>
 
             <BattleWaitUntil>4500</BattleWaitUntil>

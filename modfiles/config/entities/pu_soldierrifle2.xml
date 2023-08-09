@@ -67,7 +67,7 @@
         <Category>Soldier</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>30</Exploration>
+        <Exploration>28</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
         <DodgeChance>5</DodgeChance>
@@ -115,14 +115,14 @@
             <DamageAmount>58</DamageAmount>
             <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
 
-            <AutoAttackRange>3000</AutoAttackRange>
+            <AutoAttackRange>2800</AutoAttackRange>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MissChance>2</MissChance>
 
             <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
-            <MaxRange>3000</MaxRange>
+            <MaxRange>2800</MaxRange>
             <MinRange>0.0f</MinRange>
         </Logic>
     </Behavior>

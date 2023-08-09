@@ -66,7 +66,7 @@
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>250</MaxHealth>
-        <Exploration>28</Exploration>
+        <Exploration>23</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <DodgeChance>10</DodgeChance>
@@ -135,9 +135,9 @@
             <MissChance>13</MissChance>
 
             <ProjectileEffectID>FXBulletRifleman</ProjectileEffectID>
-            <MaxRange>2800</MaxRange>
+            <MaxRange>2300</MaxRange>
             <MinRange>0</MinRange>
-            <AutoAttackRange>2800</AutoAttackRange>
+            <AutoAttackRange>2300</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>

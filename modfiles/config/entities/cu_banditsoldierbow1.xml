@@ -76,7 +76,7 @@
         <Category>Soldier</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>25</Exploration>
+        <Exploration>26</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
         <DodgeChance>22</DodgeChance>
@@ -130,7 +130,7 @@
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
 
-            <MaxRange>2300</MaxRange>
+            <MaxRange>2600</MaxRange>
             <MinRange>800.0f</MinRange>
         </Logic>
     </Behavior>

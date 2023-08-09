@@ -8,7 +8,7 @@ Stronghold.Hero.Config.Hero1 = {
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
-    -- FIXME
+    ExtractingBonus = 1,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
@@ -23,6 +23,7 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
+    RefiningBonus = 1,
 }
 -- Hero 6 properties
 Stronghold.Hero.Config.Hero6 = {

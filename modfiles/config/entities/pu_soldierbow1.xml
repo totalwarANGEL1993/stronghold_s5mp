@@ -77,7 +77,7 @@
         <Category>Soldier</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>23</Exploration>
+        <Exploration>24</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>0</ArmorAmount>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -134,7 +134,7 @@
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
 
-            <MaxRange>2300</MaxRange>
+            <MaxRange>2400</MaxRange>
             <MinRange>0.0f</MinRange>
         </Logic>
     </Behavior>

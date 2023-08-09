@@ -658,7 +658,7 @@ function Stronghold.Economy:GainMeasruePoints(_PlayerID)
         local CurrentRank = GetRank(_PlayerID);
         local Motivation = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-        local MeasruePoints = 15;
+        local MeasruePoints = 12;
         if WorkerCount == 0 then
             MeasruePoints = 0;
         else

@@ -953,7 +953,7 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Type, 
         or _Type == ResourceType.StoneRaw
         or _Type == ResourceType.SulfurRaw
         then
-            Amount = Amount + (1 + Logic.GetUpgradeLevelForBuilding(_BuildingID));
+            Amount = Amount + Stronghold.Hero.Config.Hero2.ExtractingBonus;
         end
     end
     return Amount;
@@ -964,7 +964,7 @@ function Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _Type, _A
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type == ResourceType.Wood then
-            Amount = Amount + 1;
+            Amount = Amount + Stronghold.Hero.Config.Hero5.RefiningBonus;
         end
     end
     return Amount;
@@ -975,9 +975,9 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     local Costs = _Costs;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
         local Factor = self.Config.Hero4.UnitCostFactor;
-        local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1
-        local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1
-        local IsThief = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Thief) == 1
+        local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
+        local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1;
+        local IsThief = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Thief) == 1;
         if not IsCannon and not IsScout and not IsThief then
             if Costs[ResourceType.Gold] then
                 Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);

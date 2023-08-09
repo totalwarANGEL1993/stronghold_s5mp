@@ -94,10 +94,10 @@
 
             <DamageClass>DC_Chaos</DamageClass>
             <DamageAmount>30</DamageAmount>
-            <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>600</DamageRange>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
             <MaxRange>2700</MaxRange>
