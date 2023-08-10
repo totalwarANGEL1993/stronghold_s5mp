@@ -99,7 +99,7 @@
             <HitAnim>PU_Thief_Hit</HitAnim>
 
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>30</DamageAmount>
+            <DamageAmount>95</DamageAmount>
             <MaxRandomDamageBonus>18</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
@@ -108,7 +108,7 @@
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>0</AutoAttackRange>
 
-            <HealingPoints>3</HealingPoints>
+            <HealingPoints>15</HealingPoints>
             <HealingSeconds>2</HealingSeconds>
         </Logic>
     </Behavior>

@@ -38,7 +38,7 @@
         <ArmorAmount>6</ArmorAmount>
         <DodgeChance>20</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>150</ExperiencePoints>
+        <ExperiencePoints>250</ExperiencePoints>
         <Fearless>true</Fearless>
     </Logic>
     <Behavior>

@@ -68,7 +68,7 @@
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>15</ExperiencePoints>
+        <ExperiencePoints>20</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>SoldierBandit</Category>

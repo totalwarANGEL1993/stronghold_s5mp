@@ -80,7 +80,7 @@
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>15</ExperiencePoints>
+        <ExperiencePoints>20</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Type>PU_SoldierBow3</Type>

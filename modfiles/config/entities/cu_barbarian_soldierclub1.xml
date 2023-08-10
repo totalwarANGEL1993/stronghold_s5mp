@@ -70,7 +70,7 @@
         <DodgeChance>8</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>15</ExperiencePoints>
+        <ExperiencePoints>20</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
 
         <Upgrade>
@@ -122,7 +122,7 @@
 
             <DamageClass>DC_Blunt</DamageClass>
             <DamageAmount>26</DamageAmount>
-            <MaxRandomDamageBonus>16</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>20</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

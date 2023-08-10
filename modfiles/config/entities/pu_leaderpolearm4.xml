@@ -66,7 +66,7 @@
         <ArmorAmount>8</ArmorAmount>
         <DodgeChance>1</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>50</ExperiencePoints>
+        <ExperiencePoints>55</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>

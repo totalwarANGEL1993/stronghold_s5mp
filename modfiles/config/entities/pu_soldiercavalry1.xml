@@ -75,7 +75,7 @@
 
 
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>15</ExperiencePoints>
+        <ExperiencePoints>20</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>

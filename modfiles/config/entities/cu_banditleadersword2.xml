@@ -68,7 +68,7 @@
         <ArmorAmount>3</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
+        <ExperiencePoints>20</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>LeaderBandit</Category>

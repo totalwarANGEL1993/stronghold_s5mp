@@ -37,7 +37,7 @@
         <ArmorAmount>6</ArmorAmount>
         <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>50</ExperiencePoints>
+        <ExperiencePoints>55</ExperiencePoints>
         <Upgrade>
             <Type>PU_LeaderHeavyCavalry2</Type>
             <Category>LeaderHeavyCavalry</Category>

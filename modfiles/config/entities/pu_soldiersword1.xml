@@ -113,7 +113,7 @@
             <Category>SoldierSword</Category>
         </Upgrade>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>5</ExperiencePoints>
+        <ExperiencePoints>10</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>
