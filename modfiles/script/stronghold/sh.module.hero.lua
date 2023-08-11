@@ -805,10 +805,10 @@ end
 
 function Stronghold.Hero:OverrideCalculationCallbacks()
     -- Generic --
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount)
-        local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _ResourceType, CurrentAmount);
-        return CurrentAmount;
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
+        local CurrentAmount, RemainingAmount = Overwrite.CallOriginal();
+        CurrentAmount, ResourceRemaining = Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _ResourceType, CurrentAmount, RemainingAmount);
+        return CurrentAmount, ResourceRemaining;
     end);
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceRefined", function(_PlayerID, _BuildingID, _ResourceType, Amount)
@@ -946,7 +946,8 @@ function Stronghold.Hero:GetHeroes(_PlayerID)
 end
 
 -- Passive Ability: Resource production bonus
-function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _Type, _Amount)
+function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _Type, _Amount, _Remaining)
+    local ResourceRemaining = _Remaining
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
         if _Type == ResourceType.ClayRaw
@@ -958,13 +959,12 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
             local ResChance = self.Config.Hero2.ExtraResChance
             if math.random(1, ChanceMax) <= ResChance then
                 local Bonus = math.random(1, Stronghold.Hero.Config.Hero2.ExtractingBonus);
-                local Remaining = Logic.GetResourceDoodadGoodAmount(_SourceID);
-                Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining + Bonus);
+                ResourceRemaining = ResourceRemaining + Bonus;
                 Amount = Amount + Bonus;
             end
         end
     end
-    return Amount;
+    return Amount, ResourceRemaining;
 end
 
 -- Passive Ability: Resource refining bonus

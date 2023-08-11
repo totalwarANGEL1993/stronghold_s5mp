@@ -54,6 +54,12 @@
 --- 
 --- - <number> GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
 ---   Allows to overwrite the Knowledge points income.
+---   
+--- - <number>, <number> GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
+---   
+--- 
+--- - <number> GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
+---   
 ---
 
 Stronghold = Stronghold or {};
@@ -217,8 +223,8 @@ function GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount)
-    return _Amount;
+function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
+    return _Amount, _Remaining;
 end
 
 function GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
@@ -786,13 +792,14 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
     local Type = Logic.GetEntityType(_BuildingID);
     local Amount = self.Config.Resource.Mining[Type] or _Amount;
     local ResourceAmount = Logic.GetResourceDoodadGoodAmount(_SourceID);
+    local Remaining = ResourceAmount;
 
     if _ResourceType == ResourceType.ClayRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeClay) == 1 then
             Amount = Amount +1;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableClayMining) == 1 then
-            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+            Remaining = Remaining + 1;
         end
     end
 
@@ -801,7 +808,7 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
             Amount = Amount +1;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableIronMining) == 1 then
-            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+            Remaining = Remaining + 1;
         end
     end
 
@@ -810,7 +817,7 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
             Amount = Amount +1;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableStoneMining) == 1 then
-            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+            Remaining = Remaining + 1;
         end
     end
 
@@ -819,12 +826,15 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
             Amount = Amount +1;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableSulfurMining) == 1 then
-            Logic.SetResourceDoodadGoodAmount(_SourceID, ResourceAmount + 1);
+            Remaining = Remaining + 1;
         end
     end
 
     -- External changes
-    Amount = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount);
+    Amount, Remaining = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount, Remaining);
+    if Remaining > ResourceAmount then
+        Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
+    end
     return Amount;
 end
 

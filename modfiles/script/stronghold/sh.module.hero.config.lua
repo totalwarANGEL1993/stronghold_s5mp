@@ -8,9 +8,9 @@ Stronghold.Hero.Config.Hero1 = {
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
-    ExtractingBonus = 3,
+    ExtractingBonus = 5,
     ExtraResChanceMax = 100,
-    ExtraResChance = 30,
+    ExtraResChance = 35,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
