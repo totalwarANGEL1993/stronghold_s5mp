@@ -786,9 +786,10 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
         local Soldiers = Logic.LeaderGetNumberOfSoldiers(ID);
         local Config = Stronghold.Unit.Config:Get(Type, PlayerID);
         if Logic.IsLeader(ID) == 1 and Config and Type ~= Entities.CU_BlackKnight then
-            local Upkeep = math.ceil((Config.Upkeep or 0) * ((Soldiers +1) / (MaxSoldiers +1)));
+            local UpkeepLeader = math.ceil((Config.Upkeep or 0) / 2);
+            local UpkeepSoldier = math.floor(((Config.Upkeep or 0) / 2) * ((Soldiers +1) / (MaxSoldiers +1)));
+            XGUIEng.SetText("DetailsPayAndSlots_SlotAmount", "@ra " ..(UpkeepLeader+UpkeepSoldier));
             XGUIEng.ShowWidget("DetailsPayAndSlots", 1);
-            XGUIEng.SetText("DetailsPayAndSlots_SlotAmount", "@ra " ..Upkeep);
         else
             XGUIEng.ShowWidget("DetailsPayAndSlots", 0);
         end
@@ -804,9 +805,9 @@ end
 
 function Stronghold.Hero:OverrideCalculationCallbacks()
     -- Generic --
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _ResourceType, _Amount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _ResourceType, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -945,7 +946,7 @@ function Stronghold.Hero:GetHeroes(_PlayerID)
 end
 
 -- Passive Ability: Resource production bonus
-function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Type, _Amount)
+function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _Type, _Amount)
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
         if _Type == ResourceType.ClayRaw
@@ -953,7 +954,14 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Type, 
         or _Type == ResourceType.StoneRaw
         or _Type == ResourceType.SulfurRaw
         then
-            Amount = Amount + Stronghold.Hero.Config.Hero2.ExtractingBonus;
+            local ChanceMax = self.Config.Hero2.ExtraResChanceMax;
+            local ResChance = self.Config.Hero2.ExtraResChance
+            if math.random(1, ChanceMax) <= ResChance then
+                local Bonus = math.random(1, Stronghold.Hero.Config.Hero2.ExtractingBonus);
+                local Remaining = Logic.GetResourceDoodadGoodAmount(_SourceID);
+                Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining + Bonus);
+                Amount = Amount + Bonus;
+            end
         end
     end
     return Amount;

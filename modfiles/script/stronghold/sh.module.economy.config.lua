@@ -114,3 +114,57 @@ Stronghold.Economy.Config.Income = {
     },
 }
 
+Stronghold.Economy.Config.CategoryMapping = {
+    [UpgradeCategories.LeaderSword] = {
+        Entities.CU_BanditLeaderSword1,
+        Entities.CU_BanditLeaderSword2,
+        Entities.CU_Barbarian_LeaderClub1,
+        Entities.CU_Barbarian_LeaderClub2,
+        Entities.CU_BlackKnight_LeaderMace1,
+        Entities.CU_BlackKnight_LeaderMace2,
+        Entities.CU_Evil_LeaderBearman1,
+        Entities.PU_LeaderSword1,
+        Entities.PU_LeaderSword2,
+        Entities.PU_LeaderSword3,
+        Entities.PU_LeaderSword4,
+    },
+    [UpgradeCategories.LeaderPoleArm] = {
+        Entities.PU_LeaderPoleArm1,
+        Entities.PU_LeaderPoleArm2,
+        Entities.PU_LeaderPoleArm3,
+        Entities.PU_LeaderPoleArm4,
+    },
+    [UpgradeCategories.LeaderBow] = {
+        Entities.CU_BanditLeaderBow1,
+        Entities.CU_Evil_LeaderSkirmisher1,
+        Entities.PU_LeaderBow1,
+        Entities.PU_LeaderBow2,
+        Entities.PU_LeaderBow3,
+        Entities.PU_LeaderBow4,
+    },
+    [UpgradeCategories.LeaderCavalry] = {
+        Entities.PU_LeaderCavalry1,
+        Entities.PU_LeaderCavalry2,
+    },
+    [UpgradeCategories.LeaderHeavyCavalry] = {
+        Entities.PU_LeaderHeavyCavalry1,
+        Entities.PU_LeaderHeavyCavalry2,
+    },
+    [UpgradeCategories.LeaderRifle] = {
+        Entities.PU_LeaderRifle1,
+        Entities.PU_LeaderRifle2,
+    },
+    [UpgradeCategories.Scout] = {
+        Entities.PU_Scout,
+    },
+    [UpgradeCategories.Thief] = {
+        Entities.PU_Thief,
+    },
+    [UpgradeCategories.Cannon1] = {
+        Entities.PV_LeaderCannon1,
+        Entities.PV_LeaderCannon2,
+        Entities.PV_LeaderCannon3,
+        Entities.PV_LeaderCannon4,
+    },
+}
+

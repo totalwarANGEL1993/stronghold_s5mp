@@ -108,6 +108,7 @@ function Stronghold.Economy:Install()
     self:OverrideResourceCallbacks();
     self:OverrideFindViewUpdate();
     self:OverrideTaxAndPayStatistics();
+    self:OverrideSelectUnitCallbacks();
     self:OverrideKnowledgeProgressUpdate();
 end
 
@@ -216,7 +217,7 @@ function GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, _Amount)
+function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount)
     return _Amount;
 end
 
@@ -594,13 +595,11 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
                 -- Calculate regular upkeep
                 local TypeUpkeep = 0;
                 for i= 1, table.getn(Military) do
-                    local UnitUpkeep = v.Upkeep;
                     local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(Military[i]);
                     local SoldiersCur = Logic.LeaderGetNumberOfSoldiers(Military[i]);
-                    if SoldiersMax > 0 then
-                        UnitUpkeep = math.ceil(UnitUpkeep * ((SoldiersCur +1) / (SoldiersMax +1)));
-                    end
-                    TypeUpkeep = TypeUpkeep + UnitUpkeep;
+                    local UpkeepLeader = math.ceil((v.Upkeep or 0) / 2);
+                    local UpkeepSoldier = math.floor(((v.Upkeep or 0) / 2) * ((SoldiersCur +1) / (SoldiersMax +1)));
+                    TypeUpkeep = TypeUpkeep + (UpkeepLeader + UpkeepSoldier);
                 end
                 -- External calculations
                 TypeUpkeep = GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, k, TypeUpkeep)
@@ -825,7 +824,7 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
     end
 
     -- External changes
-    Amount = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _ResourceType, Amount);
+    Amount = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount);
     return Amount;
 end
 
@@ -854,12 +853,6 @@ function Stronghold.Economy:OverrideFindViewUpdate()
     Overwrite.CreateOverwrite("GUIUpdate_FindView", function()
         -- FIXME: Can not call original here...
         -- Overwrite.CallOriginal();
-
-        local PlayerID = GUI.GetPlayerID();
-        if PlayerID == 17 then
-            local EntityID = GUI.GetSelectedEntity();
-            PlayerID = Logic.EntityGetPlayer(EntityID);
-        end
         XGUIEng.ShowWidget("FindView", 1);
         XGUIEng.ShowAllSubWidgets("FindView", 1);
         Stronghold.Economy:HonorMenuUpdate();
@@ -1033,7 +1026,6 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 end
 
 function Stronghold.Economy:PrintTooltipGenericForEcoGeneral(_PlayerID, _Key)
-    local Language = GetLanguage();
     if _Key == "sh_menuheadquarter/TaxWorker" then
         local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewTaxWorker")
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
@@ -1125,6 +1117,39 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;
+end
+
+function Stronghold.Economy:OverrideSelectUnitCallbacks()
+    KeyBindings_SelectUnit_Orig_SH = KeyBindings_SelectUnit;
+    KeyBindings_SelectUnit = function(_UpgradeCategory, _Type)
+        if _Type == 1 then
+            return KeyBindings_SelectUnit_Orig_SH(_UpgradeCategory, _Type);
+        end
+        Stronghold.Economy:SelectUnitType(_UpgradeCategory);
+    end
+
+    KeyBindings_SelectCannons = function()
+        Stronghold.Economy:SelectUnitType(UpgradeCategories.Cannon1);
+    end
+end
+
+function Stronghold.Economy:SelectUnitType(_UpgradeCategory)
+    local PlayerID = GetLocalPlayerID();
+    local UnitTypes = Stronghold.Economy.Config.CategoryMapping[_UpgradeCategory] or {};
+    local UnitList = {};
+    for _, Type in (UnitTypes) do
+        for k, v in pairs(GetPlayerEntities(PlayerID, Type)) do
+            table.insert(UnitList, v);
+        end
+    end
+    local i = gvKeyBindings_LastSelectedEntityPos;
+	i = (i + 1 >= table.getn(UnitList) and 0) or (i+1);
+	gvKeyBindings_LastSelectedEntityPos = i;
+    if UnitList[1 + i] then
+        local x, y, z = Logic.EntityGetPos(UnitList[1 + i]);
+        Camera.ScrollSetLookAt(x, y);
+        GUI.SetSelectedEntity(UnitList[1 + i]);
+    end
 end
 
 -- -------------------------------------------------------------------------- --
