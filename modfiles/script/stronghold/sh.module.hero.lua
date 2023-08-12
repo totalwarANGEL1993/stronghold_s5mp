@@ -543,7 +543,6 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
         ThiefRecruiter = {Entities.PB_Tavern1, Entities.PB_Tavern2};
     elseif _Type == Entities.CU_Barbarian_Hero then
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderSword1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Barbarian_LeaderClub2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_Barbarian_LeaderClub1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow1;
@@ -814,6 +813,12 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceRefined", function(_PlayerID, _BuildingID, _ResourceType, Amount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
+        return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_KnowledgeIncrease", function(_PlayerID, _Amount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyKnowledgePassiveAbility(_PlayerID, _Value);
         return CurrentAmount;
     end);
 
@@ -1193,6 +1198,15 @@ function Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, _Chance)
     local Value = _Chance;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
         Value = Value * self.Config.Hero9.WolfHonorRate;
+    end
+    return Value;
+end
+
+-- Passive Ability: Generating Measrue points
+function Stronghold.Hero:ApplyKnowledgePassiveAbility(_PlayerID, _Value)
+    local Value = _Value;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+        Value = Value * self.Config.Hero3.KnowledgeFactor;
     end
     return Value;
 end

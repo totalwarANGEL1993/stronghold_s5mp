@@ -759,16 +759,18 @@ end
 -- Foundry
 
 function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
-    local Cannons = Stronghold:GetCannonsOfType(_PlayerID, 0);
-    for i= 1, table.getn(Cannons) do
-        local Position = GetPosition(Cannons[i]);
-        local MaxHealth = Logic.GetEntityMaxHealth(Cannons[i]);
-        local Health = Logic.GetEntityHealth(Cannons[i]);
-        if Health > 0 and Health < MaxHealth then
-            if AreEntitiesInArea(_PlayerID, Entities.PB_Foundry1, Position, 2000, 1)
-            or AreEntitiesInArea(_PlayerID, Entities.PB_Foundry2, Position, 2000, 1) then
-                local Healing = math.min(MaxHealth - Health, 4);
-                Logic.HealEntity(Cannons[i], Healing);
+    if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_AutoRepair) == 1 then
+        local Cannons = Stronghold:GetCannonsOfType(_PlayerID, 0);
+        for i= 1, table.getn(Cannons) do
+            local Position = GetPosition(Cannons[i]);
+            local MaxHealth = Logic.GetEntityMaxHealth(Cannons[i]);
+            local Health = Logic.GetEntityHealth(Cannons[i]);
+            if Health > 0 and Health < MaxHealth then
+                if AreEntitiesInArea(_PlayerID, Entities.PB_Foundry1, Position, 2000, 1)
+                or AreEntitiesInArea(_PlayerID, Entities.PB_Foundry2, Position, 2000, 1) then
+                    local Healing = math.min(MaxHealth - Health, 4);
+                    Logic.HealEntity(Cannons[i], Healing);
+                end
             end
         end
     end

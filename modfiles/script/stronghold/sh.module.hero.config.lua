@@ -15,7 +15,8 @@ Stronghold.Hero.Config.Hero2 = {
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
     UnitPlaceFactor = 0.5,
-    UnitCostFactor = 0.9,
+    UnitCostFactor = 1.5,
+    KnowledgeFactor = 1.15,
 }
 -- Hero 4 properties
 Stronghold.Hero.Config.Hero4 = {
