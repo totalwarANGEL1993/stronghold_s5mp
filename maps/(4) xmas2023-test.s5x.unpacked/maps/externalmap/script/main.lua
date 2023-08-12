@@ -4,11 +4,14 @@ function StartTestStuff()
     Lib.Require("module/mp/Syncer");
     Lib.Require("module/cinematic/BriefingSystem");
     Lib.Require("module/lua/Overwrite");
+    Lib.Require("module/tutorial/Tutorial");
 
     CreateTestHonorProvince();
     CreateTestReputationProvince();
     CreateTestMilitaryProvince();
     CreateTestResourceProvince();
+
+    Tutorial.Install();
 end
 
 function CreateTestHonorProvince()
@@ -27,7 +30,37 @@ function CreateTestResourceProvince()
     CreateResourceProvince("Resource Province", "Povince4Pos", ResourceType.IronRaw, 300, 0.5);
 end
 
+-- -------------------------------------------------------------------------- --
 
+function TutorialTest1()
+    Tutorial.AddMessage {
+        Text      = "Diese Nachricht kann weggeklicht werden.",
+        Arrow     = nil,
+        Condition = nil,
+        Action    = nil,
+    };
+
+    Tutorial.AddMessage {
+        Text        = "Diese Nachricht kann weggeklicht werden.",
+        ArrowWidget = "TutorialArrowLeft",
+        Arrow       = {30,30},
+        Condition   = nil,
+    };
+
+    g_EnterAllowed = false;
+    Tutorial.AddMessage {
+        Text      = "Diese Nachricht springt automatisch weiter.",
+        Arrow     = nil,
+        Condition = function(_Data)
+            return g_EnterAllowed;
+        end,
+        Action    = nil,
+    };
+
+    Tutorial.Start();
+end
+
+-- -------------------------------------------------------------------------- --
 
 function CreateTestCamp()
     CreateTestSpawners();

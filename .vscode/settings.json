@@ -240,6 +240,7 @@
     "Lua.diagnostics.disable": [
         "deprecated",
         "lowercase-global",
+        "undefined-global"
     ],
     "Lua.workspace.ignoreDir": [
         "maps",
