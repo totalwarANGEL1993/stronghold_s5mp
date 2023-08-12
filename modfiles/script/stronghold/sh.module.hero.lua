@@ -818,7 +818,7 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_KnowledgeIncrease", function(_PlayerID, _Amount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyKnowledgePassiveAbility(_PlayerID, _Value);
+        CurrentAmount = Stronghold.Hero:ApplyKnowledgePassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
