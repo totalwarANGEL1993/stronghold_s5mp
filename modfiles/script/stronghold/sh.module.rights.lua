@@ -434,7 +434,7 @@ function Stronghold.Rights:OnlineHelpAction()
     local NextRank = self.Config.Titles[CurrentRank+1];
     if NextRank then
         local Costs = CreateCostTable(unpack(NextRank.Costs));
-        if not InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) then
+        if InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
             return true;
         end
     end
