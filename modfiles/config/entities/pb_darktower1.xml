@@ -32,17 +32,17 @@
         </ModifyExploration>   
 		 
         <Upgrade>
-            <Category>Tower</Category>
+            <Category>DarkTower</Category>
             <Time>15.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>200</Wood>
-                <Stone>200</Stone>
+                <Stone>300</Stone>
                 <Gold/>
                 <Iron>100</Iron>
                 <Sulfur/>
             </Cost>
-            <Type>PB_Tower2</Type>
+            <Type>PB_DarkTower2</Type>
         </Upgrade>
 		  <Exploration>45</Exploration>
         <ConstructionInfo>

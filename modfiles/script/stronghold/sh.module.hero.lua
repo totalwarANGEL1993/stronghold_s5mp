@@ -94,6 +94,7 @@ function Stronghold.Hero:Install()
     self:OverrideHero5AbilityArrowRain();
     self:OverrideHero8AbilityMoralDamage();
     self:OverrideDetailsPayAndSlots();
+    self:OverrideGuiPlaceBuilding();
 end
 
 function Stronghold.Hero:OnSaveGameLoaded()
@@ -679,6 +680,25 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
                 end
             end
         end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Tower
+
+function Stronghold.Hero:OverrideGuiPlaceBuilding()
+    GUIAction_PlaceBuilding_Orig_SH_Hero = GUIAction_PlaceBuilding;
+    GUIAction_PlaceBuilding = function(_UpgradeCategory)
+        local PlayerID = GUI.GetPlayerID();
+        if PlayerID ~= 17 and _UpgradeCategory == UpgradeCategories.Tower then
+            if Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero)
+            or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_BlackKnight)
+            or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Mary_de_Mortfichet)
+            or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Evil_Queen) then
+                return GUIAction_PlaceBuilding_Orig_SH_Hero(UpgradeCategories.DarkTower);
+            end
+        end
+        GUIAction_PlaceBuilding_Orig_SH_Hero(_UpgradeCategory);
     end
 end
 

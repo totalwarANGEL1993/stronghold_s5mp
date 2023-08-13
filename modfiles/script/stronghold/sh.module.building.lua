@@ -642,6 +642,17 @@ function Stronghold.Building:OnAlchemistSelected(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Tower
+
+function Stronghold.Building:OnTowerSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.DarkTower then
+        XGUIEng.ShowWidget("Tower", 1);
+        InterfaceTool_UpdateUpgradeButtons(Type, UpgradeCategories.DarkTower, "Upgrade_Tower");
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- Rally Points
 
 function Stronghold.Building:OverrideShiftRightClick()
