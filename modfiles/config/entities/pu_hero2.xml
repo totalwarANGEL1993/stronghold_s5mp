@@ -115,7 +115,7 @@
     <Behavior>
         <Logic classname="GGL::CHeroAbilityProps">
             <Class>GGL::CBombPlacerBehavior</Class>
-            <RechargeTimeSeconds>90</RechargeTimeSeconds>
+            <RechargeTimeSeconds>45</RechargeTimeSeconds>
         </Logic>
     </Behavior>
 

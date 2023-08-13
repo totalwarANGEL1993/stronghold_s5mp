@@ -11,6 +11,7 @@ Stronghold.Hero.Config.Hero2 = {
     ExtractingBonus = 5,
     ExtraResChanceMax = 100,
     ExtraResChance = 35,
+    RefiningBonus = 1,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
@@ -56,7 +57,7 @@ Stronghold.Hero.Config.Hero9 = {
 Stronghold.Hero.Config.Hero10 = {
     TrainTimeFactor = 0.5,
     UpkeepFactor = 0.6,
-    RefiningBonus = 1,
+    RefiningBonus = 2,
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {

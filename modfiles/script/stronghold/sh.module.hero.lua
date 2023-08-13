@@ -1009,12 +1009,20 @@ end
 -- Passive Ability: Resource refining bonus
 function Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _Type, _Amount)
     local Amount = _Amount;
+    local BuildingType = Logic.GetEntityType(_BuildingID);
+    local TypeName = Logic.GetEntityTypeName(BuildingType);
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
+        if _Type == ResourceType.Stone then
+            Amount = Amount + Stronghold.Hero.Config.Hero2.RefiningBonus;
+        end
+    end
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type == ResourceType.Wood then
             Amount = Amount + Stronghold.Hero.Config.Hero5.RefiningBonus;
         end
     end
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10) then
+    if  self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10)
+    and string.find(TypeName, "PB_GunsmithWorkshop") then
         if _Type == ResourceType.Sulfur then
             Amount = Amount + Stronghold.Hero.Config.Hero10.RefiningBonus;
         end

@@ -29,8 +29,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Gunsmith</Worker>
-        <MaxWorkers>4</MaxWorkers> 
-        <InitialMaxWorkers>4</InitialMaxWorkers> 
+        <MaxWorkers>5</MaxWorkers> 
+        <InitialMaxWorkers>5</InitialMaxWorkers> 
         <WorkTaskList>
             <Start>TL_GUNSMITH_WORK1_START</Start> 
             <Work>TL_GUNSMITH_WORK1</Work> 
