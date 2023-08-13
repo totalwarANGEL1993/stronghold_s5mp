@@ -4,6 +4,9 @@
 --- This script implements construction and upgrade of buildings and their
 --- respective limitations.
 ---
+--- - <number> GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, _CurrentAmount)
+---   Allows to overwrite the minimum distance between towers
+---
 
 Stronghold = Stronghold or {};
 
@@ -28,6 +31,13 @@ function Stronghold.Construction:Install()
 end
 
 function Stronghold.Construction:OnSaveGameLoaded()
+end
+
+-- -------------------------------------------------------------------------- --
+-- Game Callbacks
+
+function GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, _CurrentAmount)
+    return Stronghold.Construction.Config.TowerDistance;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -275,10 +285,10 @@ end
 -- -------------------------------------------------------------------------- --
 -- Soft Tower Limit
 
--- Check tower placement (Community Server)
--- Prevents towers from being placed if another tower of the same player is
--- to close. Type of tower does not matter.
 function Stronghold.Construction:StartCheckTowerDistanceCallback()
+    -- Check tower placement
+    -- Prevents towers from being placed if another tower of the same player is
+    -- to close. Type of tower does not matter.
     if CMod then
         GameCallback_PlaceBuildingAdditionalCheck = function(_Type, _x, _y, _rotation, _isBuildOn)
             local PlayerID = GUI.GetPlayerID();
@@ -286,6 +296,7 @@ function Stronghold.Construction:StartCheckTowerDistanceCallback()
             if IsPlayer(PlayerID) then
                 if Allowed and Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tower then
                     local AreaSize = Stronghold.Construction.Config.TowerDistance;
+                    AreaSize = GameCallback_SH_Calculate_MinimalTowerDistance(PlayerID, AreaSize);
                     if Stronghold.Construction:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
                         Allowed = false;
                     end
@@ -293,9 +304,7 @@ function Stronghold.Construction:StartCheckTowerDistanceCallback()
             end
             return Allowed;
         end
-        return true;
     end
-    return false;
 end
 
 function Stronghold.Construction:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, _AreaSize)

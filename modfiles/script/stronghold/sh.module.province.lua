@@ -156,6 +156,12 @@ function Stronghold.Province:StartTriggers()
         Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Military, _PlayerID);
         return Amount;
     end);
+
+    Overwrite.CreateOverwrite("GameCallback_PlaceBuildingAdditionalCheck", function(_Type, _x, _y, _rotation, _isBuildOn)
+        local Allowed = Overwrite.CallOriginal();
+        Allowed = Allowed and Stronghold.Province:CheckVillageCenterAllowed(_Type, _x, _y, _rotation, _isBuildOn);
+        return Allowed;
+    end);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -353,26 +359,14 @@ function Stronghold.Province:OnPayday(_PlayerID, _Amount)
     return TaxAmount;
 end
 
-function Stronghold.Province:OnBuildingCreated(_BuildingID, _PlayerID)
-    if IsPlayer(_PlayerID) then
-        if Logic.IsEntityInCategory(_BuildingID, EntityCategories.VillageCenter) == 1 then
-            if Logic.IsConstructionComplete(_BuildingID) == 0 then
-                local VillagePosition = GetPosition(_BuildingID);
-                for k,v in pairs(self.Data.Provinces) do
-                    if v.Owner == self.Config.NeutralPlayerID then
-                        if GetDistance(VillagePosition, v.Position) <= 4000 then
-                            if AreEnemiesInArea(_PlayerID, v.Position, 7000) then
-                                if _PlayerID == GUI.GetPlayerID() then
-                                    Message(XGUIEng.GetStringTableText("sh_text/Province_Denyed"));
-                                end
-                                SetHealth(_BuildingID, 0);
-                            end
-                        end
-                    end
-                end
-            end
+function Stronghold.Province:CheckVillageCenterAllowed(_Type, _x, _y, _rotation, _isBuildOn)
+    local PlayerID = GUI.GetPlayerID()
+    if IsPlayer(PlayerID) then
+        if Logic.IsEntityTypeInCategory(_Type, EntityCategories.VillageCenter) == 1 then
+            return not AreEnemiesInArea(PlayerID, {X= _x, Y= _y}, 7000);
         end
     end
+    return true;
 end
 
 function Stronghold.Province:OnBuildingConstructed(_BuildingID, _PlayerID)

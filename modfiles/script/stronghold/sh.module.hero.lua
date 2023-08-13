@@ -844,6 +844,12 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount);
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MinimalTowerDistance", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
     -- Noble --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
@@ -1286,6 +1292,15 @@ function Stronghold.Hero:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCa
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
         Amount = Amount + self.Config.Hero6.SermonReputation;
+    end
+    return Amount;
+end
+
+-- Passive Ability: Soft tower limit
+function Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, _Amount)
+    local Amount = _Amount;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
+        Amount = self.Config.Hero2.TowerDistance;
     end
     return Amount;
 end

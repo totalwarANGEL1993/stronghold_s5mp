@@ -12,6 +12,7 @@ Stronghold.Hero.Config.Hero2 = {
     ExtraResChanceMax = 100,
     ExtraResChance = 35,
     RefiningBonus = 1,
+    TowerDistance = 900,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
