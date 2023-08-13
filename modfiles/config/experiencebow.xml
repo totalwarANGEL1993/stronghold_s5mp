@@ -22,7 +22,6 @@
         <AutoAttackRange>200</AutoAttackRange>
         <MaxRange>200</MaxRange>
         <HealingPoints>8</HealingPoints>
-        <DamageAmount>1</DamageAmount>
     </Level>
     <Level>
         <DamageAmount>3</DamageAmount>

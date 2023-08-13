@@ -56,10 +56,10 @@
 ---   Allows to overwrite the Knowledge points income.
 ---   
 --- - <number>, <number> GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
----   
+---   Calculates how much resources are mined.
 --- 
 --- - <number> GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
----   
+---   Calculates how much resources are refined.
 ---
 
 Stronghold = Stronghold or {};

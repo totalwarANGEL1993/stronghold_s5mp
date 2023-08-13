@@ -23,7 +23,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>1250</MaxHealth>
+        <MaxHealth>2500</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -58,11 +58,11 @@
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <ArmorClass>ArmorClassHero</ArmorClass>
-        <ArmorAmount>10</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <DodgeChance>20</DodgeChance>
         <Exploration>20</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>50</ExperiencePoints>
+        <ExperiencePoints>125</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>BlackKnightSoldier</Category>
@@ -117,7 +117,7 @@
             <MaxRange>200</MaxRange>
             <MinRange>0</MinRange>
 
-            <HealingPoints>4</HealingPoints>
+            <HealingPoints>10</HealingPoints>
             <HealingSeconds>1</HealingSeconds>
         </Logic>
     </Behavior>

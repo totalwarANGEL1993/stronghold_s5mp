@@ -22,6 +22,9 @@
 --- - GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount)
 ---   Called after a player gained reputation.
 --- 
+--- - GameCallback_SH_GoodsTraded(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount)
+---   Called after a trade has concluded.
+--- 
 --- - <number> GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
 ---   Calculates the minimum of the purchase price factor of the resource.
 --- 
@@ -181,6 +184,9 @@ function GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount)
 end
 
 function GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount)
+end
+
+function GameCallback_SH_GoodsTraded(_PlayerID, _EntityID, _BuyType, _BuyAmount, _SellType, _SellAmount)
 end
 
 function GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
@@ -632,15 +638,19 @@ function Stronghold:OnEntityHurtEntity()
 end
 
 function Stronghold:OnGoodsTraded()
+    local BuyType = Event.GetBuyResource();
+    local BuyAmount = Event.GetBuyAmount();
+    local SellType = Event.GetSellResource();
+    local SellAmount = Event.GetSellAmount();
     local EntityID = Event.GetEntityID();
-    local SellTyp = Event.GetSellResource();
-    local PurchaseTyp = Event.GetBuyResource();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
 
-    local PurchasePrice = Logic.GetCurrentPrice(PlayerID, PurchaseTyp);
-    self:ManipulateGoodPurchasePrice(PlayerID, PurchaseTyp, PurchasePrice);
-    local SellPrice = Logic.GetCurrentPrice(PlayerID, SellTyp);
-    self:ManipulateGoodSellPrice(PlayerID, SellTyp, SellPrice);
+    local PurchasePrice = Logic.GetCurrentPrice(PlayerID, BuyType);
+    self:ManipulateGoodPurchasePrice(PlayerID, BuyType, PurchasePrice);
+    local SellPrice = Logic.GetCurrentPrice(PlayerID, SellType);
+    self:ManipulateGoodSellPrice(PlayerID, SellType, SellPrice);
+
+    GameCallback_SH_GoodsTraded(PlayerID, EntityID, BuyType, BuyAmount, SellType, SellAmount)
 end
 
 function Stronghold:ManipulateGoodPurchasePrice(_PlayerID, _Resource, _Price)

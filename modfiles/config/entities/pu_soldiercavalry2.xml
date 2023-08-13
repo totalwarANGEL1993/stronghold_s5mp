@@ -107,7 +107,7 @@
             <HitAnim>PU_SoldierCavalry2_Hit</HitAnim>
 
             <DamageClass>DC_Bolt</DamageClass>
-            <DamageAmount>45</DamageAmount>
+            <DamageAmount>38</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>

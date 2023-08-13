@@ -15,17 +15,17 @@ Stronghold.Hero.Config.Hero2 = {
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
     UnitPlaceFactor = 0.5,
-    UnitCostFactor = 1.5,
+    UnitCostFactor = 1.25,
     KnowledgeFactor = 1.15,
 }
 -- Hero 4 properties
 Stronghold.Hero.Config.Hero4 = {
-    TrainExperience = 3,
+    TrainExperience = 1,
     UnitCostFactor = 1.5,
 }
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
-    TaxIncomeFactor = 1.2,
+    TaxIncomeFactor = 1.3,
     RefiningBonus = 1,
 }
 -- Hero 6 properties
@@ -34,6 +34,8 @@ Stronghold.Hero.Config.Hero6 = {
     ConversionArea = 600,
     ConversionChance = 6,
     ConversionMax = 1000,
+    SermonReputation = 3,
+    SermonHonor = 3,
 }
 -- Hero 7 properties
 Stronghold.Hero.Config.Hero7 = {
@@ -42,7 +44,8 @@ Stronghold.Hero.Config.Hero7 = {
 }
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {
-    UpkeepFactor = 0,
+    UpkeepFactor = 0.5,
+    ThiefPlaces = 5,
 }
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
@@ -53,9 +56,11 @@ Stronghold.Hero.Config.Hero9 = {
 Stronghold.Hero.Config.Hero10 = {
     TrainTimeFactor = 0.5,
     UpkeepFactor = 0.6,
+    RefiningBonus = 1,
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {
+    TradeBonusFactor = 0.2,
     InitialReputation = 100,
     ReputationCap = 300,
     ShurikenChance = 6,
@@ -63,7 +68,8 @@ Stronghold.Hero.Config.Hero11 = {
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {
-    PupulationFactor = 1.3,
+    PopulationFactor = 1.3,
+    MilitaryFactor = 1.15,
 }
 
 -- Text overwrite

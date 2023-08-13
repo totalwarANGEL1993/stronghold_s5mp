@@ -15,7 +15,6 @@
 		<Category>Military</Category> 
 		<Category>Cannon</Category> 	
 		<Category>SplashDamage</Category>
-        <!--NumBlockedPoints>2</NumBlockedPoints-->
         <SnapTolerance>30.0f</SnapTolerance>
 		<MapFileDontSave>true</MapFileDontSave>
 	</Logic>
@@ -27,11 +26,11 @@
     	    <RotationSpeed>7</RotationSpeed>
     	    <CannonBallEffectType>FXCannonTowerBall</CannonBallEffectType>
   			<ProjectileOffsetFront>100</ProjectileOffsetFront>
-    	    <ReloadTime>5000</ReloadTime>
+    	    <ReloadTime>4500</ReloadTime>
     	    <MaxAttackRange>2800.0f</MaxAttackRange>
     	    <MinRange>800.0f</MinRange>
     	    <DamageClass>DC_Chaos</DamageClass>
-    	    <DamageAmount>90</DamageAmount>
+    	    <DamageAmount>95</DamageAmount>
     	    <DamageRange>900</DamageRange>
     	    <BattleTaskList>TL_BATTLE_CANNONTOWER</BattleTaskList>
     	    <AutoAttackRange>3000</AutoAttackRange>

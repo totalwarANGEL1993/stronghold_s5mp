@@ -471,7 +471,7 @@ function Stronghold.Hero:ConfigurePlayersHeroPet(_EntityID)
         if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
             local CurrentRank = GetRank(PlayerID);
             local Armor = 3 + math.floor(CurrentRank * 1);
-            local Damage = 15 + math.floor(CurrentRank * 3);
+            local Damage = 16 + math.floor(CurrentRank * 4);
             Logic.SetSpeedFactor(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
             SVLib.SetEntitySize(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
             CEntity.SetArmor(_EntityID, Armor);
@@ -524,9 +524,6 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm4;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword4;
     elseif _Type == Entities.PU_Hero4 then
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.PU_LeaderHeavyCavalry2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.PU_LeaderCavalry2;
     elseif _Type == Entities.PU_Hero5 then
@@ -534,7 +531,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BanditLeaderSword1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.CU_BanditLeaderBow1;
     elseif _Type == Entities.CU_BlackKnight then
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm2;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BlackKnight_LeaderMace2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BlackKnight_LeaderMace1;
     elseif _Type == Entities.CU_Mary_de_Mortfichet then
@@ -822,6 +819,11 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_GoodsTraded", function(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount)
+        Overwrite.CallOriginal();
+        Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount);
+    end);
+
     -- Noble --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
@@ -919,6 +921,18 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         CrimeRate = Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, CrimeRate);
         return CrimeRate;
     end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorFromSermon", function(_PlayerID, _BlessCategory, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyHonorSermonPassiveAbility(_PlayerID, _BlessCategory, CurrentAmount);
+        return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationFromSermon", function(_PlayerID, _BlessCategory, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCategory, CurrentAmount);
+        return CurrentAmount;
+    end);
 end
 
 function Stronghold.Hero:HasValidLordOfType(_PlayerID, _Type)
@@ -978,6 +992,11 @@ function Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _Type, _A
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type == ResourceType.Wood then
             Amount = Amount + Stronghold.Hero.Config.Hero5.RefiningBonus;
+        end
+    end
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10) then
+        if _Type == ResourceType.Sulfur then
+            Amount = Amount + Stronghold.Hero.Config.Hero10.RefiningBonus;
         end
     end
     return Amount;
@@ -1051,9 +1070,7 @@ end
 -- Passive Ability: Increase of max civil attraction
 function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        Value = Value * self.Config.Hero12.PupulationFactor;
-    end
+    -- Do nothing
     return Value;
 end
 
@@ -1062,7 +1079,7 @@ function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
         local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
-        Value = Value - (ThiefCount * 3);
+        Value = Value - (ThiefCount * Stronghold.Hero.Config.Hero8.ThiefPlaces);
     elseif self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
         local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon1);
         Cannon1 = math.floor(((Cannon1 * 10) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
@@ -1080,7 +1097,9 @@ end
 -- Passive Ability: Increase of max military attraction
 function Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    -- Do nothing
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
+        Value = Value * self.Config.Hero12.MilitaryFactor;
+    end
     return Value;
 end
 
@@ -1209,5 +1228,37 @@ function Stronghold.Hero:ApplyKnowledgePassiveAbility(_PlayerID, _Value)
         Value = Value * self.Config.Hero3.KnowledgeFactor;
     end
     return Value;
+end
+
+-- Passive Ability: Bonus resources on trade
+function Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount)
+    local Bonus = 0;
+    local ResourceName = GetResourceName(_BuyType);
+    local Text = XGUIEng.GetStringTableText("SH_Text/GUI_TradeBonus");
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero11) then
+        Bonus = math.ceil(_BuyAmount * self.Config.Hero11.TradeBonusFactor);
+    end
+    if Bonus > 0 then
+        Logic.AddToPlayersGlobalResource(_PlayerID, _BuyType, Bonus);
+        Message(string.format(Text, Bonus, ResourceName));
+    end
+end
+
+-- Passive Ability: Bonus honor for sermons
+function Stronghold.Hero:ApplyHonorSermonPassiveAbility(_PlayerID, _BlessCategory, _Amount)
+    local Amount = _Amount;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
+        Amount = Amount + self.Config.Hero6.SermonHonor;
+    end
+    return Amount;
+end
+
+-- Passive Ability: Bonus reputation for sermons
+function Stronghold.Hero:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCategory, _Amount)
+    local Amount = _Amount;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
+        Amount = Amount + self.Config.Hero6.SermonReputation;
+    end
+    return Amount;
 end
 

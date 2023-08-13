@@ -7,6 +7,12 @@
 --- - Building rally points
 --- - Govermental Measrues
 --- - Church prayers
+---
+--- - <number> GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, _BlessCategory, _CurrentAmount)
+---   Allows to overwrite the honor gained from sermons.
+---
+--- - <number> GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, _CurrentAmount)
+---   Allows to overwrite the reputation gained from sermons.
 --- 
 
 Stronghold = Stronghold or {};
@@ -32,6 +38,7 @@ function Stronghold.Building:Install()
     self:OverrideHeadquarterButtons();
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
+    self:OverrideShiftRightClick();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -79,6 +86,17 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             end
         end
     );
+end
+
+-- -------------------------------------------------------------------------- --
+-- Game Callbacks
+
+function GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, _BlessCategory, _CurrentAmount)
+    return _CurrentAmount;
+end
+
+function GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, _CurrentAmount)
+    return _CurrentAmount;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -481,14 +499,16 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
             Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
         end
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Reputation);
+        Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, Reputation);
+        Stronghold.Economy:AddOneTimeReputation(_PlayerID, math.floor(Reputation + 0.5));
     end
     if BlessData.Honor > 0 then
         local Honor = BlessData.Honor;
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
             Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
         end
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Honor);
+        Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, _BlessCategory, Honor);
+        Stronghold.Economy:AddOneTimeHonor(_PlayerID, math.floor(Honor + 0.5));
     end
 
     if GUI.GetPlayerID() == _PlayerID then
@@ -583,7 +603,8 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
             end
-            EffectText = EffectText.. "+" ..Reputation.. " " ..Name.. " ";
+            Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, BlessCategory, Reputation);
+            EffectText = EffectText.. "+" ..math.floor(Reputation + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor > 0 then
             local Name = XGUIEng.GetStringTableText("sh_names/Honor");
@@ -591,7 +612,8 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
             end
-            EffectText = EffectText.. "+" ..Honor.. " " ..Name;
+            Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, BlessCategory, Honor);
+            EffectText = EffectText.. "+" ..math.floor(Honor + 0.5).. " " ..Name;
         end
 
         local MainKey = self.Config.Monastery[BlessCategory].Text;
@@ -622,9 +644,14 @@ end
 -- -------------------------------------------------------------------------- --
 -- Rally Points
 
-function InputCallback_ShiftRightClick()
-    Stronghold.Building:OnShiftRightClick();
-    return true;
+function Stronghold.Building:OverrideShiftRightClick()
+    InputCallback_ShiftRightClick_Orig_SH = InputCallback_ShiftRightClick;
+    InputCallback_ShiftRightClick = function()
+        if Stronghold.Building:OnShiftRightClick() then
+            return true;
+        end
+        return InputCallback_ShiftRightClick_Orig_SH();
+    end
 end
 
 function Stronghold.Building:MoveToRallyPoint(_Building, _EntityID)
@@ -720,9 +747,11 @@ function Stronghold.Building:OnShiftRightClick()
                     x,
                     y
                 );
+                return true;
             end
         end
     end
+    return false;
 end
 
 function Stronghold.Building:OnRallyPointHolderDestroyed(_PlayerID, _EntityID)
@@ -750,6 +779,7 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
             if self.Data[_PlayerID].RallyPoint[ScriptName] then
                 local ID = GetID(self.Data[_PlayerID].RallyPoint[ScriptName]);
                 SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
+                Logic.SetEntityExplorationRange(ID, 1);
             end
         end
     end
