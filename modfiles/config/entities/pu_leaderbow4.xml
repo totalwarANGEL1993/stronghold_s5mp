@@ -127,7 +127,7 @@
             <BattleWalkAnim>PU_LeaderBow4_Run1</BattleWalkAnim>
             <HitAnim>PU_LeaderBow4_Hit</HitAnim>
 
-            <DamageClass>DC_Bolt</DamageClass>
+            <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>32</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 

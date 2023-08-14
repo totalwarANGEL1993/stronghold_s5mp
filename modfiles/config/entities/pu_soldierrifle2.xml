@@ -21,7 +21,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>250</MaxHealth>
+        <MaxHealth>225</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -112,7 +112,7 @@
             <HitAnim>PU_SoldierRifle2_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>62</DamageAmount>
+            <DamageAmount>66</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <AutoAttackRange>2800</AutoAttackRange>

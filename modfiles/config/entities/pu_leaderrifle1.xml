@@ -65,7 +65,7 @@
         <Category>Rifle</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>250</MaxHealth>
+        <MaxHealth>225</MaxHealth>
         <Exploration>23</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
@@ -126,7 +126,7 @@
             <HitAnim>PU_LeaderRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>42</DamageAmount>
+            <DamageAmount>44</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
 

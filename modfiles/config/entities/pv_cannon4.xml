@@ -23,7 +23,7 @@
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>350</MaxHealth>
-        <Exploration>33</Exploration>
+        <Exploration>38</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
@@ -100,10 +100,10 @@
             <BattleWaitUntil>4000</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
-            <MaxRange>3300</MaxRange>
+            <MaxRange>3800</MaxRange>
             <MinRange>1500</MinRange>
 
-            <AutoAttackRange>3300</AutoAttackRange>
+            <AutoAttackRange>3800</AutoAttackRange>
 
             <UpkeepCost>20</UpkeepCost>
 

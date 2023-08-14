@@ -14,7 +14,7 @@
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <ArmorModifier>
-        <Value>3</Value>
+        <Value>4</Value>
         <Operation>+</Operation>
     </ArmorModifier>
     <Conditions>

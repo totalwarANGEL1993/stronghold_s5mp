@@ -230,8 +230,13 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
         if Effects.Reputation ~= 0 then
             local Unit = XGUIEng.GetStringTableText("sh_names/Reputation");
-            local Operator = (Effects.Reputation >= 0 and "+") or "";
-            EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+            local ReputationEffect = Effects.Reputation;
+            local Operator = "+";
+            if Effects.Reputation < 0 then
+                Operator = "";
+                ReputationEffect = (-1) * GetPlayerTaxPenalty(_PlayerID, Index);
+            end
+            EffectText = EffectText.. Operator ..ReputationEffect.. " " ..Unit.. " ";
         end
         if Effects.Honor ~= 0 then
             local Unit = XGUIEng.GetStringTableText("sh_names/Honor");

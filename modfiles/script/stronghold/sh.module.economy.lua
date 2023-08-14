@@ -468,7 +468,9 @@ function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _Taxt
         local Penalty = 0;
         if _TaxtHeight > 1 then
             local TaxEffect = self.Config.Income.TaxEffect[_TaxtHeight].Reputation * -1;
-            Penalty = TaxEffect * (1 + (0.04 * WorkerCount) + (0.36 * GetRank(_PlayerID)));
+            local WorkerEffect = self.Config.Income.TaxEffect.WorkerFactor * WorkerCount;
+            local RankEffect = self.Config.Income.TaxEffect.RankFactor * GetRank(_PlayerID);
+            Penalty = TaxEffect * (1 + WorkerEffect + RankEffect);
         end
         return math.floor(Penalty);
     end
@@ -573,7 +575,7 @@ function Stronghold.Economy:CalculateHonorIncomeTechnologyBonus(_PlayerID, _Buil
 end
 
 -- Calculate tax income
--- The tax income is mostly unchanged. A worker pays 6 gold times the tax level.
+-- The tax income is mostly unchanged. A worker pays x gold times the tax level.
 -- If scale is researched, then taxes are increased by 5%.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
@@ -850,10 +852,10 @@ function Stronghold.Economy:OnWorkplaceRefinedResource(_PlayerID, _BuildingID, _
     -- Bank technologies
     if _ResourceType == ResourceType.Gold then
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Debenture) == 1 then
-            Amount = Amount + (1 * self.Config.Income.DebentureBonusFactor);
+            Amount = Amount + self.Config.Income.DebentureBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Coinage) == 1 then
-            Amount = Amount + (1 * self.Config.Income.CoinageBonusFactor);
+            Amount = Amount + self.Config.Income.CoinageBonus;
         end
     end
     -- External changes

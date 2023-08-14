@@ -7,8 +7,11 @@ Stronghold.Attraction.Config.Attraction = {
     HQCivil = {[1] = 75, [2] = 100, [3] = 125},
     VCCivil = {[1] = 35, [2] = 50, [3] = 65},
     -- This is freely changeable in Lua
-    HQMilitary = {[1] = 90, [2] = 120, [3] = 150},
+    HQMilitary = {[1] = 50, [2] = 75, [3] = 100},
     VCMilitary = {[1] = 0, [2] = 0, [3] = 0},
+    BBMilitary = {[1] = 10, [2] = 20},
+
+    RankMilitaryFactor = 0.1,
 }
 
 Stronghold.Attraction.Config.Crime = {

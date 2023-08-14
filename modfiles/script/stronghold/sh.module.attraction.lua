@@ -361,8 +361,8 @@ function Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID)
     local Loss = 0;
     if self.Data[_PlayerID] then
         local Criminals = self:CountCriminals(_PlayerID);
-        Loss = Loss + self.Config.Crime.Effects.ReputationDamage * Criminals;
-        Loss = Loss + GetRank(_PlayerID);
+        local Damage = self.Config.Crime.Effects.ReputationDamage;
+        Loss = Loss + (Damage + GetRank(_PlayerID)) * Criminals;
     end
     return Loss;
 end
@@ -412,7 +412,6 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Limit = 0;
         local RawLimit = 0;
-
         -- Village Centers
         local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
         RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCCivil[1]);
@@ -477,7 +476,6 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local RawLimit = 0;
-
         -- Village Centers
         local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
         RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCMilitary[1]);
@@ -492,8 +490,24 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
         RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
         local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
         RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQMilitary[3]);
+        -- Barracks
+        local BB1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true));
+        RawLimit = RawLimit + (BB1 * self.Config.Attraction.BBMilitary[1]);
+        local BB2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Barracks2);
+        RawLimit = RawLimit + (BB2 * self.Config.Attraction.BBMilitary[2]);
+        -- Archery
+        local AR1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Archery1, true));
+        RawLimit = RawLimit + (AR1 * self.Config.Attraction.BBMilitary[1]);
+        local AR2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Archery2);
+        RawLimit = RawLimit + (AR2 * self.Config.Attraction.BBMilitary[2]);
+        -- Stables
+        local ST1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Stable1, true));
+        RawLimit = RawLimit + (ST1 * self.Config.Attraction.BBMilitary[1]);
+        local ST2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Stable2);
+        RawLimit = RawLimit + (ST2 * self.Config.Attraction.BBMilitary[2]);
         -- Rank
-        Limit = RawLimit + (RawLimit * (0.2 * (GetRank(_PlayerID)-1)));
+        local RankFactor = self.Config.Attraction.RankMilitaryFactor;
+        Limit = RawLimit + (RawLimit * (RankFactor * (GetRank(_PlayerID)-1)));
         -- External
         Limit = GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, Limit);
     end

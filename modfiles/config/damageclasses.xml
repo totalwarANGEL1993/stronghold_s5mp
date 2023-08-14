@@ -16,21 +16,9 @@
     <DamageClass id="DC_Arrow">
         <Logic classname="GGL::CDamageClassProps">
             <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>2.0</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>2.0</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
-        </Logic>
-    </DamageClass>
-    <!-- All crossbow -->
-    <DamageClass id="DC_Bolt">
-        <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.7</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>1.7</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
+            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>1.8</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
@@ -110,13 +98,13 @@
     <!-- All Riflemen -->
     <DamageClass id="DC_Bullet">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.8</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.8</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
+            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>1.4</ArmorClassFurFactor>
+            <ArmorClassFurFactor>2.0</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Shrouded -->

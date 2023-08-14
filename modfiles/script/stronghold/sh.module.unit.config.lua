@@ -488,8 +488,8 @@ Stronghold.Unit.Config = {
     [Entities.CU_Evil_LeaderBearman1]       = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {3, 115, 0, 130, 0, 30, 0},
-            [2] = {0, 3, 0, 14, 0, 4, 0},
+            [1] = {2, 110, 0, 120, 0, 30, 0},
+            [2] = {0, 2, 0, 14, 0, 4, 0},
         },
         Right             = PlayerRight.Bearman,
         IsCivil           = false,
@@ -502,7 +502,7 @@ Stronghold.Unit.Config = {
     [Entities.CU_Evil_LeaderSkirmisher1]    = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {3, 130, 0, 160, 0, 0, 0},
+            [1] = {3, 120, 0, 145, 0, 0, 0},
             [2] = {0, 3, 0, 18, 0, 0, 0},
         },
         Right             = PlayerRight.Skirmisher,
