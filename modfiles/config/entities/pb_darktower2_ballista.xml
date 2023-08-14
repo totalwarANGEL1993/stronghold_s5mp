@@ -10,7 +10,7 @@
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <DoNotExecute>false</DoNotExecute>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <Exploration>30</Exploration>
+        <Exploration>32</Exploration>
         <Category>MilitaryBuilding</Category>
         <Category>Military</Category>
         <Category>Cannon</Category>
@@ -26,13 +26,13 @@
             <RotationSpeed>7</RotationSpeed>
             <CannonBallEffectType>FXBalistaTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
-            <ReloadTime>2000</ReloadTime>
-            <MaxAttackRange>2800.0f</MaxAttackRange>
+            <ReloadTime>2100</ReloadTime>
+            <MaxAttackRange>3200.0f</MaxAttackRange>
             <MinRange>800.0f</MinRange>
             <DamageClass>DC_Chaos</DamageClass>
             <DamageAmount>45</DamageAmount>
             <DamageRange>500</DamageRange>
-            <AutoAttackRange>3000</AutoAttackRange>
+            <AutoAttackRange>3200</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>
         </Logic>
         <Display classname="ED::CBehaviorProps">

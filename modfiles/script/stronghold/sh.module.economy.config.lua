@@ -48,11 +48,11 @@ Stronghold.Economy.Config.Income = {
     BetterStudiesFactor = 1.3,
 
     TaxEffect = {
-        [1] = {Honor = 4, Reputation = 10,},
-        [2] = {Honor = 2, Reputation = -2,},
-        [3] = {Honor = 1, Reputation = -4,},
-        [4] = {Honor = 0, Reputation = -10,},
-        [5] = {Honor = 0, Reputation = -16,},
+        [1] = {Honor = 4, Reputation = 12,},
+        [2] = {Honor = 2, Reputation = -3,},
+        [3] = {Honor = 1, Reputation = -6,},
+        [4] = {Honor = 0, Reputation = -14,},
+        [5] = {Honor = 0, Reputation = -20,},
     },
 
     TechnologyEffect = {
@@ -73,8 +73,8 @@ Stronghold.Economy.Config.Income = {
             [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.21,},
         },
         [Technologies.T_Instruments] = {
-            [Entities.PB_Tavern1]    = {Honor = 0.30, Reputation = 0.0,},
-            [Entities.PB_Tavern2]    = {Honor = 0.46, Reputation = 0.0,},
+            [Entities.PB_Tavern1]    = {Honor = 0.25, Reputation = 0.0,},
+            [Entities.PB_Tavern2]    = {Honor = 0.30, Reputation = 0.0,},
         },
     },
 
@@ -85,8 +85,8 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.12,},
         [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.18,},
         ---
-        [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.45,},
-        [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.60,},
+        [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.40,},
+        [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.55,},
     },
     Static = {
         [Entities.PB_Beautification04] = {Honor = 1, Reputation = 1,},

@@ -10,7 +10,7 @@
 		<AccessCategory>AccessCategorySettler</AccessCategory>
 		<DoNotExecute>false</DoNotExecute>
 		<ForceNoPlayer>false</ForceNoPlayer>
-		<Exploration>30</Exploration>	
+		<Exploration>34</Exploration>	
     <Category>MilitaryBuilding</Category>
 		<Category>Military</Category> 
 		<Category>Cannon</Category> 	
@@ -26,14 +26,14 @@
     	    <RotationSpeed>7</RotationSpeed>
     	    <CannonBallEffectType>FXCannonTowerBall</CannonBallEffectType>
   			<ProjectileOffsetFront>100</ProjectileOffsetFront>
-    	    <ReloadTime>4500</ReloadTime>
-    	    <MaxAttackRange>2800.0f</MaxAttackRange>
+    	    <ReloadTime>4300</ReloadTime>
+    	    <MaxAttackRange>3400.0f</MaxAttackRange>
     	    <MinRange>800.0f</MinRange>
     	    <DamageClass>DC_Chaos</DamageClass>
     	    <DamageAmount>95</DamageAmount>
     	    <DamageRange>900</DamageRange>
     	    <BattleTaskList>TL_BATTLE_CANNONTOWER</BattleTaskList>
-    	    <AutoAttackRange>3000</AutoAttackRange>
+    	    <AutoAttackRange>3400</AutoAttackRange>
     	</Logic>
 		<Display classname="ED::CBehaviorProps">
 			<Class>ED::CDisplayBehaviorMovement</Class>

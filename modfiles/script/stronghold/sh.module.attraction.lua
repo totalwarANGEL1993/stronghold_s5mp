@@ -362,6 +362,7 @@ function Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID)
     if self.Data[_PlayerID] then
         local Criminals = self:CountCriminals(_PlayerID);
         Loss = Loss + self.Config.Crime.Effects.ReputationDamage * Criminals;
+        Loss = Loss + GetRank(_PlayerID);
     end
     return Loss;
 end

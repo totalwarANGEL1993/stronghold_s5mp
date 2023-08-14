@@ -8,6 +8,7 @@
 --- - Govermental Measrues
 --- - Church prayers
 ---
+--- Defined game callbacks:
 --- - <number> GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, _BlessCategory, _CurrentAmount)
 ---   Allows to overwrite the honor gained from sermons.
 ---
@@ -234,7 +235,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         end
         if Effects.Honor ~= 0 then
             local Unit = XGUIEng.GetStringTableText("sh_names/Honor");
-            local Operator = (Effects.Reputation >= 0 and "+") or "";
+            local Operator = (Effects.Honor >= 0 and "+") or "";
             EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit;
         end
         Text = string.format(Text, EffectText);
@@ -810,6 +811,7 @@ function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
                 if AreEntitiesInArea(_PlayerID, Entities.PB_Foundry1, Position, 2000, 1)
                 or AreEntitiesInArea(_PlayerID, Entities.PB_Foundry2, Position, 2000, 1) then
                     local Healing = math.min(MaxHealth - Health, 4);
+                    Logic.CreateEffect(GGL_Effects.FXSalimHeal, Position.X, Position.Y, 0);
                     Logic.HealEntity(Cannons[i], Healing);
                 end
             end

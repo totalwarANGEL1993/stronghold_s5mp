@@ -160,6 +160,11 @@ function GetPlayerMaxKnowledgePoints(_PlayerID)
     return Stronghold.Economy:GetPlayerKnowledgePointsLimit(_PlayerID);
 end
 
+--- Returns the tax penalty for the player.
+function GetPlayerTaxPenalty(_PlayerID, _TaxtHeight)
+    return Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxtHeight);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
@@ -463,7 +468,7 @@ function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _Taxt
         local Penalty = 0;
         if _TaxtHeight > 1 then
             local TaxEffect = self.Config.Income.TaxEffect[_TaxtHeight].Reputation * -1;
-            Penalty = TaxEffect * (1 + ((WorkerCount/95) + (0.42 * (GetRank(_PlayerID) -1))));
+            Penalty = TaxEffect * (1 + (0.04 * WorkerCount) + (0.36 * GetRank(_PlayerID)));
         end
         return math.floor(Penalty);
     end

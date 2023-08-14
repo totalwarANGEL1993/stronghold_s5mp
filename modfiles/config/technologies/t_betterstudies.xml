@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
 	<TecCategoryType>TC_Administration</TecCategoryType>
-	<TimeToResearch>80</TimeToResearch>
+	<TimeToResearch>60</TimeToResearch>
 	<ResourceCosts>
 		<Knowledge>5</Knowledge>
 		<Gold>200</Gold>
@@ -12,7 +12,7 @@
 		<Sulfur/>
 	</ResourceCosts>
 	<AutomaticResearch>false</AutomaticResearch>
-	<UseForStatisticsFlag>false</UseForStatisticsFlag>
+	<UseForStatisticsFlag>true</UseForStatisticsFlag>
 	<Conditions>
 		<EntityCondition>
 			<EntityType>PB_University2</EntityType>

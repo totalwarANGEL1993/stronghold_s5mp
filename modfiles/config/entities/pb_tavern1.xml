@@ -150,7 +150,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_WORKER_FARM</Type>
-                <Limit>4</Limit>
+                <Limit>6</Limit>
                 <IsActive>false</IsActive>
             </Attachment>
             <Attachment>
