@@ -317,7 +317,12 @@ function Stronghold.Outlaw:ExecuteDefendBaseBehavior(_PlayerID, _CampID)
                 local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
                 local Task = Logic.GetCurrentTaskList(ID);
                 if  (not Task or (not string.find(Task, "BATTLE") and not string.find(Task, "DIE"))) then
-                    Logic.GroupAttack(ID, EnemyID);
+                    if Logic.IsEntityInCategory(ID, EntityCategories.Melee) == 1 then
+                        local x,y,z = Logic.EntityGetPos(EnemyID);
+                        Logic.GroupAttackMove(ID, x, y);
+                    else
+                        Logic.GroupAttack(ID, EnemyID);
+                    end
                 end
             end
         else

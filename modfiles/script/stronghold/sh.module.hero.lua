@@ -574,15 +574,11 @@ function Stronghold.Hero:EntityAttackedController(_PlayerID)
             if Logic.IsHero(k) == 1 then
                 if Logic.GetEntityHealth(k) == 0 then
                     Stronghold.Players[_PlayerID].AttackMemory[k] = nil;
-                    local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                    local x,y,z = Logic.EntityGetPos(k);
-
                     -- Send message
-                    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(k));
-                    local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
                     local Text = XGUIEng.GetStringTableText("sh_text/Player_NobleDefeated");
-                    Message(string.format(Text, PlayerColor, Name));
+                    Message(Text);
                     -- Place hero
+                    local x,y,z = Logic.EntityGetPos(k);
                     Logic.CreateEffect(GGL_Effects.FXDieHero, x, y, _PlayerID);
                     local ID = SetPosition(k, Stronghold.Players[_PlayerID].DoorPos);
                     if Logic.GetEntityType(ID) == Entities.CU_BlackKnight then
