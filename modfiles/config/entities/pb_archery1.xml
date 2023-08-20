@@ -41,12 +41,12 @@
         <ConstructionInfo>
          	<Time>90</Time>
             <Cost>
-				    <Clay>0</Clay>
-				    <Wood>300</Wood>
-					  <Stone>350</Stone>
-					  <Gold/>
-					  <Iron/>
-					  <Sulfur/>
+                <Clay>250</Clay>
+                <Wood>100</Wood>
+                <Stone>250</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>

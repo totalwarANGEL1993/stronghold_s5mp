@@ -13,9 +13,18 @@ Stronghold.Economy.Config.Resource = {
         [Entities.PB_StoneMine1] = 4,
         [Entities.PB_StoneMine2] = 5,
         [Entities.PB_StoneMine3] = 6,
-        [Entities.PB_SulfurMine1] = 4,
-        [Entities.PB_SulfurMine2] = 5,
-        [Entities.PB_SulfurMine3] = 6,
+        [Entities.PB_SulfurMine1] = 3,
+        [Entities.PB_SulfurMine2] = 4,
+        [Entities.PB_SulfurMine3] = 5,
+
+        PickaxeClayBonus = 1,
+        PickaxeStoneBonus = 1,
+        PickaxeIronBonus = 1,
+        PickaxeSulfurBonus = 1,
+        SustainableClayMining = 1,
+        SustainableStoneMining = 1,
+        SustainableIronMining = 1,
+        SustainableSulfurMining = 1,
     },
     Refining = {
         [Entities.PB_Bank1] = 2,
@@ -29,10 +38,24 @@ Stronghold.Economy.Config.Resource = {
         [Entities.PB_Blacksmith1] = 4;
         [Entities.PB_Blacksmith2] = 4;
         [Entities.PB_Blacksmith3] = 4;
-        [Entities.PB_Alchemist1] = 4;
-        [Entities.PB_Alchemist2] = 4;
-        [Entities.PB_GunsmithWorkshop1] = 4;
-        [Entities.PB_GunsmithWorkshop2] = 4;
+        [Entities.PB_Alchemist1] = 3;
+        [Entities.PB_Alchemist2] = 3;
+        [Entities.PB_GunsmithWorkshop1] = 3;
+        [Entities.PB_GunsmithWorkshop2] = 3;
+
+        PhilosophersStoneBonus = 2,
+        QualityToolsBonus = 1,
+    },
+    Extracting = {
+        [ResourceType.GoldRaw] = 1,
+        [ResourceType.ClayRaw] = 2,
+        [ResourceType.WoodRaw] = 3,
+        [ResourceType.StoneRaw] = 2,
+        [ResourceType.IronRaw] = 2,
+        [ResourceType.SulfurRaw] = 1,
+
+        SharpAxeBonus = 1,
+        HardHandleBonus = 1,
     },
 }
 
@@ -54,47 +77,47 @@ Stronghold.Economy.Config.Income = {
         [4] = {Honor = 0, Reputation = -8,},
         [5] = {Honor = 0, Reputation = -16,},
         WorkerFactor = 0.04,
-        RankFactor = 0.38,
+        RankFactor = 0.35,
     },
 
     TechnologyEffect = {
         [Technologies.T_CropCycle]   = {
-            [Entities.PB_Farm1]      = {Honor = 0.09, Reputation = 0.03,},
-            [Entities.PB_Farm2]      = {Honor = 0.15, Reputation = 0.06,},
-            [Entities.PB_Farm3]      = {Honor = 0.18, Reputation = 0.09,},
+            [Entities.PB_Farm1]      = {Honor = 0.06, Reputation = 0.03,},
+            [Entities.PB_Farm2]      = {Honor = 0.12, Reputation = 0.06,},
+            [Entities.PB_Farm3]      = {Honor = 0.15, Reputation = 0.09,},
         },
         [Technologies.T_Spice]       = {
-            [Entities.PB_Farm1]      = {Honor = 0.09, Reputation = 0.03,},
-            [Entities.PB_Farm2]      = {Honor = 0.15, Reputation = 0.06,},
-            [Entities.PB_Farm3]      = {Honor = 0.18, Reputation = 0.09,},
+            [Entities.PB_Farm1]      = {Honor = 0.06, Reputation = 0.03,},
+            [Entities.PB_Farm2]      = {Honor = 0.12, Reputation = 0.06,},
+            [Entities.PB_Farm3]      = {Honor = 0.15, Reputation = 0.09,},
         },
         [Technologies.T_Hearthfire]  = {
-            [Entities.PB_Residence1] = {Honor = 0.03, Reputation = 0.09,},
-            [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.15,},
-            [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.18,},
+            [Entities.PB_Residence1] = {Honor = 0.03, Reputation = 0.06,},
+            [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.12,},
+            [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.15,},
         },
         [Technologies.T_RoomKeys]    = {
-            [Entities.PB_Residence1] = {Honor = 0.03, Reputation = 0.09,},
-            [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.15,},
-            [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.18,},
+            [Entities.PB_Residence1] = {Honor = 0.03, Reputation = 0.06,},
+            [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.12,},
+            [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.15,},
         },
         [Technologies.T_Instruments] = {
-            [Entities.PB_Tavern1]    = {Honor = 0.35, Reputation = 0.0,},
-            [Entities.PB_Tavern2]    = {Honor = 0.55, Reputation = 0.0,},
+            [Entities.PB_Tavern1]    = {Honor = 0.30, Reputation = 0.0,},
+            [Entities.PB_Tavern2]    = {Honor = 0.50, Reputation = 0.0,},
         },
     },
 
     Dynamic = {
         [Entities.PB_Farm1]      = {Honor = 0, Reputation = 0,},
-        [Entities.PB_Farm2]      = {Honor = 0.15, Reputation = 0.06,},
-        [Entities.PB_Farm3]      = {Honor = 0.21, Reputation = 0.09,},
+        [Entities.PB_Farm2]      = {Honor = 0.12, Reputation = 0.06,},
+        [Entities.PB_Farm3]      = {Honor = 0.18, Reputation = 0.09,},
         ---
         [Entities.PB_Residence1] = {Honor = 0, Reputation = 0,},
-        [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.15,},
-        [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.21,},
+        [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.12,},
+        [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.18,},
         ---
-        [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.35,},
-        [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.55,},
+        [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.30,},
+        [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.50,},
     },
     Static = {
         [Entities.PB_Beautification04] = {Honor = 1, Reputation = 1,},

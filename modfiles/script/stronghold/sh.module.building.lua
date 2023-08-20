@@ -355,7 +355,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
         Right = PlayerRight.MeasrueLawAndOrder;
     elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
         BlessCategory = BlessCategories.Weapons;
-        Right = PlayerRight.MeasrueWelcomeCulture;
+        Right = PlayerRight.FoodDistribution;
     elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
         BlessCategory = BlessCategories.Financial;
         Right = PlayerRight.MeasrueFolkloreFeast;
@@ -409,7 +409,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers3" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasrueWelcomeCulture) then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.FoodDistribution) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers4" then

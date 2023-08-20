@@ -20,7 +20,7 @@ Stronghold.Attraction.Config.Crime = {
         SerfArea = 2400,
         TowerArea = 4500,
         SerfRate = 1.8,
-        RateRate = 2.5,
+        TowerRate = 2.5,
         TownGuardFactor = 1.5,
     },
     Effects = {

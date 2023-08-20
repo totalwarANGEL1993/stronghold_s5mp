@@ -58,6 +58,9 @@
 --- - <number>, <number> GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
 ---   Calculates how much resources are mined.
 --- 
+--- - <number>, <number> GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, _Amount, _Remaining)
+---   Calculates how much resources are excracted by serfs.
+--- 
 --- - <number> GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
 ---   Calculates how much resources are refined.
 ---
@@ -229,6 +232,10 @@ function GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _Amount)
 end
 
 function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
+    return _Amount, _Remaining;
+end
+
+function GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, _Amount, _Remaining)
     return _Amount, _Remaining;
 end
 
@@ -780,19 +787,75 @@ end
 -- Resource Mining
 
 function Stronghold.Economy:OverrideResourceCallbacks()
+    if GameCallback_GainedResourcesFromMine then
+        GameCallback_GainedResourcesFromMine_Orig_SH = GameCallback_GainedResourcesFromMine;
+    end
     GameCallback_GainedResourcesFromMine = function(_WorkerID, _SourceID, _ResourceType, _Amount)
-        local PlayerID = Logic.EntityGetPlayer(_WorkerID);
-        local BuildingID = Logic.GetSettlersWorkBuilding(_WorkerID);
-        local Amount = Stronghold.Economy:OnMineExtractedResource(PlayerID, BuildingID, _SourceID, _ResourceType, _Amount);
-        return _WorkerID, _SourceID, _ResourceType, Amount;
+        local WorkerID, SourceID, ResourceType, Amount = _WorkerID, _SourceID, _ResourceType, _Amount;
+        if GameCallback_GainedResourcesFromMine_Orig_SH then
+            WorkerID, SourceID, ResourceType, Amount = GameCallback_GainedResourcesFromMine_Orig_SH(WorkerID, SourceID, ResourceType, Amount);
+        end
+        local PlayerID = Logic.EntityGetPlayer(WorkerID);
+        local BuildingID = Logic.GetSettlersWorkBuilding(WorkerID);
+        Amount = Stronghold.Economy:OnMineExtractedResource(PlayerID, BuildingID, SourceID, ResourceType, Amount);
+        return WorkerID, SourceID, ResourceType, Amount;
     end
 
-    GameCallback_RefinedResource = function(_WorkerID, _ResourceType, _Amount)
-        local PlayerID = Logic.EntityGetPlayer(_WorkerID);
-        local BuildingID = Logic.GetSettlersWorkBuilding(_WorkerID);
-        local Amount = Stronghold.Economy:OnWorkplaceRefinedResource(PlayerID, BuildingID, _ResourceType, _Amount);
-        return _WorkerID, _ResourceType, Amount;
+    if GameCallback_GainedResourcesExtended then
+        GameCallback_GainedResourcesExtended_Orig_SH = GameCallback_GainedResourcesExtended;
     end
+    GameCallback_GainedResourcesExtended = function(_ExtractorID, _SourceID, _ResourceType, _Amount)
+        local ExtractorID, SourceID, ResourceType, Amount = _ExtractorID, _SourceID, _ResourceType, _Amount;
+        if GameCallback_GainedResourcesExtended_Orig_SH then
+            ExtractorID, SourceID, ResourceType, Amount = GameCallback_GainedResourcesExtended_Orig_SH(ExtractorID, SourceID, ResourceType, Amount);
+        end
+        local PlayerID = Logic.EntityGetPlayer(_ExtractorID);
+        if Logic.GetEntityType(_ExtractorID) == Entities.PU_Serf then
+            Amount = Stronghold.Economy:OnSerfExtractedResource(PlayerID, ExtractorID, SourceID, ResourceType, Amount);
+        end
+		return ExtractorID, SourceID, ResourceType, Amount;
+	end;
+
+    if GameCallback_RefinedResource then
+        GameCallback_RefinedResource_Orig_SH = GameCallback_RefinedResource;
+    end
+    GameCallback_RefinedResource = function(_WorkerID, _ResourceType, _Amount)
+        local WorkerID, ResourceType, Amount = _WorkerID, _ResourceType, _Amount;
+        if GameCallback_RefinedResource_Orig_SH then
+            WorkerID, ResourceType, Amount = GameCallback_RefinedResource_Orig_SH(WorkerID, ResourceType, Amount);
+        end
+        local PlayerID = Logic.EntityGetPlayer(WorkerID);
+        local BuildingID = Logic.GetSettlersWorkBuilding(WorkerID);
+        Amount = Stronghold.Economy:OnWorkplaceRefinedResource(PlayerID, BuildingID, ResourceType, Amount);
+        return WorkerID, ResourceType, Amount;
+    end
+end
+
+function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceID, _ResourceType, _Amount)
+    local Amount = self.Config.Resource.Extracting[_ResourceType] or _Amount;
+    local ResourceAmount = Logic.GetResourceDoodadGoodAmount(_SourceID);
+    local Remaining = ResourceAmount;
+
+    -- Sharp axes
+    if _ResourceType == ResourceType.WoodRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SharpAxes) == 1 then
+            Amount = Amount + self.Config.Resource.Extracting.SharpAxeBonus;
+        end
+    end
+    -- Hard handle
+    if _ResourceType == ResourceType.ClayRaw or _ResourceType == ResourceType.StoneRaw
+    or _ResourceType == ResourceType.IronRaw or _ResourceType == ResourceType.SulfurRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HardHandle) == 1 then
+            Amount = Amount + self.Config.Resource.Extracting.HardHandleBonus;
+        end
+    end
+
+    -- External changes
+    Amount, Remaining = GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, Amount, Remaining);
+    if Remaining > ResourceAmount then
+        Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
+    end
+    return Amount;
 end
 
 function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount)
@@ -803,37 +866,37 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
 
     if _ResourceType == ResourceType.ClayRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeClay) == 1 then
-            Amount = Amount +1;
+            Amount = Amount + self.Config.Resource.Mining.PickaxeClayBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableClayMining) == 1 then
-            Remaining = Remaining + 1;
+            Remaining = Remaining + self.Config.Resource.Mining.SustainableClayMining;
         end
     end
 
     if _ResourceType == ResourceType.IronRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeIron) == 1 then
-            Amount = Amount +1;
+            Amount = Amount + self.Config.Resource.Mining.PickaxeIronBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableIronMining) == 1 then
-            Remaining = Remaining + 1;
+            Remaining = Remaining + self.Config.Resource.Mining.SustainableIronMining;
         end
     end
 
     if _ResourceType == ResourceType.StoneRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeStone) == 1 then
-            Amount = Amount +1;
+            Amount = Amount + self.Config.Resource.Mining.PickaxeStoneBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableStoneMining) == 1 then
-            Remaining = Remaining + 1;
+            Remaining = Remaining + self.Config.Resource.Mining.SustainableStoneMining;
         end
     end
 
     if _ResourceType == ResourceType.SulfurRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1 then
-            Amount = Amount +1;
+            Amount = Amount + self.Config.Resource.Mining.PickaxeSulfurBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableSulfurMining) == 1 then
-            Remaining = Remaining + 1;
+            Remaining = Remaining + self.Config.Resource.Mining.SustainableSulfurMining;
         end
     end
 
@@ -858,6 +921,20 @@ function Stronghold.Economy:OnWorkplaceRefinedResource(_PlayerID, _BuildingID, _
             Amount = Amount + self.Config.Income.CoinageBonus;
         end
     end
+    -- Quality tools
+    if _ResourceType == ResourceType.Clay or _ResourceType == ResourceType.Wood
+    or _ResourceType == ResourceType.Stone or _ResourceType == ResourceType.Iron then
+        if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_QualityTools) == 1 then
+            Amount = Amount + self.Config.Resource.Refining.QualityToolsBonus;
+        end
+    end
+    -- Philosopher's stone
+    if _ResourceType == ResourceType.Sulfur then
+        if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_PhilosophersStone) == 1 then
+            Amount = Amount + self.Config.Resource.Refining.PhilosophersStoneBonus;
+        end
+    end
+
     -- External changes
     Amount = GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, Amount);
     return Amount;

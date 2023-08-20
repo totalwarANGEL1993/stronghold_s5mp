@@ -30,35 +30,25 @@
         <Upgrade>
             <Category>Stable</Category>
             <Time>40</Time>  
-      		
-
-      
-
-      
-
-      
-
-      
-<!-- In seconds!  -->
             <Cost>
-			    <Clay>150</Clay>
-			    <Wood/>
-				    <Stone>300</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+                <Clay>250</Clay>
+                <Wood>100</Wood>
+                <Stone>250</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <Type>PB_Stable2</Type>
         </Upgrade>
         <ConstructionInfo>
             <Time>120</Time>
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>200</Wood>
-				    <Stone>350</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+                <Clay>100</Clay>
+                <Wood>200</Wood>
+                <Stone>100</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>

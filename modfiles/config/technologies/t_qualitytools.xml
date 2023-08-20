@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>50</TimeToResearch>
+    <ResourceCosts>
+		<Knowledge>4</Knowledge>
+        <Gold>600</Gold>
+        <Clay>0</Clay>
+        <Wood>200</Wood>
+        <Stone>0</Stone>
+        <Iron>200</Iron>
+        <Sulfur>0</Sulfur>
+    </ResourceCosts>
+    <AutomaticResearch>true</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <Conditions>
+        <TecCondition>
+            <TecType>T_HardHandle</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Sawmill2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

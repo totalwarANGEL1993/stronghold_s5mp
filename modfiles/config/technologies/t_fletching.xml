@@ -3,7 +3,7 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>20</TimeToResearch>
     <ResourceCosts>
-        <Knowledge>4</Knowledge>
+        <Knowledge>3</Knowledge>
         <Gold>100</Gold>
         <Clay/>
         <Wood>100</Wood>
@@ -31,11 +31,9 @@
     </ExplorationModifier>
 
     <Conditions>
-
-
-        <EntityCondition>
+        <!-- <EntityCondition>
             <EntityType>PB_Sawmill2</EntityType>
             <Amount>1</Amount>
-        </EntityCondition>
+        </EntityCondition> -->
     </Conditions>
 </root>

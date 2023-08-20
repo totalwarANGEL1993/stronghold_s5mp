@@ -162,7 +162,7 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
             local Type = ResourceType[ResourcesToSteal[math.random(1, 6)]];
             local Amount = math.random(
                 self.Config.Crime.Effects.TheftAmount.Min,
-                self.Config.Crime.Effects.TheftAmount.Min
+                self.Config.Crime.Effects.TheftAmount.Max
             );
             ResourcesToSub[Type] = (ResourcesToSub[Type] or 0) + Amount;
             TotalAmount = TotalAmount + Amount;
@@ -339,7 +339,7 @@ function Stronghold.Attraction:GetSettlersExposition(_PlayerID, _CriminalID)
         local _, TowerID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, x, y, self.Config.Crime.Unveil.TowerArea, 1);
         if (DarkTowerID and Logic.IsConstructionComplete(DarkTowerID) == 1)
         or (TowerID and Logic.IsConstructionComplete(TowerID) == 1) then
-            Exposition = Exposition + (1 * self.Config.Crime.Unveil.RateRate);
+            Exposition = Exposition + (1 * self.Config.Crime.Unveil.TowerRate);
         end
         -- Check town guard
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TownGuard) == 1 then

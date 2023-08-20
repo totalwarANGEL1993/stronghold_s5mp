@@ -29,6 +29,8 @@ Stronghold.Hero.Config.Hero4 = {
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
     RefiningBonus = 1,
+    ConservationChanceMax = 100,
+    ConservationChance = 25,
 }
 -- Hero 6 properties
 Stronghold.Hero.Config.Hero6 = {

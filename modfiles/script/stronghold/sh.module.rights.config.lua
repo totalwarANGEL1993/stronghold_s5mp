@@ -29,7 +29,7 @@ Stronghold.Rights.Config = {
                 -- DO NOT MOVE THIS!!! --
                 PlayerRight.MeasrueLevyTax,
                 PlayerRight.MeasrueLawAndOrder,
-                PlayerRight.MeasrueWelcomeCulture,
+                PlayerRight.FoodDistribution,
                 PlayerRight.MeasrueFolkloreFeast,
                 PlayerRight.MeasrueOrgy,
                 PlayerRight.House,
@@ -61,6 +61,8 @@ Stronghold.Rights.Config = {
             Rights = {
                 ---
                 PlayerRight.Chapel,
+                PlayerRight.ArchitectShop,
+                PlayerRight.Bridge,
                 ---
                 PlayerRight.Barracks,
                 PlayerRight.LeaderPoleArm1,
@@ -100,8 +102,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.Smithy,
                 PlayerRight.MasonHut,
                 PlayerRight.Bank,
-                PlayerRight.ArchitectShop,
-                PlayerRight.Bridge,
                 PlayerRight.Tavern,
                 PlayerRight.Scout,
                 ---
@@ -129,6 +129,7 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Soldiers, 50},
             },
             Rights = {
+                PlayerRight.Market,
                 PlayerRight.Blacksmith,
                 PlayerRight.Alchemist,
                 PlayerRight.WeatherTower,
@@ -193,7 +194,6 @@ Stronghold.Rights.Config = {
             },
             Rights = {
                 PlayerRight.Zitadel,
-                PlayerRight.Market,
                 ---
                 PlayerRight.Laboratory,
                 PlayerRight.FinishingSmithy,

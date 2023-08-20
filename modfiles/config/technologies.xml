@@ -350,7 +350,7 @@
 
 <!-- Stronghold -->
 
-    <!-- Extracting -->
+    <!-- Resources -->
     <Technology>T_SustainableClayMining</Technology>
     <Technology>T_SustainableIronMining</Technology>
     <Technology>T_SustainableStoneMining</Technology>
@@ -359,6 +359,10 @@
     <Technology>T_PickAxeIron</Technology>
     <Technology>T_PickAxeStone</Technology>
     <Technology>T_PickAxeSulfur</Technology>
+    <Technology>T_SharpAxes</Technology>
+    <Technology>T_HardHandle</Technology>
+    <Technology>T_QualityTools</Technology>
+    <Technology>T_PhilosophersStone</Technology>
 
     <!-- Units -->
     <Technology>T_SlavePenny</Technology>

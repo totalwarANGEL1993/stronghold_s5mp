@@ -36,9 +36,9 @@
             <Category>Market</Category>
             <Time>40.0</Time>  
             <Cost>
-			    <Clay>150</Clay>
+			    <Clay>200</Clay>
 			    <Wood/>
-                <Stone>300</Stone>
+                <Stone>200</Stone>
                 <Gold>100</Gold>
                 <Iron/>
                 <Sulfur/>
@@ -49,12 +49,12 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>150</Wood>
-				    <Stone>250</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+			    <Clay>50</Clay>
+                <Wood>200</Wood>
+                <Stone>50</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>

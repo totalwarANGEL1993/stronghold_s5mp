@@ -45,7 +45,7 @@
             <Category>StoneMason</Category>
             <Time>40.0</Time>  
             <Cost>
-			    <Clay>250</Clay>
+			    <Clay>300</Clay>
 			    <Wood>200</Wood>
 				    <Gold/>
 				    <Iron/>
@@ -57,7 +57,7 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-			    <Clay>200</Clay>
+			    <Clay>150</Clay>
 			    <Wood>150</Wood>
 				    <Stone>0</Stone>
 				    <Gold/>

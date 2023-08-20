@@ -38,7 +38,7 @@ PlayerRight = {
     -- Measrues
     MeasrueLevyTax = 1,
     MeasrueLawAndOrder = 2,
-    MeasrueWelcomeCulture = 3,
+    FoodDistribution = 3,
     MeasrueFolkloreFeast = 4,
     MeasrueOrgy = 5,
 

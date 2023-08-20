@@ -823,6 +823,12 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount, ResourceRemaining;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_SerfExtraction", function(_PlayerID, _SerfID, _SourceID, _ResourceType, _Amount, _Remaining)
+        local CurrentAmount, RemainingAmount = Overwrite.CallOriginal();
+        CurrentAmount, ResourceRemaining = Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _ResourceType, CurrentAmount, RemainingAmount);
+        return CurrentAmount, ResourceRemaining;
+    end);
+
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceRefined", function(_PlayerID, _BuildingID, _ResourceType, Amount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
@@ -997,12 +1003,33 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
         or _Type == ResourceType.SulfurRaw
         then
             local ChanceMax = self.Config.Hero2.ExtraResChanceMax;
-            local ResChance = self.Config.Hero2.ExtraResChance
+            local ResChance = self.Config.Hero2.ExtraResChance;
             if math.random(1, ChanceMax) <= ResChance then
                 local Bonus = math.random(1, Stronghold.Hero.Config.Hero2.ExtractingBonus);
                 ResourceRemaining = ResourceRemaining + Bonus;
                 Amount = Amount + Bonus;
             end
+        end
+    end
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
+        local ChanceMax = self.Config.Hero5.ConservationChanceMax;
+        local ResChance = self.Config.Hero5.ConservationChance;
+        if math.random(1, ChanceMax) <= ResChance then
+            ResourceRemaining = ResourceRemaining + Amount;
+        end
+    end
+    return Amount, ResourceRemaining;
+end
+
+-- Passive Ability: Serf extraction bonus
+function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Type, _Amount, _Remaining)
+    local ResourceRemaining = _Remaining
+    local Amount = _Amount;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
+        local ChanceMax = self.Config.Hero5.ConservationChanceMax;
+        local ResChance = self.Config.Hero5.ConservationChance;
+        if math.random(1, ChanceMax) <= ResChance then
+            ResourceRemaining = ResourceRemaining + Amount;
         end
     end
     return Amount, ResourceRemaining;
@@ -1016,11 +1043,6 @@ function Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _Type, _A
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
         if _Type == ResourceType.Stone then
             Amount = Amount + Stronghold.Hero.Config.Hero2.RefiningBonus;
-        end
-    end
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        if _Type == ResourceType.Wood then
-            Amount = Amount + Stronghold.Hero.Config.Hero5.RefiningBonus;
         end
     end
     if  self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10)
