@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>50</TimeToResearch>
+    <ResourceCosts>
+		<Knowledge>3</Knowledge>
+        <Gold>1000</Gold>
+        <Clay>0</Clay>
+        <Wood>0</Wood>
+        <Stone>0</Stone>
+        <Iron>0</Iron>
+        <Sulfur>0</Sulfur>
+    </ResourceCosts>
+    <AutomaticResearch>true</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <Conditions>
+        <TecCondition>
+            <TecType>T_DraconicPunishment</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Headquarters2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

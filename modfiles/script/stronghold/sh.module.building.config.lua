@@ -3,6 +3,13 @@
 --- 
 
 Stronghold.Building.Config.Headquarters = {
+    DraconicPunishmentHonorBonus = 0.20,
+    DraconicPunishmentReputationBonus = 0.20,
+    DrecorativeSkullHonorBonus = 0.20,
+    DrecorativeSkullReputationBonus = 0.20,
+    TjostingArmorHonorBonus = 0.20,
+    TjostingArmorReputationBonus = 0.20,
+
     [BlessCategories.Construction] = {
         Reputation = -15,
         Honor = 0,
@@ -29,43 +36,47 @@ Stronghold.Building.Config.Headquarters = {
     },
     [BlessCategories.Canonisation] = {
         Reputation = -45,
-        Honor = 200,
+        Honor = 150,
 
         Text = "sh_menuheadquarter/blesssettlers5",
     },
 }
 
 Stronghold.Building.Config.Monastery = {
-    SundayAssemblyHonorBonus = 3,
-    SundayAssemblyReputationBonus = 3,
+    SundayAssemblyHonorBonus = 2,
+    SundayAssemblyReputationBonus = 2,
+    HolyRelicsHonorBonus = 2,
+    HolyRelicsReputationBonus = 2,
+    PopalBlessingHonorBonus = 2,
+    PopalBlessingReputationBonus = 2,
 
     [BlessCategories.Construction] = {
-        Reputation = 9,
+        Reputation = 8,
         Honor = 0,
 
         Text = "sh_menumonastery/blesssettlers1",
     },
     [BlessCategories.Research] = {
         Reputation = 0,
-        Honor = 9,
+        Honor = 8,
 
         Text = "sh_menumonastery/blesssettlers2",
     },
     [BlessCategories.Weapons] = {
-        Reputation = 18,
+        Reputation = 16,
         Honor = 0,
 
         Text = "sh_menumonastery/blesssettlers3",
     },
     [BlessCategories.Financial] = {
         Reputation = 0,
-        Honor = 18,
+        Honor = 16,
 
         Text = "sh_menumonastery/blesssettlers4",
     },
     [BlessCategories.Canonisation] = {
-        Reputation = 15,
-        Honor = 15,
+        Reputation = 12,
+        Honor = 12,
 
         Text = "sh_menumonastery/blesssettlers5",
     },

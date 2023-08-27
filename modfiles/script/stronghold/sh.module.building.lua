@@ -296,14 +296,52 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
 
     -- Execute effects
     local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
-    Stronghold.Economy:AddOneTimeReputation(_PlayerID, Effects.Reputation);
-    Stronghold.Economy:AddOneTimeHonor(_PlayerID, Effects.Honor);
+    local Reputation = Effects.Reputation;
+    if Reputation > 0 then
+        local Factor = 1.0;
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
+            Factor = Factor + self.Config.Headquarters.DraconicPunishmentReputationBonus;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
+            Factor = Factor + self.Config.Headquarters.DecorativeSkullReputationBonus;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
+            Factor = Factor + self.Config.Headquarters.PopalBlessingReputationBonus;
+        end
+        Reputation = Reputation * Factor;
+    end
+    local Honor = Effects.Honor;
+    if Honor > 0 then
+        local Factor = 1.0;
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
+            Factor = Factor + self.Config.Headquarters.DraconicPunishmentHonorBonus;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
+            Factor = Factor + self.Config.Headquarters.DecorativeSkullHonorBonus;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
+            Factor = Factor + self.Config.Headquarters.TjostingArmorHonorBonus;
+        end
+        Honor = Honor * Factor;
+    end
+    Stronghold.Economy:AddOneTimeReputation(_PlayerID, Reputation);
+    Stronghold.Economy:AddOneTimeHonor(_PlayerID, Honor);
 
     if _BlessCategory == BlessCategories.Construction then
         local MsgText = XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers1_message_2");
-        local RandomTax = 0;
+        local RandomTax, Min, Max = 0, 4, 8;
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
+            Min = Min + 1;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
+            Max = Max + 1;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
+            Min = Min + 1;
+            Max = Max + 1;
+        end
         for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
-            RandomTax = RandomTax + math.random(5, 8);
+            RandomTax = RandomTax + math.random(Min, Max);
         end
         Message(string.format(MsgText, RandomTax));
         Sound.PlayGUISound(Sounds.LevyTaxes, 100);
@@ -375,12 +413,38 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
         if Effects.Reputation ~= 0 then
             local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
             local Operator = (Effects.Reputation >= 0 and "+") or "";
-            EffectText = EffectText .. Operator .. Effects.Reputation.. " " ..Name.. " ";
+            local Reputation = Effects.Reputation;
+            local Factor = 1.0;
+            if Reputation > 0 then
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
+                    Factor = Factor + self.Config.Headquarters.DraconicPunishmentReputationBonus;
+                end
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
+                    Factor = Factor + self.Config.Headquarters.DrecorativeSkullReputationBonus;
+                end
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
+                    Factor = Factor + self.Config.Headquarters.TjostingArmorReputationBonus;
+                end
+            end
+            EffectText = EffectText .. Operator .. math.floor((Reputation * Factor) + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor ~= 0 then
             local Name = XGUIEng.GetStringTableText("sh_names/Honor");
             local Operator = (Effects.Honor >= 0 and "+") or "";
-            EffectText = EffectText .. Operator .. Effects.Honor.. " " ..Name;
+            local Honor = Effects.Honor;
+            local Factor = 1.0;
+            if Honor > 0 then
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
+                    Factor = Factor + self.Config.Headquarters.DraconicPunishmentHonorBonus;
+                end
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
+                    Factor = Factor + self.Config.Headquarters.DrecorativeSkullHonorBonus;
+                end
+                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
+                    Factor = Factor + self.Config.Headquarters.TjostingArmorHonorBonus;
+                end
+            end
+            EffectText = EffectText .. Operator .. math.floor((Honor * Factor) + 0.5).. " " ..Name;
         end
 
         local MainKey = self.Config.Headquarters[BlessCategory].Text;
@@ -420,6 +484,23 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
         if Level < 2 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasrueOrgy) then
             ButtonDisabled = 1;
         end
+    elseif _Button == "Research_DraconicPunishment" then
+        local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_DraconicPunishment);
+        if Level < 0 or TechState == 0 then
+            ButtonDisabled = 1;
+        end
+    elseif _Button == "Research_DecorativeSkull" then
+        local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_DecorativeSkull);
+        local Required = Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1;
+        if Level < 1 or TechState == 0 or not Required then
+            ButtonDisabled = 1;
+        end
+    elseif _Button == "Research_TjostingArmor" then
+        local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_TjostingArmor);
+        local Required = Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1;
+        if Level < 2 or TechState == 0 or not Required then
+            ButtonDisabled = 1;
+        end
     end
     XGUIEng.DisableButton(_Button, ButtonDisabled);
     return true;
@@ -444,6 +525,11 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
     XGUIEng.ShowWidget("Upgrade_Monastery1", 0);
     XGUIEng.ShowWidget("Upgrade_Monastery2", 0);
     XGUIEng.ShowWidget("Research_SundayAssembly", 0);
+    XGUIEng.ShowWidget("Research_HolyRelics", 0);
+    XGUIEng.ShowWidget("Research_PopalBlessing", 0);
+    XGUIEng.ShowWidget("Research_DraconicPunishment", 1);
+    XGUIEng.ShowWidget("Research_DecorativeSkull", 1);
+    XGUIEng.ShowWidget("Research_TjostingArmor", 1);
 
     XGUIEng.TransferMaterials("Levy_Duties", "BlessSettlers1");
     XGUIEng.TransferMaterials("Research_Laws", "BlessSettlers2");
@@ -456,6 +542,9 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers3");
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers4");
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers5");
+    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_DraconicPunishment");
+    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_DecorativeSkull");
+    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_TjostingArmor");
 end
 
 -- Sub menu
@@ -505,6 +594,12 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
             Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
         end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
+            Reputation = Reputation + self.Config.Monastery.HolyRelicsReputationBonus;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
+            Reputation = Reputation + self.Config.Monastery.PopalBlessingReputationBonus;
+        end
         Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, Reputation);
         Stronghold.Economy:AddOneTimeReputation(_PlayerID, math.floor(Reputation + 0.5));
     end
@@ -512,6 +607,12 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
         local Honor = BlessData.Honor;
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
             Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
+            Honor = Honor + self.Config.Monastery.HolyRelicsHonorBonus;
+        end
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
+            Honor = Honor + self.Config.Monastery.PopalBlessingHonorBonus;
         end
         Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, _BlessCategory, Honor);
         Stronghold.Economy:AddOneTimeHonor(_PlayerID, math.floor(Honor + 0.5));
@@ -541,6 +642,11 @@ function Stronghold.Building:OnMonasterySelected(_EntityID)
         XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
     end
     XGUIEng.ShowWidget("Research_SundayAssembly", 1);
+    XGUIEng.ShowWidget("Research_HolyRelics", 1);
+    XGUIEng.ShowWidget("Research_PopalBlessing", 1);
+    XGUIEng.ShowWidget("Research_DraconicPunishment", 0);
+    XGUIEng.ShowWidget("Research_DecorativeSkull", 0);
+    XGUIEng.ShowWidget("Research_TjostingArmor", 0);
     XGUIEng.TransferMaterials("BlessSettlers1Source", "BlessSettlers1");
     XGUIEng.TransferMaterials("BlessSettlers2Source", "BlessSettlers2");
     XGUIEng.TransferMaterials("BlessSettlers3Source", "BlessSettlers3");
@@ -609,6 +715,12 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
             end
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
+                Reputation = Reputation + self.Config.Monastery.HolyRelicsReputationBonus;
+            end
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
+                Reputation = Reputation + self.Config.Monastery.PopalBlessingReputationBonus;
+            end
             Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, BlessCategory, Reputation);
             EffectText = EffectText.. "+" ..math.floor(Reputation + 0.5).. " " ..Name.. " ";
         end
@@ -617,6 +729,12 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             local Honor = Effects.Honor;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
+            end
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
+                Honor = Honor + self.Config.Monastery.HolyRelicsHonorBonus;
+            end
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
+                Honor = Honor + self.Config.Monastery.PopalBlessingHonorBonus;
             end
             Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, BlessCategory, Honor);
             EffectText = EffectText.. "+" ..math.floor(Honor + 0.5).. " " ..Name;

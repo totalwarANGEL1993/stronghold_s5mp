@@ -46,8 +46,8 @@
                 <Clay>200</Clay>
                 <Wood/>
                 <Stone>400</Stone>
-                <Gold>200</Gold>
-                <Iron/>
+                <Gold>0</Gold>
+                <Iron>300</Iron>
                 <Sulfur/>
             </Cost>
             <Type>PB_Bank2</Type>
@@ -55,11 +55,11 @@
         <ConstructionInfo>
         	<Time>130</Time>
             <Cost>
-			    <Clay>100</Clay>
-			    <Wood>100</Wood>
-                <Stone>200</Stone>
+			    <Clay>0</Clay>
+			    <Wood>200</Wood>
+                <Stone>300</Stone>
                 <Gold/>
-                <Iron/>
+                <Iron>200</Iron>
                 <Sulfur/>
             </Cost>
                <BuilderSlot>
