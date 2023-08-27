@@ -27,7 +27,9 @@ assert(Lib ~= nil);
 -- Load comforts
 Lib.Require("comfort/AreEnemiesInArea");
 Lib.Require("comfort/ArePositionsConnected");
+Lib.Require("comfort/ConvertSecondsToString");
 Lib.Require("comfort/CreateNameForEntity");
+Lib.Require("comfort/CreateWoodPile");
 Lib.Require("comfort/GetDistance");
 Lib.Require("comfort/GetEnemiesInArea");
 Lib.Require("comfort/GetGeometricCenter");
@@ -101,6 +103,7 @@ Script.Load(ModPath.. "sh.module.province.constants.lua");
 Script.Load(ModPath.. "sh.module.province.config.lua");
 Script.Load(ModPath.. "sh.module.recruitment.lua");
 Script.Load(ModPath.. "sh.module.recruitment.config.lua");
+Script.Load(ModPath.. "sh.module.statistic.lua");
 Script.Load(ModPath.. "sh.module.unit.lua");
 Script.Load(ModPath.. "sh.module.unit.config.lua");
 ---

@@ -244,6 +244,6 @@
     ],
     "Lua.workspace.ignoreDir": [
         "maps",
-        "stronghold/good_old_stronghold",
+        "dev/good_old_stronghold",
     ]
 }

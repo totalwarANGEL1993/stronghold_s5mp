@@ -240,6 +240,7 @@ function Stronghold:Init()
     self.Spawner:Install();
     self.Outlaw:Install();
     self.Province:Install();
+    self.Statistic:Install();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
@@ -285,6 +286,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Spawner:OnSaveGameLoaded();
     self.Outlaw:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();
+    self.Statistic:OnSaveGameLoaded();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();

@@ -4,11 +4,11 @@
 --- Implements a rudimentary rule system to configure a multiplayer match.
 ---
 --- Defined game callbacks:
---- - GameCallback_SH_Logic_OnGameStart()
+--- - GameCallback_SH_Logic_OnMapStart()
 ---   Called when the map is loaded.
 ---   
---- - GameCallback_SH_Logic_OnConfigurated()
----   Called when configuration is confirmed by the host.
+--- - GameCallback_SH_Logic_OnGameStart()
+---   Called when game is started.
 ---   
 --- - GameCallback_SH_Logic_OnPeaceTimeOver()
 ---   Called when peacetime is over.
@@ -164,10 +164,10 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function GameCallback_SH_Logic_OnGameStart()
+function GameCallback_SH_Logic_OnMapStart()
 end
 
-function GameCallback_SH_Logic_OnConfigurated()
+function GameCallback_SH_Logic_OnGameStart()
 end
 
 function GameCallback_SH_Logic_OnPeaceTimeOver()
@@ -746,7 +746,7 @@ end
 function Stronghold.Multiplayer:OnGameStart()
     -- Do it delayed by 1 turn just to be sure all went trought.
     Stronghold:AddDelayedAction(1, function()
-        GameCallback_SH_Logic_OnGameStart();
+        GameCallback_SH_Logic_OnMapStart();
     end);
 end
 
@@ -805,10 +805,45 @@ function Stronghold.Multiplayer:OnGameModeSet()
         MultiplayerTools.PeaceTime = math.ceil(PeaceTime) * 60;
         GUIAction_ToggleStopWatch(MultiplayerTools.PeaceTime, 1);
         Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, "Condition_PeaceTime", "Action_PeaceTime", 1);
-        GameCallback_SH_Logic_OnConfigurated();
+        GameCallback_SH_Logic_OnGameStart();
     else
-        GameCallback_SH_Logic_OnConfigurated();
+        GameCallback_SH_Logic_OnGameStart();
         self:OnPeaceTimeOver();
+    end
+
+    -- Fill clay
+    if self.Data.Config.MapStartFillClay then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Clay1)) do
+            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+        end
+    end
+    -- Fill stone
+    if self.Data.Config.MapStartFillStone then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone1)) do
+            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+        end
+    end
+    -- Fill iron
+    if self.Data.Config.MapStartFillIron then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Iron1)) do
+            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+        end
+    end
+    -- Fill sulfur
+    if self.Data.Config.MapStartFillSulfur then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Sulfur1)) do
+            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+        end
+    end
+
+    -- Replace wood piles
+    if self.Data.Config.MapStartFillWood then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_SignalFire1)) do
+            local Amount = tonumber(Logic.GetEntityName(EntityID));
+            if Amount then
+                CreateWoodPile(EntityID, Amount);
+            end
+        end
     end
 end
 

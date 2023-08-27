@@ -13,6 +13,14 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
     -- (PTGate1, PTGate2, ...)
     PeaceTimeOpenGates = true,
 
+    -- Fill resource piles with resources
+    -- (script name becomes amout e.g. 4000 for 4000 resources)
+    MapStartFillClay = true,
+    MapStartFillStone = true,
+    MapStartFillIron = true,
+    MapStartFillSulfur = true,
+    MapStartFillWood = true,
+
     -- Rank
     Rank = {
         Initial = 0,

@@ -26,9 +26,6 @@ function OnGameHasBeenStarted()
     ShowStrongholdConfiguration();
     ---
 
-    StockResourceEntities();
-    CreatePilesOfWood();
-
     SetHostile(1, 7);
     SetHostile(2, 7);
     CreatePassiveBanditCamps();
@@ -48,31 +45,6 @@ function OnGameHasBeenStarted()
         for k,v in pairs(Syncer.GetActivePlayers()) do
             AllowTechnology(Technologies.B_Bridge, v);
             AllowTechnology(Technologies.B_PowerPlant, v);
-        end
-    end
-end
-
--- Create wood piles
-function CreatePilesOfWood()
-    local WoodPiles = {Logic.GetEntities(Entities.XD_SingnalFireOff, 48)};
-    for i= 2, WoodPiles[1] +1 do
-        Logic.SetEntityName(WoodPiles[i], "WoodPile" ..i);
-        CreateWoodPile("WoodPile" ..i, 25000);
-    end
-end
-
--- Fills resource heaps with additional units.
-function StockResourceEntities()
-    local ResourceHeapTypes = {
-        Entities.XD_Clay1,
-        Entities.XD_Iron1,
-        Entities.XD_Stone1,
-        Entities.XD_Sulfur1,
-    }
-    for _,Type in pairs(ResourceHeapTypes) do
-        local Heaps = {Logic.GetEntities(Type, 48)};
-        for i= 2, Heaps[1]+1, 1 do
-            Logic.SetResourceDoodadGoodAmount(Heaps[i], 4000);
         end
     end
 end

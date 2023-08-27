@@ -13,31 +13,10 @@ Script.Load(Path);
 
 local Prefix = "E:/Siedler/Projekte/stronghold_s5mp/maps/(2) SH KOOP Die Achse des Boesen.s5x.unpacked/";
 -- Prefix = "";
+Script.Load(Prefix.. "maps/externalmap/script/main.lua");
 Script.Load(Prefix.. "maps/externalmap/script/kerberos.lua");
 Script.Load(Prefix.. "maps/externalmap/script/mary.lua");
 Script.Load(Prefix.. "maps/externalmap/script/varg.lua");
-
-function OnGameHasBeenStarted()
-    Lib.Require("comfort/AreEnemiesInArea");
-    Lib.Require("comfort/CreateNameForEntity");
-    Lib.Require("module/weather/WeatherMaker");
-    Lib.Require("module/ai/AiArmy");
-    Lib.Require("module/ai/AiTroopSpawner");
-
-    UseWeatherSet("DesertWeatherSet");
-    AddPeriodicSummer(360);
-    LocalMusic.UseSet = MEDITERANEANMUSIC;
-
-    ---
-    SetupStronghold();
-    SetupPlayer(1);
-    SetupPlayer(2);
-    ShowStrongholdConfiguration();
-    ---
-    InitKerberos();
-    InitMary();
-    InitVarg();
-end
 
 -- -------------------------------------------------------------------------- --
 

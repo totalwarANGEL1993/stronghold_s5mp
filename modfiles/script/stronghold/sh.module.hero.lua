@@ -1006,7 +1006,6 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
             local ResChance = self.Config.Hero2.ExtraResChance;
             if math.random(1, ChanceMax) <= ResChance then
                 local Bonus = math.random(1, Stronghold.Hero.Config.Hero2.ExtractingBonus);
-                ResourceRemaining = ResourceRemaining + Bonus;
                 Amount = Amount + Bonus;
             end
         end
@@ -1026,10 +1025,12 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local ResourceRemaining = _Remaining
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        local ChanceMax = self.Config.Hero5.ConservationChanceMax;
-        local ResChance = self.Config.Hero5.ConservationChance;
-        if math.random(1, ChanceMax) <= ResChance then
-            ResourceRemaining = ResourceRemaining + Amount;
+        if _Type ~= ResourceType.WoodRaw then
+            local ChanceMax = self.Config.Hero5.ConservationChanceMax;
+            local ResChance = self.Config.Hero5.ConservationChance;
+            if math.random(1, ChanceMax) <= ResChance then
+                ResourceRemaining = ResourceRemaining + Amount;
+            end
         end
     end
     return Amount, ResourceRemaining;
