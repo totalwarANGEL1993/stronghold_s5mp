@@ -25,5 +25,9 @@
             <EntityType>PB_Monastery2</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Monastery3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
     </Conditions>
 </root>

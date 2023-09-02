@@ -26,10 +26,20 @@ end
 function Stronghold.Statistic:OnTechnologyResearched(_PlayerID, _TechnologyType)
     local Time = math.floor(Logic.GetTime());
     if _TechnologyType > 0 and Time > 0 and _PlayerID ~= 17 then
-        table.insert(self.Data[_PlayerID].Technologies, {
-            Technology = _TechnologyType,
-            Time = Time
-        });
+        -- Check for technology
+        local IsInTable = false;
+        for i= 1, table.getn(self.Data[_PlayerID].Technologies) do
+            if self.Data[_PlayerID].Technologies[i].Technology == _TechnologyType then
+                IsInTable = true;
+            end
+        end
+        -- Add to statistic if not found
+        if IsInTable == false then
+            table.insert(self.Data[_PlayerID].Technologies, {
+                Technology = _TechnologyType,
+                Time = Time
+            });
+        end
     end
 end
 
@@ -41,12 +51,18 @@ function Stronghold.Statistic:GetTechnologiesResearchedString(_PlayerID)
             if string.find(TechName, "^T_") then
                 local Name = XGUIEng.GetStringTableText("Names/" ..TechName);
                 if Name ~= nil and Name ~= "" then
+                    local Screen = {GUI.GetScreenSize()}
                     local Time = ConvertSecondsToString(self.Data[_PlayerID].Technologies[i].Time);
-                    if i < 26 then
+
+                    local Comumn1 = (Screen[2] >= 1080 and 25) or 20;
+                    local Comumn2 = (Screen[2] >= 1080 and 50) or 40;
+                    local Comumn3 = (Screen[2] >= 1080 and 75) or 60;
+
+                    if i < Comumn1+1 then
                         Text[1] = Text[1] .. Name .. " - " .. Time .. " @cr ";
-                    elseif i > 25 and i < 51 then
+                    elseif i > Comumn1 and i < Comumn2+1 then
                         Text[2] = Text[2] .. Name .. " - " .. Time .. " @cr ";
-                    elseif i > 50 and i < 76 then
+                    elseif i > Comumn2 and i < Comumn3+1 then
                         Text[3] = Text[3] .. Name .. " - " .. Time .. " @cr ";
                     else
                         break;

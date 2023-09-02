@@ -25,5 +25,9 @@
             <EntityType>PB_Headquarters2</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Headquarters3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
     </Conditions>
 </root>
