@@ -5,8 +5,8 @@
 Stronghold.Building.Config.Headquarters = {
     DraconicPunishmentHonorBonus = 0.20,
     DraconicPunishmentReputationBonus = 0.20,
-    DrecorativeSkullHonorBonus = 0.20,
-    DrecorativeSkullReputationBonus = 0.20,
+    DecorativeSkullHonorBonus = 0.20,
+    DecorativeSkullReputationBonus = 0.20,
     TjostingArmorHonorBonus = 0.20,
     TjostingArmorReputationBonus = 0.20,
 

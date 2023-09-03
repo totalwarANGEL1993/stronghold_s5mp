@@ -65,7 +65,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.Bridge,
                 ---
                 PlayerRight.Barracks,
-                PlayerRight.LeaderPoleArm1,
+                PlayerRight.SpearMilitia,
             },
         },
         [PlayerRank.Mayor]    = {
@@ -82,12 +82,12 @@ Stronghold.Rights.Config = {
                 PlayerRight.Store,
                 PlayerRight.WatchTower,
                 ---
-                PlayerRight.LeaderSword1,
+                PlayerRight.SwordMilitia,
                 PlayerRight.BanditSwordWeak,
-                PlayerRight.LeaderPoleArm2,
+                PlayerRight.SpearLancer,
                 ---
                 PlayerRight.ShootingRange,
-                PlayerRight.LeaderBow1,
+                PlayerRight.ArcherMilitia,
                 PlayerRight.BanditBow,
             },
         },
@@ -101,21 +101,24 @@ Stronghold.Rights.Config = {
                 PlayerRight.Church,
                 PlayerRight.Smithy,
                 PlayerRight.MasonHut,
-                PlayerRight.Bank,
                 PlayerRight.Tavern,
                 PlayerRight.Scout,
                 ---
                 PlayerRight.Garnison,
-                PlayerRight.LeaderPoleArm3,
-                PlayerRight.LeaderPoleArm4,
-                PlayerRight.LeaderSword2,
+                PlayerRight.SpearLandsknecht,
+                PlayerRight.SpearHalberdier,
+                PlayerRight.SwordSquire,
                 PlayerRight.BarbarianWeak,
                 PlayerRight.BlackKnightWeak,
                 ---
-                PlayerRight.LeaderBow2,
+                PlayerRight.ArcherLongbow,
+                ---
+                PlayerRight.Barn,
+                PlayerRight.CavalryHobilar,
+                PlayerRight.CavalryCrusader,
                 ---
                 PlayerRight.Foundry,
-                PlayerRight.Cannon2,
+                PlayerRight.BronzeCannon,
                 ---
                 PlayerRight.Beautification1,
                 PlayerRight.Beautification2,
@@ -129,17 +132,14 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Soldiers, 50},
             },
             Rights = {
-                PlayerRight.Market,
                 PlayerRight.Blacksmith,
                 PlayerRight.Alchemist,
-                PlayerRight.WeatherTower,
-                PlayerRight.Manor,
-                PlayerRight.Estate,
-                PlayerRight.PowerPlant,
                 PlayerRight.ClayGallery,
                 PlayerRight.IronGallery,
                 PlayerRight.StoneGallery,
                 PlayerRight.SulfurGallery,
+                PlayerRight.Market,
+                PlayerRight.Bank,
                 ---
                 PlayerRight.BallistaTower,
                 ---
@@ -147,11 +147,11 @@ Stronghold.Rights.Config = {
                 PlayerRight.Skirmisher,
                 ---
                 PlayerRight.Archery,
-                PlayerRight.LeaderBow3,
+                PlayerRight.ArcherCrossbow,
                 PlayerRight.GunWorkshop,
-                PlayerRight.LeaderRifle1,
+                PlayerRight.RifleHandgunner,
                 ---
-                PlayerRight.Cannon1,
+                PlayerRight.BombardCannon,
             },
         },
         [PlayerRank.Count]    = {
@@ -167,16 +167,15 @@ Stronghold.Rights.Config = {
                 PlayerRight.Brickworks,
                 PlayerRight.LumberMill,
                 PlayerRight.MasonWorkshop,
+                PlayerRight.WeatherTower,
+                PlayerRight.Manor,
+                PlayerRight.Estate,
                 ---
-                PlayerRight.LeaderSword3,
-                PlayerRight.LeaderSword4,
+                PlayerRight.SwordLong,
+                PlayerRight.SwordGuardist,
                 PlayerRight.BanditSwordStrong,
                 PlayerRight.BarbarianStrong,
                 PlayerRight.BlackKnightStrong,
-                ---
-                PlayerRight.Barn,
-                PlayerRight.LeaderCavalry1,
-                PlayerRight.LeaderCavalry2,
                 ---
                 PlayerRight.Thief,
                 PlayerRight.Inn,
@@ -197,16 +196,19 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Laboratory,
                 PlayerRight.FinishingSmithy,
+                PlayerRight.ClayMine,
+                PlayerRight.IronMine,
+                PlayerRight.StoneMine,
+                PlayerRight.SulfurMine,
                 ---
-                PlayerRight.LeaderBow4,
+                PlayerRight.ArcherPavease,
                 ---
                 PlayerRight.Stables,
-                PlayerRight.LeaderHeavyCavalry1,
-                PlayerRight.LeaderHeavyCavalry2,
+                PlayerRight.CavalryKnight,
+                PlayerRight.CavalryTemplar,
                 ---
                 PlayerRight.CannonFactory,
-                PlayerRight.Cannon4,
-                PlayerRight.CannonTower,
+                PlayerRight.SiegeCannon,
                 ---
                 PlayerRight.Beautification3,
                 PlayerRight.Beautification10,
@@ -223,15 +225,13 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.CityCenter,
                 PlayerRight.Treasury,
-                PlayerRight.ClayMine,
-                PlayerRight.IronMine,
-                PlayerRight.StoneMine,
-                PlayerRight.SulfurMine,
+                PlayerRight.PowerPlant,
+                PlayerRight.CannonTower,
                 ---
                 PlayerRight.GunFactory,
-                PlayerRight.LeaderRifle2,
+                PlayerRight.RifleMusketman,
                 ---
-                PlayerRight.Cannon3,
+                PlayerRight.IronCannon,
             },
         },
     }

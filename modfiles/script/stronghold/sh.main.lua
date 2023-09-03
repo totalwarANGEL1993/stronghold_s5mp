@@ -225,7 +225,7 @@ function Stronghold:Init()
     Camera.ZoomSetFactorMax(2.0);
     GUI.SetTaxLevel(0);
     GUI.ClearSelection();
-    ResourceType.Honor = 20;
+    ResourceType.Honor = ResourceType.Silver;
 
     self.Utils:OverwriteInterfaceTools();
     self.Rights:Install();
@@ -271,7 +271,7 @@ function Stronghold:OnSaveGameLoaded()
 
     Camera.ZoomSetFactorMax(2.0);
     GUI.ClearSelection();
-    ResourceType.Honor = 20;
+    ResourceType.Honor = ResourceType.Silver;
 
     -- Call save game stuff
     self.Rights:OnSaveGameLoaded();
@@ -322,7 +322,7 @@ function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs)
         TaxHeight = 3,
         ReputationLimit = 200,
         Reputation = 100,
-        Honor = 0,
+        Honor = 0, -- Honor is now ResourceType.Silver
         IncomeHonor = 0,
 
         InvulnerabilityInfoShown = false,
@@ -966,20 +966,26 @@ end
 -- Honor
 
 function Stronghold:AddPlayerHonor(_PlayerID, _Amount)
-    if self:IsPlayer(_PlayerID) then
-        self.Players[_PlayerID].Honor = self.Players[_PlayerID].Honor + _Amount;
-        if self.Players[_PlayerID].Honor < 0 then
-            self.Players[_PlayerID].Honor = 0;
-        end
-        GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount);
+    -- if self:IsPlayer(_PlayerID) then
+    --     self.Players[_PlayerID].Honor = self.Players[_PlayerID].Honor + _Amount;
+    --     if self.Players[_PlayerID].Honor < 0 then
+    --         self.Players[_PlayerID].Honor = 0;
+    --     end
+    --     GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount);
+    -- end
+    if _Amount > 0 then
+        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Silver, _Amount);
+    elseif _Amount < 0 then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Silver, (-1) * _Amount);
     end
+    GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount);
 end
 
 function Stronghold:GetPlayerHonor(_PlayerID)
-    if self:IsPlayer(_PlayerID) then
-        return self.Players[_PlayerID].Honor;
-    end
-    return 0;
+    -- if self:IsPlayer(_PlayerID) then
+    --     return self.Players[_PlayerID].Honor;
+    -- end
+    return Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Silver);
 end
 
 -- -------------------------------------------------------------------------- --
