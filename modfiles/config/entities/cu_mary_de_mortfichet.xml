@@ -124,7 +124,7 @@
             <RechargeTimeSeconds>90</RechargeTimeSeconds>
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>CU_Mary_de_Mortfichet_Finish</Animation>
-            <DamageClass>DC_Hero</DamageClass>
+            <DamageClass>DC_HeroCircularAttack</DamageClass>
             <DamageAmount>100</DamageAmount>
             <Range>400.0</Range>
         </Logic>
@@ -136,7 +136,7 @@
 	        <RechargeTimeSeconds>120</RechargeTimeSeconds>
 	        <TaskList>TL_BATTLE_POISON</TaskList>
 	        <Animation>CU_Mary_de_Mortfichet_PoisonAttack</Animation>
-	        <DamageClass>DC_Hero</DamageClass>
+	        <DamageClass>DC_HeroCircularAttack</DamageClass>
 	        <DamageAmount>95</DamageAmount>
 	        <Range>1500.0</Range>
 	        <Effect>FXMaryPoison</Effect>

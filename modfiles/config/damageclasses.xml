@@ -12,6 +12,17 @@
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
+    <DamageClass id="DC_HeroCircularAttack">
+        <Logic classname="GGL::CDamageClassProps">
+            <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
+            <ArmorClassFortificationFactor>0</ArmorClassFortificationFactor>
+            <ArmorClassHeroFactor>1.0</ArmorClassHeroFactor>
+            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
+        </Logic>
+    </DamageClass>
     <!-- All bowmen -->
     <DamageClass id="DC_Arrow">
         <Logic classname="GGL::CDamageClassProps">

@@ -1135,13 +1135,13 @@ function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value
         Value = Value - (ThiefCount * Stronghold.Hero.Config.Hero8.ThiefPlaces);
     elseif self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
         local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon1);
-        Cannon1 = math.floor(((Cannon1 * 10) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
+        Cannon1 = math.floor(((Cannon1 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
         local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon2);
-        Cannon2 = math.floor(((Cannon2 * 10) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
+        Cannon2 = math.floor(((Cannon2 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
         local Cannon3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon3);
-        Cannon3 = math.floor(((Cannon3 * 10) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
+        Cannon3 = math.floor(((Cannon3 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
         local Cannon4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon4);
-        Cannon4 = math.floor(((Cannon4 * 10) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
+        Cannon4 = math.floor(((Cannon4 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
         Value = Value - (Cannon1 + Cannon2 + Cannon3 + Cannon4);
     end
     return Value;

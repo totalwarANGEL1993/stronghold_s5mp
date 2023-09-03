@@ -49,7 +49,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.Beautification6,
                 PlayerRight.Beautification9,
                 ---
-                PlayerRight.BlackKnight3,
+                PlayerRight.BlackKnightGuard,
             }
         },
         [PlayerRank.Noble]    = {
@@ -83,12 +83,12 @@ Stronghold.Rights.Config = {
                 PlayerRight.WatchTower,
                 ---
                 PlayerRight.LeaderSword1,
-                PlayerRight.BanditSword2,
+                PlayerRight.BanditSwordWeak,
                 PlayerRight.LeaderPoleArm2,
                 ---
                 PlayerRight.ShootingRange,
                 PlayerRight.LeaderBow1,
-                PlayerRight.BanditBow1,
+                PlayerRight.BanditBow,
             },
         },
         [PlayerRank.Earl]     = {
@@ -109,8 +109,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.LeaderPoleArm3,
                 PlayerRight.LeaderPoleArm4,
                 PlayerRight.LeaderSword2,
-                PlayerRight.Barbarian2,
-                PlayerRight.BlackKnight2,
+                PlayerRight.BarbarianWeak,
+                PlayerRight.BlackKnightWeak,
                 ---
                 PlayerRight.LeaderBow2,
                 ---
@@ -170,9 +170,9 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.LeaderSword3,
                 PlayerRight.LeaderSword4,
-                PlayerRight.BanditSword1,
-                PlayerRight.Barbarian1,
-                PlayerRight.BlackKnight1,
+                PlayerRight.BanditSwordStrong,
+                PlayerRight.BarbarianStrong,
+                PlayerRight.BlackKnightStrong,
                 ---
                 PlayerRight.Barn,
                 PlayerRight.LeaderCavalry1,

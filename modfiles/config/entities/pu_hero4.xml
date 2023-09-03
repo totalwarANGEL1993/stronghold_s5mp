@@ -149,7 +149,7 @@
             <RechargeTimeSeconds>150</RechargeTimeSeconds>
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>PU_Hero4_CircularAttack</Animation>
-            <DamageClass>DC_Hero</DamageClass>
+            <DamageClass>DC_HeroCircularAttack</DamageClass>
             <DamageAmount>125</DamageAmount>
             <Range>300.0</Range>
         </Logic>
