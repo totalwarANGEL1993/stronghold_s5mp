@@ -5,7 +5,7 @@
 --- Including:
 --- - Building menus
 --- - Building rally points
---- - Govermental Measrues
+--- - Govermental Measures
 --- - Church prayers
 ---
 --- Defined game callbacks:
@@ -28,7 +28,7 @@ Stronghold.Building = Stronghold.Building or {
 function Stronghold.Building:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
-            Measrue = {},
+            Measure = {},
             RallyPoint = {},
 
             HeadquarterLastWidgetID = 0,
@@ -60,7 +60,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         ChangeTax = 1,
         EnqueueSerf = 2,
         BlessSettlers = 4,
-        MeasrueTaken = 5,
+        MeasureTaken = 5,
         RallyPoint = 6,
     };
 
@@ -79,7 +79,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             if _Action == Stronghold.Building.SyncEvents.BlessSettlers then
                 Stronghold.Building:MonasteryBlessSettlers(_PlayerID, arg[1]);
             end
-            if _Action == Stronghold.Building.SyncEvents.MeasrueTaken then
+            if _Action == Stronghold.Building.SyncEvents.MeasureTaken then
                 Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, arg[1]);
             end
             if _Action == Stronghold.Building.SyncEvents.RallyPoint then
@@ -279,14 +279,14 @@ end
 -- Mesures (Blessings)
 
 function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory)
-    local MeasruePoints = Stronghold.Economy:GetPlayerMeasruePoints(_PlayerID);
+    local MeasurePoints = Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID);
     -- Prevent click spamming
-    if MeasruePoints == 0 then
+    if MeasurePoints == 0 then
         return;
     end
 
-    -- Remove allMeasrue points
-    Stronghold.Economy:AddPlayerMeasruePoints(_PlayerID, (-1) * MeasruePoints);
+    -- Remove allMeasure points
+    Stronghold.Economy:AddPlayerMeasurePoints(_PlayerID, (-1) * MeasurePoints);
     -- Update recharge factor
     local CurrentRank = math.max(GetRank(_PlayerID), 1);
     -- Show message
@@ -363,7 +363,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _Enti
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
-    if Stronghold.Economy:GetPlayerMeasruePoints(_PlayerID) < GetPlayerMaxMeasruePoints(_PlayerID) then
+    if Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID) < GetPlayerMaxMeasurePoints(_PlayerID) then
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
         Message(XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers_error"));
         return true;
@@ -371,7 +371,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _Enti
 
     Syncer.InvokeEvent(
         Stronghold.Building.NetworkCall,
-        Stronghold.Building.SyncEvents.MeasrueTaken,
+        Stronghold.Building.SyncEvents.MeasureTaken,
         _BlessCategory
     );
     return true;
@@ -387,19 +387,19 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
     local Right = -1;
     if _TooltipNormal == "sh_menumonastery/BlessSettlers1_normal" then
         BlessCategory = BlessCategories.Construction;
-        Right = PlayerRight.MeasrueLevyTax;
+        Right = PlayerRight.MeasureLevyTax;
     elseif _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
         BlessCategory = BlessCategories.Research;
-        Right = PlayerRight.MeasrueLawAndOrder;
+        Right = PlayerRight.MeasureLawAndOrder;
     elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
         BlessCategory = BlessCategories.Weapons;
         Right = PlayerRight.FoodDistribution;
     elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
         BlessCategory = BlessCategories.Financial;
-        Right = PlayerRight.MeasrueFolkloreFeast;
+        Right = PlayerRight.MeasureFolkloreFeast;
     elseif _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
         BlessCategory = BlessCategories.Canonisation;
-        Right = PlayerRight.MeasrueOrgy;
+        Right = PlayerRight.MeasureOrgy;
     else
         return false;
     end
@@ -465,11 +465,11 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
     local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
     local ButtonDisabled = 0;
     if _Button == "BlessSettlers1" then
-        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasrueLevyTax) then
+        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLevyTax) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers2" then
-        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasrueLawAndOrder) then
+        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLawAndOrder) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers3" then
@@ -477,11 +477,11 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers4" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasrueFolkloreFeast) then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFolkloreFeast) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers5" then
-        if Level < 2 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasrueOrgy) then
+        if Level < 2 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureOrgy) then
             ButtonDisabled = 1;
         end
     elseif _Button == "Research_DraconicPunishment" then
@@ -510,8 +510,8 @@ function Stronghold.Building:HeadquartersFaithProgressGuiUpdate(_PlayerID, _Enti
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
-    local ValueMax = GetPlayerMaxMeasruePoints(_PlayerID);
-    local Value = Stronghold.Economy:GetPlayerMeasruePoints(_PlayerID);
+    local ValueMax = GetPlayerMaxMeasurePoints(_PlayerID);
+    local Value = Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID);
     XGUIEng.SetProgressBarValues(_WidgetID, Value, ValueMax);
     return true;
 end

@@ -35,12 +35,12 @@ PlayerDuty = {
 
 -- Rights for the player
 PlayerRight = {
-    -- Measrues
-    MeasrueLevyTax = 1,
-    MeasrueLawAndOrder = 2,
+    -- Measures
+    MeasureLevyTax = 1,
+    MeasureLawAndOrder = 2,
     FoodDistribution = 3,
-    MeasrueFolkloreFeast = 4,
-    MeasrueOrgy = 5,
+    MeasureFolkloreFeast = 4,
+    MeasureOrgy = 5,
 
     -- Units
     SwordMilitia = 6,

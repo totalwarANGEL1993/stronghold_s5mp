@@ -60,7 +60,7 @@ Stronghold.Economy.Config.Resource = {
 }
 
 Stronghold.Economy.Config.Income = {
-    MaxMeasruePoints = 5000,
+    MaxMeasurePoints = 5000,
     MaxKnowledgePoints = 5000,
     MaxReputation = 200,
     TaxPerWorker = 6,

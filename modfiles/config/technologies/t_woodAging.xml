@@ -15,7 +15,7 @@
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
 
     <DamageModifier>
-        <Value>1.25</Value>
+        <Value>1.20</Value>
         <Operation>*</Operation>
     </DamageModifier>
 

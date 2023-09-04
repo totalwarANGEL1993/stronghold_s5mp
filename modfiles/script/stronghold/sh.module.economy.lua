@@ -49,8 +49,8 @@
 --- - <number> GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _CurrentAmount)
 ---   Allows to overwite the upkeep of a unit type.
 ---
---- - <number> GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _CurrentAmount)
----   Allows to overwrite the Measrue points income.
+--- - <number> GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount)
+---   Allows to overwrite the Measure points income.
 --- 
 --- - <number> GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
 ---   Allows to overwrite the Knowledge points income.
@@ -78,7 +78,7 @@ function Stronghold.Economy:Install()
         CUtil.AddToPlayersMotivationSoftcap(i, 1);
 
         self.Data[i] = {
-            MeasruePoints = 0,
+            MeasurePoints = 0,
             KnowledgePoints = 0,
 
             IncomeMoney = 0,
@@ -133,19 +133,19 @@ function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
     return Stronghold.Economy.Config.Income.Dynamic[_Type];
 end
 
---- Gives measrue points to the player.
-function AddPlayerMeasrue(_PlayerID, _Amount)
-    Stronghold.Economy:AddPlayerMeasruePoints(_PlayerID, _Amount)
+--- Gives Measure points to the player.
+function AddPlayerMeasure(_PlayerID, _Amount)
+    Stronghold.Economy:AddPlayerMeasurePoints(_PlayerID, _Amount)
 end
 
---- Returns the measrue points of the player.
-function GetPlayerMeasrue(_PlayerID)
-    return Stronghold.Economy:GetPlayerMeasruePoints(_PlayerID);
+--- Returns the Measure points of the player.
+function GetPlayerMeasure(_PlayerID)
+    return Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID);
 end
 
---- Returns the max measrue points of the player.
-function GetPlayerMaxMeasruePoints(_PlayerID)
-    return Stronghold.Economy:GetPlayerMeasruePointsPointsLimit(_PlayerID);
+--- Returns the max Measure points of the player.
+function GetPlayerMaxMeasurePoints(_PlayerID)
+    return Stronghold.Economy:GetPlayerMeasurePointsPointsLimit(_PlayerID);
 end
 
 --- Gives knowledge to the player.
@@ -227,7 +227,7 @@ function GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _Amount)
     return _Amount;
 end
 
-function GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
@@ -650,36 +650,36 @@ function Stronghold.Economy:AddOneTimeReputation(_PlayerID, _Amount)
 end
 
 -- -------------------------------------------------------------------------- --
--- Measrue Points
+-- Measure Points
 
-function Stronghold.Economy:AddPlayerMeasruePoints(_PlayerID, _Amount)
+function Stronghold.Economy:AddPlayerMeasurePoints(_PlayerID, _Amount)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local MeasruePoints = self:GetPlayerMeasruePoints(_PlayerID);
-        MeasruePoints = math.max(MeasruePoints + _Amount, 0);
-        MeasruePoints = math.min(MeasruePoints, self:GetPlayerMeasruePointsPointsLimit(_PlayerID));
-        self.Data[_PlayerID].MeasruePoints = MeasruePoints;
+        local MeasurePoints = self:GetPlayerMeasurePoints(_PlayerID);
+        MeasurePoints = math.max(MeasurePoints + _Amount, 0);
+        MeasurePoints = math.min(MeasurePoints, self:GetPlayerMeasurePointsPointsLimit(_PlayerID));
+        self.Data[_PlayerID].MeasurePoints = MeasurePoints;
     end
 end
 
-function Stronghold.Economy:GetPlayerMeasruePoints(_PlayerID)
+function Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        return self.Data[_PlayerID].MeasruePoints;
+        return self.Data[_PlayerID].MeasurePoints;
     end
     return 0;
 end
 
-function Stronghold.Economy:GetPlayerMeasruePointsPointsLimit(_PlayerID)
-    return self.Config.Income.MaxMeasruePoints;
+function Stronghold.Economy:GetPlayerMeasurePointsPointsLimit(_PlayerID)
+    return self.Config.Income.MaxMeasurePoints;
 end
 
-function Stronghold.Economy:GainMeasruePoints(_PlayerID)
+function Stronghold.Economy:GainMeasurePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local CurrentRank = GetRank(_PlayerID);
         local Motivation = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-        local MeasruePoints = 12;
+        local MeasurePoints = 15;
         if WorkerCount == 0 then
-            MeasruePoints = 0;
+            MeasurePoints = 0;
         else
             local RankFactor = 1.0 + (0.1 * CurrentRank);
             -- FIXME: Does average motivation still work even if the motivation
@@ -688,10 +688,10 @@ function Stronghold.Economy:GainMeasruePoints(_PlayerID)
                 Motivation = Motivation + Logic.GetSettlersMotivation(v);
             end
             Motivation = Motivation / WorkerCount;
-            MeasruePoints = (MeasruePoints * Motivation) * RankFactor;
+            MeasurePoints = (MeasurePoints * Motivation) * RankFactor;
         end
-        MeasruePoints = GameCallback_SH_Calculate_MeasrueIncrease(_PlayerID, MeasruePoints);
-        self:AddPlayerMeasruePoints(_PlayerID, MeasruePoints);
+        MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
+        self:AddPlayerMeasurePoints(_PlayerID, MeasurePoints);
     end
 end
 
