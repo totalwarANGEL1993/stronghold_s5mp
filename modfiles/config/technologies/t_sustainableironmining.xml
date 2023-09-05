@@ -3,17 +3,29 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>50</TimeToResearch>
     <ResourceCosts>
-		<Knowledge>2</Knowledge>
-        <Gold>400</Gold>
-        <Clay>300</Clay>
+		<Silver>0</Silver>
+		<Knowledge>4</Knowledge>
+        <Gold>500</Gold>
+        <Clay>100</Clay>
         <Wood>0</Wood>
         <Stone>0</Stone>
         <Iron>0</Iron>
-        <Sulfur>0</Sulfur>
+        <Sulfur>100</Sulfur>
     </ResourceCosts>
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
+        <RequiredTecConditions>1</RequiredTecConditions>
+        <TecCondition>
+            <TecType>T_PickAxeIron</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_IronMine2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
         <EntityCondition>
             <EntityType>PB_IronMine3</EntityType>
             <Amount>1</Amount>

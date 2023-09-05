@@ -34,6 +34,10 @@ Stronghold.Attraction.Config.Crime = {
     },
 }
 
+Stronghold.Recruitment.Config.ReserveUnits = {
+    AttractionFactor = 0.95,
+}
+
 Stronghold.Attraction.Config.UsedSpace = {
     [Entities.CU_BanditLeaderSword1] = 1,
     [Entities.CU_BanditLeaderSword2] = 1,

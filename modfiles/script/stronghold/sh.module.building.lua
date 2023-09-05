@@ -486,7 +486,8 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
         end
     elseif _Button == "Research_DraconicPunishment" then
         local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_DraconicPunishment);
-        if Level < 0 or TechState == 0 then
+        local Required = Logic.IsTechnologyResearched(_PlayerID, Technologies.T_BetterStudies) == 1;
+        if Level < 0 or TechState == 0 or not Required then
             ButtonDisabled = 1;
         end
     elseif _Button == "Research_DecorativeSkull" then

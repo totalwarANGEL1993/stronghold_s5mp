@@ -3,8 +3,8 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>25</TimeToResearch>
     <ResourceCosts>
-		<Knowledge>3</Knowledge>
 		<Silver>5</Silver>
+		<Knowledge>3</Knowledge>
         <Gold>500</Gold>
         <Clay>0</Clay>
         <Wood>0</Wood>
@@ -15,5 +15,10 @@
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
+        <RequiredTecConditions>1</RequiredTecConditions>
+        <TecCondition>
+            <TecType>T_BetterStudies</TecType>
+            <TecCategoryType/>
+        </TecCondition>
     </Conditions>
 </root>

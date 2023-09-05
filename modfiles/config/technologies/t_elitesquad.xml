@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>160</TimeToResearch>
+    <ResourceCosts>
+		<Silver>150</Silver>
+		<Knowledge>8</Knowledge>
+        <Gold>5000</Gold>
+        <Clay>0</Clay>
+        <Wood>0</Wood>
+        <Stone>0</Stone>
+        <Iron>0</Iron>
+        <Sulfur>0</Sulfur>
+    </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <ArmorModifier>
+        <Value>2</Value>
+        <Operation>+</Operation>
+    </ArmorModifier>
+    <DamageModifier>
+        <Value>1.10</Value>
+        <Operation>*</Operation>
+    </DamageModifier>
+
+    <Conditions>
+        <RequiredTecConditions>1</RequiredTecConditions>
+        <TecCondition>
+            <TecType>T_ReserveForces</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_University2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

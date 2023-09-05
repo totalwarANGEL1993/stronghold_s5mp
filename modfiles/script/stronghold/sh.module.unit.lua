@@ -19,6 +19,7 @@ function Stronghold.Unit:Install()
         self.Data[i] = {};
     end
     self:CreateUnitButtonHandlers();
+    self:StartSerfHealingJob();
 end
 
 function Stronghold.Unit:OnSaveGameLoaded()
@@ -36,6 +37,33 @@ function Stronghold.Unit:CreateUnitButtonHandlers()
             end
         end
     );
+end
+
+function Stronghold.Unit:StartSerfHealingJob()
+    Job.Second(function()
+        for i= 1, table.getn(Score.Player) do
+            if Logic.IsTechnologyResearched(i, Technologies.T_PublicRecovery) == 1 then
+                -- Heal sefs
+                for k, EntityID in pairs(GetPlayerEntities(i, Entities.PU_Serf)) do
+                    local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
+                    local Health = Logic.GetEntityHealth(EntityID);
+                    local Task = Logic.GetCurrentTaskList(EntityID);
+                    if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
+                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 1));
+                    end
+                end
+                -- Heal militia
+                for k, EntityID in pairs(GetPlayerEntities(i, Entities.PU_BattleSerf)) do
+                    local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
+                    local Health = Logic.GetEntityHealth(EntityID);
+                    local Task = Logic.GetCurrentTaskList(EntityID);
+                    if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
+                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 1));
+                    end
+                end
+            end
+        end
+    end);
 end
 
 -- -------------------------------------------------------------------------- --

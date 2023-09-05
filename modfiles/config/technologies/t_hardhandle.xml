@@ -22,10 +22,6 @@
 
         <RequiredEntityConditions>1</RequiredEntityConditions>
         <EntityCondition>
-            <EntityType>PB_Sawmill1</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition>
-        <EntityCondition>
             <EntityType>PB_Sawmill2</EntityType>
             <Amount>1</Amount>
         </EntityCondition>

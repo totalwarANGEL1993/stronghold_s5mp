@@ -14,14 +14,5 @@
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
-        <RequiredEntityConditions>1</RequiredEntityConditions>
-        <EntityCondition>
-            <EntityType>PB_IronMine2</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition>
-        <EntityCondition>
-            <EntityType>PB_IronMine3</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition>
     </Conditions>
 </root>

@@ -921,19 +921,6 @@ function Stronghold.Economy:OnWorkplaceRefinedResource(_PlayerID, _BuildingID, _
             Amount = Amount + self.Config.Income.CoinageBonus;
         end
     end
-    -- Quality tools
-    if _ResourceType == ResourceType.Clay or _ResourceType == ResourceType.Wood
-    or _ResourceType == ResourceType.Stone or _ResourceType == ResourceType.Iron then
-        if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_QualityTools) == 1 then
-            Amount = Amount + self.Config.Resource.Refining.QualityToolsBonus;
-        end
-    end
-    -- Philosopher's stone
-    if _ResourceType == ResourceType.Sulfur then
-        if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_PhilosophersStone) == 1 then
-            Amount = Amount + self.Config.Resource.Refining.PhilosophersStoneBonus;
-        end
-    end
 
     -- External changes
     Amount = GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, Amount);
@@ -955,11 +942,11 @@ end
 
 function Stronghold.Economy:OverrideKnowledgeProgressUpdate()
     GUIUpdate_KnowledgeProgress = function()
-        local PlayerID = GetLocalPlayerID();
-        local WidgetID = XGUIEng.GetCurrentWidgetID()
-        local Maximum = GetPlayerMaxKnowledgePoints(PlayerID);
-        local Current = Stronghold.Economy:GetPlayerKnowledgePoints(PlayerID);
-        XGUIEng.SetProgressBarValues(WidgetID, Current, Maximum);
+        -- local PlayerID = GetLocalPlayerID();
+        -- local WidgetID = XGUIEng.GetCurrentWidgetID()
+        -- local Maximum = GetPlayerMaxKnowledgePoints(PlayerID);
+        -- local Current = Stronghold.Economy:GetPlayerKnowledgePoints(PlayerID);
+        -- XGUIEng.SetProgressBarValues(WidgetID, Current, Maximum);
     end
 end
 

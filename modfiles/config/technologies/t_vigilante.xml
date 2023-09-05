@@ -1,21 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
     <TecCategoryType>TC_Technologies</TecCategoryType>
-    <TimeToResearch>50</TimeToResearch>
+    <TimeToResearch>90</TimeToResearch>
     <ResourceCosts>
-		<Knowledge>3</Knowledge>
-        <Gold>500</Gold>
+		<Silver>30</Silver>
+		<Knowledge>4</Knowledge>
+        <Gold>0</Gold>
         <Clay>0</Clay>
-        <Wood>300</Wood>
+        <Wood>0</Wood>
         <Stone>0</Stone>
-        <Iron>0</Iron>
+        <Iron>800</Iron>
         <Sulfur>0</Sulfur>
     </ResourceCosts>
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
+        <RequiredTecConditions>1</RequiredTecConditions>
+        <TecCondition>
+            <TecType>T_ReportingOffice</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
         <EntityCondition>
-            <EntityType>PB_Headquarters3</EntityType>
+            <EntityType>PB_University2</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
     </Conditions>

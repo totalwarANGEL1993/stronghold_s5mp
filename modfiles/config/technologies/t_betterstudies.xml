@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
 	<TecCategoryType>TC_Administration</TecCategoryType>
-	<TimeToResearch>60</TimeToResearch>
+	<TimeToResearch>25</TimeToResearch>
 	<ResourceCosts>
-		<Knowledge>5</Knowledge>
-		<Gold>200</Gold>
+		<Silver>0</Silver>
+		<Knowledge>10</Knowledge>
+		<Gold>0</Gold>
 		<Clay/>
-		<Wood>300</Wood>
+		<Wood>500</Wood>
 		<Stone/>
 		<Iron>0</Iron>
 		<Sulfur/>
@@ -14,9 +15,5 @@
 	<AutomaticResearch>false</AutomaticResearch>
 	<UseForStatisticsFlag>true</UseForStatisticsFlag>
 	<Conditions>
-		<EntityCondition>
-			<EntityType>PB_University2</EntityType>
-			<Amount>1</Amount>
-		</EntityCondition>
 	</Conditions>
 </root>

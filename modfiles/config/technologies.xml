@@ -351,23 +351,19 @@
 <!-- Stronghold -->
 
     <!-- Resources -->
-    <Technology>T_SustainableClayMining</Technology>
-    <Technology>T_SustainableIronMining</Technology>
-    <Technology>T_SustainableStoneMining</Technology>
-    <Technology>T_SustainableSulfurMining</Technology>
     <Technology>T_PickAxeClay</Technology>
     <Technology>T_PickAxeIron</Technology>
     <Technology>T_PickAxeStone</Technology>
     <Technology>T_PickAxeSulfur</Technology>
     <Technology>T_SharpAxes</Technology>
     <Technology>T_HardHandle</Technology>
-    <Technology>T_QualityTools</Technology>
-    <Technology>T_PhilosophersStone</Technology>
+    <Technology>T_SustainableClayMining</Technology>
+    <Technology>T_SustainableIronMining</Technology>
+    <Technology>T_SustainableStoneMining</Technology>
+    <Technology>T_SustainableSulfurMining</Technology>
 
     <!-- Units -->
-    <Technology>T_SlavePenny</Technology>
     <Technology>T_AutoRepair</Technology>
-    <Technology>T_Vigilante</Technology>
 
     <!-- Honor & Reputation -->
     <Technology>T_Instruments</Technology>
@@ -383,6 +379,13 @@
 
     <!-- University studies -->
     <Technology>T_BetterStudies</Technology>
+    <Technology>T_SlavePenny</Technology>
+    <Technology>T_PublicRecovery</Technology>
+    <Technology>T_ReportingOffice</Technology>
+    <Technology>T_Vigilante</Technology>
+    <Technology>T_StoicPhilosophy</Technology>
+    <Technology>T_ReserveForces</Technology>
+    <Technology>T_EliteSquad</Technology>
 
     <!-- Toggle free camera -->
     <Technology>T_FreeCamera</Technology>

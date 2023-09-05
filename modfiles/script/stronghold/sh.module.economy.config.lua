@@ -42,9 +42,6 @@ Stronghold.Economy.Config.Resource = {
         [Entities.PB_Alchemist2] = 3;
         [Entities.PB_GunsmithWorkshop1] = 3;
         [Entities.PB_GunsmithWorkshop2] = 3;
-
-        PhilosophersStoneBonus = 2,
-        QualityToolsBonus = 1,
     },
     Extracting = {
         [ResourceType.GoldRaw] = 1,

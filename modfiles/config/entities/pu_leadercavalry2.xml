@@ -66,6 +66,13 @@
         <ModifySpeed>
             <Technology>T_Shoeing</Technology>
         </ModifySpeed>
+
+        <ModifySpeed>
+            <Technology>T_EliteSquad</Technology>
+        </ModifySpeed>
+        <ModifyDamage>
+            <Technology>T_EliteSquad</Technology>
+        </ModifyDamage>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

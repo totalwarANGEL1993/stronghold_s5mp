@@ -65,8 +65,15 @@
         </ModifyDamage>
 
         <ModifySpeed>
-            <Technology>T_BetterTrainingArchery</Technology>
+            <Technology>T_EliteSquad</Technology>
         </ModifySpeed>
+        <ModifyDamage>
+            <Technology>T_EliteSquad</Technology>
+        </ModifyDamage>
+
+        <ModifyArmor>
+            <Technology>T_SoftArcherArmor</Technology>
+        </ModifyArmor>
 
         <Upgrade>
             <Category>LeaderBanditBow</Category>

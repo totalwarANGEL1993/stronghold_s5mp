@@ -7,6 +7,10 @@ Stronghold.Recruitment.Config.SlavePenny = {
     TimeFactor = 0.4,
 }
 
+Stronghold.Recruitment.Config.StoicPhilosophy = {
+    CostsFactor = 0.95,
+}
+
 Stronghold.Recruitment.Config.QueueMapping = {
     [Entities.PB_Headquarters1] = {
         "Buy_Serf"

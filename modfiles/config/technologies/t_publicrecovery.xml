@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>90</TimeToResearch>
+    <ResourceCosts>
+        <Silver>25</Silver>
+        <Knowledge>4</Knowledge>
+        <Gold>400</Gold>
+    </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <Conditions>
+        <RequiredTecConditions>1</RequiredTecConditions>
+        <TecCondition>
+            <TecType>T_SlavePenny</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_University2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>

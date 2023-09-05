@@ -342,7 +342,7 @@ function Stronghold.Attraction:GetSettlersExposition(_PlayerID, _CriminalID)
             Exposition = Exposition + (1 * self.Config.Crime.Unveil.TowerRate);
         end
         -- Check town guard
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TownGuard) == 1 then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ReportingOffice) == 1 then
             Exposition = Exposition * self.Config.Crime.Unveil.TownGuardFactor;
         end
     end
@@ -525,6 +525,9 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
     local Usage = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         Usage = self:GetMillitarySize(_PlayerID);
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ReserveForces) == 1 then
+            Usage = math.ceil(Usage * self.Config.ReserveUnits.AttractionFactor);
+        end
         -- External
         Usage = GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
     end

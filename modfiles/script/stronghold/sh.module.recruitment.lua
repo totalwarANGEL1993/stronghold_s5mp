@@ -190,6 +190,18 @@ function Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
             end
         end
 
+        -- Effect Stoic Philosophy
+        if Logic.IsTechnologyResearched(PlayerID, Technologies.T_StoicPhilosophy) == 1 then
+            local Factor = self.Config.StoicPhilosophy;
+            Costs[ResourceType.Honor]  = math.ceil(Costs[ResourceType.Honor]  * Factor);
+            Costs[ResourceType.Gold]   = math.ceil(Costs[ResourceType.Gold]   * Factor);
+            Costs[ResourceType.Clay]   = math.ceil(Costs[ResourceType.Clay]   * Factor);
+            Costs[ResourceType.Wood]   = math.ceil(Costs[ResourceType.Wood]   * Factor);
+            Costs[ResourceType.Stone]  = math.ceil(Costs[ResourceType.Stone]  * Factor);
+            Costs[ResourceType.Iron]   = math.ceil(Costs[ResourceType.Iron]   * Factor);
+            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
+        end
+
         Costs = Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, Costs);
         if _SoldierAmount and _SoldierAmount > 0 then
             local SoldierCosts = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
@@ -208,6 +220,19 @@ function Stronghold.Recruitment:GetSoldierCostsByLeaderType(_PlayerID, _Type, _A
             Costs[i] = Costs[i] * (_Amount or Config.Soldiers);
         end
         Costs = CreateCostTable(unpack(Costs));
+
+        -- Effect Stoic Philosophy
+        if Logic.IsTechnologyResearched(PlayerID, Technologies.T_StoicPhilosophy) == 1 then
+            local Factor = self.Config.StoicPhilosophy;
+            Costs[ResourceType.Honor]  = math.ceil(Costs[ResourceType.Honor]  * Factor);
+            Costs[ResourceType.Gold]   = math.ceil(Costs[ResourceType.Gold]   * Factor);
+            Costs[ResourceType.Clay]   = math.ceil(Costs[ResourceType.Clay]   * Factor);
+            Costs[ResourceType.Wood]   = math.ceil(Costs[ResourceType.Wood]   * Factor);
+            Costs[ResourceType.Stone]  = math.ceil(Costs[ResourceType.Stone]  * Factor);
+            Costs[ResourceType.Iron]   = math.ceil(Costs[ResourceType.Iron]   * Factor);
+            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
+        end
+
         Costs = Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _Type, Costs);
     end
     return Costs;

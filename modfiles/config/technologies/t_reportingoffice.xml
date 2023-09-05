@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>45</TimeToResearch>
+    <ResourceCosts>
+        <Silver>10</Silver>
+        <Knowledge>2</Knowledge>
+        <Stone>400</Stone>
+    </ResourceCosts>
+    <AutomaticResearch>false</AutomaticResearch>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <Conditions>
+        <RequiredTecConditions>1</RequiredTecConditions>
+        <TecCondition>
+            <TecType>T_BetterStudies</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+    </Conditions>
+</root>

@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <root>
     <TecCategoryType>TC_Technologies</TecCategoryType>
-    <TimeToResearch>30</TimeToResearch>
+    <TimeToResearch>45</TimeToResearch>
     <ResourceCosts>
-        <Knowledge>2</Knowledge>
-        <Gold>400</Gold>
+        <Silver>5</Silver>
+        <Knowledge>1</Knowledge>
+        <Gold>300</Gold>
     </ResourceCosts>
-    <AutomaticResearch>true</AutomaticResearch>
+    <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
-        <RequiredEntityConditions>1</RequiredEntityConditions>
-        <EntityCondition>
-            <EntityType>PB_Headquarters2</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition>
-        <EntityCondition>
-            <EntityType>PB_Headquarters3</EntityType>
-            <Amount>1</Amount>
-        </EntityCondition>
+        <RequiredTecConditions>1</RequiredTecConditions>
+        <TecCondition>
+            <TecType>T_BetterStudies</TecType>
+            <TecCategoryType/>
+        </TecCondition>
     </Conditions>
 </root>
