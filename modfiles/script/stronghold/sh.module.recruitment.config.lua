@@ -8,7 +8,7 @@ Stronghold.Recruitment.Config.SlavePenny = {
 }
 
 Stronghold.Recruitment.Config.StoicPhilosophy = {
-    CostsFactor = 0.95,
+    CostsFactor = 0.90,
 }
 
 Stronghold.Recruitment.Config.QueueMapping = {

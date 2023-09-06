@@ -191,7 +191,7 @@ function Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
         end
 
         -- Effect Stoic Philosophy
-        if Logic.IsTechnologyResearched(PlayerID, Technologies.T_StoicPhilosophy) == 1 then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_StoicPhilosophy) == 1 then
             local Factor = self.Config.StoicPhilosophy;
             Costs[ResourceType.Honor]  = math.ceil(Costs[ResourceType.Honor]  * Factor);
             Costs[ResourceType.Gold]   = math.ceil(Costs[ResourceType.Gold]   * Factor);
@@ -222,7 +222,7 @@ function Stronghold.Recruitment:GetSoldierCostsByLeaderType(_PlayerID, _Type, _A
         Costs = CreateCostTable(unpack(Costs));
 
         -- Effect Stoic Philosophy
-        if Logic.IsTechnologyResearched(PlayerID, Technologies.T_StoicPhilosophy) == 1 then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_StoicPhilosophy) == 1 then
             local Factor = self.Config.StoicPhilosophy;
             Costs[ResourceType.Honor]  = math.ceil(Costs[ResourceType.Honor]  * Factor);
             Costs[ResourceType.Gold]   = math.ceil(Costs[ResourceType.Gold]   * Factor);

@@ -34,8 +34,8 @@ Stronghold.Attraction.Config.Crime = {
     },
 }
 
-Stronghold.Recruitment.Config.ReserveUnits = {
-    AttractionFactor = 0.95,
+Stronghold.Attraction.Config.ReserveUnits = {
+    AttractionFactor = 0.12,
 }
 
 Stronghold.Attraction.Config.UsedSpace = {
