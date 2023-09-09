@@ -35,7 +35,11 @@ Stronghold.Attraction.Config.Crime = {
 }
 
 Stronghold.Attraction.Config.ReserveUnits = {
-    AttractionFactor = 0.12,
+    AttractionFactor = 0.85,
+}
+
+Stronghold.Attraction.Config.ForeignSpecialists = {
+    AttractionFactor = 0.85,
 }
 
 Stronghold.Attraction.Config.UsedSpace = {

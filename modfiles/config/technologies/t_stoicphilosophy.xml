@@ -3,9 +3,9 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>60</TimeToResearch>
     <ResourceCosts>
-        <Silver>60</Silver>
-        <Knowledge>6</Knowledge>
-        <Gold>1000</Gold>
+<Silver>60</Silver>
+<Knowledge>6</Knowledge>
+<Gold>1000</Gold>
     </ResourceCosts>
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>

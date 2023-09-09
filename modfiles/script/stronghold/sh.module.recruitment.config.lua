@@ -3,8 +3,8 @@
 --- 
 
 Stronghold.Recruitment.Config.SlavePenny = {
-    CostsFactor = 1.0,
-    TimeFactor = 0.4,
+    CostsFactor = 0.5,
+    TimeFactor = 0.5,
 }
 
 Stronghold.Recruitment.Config.StoicPhilosophy = {

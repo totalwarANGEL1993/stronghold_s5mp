@@ -431,7 +431,7 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
         -- Virtual settlers
         Limit = Limit + self.Data[_PlayerID].VirtualSettlers;
 
-        CLogic.SetAttractionLimitOffset(_PlayerID, math.ceil(Limit - RawLimit));
+        CLogic.SetAttractionLimitOffset(_PlayerID, math.max(math.ceil(Limit - RawLimit), 0));
     end
 end
 
@@ -441,7 +441,13 @@ end
 function Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(_PlayerID)
     if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local RealUsage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
-        local Usage = GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, RealUsage);
+        local Usage = RealUsage;
+        -- Technology effect
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ForeignSpecialists) == 1 then
+            Usage = Usage * self.Config.ForeignSpecialists.AttractionFactor;
+        end
+        -- External
+        Usage = GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, Usage);
         local FakeUsage = RealUsage - math.floor(Usage + 0.5);
         Stronghold.Attraction.Data[_PlayerID].VirtualSettlers = FakeUsage;
     end
@@ -449,7 +455,7 @@ end
 
 function Stronghold.Attraction:InitLogicOverride()
     self.Orig_Logic_GetPlayerAttractionLimit = Logic.GetPlayerAttractionLimit;
-    ---@diagnostic disable-next-line: duplicate-set-field
+    --- @diagnostic disable-next-line: duplicate-set-field
     Logic.GetPlayerAttractionLimit = function(_PlayerID)
         local Limit = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionLimit(_PlayerID);
         if Stronghold.Attraction.Data[_PlayerID] then
@@ -459,7 +465,7 @@ function Stronghold.Attraction:InitLogicOverride()
     end
 
     self.Orig_Logic_GetPlayerAttractionUsage = Logic.GetPlayerAttractionUsage;
-    ---@diagnostic disable-next-line: duplicate-set-field
+    --- @diagnostic disable-next-line: duplicate-set-field
     Logic.GetPlayerAttractionUsage = function(_PlayerID)
         local Usage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
         if Stronghold.Attraction.Data[_PlayerID] then
@@ -525,6 +531,7 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
     local Usage = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         Usage = self:GetMillitarySize(_PlayerID);
+        -- Technology effect
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ReserveForces) == 1 then
             Usage = math.ceil(Usage * self.Config.ReserveUnits.AttractionFactor);
         end

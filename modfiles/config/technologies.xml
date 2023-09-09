@@ -386,6 +386,7 @@
     <Technology>T_StoicPhilosophy</Technology>
     <Technology>T_ReserveForces</Technology>
     <Technology>T_EliteSquad</Technology>
+    <Technology>T_ForeignSpecialists</Technology>
 
     <!-- Toggle free camera -->
     <Technology>T_FreeCamera</Technology>

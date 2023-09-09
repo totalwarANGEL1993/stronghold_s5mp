@@ -710,6 +710,7 @@ function Stronghold.Multiplayer:ShowRuleTimer()
     XGUIEng.ShowWidget("SHS5MP", 1);
     XGUIEng.ShowWidget("SHS5MP_Configure", 0);
     XGUIEng.ShowWidget("SHS5MP_Counter", 1);
+    XGUIEng.ShowWidget("SHS5MP_Counter_BG", 0);
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
     XGUIEng.ShowWidget("GameClock", 0);
 end

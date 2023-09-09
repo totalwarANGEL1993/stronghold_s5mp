@@ -4,20 +4,24 @@
     <TimeToResearch>100</TimeToResearch>
     <ResourceCosts>
 <Silver>100</Silver>
-<Knowledge>7</Knowledge>
-<Gold>0</Gold>
+<Knowledge>10</Knowledge>
+<Gold>5000</Gold>
 <Clay>0</Clay>
 <Wood>0</Wood>
 <Stone>0</Stone>
-<Iron>900</Iron>
-<Sulfur>600</Sulfur>
+<Iron>0</Iron>
+<Sulfur>0</Sulfur>
     </ResourceCosts>
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
-        <RequiredTecConditions>1</RequiredTecConditions>
+        <RequiredTecConditions>2</RequiredTecConditions>
         <TecCondition>
-            <TecType>T_StoicPhilosophy</TecType>
+            <TecType>T_Vigilante</TecType>
+            <TecCategoryType/>
+        </TecCondition>
+        <TecCondition>
+            <TecType>T_PublicRecovery</TecType>
             <TecCategoryType/>
         </TecCondition>
 
