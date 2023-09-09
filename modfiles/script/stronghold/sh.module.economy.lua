@@ -1216,7 +1216,7 @@ end
 
 function Stronghold.Economy:SelectUnitType(_UpgradeCategory)
     local PlayerID = GetLocalPlayerID();
-    local UnitTypes = Stronghold.Economy.Config.CategoryMapping[_UpgradeCategory] or {};
+    local UnitTypes = Stronghold.Economy.Config.SelectCategoryMapping[_UpgradeCategory] or {};
     local UnitList = {};
     for _, Type in (UnitTypes) do
         for k, v in pairs(GetPlayerEntities(PlayerID, Type)) do

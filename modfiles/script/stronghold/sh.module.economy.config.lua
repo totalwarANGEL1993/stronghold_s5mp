@@ -142,7 +142,7 @@ Stronghold.Economy.Config.Income = {
     },
 }
 
-Stronghold.Economy.Config.CategoryMapping = {
+Stronghold.Economy.Config.SelectCategoryMapping = {
     [UpgradeCategories.LeaderSword] = {
         Entities.CU_BanditLeaderSword1,
         Entities.CU_BanditLeaderSword2,
@@ -189,10 +189,10 @@ Stronghold.Economy.Config.CategoryMapping = {
         Entities.PU_Thief,
     },
     [UpgradeCategories.Cannon1] = {
-        Entities.PV_LeaderCannon1,
-        Entities.PV_LeaderCannon2,
-        Entities.PV_LeaderCannon3,
-        Entities.PV_LeaderCannon4,
+        Entities.PV_Cannon1,
+        Entities.PV_Cannon2,
+        Entities.PV_Cannon3,
+        Entities.PV_Cannon4,
     },
 }
 
