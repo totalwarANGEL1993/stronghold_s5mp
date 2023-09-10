@@ -841,7 +841,7 @@ function Stronghold.Multiplayer:CheckVersions()
     if XNetwork.Manager_DoesExist() == 1 then
         -- Check main version
         local LastMainVersion = -1;
-        for i= 1, table.getn(self.Data[Players[i]]) do
+        for i= 1, table.getn(Players) do
             local Version = self.Data[Players[i]].Main;
             if LastMainVersion ~= -1 and self:CompareVersion(Version, LastMainVersion) ~= 0 then
                 return 1;
@@ -849,8 +849,8 @@ function Stronghold.Multiplayer:CheckVersions()
         end
         -- Check map version
         local LastMapVersion = -1;
-        for i= 1, table.getn(self.Data[Players[i]]) do
-            local Version = self.Data[Players[i]].Main;
+        for i= 1, table.getn(Players) do
+            local Version = self.Data[Players[i]].Map;
             if LastMapVersion ~= -1 and self:CompareVersion(Version, LastMainVersion) ~= 0 then
                 return 2;
             end

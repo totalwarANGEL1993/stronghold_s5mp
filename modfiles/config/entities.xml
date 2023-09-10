@@ -1064,22 +1064,10 @@
         <Entity>XD_Cactus2</Entity>
         <Entity>XD_Cactus3</Entity>
         <Entity>XD_CaveEntry2</Entity>
-        <Entity>XD_CliffDesert1</Entity>
-        <Entity>XD_CliffDesert2</Entity>
-        <Entity>XD_CliffDesert3</Entity>
-        <Entity>XD_CliffDesert4</Entity>
-        <Entity>XD_CliffDesert5</Entity>
         <Entity>XD_Palm1</Entity>
         <Entity>XD_Palm2</Entity>
         <Entity>XD_Palm3</Entity>
         <Entity>XD_Palm4</Entity>
-        <Entity>XD_RockDesert1</Entity>
-        <Entity>XD_RockDesert2</Entity>
-        <Entity>XD_RockDesert3</Entity>
-        <Entity>XD_RockDesert4</Entity>
-        <Entity>XD_RockDesert5</Entity>
-        <Entity>XD_RockDesert6</Entity>
-        <Entity>XD_RockDesert7</Entity>
         <Entity>XD_SignalFireOff</Entity>
         <Entity>XD_SignalFireOn</Entity>
         <Entity>XD_Stone_BlockPath2</Entity>
