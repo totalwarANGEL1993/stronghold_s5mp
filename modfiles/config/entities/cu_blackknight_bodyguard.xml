@@ -43,7 +43,7 @@
         <ExperiencePoints>125</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Category>BlackKnightSoldier</Category>
+            <Category>BlackKnightBodyguard</Category>
         </Upgrade>
     </Logic>
     <Behavior>

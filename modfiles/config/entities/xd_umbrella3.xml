@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"	encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_Umbrella3</Model>
+		<RenderInFoW>true</RenderInFoW>
+	</Display>
+	<Logic classname="GGL::CEntityProperties">
+		<Class>EGL::CGLEEntity</Class>
+		<AccessCategory>AccessCategoryStatic</AccessCategory>
+		<DoNotExecute>True</DoNotExecute>
+        
+        <ResourceAmount>75</ResourceAmount>
+        <ResourceEntity>XD_ResourceTree</ResourceEntity>
+        
+        <SummerEffect>FXChopTree</SummerEffect>
+        <WinterEffect>FXChopTreeInWinter</WinterEffect>
+
+        <Models>
+            <Model>XD_Umbrella3</Model>
+            <Model>XD_Trunk1</Model>
+        </Models>
+        								
+        <NumBlockedPoints>2</NumBlockedPoints>
+        <SnapTolerance>30.0f</SnapTolerance>
+		
+	</Logic>
+</root>

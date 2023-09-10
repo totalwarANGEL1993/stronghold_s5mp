@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_RockDesert1</Model>
+		<RenderInFoW>true</RenderInFoW>
+		<HighQualityOnly>True</HighQualityOnly>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CGLEEntity</Class>
+		<AccessCategory>AccessCategoryOrnamental</AccessCategory> 
+		<DoNotExecute>True</DoNotExecute>
+	</Logic>
+</root>

@@ -886,4 +886,10 @@
     	<Category>Merchant</Category>
     	<FirstBuilding>CB_Mercenary</FirstBuilding>
 	</BuildingUpgrade>
+
+
+	<SettlerUpgrade>
+	    <Category>BlackKnightBodyguard</Category>
+	    <FirstSettler>CU_BlackKnight_Bodyguard</FirstSettler>
+	</SettlerUpgrade>
 </root>

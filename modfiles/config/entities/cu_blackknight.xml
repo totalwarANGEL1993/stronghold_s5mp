@@ -71,7 +71,7 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Headquarters</BarrackUpgradeCategory>
             <HomeRadius>2000</HomeRadius>
-            <SoldierType>CU_BlackKnight_SoldierSword3</SoldierType>
+            <SoldierType>CU_BlackKnight_Bodyguard</SoldierType>
 
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 

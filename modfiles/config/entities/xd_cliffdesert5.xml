@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_CliffDesert5</Model>
+		<RenderInFoW>true</RenderInFoW>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CGLEEntity</Class>
+		<AccessCategory>AccessCategoryStatic</AccessCategory> 
+		<DoNotExecute>True</DoNotExecute>
+        <ApproachPos>
+            <X>0</X>
+            <Y>0</Y>
+        </ApproachPos>
+		<ApproachR>500</ApproachR>
+        <Blocked1>
+            <X>-400</X>
+            <Y>200</Y>
+        </Blocked1>
+        <Blocked2>
+            <X>400</X>
+            <Y>-300</Y>
+        </Blocked2>
+	</Logic>
+</root>
