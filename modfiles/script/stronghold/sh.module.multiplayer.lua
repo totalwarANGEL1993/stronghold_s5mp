@@ -30,6 +30,10 @@ function Stronghold.Multiplayer:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             ReplacedEntities = {};
+            Versions = {
+                Main = 0,
+                Map = 0,
+            },
         };
     end
     self.Data.IsRuleConfigurationActive = false;
@@ -53,6 +57,8 @@ function Stronghold.Multiplayer:CreateMultiplayerButtonHandlers()
         ChangePeacetime = 5,
         Reset = 6,
         Confirm = 7,
+        BroadcastMainVersion = 8,
+        BroadcastMapVersion = 9,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -71,6 +77,10 @@ function Stronghold.Multiplayer:CreateMultiplayerButtonHandlers()
                 Stronghold.Multiplayer:ConfigureReset();
             elseif _Action == Stronghold.Multiplayer.SyncEvents.Confirm then
                 Stronghold.Multiplayer:Configure();
+            elseif _Action == Stronghold.Multiplayer.SyncEvents.BroadcastMainVersion then
+                Stronghold.Multiplayer:ReceiveMainVersion(arg[1], arg[2]);
+            elseif _Action == Stronghold.Multiplayer.SyncEvents.BroadcastMapVersion then
+                Stronghold.Multiplayer:ReceiveMapVersion(arg[1], arg[2]);
             end
         end
     );
@@ -288,6 +298,10 @@ function GUIAction_SHMP_Config_Confirm()
     end
 end
 
+function GUIAction_SHMP_Version_Close()
+    Framework.CloseGame();
+end
+
 function GUIAction_SHMP_ShowRules()
     ShowStrongholdConfiguration();
 end
@@ -453,6 +467,9 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
     if _Config then
         local Default = self.Config.DefaultSettings;
 
+        if _Config.Version then
+            self.Config.Version = _Config.Version;
+        end
         if _Config.DisableRuleConfiguration then
             self.Config.DisableRuleConfiguration = _Config.DisableRuleConfiguration == true;
         end
@@ -566,8 +583,13 @@ function Stronghold.Multiplayer:Configure()
         if self.Config.DisableRuleConfiguration and self.Config.DisableGameStartTimer then
             -- Start the delay
             Stronghold:AddDelayedAction(1, function()
-                Stronghold.Multiplayer:ResumePlayers();
-                Stronghold.Multiplayer:OnGameModeSet();
+                local Check = Stronghold.Multiplayer:CheckVersions();
+                if Check == 0 then
+                    Stronghold.Multiplayer:ResumePlayers();
+                    Stronghold.Multiplayer:OnGameModeSet();
+                else
+                    Stronghold.Multiplayer:OnVersionsDiffer();
+                end
             end);
         else
             local Timer = 10;
@@ -577,11 +599,16 @@ function Stronghold.Multiplayer:Configure()
             self:ShowRuleTimer();
             -- Start the delay
             Stronghold:AddDelayedAction(Turns, function()
-                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-                Message(XGUIEng.GetStringTableText("sh_shs5mp/rulesset"));
-                Stronghold.Multiplayer:HideRuleTimer();
-                Stronghold.Multiplayer:ResumePlayers();
-                Stronghold.Multiplayer:OnGameModeSet();
+                local Check = Stronghold.Multiplayer:CheckVersions();
+                if Check == 0 then
+                    Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                    Message(XGUIEng.GetStringTableText("sh_shs5mp/rulesset"));
+                    Stronghold.Multiplayer:HideRuleTimer();
+                    Stronghold.Multiplayer:ResumePlayers();
+                    Stronghold.Multiplayer:OnGameModeSet();
+                else
+                    Stronghold.Multiplayer:OnVersionsDiffer();
+                end
             end);
         end
     end
@@ -773,6 +800,98 @@ function Stronghold.Multiplayer:HideRuleTimer()
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 1);
     if gvKeyBindings_GameClockFlag == 0 then
         XGUIEng.ShowWidget("GameClock", 1);
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+
+function Stronghold.Multiplayer:OnVersionsDiffer()
+    XGUIEng.ShowWidget("SHS5MP_Configure", 0);
+    XGUIEng.ShowWidget("SHS5MP_Version", 1);
+
+    local Players = Syncer.GetActivePlayers();
+    -- Set main version text
+    local MainText = "";
+    for i= 1, table.getn(Players) do
+        local Version = self.Data[Players[i]].Versions.Main;
+        local Name = self:GetPlayerOnlineName();
+        MainText = MainText ..Name.. " (Version: " ..Version.. ") @cr ";
+    end
+    XGUIEng.SetText("SHS5MP_Version_Main_Players", MainText);
+    -- Set map version text
+    local MapText = "";
+    for i= 1, table.getn(Players) do
+        local Version = self.Data[Players[i]].Versions.Map;
+        local Name = self:GetPlayerOnlineName();
+        MapText = MapText ..Name.. " (Version: " ..Version.. ") @cr ";
+    end
+    XGUIEng.SetText("SHS5MP_Version_Map_Players", MapText);
+end
+
+function Stronghold.Multiplayer:CheckVersions()
+    local Players = Syncer.GetActivePlayers();
+    if XNetwork.Manager_DoesExist() == 1 then
+        -- Check main version
+        local LastMainVersion = -1;
+        for i= 1, table.getn(self.Data[Players[i]]) do
+            local Version = self.Data[Players[i]].Main;
+            if LastMainVersion > -1 and Version ~= LastMainVersion then
+                return 1;
+            end
+        end
+        -- Check map version
+        local LastMapVersion = -1;
+        for i= 1, table.getn(self.Data[Players[i]]) do
+            local Version = self.Data[Players[i]].Main;
+            if LastMapVersion > -1 and Version ~= LastMapVersion then
+                return 2;
+            end
+        end
+    end
+    return 0;
+end
+
+function Stronghold.Multiplayer:BroadcastStrongholdVersion()
+    if XNetwork.Manager_DoesExist() == 1 then
+        if Logic.GetCurrentTurn() < 11 then
+            local Players = Syncer.GetActivePlayers();
+            for i= 1, table.getn(Players) do
+                -- Send main version
+                Syncer.InvokeEvent(
+                    Stronghold.Multiplayer.NetworkCall,
+                    Stronghold.Multiplayer.SyncEvents.BroadcastMainVersion,
+                    Players[i],
+                    Stronghold.Version
+                );
+                -- Send map version
+                Syncer.InvokeEvent(
+                    Stronghold.Multiplayer.NetworkCall,
+                    Stronghold.Multiplayer.SyncEvents.BroadcastMapVersion,
+                    Players[i],
+                    self.Config.Version
+                );
+            end
+        end
+    end
+end
+
+function Stronghold.Multiplayer:GetPlayerOnlineName()
+    if CNetwork then
+        return XNetwork.UserInSession_GetUserNameByNetworkAddress(XNetwork.Manager_GetLocalMachineNetworkAddress());
+    else
+        return UserTool_GetPlayerName(1);
+    end
+end
+
+function Stronghold.Multiplayer:ReceiveMainVersion(_Player, _Version)
+    if self.Data[_Player] then
+        self.Data[_Player].Versions.Main = _Version;
+    end
+end
+
+function Stronghold.Multiplayer:ReceiveMapVersion(_Player, _Version)
+    if self.Data[_Player] then
+        self.Data[_Player].Versions.Map = _Version;
     end
 end
 

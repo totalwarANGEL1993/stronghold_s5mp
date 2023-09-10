@@ -1,5 +1,4 @@
 gvStrongholdLoaded = true;
-gvStrongholdVersion = 1;
 
 -- -------------------------------------------------------------------------- --
 -- CHECK COMMUNITY SERVER                                                     --

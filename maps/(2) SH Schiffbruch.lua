@@ -1,5 +1,5 @@
 SHS5MP_RulesDefinition = {
-    -- Config version (not implemeted!)
+    -- Config version
     Version = 1,
 
     -- ###################################################################### --

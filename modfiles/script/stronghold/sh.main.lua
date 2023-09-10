@@ -39,6 +39,7 @@
 ---
 
 Stronghold = {
+    Version = 1,
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -597,6 +598,8 @@ function Stronghold:StartTriggers()
 end
 
 function Stronghold:OnEveryTurn()
+    Stronghold.Multiplayer:BroadcastStrongholdVersion();
+
     local Players = GetMaxPlayers();
     -- Player jobs on each turn
     for i= 1, Players do
