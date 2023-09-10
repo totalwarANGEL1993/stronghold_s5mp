@@ -127,6 +127,10 @@ function Stronghold.Building:OverrideHeadquarterButtons()
         Stronghold.Building:HeadquartersBuySerf();
     end);
 
+    Overwrite.CreateOverwrite("GUITooltip_BuySerf", function()
+        Stronghold.Building:HeadquartersBuySerfTooltip();
+    end);
+
     GUIAction_CallMilitia = function()
         XGUIEng.ShowWidget("BuyHeroWindow", 1);
     end
@@ -161,6 +165,10 @@ function Stronghold.Building:HeadquartersBuySerf()
 
     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
     local Costs = CreateCostTable(unpack(Config.Costs[1]));
+    if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
+        local Factor = Stronghold.Recruitment.Config.SlavePenny.CostsFactor;
+        Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
+    end
     if InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
         return false;
     end
@@ -175,6 +183,25 @@ function Stronghold.Building:HeadquartersBuySerf()
         "Buy_Serf",
         XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
     );
+    return true;
+end
+
+function Stronghold.Building:HeadquartersBuySerfTooltip()
+    local GuiPlayer = GetLocalPlayerID();
+    if not IsPlayer(GuiPlayer) then
+        return false;
+    end
+    local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
+    local Costs = CreateCostTable(unpack(Config.Costs[1]));
+    if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
+        local Factor = Stronghold.Recruitment.Config.SlavePenny.CostsFactor;
+        Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
+    end
+	local CostString = FormatCostString(GuiPlayer, Costs);
+    local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits1") .. "]";
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
+	XGUIEng.SetTextKeyName(gvGUI_WidgetID.TooltipBottomText,"sh_menuheadquarter/buyserf");
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
     return true;
 end
 
@@ -932,8 +959,8 @@ function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
             local MaxHealth = Logic.GetEntityMaxHealth(Cannons[i]);
             local Health = Logic.GetEntityHealth(Cannons[i]);
             if Health > 0 and Health < MaxHealth then
-                if AreEntitiesInArea(_PlayerID, Entities.PB_Foundry1, Position, 2000, 1)
-                or AreEntitiesInArea(_PlayerID, Entities.PB_Foundry2, Position, 2000, 1) then
+                if AreEntitiesInArea(_PlayerID, Entities.PB_Foundry1, Position, 2500, 1)
+                or AreEntitiesInArea(_PlayerID, Entities.PB_Foundry2, Position, 2500, 1) then
                     local Healing = math.min(MaxHealth - Health, 4);
                     Logic.CreateEffect(GGL_Effects.FXSalimHeal, Position.X, Position.Y, 0);
                     Logic.HealEntity(Cannons[i], Healing);

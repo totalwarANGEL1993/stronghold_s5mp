@@ -49,7 +49,7 @@ function Stronghold.Unit:StartSerfHealingJob()
                     local Health = Logic.GetEntityHealth(EntityID);
                     local Task = Logic.GetCurrentTaskList(EntityID);
                     if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 1));
+                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
                     end
                 end
                 -- Heal militia
@@ -58,7 +58,7 @@ function Stronghold.Unit:StartSerfHealingJob()
                     local Health = Logic.GetEntityHealth(EntityID);
                     local Task = Logic.GetCurrentTaskList(EntityID);
                     if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 1));
+                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
                     end
                 end
             end

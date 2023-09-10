@@ -13,6 +13,11 @@
     </ResourceCosts>
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
     <Conditions>
+        <EntityCondition>
+            <EntityType>PB_Foundry2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
     </Conditions>
 </root>

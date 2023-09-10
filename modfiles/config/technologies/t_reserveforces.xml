@@ -3,14 +3,14 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>100</TimeToResearch>
     <ResourceCosts>
-<Silver>100</Silver>
-<Knowledge>7</Knowledge>
-<Gold>0</Gold>
-<Clay>0</Clay>
-<Wood>0</Wood>
-<Stone>0</Stone>
-<Iron>900</Iron>
-<Sulfur>600</Sulfur>
+        <Silver>80</Silver>
+        <Knowledge>8</Knowledge>
+        <Gold>0</Gold>
+        <Clay>0</Clay>
+        <Wood>0</Wood>
+        <Stone>0</Stone>
+        <Iron>900</Iron>
+        <Sulfur>600</Sulfur>
     </ResourceCosts>
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>

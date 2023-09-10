@@ -23,35 +23,13 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>1250</MaxHealth>
+        <MaxHealth>900</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
             <Money>100</Money>
         </Cost>
-
-
-        <ModifyArmor>
-            <Technology>T_LeatherMailArmor</Technology>
-        </ModifyArmor>
-        <ModifyArmor>
-            <Technology>T_ChainMailArmor</Technology>
-        </ModifyArmor>
-        <ModifyArmor>
-            <Technology>T_PlateMailArmor</Technology>
-        </ModifyArmor>
-
-        <ModifyDamage>
-            <Technology>T_MasterOfSmithery</Technology>
-        </ModifyDamage>
-        <ModifyDamage>
-            <Technology>T_IronCasting</Technology>
-        </ModifyDamage>
-        <ModifyDamage>
-            <Technology>T_BetterTrainingBarracks</Technology>
-        </ModifyDamage>
-
 
         <Category>Military</Category>
         <Category>Soldier</Category>
@@ -109,8 +87,8 @@
             <HitAnim>PU_SoldierSword3_Hit</HitAnim>
 
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>25</DamageAmount>
-            <MaxRandomDamageBonus>25</MaxRandomDamageBonus>
+            <DamageAmount>50</DamageAmount>
+            <MaxRandomDamageBonus>50</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

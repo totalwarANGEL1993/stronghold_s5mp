@@ -651,7 +651,7 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
             if Logic.GetEntityType(k) == Entities.PU_Hero11 then
                 if Logic.GetEntityHealth(k) > 0 then
                     local Task = Logic.GetCurrentTaskList(k);
-                    if not Task or not string.find(Task, "_SPECIAL") then
+                    if not Task or (not string.find(Task, "_SPECIAL") and not string.find(Task, "_WALK")) then
                         local RechargeTime = Logic.HeroGetAbilityRechargeTime(k, Abilities.AbilityShuriken);
                         local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(k, Abilities.AbilityShuriken);
                         if TimeLeft == RechargeTime then
@@ -1002,20 +1002,12 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
         or _Type == ResourceType.StoneRaw
         or _Type == ResourceType.SulfurRaw
         then
-            local ChanceMax = self.Config.Hero2.ExtraResChanceMax;
-            local ResChance = self.Config.Hero2.ExtraResChance;
-            if math.random(1, ChanceMax) <= ResChance then
-                local Bonus = math.random(1, Stronghold.Hero.Config.Hero2.ExtractingBonus);
-                Amount = Amount + Bonus;
-            end
+            local Bonus = Amount * self.Config.Hero2.MinerExtractionFactor;
+            Amount = Amount + math.floor(Bonus + 0.5);
         end
     end
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        local ChanceMax = self.Config.Hero5.ConservationChanceMax;
-        local ResChance = self.Config.Hero5.ConservationChance;
-        if math.random(1, ChanceMax) <= ResChance then
-            ResourceRemaining = ResourceRemaining + Amount;
-        end
+        ResourceRemaining = ResourceRemaining + self.Config.Hero5.MinerMineralPreserve;
     end
     return Amount, ResourceRemaining;
 end
@@ -1026,11 +1018,13 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type ~= ResourceType.WoodRaw then
-            local ChanceMax = self.Config.Hero5.ConservationChanceMax;
-            local ResChance = self.Config.Hero5.ConservationChance;
-            if math.random(1, ChanceMax) <= ResChance then
-                ResourceRemaining = ResourceRemaining + Amount;
-            end
+            ResourceRemaining = ResourceRemaining + self.Config.Hero5.SerfMineralPreserve;
+        else
+local Current = Logic.GetEntityScriptingValue(_SourceID, 9);
+local Maximum = Logic.GetEntityScriptingValue(_SourceID, 10);
+if Current / Maximum > 0.6 then
+    ResourceRemaining = ResourceRemaining + self.Config.Hero5.SerfWoodPreserve;
+end
         end
     end
     return Amount, ResourceRemaining;
@@ -1041,11 +1035,6 @@ function Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _Type, _A
     local Amount = _Amount;
     local BuildingType = Logic.GetEntityType(_BuildingID);
     local TypeName = Logic.GetEntityTypeName(BuildingType);
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
-        if _Type == ResourceType.Stone then
-            Amount = Amount + Stronghold.Hero.Config.Hero2.RefiningBonus;
-        end
-    end
     if  self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10)
     and string.find(TypeName, "PB_GunsmithWorkshop") then
         if _Type == ResourceType.Sulfur then

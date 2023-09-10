@@ -4,13 +4,11 @@
 
 -- Hero 1 properties
 Stronghold.Hero.Config.Hero1 = {
-    MeasureFactor = 2.0,
+    MeasureFactor = 2.5,
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
-    ExtractingBonus = 5,
-    ExtraResChanceMax = 100,
-    ExtraResChance = 35,
+    MinerExtractionFactor = 2.0,
     RefiningBonus = 1,
     TowerDistance = 900,
 }
@@ -28,9 +26,9 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
-    RefiningBonus = 1,
-    ConservationChanceMax = 100,
-    ConservationChance = 25,
+    MinerMineralPreserve = 3,
+    SerfMineralPreserve = 1,
+    SerfWoodPreserve = 2,
 }
 -- Hero 6 properties
 Stronghold.Hero.Config.Hero6 = {
@@ -64,10 +62,10 @@ Stronghold.Hero.Config.Hero10 = {
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {
-    TradeBonusFactor = 0.2,
+    TradeBonusFactor = 0.3,
     InitialReputation = 100,
     ReputationCap = 300,
-    ShurikenChance = 6,
+    ShurikenChance = 12,
     ShurikenMax = 1000,
 }
 -- Hero 12 properties

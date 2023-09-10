@@ -533,12 +533,12 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
         Usage = self:GetMillitarySize(_PlayerID);
         -- Technology effect
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ReserveForces) == 1 then
-            Usage = math.ceil(Usage * self.Config.ReserveUnits.AttractionFactor);
+            Usage = Usage * self.Config.ReserveUnits.AttractionFactor;
         end
         -- External
         Usage = GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
     end
-    return Usage;
+    return math.floor(Usage + 0.5);
 end
 
 function Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount)

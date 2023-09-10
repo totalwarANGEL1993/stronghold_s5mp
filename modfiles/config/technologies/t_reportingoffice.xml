@@ -3,7 +3,7 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>45</TimeToResearch>
     <ResourceCosts>
-        <Silver>10</Silver>
+        <Silver>20</Silver>
         <Knowledge>2</Knowledge>
         <Stone>400</Stone>
     </ResourceCosts>
