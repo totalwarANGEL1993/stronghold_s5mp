@@ -815,7 +815,11 @@ function Stronghold.Multiplayer:OnVersionsDiffer()
     for i= 1, table.getn(Players) do
         local Version = self.Data[Players[i]].Versions.Main;
         local Name = self:GetPlayerOnlineName();
-        MainText = MainText ..Name.. " (Version: " ..Version.. ") @cr ";
+        local Color = " @color:0,180,0,255 ";
+        if self:CompareVersion(Version, Stronghold.Version) ~= 0 then
+            Color = " @color:190,0,0,255 ";
+        end
+        MainText = MainText ..Name.. " " ..Color.. " (Version: " ..Version.. ") @color:255,255,255,255 @cr ";
     end
     XGUIEng.SetText("SHS5MP_Version_Main_Players", MainText);
     -- Set map version text
@@ -823,7 +827,11 @@ function Stronghold.Multiplayer:OnVersionsDiffer()
     for i= 1, table.getn(Players) do
         local Version = self.Data[Players[i]].Versions.Map;
         local Name = self:GetPlayerOnlineName();
-        MapText = MapText ..Name.. " (Version: " ..Version.. ") @cr ";
+        local Color = " @color:0,180,0,255 ";
+        if Version ~= self.Config.Version then
+            Color = " @color:190,0,0,255 ";
+        end
+        MapText = MapText ..Name.. " " ..Color.. " (Version: " ..Version.. ") @color:255,255,255,255 @cr ";
     end
     XGUIEng.SetText("SHS5MP_Version_Map_Players", MapText);
 end
@@ -835,7 +843,7 @@ function Stronghold.Multiplayer:CheckVersions()
         local LastMainVersion = -1;
         for i= 1, table.getn(self.Data[Players[i]]) do
             local Version = self.Data[Players[i]].Main;
-            if LastMainVersion > -1 and Version ~= LastMainVersion then
+            if LastMainVersion ~= -1 and self:CompareVersion(Version, LastMainVersion) ~= 0 then
                 return 1;
             end
         end
@@ -843,7 +851,7 @@ function Stronghold.Multiplayer:CheckVersions()
         local LastMapVersion = -1;
         for i= 1, table.getn(self.Data[Players[i]]) do
             local Version = self.Data[Players[i]].Main;
-            if LastMapVersion > -1 and Version ~= LastMapVersion then
+            if LastMapVersion ~= -1 and self:CompareVersion(Version, LastMainVersion) ~= 0 then
                 return 2;
             end
         end
@@ -881,6 +889,26 @@ function Stronghold.Multiplayer:GetPlayerOnlineName()
     else
         return UserTool_GetPlayerName(1);
     end
+end
+
+function Stronghold.Multiplayer:CompareVersion(_Version1, _Version2)
+    local Version1Parts = string.slice(_Version1, "%.");
+    local Version2Parts = string.slice(_Version2, "%.");
+    for i= 1, table.getn(Version1Parts) do
+        if not Version2Parts[i] then
+            return 1;
+        end
+        if tonumber(Version1Parts[i]) == nil then
+            return -1;
+        elseif tonumber(Version2Parts[i]) == nil then
+            return 1;
+        elseif tonumber(Version1Parts[i]) > tonumber(Version2Parts[i]) then
+            return 1;
+        elseif tonumber(Version2Parts[i]) > tonumber(Version1Parts[i]) then
+            return -1;
+        end
+    end
+    return 0;
 end
 
 function Stronghold.Multiplayer:ReceiveMainVersion(_Player, _Version)

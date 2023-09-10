@@ -245,5 +245,8 @@
     "Lua.workspace.ignoreDir": [
         "maps",
         "dev/good_old_stronghold",
+    ],
+    "Lua.workspace.library": [
+        "cerberus"
     ]
 }

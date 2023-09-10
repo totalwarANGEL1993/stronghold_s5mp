@@ -17,13 +17,17 @@ cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
 
 # copy cerberus folder
 mkdir -p var/stronghold_s5mp/archive.bba.unpacked/script
-cp -r "E:/Repositories/cerberus" var/stronghold_s5mp/archive.bba.unpacked/script
-rm -rf var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/.git
-rm -rf var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/.vscode
-rm -rf var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/test
-rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/.gitignore
-rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/changelog.md
-rm var/stronghold_s5mp/archive.bba.unpacked/script/cerberus/readme.md
+cp -r "E:/Repositories/cerberus" .
+rm -rf cerberus/.git
+rm -rf cerberus/.vscode
+rm -rf cerberus/bin
+rm -rf cerberus/s5
+rm -rf cerberus/test
+rm -rf cerberus/var
+rm cerberus/.gitignore
+rm cerberus/changelog.md
+rm cerberus/readme.md
+cp -r cerberus var/stronghold_s5mp/archive.bba.unpacked/script
 
 # copy additional files
 cp modfiles/sh.loader.lua var/stronghold_s5mp/sh.loader.lua

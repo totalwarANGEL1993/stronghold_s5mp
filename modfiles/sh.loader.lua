@@ -48,6 +48,7 @@ Lib.Require("module/camera/FreeCam");
 Lib.Require("module/entity/EntityTracker");
 Lib.Require("module/entity/SVLib");
 Lib.Require("module/entity/Treasure");
+Lib.Require("module/lua/Extension");
 Lib.Require("module/lua/Overwrite");
 Lib.Require("module/mp/BuyHero");
 Lib.Require("module/mp/Syncer");

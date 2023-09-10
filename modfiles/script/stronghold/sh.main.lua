@@ -39,7 +39,7 @@
 ---
 
 Stronghold = {
-    Version = 1,
+    Version = "0.1.1",
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -264,6 +264,7 @@ function Stronghold:Init()
     Syncer.Install(999);
     EntityTracker.Install();
     BuyHero.Install();
+    Extension.Install();
 
     if not CMod then
         Message("The S5 Community Server is required!");
