@@ -861,7 +861,7 @@ end
 
 function Stronghold.Multiplayer:BroadcastStrongholdVersion()
     if XNetwork.Manager_DoesExist() == 1 then
-        if Logic.GetCurrentTurn() < 11 then
+        if Logic.GetCurrentTurn() < 31 then
             local Players = Syncer.GetActivePlayers();
             for i= 1, table.getn(Players) do
                 -- Send main version
