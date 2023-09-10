@@ -65,8 +65,8 @@ Stronghold.Hero.Config.Hero11 = {
     TradeBonusFactor = 0.3,
     InitialReputation = 100,
     ReputationCap = 300,
-    ShurikenChance = 12,
-    ShurikenMax = 1000,
+    ShurikenChance = 5,
+    ShurikenMax = 100,
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {

@@ -137,11 +137,11 @@
             <Animation>PU_Hero11_Attack3</Animation>
             <Range>3000.0</Range>
             <MaxArcDegree>90</MaxArcDegree>
-            <NumberShuriken>3</NumberShuriken>
+            <NumberShuriken>4</NumberShuriken>
             <ProjectileType>FXYukiShuriken</ProjectileType>
             <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight>
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>125</DamageAmount>
+            <DamageAmount>150</DamageAmount>
         </Logic>
     </Behavior>
 
