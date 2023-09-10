@@ -12,23 +12,21 @@ local Path = "data\\maps\\user\\stronghold_s5mp\\sh.loader.lua";
 Script.Load(Path);
 
 function OnMapStart()
-    Player_Teams = {[1] = {1, 2}, [2] = {3, 4}};
-
-    ---
-
     SetupStronghold();
-    SetupPlayer(1);
-    SetupPlayer(2);
-    SetupPlayer(3);
-    SetupPlayer(4);
-
-    SetupStrongholdMultiplayerConfig();
+    local Players = Syncer.GetActivePlayers();
+    for i= 1, table.getn(Players) do
+        SetupPlayer(Players[i]);
+    end
+    if SHS5MP_RulesDefinition.DisableRuleConfiguration then
+        SetupStrongholdMultiplayerConfig(SHS5MP_RulesDefinition);
+    else
+        ShowStrongholdConfiguration(SHS5MP_RulesDefinition);
+    end
 
     for i= 1, 4 do
         Tools.GiveResouces(i, 999999, 999999, 999999, 999999, 999999, 999999);
         AddHonor(i, 1000);
     end
-
     StartTestStuff();
 end
 

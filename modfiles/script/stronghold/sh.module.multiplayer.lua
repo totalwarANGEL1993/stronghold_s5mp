@@ -12,6 +12,9 @@
 ---   
 --- - GameCallback_SH_Logic_OnPeaceTimeOver()
 ---   Called when peacetime is over.
+---   
+--- - GameCallback_SH_Logic_SaveLoaded()
+---   Called when a save is loaded
 --- 
 
 Stronghold = Stronghold or {};
@@ -171,6 +174,9 @@ function GameCallback_SH_Logic_OnGameStart()
 end
 
 function GameCallback_SH_Logic_OnPeaceTimeOver()
+end
+
+function GameCallback_SH_Logic_SaveLoaded()
 end
 
 -- -------------------------------------------------------------------------- --
@@ -446,12 +452,20 @@ end
 function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
     if _Config then
         local Default = self.Config.DefaultSettings;
+
+        if _Config.DisableRuleConfiguration then
+            self.Config.DisableRuleConfiguration = _Config.DisableRuleConfiguration == true;
+        end
         if _Config.DisableDefaultWinCondition then
             self.Config.DisableDefaultWinCondition = _Config.DisableDefaultWinCondition == true;
+        end
+        if _Config.DisableGameStartTimer then
+            self.Config.DisableGameStartTimer = _Config.DisableGameStartTimer == true;
         end
         if _Config.PeaceTimeOpenGates ~= nil then
             self.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
         end
+
         self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime or Default.PeaceTime;
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
         self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
@@ -459,6 +473,19 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         self.Config.DefaultSettings.Knowledge = _Config.Rank.Knowledge or Default.Knowledge;
         for k,v in pairs(Default.AllowedHeroes) do
             self.Config.DefaultSettings.AllowedHeroes[k] = _Config.AllowedHeroes[k] or v;
+        end
+
+        if _Config.OnMapStart then
+            GameCallback_SH_Logic_OnMapStart = _Config.OnMapStart;
+        end
+        if _Config.OnGameStart then
+            GameCallback_SH_Logic_OnGameStart = _Config.OnGameStart;
+        end
+        if _Config.OnPeaceTimeOver then
+            GameCallback_SH_Logic_OnPeaceTimeOver = _Config.OnPeaceTimeOver;
+        end
+        if _Config.OnSaveLoaded then
+            GameCallback_SH_Logic_SaveLoaded = _Config.OnSaveLoaded;
         end
     end
 end
@@ -536,20 +563,27 @@ function Stronghold.Multiplayer:Configure()
     -- Finally setup game
     self:HideRuleSelection();
     if not self:HaveRulesBeenConfigured() then
-        local Timer = 10;
-        local Turns = Timer * 10;
-        self.Data.StartGameTimer = Timer;
-        self.Data.RulesConfirmedTime = Logic.GetTime();
-        self:ShowRuleTimer();
-
-        -- Start the delay
-        Stronghold:AddDelayedAction(Turns, function()
-            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-            Message(XGUIEng.GetStringTableText("sh_shs5mp/rulesset"));
-            Stronghold.Multiplayer:HideRuleTimer();
-            Stronghold.Multiplayer:ResumePlayers();
-            Stronghold.Multiplayer:OnGameModeSet();
-        end);
+        if self.Config.DisableRuleConfiguration and self.Config.DisableGameStartTimer then
+            -- Start the delay
+            Stronghold:AddDelayedAction(1, function()
+                Stronghold.Multiplayer:ResumePlayers();
+                Stronghold.Multiplayer:OnGameModeSet();
+            end);
+        else
+            local Timer = 10;
+            local Turns = Timer * 10;
+            self.Data.StartGameTimer = Timer;
+            self.Data.RulesConfirmedTime = Logic.GetTime();
+            self:ShowRuleTimer();
+            -- Start the delay
+            Stronghold:AddDelayedAction(Turns, function()
+                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                Message(XGUIEng.GetStringTableText("sh_shs5mp/rulesset"));
+                Stronghold.Multiplayer:HideRuleTimer();
+                Stronghold.Multiplayer:ResumePlayers();
+                Stronghold.Multiplayer:OnGameModeSet();
+            end);
+        end
     end
     self.Data.RulesHaveBeenConfirmed = true;
 end

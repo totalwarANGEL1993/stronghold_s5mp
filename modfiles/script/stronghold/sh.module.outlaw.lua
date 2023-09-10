@@ -65,6 +65,11 @@ function AllowAttackForOutlawCamp(_PlayerID, _CampID, _CanAttack)
     Stronghold.Outlaw:SetAttackAllowed(_PlayerID, _CampID, _CanAttack);
 end
 
+--- Changes the attack strength of an outlaw camp.
+function SetAttackStrengthOfOutlawCamp(_PlayerID, _CampID, _Strength)
+    Stronghold.Outlaw:SetAttackStrength(_PlayerID, _CampID, _Strength);
+end
+
 --- Sets the time between two attacks.
 function SetAttackDelayOfOutlawCamp(_PlayerID, _CampID, _AtkDelay)
     Stronghold.Outlaw:SetAttackDelay(_PlayerID, _CampID, _AtkDelay);
@@ -118,7 +123,7 @@ function Stronghold.Outlaw:CreateCamp(_PlayerID, _HomePosition, _AtkTarget, _Atk
     local JobID = Job.Turn(function(_PlayerID, _CampID)
         ---@diagnostic disable-next-line: undefined-field
         local PlayerID = math.mod(
-            math.floor(Logic.GetTime() * 10),
+            Logic.GetCurrentTurn(),
             GetMaxPlayers()
         );
         if PlayerID == _PlayerID then
@@ -154,6 +159,12 @@ function Stronghold.Outlaw:SetAttackDelay(_PlayerID, _CampID, _AtkDelay)
     if self.Data[_PlayerID].Camps[_CampID] then
         self.Data[_PlayerID].Camps[_CampID].AttackDelay = _AtkDelay;
         self.Data[_PlayerID].Camps[_CampID].AttackTimer = _AtkDelay;
+    end
+end
+
+function Stronghold.Outlaw:SetAttackStrength(_PlayerID, _CampID, _AtkStrength)
+    if self.Data[_PlayerID].Camps[_CampID] then
+        self.Data[_PlayerID].Camps[_CampID].AttackStrength = _AtkStrength;
     end
 end
 

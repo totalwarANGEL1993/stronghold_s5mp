@@ -50,6 +50,54 @@ Stronghold = {
 }
 
 -- -------------------------------------------------------------------------- --
+-- Main Script
+
+-- Default game start callback if not set in map
+GameCallback_OnGameStart = GameCallback_OnGameStart or function()
+    -- Load default scripts
+	Script.Load(Folders.MapTools.."Ai\\Support.lua");
+	Script.Load("Data\\Script\\MapTools\\MultiPlayer\\MultiplayerTools.lua");
+	Script.Load("Data\\Script\\MapTools\\Tools.lua");
+	Script.Load("Data\\Script\\MapTools\\WeatherSets.lua");
+	IncludeGlobals("Comfort");
+
+    -- Do default multiplayer stuff
+	MultiplayerTools.InitCameraPositionsForPlayers();
+	MultiplayerTools.SetUpGameLogicOnMPGameConfig();
+	MultiplayerTools.GiveBuyableHerosToHumanPlayer(0);
+	if XNetwork.Manager_DoesExist() == 0 then
+		for i=1,4,1 do
+			MultiplayerTools.DeleteFastGameStuff(i);
+		end
+		local PlayerID = GUI.GetPlayerID();
+		Logic.PlayerSetIsHumanFlag(PlayerID, 1);
+		Logic.PlayerSetGameStateToPlaying(PlayerID);
+	end
+
+    -- Set default weather
+    UseWeatherSet("EuropeanWeatherSet");
+    AddPeriodicSummer(10);
+
+    -- Start stronghold mod
+    SetupStronghold();
+    local Players = Syncer.GetActivePlayers();
+    for i= 1, table.getn(Players) do
+        SetupPlayer(Players[i]);
+    end
+    if SHS5MP_RulesDefinition.DisableRuleConfiguration then
+        SetupStrongholdMultiplayerConfig(SHS5MP_RulesDefinition);
+    else
+        ShowStrongholdConfiguration(SHS5MP_RulesDefinition);
+    end
+end
+-- Delete first map action
+FirstMapAction = nil;
+
+-- Must remain empty in the script because it is called by the game.
+Mission_InitWeatherGfxSets = Mission_InitWeatherGfxSets or function ()
+end
+
+-- -------------------------------------------------------------------------- --
 -- API
 
 --- Starts the Stronghold script.
@@ -236,11 +284,11 @@ function Stronghold:Init()
     self.Hero:Install();
     self.Unit:Install();
     self.Attraction:Install();
-    self.Multiplayer:Install();
     self.Spawner:Install();
     self.Outlaw:Install();
     self.Province:Install();
     self.Statistic:Install();
+    self.Multiplayer:Install();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
@@ -282,11 +330,11 @@ function Stronghold:OnSaveGameLoaded()
     self.Hero:OnSaveGameLoaded();
     self.Unit:OnSaveGameLoaded();
     self.Attraction:OnSaveGameLoaded();
-    self.Multiplayer:OnSaveGameLoaded();
     self.Spawner:OnSaveGameLoaded();
     self.Outlaw:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();
     self.Statistic:OnSaveGameLoaded();
+    self.Multiplayer:OnSaveGameLoaded();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
@@ -472,8 +520,18 @@ function Stronghold:GetMaxAmountOfPlayersPossible()
     return self.Config.Base.MaxPossiblePlayers;
 end
 
+function Stronghold:SetMaxAmountOfPlayersPossible(_Max)
+    assert(_Max < 16);
+    self.Config.Base.MaxPossiblePlayers = _Max;
+end
+
 function Stronghold:GetMaxAmountOfHumanPlayersPossible()
     return self.Config.Base.MaxHumanPlayers;
+end
+
+function Stronghold:SetMaxAmountOfHumanPlayersPossible(_Max)
+    assert(_Max < 14);
+    self.Config.Base.MaxHumanPlayers = _Max;
 end
 
 -- -------------------------------------------------------------------------- --
