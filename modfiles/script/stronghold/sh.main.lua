@@ -261,7 +261,7 @@ end
 function Stronghold:Init()
     Archive.Install();
     Placeholder.Install();
-    Syncer.Install(999);
+    Syncer.Install();
     EntityTracker.Install();
     BuyHero.Install();
     Extension.Install();
@@ -462,6 +462,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs)
 
     -- Create camp Pos
     local CampPos = GetCirclePosition(self.Players[_PlayerID].HQScriptName, 1200, 180);
+    Logic.CreateEntity(Entities.XD_Camp_Internal, CampPos.X, CampPos.Y, 0, _PlayerID);
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, CampPos.X, CampPos.Y, 0, _PlayerID);
     Logic.SetEntityName(ID, CampName);
 
@@ -599,6 +600,8 @@ function Stronghold:StartTriggers()
 end
 
 function Stronghold:OnEveryTurn()
+    -- Send versions to all other players
+    -- (Multiplayer only)
     Stronghold.Multiplayer:BroadcastStrongholdVersion();
 
     local Players = GetMaxPlayers();

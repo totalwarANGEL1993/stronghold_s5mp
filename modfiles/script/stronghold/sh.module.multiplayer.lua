@@ -861,24 +861,22 @@ end
 
 function Stronghold.Multiplayer:BroadcastStrongholdVersion()
     if XNetwork.Manager_DoesExist() == 1 then
-        if Logic.GetCurrentTurn() < 31 then
-            local Players = Syncer.GetActivePlayers();
-            for i= 1, table.getn(Players) do
-                -- Send main version
-                Syncer.InvokeEvent(
-                    Stronghold.Multiplayer.NetworkCall,
-                    Stronghold.Multiplayer.SyncEvents.BroadcastMainVersion,
-                    Players[i],
-                    Stronghold.Version
-                );
-                -- Send map version
-                Syncer.InvokeEvent(
-                    Stronghold.Multiplayer.NetworkCall,
-                    Stronghold.Multiplayer.SyncEvents.BroadcastMapVersion,
-                    Players[i],
-                    self.Config.Version
-                );
-            end
+        local PlayerID = GUI.GetPlayerID();
+        if Logic.GetCurrentTurn() < 31 and PlayerID ~= 17 then
+            -- Send main version
+            Syncer.InvokeEvent(
+                Stronghold.Multiplayer.NetworkCall,
+                Stronghold.Multiplayer.SyncEvents.BroadcastMainVersion,
+                PlayerID,
+                Stronghold.Version
+            );
+            -- Send map version
+            Syncer.InvokeEvent(
+                Stronghold.Multiplayer.NetworkCall,
+                Stronghold.Multiplayer.SyncEvents.BroadcastMapVersion,
+                PlayerID,
+                self.Config.Version
+            );
         end
     end
 end

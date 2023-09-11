@@ -465,7 +465,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
                     Factor = Factor + self.Config.Headquarters.DraconicPunishmentHonorBonus;
                 end
                 if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-                    Factor = Factor + self.Config.Headquarters.DrecorativeSkullHonorBonus;
+                    Factor = Factor + self.Config.Headquarters.DecorativeSkullHonorBonus;
                 end
                 if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
                     Factor = Factor + self.Config.Headquarters.TjostingArmorHonorBonus;

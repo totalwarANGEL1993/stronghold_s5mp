@@ -13,8 +13,8 @@ Stronghold.Config = {
     },
 
     Payday = {
-        Base = 1200,
-        Improved = 1080,
+        Base = 900,
+        Improved = 810,
     },
 
     Trade = {
