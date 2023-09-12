@@ -278,7 +278,7 @@ function Stronghold.Unit:GetBarracksDoorPosition(_BarracksID)
     if BarracksType == Entities.PB_Barracks1 or BarracksType == Entities.PB_Barracks2 then
         Position = GetCirclePosition(_BarracksID, 900, 180);
     elseif BarracksType == Entities.PB_Archery1 or BarracksType == Entities.PB_Archery2 then
-        Position = GetCirclePosition(_BarracksID, 850, 135);
+        Position = GetCirclePosition(_BarracksID, 800, 180);
     elseif BarracksType == Entities.PB_Stable1 or BarracksType == Entities.PB_Stable2 then
         Position = GetCirclePosition(_BarracksID, 1000, 165);
     elseif BarracksType == Entities.PB_Foundry1 or BarracksType == Entities.PB_Foundry2 then

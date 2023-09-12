@@ -433,6 +433,9 @@ function Stronghold.Recruitment:OnBarracksSelected(_EntityID)
     XGUIEng.ShowWidget("Buy_LeaderSword", 0);
     XGUIEng.ShowWidget("Buy_LeaderSpear", 0);
     self:OnRecruiterSelected(ButtonsToUpdate, _EntityID);
+    XGUIEng.ShowWidget("RallyPoint", 1);
+    XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+    GUIUpdate_PlaceRallyPoint();
 end
 
 function Stronghold.Recruitment:OnArcherySelected(_EntityID)
@@ -450,6 +453,9 @@ function Stronghold.Recruitment:OnArcherySelected(_EntityID)
     XGUIEng.ShowWidget("Buy_LeaderBow", 0);
     XGUIEng.ShowWidget("Buy_LeaderRifle", 0);
     self:OnRecruiterSelected(ButtonsToUpdate, _EntityID);
+    XGUIEng.ShowWidget("RallyPoint", 1);
+    XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+    GUIUpdate_PlaceRallyPoint();
 end
 
 function Stronghold.Recruitment:OnStableSelected(_EntityID)
@@ -465,6 +471,9 @@ function Stronghold.Recruitment:OnStableSelected(_EntityID)
     XGUIEng.ShowWidget("Buy_LeaderCavalryLight", 0);
     XGUIEng.ShowWidget("Buy_LeaderCavalryHeavy", 0);
     self:OnRecruiterSelected(ButtonsToUpdate, _EntityID);
+    XGUIEng.ShowWidget("RallyPoint", 1);
+    XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+    GUIUpdate_PlaceRallyPoint();
 end
 
 function Stronghold.Recruitment:OnFoundrySelected(_EntityID)
@@ -496,6 +505,9 @@ function Stronghold.Recruitment:OnTavernSelected(_EntityID)
     XGUIEng.ShowWidget("Buy_Scout_Amount", 1);
     XGUIEng.ShowWidget("Buy_Thief_Recharge", 1);
     XGUIEng.ShowWidget("Buy_Thief_Amount", 1);
+    XGUIEng.ShowWidget("RallyPoint", 1);
+    XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+    GUIUpdate_PlaceRallyPoint();
     self:OnRecruiterSelected(ButtonsToUpdate, _EntityID);
 end
 

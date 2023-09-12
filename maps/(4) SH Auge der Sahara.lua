@@ -82,6 +82,10 @@ SHS5MP_RulesDefinition = {
     OnGameStart = function()
         SetupProvinces();
         SetupCamps();
+        SetHostile(1, 7);
+        SetHostile(2, 7);
+        SetHostile(3, 7);
+        SetHostile(4, 7);
     end,
 
     -- Called after peacetime is over

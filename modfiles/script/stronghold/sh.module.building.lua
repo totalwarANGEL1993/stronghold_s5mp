@@ -169,7 +169,8 @@ function Stronghold.Building:HeadquartersBuySerf()
         local Factor = Stronghold.Recruitment.Config.SlavePenny.CostsFactor;
         Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
     end
-    if InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
+    if  XGUIEng.IsModifierPressed(Keys.ModifierControl) == 0
+    and InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
         return false;
     end
 
@@ -301,6 +302,9 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     -- local ShowBuyHero = XNetwork.Manager_DoesExist()
     XGUIEng.ShowWidget("HQ_CallMilitia", 1);
     XGUIEng.ShowWidget("HQ_BackToWork", 0);
+    XGUIEng.ShowWidget("RallyPoint", 1);
+    XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+    GUIUpdate_PlaceRallyPoint();
 end
 
 -- Mesures (Blessings)
@@ -808,12 +812,81 @@ end
 -- Rally Points
 
 function Stronghold.Building:OverrideShiftRightClick()
-    InputCallback_ShiftRightClick_Orig_SH = InputCallback_ShiftRightClick;
-    InputCallback_ShiftRightClick = function()
-        if Stronghold.Building:OnShiftRightClick() then
-            return true;
+    GUIAction_PlaceRallyPoint = function()
+        local PlayerID = GUI.GetPlayerID();
+        Stronghold.Building:ActivateRallyPointSelection(PlayerID);
+        XGUIEng.HighLightButton("ActivateSetRallyPoint", 1);
+    end
+
+    GUITooltip_PlaceRallyPoint = function()
+        local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits2") .. "]";
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+        XGUIEng.SetTextKeyName(gvGUI_WidgetID.TooltipBottomText,"sh_menuheadquarter/rallypoint");
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+    end
+
+    GUIUpdate_PlaceRallyPoint = function()
+        local PlayerID = GUI.GetPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+
+        -- Control visibility and highlight
+        local Show = 1;
+        if not EntityID or not Stronghold.Building:CanBuildingHaveRallyPoint(EntityID) then
+            Show = 0;
         end
-        return InputCallback_ShiftRightClick_Orig_SH();
+        local Highlight = 1;
+        if PlayerID == 17 or not Stronghold.Building:IsRallyPointSelection(PlayerID) then
+            Highlight = 0;
+        end
+        XGUIEng.ShowWidget("ActivateSetRallyPoint", Show);
+        XGUIEng.HighLightButton("ActivateSetRallyPoint", Highlight);
+    end
+end
+
+function Stronghold.Building:OnRallyPointHolderDestroyed(_PlayerID, _EntityID)
+    if self.Data[_PlayerID] then
+        local ScriptName = CreateNameForEntity(_EntityID);
+        if self.Data[_PlayerID].RallyPoint[ScriptName] and not IsExisting(ScriptName) then
+            DestroyEntity(self.Data[_PlayerID].RallyPoint[ScriptName]);
+            self.Data[_PlayerID].RallyPoint[ScriptName] = nil;
+        end
+    end
+end
+
+function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
+    if self.Data[_PlayerID] then
+        local ScriptName;
+        if _EntityID then
+            ScriptName = CreateNameForEntity(_EntityID);
+        end
+
+        -- Cancel rally point on selection changed
+        if not _EntityID or not self:CanBuildingHaveRallyPoint(_EntityID) then
+            self:CancelRallyPointSelection(_PlayerID);
+        end
+        -- Hide all rally points of the player
+        for k,v in pairs(self.Data[_PlayerID].RallyPoint) do
+            if IsExisting(v) then
+                SVLib.SetInvisibility(v, true);
+                Logic.SetEntityExplorationRange(v, 0);
+            end
+        end
+        -- Create rally point at entrance if not existing
+        if _EntityID then
+            if self:CanBuildingHaveRallyPoint(_EntityID)
+            and not self.Data[_PlayerID].RallyPoint[ScriptName] then
+                local Position = Stronghold.Unit:GetBarracksDoorPosition(_EntityID);
+                self:SendPlaceRallyPointEvent(Position.X, Position.Y);
+            end
+        end
+        -- Display the rally point of the building
+        if _EntityID and IsExisting(_EntityID) then
+            if self.Data[_PlayerID].RallyPoint[ScriptName] then
+                local ID = GetID(self.Data[_PlayerID].RallyPoint[ScriptName]);
+                SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
+                Logic.SetEntityExplorationRange(ID, 1);
+            end
+        end
     end
 end
 
@@ -864,6 +937,10 @@ end
 
 function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
     if self.Data[_PlayerID] then
+        -- Update GUI
+        if GUI.GetPlayerID() == _PlayerID then
+            GUIUpdate_PlaceRallyPoint();
+        end
         -- Create position entity
         local ScriptName = CreateNameForEntity(_EntityID);
         local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X, _Y, 0, _PlayerID);
@@ -873,7 +950,7 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
             return;
         end
         -- Set visibility
-        SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
+        SVLib.SetInvisibility(ID, GUI.GetPlayerID() ~= _PlayerID);
         Logic.SetModelAndAnimSet(ID, Models.Banners_XB_LargeFull);
         Logic.SetEntityExplorationRange(ID, 1);
         -- Save new entity
@@ -882,33 +959,42 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
     end
 end
 
-function Stronghold.Building:CanHaveRallyPoint(_Building)
-    local ID = GetID(_Building);
-    local Type = Logic.GetEntityType(ID);
-    if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2
-    or Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2
-    or Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2
-    -- or Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2
-    or Type == Entities.PB_Headquarters1 or Type == Entities.PB_Headquarters2
-    or Type == Entities.PB_Headquarters3 then
-        return true;
+function Stronghold.Building:ActivateRallyPointSelection(_PlayerID)
+    if self.Data[_PlayerID] then
+        if not self.Data[_PlayerID].RallyPoint.IsSelecting then
+            self.Data[_PlayerID].RallyPoint.IsSelecting = true;
+            GUI.ActivatePatrolCommandState();
+            self.Data[_PlayerID].RallyPoint.JobID = Job.Turn(function(_PlayerID)
+                return Stronghold.Building:ControlRallyPointSelection(_PlayerID);
+            end, _PlayerID);
+        end
     end
-    return false;
 end
 
-function Stronghold.Building:OnShiftRightClick()
+function Stronghold.Building:CancelRallyPointSelection(_PlayerID)
+    if self.Data[_PlayerID] and GUI.GetPlayerID() == _PlayerID then
+        if self.Data[_PlayerID].RallyPoint.IsSelecting then
+            self.Data[_PlayerID].RallyPoint.IsSelecting = false;
+            GUI.CancelState();
+            EndJob(self.Data[_PlayerID].RallyPoint.JobID);
+            self.Data[_PlayerID].RallyPoint.JobID = nil;
+        end
+    end
+end
+
+function Stronghold.Building:SendPlaceRallyPointEvent(_X, _Y)
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     if self.Data[PlayerID] then
-        if self:CanHaveRallyPoint(EntityID) then
+        if self:CanBuildingHaveRallyPoint(EntityID) then
             local x,y = GUI.Debug_GetMapPositionUnderMouse();
             if x ~= -1 and y ~= -1 then
                 Syncer.InvokeEvent(
                     Stronghold.Building.NetworkCall,
                     Stronghold.Building.SyncEvents.RallyPoint,
                     EntityID,
-                    x,
-                    y
+                    _X or x,
+                    _Y or y
                 );
                 return true;
             end
@@ -917,35 +1003,36 @@ function Stronghold.Building:OnShiftRightClick()
     return false;
 end
 
-function Stronghold.Building:OnRallyPointHolderDestroyed(_PlayerID, _EntityID)
-    if self.Data[_PlayerID] then
-        local ScriptName = CreateNameForEntity(_EntityID);
-        if self.Data[_PlayerID].RallyPoint[ScriptName] and not IsExisting(ScriptName) then
-            DestroyEntity(self.Data[_PlayerID].RallyPoint[ScriptName]);
-            self.Data[_PlayerID].RallyPoint[ScriptName] = nil;
-        end
+function Stronghold.Building:ControlRallyPointSelection(_PlayerID)
+    if not self.Data[_PlayerID] or GUI.GetPlayerID() ~= _PlayerID then
+        return true;
     end
+    if GUI.GetCurrentStateID() ~= 9 then
+        self:CancelRallyPointSelection(_PlayerID);
+        self:SendPlaceRallyPointEvent();
+        return true;
+    end
+    return false;
 end
 
-function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
-    if self.Data[_PlayerID] then
-        -- Hide all rally points of the player
-        for k,v in pairs(self.Data[_PlayerID].RallyPoint) do
-            if IsExisting(v) then
-                SVLib.SetInvisibility(v, true);
-                Logic.SetEntityExplorationRange(v, 0);
-            end
-        end
-        -- Display the rally point of the building
-        if _EntityID and IsExisting(_EntityID) then
-            local ScriptName = CreateNameForEntity(_EntityID);
-            if self.Data[_PlayerID].RallyPoint[ScriptName] then
-                local ID = GetID(self.Data[_PlayerID].RallyPoint[ScriptName]);
-                SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
-                Logic.SetEntityExplorationRange(ID, 1);
-            end
-        end
+function Stronghold.Building:CanBuildingHaveRallyPoint(_Building)
+    local ID = GetID(_Building);
+    local Type = Logic.GetEntityType(ID);
+    if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2
+    or Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2
+    or Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2
+    or Type == Entities.PB_Headquarters1 or Type == Entities.PB_Headquarters2
+    or Type == Entities.PB_Headquarters3 then
+        return true;
     end
+    return false;
+end
+
+function Stronghold.Building:IsRallyPointSelection(_PlayerID)
+    if self.Data[_PlayerID] then
+        return self.Data[_PlayerID].RallyPoint.IsSelecting;
+    end
+    return false;
 end
 
 -- -------------------------------------------------------------------------- --
