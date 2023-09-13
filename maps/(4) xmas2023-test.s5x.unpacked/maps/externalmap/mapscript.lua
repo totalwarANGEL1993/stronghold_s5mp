@@ -8,7 +8,12 @@
 -- #                                                                                                 #
 -- ###################################################################################################
 
-local Path = "data\\maps\\user\\stronghold_s5mp\\sh.loader.lua";
+gvCerberusPath = "E:\\Repositories\\cerberus\\var\\";
+gvStrongholdPath = "E:\\Siedler\\Projekte\\stronghold_s5mp\\modfiles\\script\\stronghold\\";
+gvMapScriptPath = "E:/Siedler/Projekte/stronghold_s5mp/maps/(4) xmas2023-test.s5x.unpacked/maps/externalmap/script/";
+
+local Path = (gvStrongholdPath or "data/script/stronghold/").. "sh.loader.lua";
+-- local Path = "data\\script\\stronghold\\sh.loader.lua";
 Script.Load(Path);
 
 function OnMapStart()
@@ -17,11 +22,7 @@ function OnMapStart()
     for i= 1, table.getn(Players) do
         SetupPlayer(Players[i]);
     end
-    if SHS5MP_RulesDefinition.DisableRuleConfiguration then
-        SetupStrongholdMultiplayerConfig(SHS5MP_RulesDefinition);
-    else
-        ShowStrongholdConfiguration(SHS5MP_RulesDefinition);
-    end
+    SetupStrongholdMultiplayerConfig();
 
     for i= 1, 4 do
         Tools.GiveResouces(i, 999999, 999999, 999999, 999999, 999999, 999999);
@@ -39,7 +40,8 @@ function GameCallback_OnGameStart()
 	Script.Load("Data\\Script\\MapTools\\WeatherSets.lua");
 	IncludeGlobals("Comfort");
 
-	Script.Load("E:/Siedler/Projekte/stronghold_s5mp/maps/(4) xmas2023-test.s5x.unpacked/maps/externalmap/script/main.lua");
+    local ScriptPath = gvMapScriptPath or "maps/externalmap/"
+	Script.Load(ScriptPath.. "main.lua");
 
 	MultiplayerTools.InitCameraPositionsForPlayers();
 	MultiplayerTools.SetUpGameLogicOnMPGameConfig();

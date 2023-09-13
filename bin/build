@@ -17,16 +17,7 @@ cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
 
 # copy cerberus folder
 mkdir -p var/stronghold_s5mp/archive.bba.unpacked/script
-cp -r "E:/Repositories/cerberus" .
-rm -rf cerberus/.git
-rm -rf cerberus/.vscode
-rm -rf cerberus/bin
-rm -rf cerberus/s5
-rm -rf cerberus/test
-rm -rf cerberus/var
-rm cerberus/.gitignore
-rm cerberus/changelog.md
-rm cerberus/readme.md
+cp -r "E:/Repositories/cerberus/var/cerberus" .
 cp -r cerberus var/stronghold_s5mp/archive.bba.unpacked/script
 
 # copy additional files
@@ -41,10 +32,9 @@ echo "Create release..."
 
 # fill release folder
 rm -rf release/shs5mp_configs
-rm -rf release/stronghold_s5mp
 rm -rf release/*.s5x
 mkdir -p release/shs5mp_configs
-cp -r var/stronghold_s5mp release
+cp -r var/stronghold_s5mp/* release/stronghold_s5mp
 
 # copy maps
 bin/bba5.exe "maps/(4) SH Auge der Sahara.s5x.unpacked"

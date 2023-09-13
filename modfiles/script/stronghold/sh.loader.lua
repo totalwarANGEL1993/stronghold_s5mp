@@ -18,8 +18,9 @@ end
 -- -------------------------------------------------------------------------- --
 
 -- Try loading lib from the archive
--- (Using the path that is supposed to be used for bba files)
-Script.Load("data\\script\\cerberus\\loader.lua");
+gvCerberusPath = gvCerberusPath or "data\\script\\";
+Script.Load(gvCerberusPath.. "cerberus\\loader.lua");
+Lib.AddPath(gvCerberusPath);
 -- Check lib has been loaded
 gvStrongholdLoaded = Lib ~= nil;
 assert(Lib ~= nil);
@@ -61,7 +62,7 @@ Lib.Require("module/weather/WeatherMaker");
 -- -------------------------------------------------------------------------- --
 
 ---@diagnostic disable-next-line: undefined-global
-local ModPath = gvTestPath or "data\\script\\stronghold\\";
+gvStrongholdPath = gvStrongholdPath or "data\\script\\stronghold\\";
 
 -- Define check function
 DetectStronghold = function()
@@ -69,7 +70,7 @@ DetectStronghold = function()
 end
 -- Load detecter script
 -- (It redefines the function above to return true)
-Script.Load(ModPath.. "sh.detecter.lua");
+Script.Load(gvStrongholdPath.. "sh.detecter.lua");
 -- Check if stronghold has been loaded
 if not DetectStronghold() then
     GUI.AddStaticNote("@color:255,0,0 ERROR: Can not find Stronghold!");
@@ -80,39 +81,39 @@ end
 -- Finally load the mod.
 -- (A nightmarish orgy of cross-dependencies...)
 
-Script.Load(ModPath.. "sh.main.lua");
-Script.Load(ModPath.. "sh.main.config.lua");
-Script.Load(ModPath.. "sh.utils.lua");
+Script.Load(gvStrongholdPath.. "sh.main.lua");
+Script.Load(gvStrongholdPath.. "sh.main.config.lua");
+Script.Load(gvStrongholdPath.. "sh.utils.lua");
 ---
-Script.Load(ModPath.. "sh.module.rights.lua");
-Script.Load(ModPath.. "sh.module.rights.constants.lua");
-Script.Load(ModPath.. "sh.module.rights.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.rights.lua");
+Script.Load(gvStrongholdPath.. "sh.module.rights.constants.lua");
+Script.Load(gvStrongholdPath.. "sh.module.rights.config.lua");
 ---
-Script.Load(ModPath.. "sh.module.attraction.lua");
-Script.Load(ModPath.. "sh.module.attraction.config.lua");
-Script.Load(ModPath.. "sh.module.building.lua");
-Script.Load(ModPath.. "sh.module.building.config.lua");
-Script.Load(ModPath.. "sh.module.construction.lua");
-Script.Load(ModPath.. "sh.module.construction.config.lua");
-Script.Load(ModPath.. "sh.module.economy.lua");
-Script.Load(ModPath.. "sh.module.economy.config.lua");
-Script.Load(ModPath.. "sh.module.economy.text.lua");
-Script.Load(ModPath.. "sh.module.hero.lua");
-Script.Load(ModPath.. "sh.module.hero.config.lua");
-Script.Load(ModPath.. "sh.module.province.lua");
-Script.Load(ModPath.. "sh.module.province.constants.lua");
-Script.Load(ModPath.. "sh.module.province.config.lua");
-Script.Load(ModPath.. "sh.module.recruitment.lua");
-Script.Load(ModPath.. "sh.module.recruitment.config.lua");
-Script.Load(ModPath.. "sh.module.statistic.lua");
-Script.Load(ModPath.. "sh.module.unit.lua");
-Script.Load(ModPath.. "sh.module.unit.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.attraction.lua");
+Script.Load(gvStrongholdPath.. "sh.module.attraction.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.building.lua");
+Script.Load(gvStrongholdPath.. "sh.module.building.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.construction.lua");
+Script.Load(gvStrongholdPath.. "sh.module.construction.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.economy.lua");
+Script.Load(gvStrongholdPath.. "sh.module.economy.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.economy.text.lua");
+Script.Load(gvStrongholdPath.. "sh.module.hero.lua");
+Script.Load(gvStrongholdPath.. "sh.module.hero.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.province.lua");
+Script.Load(gvStrongholdPath.. "sh.module.province.constants.lua");
+Script.Load(gvStrongholdPath.. "sh.module.province.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.recruitment.lua");
+Script.Load(gvStrongholdPath.. "sh.module.recruitment.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.statistic.lua");
+Script.Load(gvStrongholdPath.. "sh.module.unit.lua");
+Script.Load(gvStrongholdPath.. "sh.module.unit.config.lua");
 ---
-Script.Load(ModPath.. "sh.module.spawner.lua");
-Script.Load(ModPath.. "sh.module.spawner.config.lua");
-Script.Load(ModPath.. "sh.module.outlaw.lua");
-Script.Load(ModPath.. "sh.module.outlaw.constants.lua");
+Script.Load(gvStrongholdPath.. "sh.module.spawner.lua");
+Script.Load(gvStrongholdPath.. "sh.module.spawner.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.outlaw.lua");
+Script.Load(gvStrongholdPath.. "sh.module.outlaw.constants.lua");
 ---
-Script.Load(ModPath.. "sh.module.multiplayer.lua");
-Script.Load(ModPath.. "sh.module.multiplayer.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.multiplayer.lua");
+Script.Load(gvStrongholdPath.. "sh.module.multiplayer.config.lua");
 
