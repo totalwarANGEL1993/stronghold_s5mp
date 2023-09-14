@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey></NameKey>
+ <DescKey></DescKey>
+ <Name>@color:200,70,40 SH @color:255,255,255 Tutorial</Name>
+ <Desc>In dieser Mission erfahrt Ihr, wie Ihr ein guter Lord oder eine gute Lady werdet. Ihr erlangt das nötige Wissen, um im Kampf um die Krone zu bestehen.</Desc>
+ <SizeX>353</SizeX>
+ <SizeY>353</SizeY>
+ <MPFlag>false</MPFlag>
+ <MPPlayerCount>0</MPPlayerCount>
+ <MPGameOptionFlagSet>0</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>55b6ca9f-79a9-48dd-91fa-073a8e2f5dc8</Data>
+ </GUID>
+</root>

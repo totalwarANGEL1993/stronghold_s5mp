@@ -486,8 +486,8 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime or Default.PeaceTime;
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
         self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
-        self.Config.DefaultSettings.Resources = _Config.Rank.Resources or Default.Resources;
-        self.Config.DefaultSettings.Knowledge = _Config.Rank.Knowledge or Default.Knowledge;
+        self.Config.DefaultSettings.Resources = _Config.Resources or Default.Resources;
+        self.Config.DefaultSettings.Knowledge = _Config.Knowledge or Default.Knowledge;
         for k,v in pairs(Default.AllowedHeroes) do
             self.Config.DefaultSettings.AllowedHeroes[k] = _Config.AllowedHeroes[k] or v;
         end

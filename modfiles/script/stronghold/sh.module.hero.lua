@@ -433,7 +433,7 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
         -- Set name of lord
         Logic.SetEntityName(_ID, Stronghold.Players[_PlayerID].LordScriptName);
         -- Display info message
-        if not _Silent then
+        if not _Silent and XNetwork.Manager_DoesExist() == 1 then
             local PlayerName = UserTool_GetPlayerName(_PlayerID);
             local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
             local Text = XGUIEng.GetStringTableText("sh_text/Player_NobleChosen");

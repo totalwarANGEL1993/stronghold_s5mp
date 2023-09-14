@@ -14,6 +14,9 @@
 ---
 --- - <number> GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, _CurrentAmount)
 ---   Allows to overwrite the reputation gained from sermons.
+---
+--- - GameCallback_SH_Logic_RallyPointPlaced(_PlayerID, _EntityID, _X, _Y, _Initial)
+---   A rallypoint has been set.
 --- 
 
 Stronghold = Stronghold or {};
@@ -83,7 +86,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
                 Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, arg[1]);
             end
             if _Action == Stronghold.Building.SyncEvents.RallyPoint then
-                Stronghold.Building:PlaceRallyPoint(_PlayerID, arg[1], arg[2], arg[3]);
+                Stronghold.Building:PlaceRallyPoint(_PlayerID, arg[1], arg[2], arg[3], arg[4]);
             end
         end
     );
@@ -98,6 +101,9 @@ end
 
 function GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, _CurrentAmount)
     return _CurrentAmount;
+end
+
+function GameCallback_SH_Logic_RallyPointPlaced(_PlayerID, _EntityID, _X, _Y, _Initial)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -552,6 +558,7 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
     XGUIEng.HighLightButton("ToBuildingCommandMenu", 1);
     XGUIEng.HighLightButton("ToBuildingSettlersMenu", 0);
     XGUIEng.ShowWidget("Headquarter", 0);
+    XGUIEng.ShowWidget("RallyPoint", 0);
     XGUIEng.ShowWidget("Monastery", 1);
     XGUIEng.ShowWidget("WorkerInBuilding", 0);
     XGUIEng.ShowWidget("Upgrade_Monastery1", 0);
@@ -876,7 +883,7 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
             if self:CanBuildingHaveRallyPoint(_EntityID)
             and not self.Data[_PlayerID].RallyPoint[ScriptName] then
                 local Position = Stronghold.Unit:GetBarracksDoorPosition(_EntityID);
-                self:SendPlaceRallyPointEvent(Position.X, Position.Y);
+                self:SendPlaceRallyPointEvent(Position.X, Position.Y, true);
             end
         end
         -- Display the rally point of the building
@@ -935,7 +942,7 @@ function Stronghold.Building:CommandSerfToExtractCloseResource(_SerfID, _x, _y, 
     Logic.MoveSettler(_SerfID, _x, _y, -1);
 end
 
-function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
+function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y, _Initial)
     if self.Data[_PlayerID] then
         -- Update GUI
         if GUI.GetPlayerID() == _PlayerID then
@@ -956,6 +963,8 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y)
         -- Save new entity
         DestroyEntity(self.Data[_PlayerID].RallyPoint[ScriptName]);
         self.Data[_PlayerID].RallyPoint[ScriptName] = ID;
+
+        GameCallback_SH_Logic_RallyPointPlaced(_PlayerID, _EntityID, _X, _Y, _Initial);
     end
 end
 
@@ -982,7 +991,7 @@ function Stronghold.Building:CancelRallyPointSelection(_PlayerID)
     end
 end
 
-function Stronghold.Building:SendPlaceRallyPointEvent(_X, _Y)
+function Stronghold.Building:SendPlaceRallyPointEvent(_X, _Y, _Initial)
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     if self.Data[PlayerID] then
@@ -994,7 +1003,8 @@ function Stronghold.Building:SendPlaceRallyPointEvent(_X, _Y)
                     Stronghold.Building.SyncEvents.RallyPoint,
                     EntityID,
                     _X or x,
-                    _Y or y
+                    _Y or y,
+                    _Initial == true
                 );
                 return true;
             end

@@ -168,6 +168,14 @@ function GetPlayerTaxPenalty(_PlayerID, _TaxtHeight)
     return Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxtHeight);
 end
 
+function GetHonorIncome(_PlayerID)
+    return Stronghold.Economy:GetHonorIncome(_PlayerID);
+end
+
+function GetReputationIncome(_PlayerID)
+    return Stronghold.Economy:GetReputationIncome(_PlayerID);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
@@ -249,6 +257,20 @@ end
 
 -- -------------------------------------------------------------------------- --
 -- Income & Upkeep
+
+function Stronghold.Economy:GetHonorIncome(_PlayerID)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        return self.Data[_PlayerID].IncomeHonor;
+    end
+    return 0;
+end
+
+function Stronghold.Economy:GetReputationIncome(_PlayerID)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        return self.Data[_PlayerID].IncomeReputation;
+    end
+    return 0;
+end
 
 function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then

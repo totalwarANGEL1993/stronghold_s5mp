@@ -91,8 +91,6 @@ GameCallback_OnGameStart = GameCallback_OnGameStart or function()
         ShowStrongholdConfiguration(SHS5MP_RulesDefinition);
     end
 end
--- Delete first map action
-FirstMapAction = nil;
 
 -- Must remain empty in the script because it is called by the game.
 Mission_InitWeatherGfxSets = Mission_InitWeatherGfxSets or function ()
@@ -374,8 +372,6 @@ function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs)
         TaxHeight = 3,
         ReputationLimit = 200,
         Reputation = 100,
-        Honor = 0, -- Honor is now ResourceType.Silver
-        IncomeHonor = 0,
 
         InvulnerabilityInfoShown = false,
         VulnerabilityInfoShown = true,
@@ -764,11 +760,13 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 -- 
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                Message(string.format(
-                    XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
-                    PlayerColor,
-                    PlayerName
-                ));
+                if XNetwork.Manager_DoesExist() == 1 then
+                    Message(string.format(
+                        XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
+                        PlayerColor,
+                        PlayerName
+                    ));
+                end
             end
         end
     else
@@ -784,11 +782,13 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 -- 
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                Message(string.format(
-                    XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
-                    PlayerColor,
-                    PlayerName
-                ));
+                if XNetwork.Manager_DoesExist() == 1 then
+                    Message(string.format(
+                        XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
+                        PlayerColor,
+                        PlayerName
+                    ));
+                end
             end
         end
     end
@@ -799,11 +799,13 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
 
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-        Message(string.format(
-            XGUIEng.GetStringTableText("sh_text/Player_IsDead"),
-            PlayerColor,
-            PlayerName
-        ));
+        if XNetwork.Manager_DoesExist() == 1 then
+            Message(string.format(
+                XGUIEng.GetStringTableText("sh_text/Player_IsDead"),
+                PlayerColor,
+                PlayerName
+            ));
+        end
     end
 end
 
