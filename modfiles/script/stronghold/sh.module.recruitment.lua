@@ -41,6 +41,7 @@ function Stronghold.Recruitment:Install()
                 ["Research_UpgradeCavalryHeavy1"] = {},
                 ---
                 ["Buy_Serf"] = {},
+                ["Buy_Serf_Village"] = {},
                 ["Buy_Scout"] = {},
                 ["Buy_Thief"] = {},
             },

@@ -87,7 +87,7 @@ function Stronghold.Rights:Install()
             LockRank = Stronghold.Config.Base.MaxRank +1,
             Rank = Stronghold.Config.Base.InitialRank,
 
-            Titles = {};
+            Titles = CopyTable(self.Config.Titles);
             Rights = {},
         };
         self:InitDutiesAndRights(i, self.Config.Titles);

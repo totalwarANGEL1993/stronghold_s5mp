@@ -165,6 +165,7 @@ end
 function Stronghold.Building:HeadquartersBuySerf()
     local GuiPlayer = GetLocalPlayerID();
     local PlayerID = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
     if Stronghold.Players[PlayerID].BuyUnitLock then
         return false;
     end
@@ -180,14 +181,19 @@ function Stronghold.Building:HeadquartersBuySerf()
         return false;
     end
 
+    local Button = "Buy_Serf";
+    if Logic.IsEntityInCategory(EntityID, EntityCategories.VillageCenter) == 1 then
+        Button = "Buy_Serf_Village";
+    end
+
     Stronghold.Players[PlayerID].BuyUnitLock = true;
     Syncer.InvokeEvent(
         Stronghold.Building.NetworkCall,
         Stronghold.Building.SyncEvents.EnqueueSerf,
-        GetID(Stronghold.Players[PlayerID].HQScriptName),
+        EntityID,
         Entities.PU_Serf,
         false,
-        "Buy_Serf",
+        Button,
         XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
     );
     return true;
@@ -214,21 +220,21 @@ end
 
 function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsPlayer(PlayerID)
-    or Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
+    if not IsPlayer(PlayerID) then
         return;
     end
 
-    XGUIEng.ShowWidget("BuildingTabs", 1);
-    XGUIEng.ShowWidget("Buy_Serf_Recharge", 1);
-    XGUIEng.ShowWidget("Buy_Serf_Amount", 1);
-    -- XGUIEng.SetWidgetPositionAndSize("Research_Tracking", 4, 38, 31, 31);
+    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
+        XGUIEng.ShowWidget("BuildingTabs", 1);
+        XGUIEng.ShowWidget("Buy_Serf_Recharge", 1);
+        XGUIEng.ShowWidget("Buy_Serf_Amount", 1);
 
-    local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID;
-    if LastWidgetID == 0 then
-        LastWidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
+        local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID;
+        if LastWidgetID == 0 then
+            LastWidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
+        end
+        self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, LastWidgetID);
     end
-    self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, LastWidgetID);
 end
 
 function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _EntityID, _Key)
@@ -816,6 +822,18 @@ function Stronghold.Building:OnTowerSelected(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Village Center
+
+function Stronghold.Building:OnVillageCenterSelected(_EntityID)
+    if Logic.IsEntityInCategory(_EntityID, EntityCategories.VillageCenter) == 1 then
+        XGUIEng.ShowWidget("Buy_Serf_Village_Recharge", 1);
+        XGUIEng.ShowWidget("Buy_Serf_Village_Amount", 1);
+        XGUIEng.ShowWidget("RallyPoint", 1);
+        GUIUpdate_PlaceRallyPoint();
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- Rally Points
 
 function Stronghold.Building:OverrideShiftRightClick()
@@ -1032,7 +1050,9 @@ function Stronghold.Building:CanBuildingHaveRallyPoint(_Building)
     or Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2
     or Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2
     or Type == Entities.PB_Headquarters1 or Type == Entities.PB_Headquarters2
-    or Type == Entities.PB_Headquarters3 then
+    or Type == Entities.PB_Headquarters3
+    or Type == Entities.PB_VillageCenter1 or Type == Entities.PB_VillageCenter2
+    or Type == Entities.PB_VillageCenter3 then
         return true;
     end
     return false;

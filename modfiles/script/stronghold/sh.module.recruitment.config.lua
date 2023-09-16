@@ -21,6 +21,15 @@ Stronghold.Recruitment.Config.QueueMapping = {
     [Entities.PB_Headquarters3] = {
         "Buy_Serf"
     },
+    [Entities.PB_VillageCenter1] = {
+        "Buy_Serf_Village"
+    },
+    [Entities.PB_VillageCenter2] = {
+        "Buy_Serf_Village"
+    },
+    [Entities.PB_VillageCenter3] = {
+        "Buy_Serf_Village"
+    },
     ---
     [Entities.PB_Tavern1] = {
         "Buy_Scout",
