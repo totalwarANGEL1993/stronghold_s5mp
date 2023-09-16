@@ -86,8 +86,20 @@ SHS5MP_RulesDefinition = {
 
         Tutorial.Install();
 
+        ForbidTechnology(Technologies.B_PowerPlant, 1);
+        ForbidTechnology(Technologies.B_Bridge, 1);
+        ForbidTechnology(Technologies.T_FreeCamera, 1);
+        ChangePlayer("HQ1", 8);
+        Tools.CreateSoldiersForLeader(GetID("Scout"), 3);
+        for k,v in pairs(GetPlayerEntities(1, Entities.PU_Serf)) do
+            Logic.SuspendEntity(v);
+        end
+
         BriefingTutorialIntro();
         Tutorial_OverwriteCallbacks();
+
+        CreatePlayer2();
+        CreatePlayer3();
     end,
 
     -- Called after game start timer is over
@@ -138,11 +150,7 @@ end
 function Tutorial_StartPart1()
     Tutorial.Stop();
     Tutorial.SetCallback(function()
-        NonPlayerCharacter.Create {
-            ScriptName = "Scout",
-            Callback   = BriefingScout
-        }
-        NonPlayerCharacter.Activate("Scout");
+        BriefingScoutNpc();
     end);
     Tutorial_AddMainInterfaceSection();
     Tutorial_AddCastleInterfaceSection();
@@ -172,7 +180,7 @@ function Tutorial_AddMainInterfaceSection()
     }
     Tutorial.AddMessage {
         Text        = "{scarlet}Ehre{white} steht für Euer ansehen beim "..
-                      "Adelsstand. Sie wird benötigt, um Truppen auszuheben, "..
+                      "Adelsstand. Sie ist nötig, um Truppen auszubilden, "..
                       "den Adligen in einenhöheren Stand zu erheben und "..
                       "viele andere Dinge. Prunkbauten, Ziergebäude und "..
                       "verschiedene Maßnahmen gereichen Euch an Ehre.",
@@ -184,7 +192,7 @@ function Tutorial_AddMainInterfaceSection()
                       "Ansehen beim Volk bestellt ist. Fällt das Ansehen, "..
                       "seid Ihr bald allein auf der Burg. Die Versorgung, "..
                       "die Steuer, Verbrechensbekämpfung und Effekte von "..
-                      "Spezialgebäuden beeinflussen die Beliebtheit.",
+                      "einigen Spezialgebäuden beeinflussen die Beliebtheit.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_NewRes
     }
@@ -226,6 +234,13 @@ function Tutorial_AddMainInterfaceSection()
                       "Rekrutierungsgebäude,{white} um Eure Heeresstärke zu "..
                       "erhöhen.",
         Arrow       = ArrowPos_Military
+    }
+    Tutorial.AddMessage {
+        Text        = "Die Zahltagsuhr zeigt Euch an, wie lange Ihr bis zum "..
+                      "nächsten Geld warten müsst. {scarlet} Der Zahltag ist "..
+                      "in diesem Spielmodus alle 90 Sekunden.",
+        ArrowWidget = "TutorialArrowUp",
+        Arrow       = ArrowPos_Clock
     }
     Tutorial.AddMessage {
         Text        = "Die Uhr gibt nicht nur die Zeit bis zum Zahltag an. "..
@@ -323,9 +338,15 @@ function Tutorial_AddCastleInterfaceSection()
         end
     }
     Tutorial.AddMessage {
+        Text        = "Ihr platziert einen Sammelpunkt, {scarlet}indem Ihr "..
+                      "rechts auf die Spielwelt klickt, nachdem die Maus zu "..
+                      "einer Hand mit einer Flagge wurde. {white} Das klappt "..
+                      "nur, wenn die Position erreichbar ist.",
+    }
+    Tutorial.AddMessage {
         Text        = "Probiert es einmal aus! Um einen Sammelpunkt zu "..
-                      "setzen, müsst Ihr {scarlet}rechts auf eine von dem "..
-                      "Gebäude erreichbare{white} Position klicken.",
+                      "setzen, müsst Ihr {scarlet} rechts auf eine von dem "..
+                      "Gebäude erreichbare {white} Position klicken.",
         Condition   = function(_Data)
             return gvTutorial_RallyPointSet;
         end
@@ -374,10 +395,11 @@ end
 function Tutorial_StartPart2()
     Tutorial.Stop();
     Tutorial.SetCallback(function()
-        
+        Job.Second(Tutorial_StartPart3Trigger);
     end);
     Tutorial_AddUnitSelectionSection();
     Tutorial_AddProvisionSection();
+    Tutorial_AddMilitarySection();
     Tutorial.Start();
 end
 
@@ -502,19 +524,17 @@ function Tutorial_AddProvisionSection()
         Text        = "Es ist an der Zeit, dass ich Euch erkläre, wie Ihr "..
                       "Eure Burg zu führen habt.",
         Action      = function(_Data)
-            Logic.ResumeAllEntities(1);
+            Logic.ResumeAllEntities();
             if Logic.GetEntityType(Stronghold:GetPlayerHero(1)) ~= Entities.PU_Hero2 then
                 ReplaceEntity("AutoBomb1", Entities.XD_Bomb1);
                 ReplaceEntity("AutoBomb2", Entities.XD_Bomb1);
                 ReplaceEntity("AutoBomb3", Entities.XD_Bomb1);
             end
             AddResourcesToPlayer(1, {
-                [ResourceType.GoldRaw]   = 1000,
-                [ResourceType.ClayRaw]   = 2500,
-                [ResourceType.WoodRaw]   = 2000,
-                [ResourceType.StoneRaw]  = 1000,
-                [ResourceType.IronRaw]   = 500,
-                [ResourceType.SulfurRaw] = 500,
+                [ResourceType.GoldRaw]   = 1500,
+                [ResourceType.ClayRaw]   = 1000,
+                [ResourceType.WoodRaw]   = 800,
+                [ResourceType.StoneRaw]  = 550,
             });
         end
     }
@@ -556,14 +576,295 @@ function Tutorial_AddProvisionSection()
                       "an das, was ich Euch bereits beigebracht habe.",
     }
     Tutorial.AddMessage {
-        Text        = "Versucht, Eure Beliebtheit auf 110 zu steigern und "..
-                      "lockt insgesamt 20 Arbeiter an!",
+        Text        = "Versucht, mindestens 5 Beliebtheit am Zahltag zu "..
+                      " erhalten und lockt insgesamt 20 Arbeiter an!",
         Condition   = function(_Data)
             local WorkerCount = Logic.GetNumberOfAttractedWorker(1);
-            local Reputation = GetReputation(1);
-            return WorkerCount >= 20 and Reputation >= 110;
+            local Reputation = GetReputationIncome(1);
+            return WorkerCount >= 20 and Reputation >= 5;
         end
     }
+    Tutorial.AddMessage {
+        Text        = "Durch die Steuern erhaltet Ihr frisches Geld. Das "..
+                      "werdet Ihr bitter benötigen, um Truppen auszuheben. "..
+                      "Aber als herkömmlicher Adliger können nur Knechte "..
+                      "bewaffnet werden.",
+    }
+    Tutorial.AddMessage {
+        Text        = "Erhebt Euren Adligen in den Rang eines Kastellan!",
+        Condition   = function(_Data)
+            if GetRank(1) >= 1 then
+                return true;
+            end
+        end
+    }
+end
+
+function Tutorial_AddMilitarySection()
+    Tutorial.AddMessage {
+        Text        = "Soldaten werden in Rekrutierungsgebäuden angeworben. "..
+                      "Errichtet eine Kaserne!",
+        Condition   = function(_Data)
+            local Barracks = GetPlayerEntities(1, Entities.PB_Barracks1);
+            if Barracks[1] and Logic.IsConstructionComplete(Barracks[1]) == 1 then
+                return true;
+            end
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "Wundervoll! Im Rang eines Kastellan seid Ihr nun in "..
+                      "der Lage, Speerträger auszurüsten. Sie sind schwach "..
+                      "aber billig und können in Massen in die Schlacht "..
+                      "geworfen werden.",
+    }
+    Tutorial.AddMessage {
+        Text        = "Rekrutiert einen Trupp Speerträger!",
+        Condition   = function(_Data)
+            return Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_LeaderPoleArm1) > 0;
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "Truppen werden in eine {scarlet}Produktionskette "..
+                      "{white}eingereiht. Jeder Einheitentyp hat eine eigene "..
+                      "Kette. Ihr könnt somit {scarlet}mehrere Truppentypen "..
+                      "gleichzeitig ausbilden. {white}Allerdings müsst Ihr "..
+                      "den nötigen Rang haben.",
+    }
+    Tutorial.AddMessage {
+        Text        = "Kanonen bilden eine Ausnahme. Sie werden so gebaut, "..
+                      "wie Ihr es gewohnt seid. Kanonen belegen Plätze "..
+                      "{scarlet}sobald sie in Auftrag gegeben werden.",
+    }
+    Tutorial.AddMessage {
+        Text        = "Ihr werdet Eure neuen Truppen schon bald brauchen. "..
+                      "{scarlet}Die Wegelagerer haben von uns Notiz genommen "..
+                      "und planen einen Angriff auf eure Burg! {white}Die "..
+                      "Gelegenheit, das Erlernte anzuwenden!",
+        Action      = function(_Data)
+            ReplaceEntity("BridgeBarrier", Entities.XD_Rock7);
+        end,
+    }
+end
+
+-- Part 3 ------------------------------------------------------------------- --
+
+function Tutorial_StartPart3()
+    ReplaceEntity("GateDude", Entities.CU_PoleArmIdle);
+
+    Tutorial.AddMessage {
+        Text        = "Meinen Glückwunsch, Hochwohlgeboren! Ihr habt die "..
+                      "Einführung in {scarlet}Stronghold {white} erfolgreich "..
+                      "gemeistert. Ihr könnt das Spiel nun beenden oder die "..
+                      "Mission zu Ende spielen.",
+    }
+
+end
+
+function Tutorial_StartPart3Trigger()
+    if not IsExisting("HQ3") then
+        Tutorial_StartPart3();
+        return true;
+    end
+end
+
+function Tutorial_BridgeBuildTrigger()
+    local n, EntityID = Logic.GetEntities(Entities.PB_Bridge3, 1);
+    if n > 0 and Logic.IsConstructionComplete(EntityID) == 1 then
+        
+        return true;
+    end
+end
+
+-- ########################################################################## --
+-- #                                 ENEMY                                  # --
+-- ########################################################################## --
+
+function CreatePlayer2()
+    CreatePlayer2Armies()
+    CreatePlayer2Spawner();
+end
+
+function CreatePlayer2Armies()
+    gvP2Army1 = AiArmy.New(2, 10, GetPosition("P2OuterPos"), 3000);
+    gvP2Army1Manager = AiArmyManager.Create(gvP2Army2);
+    AiArmyManager.AddAttackTarget(gvP2Army1Manager, "PlayerHome");
+
+    -- Defenders
+
+    gvP2Army2 = AiArmy.New(2, 4, GetPosition("P2DefPos1"), 3000);
+    gvP2Army2Manager = AiArmyManager.Create(gvP2Army2);
+    AiArmyManager.AddGuardPosition(gvP2Army2Manager, "P2DefPos1");
+    AiArmyManager.AddGuardPosition(gvP2Army2Manager, "P2DefPos2");
+    AiArmyManager.AddGuardPosition(gvP2Army2Manager, "P2DefPos3");
+    AiArmyManager.AddGuardPosition(gvP2Army2Manager, "P2DefPos4");
+    AiArmyManager.SetGuardTime(gvP2Army2Manager, 2*60);
+
+    gvP2Army3 = AiArmy.New(2, 4, GetPosition("P2DefPos1"), 3000);
+    gvP2Army3Manager = AiArmyManager.Create(gvP2Army3);
+    AiArmyManager.AddGuardPosition(gvP2Army3Manager, "P2DefPos1");
+    AiArmyManager.AddGuardPosition(gvP2Army3Manager, "P2DefPos2");
+    AiArmyManager.AddGuardPosition(gvP2Army3Manager, "P2DefPos3");
+    AiArmyManager.AddGuardPosition(gvP2Army3Manager, "P2DefPos4");
+    AiArmyManager.SetGuardTime(gvP2Army3Manager, 2*60);
+
+    gvP2Army4 = AiArmy.New(2, 6, GetPosition("P2DefPos1"), 3000);
+    gvP2Army4Manager = AiArmyManager.Create(gvP2Army4);
+    AiArmyManager.AddGuardPosition(gvP2Army4Manager, "P2DefPos1");
+    AiArmyManager.AddGuardPosition(gvP2Army4Manager, "P2DefPos2");
+    AiArmyManager.AddGuardPosition(gvP2Army4Manager, "P2DefPos3");
+    AiArmyManager.AddGuardPosition(gvP2Army4Manager, "P2DefPos4");
+    AiArmyManager.SetGuardTime(gvP2Army4Manager, 2*60);
+
+    gvP2Army5 = AiArmy.New(2, 4, GetPosition("P2DefPos1"), 3000);
+    gvP2Army5Manager = AiArmyManager.Create(gvP2Army5);
+    AiArmyManager.AddGuardPosition(gvP2Army5Manager, "P2DefPos1");
+    AiArmyManager.AddGuardPosition(gvP2Army5Manager, "P2DefPos2");
+    AiArmyManager.AddGuardPosition(gvP2Army5Manager, "P2DefPos3");
+    AiArmyManager.AddGuardPosition(gvP2Army5Manager, "P2DefPos4");
+    AiArmyManager.SetGuardTime(gvP2Army5Manager, 2*60);
+
+    gvP2Army6 = AiArmy.New(2, 4, GetPosition("P2DefPos1"), 3000);
+    gvP2Army6Manager = AiArmyManager.Create(gvP2Army6);
+    AiArmyManager.AddGuardPosition(gvP2Army6Manager, "P2DefPos1");
+    AiArmyManager.AddGuardPosition(gvP2Army6Manager, "P2DefPos2");
+    AiArmyManager.AddGuardPosition(gvP2Army6Manager, "P2DefPos3");
+    AiArmyManager.AddGuardPosition(gvP2Army6Manager, "P2DefPos4");
+    AiArmyManager.SetGuardTime(gvP2Army6Manager, 2*60);
+
+    gvP2Army7 = AiArmy.New(2, 4, GetPosition("P2DefPos1"), 3000);
+    gvP2Army7Manager = AiArmyManager.Create(gvP2Army7);
+    AiArmyManager.AddGuardPosition(gvP2Army7Manager, "P2DefPos1");
+    AiArmyManager.AddGuardPosition(gvP2Army7Manager, "P2DefPos2");
+    AiArmyManager.AddGuardPosition(gvP2Army7Manager, "P2DefPos3");
+    AiArmyManager.AddGuardPosition(gvP2Army7Manager, "P2DefPos4");
+    AiArmyManager.SetGuardTime(gvP2Army7Manager, 2*60);
+
+    AiArmyManager.Synchronize(
+        gvP2Army2Manager, gvP2Army3Manager, gvP2Army4Manager,
+        gvP2Army5Manager, gvP2Army6Manager, gvP2Army7Manager
+    );
+
+    SetHostile(1, 2);
+    MakeInvulnerable("Scorillo");
+    Job.Second(function()
+        if not IsExisting("HQ2") then
+            MakeVulnerable("Scorillo");
+            return true;
+        end
+    end);
+end
+
+function CreatePlayer2Spawner()
+    gvP2HQSpawner = AiTroopSpawner.Create {
+        ScriptName   = "HQ2",
+        SpawnPoint   = "HQ2Spawn",
+        SpawnAmount  = 1,
+        AllowedTypes = {
+            {Entities.CU_BlackKnight_LeaderMace2, 3},
+        }
+    };
+    AiTroopSpawner.AddArmy(gvP2HQSpawner, gvP2Army1);
+    AiTroopSpawner.AddArmy(gvP2HQSpawner, gvP2Army2);
+    AiTroopSpawner.AddArmy(gvP2HQSpawner, gvP2Army3);
+    AiTroopSpawner.AddArmy(gvP2HQSpawner, gvP2Army4);
+    AiTroopSpawner.AddArmy(gvP2HQSpawner, gvP2Army5);
+    AiTroopSpawner.AddArmy(gvP2HQSpawner, gvP2Army6);
+    AiTroopSpawner.AddArmy(gvP2HQSpawner, gvP2Army7);
+
+    gvP2BarracksSpawner = AiTroopSpawner.Create {
+        ScriptName   = "P2Barracks1",
+        SpawnPoint   = "P2Barracks1Spawn",
+        SpawnAmount  = 1,
+        AllowedTypes = {
+            {Entities.PU_LeaderPoleArm3, 3},
+        }
+    };
+    -- AiTroopSpawner.AddArmy(gvP2BarracksSpawner, gvP2Army1);
+    AiTroopSpawner.AddArmy(gvP2BarracksSpawner, gvP2Army2);
+    AiTroopSpawner.AddArmy(gvP2BarracksSpawner, gvP2Army3);
+    AiTroopSpawner.AddArmy(gvP2BarracksSpawner, gvP2Army4);
+    AiTroopSpawner.AddArmy(gvP2BarracksSpawner, gvP2Army5);
+    AiTroopSpawner.AddArmy(gvP2BarracksSpawner, gvP2Army6);
+    AiTroopSpawner.AddArmy(gvP2BarracksSpawner, gvP2Army7);
+
+    gvP2ArcherySpawner = AiTroopSpawner.Create {
+        ScriptName   = "P2Archery1",
+        SpawnPoint   = "P2Archery1Spawn",
+        SpawnAmount  = 1,
+        AllowedTypes = {
+            {Entities.PU_LeaderRifle1, 3},
+            {Entities.PU_LeaderBow3, 3},
+        }
+    };
+    AiTroopSpawner.AddArmy(gvP2ArcherySpawner, gvP2Army1);
+    AiTroopSpawner.AddArmy(gvP2ArcherySpawner, gvP2Army2);
+    AiTroopSpawner.AddArmy(gvP2ArcherySpawner, gvP2Army3);
+    AiTroopSpawner.AddArmy(gvP2ArcherySpawner, gvP2Army4);
+    AiTroopSpawner.AddArmy(gvP2ArcherySpawner, gvP2Army5);
+    AiTroopSpawner.AddArmy(gvP2ArcherySpawner, gvP2Army6);
+    AiTroopSpawner.AddArmy(gvP2ArcherySpawner, gvP2Army7);
+
+    gvP2StableSpawner = AiTroopSpawner.Create {
+        ScriptName   = "P2Stable1",
+        SpawnPoint   = "P2Stable1Spawn",
+        SpawnAmount  = 1,
+        AllowedTypes = {
+            {Entities.PU_LeaderHeavyCavalry1, 3},
+        }
+    };
+    AiTroopSpawner.AddArmy(gvP2StableSpawner, gvP2Army1);
+    AiTroopSpawner.AddArmy(gvP2StableSpawner, gvP2Army2);
+    AiTroopSpawner.AddArmy(gvP2StableSpawner, gvP2Army3);
+    AiTroopSpawner.AddArmy(gvP2StableSpawner, gvP2Army4);
+    AiTroopSpawner.AddArmy(gvP2StableSpawner, gvP2Army5);
+    AiTroopSpawner.AddArmy(gvP2StableSpawner, gvP2Army6);
+    AiTroopSpawner.AddArmy(gvP2StableSpawner, gvP2Army7);
+
+    gvP2FoundrySpawner = AiTroopSpawner.Create {
+        ScriptName   = "P2Foundry1",
+        SpawnPoint   = "P2Foundry1Spawn",
+        SpawnAmount  = 2,
+        AllowedTypes = {
+            {Entities.PV_Cannon1, 0}
+        }
+    };
+    -- AiTroopSpawner.AddArmy(gvP2FoundrySpawner, gvP2Army1);
+    AiTroopSpawner.AddArmy(gvP2FoundrySpawner, gvP2Army2);
+    AiTroopSpawner.AddArmy(gvP2FoundrySpawner, gvP2Army3);
+    AiTroopSpawner.AddArmy(gvP2FoundrySpawner, gvP2Army4);
+    AiTroopSpawner.AddArmy(gvP2FoundrySpawner, gvP2Army5);
+    AiTroopSpawner.AddArmy(gvP2FoundrySpawner, gvP2Army6);
+    AiTroopSpawner.AddArmy(gvP2FoundrySpawner, gvP2Army7);
+end
+
+-- The splitter group is implementet as standard bandit camp. They have the
+-- ability to attack the player.
+function CreatePlayer3()
+    local Generators = {};
+    table.insert(Generators, CreateTroopSpawner(
+        3, "HQ3", GetPosition("HQ3Spawn"), 3, 60, 2000,
+        Entities.PU_LeaderBow1
+    ));
+    for i= 1,3 do
+        table.insert(Generators, CreateTroopSpawner(
+            3, "P3Tent" ..i, nil, 1, 2*60, 2000,
+            Entities.PU_LeaderPoleArm1
+        ));
+    end
+
+    gvPlayer3Camp = CreateOutlawCamp(
+        3, GetPosition("BanditCampPos"), GetPosition("PlayerHome"),
+        2500, 3, 10*60, unpack(Generators)
+    );
+
+    SetHostile(1, 3);
+    MakeInvulnerable("HQ3");
+    Job.Second(function()
+        if not IsExisting("P3Tent1") and not IsExisting("P3Tent2") and not IsExisting("P3Tent3") then
+            MakeVulnerable("HQ3");
+            return true;
+        end
+    end);
 end
 
 -- ########################################################################## --
@@ -587,7 +888,7 @@ function BriefingTutorialIntro()
     AP {
         Title    = "Mentor",
         Text     = "Es sieht so aus, als sei eine Revolte gegen die Krone "..
-                   "im vollem Gange. Der König hat Euch entsandt, in der "..
+                   "im vollem Gange. Der Kaiser hat Euch entsandt, in der "..
                    " entlegensten Provinz des Reiches für Ordnung zu sorgen.",
         Target   = "HQ2",
         Duration = 10,
@@ -608,15 +909,22 @@ function BriefingTutorialIntro()
     }
 
     Briefing.Starting = function(_Data)
-        ChangePlayer("HQ1", 8);
     end
     Briefing.Finished = function(_Data)
         LookAt("Scout", "HQ1");
-        Logic.SuspendAllEntities(1);
-        ForbidTechnology(Technologies.T_FreeCamera);
         Tutorial_StartPart1();
     end
     BriefingSystem.Start(1, "BriefingTutorialIntro", Briefing);
+end
+
+-- -------------------------------------------------------------------------- --
+
+function BriefingScoutNpc()
+    NonPlayerCharacter.Create {
+        ScriptName = "Scout",
+        Callback   = BriefingScout
+    }
+    NonPlayerCharacter.Activate("Scout");
 end
 
 function BriefingScout(_Npc, _HeroID)
@@ -634,14 +942,14 @@ function BriefingScout(_Npc, _HeroID)
         Title    = "Anführer der Späher",
         Text     = gvGender.Address.. ", Es sieht so aus, als habe ein alter "..
                    "Feind seine Macht wiedererlangt.",
-        Target   = "Scout",
+        Target   = _Npc.ScriptName,
         CloseUp  = true,
     }
     AP {
         Title    = "Anführer der Späher",
         Text     = "Der Schwarze Ritter Scorillo hat erneut eine große Armee "..
                    "um sich geschaart. Es hat den Anschein, als wolle er den "..
-                   "König stürzen und selbst die Macht ergreifen.",
+                   "Kaiser stürzen und selbst die Macht ergreifen.",
         Target   = "Scorillo",
         CloseUp  = true,
         MiniMap  = true,
@@ -658,7 +966,7 @@ function BriefingScout(_Npc, _HeroID)
         Title    = "Anführer der Späher",
         Text     = "Entschuldigt, " ..gvGender.Address.. ", aber das kann "..
                    "ich Euch nicht beantworten.",
-        Target   = "Scout",
+        Target   = _Npc.ScriptName,
         CloseUp  = true,
     }
     AP {
@@ -691,16 +999,80 @@ function BriefingScout(_Npc, _HeroID)
         Title    = "Anführer der Späher",
         Text     = "Ich bin voller Zuversicht, " ..gvGender.Address.. "! Ich"..
                    "und meine Leute unterstehen Eurem Befehl.",
-        Target   = "Scout",
+        Target   = _Npc.ScriptName,
         CloseUp  = true,
     }
 
     Briefing.Finished = function(_Data)
-        ChangePlayer(GetID("Scout"), 1);
-        Tools.CreateSoldiersForLeader(GetID("Scout"), 3);
+        ChangePlayer(GetID(_Npc.ScriptName), 1);
         Tutorial_StartPart2();
     end
     BriefingSystem.Start(1, "BriefingScout", Briefing);
 end
 
+-- -------------------------------------------------------------------------- --
+
+function BriefingGuardian1Npc()
+    NonPlayerCharacter.Create {
+        ScriptName = "GateDude",
+        Callback   = BriefingGuardian1
+    }
+    NonPlayerCharacter.Activate("GateDude");
+end
+
+function BriefingGuardian1(_Npc, _HeroID)
+    local Briefing = {};
+    local AP,ASP,AMC = BriefingSystem.AddPages(Briefing);
+
+    AP {
+        Title    = gvGender.Name,
+        Text     = "Ah, endlich frei! Wisst Ihr wie eingeschlafene Füße "..
+                   "schmecken? Ungefähr so wie das Zeug, was mir vorgesetzt "..
+                   "wurde. Wäh!",
+        Target   = _Npc.ScriptName,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = gvGender.Name,
+        Text     = "Und wer war Ihr noch mal?",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = gvGender.Name,
+        Text     = "Ich war der Wärter des Turms, den Eure Leute zerstört "..
+                   "haben. Das war einmal eine Zollstation, bevor die Irren "..
+                   "dieses Scorillo hier alles übernommen haben.",
+        Target   = _Npc.ScriptName,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = gvGender.Name,
+        Text     = "Wegen diesem Mann bin ich hier. Ich handele im Auftrag "..
+                   "des Kaisers. Ich soll mich dem Aufstand annehmen.",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = gvGender.Name,
+        Text     = "Die Brücke ist bei einem Erdbeben eingestürzt. Wenn ich "..
+                   "das Tor öffne, dann quetschen sich die bösen Jungs hier "..
+                   "durch. Dann ist Polen offen! Das Tor bleibt zu, bis die "..
+                   "Brücke wieder aufgebaut ist.",
+        Target   = "BridgePos",
+        CloseUp  = false,
+    }
+    AP {
+        Title    = gvGender.Name,
+        Text     = "Na gut, dann werde ich mich zuerst darum kümmern.",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+
+    Briefing.Finished = function(_Data)
+        AllowTechnology(Technologies.B_Bridge, 1);
+        Job.Second(Tutorial_BridgeBuildTrigger);
+    end
+    BriefingSystem.Start(1, "BriefingGuardian1", Briefing);
+end
 

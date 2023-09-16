@@ -231,7 +231,7 @@ function Stronghold.Outlaw:ControlCamp(_PlayerID, _CampID)
         -- Check spawner
         for i= table.getn(Data.SpawnerList), 1, -1 do
             if not IsTroopSpawnerExisting(_PlayerID, Data.SpawnerList[i]) then
-                table.remove(self.Data[_PlayerID].Camps[_CampID].Spawner, i);
+                table.remove(self.Data[_PlayerID].Camps[_CampID].SpawnerList, i);
             end
         end
         if table.getn(Data.SpawnerList) == 0 then

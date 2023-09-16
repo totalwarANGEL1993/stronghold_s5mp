@@ -10,6 +10,7 @@
 
 		<NeedsPlayer>true</NeedsPlayer>
 		<ForceNoPlayer>false</ForceNoPlayer>
+        <IsWall>true</IsWall>
 		<ArmorClass>ArmorClassJerkin</ArmorClass> 
 		<MaxHealth>300</MaxHealth>
 	    <ArmorAmount>0</ArmorAmount>
