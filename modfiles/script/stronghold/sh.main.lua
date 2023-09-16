@@ -291,6 +291,7 @@ function Stronghold:Init()
     self.Province:Install();
     self.Statistic:Install();
     self.Multiplayer:Install();
+    self.AI:Install();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
@@ -337,6 +338,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Province:OnSaveGameLoaded();
     self.Statistic:OnSaveGameLoaded();
     self.Multiplayer:OnSaveGameLoaded();
+    self.AI:OnSaveGameLoaded();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();

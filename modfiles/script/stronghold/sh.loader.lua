@@ -44,6 +44,7 @@ Lib.Require("comfort/IsValidEntity");
 Lib.Require("comfort/KeyOf");
 
 -- Load modules
+Lib.Require("module/ai/AiArmyManager");
 Lib.Require("module/archive/Archive");
 Lib.Require("module/camera/FreeCam");
 Lib.Require("module/entity/EntityTracker");
