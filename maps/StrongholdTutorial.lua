@@ -751,7 +751,7 @@ function CreatePlayer2Armies()
         gvP2StableSpawner, gvP2FoundrySpawner);
 
     for i= 2, 7 do
-        _G["gvP2Army"..i] = ArmyCreate(2, 3, GetPosition("P2DefPos1"), 4000);
+        _G["gvP2Army"..i] = ArmyCreate(2, 3, GetPosition("P2DefPos1"), 5000);
         ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos1");
         ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos2");
         ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos3");
