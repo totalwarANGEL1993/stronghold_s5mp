@@ -504,6 +504,13 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         if _Config.OnSaveLoaded then
             GameCallback_SH_Logic_SaveLoaded = _Config.OnSaveLoaded;
         end
+
+        if _Config.Titles then
+            local Players = Syncer.GetActivePlayers();
+            for i= 1, table.getn(Players) do
+                Stronghold.Rights:InitDutiesAndRights(Players[i], _Config.Titles);
+            end
+        end
     end
 end
 

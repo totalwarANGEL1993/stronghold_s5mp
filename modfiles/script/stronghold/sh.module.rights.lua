@@ -87,10 +87,10 @@ function Stronghold.Rights:Install()
             LockRank = Stronghold.Config.Base.MaxRank +1,
             Rank = Stronghold.Config.Base.InitialRank,
 
-            Titles = CopyTable(Stronghold.Rights.Config.Titles);
+            Titles = {};
             Rights = {},
         };
-        self:InitDutiesAndRights(i);
+        self:InitDutiesAndRights(i, self.Config.Titles);
     end
     self:CreateButtonHandlers();
 end
@@ -174,10 +174,13 @@ end
 -- -------------------------------------------------------------------------- --
 -- Rights
 
-function Stronghold.Rights:InitDutiesAndRights(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        for k,v in pairs(self.Config.Titles) do
-            for _, RightToUnlock in pairs(self.Config.Titles[k].Rights) do
+function Stronghold.Rights:InitDutiesAndRights(_PlayerID, _RightsAndDuties)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local RightsAndDuties = CopyTable(_RightsAndDuties or self.Config.Titles);
+        self.Data[_PlayerID].Titles = RightsAndDuties;
+        self.Data[_PlayerID].Rights = {};
+        for k,v in pairs(RightsAndDuties) do
+            for _, RightToUnlock in pairs(RightsAndDuties[k].Rights) do
                 self.Data[_PlayerID].Rights[RightToUnlock] = 0;
             end
         end
