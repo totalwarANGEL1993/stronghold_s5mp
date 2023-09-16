@@ -845,7 +845,7 @@ function Stronghold.Recruitment:ControlProductionQueues(_PlayerID)
                 if not IsExisting(ScriptName) then
                     self.Data[_PlayerID].Queues[ButtonName][ScriptName] = nil;
                 else
-                    if Queue[1] then
+                    if Queue[1] and not InterfaceTool_IsBuildingDoingSomething(GetID(ScriptName)) then
                         if Queue[1].Progress >= Queue[1].Limit then
                             if self:CanProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName) then
                                 self:ProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName);
