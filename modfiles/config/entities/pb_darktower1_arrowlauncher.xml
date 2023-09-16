@@ -27,13 +27,13 @@
             <CannonBallEffectType>FXTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
             <ReloadTime>1300</ReloadTime>
-            <MaxAttackRange>3000.0f</MaxAttackRange>
-            <MinRange>200.0f</MinRange>
+            <MaxAttackRange>2500.0f</MaxAttackRange>
+            <MinRange>800</MinRange>
             <DamageClass>DC_Chaos</DamageClass>
             <!-- Note: That is single target damage! -->
-            <DamageAmount>40</DamageAmount>
+            <DamageAmount>50</DamageAmount>
             <DamageRange>300</DamageRange>
-            <AutoAttackRange>3000</AutoAttackRange>
+            <AutoAttackRange>2500</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>
         </Logic>
         <Display classname="ED::CBehaviorProps">

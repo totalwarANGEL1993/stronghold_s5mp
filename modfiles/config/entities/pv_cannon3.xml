@@ -24,7 +24,7 @@
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>350</MaxHealth>
-        <Exploration>27</Exploration>
+        <Exploration>28</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
@@ -95,14 +95,14 @@
             <DamageClass>DC_Chaos</DamageClass>
             <DamageAmount>60</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>1200</DamageRange>
+            <DamageRange>900</DamageRange>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
-            <MaxRange>2700</MaxRange>
+            <MaxRange>2800</MaxRange>
             <MinRange>1500</MinRange>
-            <AutoAttackRange>2700</AutoAttackRange>
+            <AutoAttackRange>2800</AutoAttackRange>
 
 
             <UpkeepCost>20</UpkeepCost>

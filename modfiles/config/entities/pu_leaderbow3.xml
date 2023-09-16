@@ -76,7 +76,7 @@
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>250</MaxHealth>
-        <Exploration>27</Exploration>
+        <Exploration>25</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <DodgeChance>6</DodgeChance>
@@ -144,9 +144,9 @@
             <MissChance>5</MissChance>
 
             <ProjectileEffectID>FXCrossBowArrow</ProjectileEffectID>
-            <MaxRange>2700</MaxRange>
+            <MaxRange>2500</MaxRange>
             <MinRange>0.0f</MinRange>
-            <AutoAttackRange>2700</AutoAttackRange>
+            <AutoAttackRange>2500</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>2</HealingSeconds>

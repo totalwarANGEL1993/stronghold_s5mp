@@ -117,4 +117,6 @@ Script.Load(gvStrongholdPath.. "sh.module.outlaw.constants.lua");
 ---
 Script.Load(gvStrongholdPath.. "sh.module.multiplayer.lua");
 Script.Load(gvStrongholdPath.. "sh.module.multiplayer.config.lua");
+---
+Script.Load(gvStrongholdPath.. "sh.module.ai.lua");
 

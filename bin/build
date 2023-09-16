@@ -20,9 +20,6 @@ mkdir -p var/stronghold_s5mp/archive.bba.unpacked/script
 cp -r "E:/Repositories/cerberus/var/cerberus" .
 cp -r cerberus var/stronghold_s5mp/archive.bba.unpacked/script
 
-# copy additional files
-cp modfiles/sh.loader.lua var/stronghold_s5mp/sh.loader.lua
-
 # pack archive
 bin/bba5.exe var/stronghold_s5mp/archive.bba.unpacked
 

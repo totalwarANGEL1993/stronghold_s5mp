@@ -33,7 +33,7 @@
         <Category>CavalryLight</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>30</Exploration>
+        <Exploration>28</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <DodgeChance>15</DodgeChance>
@@ -128,9 +128,9 @@
             <MissChance>4</MissChance>
 
             <ProjectileEffectID>FXCrossBowCavalryArrow</ProjectileEffectID>
-            <MaxRange>3000</MaxRange>
+            <MaxRange>2800</MaxRange>
             <MinRange>0.0f</MinRange>
-            <AutoAttackRange>3200</AutoAttackRange>
+            <AutoAttackRange>2800</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>

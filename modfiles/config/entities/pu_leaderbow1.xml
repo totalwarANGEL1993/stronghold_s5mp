@@ -80,7 +80,7 @@
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>125</MaxHealth>
-        <Exploration>24</Exploration>
+        <Exploration>22</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>0</ArmorAmount>
         <DodgeChance>12</DodgeChance>
@@ -148,9 +148,9 @@
             <MissChance>10</MissChance>
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
-            <MaxRange>2400</MaxRange>
+            <MaxRange>2200</MaxRange>
             <MinRange>0.0f</MinRange>
-            <AutoAttackRange>2400</AutoAttackRange>
+            <AutoAttackRange>2200</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>

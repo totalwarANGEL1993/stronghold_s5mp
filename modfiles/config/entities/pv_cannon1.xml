@@ -23,7 +23,7 @@
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>200</MaxHealth>
-        <Exploration>24</Exploration>
+        <Exploration>22</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
         <DodgeChance>0</DodgeChance>
@@ -102,9 +102,9 @@
             <ProjectileOffsetFront>40</ProjectileOffsetFront>
             <ProjectileOffsetRight/>
             <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
-            <MaxRange>2400</MaxRange>
+            <MaxRange>2200</MaxRange>
             <MinRange>1000.0f</MinRange>
-            <AutoAttackRange>2400</AutoAttackRange>
+            <AutoAttackRange>2200</AutoAttackRange>
 
             <UpkeepCost>20</UpkeepCost>
 

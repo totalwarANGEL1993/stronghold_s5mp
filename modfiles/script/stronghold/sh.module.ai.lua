@@ -276,11 +276,13 @@ end
 
 function Stronghold.AI:SetArmySpawner(_ArmyID, ...)
     if self.Data.Armies[_ArmyID] then
-        local ID = self.Data.Armies[_ArmyID][1];
+        local ArmyID = self.Data.Armies[_ArmyID][1];
         for k,v in pairs(self.Data.Spawner) do
-            AiTroopSpawner.RemoveArmy(v[1], ID);
-            if k == arg[i] then
-                AiTroopSpawner.AddArmy(v[1], ID);
+            AiTroopSpawner.RemoveArmy(v[1], ArmyID);
+            for i= 1, table.getn(arg) do
+                if k == arg[i] then
+                    AiTroopSpawner.AddArmy(v[1], ArmyID);
+                end
             end
         end
     end

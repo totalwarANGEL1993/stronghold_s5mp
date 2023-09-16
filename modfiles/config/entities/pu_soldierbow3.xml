@@ -78,7 +78,7 @@
         <Category>Soldier</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>27</Exploration>
+        <Exploration>25</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -134,7 +134,7 @@
             <MissChance>5</MissChance>
 
             <ProjectileEffectID>FXCrossBowArrow</ProjectileEffectID>
-            <MaxRange>2700</MaxRange>
+            <MaxRange>2500</MaxRange>
             <MinRange>0.0f</MinRange>
         </Logic>
     </Behavior>

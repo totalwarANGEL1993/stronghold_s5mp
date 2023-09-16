@@ -27,12 +27,12 @@
             <CannonBallEffectType>FXBalistaTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
             <ReloadTime>2100</ReloadTime>
-            <MaxAttackRange>3200.0f</MaxAttackRange>
-            <MinRange>800.0f</MinRange>
+            <MaxAttackRange>2800.0f</MaxAttackRange>
+            <MinRange>750</MinRange>
             <DamageClass>DC_Chaos</DamageClass>
-            <DamageAmount>45</DamageAmount>
-            <DamageRange>500</DamageRange>
-            <AutoAttackRange>3200</AutoAttackRange>
+            <DamageAmount>40</DamageAmount>
+            <DamageRange>400</DamageRange>
+            <AutoAttackRange>2800</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>
         </Logic>
         <Display classname="ED::CBehaviorProps">
