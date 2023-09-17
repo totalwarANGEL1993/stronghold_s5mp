@@ -936,6 +936,18 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_SlaveAttrationLimit", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyMaxSlaveAttractionPassiveAbility(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_SlaveAttrationUsage", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplySlaveAttractionPassiveAbility(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
     -- Social --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MeasureIncrease", function(_PlayerID, _CurrentAmount)
@@ -1112,6 +1124,24 @@ end
 -- Passive Ability: Increase of max civil attraction
 function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
+        Value = Value * self.Config.Hero12.PopulationFactor;
+    end
+    return Value;
+end
+
+-- Passive Ability: Increase of max serf attraction
+function Stronghold.Hero:ApplyMaxSlaveAttractionPassiveAbility(_PlayerID, _Value)
+    local Value = _Value;
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
+        Value = Value * self.Config.Hero12.SlaveFactor;
+    end
+    return Value;
+end
+
+-- Passive Ability: Change serf places usage
+function Stronghold.Hero:ApplySlaveAttractionPassiveAbility(_PlayerID, _Value)
+    local Value = _Value;
     -- Do nothing
     return Value;
 end
@@ -1119,10 +1149,7 @@ end
 -- Passive Ability: Change millitary places usage
 function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
-        local ThiefCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Thief);
-        Value = Value - (ThiefCount * Stronghold.Hero.Config.Hero8.ThiefPlaces);
-    elseif self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
         local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon1);
         Cannon1 = math.floor(((Cannon1 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
         local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon2);
@@ -1139,8 +1166,8 @@ end
 -- Passive Ability: Increase of max military attraction
 function Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        Value = Value * self.Config.Hero12.MilitaryFactor;
+    if self:HasValidLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
+        Value = Value * self.Config.Hero1.MilitaryFactor;
     end
     return Value;
 end
@@ -1224,7 +1251,7 @@ end
 function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type, _Upkeep)
     local Upkeep = _Upkeep;
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
-        if _Type == Entities.PU_Thief then
+        if _Type == Entities.PU_Scout or _Type == Entities.PU_Thief then
             Upkeep = self.Config.Hero8.UpkeepFactor;
         end
     end

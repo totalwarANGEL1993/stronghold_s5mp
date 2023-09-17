@@ -99,8 +99,8 @@ Stronghold.Economy.Config.Income = {
             [Entities.PB_Residence3] = {Honor = 0.05, Reputation = 0.12,},
         },
         [Technologies.T_Instruments] = {
-            [Entities.PB_Tavern1]    = {Honor = 0.30, Reputation = 0.0,},
-            [Entities.PB_Tavern2]    = {Honor = 0.35, Reputation = 0.0,},
+            [Entities.PB_Tavern1]    = {Honor = 0.35, Reputation = 0.0,},
+            [Entities.PB_Tavern2]    = {Honor = 0.30, Reputation = 0.0,},
         },
     },
 
@@ -113,8 +113,8 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Residence2] = {Honor = 0.06, Reputation = 0.10,},
         [Entities.PB_Residence3] = {Honor = 0.09, Reputation = 0.15,},
         ---
-        [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.30,},
-        [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.35,},
+        [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.35,},
+        [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.30,},
     },
     Static = {
         [Entities.PB_Beautification04] = {Honor = 1, Reputation = 1,},
@@ -143,6 +143,9 @@ Stronghold.Economy.Config.Income = {
 }
 
 Stronghold.Economy.Config.SelectCategoryMapping = {
+    [UpgradeCategories.Serf] = {
+        Entities.PU_Serf,
+    },
     [UpgradeCategories.LeaderSword] = {
         Entities.CU_BanditLeaderSword1,
         Entities.CU_BanditLeaderSword2,

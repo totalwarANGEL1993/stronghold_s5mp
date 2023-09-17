@@ -723,6 +723,10 @@ function Stronghold.Recruitment:CanProduceUnitFromQueue(_PlayerID, _Queue, _Scri
                     AttractionLimit = GetCivilAttractionLimit(_PlayerID);
                     AttractionUsage = GetCivilAttractionUsage(_PlayerID);
                 end
+                if Config.IsSlave then
+                    AttractionLimit = GetSlaveAttractionLimit(_PlayerID);
+                    AttractionUsage = GetSlaveAttractionUsage(_PlayerID);
+                end
                 return AttractionUsage + Places <= AttractionLimit;
             end
         end

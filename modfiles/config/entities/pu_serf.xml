@@ -35,35 +35,33 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
+        <Hat/>
         <MaxHealth> 200 </MaxHealth>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>0</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Category>Serf</Category>
-        <Hat/>
-        <Cost>
-            <Gold>50</Gold>
-        </Cost>
+        <AttractionSlots>0</AttractionSlots>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <RepairFactor>0.3</RepairFactor>
         <Exploration>24</Exploration>
+        <IdleTaskList>TL_SERF_IDLE</IdleTaskList>
+        <Cost>
+            <Gold>50</Gold>
+        </Cost>
 
         <ModifyExploration>
             <Technology>T_Tracking</Technology>
         </ModifyExploration>
-
-
-        <!--Armor modifier-->
+        
         <ModifyArmor>
             <Technology>T_Loom</Technology>
         </ModifyArmor>
-        <!-- Speed Modifier-->
+
         <ModifySpeed>
             <Technology>T_Shoes</Technology>
         </ModifySpeed>
-
-        <IdleTaskList>TL_SERF_IDLE</IdleTaskList>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

@@ -19,6 +19,12 @@
 --- - <number> GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
 ---   Allows to overwrite the current overall usage of military places.
 ---
+--- - <number> GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, _Amount)
+---   Allows to overwrite the max usage of serf places.
+---
+--- - <number> GameCallback_SH_Calculate_SlaveAttrationUsage(_PlayerID, _Amount)
+---   Allows to overwrite the current overall usage of serf places.
+---
 --- - <number> GameCallback_SH_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Places)
 ---   Allows to overwrite the places a unit is occupying.
 --- 
@@ -71,6 +77,14 @@ function GetMilitaryAttractionUsage(_PlayerID)
     return Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID);
 end
 
+function GetSlaveAttractionLimit(_PlayerID)
+    return Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID);
+end
+
+function GetSlaveAttractionUsage(_PlayerID)
+    return Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID);
+end
+
 function GetMilitaryPlacesUsedByUnit(_Type, _Amount)
     return Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type, _Amount);
 end
@@ -114,11 +128,19 @@ function GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, _Amount)
     return _Amount;
 end
 
 function GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
+    return _Amount;
+end
+
+function GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
+    return _Amount;
+end
+
+function GameCallback_SH_Calculate_SlaveAttrationUsage(_PlayerID, _Amount)
     return _Amount;
 end
 
@@ -436,6 +458,44 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Serfs
+
+function Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID)
+    local Limit = 0;
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local RawLimit = self.Config.Attraction.SlaveLimit;
+        -- Rank
+        local Rank = GetRank(_PlayerID);
+        if Rank > 0 then
+            RawLimit = RawLimit + (Rank * self.Config.Attraction.RankSlaveBonus);
+        end
+
+        -- External
+        Limit = GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, RawLimit);
+    end
+    return math.floor(Limit + 0.5);
+end
+
+function Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID)
+    local Usage = 0;
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        Usage = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
+        -- External
+        Usage = GameCallback_SH_Calculate_SlaveAttrationUsage(_PlayerID, Usage);
+    end
+    return math.floor(Usage + 0.5);
+end
+
+function Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Limit = self:GetPlayerSlaveAttractionLimit(_PlayerID);
+        local Usage = self:GetPlayerSlaveAttractionUsage(_PlayerID);
+        return Limit - Usage >= 1;
+    end
+    return true;
+end
+
+-- -------------------------------------------------------------------------- --
 -- Virtual Settlers
 
 function Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(_PlayerID)
@@ -483,13 +543,6 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         if IsEntityValid(Stronghold:GetPlayerHero(_PlayerID)) then
             local RawLimit = 0;
-            -- Village Centers
-            local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
-            RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCMilitary[1]);
-            local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
-            RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCMilitary[2]);
-            local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
-            RawLimit = RawLimit + (VC3 * self.Config.Attraction.VCMilitary[3]);
             -- Headquarters
             local HQ1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true));
             RawLimit = RawLimit + (HQ1 * self.Config.Attraction.HQMilitary[1]);
@@ -497,10 +550,6 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
             RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
             local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
             RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQMilitary[3]);
-            -- Rank
-            local RankFactor = self.Config.Attraction.RankMilitaryFactor;
-            Limit = RawLimit + (RawLimit * (RankFactor * (GetRank(_PlayerID)-1)));
-
             -- Barracks
             local BB1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true));
             Limit = Limit + (BB1 * self.Config.Attraction.BBMilitary[1]);
@@ -546,13 +595,10 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
 end
 
 function Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount)
-    if IsPlayer(_PlayerID) then
-        if not IsAIPlayer(_PlayerID) then
-            local Limit = self:GetPlayerMilitaryAttractionLimit(_PlayerID);
-            local Usage = self:GetPlayerMilitaryAttractionUsage(_PlayerID);
-            return Limit - Usage >= _Amount;
-        end
-        return false;
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Limit = self:GetPlayerMilitaryAttractionLimit(_PlayerID);
+        local Usage = self:GetPlayerMilitaryAttractionUsage(_PlayerID);
+        return Limit - Usage >= _Amount;
     end
     return true;
 end

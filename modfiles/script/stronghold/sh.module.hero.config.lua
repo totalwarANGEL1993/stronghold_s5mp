@@ -4,7 +4,8 @@
 
 -- Hero 1 properties
 Stronghold.Hero.Config.Hero1 = {
-    MeasureFactor = 2.5,
+    MeasureFactor = 2.0,
+    MilitaryFactor = 1.15,
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
@@ -47,7 +48,7 @@ Stronghold.Hero.Config.Hero7 = {
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {
     UpkeepFactor = 0.5,
-    ThiefPlaces = 5,
+    SlaveFactor = 1.1,
 }
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
@@ -62,7 +63,7 @@ Stronghold.Hero.Config.Hero10 = {
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {
-    TradeBonusFactor = 0.3,
+    TradeBonusFactor = 0.5,
     InitialReputation = 100,
     ReputationCap = 300,
     ShurikenChance = 5,
@@ -70,8 +71,7 @@ Stronghold.Hero.Config.Hero11 = {
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {
-    PopulationFactor = 1.3,
-    MilitaryFactor = 1.15,
+    PopulationFactor = 1.15,
 }
 
 -- Text overwrite

@@ -369,6 +369,7 @@ Stronghold.Unit.Config = {
         },
         Right             = PlayerRight.Serf,
         IsCivil           = true,
+        IsSlave           = true,
         Upkeep            = 0,
         Turns             = 80,
         Soldiers          = 0,

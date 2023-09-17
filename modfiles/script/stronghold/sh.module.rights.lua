@@ -559,8 +559,10 @@ GUIAction_FreeCameraButton = function (_Button)
     local PlayerID = GUI.GetPlayerID();
     if _Button == "FreeCamButton" then
         if not Syncer.IsMultiplayer() or PlayerID == 17 then
-            FreeCam.Toggle();
-            XGUIEng.ShowWidget("FreeCamControls", 1);
+            if Logic.GetTechnologyState(PlayerID, Technologies.T_FreeCamera) ~= 0 then
+                FreeCam.Toggle();
+                XGUIEng.ShowWidget("FreeCamControls", 1);
+            end
         end
     elseif _Button == "FreeCamCancelButton" then
         FreeCam.Toggle();

@@ -1111,21 +1111,41 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         XGUIEng.SetText( "TaxLeaderSumOfPay", " @color:255,32,32 @ra "..Upkeep);
     end);
 
-    Overwrite.CreateOverwrite("GUIUpdate_AverageMotivation", function()
+    function GUIUpdate_Population()
         local PlayerID = GetLocalPlayerID();
-        if not IsPlayer(PlayerID) then
-            return Overwrite.CallOriginal();
+        local Usage = 0;
+        local Limit = 0;
+        if IsPlayer(PlayerID) then
+            Usage = GetCivilAttractionUsage(PlayerID);
+            Limit = GetCivilAttractionLimit(PlayerID);
         end
-        XGUIEng.SetMaterialTexture("IconMotivation", 0, "graphics/textures/gui/i_res_arms.png");
-        XGUIEng.SetWidgetPosition("IconMotivation", 12, 120);
-        XGUIEng.SetWidgetSize("IconMotivation", 18, 18);
+        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
+        XGUIEng.SetText("PopulationPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+    end
 
-        local Usage = Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(PlayerID);
-        local Limit = Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(PlayerID);
-        XGUIEng.SetText("AverageMotivation", "@ra " ..Usage.. "/" ..Limit);
-        XGUIEng.SetWidgetPositionAndSize("AverageMotivation", 37, 118, 53, 15);
-		XGUIEng.SetTextColor("AverageMotivation", 115, 125, 125);
-    end);
+    function GUIUpdate_Military()
+        local PlayerID = GetLocalPlayerID();
+        local Usage = 0;
+        local Limit = 0;
+        if IsPlayer(PlayerID) then
+            Usage = GetMilitaryAttractionUsage(PlayerID);
+            Limit = GetMilitaryAttractionLimit(PlayerID);
+        end
+        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
+        XGUIEng.SetText("MilitaryPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+    end
+
+    function GUIUpdate_Slaves()
+        local PlayerID = GetLocalPlayerID();
+        local Usage = 0;
+        local Limit = 0;
+        if IsPlayer(PlayerID) then
+            Usage = GetSlaveAttractionUsage(PlayerID);
+            Limit = GetSlaveAttractionLimit(PlayerID);
+        end
+        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
+        XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+    end
 end
 
 function Stronghold.Economy:PrintTooltipGenericForEcoGeneral(_PlayerID, _Key)
@@ -1137,18 +1157,6 @@ function Stronghold.Economy:PrintTooltipGenericForEcoGeneral(_PlayerID, _Key)
         return true;
     elseif _Key == "sh_menuheadquarter/TaxLeader" then
         local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewTaxLeader")
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
-        return true;
-    elseif _Key == "MenuResources/population" then
-        local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewPopulation")
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
-        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
-        return true;
-    elseif _Key == "MenuResources/Motivation" then
-        local Text = XGUIEng.GetStringTableText("sh_text/UI_OverviewMilitary")
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");

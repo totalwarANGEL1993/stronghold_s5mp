@@ -3,12 +3,12 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>35</TimeToResearch>
     <ResourceCosts>
-		<Knowledge>2</Knowledge>
+		<Knowledge>6</Knowledge>
         <Gold>400</Gold>
         <Clay>0</Clay>
-        <Wood>100</Wood>
+        <Wood>200</Wood>
         <Stone>0</Stone>
-        <Iron>100</Iron>
+        <Iron>200</Iron>
         <Sulfur>0</Sulfur>
     </ResourceCosts>
     <AutomaticResearch>true</AutomaticResearch>
