@@ -294,7 +294,8 @@ function Stronghold.Construction:StartCheckTowerDistanceCallback()
             local PlayerID = GUI.GetPlayerID();
             local Allowed = true;
             if IsPlayer(PlayerID) then
-                if Allowed and Logic.GetUpgradeCategoryByBuildingType(_Type) == UpgradeCategories.Tower then
+                local UpCat = Logic.GetUpgradeCategoryByBuildingType(_Type);
+                if Allowed and (UpCat == UpgradeCategories.DarkTower or UpCat == UpgradeCategories.Tower) then
                     local AreaSize = Stronghold.Construction.Config.TowerDistance;
                     AreaSize = GameCallback_SH_Calculate_MinimalTowerDistance(PlayerID, AreaSize);
                     if Stronghold.Construction:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then

@@ -60,7 +60,15 @@ GameCallback_OnGameStart = GameCallback_OnGameStart or function()
 	Script.Load("Data\\Script\\MapTools\\MultiPlayer\\MultiplayerTools.lua");
 	Script.Load("Data\\Script\\MapTools\\Tools.lua");
 	Script.Load("Data\\Script\\MapTools\\WeatherSets.lua");
+	IncludeGlobals("GlobalMissionScripts");
+    IncludeGlobals("Conditions");
+    IncludeGlobals("Counter");
+	IncludeGlobals("Explore");
 	IncludeGlobals("Comfort");
+
+    gvMission = {}
+	gvMission.PlayerID = GUI.GetPlayerID();
+    Music.Stop();
 
     -- Do default multiplayer stuff
 	MultiplayerTools.InitCameraPositionsForPlayers();

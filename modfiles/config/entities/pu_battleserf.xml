@@ -26,6 +26,7 @@
         <MaxHealth> 200 </MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
+        <AttractionSlots>0</AttractionSlots>
         <Hat></Hat>
         <Cost>
             <Silver>100</Silver>

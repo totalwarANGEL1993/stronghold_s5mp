@@ -5,7 +5,7 @@
 -- Hero 1 properties
 Stronghold.Hero.Config.Hero1 = {
     MeasureFactor = 2.0,
-    MilitaryFactor = 1.15,
+    MilitaryFactor = 1.2,
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
@@ -71,7 +71,7 @@ Stronghold.Hero.Config.Hero11 = {
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {
-    PopulationFactor = 1.15,
+    PopulationFactor = 1.2,
 }
 
 -- Text overwrite

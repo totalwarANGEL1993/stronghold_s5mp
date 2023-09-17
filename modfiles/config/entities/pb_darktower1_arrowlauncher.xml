@@ -31,7 +31,7 @@
             <MinRange>800</MinRange>
             <DamageClass>DC_Chaos</DamageClass>
             <!-- Note: That is single target damage! -->
-            <DamageAmount>50</DamageAmount>
+            <DamageAmount>40</DamageAmount>
             <DamageRange>300</DamageRange>
             <AutoAttackRange>2500</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

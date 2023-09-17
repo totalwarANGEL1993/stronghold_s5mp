@@ -163,9 +163,10 @@ function Tutorial_AddMainInterfaceSection()
     local ArrowPos_FindTroops = {581, 60};
     local ArrowPos_NewRes = {930, 60};
     local ArrowPos_Promote = {135, 690};
-    local ArrowPos_Military = {240, 680};
-    local ArrowPos_Civil = {240, 695};
-    local ArrowPos_Care = {240, 705};
+    local ArrowPos_Military = {240, 674};
+    local ArrowPos_Slaves = {240, 686};
+    local ArrowPos_Civil = {240, 698};
+    local ArrowPos_Care = {240, 712};
 
     Tutorial.AddMessage {
         Text        = "Lasst mich Euch die neuen Elemente des Interfaces "..
@@ -221,11 +222,18 @@ function Tutorial_AddMainInterfaceSection()
     }
     Tutorial.AddMessage {
         Text        = "Diese Anzeige gibt an, wie viele Menschen unter Eurer "..
-                      "Herrschaft leben. Arbeiter, Diebe, Knechte, "..
-                      "Kundschafter aber auch Verbrecher zählen zu Eurer "..
-                      "Bevölkerung. {scarlet}Baut die Burg aus oder besetzt "..
-                      "Dörfer,{white} um mehr Volk aufnehmen zu können.",
+                      "Herrschaft leben. Arbeiter, Diebe, Kundschafter aber "..
+                      "auch Verbrecher zählen zu Eurer Bevölkerung. {scarlet}"..
+                      "Baut die Burg aus oder besetzt Dörfer,{white} um mehr "..
+                      "Volk aufnehmen zu können.",
         Arrow       = ArrowPos_Civil
+    }
+    Tutorial.AddMessage {
+        Text        = "Knechte sind Unfreie und zählen weder als Bevölkerung "..
+                      "noch als Militär. Die Anzahl an Knechten, die Ihr "..
+                      "besitzen könnt, {scarlet}steigt mit jedem weiteren "..
+                      "Titel, den Euer Adliger erreicht.",
+        Arrow       = ArrowPos_Slaves
     }
     Tutorial.AddMessage {
         Text        = "Hier seht Ihr, wie stark Euer Heer ist und wie groß "..
@@ -245,7 +253,7 @@ function Tutorial_AddMainInterfaceSection()
     Tutorial.AddMessage {
         Text        = "Die Uhr gibt nicht nur die Zeit bis zum Zahltag an. "..
                       "Hier seht Ihr auch, {scarlet}wie sich Beliebtheit und "..
-                      "Ehreverändern werden. {white} Ihr könnt mehr Details "..
+                      "Ehre verändern werden. {white} Ihr könnt mehr Details "..
                       "sehen, wenn Ihr STRG gedrückt haltet.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_Clock
@@ -253,7 +261,8 @@ function Tutorial_AddMainInterfaceSection()
     Tutorial.AddMessage {
         Text        = "Beliebtheit und Ehre verändern sich {scarlet}niemals "..
                       "{white}sofort sondern {scarlet}ausschließlich{white} "..
-                      "am Zahltag!",
+                      "am Zahltag! Die einzige Außnahme ist Yuki, die Euch "..
+                      "einmalig Bonusbeliebtheit gewährt.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_Clock
     }
@@ -356,9 +365,10 @@ function Tutorial_AddCastleInterfaceSection()
                       "der markierten Position gehen!",
     }
     Tutorial.AddMessage {
-        Text        = "Nun ist es an der Zeit, Euren Adligen zu wählen. Es "..
-                      "ist für diese Einführung unerheblich, welchen Adligen "..
-                      "Ihr als Euren Avatar bestimmt.",
+        Text        = "Nun ist es an der Zeit, Euren Adligen zu wählen. "..
+                      "{scarlet} Ohne einen Adligen könnt Ihr kein Militär "..
+                      "anheuern! {white}Kein Adliger ist nutzlos. Jeder hat "..
+                      "individuelle Vorteile gegenüber den anderen.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_BuyNoble,
         Action      = function(_Data)
@@ -367,7 +377,9 @@ function Tutorial_AddCastleInterfaceSection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "Öffnet das Menü und sucht Euch einen Adligen aus!",
+        Text        = "Öffnet das Menü und sucht Euch einen Adligen aus! Für "..
+                      "das Bestehen dieser Einführung ist es unherheblich, "..
+                      "welchen Adligen Ihr wählt.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_BuyNoble,
         Condition   = function(_Data)
@@ -655,7 +667,6 @@ end
 function Tutorial_StartPart3()
     Tutorial.Stop();
     Tutorial.SetCallback(function()
-        ReplaceEntity("GateDude", Entities.CU_PoleArmIdle);
         BriefingGuardian1Npc();
         Job.Second(Tutorial_CheckVictory);
     end);
@@ -665,6 +676,9 @@ function Tutorial_StartPart3()
                       "Einführung in {scarlet}Stronghold {white} erfolgreich "..
                       "gemeistert. Ihr könnt das Spiel nun beenden oder die "..
                       "Mission zu Ende spielen.",
+        Action      = function(_Data)
+            ReplaceEntity("GateDude", Entities.CU_PoleArmIdle);
+        end,
     }
     Tutorial.AddMessage {
         Text        = "Egal wie Ihr Euch entscheidet, ich werde erst mal "..

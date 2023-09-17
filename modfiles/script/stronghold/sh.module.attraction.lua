@@ -479,7 +479,9 @@ end
 function Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID)
     local Usage = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        Usage = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
+        local BattleSerfs = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_BattleSerf);
+        local Serfs = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
+        Usage = BattleSerfs + Serfs;
         -- External
         Usage = GameCallback_SH_Calculate_SlaveAttrationUsage(_PlayerID, Usage);
     end
@@ -542,14 +544,13 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         if IsEntityValid(Stronghold:GetPlayerHero(_PlayerID)) then
-            local RawLimit = 0;
             -- Headquarters
             local HQ1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true));
-            RawLimit = RawLimit + (HQ1 * self.Config.Attraction.HQMilitary[1]);
+            Limit = Limit + (HQ1 * self.Config.Attraction.HQMilitary[1]);
             local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
-            RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
+            Limit = Limit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
             local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
-            RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQMilitary[3]);
+            Limit = Limit + (HQ3 * self.Config.Attraction.HQMilitary[3]);
             -- Barracks
             local BB1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true));
             Limit = Limit + (BB1 * self.Config.Attraction.BBMilitary[1]);
