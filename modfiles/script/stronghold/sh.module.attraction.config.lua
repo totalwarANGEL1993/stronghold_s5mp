@@ -10,7 +10,7 @@ Stronghold.Attraction.Config.Attraction = {
     -- Military attraction limit
     -- This is freely changeable in Lua
     HQMilitary = {[1] = 50, [2] = 75, [3] = 100},
-    BBMilitary = {[1] = 10, [2] = 20},
+    BBMilitary = {[1] = 15, [2] = 30},
     -- Serf attraction limit
     -- This is freely changeable in Lua
     SlaveLimit = 18,
@@ -38,11 +38,11 @@ Stronghold.Attraction.Config.Crime = {
 }
 
 Stronghold.Attraction.Config.ReserveUnits = {
-    AttractionFactor = 0.9,
+    AttractionFactor = 0.85,
 }
 
 Stronghold.Attraction.Config.ForeignSpecialists = {
-    AttractionFactor = 0.9,
+    AttractionFactor = 0.85,
 }
 
 Stronghold.Attraction.Config.UsedSpace = {
