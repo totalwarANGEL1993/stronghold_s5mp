@@ -496,10 +496,14 @@ function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _Taxt
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local Penalty = 0;
         if _TaxtHeight > 1 then
+            local Rank = GetRank(_PlayerID);
+            local WorkerEffect = self.Config.Income.TaxEffect.WorkerFactor;
             local TaxEffect = self.Config.Income.TaxEffect[_TaxtHeight].Reputation * -1;
-            local WorkerEffect = self.Config.Income.TaxEffect.WorkerFactor * WorkerCount;
-            local RankEffect = self.Config.Income.TaxEffect.RankFactor * GetRank(_PlayerID);
-            Penalty = TaxEffect * (1 + WorkerEffect + RankEffect);
+            WorkerEffect = WorkerEffect + ((WorkerEffect/10) * Rank);
+            Penalty = TaxEffect * (1 + (WorkerCount * WorkerEffect));
+            for i= 1, Rank do
+                Penalty = Penalty * self.Config.Income.TaxEffect.RankFactor;
+            end
         end
         return math.floor(Penalty);
     end

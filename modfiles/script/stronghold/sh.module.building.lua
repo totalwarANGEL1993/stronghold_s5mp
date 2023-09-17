@@ -349,7 +349,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
             Factor = Factor + self.Config.Headquarters.DecorativeSkullReputationBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            Factor = Factor + self.Config.Headquarters.PopalBlessingReputationBonus;
+            Factor = Factor + self.Config.Headquarters.TjostingArmorHonorBonus;
         end
         Reputation = Reputation * Factor;
     end
@@ -463,7 +463,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
                     Factor = Factor + self.Config.Headquarters.DraconicPunishmentReputationBonus;
                 end
                 if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-                    Factor = Factor + self.Config.Headquarters.DrecorativeSkullReputationBonus;
+                    Factor = Factor + self.Config.Headquarters.DecorativeSkullReputationBonus;
                 end
                 if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
                     Factor = Factor + self.Config.Headquarters.TjostingArmorReputationBonus;
