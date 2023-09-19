@@ -36,6 +36,9 @@
 --- 
 --- - <number> GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
 ---   Calculates the maximum of the sell price factor of the resource.
+--- 
+--- - <number> GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damage)
+---   Calculates the damage of an attack
 ---
 
 Stronghold = {
@@ -258,6 +261,10 @@ end
 
 function GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][4] or 1.25;
+end
+
+function GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damage)
+    return _Damage;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -690,21 +697,24 @@ function Stronghold:OnEntityHurtEntity()
             if self.Players[AttackedPlayer] then
                 self.Players[AttackedPlayer].AttackMemory[Attacked] = {15, Attacker};
             end
+            local Damage = CEntity.HurtTrigger.GetDamage();
             local DamageSource = CEntity.HurtTrigger.GetDamageSourceType();
             -- prevent serf harrasment
             if DamageSource == CEntity.HurtTrigger.DamageSources.BOMB
             or Logic.IsHero(Attacker) == 1 then
                 if AttackedType == Entities.PU_Serf then
-                    CEntity.HurtTrigger.SetDamage(1);
+                    Damage = 1;
                 end
             end
             -- Vigilante
             if Logic.IsBuilding(Attacker) == 1 then
                 if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then
-                    local Damage = CEntity.HurtTrigger.GetDamage();
-                    CEntity.HurtTrigger.SetDamage(Damage * 3);
+                    Damage = Damage * 3;
                 end
             end
+            -- External
+            Damage = GameCallback_SH_Calculate_BattleDamage(Attacker, Attacked, Damage);
+            CEntity.HurtTrigger.SetDamage(math.ceil(Damage));
         end
     end
 end

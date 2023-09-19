@@ -90,7 +90,7 @@ function Stronghold.Recruitment:InitDefaultRoster(_PlayerID)
         ["Research_UpgradeBow1"] = Entities.PU_LeaderBow1,
         ["Research_UpgradeBow2"] = Entities.PU_LeaderBow3,
         ["Research_UpgradeBow3"] = Entities.PU_LeaderRifle1,
-        ["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle2,
+        ["Research_UpgradeRifle1"] = nil,
         -- Stable
         ["Research_UpgradeCavalryLight1"] = Entities.PU_LeaderCavalry1,
         ["Research_UpgradeCavalryHeavy1"] = Entities.PU_LeaderHeavyCavalry1,

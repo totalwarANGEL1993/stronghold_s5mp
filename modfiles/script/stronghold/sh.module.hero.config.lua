@@ -48,12 +48,14 @@ Stronghold.Hero.Config.Hero7 = {
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {
     UpkeepFactor = 0.5,
-    SlaveFactor = 1.1,
+    SlaveFactor = 1.2,
 }
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
     TavernEfficiency = 2.0,
     WolfHonorRate = 0.05,
+    TavernBonusFactor = 1.009,
+    CannonMalusFactor = 0.980,
 }
 -- Hero 10 properties
 Stronghold.Hero.Config.Hero10 = {

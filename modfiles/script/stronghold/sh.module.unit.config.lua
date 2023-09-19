@@ -340,7 +340,7 @@ Stronghold.Unit.Config = {
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.Scout,
-        IsCivil           = false,
+        IsCivil           = true,
         Upkeep            = 50,
         Turns             = 150,
         Soldiers          = 0,
@@ -354,7 +354,7 @@ Stronghold.Unit.Config = {
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.Thief,
-        IsCivil           = false,
+        IsCivil           = true,
         Upkeep            = 100,
         Turns             = 250,
         Soldiers          = 0,
@@ -489,8 +489,8 @@ Stronghold.Unit.Config = {
     [Entities.CU_Evil_LeaderBearman1]       = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {4, 80, 0, 130, 0, 30, 0},
-            [2] = {0, 3, 0, 10, 0, 5, 0},
+            [1] = {4, 75, 0, 130, 0, 30, 0},
+            [2] = {0, 3, 0, 10, 0, 7, 0},
         },
         Right             = PlayerRight.Bearman,
         IsCivil           = false,
@@ -503,8 +503,8 @@ Stronghold.Unit.Config = {
     [Entities.CU_Evil_LeaderSkirmisher1]    = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {5, 100, 0, 150, 0, 0, 0},
-            [2] = {0, 4, 0, 15, 0, 0, 0},
+            [1] = {5, 90, 0, 150, 0, 0, 0},
+            [2] = {0, 4, 0, 17, 0, 0, 0},
         },
         Right             = PlayerRight.Skirmisher,
         IsCivil           = false,

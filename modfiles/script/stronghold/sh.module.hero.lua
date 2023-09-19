@@ -527,10 +527,14 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     elseif _Type == Entities.PU_Hero4 then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.PU_LeaderHeavyCavalry2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.PU_LeaderCavalry2;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
     elseif _Type == Entities.PU_Hero5 then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BanditLeaderSword2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BanditLeaderSword1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.CU_BanditLeaderBow1;
+    elseif _Type == Entities.PU_Hero10 then
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle2;
     elseif _Type == Entities.CU_BlackKnight then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BlackKnight_LeaderMace2;
@@ -543,17 +547,14 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     elseif _Type == Entities.CU_Barbarian_Hero then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Barbarian_LeaderClub2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_Barbarian_LeaderClub1;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle1;
     elseif _Type == Entities.CU_Evil_Queen then
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm2;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Evil_LeaderBearman1;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderPoleArm3;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.CU_Evil_LeaderSkirmisher1;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderBow3;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword3;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_Evil_LeaderSkirmisher1;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
     end
     Stronghold.Recruitment.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
 end
@@ -687,9 +688,7 @@ function Stronghold.Hero:OverrideGuiPlaceBuilding()
     GUIAction_PlaceBuilding = function(_UpgradeCategory)
         local PlayerID = GUI.GetPlayerID();
         if PlayerID ~= 17 and _UpgradeCategory == UpgradeCategories.Tower then
-            if Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero)
-            or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_BlackKnight)
-            or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Mary_de_Mortfichet)
+            if Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_BlackKnight)
             or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Evil_Queen) then
                 return GUIAction_PlaceBuilding_Orig_SH_Hero(UpgradeCategories.DarkTower);
             end
@@ -849,6 +848,12 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MinimalTowerDistance", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_BattleDamage", function(_AttackerID, _AttackedID, _Damage)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _Damage);
         return CurrentAmount;
     end);
 
@@ -1336,6 +1341,31 @@ function Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, _Amount)
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
         Amount = self.Config.Hero2.TowerDistance;
+    end
+    return Amount;
+end
+
+-- Passive Ability: Battle damage
+function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _Damage)
+    local PlayerID = Logic.EntityGetPlayer(_AttackerID);
+    local Amount = _Damage;
+    if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
+        -- Tavern Bonus
+        for k,v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
+            local FarmID = Logic.GetSettlersFarm(v);
+            local FarmType = Logic.GetEntityType(FarmID);
+            if FarmType == Entities.PB_Tavern1 or FarmType == Entities.PB_Tavern2 then
+                Amount = Amount * self.Config.Config.Hero9.TavernBonusFactor;
+            end
+        end
+        -- Canon Malus
+        local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon1);
+        local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon2);
+        local Cannon3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon3);
+        local Cannon4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon4);
+        for i= 1, Cannon1 + Cannon2 + Cannon3 + Cannon4 do
+            Amount = Amount * self.Config.Config.Hero9.TavernBonusFactor;
+        end
     end
     return Amount;
 end

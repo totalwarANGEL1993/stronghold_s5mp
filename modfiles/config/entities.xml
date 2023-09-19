@@ -1049,6 +1049,22 @@
         <Entity>PB_DarkTower1_ArrowLauncher</Entity>
         <Entity>PB_Tower1_ArrowLauncher</Entity>
 
+        <Entity>PB_DarkWallCorner</Entity>
+        <Entity>PB_DarkWallDistorted</Entity>
+        <Entity>PB_DarkWallStraight</Entity>
+        <Entity>PB_DarkWallStraightGate_Closed</Entity>
+        <Entity>PB_DarkWallStraightGate</Entity>
+        <Entity>PB_PalisadeCorner</Entity>
+        <Entity>PB_PalisadeDistorted</Entity>
+        <Entity>PB_PalisadeStraight</Entity>
+        <Entity>PB_PalisadeStraightGate_Closed</Entity>
+        <Entity>PB_PalisadeStraightGate</Entity>
+        <Entity>PB_WallCorner</Entity>
+        <Entity>PB_WallDistorted</Entity>
+        <Entity>PB_WallStraight</Entity>
+        <Entity>PB_WallStraightGate_Closed</Entity>
+        <Entity>PB_WallStraightGate</Entity>
+
         <Entity>XD_BushDesert01</Entity>
         <Entity>XD_BushDesert02</Entity>
         <Entity>XD_BushDesert03</Entity>

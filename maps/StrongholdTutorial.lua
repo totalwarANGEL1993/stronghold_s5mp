@@ -97,6 +97,7 @@ SHS5MP_RulesDefinition = {
 
         BriefingTutorialIntro();
         Tutorial_OverwriteCallbacks();
+        Tutorial_CreateProvince()
 
         CreatePlayer2();
         CreatePlayer3();
@@ -122,7 +123,7 @@ SHS5MP_RulesDefinition = {
 gvGender = {
     Name = "Dario",
     Address = "Milord",
-    Pronome = {"er", "sein", "seine"},
+    Pronome = {"er", "ihn", "sein", "seine"},
 }
 
 function Tutorial_OverwriteCallbacks()
@@ -139,10 +140,32 @@ function Tutorial_OverwriteCallbacks()
         local TypeName = Logic.GetEntityTypeName(_Type);
         gvGender.Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
         if GetGender(_Type) == Gender.Female then
-            gvGender.Pronome = {"sie", "ihr", "ihre"};
+            gvGender.Pronome = {"sie", "sie", "ihr", "ihre"};
             gvGender.Address = "Milady";
         end
     end);
+
+    -- For claiming a province
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_OnProvinceClaimed", function(_PlayerID, _ProvinceID, _BuildingID)
+        Overwrite.CallOriginal();
+        gvTutorial_ProvinceClaimed = true;
+    end);
+end
+
+function Tutorial_CreateProvince()
+    CreateResourceProvince(
+        "Gut Doppelkorn",
+        "VillagePos",
+        ResourceType.GoldRaw,
+        500,
+        0.5,
+        "ProvinceHut1",
+        "ProvinceHut2",
+        "ProvinceHut3",
+        "ProvinceHut4",
+        "ProvinceHut5",
+        "ProvinceHut6"
+    );
 end
 
 -- Part 1 ------------------------------------------------------------------- --
@@ -301,8 +324,8 @@ function Tutorial_AddCastleInterfaceSection()
     }
     Tutorial.AddMessage {
         Text        = "Die Burg besitzt nun zwei Ansichten. Neben der "..
-                      "gewohnten gibt es auch eine zweite, wo Ihr Maßnahmen "..
-                      "erlassen könnt.",
+                      "gewohnten gibt es auch eine zweite, die Euch in die "..
+                      "Lage versetzt, Maßnahmen zu erlassen.",
     }
     Tutorial.AddMessage {
         Text        = "Diese Registerkarte zeigt Eure Schatzkammer an. Hier "..
@@ -354,8 +377,8 @@ function Tutorial_AddCastleInterfaceSection()
     }
     Tutorial.AddMessage {
         Text        = "Probiert es einmal aus! Um einen Sammelpunkt zu "..
-                      "setzen, müsst Ihr {scarlet} rechts auf eine von dem "..
-                      "Gebäude erreichbare {white} Position klicken.",
+                      "setzen, müsst Ihr rechts auf eine von dem "..
+                      "Gebäude erreichbare Position klicken.",
         Condition   = function(_Data)
             return gvTutorial_RallyPointSet;
         end
@@ -367,8 +390,8 @@ function Tutorial_AddCastleInterfaceSection()
     Tutorial.AddMessage {
         Text        = "Nun ist es an der Zeit, Euren Adligen zu wählen. "..
                       "{scarlet} Ohne einen Adligen könnt Ihr kein Militär "..
-                      "anheuern! {white}Kein Adliger ist nutzlos. Jeder hat "..
-                      "individuelle Vorteile gegenüber den anderen.",
+                      "anheuern! {white}Fällt der Adlige im Kampf, {scarlet}"..
+                      "findet Ihr ihn oder sie vor Eurer Burg.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_BuyNoble,
         Action      = function(_Data)
@@ -389,16 +412,8 @@ function Tutorial_AddCastleInterfaceSection()
     Tutorial.AddMessage {
         Text        = "Jeder Adlige besitzt andere Eigenschaften. Ihr tut "..
                       "gut daran, einen Adligen zu wählen, {scarlet}der zu "..
-                      "Eurem Spielstil passt.",
-    }
-    Tutorial.AddMessage {
-        Text        = "Selektiert nun Euren Adligen!",
-        Condition   = function(_Data)
-            return IsEntitySelected(Stronghold:GetPlayerHero(1));
-        end
-    }
-    Tutorial.AddMessage {
-        Text        = "Nun solltet Ihr jedoch endlich die Späher anhören...",
+                      "Eurem Spielstil passt. {white} Jeder hat individuelle "..
+                      "Vorteile gegenüber den anderen.",
     }
 end
 
@@ -426,6 +441,16 @@ function Tutorial_AddUnitSelectionSection()
     local ArrowPos_BuySoldier = {318, 700};
     local ArrowPos_Commands = {380, 700};
 
+    Tutorial.AddMessage {
+        Text        = "Ihr habt Euch für " ..gvGender.Name.. " entschieden. "..
+                      "Auf, auf, selektiert " ..gvGender.Pronome[1].. "!",
+        Condition   = function(_Data)
+            return IsEntitySelected(Stronghold:GetPlayerHero(1));
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "Nun solltet Ihr jedoch endlich die Späher anhören...",
+    }
     Tutorial.AddMessage {
         Text        = "Ihr habt Euren ersten Hauptmann erhalten. Die "..
                       "leichte Kavalerie sollte man nicht unterschätzen!",
@@ -535,6 +560,12 @@ function Tutorial_AddProvisionSection()
     Tutorial.AddMessage {
         Text        = "Es ist an der Zeit, dass ich Euch erkläre, wie Ihr "..
                       "Eure Burg zu führen habt.",
+    }
+    Tutorial.AddMessage {
+        Text        = "Eure Gebäude werden noch immer von Knechten gebaut. "..
+                      "Manche Gebäude sind an einen Titel gebunden. {scarlet}"..
+                      " Ihr seht die Bedigungen im Tooltip. {white} Ebenso "..
+                      " sind Technologien u.a. an den Titel gebunden.",
         Action      = function(_Data)
             Logic.ResumeAllEntities();
             if Logic.GetEntityType(Stronghold:GetPlayerHero(1)) ~= Entities.PU_Hero2 then
@@ -590,7 +621,7 @@ function Tutorial_AddProvisionSection()
     Tutorial.AddMessage {
         Text        = "Versucht, die Abzüge auf die Beliebtheit am Zahltag "..
                       "auszugleichen und lockt insgesamt 15 Arbeiter ("..
-                      "keine Leibeigenen) an!",
+                      "keine Knechte) an!",
         Condition   = function(_Data)
             local WorkerCount = Logic.GetNumberOfAttractedWorker(1);
             local Reputation = GetReputationIncome(1);
@@ -598,10 +629,10 @@ function Tutorial_AddProvisionSection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "Durch die Steuern erhaltet Ihr frisches Geld. Das "..
-                      "werdet Ihr bitter benötigen, um Truppen auszuheben. "..
-                      "Aber als herkömmlicher Adliger können nur Knechte "..
-                      "bewaffnet werden.",
+        Text        = "Die neuen Arbeiter spülen frisches Gold in Eurer. "..
+                      "Stadtsäckel. Fianzen, die Ihr bitter benötigen, um "..
+                      "Truppen auszuheben. Aber als herkömmlicher Adliger "..
+                      "könnt Ihr nur Eure Knechte bewaffnen.",
     }
     Tutorial.AddMessage {
         Text        = "Erhebt Euren Adligen in den Rang eines Kastellan!",
@@ -613,6 +644,20 @@ function Tutorial_AddProvisionSection()
                 return true;
             end
         end
+    }
+    Tutorial.AddMessage {
+        Text        = "Jeder Rang bringt neue Rechte und Pflichten mit sich. "..
+                      "Das Volk wird ebenfalls immer schwieriger zufrieden "..
+                      "zu stellen. Sobald Ihr das Fürstentum erreicht, "..
+                      "{scarlet} müsst Ihr Euch um die Strafverfolgung "..
+                      "kümmern!",
+    }
+    Tutorial.AddMessage {
+        Text        = "Arbeiter werden {scarlet}das Gesetz brechen. {white} "..
+                      "Verbrecher nicht zu fangen, {scarlet}ruiniert schnell "..
+                      "Euer Ansehen! {white}Versucht sie schnell zu fangen. "..
+                      "{scarlet} Lasst dazu bewaffnete Knechte Wache "..
+                      "schieben oder baut Aussichtstürme!",
     }
 end
 
@@ -667,6 +712,44 @@ end
 function Tutorial_StartPart3()
     Tutorial.Stop();
     Tutorial.SetCallback(function()
+        Job.Second(Tutorial_StartPart4Trigger);
+        MakeVulnerable("P3Tower");
+    end);
+
+    Tutorial.AddMessage {
+        Text        = "Schaut, eine Provinz! Manche Dorfzentren gewähren "..
+                      "Euch die Hoheit über eine Länderei. {scarlet}Sie "..
+                      "produzieren Beliebtheit, Ehre oder Rohstoffe zum "..
+                      "Zahltag, gewähren mehr Platz für das Militär {white}"..
+                      "oder verleihen andere missionsabhängige Boni.",
+    }
+    Tutorial.AddMessage {
+        Text        = "Nehmt die Provinz ein, um zu erfahren, welchen Bonus "..
+                      "sie für Euch bereit hält! ",
+        Condition   = function(_Data)
+            return Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_VillageCenter1) > 0 or
+                   Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_VillageCenter2) > 0 or
+                   Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_VillageCenter3) > 0;
+        end
+    }
+
+    Tutorial.Start();
+end
+
+function Tutorial_StartPart3Trigger()
+    local x,y,z = Logic.EntityGetPos(GetID("VillagePos"));
+    local Amount = Logic.GetPlayerEntitiesInArea(1, 0, x, y, 1500, 16);
+    if Amount > 1 then
+        Tutorial_StartPart3();
+        return true;
+    end
+end
+
+-- Part 4 ------------------------------------------------------------------- --
+
+function Tutorial_StartPart4()
+    Tutorial.Stop();
+    Tutorial.SetCallback(function()
         BriefingGuardian1Npc();
         Job.Second(Tutorial_CheckVictory);
     end);
@@ -689,9 +772,9 @@ function Tutorial_StartPart3()
     Tutorial.Start();
 end
 
-function Tutorial_StartPart3Trigger()
+function Tutorial_StartPart4Trigger()
     if not IsExisting("HQ3") then
-        Tutorial_StartPart3();
+        Tutorial_StartPart4();
         return true;
     end
 end
@@ -714,7 +797,7 @@ function Tutorial_CheckVictory()
 end
 
 -- ########################################################################## --
--- #                                 ENEMY                                  # --
+-- #                                ENEMY                                   # --
 -- ########################################################################## --
 
 -- The final boss is implemented using the cerberus army. Most of the troofs
@@ -812,6 +895,7 @@ function CreatePlayer3()
 
     SetHostile(1, 3);
     MakeInvulnerable("HQ3");
+    MakeInvulnerable("P3Tower");
     Job.Second(function()
         if  not IsExisting("P3Tent1") and not IsExisting("P3Tent2")
         and not IsExisting("P3Tent3") and not IsExisting("P3Tower") then
