@@ -810,7 +810,6 @@
 	    <FirstSettler>PU_Scout</FirstSettler>
 	</SettlerUpgrade>
 	
-	
 	<SettlerUpgrade>
 	    <Category>Evil_LeaderBearman</Category>
 	    <FirstSettler>CU_Evil_LeaderBearman1</FirstSettler>
@@ -820,7 +819,6 @@
 	    <Category>Evil_SoldierBearman</Category>
 	    <FirstSettler>CU_Evil_SoldierBearman1</FirstSettler>
 	</SettlerUpgrade>
-	
 	
 	<SettlerUpgrade>
 	    <Category>Evil_LeaderSkirmisher</Category>
@@ -832,7 +830,6 @@
 	    <FirstSettler>CU_Evil_SoldierSkirmisher1</FirstSettler>
 	</SettlerUpgrade>
 	
-	
 	<SettlerUpgrade>
 	    <Category>LeaderBanditBow</Category>
 	    <FirstSettler>CU_BanditLeaderBow1</FirstSettler>
@@ -842,10 +839,7 @@
 	    <Category>SoldierBanditBow</Category>
 	    <FirstSettler>CU_BanditSoldierBow1</FirstSettler>
 	</SettlerUpgrade>
-	
 
-	
-	
 	<BuildingUpgrade>
     	<Category>Tavern</Category>
     	<FirstBuilding>PB_Tavern1</FirstBuilding>
@@ -861,26 +855,20 @@
     	<FirstBuilding>PB_MasterBuilderWorkshop</FirstBuilding>
 	</BuildingUpgrade>
 	
-	
-	
-	
 	<BuildingUpgrade>
     	<Category>GenericBridge</Category>
     	<FirstBuilding>PB_GenericBridge</FirstBuilding>
 	</BuildingUpgrade>
-	
 	
 	<BuildingUpgrade>
     	<Category>Bridge1</Category>
     	<FirstBuilding>PB_Bridge1</FirstBuilding>
 	</BuildingUpgrade>	
 	
-	
 	<BuildingUpgrade>
     	<Category>Bridge2</Category>
     	<FirstBuilding>PB_Bridge2</FirstBuilding>
 	</BuildingUpgrade>
-	
 	
 	<BuildingUpgrade>
     	<Category>Merchant</Category>
@@ -888,8 +876,40 @@
 	</BuildingUpgrade>
 
 
+<!-- Stronghold -->
+
 	<SettlerUpgrade>
 	    <Category>BlackKnightBodyguard</Category>
 	    <FirstSettler>CU_BlackKnight_Bodyguard</FirstSettler>
 	</SettlerUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DarkWallGate</Category>
+        <FirstBuilding>PB_DarkWallStraightGate</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DarkWallSegment</Category>
+        <FirstBuilding>PB_DarkWallDistorted</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>PalisadeGate</Category>
+        <FirstBuilding>PB_PalisadeStraightGate</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>PalisadeSegment</Category>
+        <FirstBuilding>PB_PalisadeDistorted</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>WallGate</Category>
+        <FirstBuilding>PB_WallStraightGate</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>WallSegment</Category>
+        <FirstBuilding>PB_WallDistorted</FirstBuilding>
+    </BuildingUpgrade>
 </root>

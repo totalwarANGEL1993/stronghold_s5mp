@@ -1066,27 +1066,29 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     local Costs = _Costs;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
         local Factor = self.Config.Hero4.UnitCostFactor;
-        local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
-        local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1;
-        local IsThief = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Thief) == 1;
-        if not IsCannon and not IsScout and not IsThief then
-            if Costs[ResourceType.Gold] then
-                Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
-            end
-            if Costs[ResourceType.Clay] then
-                Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * Factor);
-            end
-            if Costs[ResourceType.Wood] then
-                Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
-            end
-            if Costs[ResourceType.Stone] then
-                Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * Factor);
-            end
-            if Costs[ResourceType.Iron] then
-                Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
-            end
-            if Costs[ResourceType.Sulfur] then
-                Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
+        if _Type ~= Entities.PU_Serf then
+            local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
+            local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1;
+            local IsThief = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Thief) == 1;
+            if not IsCannon and not IsScout and not IsThief then
+                if Costs[ResourceType.Gold] then
+                    Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
+                end
+                if Costs[ResourceType.Clay] then
+                    Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * Factor);
+                end
+                if Costs[ResourceType.Wood] then
+                    Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
+                end
+                if Costs[ResourceType.Stone] then
+                    Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * Factor);
+                end
+                if Costs[ResourceType.Iron] then
+                    Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
+                end
+                if Costs[ResourceType.Sulfur] then
+                    Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
+                end
             end
         end
     end

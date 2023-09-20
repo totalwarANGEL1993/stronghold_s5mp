@@ -346,3 +346,8 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_PowerPlant1, 1);
 end
 
+-- -------------------------------------------------------------------------- --
+-- Palisade and Wall
+
+
+

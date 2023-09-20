@@ -134,7 +134,7 @@
             <AffectsOnlyMilitary>true</AffectsOnlyMilitary>
             <Range>1500.0</Range>            <!-- 1000 -->
             <DurationInSeconds>90</DurationInSeconds>            <!-- 60 -->
-            <ArmorFactor>2.0</ArmorFactor>            <!-- 1.4 -->
+            <ArmorFactor>1.5</ArmorFactor>            <!-- 1.4 -->
         </Logic>
     </Behavior>
 

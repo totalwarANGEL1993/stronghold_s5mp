@@ -319,6 +319,9 @@ function Stronghold:Init()
     self:OverrideWidgetUpdates();
     self:OverwriteCommonCallbacks();
 
+    -- AoD fix
+    CEntity.EnableLogicAoEDamage();
+    CEntity.EnableDamageClassAoEDamage();
     return true;
 end
 
@@ -356,6 +359,10 @@ function Stronghold:OnSaveGameLoaded()
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
     self:OverrideStringTableText();
+
+    -- AoD fix
+    CEntity.EnableLogicAoEDamage();
+    CEntity.EnableDamageClassAoEDamage();
     return true;
 end
 

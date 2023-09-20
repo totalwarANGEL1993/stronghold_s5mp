@@ -411,9 +411,25 @@ function Tutorial_AddCastleInterfaceSection()
     }
     Tutorial.AddMessage {
         Text        = "Jeder Adlige besitzt andere Eigenschaften. Ihr tut "..
-                      "gut daran, einen Adligen zu wählen, {scarlet}der zu "..
-                      "Eurem Spielstil passt. {white} Jeder hat individuelle "..
-                      "Vorteile gegenüber den anderen.",
+                    "gut daran, einen Adligen zu wählen, {scarlet}der zu "..
+                    "Eurem Spielstil passt. {white} Jeder hat individuelle "..
+                    "Vorteile gegenüber den anderen.",
+        Action      = function(_Data)
+            Tutorial_AddHeroSelectedSection();
+        end
+    }
+end
+
+function Tutorial_AddHeroSelectedSection()
+    Tutorial.AddMessage {
+        Text        = "Ihr habt Euch für " ..gvGender.Name.. " entschieden. "..
+                    "Auf, auf, selektiert " ..gvGender.Pronome[2].. "!",
+        Condition   = function(_Data)
+            return IsEntitySelected(Stronghold:GetPlayerHero(1));
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "Nun solltet Ihr jedoch endlich die Späher anhören..."
     }
 end
 
@@ -441,16 +457,6 @@ function Tutorial_AddUnitSelectionSection()
     local ArrowPos_BuySoldier = {318, 700};
     local ArrowPos_Commands = {380, 700};
 
-    Tutorial.AddMessage {
-        Text        = "Ihr habt Euch für " ..gvGender.Name.. " entschieden. "..
-                      "Auf, auf, selektiert " ..gvGender.Pronome[1].. "!",
-        Condition   = function(_Data)
-            return IsEntitySelected(Stronghold:GetPlayerHero(1));
-        end
-    }
-    Tutorial.AddMessage {
-        Text        = "Nun solltet Ihr jedoch endlich die Späher anhören...",
-    }
     Tutorial.AddMessage {
         Text        = "Ihr habt Euren ersten Hauptmann erhalten. Die "..
                       "leichte Kavalerie sollte man nicht unterschätzen!",
@@ -930,6 +936,7 @@ function BriefingTutorialIntro()
                    " entlegensten Provinz des Reiches für Ordnung zu sorgen.",
         Target   = "HQ2",
         Duration = 10,
+        Explore  = 6000,
         MiniMap  = true,
         Signal   = true,
         NoSkip   = true,
@@ -989,6 +996,7 @@ function BriefingScout(_Npc, _HeroID)
                    "um sich geschaart. Es hat den Anschein, als wolle er den "..
                    "Kaiser stürzen und selbst die Macht ergreifen.",
         Target   = "Scorillo",
+        Explore  = 6000,
         CloseUp  = true,
         MiniMap  = true,
         Signal   = true,
@@ -1014,6 +1022,7 @@ function BriefingScout(_Npc, _HeroID)
                    "hat diesen alten Turm bezogen und blockiert die Straße. "..
                    "Sie machen keinen Unterschied zwischen Freund und Feind.",
         Target   = "HQ3",
+        Explore  = 4000,
         MiniMap  = true,
         Signal   = true,
     }
@@ -1024,6 +1033,7 @@ function BriefingScout(_Npc, _HeroID)
                    "sind abgeschnitten. Ihr müsst einen Weg finden, sie "..
                    "wiederherzustellen, oder niemand wird Scorillo stoppen!",
         Target   = "BridgePos",
+        Explore  = 4000,
         MiniMap  = true,
         Signal   = true,
     }
@@ -1045,8 +1055,7 @@ function BriefingScout(_Npc, _HeroID)
         ChangePlayer(GetID(_Npc.ScriptName), 1);
         Tutorial_StartPart2();
         Logic.AddQuest(
-            PlayerID, 1, MAINQUEST_OPEN,
-            "Schatten der Vergangenheit",
+            1, 1, MAINQUEST_OPEN, "Schatten der Vergangenheit",
             "Zerstört die Schwarze Festung und tötet Scorillo. Diesmal "..
             "wird es endgültig sein!", 1);
     end
@@ -1103,6 +1112,7 @@ function BriefingGuardian1(_Npc, _HeroID)
                    "durch. Dann ist Polen offen! Das Tor bleibt zu, bis die "..
                    "Brücke wieder aufgebaut ist.",
         Target   = "BridgePos",
+        Explore  = 4000,
         CloseUp  = false,
     }
     AP {
@@ -1116,8 +1126,7 @@ function BriefingGuardian1(_Npc, _HeroID)
         AllowTechnology(Technologies.B_Bridge, 1);
         Job.Second(Tutorial_BridgeBuildTrigger);
         Logic.AddQuest(
-            PlayerID, 2, SUBQUEST_OPEN,
-            "Brückenbau",
+            1, 2, SUBQUEST_OPEN, "Brückenbau",
             "Baut die zerstörte Brücke wieder auf! Bereitet Euch auf schwere "..
             "Angriffe des Gegners vor!", 1);
     end
