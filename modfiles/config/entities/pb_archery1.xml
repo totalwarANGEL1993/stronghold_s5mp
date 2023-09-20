@@ -30,9 +30,9 @@
 			  <Type>PB_Archery2</Type> 
 			  <Time>40.0</Time>  
             <Cost>
-                <Clay>400</Clay>
+                <Clay>200</Clay>
                 <Wood>0</Wood>
-                <Stone>300</Stone>
+                <Stone>600</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -41,9 +41,9 @@
         <ConstructionInfo>
          	<Time>90</Time>
             <Cost>
-                <Clay>100</Clay>
-                <Wood>300</Wood>
-                <Stone>100</Stone>
+                <Clay>0</Clay>
+                <Wood>200</Wood>
+                <Stone>300</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>

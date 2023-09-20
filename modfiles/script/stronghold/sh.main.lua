@@ -42,7 +42,7 @@
 ---
 
 Stronghold = {
-    Version = "0.1.1",
+    Version = "0.1.2",
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -785,13 +785,11 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 -- 
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                if XNetwork.Manager_DoesExist() == 1 then
-                    Message(string.format(
-                        XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
-                        PlayerColor,
-                        PlayerName
-                    ));
-                end
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
+                    PlayerColor,
+                    PlayerName
+                ));
             end
         end
     else
@@ -807,13 +805,11 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 -- 
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
                 local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                if XNetwork.Manager_DoesExist() == 1 then
-                    Message(string.format(
-                        XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
-                        PlayerColor,
-                        PlayerName
-                    ));
-                end
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
+                    PlayerColor,
+                    PlayerName
+                ));
             end
         end
     end
@@ -824,13 +820,11 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
 
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-        if XNetwork.Manager_DoesExist() == 1 then
-            Message(string.format(
-                XGUIEng.GetStringTableText("sh_text/Player_IsDead"),
-                PlayerColor,
-                PlayerName
-            ));
-        end
+        Message(string.format(
+            XGUIEng.GetStringTableText("sh_text/Player_IsDead"),
+            PlayerColor,
+            PlayerName
+        ));
     end
 end
 
@@ -1199,6 +1193,9 @@ function Stronghold:OverwriteCommonCallbacks()
         Stronghold:OnSelectionMenuChanged(_BuildingID);
     end);
 
+    GUIUpdate_RecruitQueueButton = function(_Button, _Technology)
+    end
+
     ---
 
 	self.Orig_Mission_OnSaveGameLoaded = Mission_OnSaveGameLoaded;
@@ -1215,10 +1212,12 @@ function Stronghold:OverrideWidgetActions()
     end);
 
     Overwrite.CreateOverwrite("GUIAction_ReserachTechnology", function(_Technology)
-        if  not Stronghold.Recruitment:OnBarracksSettlerUpgradeTechnologyClicked(_Technology)
-        and not Stronghold.Recruitment:OnArcherySettlerUpgradeTechnologyClicked(_Technology)
-        and not Stronghold.Recruitment:OnStableSettlerUpgradeTechnologyClicked(_Technology) then
-            Overwrite.CallOriginal();
+        if GUI.GetPlayerID() ~= 17 then
+            if  not Stronghold.Recruitment:OnBarracksSettlerUpgradeTechnologyClicked(_Technology)
+            and not Stronghold.Recruitment:OnArcherySettlerUpgradeTechnologyClicked(_Technology)
+            and not Stronghold.Recruitment:OnStableSettlerUpgradeTechnologyClicked(_Technology) then
+                Overwrite.CallOriginal();
+            end
         end
     end);
 
@@ -1308,7 +1307,7 @@ function Stronghold:OverrideWidgetTooltips()
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_Payday", function()
-        local PlayerID = GUI.GetPlayerID();
+        local PlayerID = GetLocalPlayerID();
         local PaydayTimeLeft = math.ceil(Logic.GetPlayerPaydayTimeLeft(PlayerID)/1000);
         local PaydayFrequency = Logic.GetPlayerPaydayFrequency(PlayerID);
         local PaydayCosts = Logic.GetPlayerPaydayCost(PlayerID);

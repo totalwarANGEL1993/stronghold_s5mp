@@ -68,13 +68,13 @@ Stronghold.Economy.Config.Income = {
     BetterStudiesFactor = 1.3,
 
     TaxEffect = {
-        [1] = {Honor = 4, Reputation = 15,},
-        [2] = {Honor = 2, Reputation = -2,},
-        [3] = {Honor = 1, Reputation = -4,},
-        [4] = {Honor = 0, Reputation = -8,},
-        [5] = {Honor = 0, Reputation = -16,},
-        WorkerFactor = 0.03,
-        RankFactor = 1.09,
+        [1] = {Honor = 4, Reputation = 10,},
+        [2] = {Honor = 2, Reputation = -1,},
+        [3] = {Honor = 1, Reputation = -3,},
+        [4] = {Honor = 0, Reputation = -6,},
+        [5] = {Honor = 0, Reputation = -9,},
+        WorkerFactor = 0.04,
+        RankFactor = 1.11,
     },
 
     TechnologyEffect = {

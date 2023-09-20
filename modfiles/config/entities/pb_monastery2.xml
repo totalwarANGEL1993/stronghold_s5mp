@@ -49,10 +49,10 @@
             <Cost>
 			    <Clay>0</Clay>
 			    <Wood>200</Wood>
-				    <Stone>600</Stone>
-				    <Gold>300</Gold>
-				    <Iron/>
-				    <Sulfur/>
+                <Stone>600</Stone>
+                <Gold>300</Gold>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <Type>PB_Monastery3</Type>
         </Upgrade>

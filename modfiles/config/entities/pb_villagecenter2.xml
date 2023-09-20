@@ -35,14 +35,12 @@
             <Time>40.0</Time>
             <Category>VillageCenter</Category>
             <Cost>
-                <Clay>300</Clay>
-                <Wood/>
-                <Clay>100</Clay>
+                <Clay>0</Clay>
                 <Wood>200</Wood>
-                <Stone>400</Stone>
+                <Stone>500</Stone>
                 <Gold>300</Gold>
-                <Iron/>
-                <Sulfur/>
+                <Iron>0</Iron>
+                <Sulfur>0</Sulfur>
             </Cost>
             <Type>PB_VillageCenter3</Type>
         </Upgrade>

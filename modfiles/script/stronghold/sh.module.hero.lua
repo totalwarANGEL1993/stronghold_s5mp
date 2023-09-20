@@ -1308,6 +1308,7 @@ end
 
 -- Passive Ability: Bonus resources on trade
 function Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount)
+    local GuiPlayer = GUI.GetPlayerID();
     local Bonus = 0;
     local ResourceName = GetResourceName(_BuyType);
     local Text = XGUIEng.GetStringTableText("SH_Text/GUI_TradeBonus");
@@ -1316,7 +1317,9 @@ function Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyTy
     end
     if Bonus > 0 then
         Logic.AddToPlayersGlobalResource(_PlayerID, _BuyType, Bonus);
-        Message(string.format(Text, Bonus, ResourceName));
+        if GuiPlayer == _PlayerID then
+            Message(string.format(Text, Bonus, ResourceName));
+        end
     end
 end
 

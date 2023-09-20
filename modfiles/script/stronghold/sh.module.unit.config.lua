@@ -36,8 +36,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderPoleArm3]            = {
         Button            = "Buy_LeaderSpear",
         Costs             = {
-            [1] = {10, 120, 0, 80, 0, 20, 0},
-            [2] = {0, 50, 0, 45, 0, 5, 0},
+            [1] = {10, 110, 0, 80, 0, 20, 0},
+            [2] = {0, 40, 0, 45, 0, 5, 0},
         },
         Right             = PlayerRight.SpearLandsknecht,
         IsCivil           = false,
@@ -50,8 +50,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderPoleArm4]            = {
         Button            = "Buy_LeaderSpear",
         Costs             = {
-            [1] = {10, 150, 0, 105, 0, 35, 0},
-            [2] = {0, 55, 0, 50, 0, 12, 0},
+            [1] = {10, 130, 0, 105, 0, 35, 0},
+            [2] = {0, 45, 0, 50, 0, 12, 0},
         },
         Right             = PlayerRight.SpearHalberdier,
         IsCivil           = false,
@@ -67,8 +67,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderSword1]              = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {5, 45, 0, 0, 0, 60, 0},
-            [2] = {0, 8, 0, 0, 0, 15, 0},
+            [1] = {5, 50, 0, 0, 0, 60, 0},
+            [2] = {0, 5, 0, 0, 0, 15, 0},
         },
         Right             = PlayerRight.SwordMilitia,
         IsCivil           = false,
@@ -95,8 +95,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderSword3]              = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {20, 180, 0, 0, 0, 125, 0},
-            [2] = {0, 40, 0, 0, 0, 70, 0},
+            [1] = {20, 150, 0, 0, 0, 125, 0},
+            [2] = {0, 30, 0, 0, 0, 70, 0},
         },
         Right             = PlayerRight.SwordLong,
         IsCivil           = false,
@@ -109,8 +109,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderSword4]              = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {20, 200, 0, 0, 0, 140, 0},
-            [2] = {0, 44, 0, 0, 0, 80, 0},
+            [1] = {20, 175, 0, 0, 0, 135, 0},
+            [2] = {0, 35, 0, 0, 0, 75, 0},
         },
         Right             = PlayerRight.SwordGuardist,
         IsCivil           = false,
@@ -140,8 +140,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderBow2]                = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {4, 60, 0, 48, 0, 0, 0},
-            [2] = {0, 10, 0, 14, 0, 0, 0},
+            [1] = {4, 40, 0, 48, 0, 0, 0},
+            [2] = {0, 7, 0, 14, 0, 0, 0},
         },
         Right             = PlayerRight.ArcherLongbow,
         IsCivil           = false,
@@ -154,8 +154,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderBow3]                = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {12, 180, 0, 40, 0, 65, 0},
-            [2] = {0, 40, 0, 15, 0, 35, 0},
+            [1] = {12, 140, 0, 40, 0, 65, 0},
+            [2] = {0, 35, 0, 15, 0, 35, 0},
         },
         Right             = PlayerRight.ArcherCrossbow,
         IsCivil           = false,
@@ -168,8 +168,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderBow4]                = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {16, 200, 0, 50, 0, 75, 0},
-            [2] = {0, 45, 0, 20, 0, 45, 0},
+            [1] = {16, 150, 0, 50, 0, 75, 0},
+            [2] = {0, 40, 0, 20, 0, 45, 0},
         },
         Right             = PlayerRight.ArcherPavease,
         IsCivil           = false,
@@ -216,8 +216,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderCavalry1]            = {
         Button            = "Buy_LeaderCavalryLight",
         Costs             = {
-            [1] = {12, 200, 0, 45, 0, 30, 0},
-            [2] = {0, 100, 0, 30, 0, 20, 0},
+            [1] = {12, 180, 0, 45, 0, 30, 0},
+            [2] = {0, 90, 0, 30, 0, 20, 0},
         },
         Right             = PlayerRight.CavalryHobilar,
         IsCivil           = false,
@@ -230,8 +230,8 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderCavalry2]            = {
         Button            = "Buy_LeaderCavalryLight",
         Costs             = {
-            [1] = {12, 225, 0, 20, 0, 50, 0},
-            [2] = {0, 125, 0, 40, 0, 30, 0},
+            [1] = {12, 200, 0, 20, 0, 50, 0},
+            [2] = {0, 95, 0, 40, 0, 30, 0},
         },
         Right             = PlayerRight.CavalryCrusader,
         IsCivil           = false,
@@ -277,7 +277,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon1]                   = {
         Button            = "Buy_Cannon1",
         Costs             = {
-            [1] = {16, 400, 0, 50, 0, 150, 300},
+            [1] = {16, 300, 0, 50, 0, 100, 200},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.BombardCannon,
@@ -291,7 +291,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon2]                   = {
         Button            = "Buy_Cannon2",
         Costs             = {
-            [1] = {16, 400, 0, 50, 0, 300, 150},
+            [1] = {16, 300, 0, 50, 0, 200, 100},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.BronzeCannon,
@@ -305,7 +305,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon3]                   = {
         Button            = "Buy_Cannon3",
         Costs             = {
-            [1] = {32, 800, 0, 100, 0, 450, 600},
+            [1] = {32, 600, 0, 100, 0, 250, 400},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.IronCannon,
@@ -319,7 +319,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon4]                   = {
         Button            = "Buy_Cannon4",
         Costs             = {
-            [1] = {32, 800, 0, 100, 0, 600, 450},
+            [1] = {32, 600, 0, 100, 0, 400, 250},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.SiegeCannon,
@@ -336,7 +336,7 @@ Stronghold.Unit.Config = {
     [Entities.PU_Scout]                     = {
         Button            = "Buy_Scout",
         Costs             = {
-            [1] = {0, 150, 0, 50, 0, 50, 0},
+            [1] = {0, 100, 0, 50, 0, 50, 0},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.Scout,
@@ -350,7 +350,7 @@ Stronghold.Unit.Config = {
     [Entities.PU_Thief]                     = {
         Button            = "Buy_Thief",
         Costs             = {
-            [1] = {15, 250, 0, 0, 0, 75, 75},
+            [1] = {15, 350, 0, 0, 0, 75, 75},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.Thief,
@@ -382,7 +382,7 @@ Stronghold.Unit.Config = {
     [Entities.CU_BanditLeaderSword2]        = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {8, 150, 0, 10, 0, 50, 0},
+            [1] = {8, 130, 0, 10, 0, 50, 0},
             [2] = {0, 25, 0, 4, 0, 18, 0},
         },
         Right             = PlayerRight.BanditSwordWeak,
@@ -396,7 +396,7 @@ Stronghold.Unit.Config = {
     [Entities.CU_BanditLeaderSword1]        = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {16, 250, 0, 0, 0, 74, 0},
+            [1] = {16, 220, 0, 0, 0, 74, 0},
             [2] = {0, 35, 0, 16, 0, 32, 0},
         },
         Right             = PlayerRight.BanditSwordStrong,
@@ -410,7 +410,7 @@ Stronghold.Unit.Config = {
     [Entities.CU_BanditLeaderBow1]          = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {6, 110, 0, 68, 0, 0, 0},
+            [1] = {6, 100, 0, 68, 0, 0, 0},
             [2] = {0, 25, 0, 28, 0, 0, 0},
         },
         Right             = PlayerRight.BanditBow,
@@ -427,8 +427,8 @@ Stronghold.Unit.Config = {
     [Entities.CU_Barbarian_LeaderClub2]     = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {14, 94, 0, 40, 0, 30, 0},
-            [2] = {0, 25, 0, 15, 0, 10, 0},
+            [1] = {14, 70, 0, 40, 0, 30, 0},
+            [2] = {0, 15, 0, 15, 0, 10, 0},
         },
         Right             = PlayerRight.BarbarianWeak,
         IsCivil           = false,
@@ -441,8 +441,8 @@ Stronghold.Unit.Config = {
     [Entities.CU_Barbarian_LeaderClub1]     = {
         Button            = "Buy_LeaderSword",
         Costs             = {
-            [1] = {28, 115, 0, 60, 0, 35, 0},
-            [2] = {0, 30, 0, 20, 0, 15, 0},
+            [1] = {28, 100, 0, 60, 0, 35, 0},
+            [2] = {0, 25, 0, 20, 0, 15, 0},
         },
         Right             = PlayerRight.BarbarianStrong,
         IsCivil           = false,

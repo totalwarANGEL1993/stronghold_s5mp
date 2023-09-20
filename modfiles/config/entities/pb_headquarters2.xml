@@ -40,10 +40,10 @@
         <Category>WoodSupplier</Category>
         <Category>ThiefRefuge</Category> 
         <Upgrade>
-        	<Time>150.0</Time>  
+        	<Time>90.0</Time>  
       
             <Cost>
-				    <Gold>1000</Gold>
+				    <Gold>500</Gold>
 				    <Clay>350</Clay>
 				    <Wood/>
 				    <Stone>450</Stone>

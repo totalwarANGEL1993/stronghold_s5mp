@@ -36,8 +36,8 @@
             <Time>40.0</Time>
             <Category>VillageCenter</Category>
             <Cost>
-                <Clay>50</Clay>
-                <Wood>150</Wood>
+                <Clay>0</Clay>
+                <Wood>200</Wood>
                 <Stone>300</Stone>
                 <Gold>200</Gold>
                 <Iron/>
@@ -50,8 +50,8 @@
         <ConstructionInfo>
             <Time>110</Time>
             <Cost>
-                <Clay>100</Clay>
-                <Wood>200</Wood>
+                <Clay>0</Clay>
+                <Wood>300</Wood>
                 <Stone>200</Stone>
                 <Gold/>
                 <Iron/>

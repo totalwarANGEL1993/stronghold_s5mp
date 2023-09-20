@@ -392,8 +392,9 @@ end
 
 function GUIUpdate_SHMP_Config_Confirm(_Widget)
     -- Only show for host and if not already configured
-    if  GUI.GetPlayerID() ~= Syncer.GetHostPlayerID()
-    and not Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+    if  not Stronghold.Multiplayer:HaveRulesBeenConfigured()
+    and GUI.GetPlayerID() ~= Syncer.GetHostPlayerID()
+    and GUI.GetPlayerID() ~= 17 then
         XGUIEng.ShowWidget(_Widget, 0);
     else
         XGUIEng.ShowWidget(_Widget, 1);
@@ -727,9 +728,11 @@ function Stronghold.Multiplayer:ShowRuleSelection()
     XGUIEng.ShowWidget("MovieBarBottom", 0);
     XGUIEng.ShowWidget("MovieInvisibleClickCatcher", 1);
     XGUIEng.ShowWidget("CreditsWindow", 0);
-    XGUIEng.ShowWidget("SHS5MP", 1);
-    XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
     XGUIEng.ShowWidget("GameClock", 0);
+    XGUIEng.ShowWidget("SHS5MP", 1);
+    XGUIEng.ShowWidget("SHS5MP_ControlsRow", 1);
+    XGUIEng.ShowWidget("SHS5MP_ControlsConfirm", 1);
+    XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
 end
 
 function Stronghold.Multiplayer:HideRuleSelection()

@@ -31,9 +31,9 @@
             <Category>Barracks</Category>
             <Time>40.0</Time>  
             <Cost>
-                <Clay>400</Clay>
+                <Clay>200</Clay>
                 <Wood>0</Wood>
-                <Stone>300</Stone>
+                <Stone>600</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -44,9 +44,9 @@
         <ConstructionInfo>
         	<Time>90</Time>
         	<Cost>
-                <Clay>200</Clay>
+                <Clay>0</Clay>
                 <Wood>200</Wood>
-                <Stone>100</Stone>
+                <Stone>300</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>

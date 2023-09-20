@@ -44,9 +44,9 @@
         <Category>ThiefRefuge</Category> 
   
         <Upgrade>
-        	<Time>120.0</Time>  
+        	<Time>90.0</Time>  
             <Cost>
-				    <Gold>500</Gold>
+				    <Gold>250</Gold>
 				    <Wood/>
 				    <Stone>250</Stone>
 				    <Clay>250</Clay>

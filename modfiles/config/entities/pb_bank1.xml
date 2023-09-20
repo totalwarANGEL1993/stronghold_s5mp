@@ -43,9 +43,9 @@
             <Category>Bank</Category>
             <Time>40</Time>  
             <Cost>
-                <Clay>200</Clay>
+                <Clay>0</Clay>
                 <Wood/>
-                <Stone>400</Stone>
+                <Stone>500</Stone>
                 <Gold>0</Gold>
                 <Iron>300</Iron>
                 <Sulfur/>
@@ -59,7 +59,7 @@
 			    <Wood>200</Wood>
                 <Stone>300</Stone>
                 <Gold/>
-                <Iron>200</Iron>
+                <Iron>100</Iron>
                 <Sulfur/>
             </Cost>
                <BuilderSlot>

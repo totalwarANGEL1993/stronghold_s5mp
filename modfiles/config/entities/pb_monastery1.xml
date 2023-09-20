@@ -49,10 +49,10 @@
             <Cost>
 			    <Clay>400</Clay>
 			    <Wood/>
-				    <Stone>500</Stone>
-				    <Gold>200</Gold>
-				    <Iron/>
-				    <Sulfur/>
+                <Stone>500</Stone>
+                <Gold>200</Gold>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <Type>PB_Monastery2</Type>
         </Upgrade>
@@ -62,10 +62,10 @@
             <Cost>
 			    <Clay>0</Clay>
 			    <Wood>500</Wood>
-				    <Stone>550</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+                <Stone>550</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>

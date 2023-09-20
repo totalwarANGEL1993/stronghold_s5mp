@@ -322,6 +322,7 @@ end
 -- Mesures (Blessings)
 
 function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory)
+    local GuiPlayer = GUI.GetPlayerID();
     local MeasurePoints = Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID);
     -- Prevent click spamming
     if MeasurePoints == 0 then
@@ -333,9 +334,11 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     -- Update recharge factor
     local CurrentRank = math.max(GetRank(_PlayerID), 1);
     -- Show message
-    local Language = GetLanguage();
-    local TextKey = self.Config.Headquarters[_BlessCategory].Text;
-    Message(XGUIEng.GetStringTableText(TextKey.. "_message"));
+    if GuiPlayer == _PlayerID then
+        local Language = GetLanguage();
+        local TextKey = self.Config.Headquarters[_BlessCategory].Text;
+        Message(XGUIEng.GetStringTableText(TextKey.. "_message"));
+    end
 
     -- Execute effects
     local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
@@ -386,8 +389,10 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
             RandomTax = RandomTax + math.random(Min, Max);
         end
-        Message(string.format(MsgText, RandomTax));
-        Sound.PlayGUISound(Sounds.LevyTaxes, 100);
+        if GuiPlayer == _PlayerID then
+            Message(string.format(MsgText, RandomTax));
+            Sound.PlayGUISound(Sounds.LevyTaxes, 100);
+        end
         AddGold(_PlayerID, RandomTax);
 
     elseif _BlessCategory == BlessCategories.Financial then

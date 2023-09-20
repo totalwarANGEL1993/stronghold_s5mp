@@ -174,6 +174,7 @@ function Stronghold.Attraction:InitCriminalsEffects()
 end
 
 function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
+    local GuiPlayer = GUI.GetPlayerID();
     local TotalAmount = 0;
     local ResourcesToSub = {};
     local ResourcesToSteal = {"Gold", "Wood", "Clay", "Stone", "Iron", "Sulfur"};
@@ -189,7 +190,7 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
             ResourcesToSub[Type] = (ResourcesToSub[Type] or 0) + Amount;
             TotalAmount = TotalAmount + Amount;
         end
-        if TotalAmount > 0 and GUI.GetPlayerID() == _PlayerID then
+        if TotalAmount > 0 and GuiPlayer == _PlayerID and GuiPlayer ~= 17 then
             local Text = XGUIEng.GetStringTableText("sh_text/Player_CriminalsStoleResources");
             Message(string.format(Text, TotalAmount));
         end
@@ -260,6 +261,7 @@ end
 
 -- Replaces the worker with a criminal and calls the callback.
 function Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID)
+    local GuiPlayer = GUI.GetPlayerID();
     local ID = 0;
     if self.Data[_PlayerID] then
         -- Create thief
@@ -273,7 +275,7 @@ function Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID)
         table.insert(self.Data[_PlayerID].Criminals, {ID, _BuildingID, {X= x, Y= y}, nil, Points});
 
         -- Show message
-        if GUI.GetPlayerID() == _PlayerID then
+        if GuiPlayer == _PlayerID and GuiPlayer ~= 17 then
             Message(XGUIEng.GetStringTableText("sh_text/Player_ConvertedToCriminal"));
         end
         -- Trigger callback
@@ -284,6 +286,7 @@ end
 
 -- Destroys the criminal and calls the callback.
 function Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID)
+    local GuiPlayer = GUI.GetPlayerID();
     if self.Data[_PlayerID] then
         for i= table.getn(self.Data[_PlayerID].Criminals), 1, -1 do
             local Data = self.Data[_PlayerID].Criminals[i];
@@ -292,7 +295,7 @@ function Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID)
                 table.remove(self.Data[_PlayerID].Criminals, i);
                 DestroyEntity(_EntityID);
                 -- Show message
-                if GUI.GetPlayerID() == _PlayerID then
+                if GuiPlayer == _PlayerID and GuiPlayer ~= 17 then
                     Message(XGUIEng.GetStringTableText("sh_text/Player_CriminalResocialized"));
                 end
                 -- Invoke callback

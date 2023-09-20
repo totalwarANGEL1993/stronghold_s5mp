@@ -514,14 +514,11 @@ end
 
 function Stronghold.Recruitment:OnRecruiterSelected(_ButtonsToUpdate, _EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsPlayer(PlayerID) then
-        return;
-    end
     for k, v in pairs(_ButtonsToUpdate) do
         XGUIEng.ShowWidget(k.. "_Recharge", 1);
         XGUIEng.ShowWidget(k.. "_Amount", 1);
         XGUIEng.ShowWidget(k, 0);
-        if self.Data[PlayerID].Roster[k] then
+        if IsPlayer(PlayerID) and self.Data[PlayerID].Roster[k] then
             local UnitType = self.Data[PlayerID].Roster[k];
             local Config = Stronghold.Unit.Config:Get(UnitType, PlayerID);
             XGUIEng.TransferMaterials(Config.Button, k);
