@@ -521,6 +521,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     Stronghold.Recruitment:InitDefaultRoster(_PlayerID);
 
     local ThiefRecruiter = {Entities.PB_Tavern2};
+    AllowTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     if string.find(Logic.GetEntityTypeName(_Type), "^PU_Hero1[abc]+$") then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm4;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword4;
@@ -529,6 +530,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.PU_LeaderCavalry2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
+        ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.PU_Hero5 then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BanditLeaderSword2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BanditLeaderSword1;
@@ -549,12 +551,14 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_Barbarian_LeaderClub1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
+        ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.CU_Evil_Queen then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Evil_LeaderBearman1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword3;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_Evil_LeaderSkirmisher1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
+        ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     end
     Stronghold.Recruitment.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
 end

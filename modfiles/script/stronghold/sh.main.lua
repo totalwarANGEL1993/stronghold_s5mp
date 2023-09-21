@@ -495,17 +495,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs)
     end
     DestroyEntity(CampName);
 
-    Tools.GiveResouces(
-        _PlayerID,
-        self.Config.Base.InitialResources[2],
-        self.Config.Base.InitialResources[3],
-        self.Config.Base.InitialResources[4],
-        self.Config.Base.InitialResources[5],
-        self.Config.Base.InitialResources[6],
-        self.Config.Base.InitialResources[7]
-    );
     SetRank(_PlayerID, self.Config.Base.InitialRank);
-    AddHonor(_PlayerID, self.Config.Base.InitialResources[1]);
 
     self.Players[_PlayerID].IsInitalized = true;
 end

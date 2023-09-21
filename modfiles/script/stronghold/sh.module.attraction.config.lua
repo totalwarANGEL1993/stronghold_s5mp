@@ -13,7 +13,7 @@ Stronghold.Attraction.Config.Attraction = {
     BBMilitary = {[1] = 15, [2] = 30},
     -- Serf attraction limit
     -- This is freely changeable in Lua
-    SlaveLimit = 18,
+    SlaveLimit = 24,
     RankSlaveBonus = 6,
 }
 

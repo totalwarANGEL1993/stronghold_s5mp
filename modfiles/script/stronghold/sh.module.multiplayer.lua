@@ -432,11 +432,11 @@ end
 
 function Stronghold.Multiplayer:ConfigureResource(_Amount)
     if _Amount == 1 then
-        self.Data.Config.Resources = {0, 1000, 1200, 1500, 550, 0, 0};
+        self.Data.Config.Resources = {0, 1000, 1600, 1200, 550, 0, 0};
     elseif _Amount == 2 then
-        self.Data.Config.Resources = {50, 2000, 2400, 3000, 1500, 600, 0};
+        self.Data.Config.Resources = {50, 2000, 3000, 2400, 1500, 600, 0};
     elseif _Amount == 3 then
-        self.Data.Config.Resources = {300, 6000, 3500, 6000, 3000, 1500, 900};
+        self.Data.Config.Resources = {300, 6000, 4000, 4000, 3000, 1500, 900};
     end
     self.Data.Config.ResourceSelected = _Amount;
 end
