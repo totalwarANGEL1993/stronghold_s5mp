@@ -1044,7 +1044,9 @@
 
         <Entity>CB_Prison_Tower1</Entity>
 
+        <Entity>CU_BanditLeaderBow2</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
+        <Entity>CU_BanditSoldierBow2</Entity>
 
         <Entity>PB_DarkTower1_ArrowLauncher</Entity>
         <Entity>PB_Tower1_ArrowLauncher</Entity>

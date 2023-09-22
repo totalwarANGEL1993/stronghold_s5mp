@@ -535,6 +535,8 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BanditLeaderSword2;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BanditLeaderSword1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.CU_BanditLeaderBow1;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_BanditLeaderBow2;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = nil;
     elseif _Type == Entities.PU_Hero10 then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle2;
     elseif _Type == Entities.CU_BlackKnight then
@@ -1358,22 +1360,33 @@ end
 function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _Damage)
     local PlayerID = Logic.EntityGetPlayer(_AttackerID);
     local Amount = _Damage;
-    if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
-        -- Tavern Bonus
-        for k,v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
-            local FarmID = Logic.GetSettlersFarm(v);
-            local FarmType = Logic.GetEntityType(FarmID);
-            if FarmType == Entities.PB_Tavern1 or FarmType == Entities.PB_Tavern2 then
-                Amount = Amount * self.Config.Config.Hero9.TavernBonusFactor;
+    if self:HasValidLordOfType(PlayerID, Entities.PU_Hero5) then
+        if Logic.IsEntityInCategory(_AttackerID, EntityCategories.Bow) == 1 then
+            local Archery2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PB_Archery2);
+            for i= 1, Archery2 do
+                Amount = Amount * self.Config.Hero5.ArcheryBonusFactor;
             end
         end
-        -- Canon Malus
-        local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon1);
-        local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon2);
-        local Cannon3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon3);
-        local Cannon4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon4);
-        for i= 1, Cannon1 + Cannon2 + Cannon3 + Cannon4 do
-            Amount = Amount * self.Config.Config.Hero9.TavernBonusFactor;
+    end
+    if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
+        local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_AttackerID));
+        if string.find(TypeName, "Barbarian_L") or string.find(TypeName, "Barbarian_S") then
+            -- Tavern Bonus
+            for k,v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
+                local FarmID = Logic.GetSettlersFarm(v);
+                local FarmType = Logic.GetEntityType(FarmID);
+                if FarmType == Entities.PB_Tavern1 or FarmType == Entities.PB_Tavern2 then
+                    Amount = Amount * self.Config.Hero9.TavernBonusFactor;
+                end
+            end
+            -- Cannon Malus
+            local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon1);
+            local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon2);
+            local Cannon3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon3);
+            local Cannon4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon4);
+            for i= 1, Cannon1 + Cannon2 + Cannon3 + Cannon4 do
+                Amount = Amount * self.Config.Hero9.CannonMalusFactor;
+            end
         end
     end
     return Amount;

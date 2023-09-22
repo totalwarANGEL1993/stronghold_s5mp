@@ -27,6 +27,7 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
+    ArcheryBonusFactor = 1.050,
     MinerMineralPreserve = 1,
     SerfMineralPreserve = 1,
     SerfWoodPreserve = 2,

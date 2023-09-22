@@ -121,8 +121,7 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
     end
 
     -- Line formation
-    if Logic.GetEntityType(_ID) == Entities.CU_BanditLeaderBow1
-    or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
+    if Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
     or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace2
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderSword2
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderSword3

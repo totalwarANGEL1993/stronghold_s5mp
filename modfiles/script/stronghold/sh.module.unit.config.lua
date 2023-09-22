@@ -410,16 +410,30 @@ Stronghold.Unit.Config = {
     [Entities.CU_BanditLeaderBow1]          = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {6, 100, 0, 68, 0, 0, 0},
-            [2] = {0, 25, 0, 28, 0, 0, 0},
+            [1] = {4, 40, 0, 48, 0, 0, 0},
+            [2] = {0, 7, 0, 14, 0, 0, 0},
         },
         Right             = PlayerRight.BanditBow,
         IsCivil           = false,
         Upkeep            = 40,
         Turns             = 75,
-        Soldiers          = 6,
+        Soldiers          = 12,
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
         ProviderBuilding  = {},
+    },
+    [Entities.CU_BanditLeaderBow2]          = {
+        Button            = "Buy_LeaderBow",
+        Costs             = {
+            [1] = {6, 100, 0, 68, 0, 0, 0},
+            [2] = {0, 12, 0, 14, 0, 0, 0},
+        },
+        Right             = PlayerRight.BanditBow,
+        IsCivil           = false,
+        Upkeep            = 45,
+        Turns             = 175,
+        Soldiers          = 12,
+        RecruiterBuilding = {Entities.PB_Archery2},
+        ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
     },
 
     -- Barbarians --

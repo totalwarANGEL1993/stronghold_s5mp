@@ -1,34 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>CU_BanditLeaderBow1</Model>
+        <Model>CU_BanditSoldierBow2</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>CU_BanditLeaderBow1_Walk</Anim>
-        <Anim>CU_BanditLeaderBow1_Run1</Anim>
-        <Anim>CU_BanditLeaderBow1_Idle1</Anim>
-        <Anim>CU_BanditLeaderBow1_Idle2</Anim>
-        <Anim>CU_BanditLeaderBow1_Idle3</Anim>
-        <Anim>CU_BanditLeaderBow1_Idle4</Anim>
-        <Anim>CU_BanditLeaderBow1_Idle5</Anim>
-        <Anim>CU_BanditLeaderBow1_Idle6</Anim>
-        <Anim>CU_BanditLeaderBow1_Attack1</Anim>
-        <Anim>CU_BanditLeaderBow1_IdleAttack1</Anim>
-        <Anim>CU_BanditLeaderBow1_Dying1</Anim>
-        <Anim>CU_BanditLeaderBow1_Hit</Anim>
-
+        <Anim>PU_SoldierBow3_Walk</Anim>
+        <Anim>PU_SoldierBow3_Run1</Anim>
+        <Anim>PU_SoldierBow3_Idle1</Anim>
+        <Anim>PU_SoldierBow3_Idle2</Anim>
+        <Anim>PU_SoldierBow3_Idle3</Anim>
+        <Anim>PU_SoldierBow3_Idle4</Anim>
+        <Anim>PU_SoldierBow3_Idle5</Anim>
+        <Anim>PU_SoldierBow3_Idle6</Anim>
+        <Anim>PU_SoldierBow3_Attack1</Anim>
+        <Anim>PU_SoldierBow3_IdleAttack1</Anim>
+        <Anim>PU_SoldierBow3_Dying1</Anim>
+        <Anim>PU_SoldierBow3_Hit</Anim>
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>175</MaxHealth>
+        <MaxHealth>200</MaxHealth>
+        <DodgeChance>5</DodgeChance>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>30</Gold>
-            <Iron>0</Iron>
-            <Wood>30</Wood>
+            <Gold>70</Gold>
+            <Iron>30</Iron>
+            <Wood>70</Wood>
         </Cost>
 
 
@@ -79,23 +79,21 @@
 
 
         <Category>Military</Category>
-        <Category>Bow</Category>
         <Category>Soldier</Category>
-        <Category>LongRange</Category>
+        <Category>Bow</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>23</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
-        <DodgeChance>12</DodgeChance>
+        <Exploration>25</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>15</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <ExperiencePoints>25</ExperiencePoints>
+        <Upgrade>
+            <Category>SoldierBanditBow</Category>
+        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>CU_BanditLeaderBow1_Idle1</SuspensionAnimation>
-            <AnimSet>SET_CU_BANDITLEADERBOW1</AnimSet>
+            <SuspensionAnimation>PU_SoldierBow3_Idle1</SuspensionAnimation>
+            <AnimSet>SET_SOLDIERBOW3</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -104,10 +102,10 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>380</Speed>
+            <Speed>340</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
-            <MoveIdleAnim>CU_BanditLeaderBow1_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>PU_SoldierBow3_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -117,28 +115,29 @@
         <Logic classname="GGL::CSoldierBehaviorProps">
             <Class>GGL::CSoldierBehavior</Class>
 
-            <BattleTaskList>TL_BATTLE_BOW</BattleTaskList>
-            <NormalAttackAnim1>CU_BanditLeaderBow1_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>CU_BanditLeaderBow1_Attack1</NormalAttackAnim2>
-            <CounterAttackAnim>CU_BanditLeaderBow1_Attack1</CounterAttackAnim>
-            <FinishingMoveAnim>CU_BanditLeaderBow1_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>CU_BanditLeaderBow1_IdleAttack1</MissAttackAnim>
-            <BattleIdleAnim>CU_BanditLeaderBow1_IdleAttack1</BattleIdleAnim>
-            <BattleWalkAnim>CU_BanditLeaderBow1_Run1</BattleWalkAnim>
-            <HitAnim>CU_BanditLeaderBow1_Hit</HitAnim>
+            <BattleTaskList>TL_BATTLE_CROSSBOW</BattleTaskList>
+            <NormalAttackAnim1>PU_SoldierBow3_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_SoldierBow3_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>PU_SoldierBow3_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_SoldierBow3_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_SoldierBow3_IdleAttack1</MissAttackAnim>
+            <BattleIdleAnim>PU_SoldierBow3_IdleAttack1</BattleIdleAnim>
+            <BattleWalkAnim>PU_SoldierBow3_Run1</BattleWalkAnim>
+            <HitAnim>PU_SoldierBow3_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>10</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
-
+            <DamageAmount>15</DamageAmount>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
+            <ArmorClass>ArmorClassNone</ArmorClass>
+            <ArmorAmount>3</ArmorAmount>
             <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MissChance>2</MissChance>
 
-            <ProjectileEffectID>FXArrow</ProjectileEffectID>
+            <ProjectileEffectID>FXCrossBowArrow</ProjectileEffectID>
+            <MaxRange>2500</MaxRange>
+            <MinRange>0.0f</MinRange>
 
-            <MaxRange>2300</MaxRange>
-            <MinRange>800.0f</MinRange>
         </Logic>
     </Behavior>
 
@@ -146,32 +145,27 @@
         <Logic classname="GGL::CFormationBehaviorProperties">
             <Class>GGL::CFormationBehavior</Class>
             <IdleAnim>
-                <AnimID>CU_BanditLeaderBow1_Idle1</AnimID>
+                <AnimID>PU_SoldierBow3_Idle1</AnimID>
                 <Frequency>5</Frequency>
             </IdleAnim>
-
             <IdleAnim>
-                <AnimID>CU_BanditLeaderBow1_Idle2</AnimID>
+                <AnimID>PU_SoldierBow3_Idle2</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
-
             <IdleAnim>
-                <AnimID>CU_BanditLeaderBow1_Idle3</AnimID>
+                <AnimID>PU_SoldierBow3_Idle3</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
-
             <IdleAnim>
-                <AnimID>CU_BanditLeaderBow1_Idle4</AnimID>
+                <AnimID>PU_SoldierBow3_Idle4</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
-
             <IdleAnim>
-                <AnimID>CU_BanditLeaderBow1_Idle5</AnimID>
+                <AnimID>PU_SoldierBow3_Idle5</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
-
             <IdleAnim>
-                <AnimID>CU_BanditLeaderBow1_Idle6</AnimID>
+                <AnimID>PU_SoldierBow3_Idle6</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
         </Logic>
@@ -183,6 +177,8 @@
             <DyingTaskList>TL_DIE</DyingTaskList>
         </Logic>
     </Behavior>
+
+
 
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
@@ -198,11 +194,19 @@
         </Logic>
     </Behavior>
 
+
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
             <EntityType>XD_DroppedBow</EntityType>
         </Logic>
     </Behavior>
+
+
+
+
+
+
+
 
 </root>
