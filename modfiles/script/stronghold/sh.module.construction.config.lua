@@ -123,6 +123,7 @@ Stronghold.Construction.Config = {
         [Technologies.UP2_Stonemine]        = PlayerRight.StoneMine,
         [Technologies.UP1_Sulfurmine]       = PlayerRight.SulfurGallery,
         [Technologies.UP2_Sulfurmine]       = PlayerRight.SulfurMine,
+        [Technologies.UP1_Palisade]         = PlayerRight.Wall,
     },
 }
 

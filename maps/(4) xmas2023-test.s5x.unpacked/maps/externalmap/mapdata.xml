@@ -352,8 +352,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>4.400000e+003</X>
-    <Y>1.840000e+004</Y>
+    <X>3.965362e+003</X>
+    <Y>1.884447e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -367,8 +367,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>4.000000e+003</X>
-    <Y>1.880000e+004</Y>
+    <X>4.391077e+003</X>
+    <Y>1.841644e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>

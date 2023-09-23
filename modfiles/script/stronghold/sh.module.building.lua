@@ -45,9 +45,6 @@ function Stronghold.Building:Install()
     self:OverrideSellBuildingAction();
     self:OverrideShiftRightClick();
     self:InitalizeBuyUnitKeybindings();
-    -- self:InitalizeWallActionButtons();
-    -- self:InitalizeWallTooltipButtons();
-    -- self:InitalizeWallUpdateButtons();
 end
 
 function Stronghold.Building:OnSaveGameLoaded()
@@ -69,6 +66,10 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         BlessSettlers = 4,
         MeasureTaken = 5,
         RallyPoint = 6,
+        OpenGate = 7,
+        CloseGate = 8,
+        TurnToGate = 9,
+        TurnToWall = 10,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -91,6 +92,18 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             end
             if _Action == Stronghold.Building.SyncEvents.RallyPoint then
                 Stronghold.Building:PlaceRallyPoint(_PlayerID, arg[1], arg[2], arg[3], arg[4]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.OpenGate then
+                self:OnGateOpenedCallback(arg[1], arg[2]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.CloseGate then
+                self:OnGateClosedCallback(arg[1], arg[2]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.TurnToGate then
+                self:OnWallTurnedToGateCallback(arg[1], arg[2]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.TurnToWall then
+                self:OnGateTurnedToWallCallback(arg[1], arg[2]);
             end
         end
     );
@@ -1097,49 +1110,6 @@ function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Walls
-
--- TODO: GUI
-
-function Stronghold.Building:OnWallSelected(_EntityID)
-end
-
-function Stronghold.Building:OnWallOrPalisadeCreated(_EntityID)
-    local SegmentType = Logic.GetEntityType(_EntityID);
-    if self.Config.LegalWallType[SegmentType] then
-        self:CreateWallCornerForSegmend(_EntityID);
-    end
-end
-
-function Stronghold.Building:OnWallOrPalisadeDestroyed(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    local SegmentType = Logic.GetEntityType(_EntityID);
-    if self.Config.LegalWallType[SegmentType] then
-        if self.Data[PlayerID].Corners[_EntityID] then
-            DestroyEntity(self.Data[PlayerID].Corners[_EntityID][1]);
-            DestroyEntity(self.Data[PlayerID].Corners[_EntityID][2]);
-            self.Data[PlayerID].Corners[_EntityID] = nil;
-        end
-    end
-end
-
-function Stronghold.Building:CreateWallCornerForSegmend(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if IsPlayer(PlayerID) then
-        local Position1 = GetCirclePosition(_EntityID, 300, 135);
-        local Position2 = GetCirclePosition(_EntityID, 300, 315);
-        local SegmentType = Logic.GetEntityType(_EntityID);
-        local CornerType = self.Config.CornerForSegment[SegmentType];
-        if not CornerType then
-            return;
-        end
-        local ID1 = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 0);
-        local ID2 = Logic.CreateEntity(CornerType, Position2.X, Position2.Y, 0, 0);
-        self.Data[PlayerID].Corners[_EntityID] = {ID1, ID2};
-    end
-end
-
--- -------------------------------------------------------------------------- --
 -- Keybindings
 
 function Stronghold.Building:InitalizeBuyUnitKeybindings()
@@ -1212,6 +1182,327 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _En
                 end
             end
         end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Wall GUI
+
+GUIAction_OpenGate = function()
+    local PlayerID = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local Type = Logic.GetEntityType(EntityID);
+    if PlayerID == 17 or Stronghold.Building.Config.OpenGateType[Type] then
+        return;
+    end
+    GUI.ClearSelection();
+    Syncer.InvokeEvent(
+        Stronghold.Building.NetworkCall,
+        Stronghold.Building.SyncEvents.OpenGate,
+        EntityID,
+        Type
+    );
+end
+
+GUIAction_CloseGate = function()
+    local PlayerID = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local Type = Logic.GetEntityType(EntityID);
+    if PlayerID == 17 or Stronghold.Building.Config.ClosedGateType[Type] then
+        return;
+    end
+    GUI.ClearSelection();
+    Syncer.InvokeEvent(
+        Stronghold.Building.NetworkCall,
+        Stronghold.Building.SyncEvents.CloseGate,
+        EntityID,
+        Type
+    );
+end
+
+GUIAction_TurnToGate = function()
+    local PlayerID = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local Type = Logic.GetEntityType(EntityID);
+    if PlayerID == 17 then
+        return;
+    end
+    GUI.ClearSelection();
+    Syncer.InvokeEvent(
+        Stronghold.Building.NetworkCall,
+        Stronghold.Building.SyncEvents.TurnToGate,
+        EntityID,
+        Type
+    );
+end
+
+GUIAction_TurnToWall = function()
+    local PlayerID = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local Type = Logic.GetEntityType(EntityID);
+    if PlayerID == 17 then
+        return;
+    end
+    GUI.ClearSelection();
+    Syncer.InvokeEvent(
+        Stronghold.Building.NetworkCall,
+        Stronghold.Building.SyncEvents.TurnToWall,
+        EntityID,
+        Type
+    );
+end
+
+GUITooltip_OpenGate = function(_TextKey, _ShortCut)
+    local TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_normal");
+    if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+        TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_disabled");
+    end
+    local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") ..
+                            ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, TextToolTip);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+end
+
+GUITooltip_CloseGate = function(_TextKey, _ShortCut)
+    local TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_normal");
+    if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+        TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_disabled");
+    end
+    local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") ..
+                            ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, TextToolTip);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+end
+
+GUITooltip_TurnToGate = function(_TextKey, _ShortCut)
+    local TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_normal");
+    if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+        TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_disabled");
+    end
+    local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") ..
+                            ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, TextToolTip);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+end
+
+GUITooltip_TurnToWall = function(_TextKey, _ShortCut)
+    local TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_normal");
+    if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
+        TextToolTip = XGUIEng.GetStringTableText(_TextKey.. "_disabled");
+    end
+    local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") ..
+                            ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, TextToolTip);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+end
+
+GUIUpdate_OpenGate = function()
+    local EntityID = GUI.GetSelectedEntity();
+    local Type = Logic.GetEntityType(EntityID);
+    local Highlight = (Stronghold.Building.Config.OpenGateType[Type] and 1) or 0;
+    XGUIEng.HighLightButton("OpenPalisadeGate", Highlight);
+    XGUIEng.HighLightButton("OpenWallGate", Highlight);
+end
+
+GUIUpdate_CloseGate = function()
+    local EntityID = GUI.GetSelectedEntity();
+    local Type = Logic.GetEntityType(EntityID);
+    local Highlight = (Stronghold.Building.Config.ClosedGateType[Type] and 1) or 0;
+    XGUIEng.HighLightButton(WidgetID, Highlight);
+    XGUIEng.HighLightButton("ClosePalisadeGate", Highlight);
+    XGUIEng.HighLightButton("CloseWallGate", Highlight);
+end
+
+GUIUpdate_TurnToGate = function()
+end
+
+GUIUpdate_TurnToWall = function()
+end
+
+function Stronghold.Building:OnWallSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+
+    GUIUpdate_UpgradeButtons("Upgrade_Palisade", Technologies.UP1_Palisade);
+    GUIUpdate_OpenGate();
+    GUIUpdate_CloseGate();
+
+    XGUIEng.ShowWidget("Wall", 0);
+    XGUIEng.ShowWidget("Commands_Wall", 0);
+    XGUIEng.ShowWidget("Upgrade_Palisade", 0);
+    XGUIEng.ShowWidget("OpenPalisadeGate", 0);
+    XGUIEng.ShowWidget("ClosePalisadeGate", 0);
+    XGUIEng.ShowWidget("OpenWallGate", 0);
+    XGUIEng.ShowWidget("CloseWallGate", 0);
+    XGUIEng.ShowWidget("TurnToGate", 0);
+    XGUIEng.ShowWidget("TurnToWall", 0);
+
+    if Logic.IsConstructionComplete(_EntityID) == 1 then
+        if self.Config.LegalWallType[Type] then
+            XGUIEng.ShowWidget("Wall", 1);
+            XGUIEng.ShowWidget("Commands_Wall", 1);
+        end
+        if self.Config.WoddenWallTypes[Type] then
+            XGUIEng.ShowWidget("Upgrade_Palisade", 1);
+            if self.Config.ClosedGateType[Type] then
+                XGUIEng.ShowWidget("ConvertToWall", 1);
+                XGUIEng.ShowWidget("OpenPalisadeGate", 1);
+                XGUIEng.ShowWidget("ClosePalisadeGate", 1);
+                XGUIEng.ShowWidget("TurnToWall", 1);
+            end
+            if self.Config.OpenGateType[Type] then
+                XGUIEng.ShowWidget("ConvertToWall", 1);
+                XGUIEng.ShowWidget("OpenPalisadeGate", 1);
+                XGUIEng.ShowWidget("ClosePalisadeGate", 1);
+                XGUIEng.ShowWidget("TurnToWall", 1);
+            end
+            if self.Config.WallSegmentType[Type] then
+                XGUIEng.ShowWidget("ConvertToGate", 1);
+                XGUIEng.ShowWidget("TurnToGate", 1);
+            end
+        end
+        if self.Config.StoneWallTypes[Type] then
+            if self.Config.ClosedGateType[Type] then
+                XGUIEng.ShowWidget("ConvertToWall", 1);
+                XGUIEng.ShowWidget("OpenWallGate", 1);
+                XGUIEng.ShowWidget("CloseWallGate", 1);
+                XGUIEng.ShowWidget("TurnToWall", 1);
+            end
+            if self.Config.OpenGateType[Type] then
+                XGUIEng.ShowWidget("ConvertToWall", 1);
+                XGUIEng.ShowWidget("OpenWallGate", 1);
+                XGUIEng.ShowWidget("CloseWallGate", 1);
+                XGUIEng.ShowWidget("TurnToWall", 1);
+            end
+            if self.Config.WallSegmentType[Type] then
+                XGUIEng.ShowWidget("ConvertToGate", 1);
+                XGUIEng.ShowWidget("TurnToGate", 1);
+            end
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Wall Logic
+
+function Stronghold.Building:OnWallOrPalisadeCreated(_EntityID)
+    local SegmentType = Logic.GetEntityType(_EntityID);
+    if self.Config.LegalWallType[SegmentType] then
+        self:CreateWallCornerForSegment(_EntityID);
+    end
+end
+
+function Stronghold.Building:OnWallOrPalisadeDestroyed(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local SegmentType = Logic.GetEntityType(_EntityID);
+    if self.Config.LegalWallType[SegmentType] then
+        if self.Data[PlayerID].Corners[_EntityID] then
+            DestroyEntity(self.Data[PlayerID].Corners[_EntityID][1]);
+            DestroyEntity(self.Data[PlayerID].Corners[_EntityID][2]);
+            self.Data[PlayerID].Corners[_EntityID] = nil;
+        end
+    end
+end
+
+function Stronghold.Building:CreateWallCornerForSegment(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        local SegmentType = Logic.GetEntityType(_EntityID);
+        local Angle1 = 135;
+        if self.Config.OpenGateType[SegmentType] or self.Config.ClosedGateType[SegmentType] then
+            Angle1 = 90;
+        end
+        local Angle2 = 315;
+        if self.Config.OpenGateType[SegmentType] or self.Config.ClosedGateType[SegmentType] then
+            Angle2 = 270;
+        end
+        local Position1 = GetCirclePosition(_EntityID, 301, Angle1);
+        local Position2 = GetCirclePosition(_EntityID, 301, Angle2);
+        local CornerType = self.Config.CornerForSegment[SegmentType];
+        if not CornerType then
+            return;
+        end
+        self.Data[PlayerID].Corners[_EntityID] = {};
+        if not self:IsGroundToSteep(Position1.X, Position1.Y, 250) then
+            local ID = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 0);
+            table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
+        end
+        if not self:IsGroundToSteep(Position2.X, Position2.Y, 250) then
+            local ID = Logic.CreateEntity(CornerType, Position2.X, Position2.Y, 0, 0);
+            table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
+        end
+    end
+end
+
+function AiWallConstruction:IsGroundToSteep(_X, _Y, _Height)
+    local Heights = {};
+    for x = -200, 200, 200 do
+        for y = -200, 200, 200 do
+            local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X+x, _Y+y, 0, 8);
+            if IsExisting(ID) then
+                local _,_,z = Logic.EntityGetPos(ID);
+                table.insert(Heights, z);
+                DestroyEntity(ID);
+            end
+        end
+    end
+
+    local Highest = math.max(unpack(Heights));
+    local Lowest  = math.min(unpack(Heights));
+    if math.abs(Highest-Lowest) <= _Height then
+        return false
+    end
+    return true;
+end
+
+function Stronghold.Building:OnGateOpenedCallback(_EntityID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.ClosedToOpenGate[_Type]);
+    if PlayerID == GUI.GetPlayerID() then
+        GUI.SelectEntity(ID);
+    end
+end
+
+function Stronghold.Building:OnGateClosedCallback(_EntityID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.OpenToClosedGate[_Type]);
+    if PlayerID == GUI.GetPlayerID() then
+        GUI.SelectEntity(ID);
+    end
+end
+
+function Stronghold.Building:OnGateTurnedToWallCallback(_EntityID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Position = GetPosition(_EntityID);
+    local Orientation = Logic.GetEntityOrientation(_EntityID) - 45;
+    local EntityType = Stronghold.Building.Config.GateToWall[_Type];
+    local ScriptName = Logic.GetEntityName(_EntityID);
+    local Health = GetHealth(_EntityID);
+    DestroyEntity(_EntityID);
+    local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, PlayerID);
+    Logic.SetEntityName(ID, ScriptName);
+    SetHealth(ID, Health);
+    if PlayerID == GUI.GetPlayerID() then
+        GUI.SelectEntity(ID);
+    end
+end
+
+function Stronghold.Building:OnWallTurnedToGateCallback(_EntityID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Position = GetPosition(_EntityID);
+    local Orientation = Logic.GetEntityOrientation(_EntityID) + 45;
+    local EntityType = Stronghold.Building.Config.WallToGate[_Type];
+    local ScriptName = Logic.GetEntityName(_EntityID);
+    local Health = GetHealth(_EntityID);
+    DestroyEntity(_EntityID);
+    local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, PlayerID);
+    Logic.SetEntityName(ID, ScriptName);
+    SetHealth(ID, Health);
+    if PlayerID == GUI.GetPlayerID() then
+        GUI.SelectEntity(ID);
     end
 end
 

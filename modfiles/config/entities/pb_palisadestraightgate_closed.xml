@@ -15,7 +15,22 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <IsWall>true</IsWall>
         <BuildOn>XD_WallConstructionSite</BuildOn>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
         <HideBase>true</HideBase>
+
+        <Upgrade>
+            <Category>Palisade</Category>
+            <Time>30.0</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>25</Wood>
+                <Stone>100</Stone>
+                <Gold>0</Gold>
+                <Iron>25</Iron>
+                <Sulfur>0</Sulfur>
+            </Cost>
+            <Type>PB_WallStraightGate_Closed</Type>
+        </Upgrade>
 
         <ConstructionInfo>
             <Time>20</Time>

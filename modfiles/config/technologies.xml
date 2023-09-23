@@ -353,6 +353,7 @@
     <!-- Buildings -->
     <Technology>B_Palisade</Technology>
     <Technology>B_Wall</Technology>
+    <Technology>UP1_Palisade</Technology>
 
     <!-- Resources -->
     <Technology>T_PickAxeClay</Technology>
