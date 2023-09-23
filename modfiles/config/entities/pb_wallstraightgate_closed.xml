@@ -18,14 +18,18 @@
         <BuildOn>XD_WallConstructionSite</BuildOn>
         <HideBase>true</HideBase>
 
+		<ModifyArmor>
+            <Technology>T_Masonry</Technology>		  
+		</ModifyArmor>
+
         <ConstructionInfo>
             <Time>20</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>25</Wood>
-                <Stone>150</Stone>
+                <Wood>0</Wood>
+                <Stone>100</Stone>
                 <Gold>0</Gold>
-                <Iron>25</Iron>
+                <Iron>0</Iron>
                 <Sulfur>0</Sulfur>
             </Cost>
             <BuilderSlot>

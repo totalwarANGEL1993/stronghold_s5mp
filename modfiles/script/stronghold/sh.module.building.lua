@@ -1395,6 +1395,17 @@ function Stronghold.Building:OnWallOrPalisadeCreated(_EntityID)
     end
 end
 
+function Stronghold.Building:OnWallOrPalisadeUpgraded(_EntityID)
+    -- Kerberos and Kala are building dark walls
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if PlayerHasLordOfType(PlayerID, Entities.CU_BlackKnight)
+    or PlayerHasLordOfType(PlayerID, Entities.CU_Evil_Queen) then
+        local SegmentType = Logic.GetEntityType(_EntityID);
+        SegmentType = Stronghold.Building.Config.WallToDarkWall[SegmentType] or SegmentType;
+        ReplaceEntity(_EntityID, SegmentType);
+    end
+end
+
 function Stronghold.Building:OnWallOrPalisadeDestroyed(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local SegmentType = Logic.GetEntityType(_EntityID);
@@ -1419,8 +1430,8 @@ function Stronghold.Building:CreateWallCornerForSegment(_EntityID)
         if self.Config.OpenGateType[SegmentType] or self.Config.ClosedGateType[SegmentType] then
             Angle2 = 270;
         end
-        local Position1 = GetCirclePosition(_EntityID, 301, Angle1);
-        local Position2 = GetCirclePosition(_EntityID, 301, Angle2);
+        local Position1 = GetCirclePosition(_EntityID, 300.1, Angle1);
+        local Position2 = GetCirclePosition(_EntityID, 300.1, Angle2);
         local CornerType = self.Config.CornerForSegment[SegmentType];
         if not CornerType then
             return;
@@ -1437,7 +1448,7 @@ function Stronghold.Building:CreateWallCornerForSegment(_EntityID)
     end
 end
 
-function AiWallConstruction:IsGroundToSteep(_X, _Y, _Height)
+function Stronghold.Building:IsGroundToSteep(_X, _Y, _Height)
     local Heights = {};
     for x = -200, 200, 200 do
         for y = -200, 200, 200 do

@@ -23,10 +23,10 @@
             <Time>30.0</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>25</Wood>
+                <Wood>0</Wood>
                 <Stone>100</Stone>
                 <Gold>0</Gold>
-                <Iron>25</Iron>
+                <Iron>0</Iron>
                 <Sulfur>0</Sulfur>
             </Cost>
             <Type>PB_WallStraightGate</Type>
@@ -36,7 +36,7 @@
             <Time>20</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>100</Wood>
+                <Wood>50</Wood>
                 <Stone>0</Stone>
                 <Gold>0</Gold>
                 <Iron>0</Iron>

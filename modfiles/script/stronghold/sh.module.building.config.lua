@@ -124,6 +124,13 @@ Stronghold.Building.Config.WallToGate = {
     [Entities.PB_WallDistorted]                 = Entities.PB_WallStraightGate_Closed,
 }
 
+Stronghold.Building.Config.WallToDarkWall = {
+    [Entities.PB_WallStraightGate_Closed]       = Entities.PB_DarkWallStraightGate_Closed,
+    [Entities.PB_WallStraightGate]              = Entities.PB_DarkWallStraightGate,
+    [Entities.PB_WallDistorted]                 = Entities.PB_DarkWallDistorted,
+    [Entities.PB_WallStraight]                  = Entities.PB_DarkWallStraight,
+}
+
 Stronghold.Building.Config.LegalWallType = {
     [Entities.PB_DarkWallStraightGate_Closed]   = true,
     [Entities.PB_DarkWallStraightGate]          = true,

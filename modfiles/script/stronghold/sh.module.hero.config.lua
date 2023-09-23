@@ -75,6 +75,7 @@ Stronghold.Hero.Config.Hero11 = {
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {
     PopulationFactor = 1.2,
+    TowerDistance = 900,
 }
 
 -- Text overwrite

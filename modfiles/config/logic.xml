@@ -884,6 +884,11 @@
 	</SettlerUpgrade>
 
     <BuildingUpgrade>
+        <Category>EvilTower</Category>
+        <FirstBuilding>CB_Evil_Tower1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
         <Category>DarkWall</Category>
         <FirstBuilding>PB_DarkWallDistorted</FirstBuilding>
     </BuildingUpgrade>
@@ -895,36 +900,6 @@
 
     <BuildingUpgrade>
         <Category>Wall</Category>
-        <FirstBuilding>PB_WallDistorted</FirstBuilding>
-    </BuildingUpgrade>
-
-    <BuildingUpgrade>
-        <Category>DarkWallGate</Category>
-        <FirstBuilding>PB_DarkWallStraightGate</FirstBuilding>
-    </BuildingUpgrade>
-
-    <BuildingUpgrade>
-        <Category>DarkWallSegment</Category>
-        <FirstBuilding>PB_DarkWallDistorted</FirstBuilding>
-    </BuildingUpgrade>
-
-    <BuildingUpgrade>
-        <Category>PalisadeGate</Category>
-        <FirstBuilding>PB_PalisadeStraightGate</FirstBuilding>
-    </BuildingUpgrade>
-
-    <BuildingUpgrade>
-        <Category>PalisadeSegment</Category>
-        <FirstBuilding>PB_PalisadeDistorted</FirstBuilding>
-    </BuildingUpgrade>
-
-    <BuildingUpgrade>
-        <Category>WallGate</Category>
-        <FirstBuilding>PB_WallStraightGate</FirstBuilding>
-    </BuildingUpgrade>
-
-    <BuildingUpgrade>
-        <Category>WallSegment</Category>
         <FirstBuilding>PB_WallDistorted</FirstBuilding>
     </BuildingUpgrade>
 </root>

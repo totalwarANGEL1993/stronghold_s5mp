@@ -1179,7 +1179,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnCannonConstructionComplete", function(_BuildingID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_BuildingID);
-        Stronghold.Building:OnWallOrPalisadeCreated(_BuildingID);
+        Stronghold.Building:OnWallOrPalisadeUpgraded(_BuildingID);
     end);
 
     Overwrite.CreateOverwrite("GameCallback_OnTransactionComplete", function(_BuildingID)

@@ -1,32 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>CB_EvilTower1</Model>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
-		  <MaxHealth>400</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>8</ArmorAmount>
-	      <Category>MilitaryBuilding</Category>
-		  <Category>Military</Category>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>CB_EvilTower1</Model>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
+        <MaxHealth>400</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>8</ArmorAmount>
+        <Category>MilitaryBuilding</Category>
+
 
         <ModifyArmor>
-            <Technology>T_Masonry</Technology>		  
-        </ModifyArmor>     
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
 
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		  
+        </ModifyExploration>
 
-		  <Exploration>33</Exploration>        
+
+        <Exploration>45</Exploration>
         <ConstructionInfo>
+            <Time>80</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>200</Wood>
+                <Stone>200</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>100</X>
@@ -54,17 +63,18 @@
                     <Y>100</Y>
                 </Position>
                 <Orientation>0</Orientation>
-            </BuilderSlot>   
+            </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>
-      <ApproachPos>
+
+        <ApproachPos>
             <X>-100</X>
             <Y>200</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>-50</X>
-            <Y>-250</Y>			
+            <Y>-250</Y>
         </DoorPos>
         <Blocked1>
             <X>-100</X>
@@ -81,46 +91,38 @@
         <TerrainPos2>
             <X>200</X>
             <Y>-200</Y>
-        </TerrainPos2>      
-            
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>DefaultBend</Banner>
-			  <NumDamageEffects>6</NumDamageEffects>
-			  <NumDestroyEffects>7</NumDestroyEffects>
-		</Display>
-	</Behavior>
-    
-	<Behavior>
-	    <Logic classname="GGL::CFoundationBehaviorProps">
-	        <Class>GGL::CFoundationBehavior</Class>
-	        <TopEntityType>CB_Evil_Tower1_ArrowLauncher</TopEntityType>
+        </TerrainPos2>
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>DefaultBend</Banner>
+            <NumDamageEffects>6</NumDamageEffects>
+            <NumDestroyEffects>7</NumDestroyEffects>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CFoundationBehaviorProps">
+            <Class>GGL::CFoundationBehavior</Class>
+            <TopEntityType>CB_Evil_Tower1_ArrowLauncher</TopEntityType>
         </Logic>
     </Behavior>
 
-	<Behavior>
-		  <Logic classname="GGL::CGLBehaviorPropsDying">
-			  <Class>GGL::CGLBehaviorDying</Class>
-		</Logic>
-	</Behavior>
-        
-
-
-
-
-
-
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+        </Logic>
+    </Behavior>
 </root>

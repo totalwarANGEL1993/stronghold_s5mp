@@ -693,10 +693,18 @@ function Stronghold.Hero:OverrideGuiPlaceBuilding()
     GUIAction_PlaceBuilding_Orig_SH_Hero = GUIAction_PlaceBuilding;
     GUIAction_PlaceBuilding = function(_UpgradeCategory)
         local PlayerID = GUI.GetPlayerID();
+        -- Kerberos and Kala are building dark towers
         if PlayerID ~= 17 and _UpgradeCategory == UpgradeCategories.Tower then
             if Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_BlackKnight)
             or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Evil_Queen) then
                 return GUIAction_PlaceBuilding_Orig_SH_Hero(UpgradeCategories.DarkTower);
+            end
+        end
+        -- Kerberos and Kala are building dark walls
+        if PlayerID ~= 17 and _UpgradeCategory == UpgradeCategories.Wall then
+            if Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_BlackKnight)
+            or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Evil_Queen) then
+                return GUIAction_PlaceBuilding_Orig_SH_Hero(UpgradeCategories.DarkWall);
             end
         end
         GUIAction_PlaceBuilding_Orig_SH_Hero(_UpgradeCategory);
@@ -1352,6 +1360,9 @@ function Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, _Amount)
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
         Amount = self.Config.Hero2.TowerDistance;
+    end
+    if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
+        Amount = self.Config.Hero12.TowerDistance;
     end
     return Amount;
 end

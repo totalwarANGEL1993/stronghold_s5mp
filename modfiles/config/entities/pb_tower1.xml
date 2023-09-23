@@ -16,20 +16,14 @@
         <Category>MilitaryBuilding</Category>
 
 
-
-
-        <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-
-
-
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
+
 
         <Upgrade>
             <Category>Tower</Category>
@@ -131,11 +125,17 @@
             <NumDestroyEffects>9</NumDestroyEffects>
         </Display>
     </Behavior>
-    
+
     <Behavior>
         <Logic classname="GGL::CFoundationBehaviorProps">
             <Class>GGL::CFoundationBehavior</Class>
             <TopEntityType>PB_Tower1_ArrowLauncher</TopEntityType>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
         </Logic>
     </Behavior>
 </root>
