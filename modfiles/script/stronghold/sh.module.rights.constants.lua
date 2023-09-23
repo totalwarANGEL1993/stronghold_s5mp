@@ -157,5 +157,9 @@ PlayerRight = {
     Beautification10 = 113,
     Beautification11 = 114,
     Beautification12 = 115,
+
+    -- Walls
+    Palisade = 116,
+    Wall = 117,
 }
 

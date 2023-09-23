@@ -33,6 +33,7 @@ function Stronghold.Building:Install()
         self.Data[i] = {
             Measure = {},
             RallyPoint = {},
+            Corners = {},
 
             HeadquarterLastWidgetID = 0,
         };
@@ -44,6 +45,9 @@ function Stronghold.Building:Install()
     self:OverrideSellBuildingAction();
     self:OverrideShiftRightClick();
     self:InitalizeBuyUnitKeybindings();
+    -- self:InitalizeWallActionButtons();
+    -- self:InitalizeWallTooltipButtons();
+    -- self:InitalizeWallUpdateButtons();
 end
 
 function Stronghold.Building:OnSaveGameLoaded()
@@ -1089,6 +1093,49 @@ function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
                 end
             end
         end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Walls
+
+-- TODO: GUI
+
+function Stronghold.Building:OnWallSelected(_EntityID)
+end
+
+function Stronghold.Building:OnWallOrPalisadeCreated(_EntityID)
+    local SegmentType = Logic.GetEntityType(_EntityID);
+    if self.Config.LegalWallType[SegmentType] then
+        self:CreateWallCornerForSegmend(_EntityID);
+    end
+end
+
+function Stronghold.Building:OnWallOrPalisadeDestroyed(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local SegmentType = Logic.GetEntityType(_EntityID);
+    if self.Config.LegalWallType[SegmentType] then
+        if self.Data[PlayerID].Corners[_EntityID] then
+            DestroyEntity(self.Data[PlayerID].Corners[_EntityID][1]);
+            DestroyEntity(self.Data[PlayerID].Corners[_EntityID][2]);
+            self.Data[PlayerID].Corners[_EntityID] = nil;
+        end
+    end
+end
+
+function Stronghold.Building:CreateWallCornerForSegmend(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        local Position1 = GetCirclePosition(_EntityID, 300, 135);
+        local Position2 = GetCirclePosition(_EntityID, 300, 315);
+        local SegmentType = Logic.GetEntityType(_EntityID);
+        local CornerType = self.Config.CornerForSegment[SegmentType];
+        if not CornerType then
+            return;
+        end
+        local ID1 = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 0);
+        local ID2 = Logic.CreateEntity(CornerType, Position2.X, Position2.Y, 0, 0);
+        self.Data[PlayerID].Corners[_EntityID] = {ID1, ID2};
     end
 end
 

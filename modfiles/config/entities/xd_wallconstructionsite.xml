@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayStaticEntity</Class>
+        <Model>XD_RuinFragment6</Model>
+    </Display>
+    <Logic classname="GGL::CResourceDoodadProperties">
+        <Class>GGL::CResourceDoodad</Class>
+        <AccessCategory>AccessCategoryStatic</AccessCategory>
+		<DoNotExecute>True</DoNotExecute>
+        <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
+        <Exploration>0</Exploration>
+        <NeedsPlayer>false</NeedsPlayer>
+        <ForceNoPlayer>true</ForceNoPlayer>
+
+        <TerrainPos1>
+            <X>-135</X>
+            <Y>200</Y>
+        </TerrainPos1>
+        <TerrainPos2>
+            <X>135</X>
+            <Y>-190</Y>
+        </TerrainPos2>
+    </Logic>
+</root>

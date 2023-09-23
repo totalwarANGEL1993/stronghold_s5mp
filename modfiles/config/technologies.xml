@@ -350,6 +350,10 @@
 
 <!-- Stronghold -->
 
+    <!-- Buildings -->
+    <Technology>B_Palisade</Technology>
+    <Technology>B_Wall</Technology>
+
     <!-- Resources -->
     <Technology>T_PickAxeClay</Technology>
     <Technology>T_PickAxeIron</Technology>

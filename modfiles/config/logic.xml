@@ -884,6 +884,21 @@
 	</SettlerUpgrade>
 
     <BuildingUpgrade>
+        <Category>DarkWall</Category>
+        <FirstBuilding>PB_DarkWallDistorted</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Palisade</Category>
+        <FirstBuilding>PB_PalisadeDistorted</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Wall</Category>
+        <FirstBuilding>PB_WallDistorted</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
         <Category>DarkWallGate</Category>
         <FirstBuilding>PB_DarkWallStraightGate</FirstBuilding>
     </BuildingUpgrade>

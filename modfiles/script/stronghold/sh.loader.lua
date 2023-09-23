@@ -31,6 +31,7 @@ Lib.Require("comfort/ArePositionsConnected");
 Lib.Require("comfort/ConvertSecondsToString");
 Lib.Require("comfort/CreateNameForEntity");
 Lib.Require("comfort/CreateWoodPile");
+Lib.Require("comfort/GetCirclePosition");
 Lib.Require("comfort/GetDistance");
 Lib.Require("comfort/GetEnemiesInArea");
 Lib.Require("comfort/GetGeometricCenter");

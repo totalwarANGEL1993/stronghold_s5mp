@@ -1,20 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		<Model>XD_DarkWallStraight</Model>
-		<RenderInFoW>true</RenderInFoW>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>XD_DarkWallStraight</Model>
+        <RenderInFoW>false</RenderInFoW>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
         <Class>GGL::CBuilding</Class>
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <MaxHealth>4000</MaxHealth>
-	    <ArmorAmount>9</ArmorAmount>
+        <ArmorAmount>9</ArmorAmount>
 
         <Category>Wall</Category>
         <ForceNoPlayer>false</ForceNoPlayer>
         <NeedsPlayer>true</NeedsPlayer>
         <IsWall>true</IsWall>
+        <BuildOn>XD_WallConstructionSite</BuildOn>
+        <HideBase>true</HideBase>
 
         <ConstructionInfo>
             <Time>20</Time>
@@ -56,7 +58,7 @@
             </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>
-        
+
         <ApproachPos>
             <X>100</X>
             <Y>0</Y>
@@ -69,32 +71,32 @@
         <TerrainPos2>
             <X>135</X>
             <Y>-190</Y>
-        </TerrainPos2>        
+        </TerrainPos2>
         <Blocked1>
-            <X>-35</X> 
-            <Y>200</Y> 
+            <X>-35</X>
+            <Y>200</Y>
         </Blocked1>
         <Blocked2>
-            <X>35</X> 
-            <Y>-190</Y> 
+            <X>35</X>
+            <Y>-190</Y>
         </Blocked2>
     </Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
+    <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
-		    <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		<Display classname="GD::CBuildingBehaviorProps">
-		    <Class>GD::CBuildingBehavior</Class>
-			<NumDamageEffects>3</NumDamageEffects>
-			<NumDestroyEffects>0</NumDestroyEffects>
-		</Display>
-	</Behavior>
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <NumDamageEffects>3</NumDamageEffects>
+            <NumDestroyEffects>0</NumDestroyEffects>
+        </Display>
+    </Behavior>
 </root>

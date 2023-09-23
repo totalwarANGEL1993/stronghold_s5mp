@@ -64,6 +64,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.ArchitectShop,
                 PlayerRight.Bridge,
                 ---
+                PlayerRight.Palisade,
+                ---
                 PlayerRight.Barracks,
                 PlayerRight.SpearMilitia,
             },
@@ -170,6 +172,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.WeatherTower,
                 PlayerRight.Manor,
                 PlayerRight.Estate,
+                ---
+                PlayerRight.Wall,
                 ---
                 PlayerRight.SwordLong,
                 PlayerRight.SwordGuardist,

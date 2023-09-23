@@ -661,6 +661,7 @@ function Stronghold:OnEntityCreated()
             self:OnSelectionMenuChanged(EntityID);
         end
     end
+    Stronghold.Building:OnWallOrPalisadeCreated(EntityID);
     Stronghold.Economy:SetSettlersMotivation(EntityID);
     Stronghold.Unit:SetFormationOnCreate(EntityID);
     Stronghold.Recruitment:InitQueuesForProducer(EntityID);
@@ -671,6 +672,7 @@ function Stronghold:OnEntityDestroyed()
     local PlayerID = Logic.EntityGetPlayer(EntityID);
     self:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
     Stronghold.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
+    Stronghold.Building:OnWallOrPalisadeDestroyed(EntityID);
 end
 
 function Stronghold:OnEntityHurtEntity()
@@ -1135,6 +1137,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
     self.Building:OnAlchemistSelected(SelectedID);
     self.Building:OnTowerSelected(SelectedID);
     self.Building:OnVillageCenterSelected(SelectedID);
+    self.Building:OnWallSelected(SelectedID);
 
     self.Hero:OnSelectLeader(SelectedID);
     self.Hero:OnSelectHero(SelectedID);
@@ -1176,6 +1179,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnCannonConstructionComplete", function(_BuildingID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_BuildingID);
+        Stronghold.Building:OnWallOrPalisadeCreated(_BuildingID);
     end);
 
     Overwrite.CreateOverwrite("GameCallback_OnTransactionComplete", function(_BuildingID)

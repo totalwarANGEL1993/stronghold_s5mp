@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayStaticEntity</Class>
+        <Model>ZXBox100</Model>
+    </Display>
+    <Logic classname="GGL::CResourceDoodadProperties">
+        <Class>GGL::CResourceDoodad</Class>
+        <AccessCategory>AccessCategoryStatic</AccessCategory>
+		<DoNotExecute>True</DoNotExecute>
+        <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
+        <Exploration>0</Exploration>
+        <NeedsPlayer>false</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Visible>false</Visible>
+        <TerrainPos1>
+            <X>0</X>
+            <Y>0</Y>
+        </TerrainPos1>
+        <TerrainPos2>
+            <X>1</X>
+            <Y>1</Y>
+        </TerrainPos2>
+    </Logic>
+</root>

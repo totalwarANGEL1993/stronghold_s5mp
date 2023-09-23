@@ -82,3 +82,34 @@ Stronghold.Building.Config.Monastery = {
     },
 }
 
+Stronghold.Building.Config.CornerForSegment = {
+    [Entities.PB_DarkWallStraightGate_Closed]   = Entities.PB_DarkWallCorner,
+    [Entities.PB_DarkWallStraightGate]          = Entities.PB_DarkWallCorner,
+    [Entities.PB_DarkWallDistorted]             = Entities.PB_DarkWallCorner,
+    [Entities.PB_DarkWallStraight]              = Entities.PB_DarkWallCorner,
+    [Entities.PB_PalisadeStraightGate_Closed]   = Entities.PB_PalisadeCorner,
+    [Entities.PB_PalisadeStraightGate]          = Entities.PB_PalisadeCorner,
+    [Entities.PB_PalisadeDistorted]             = Entities.PB_PalisadeCorner,
+    [Entities.PB_PalisadeStraight]              = Entities.PB_PalisadeCorner,
+    [Entities.PB_WallStraightGate_Closed]       = Entities.PB_WallCorner,
+    [Entities.PB_WallStraightGate]              = Entities.PB_WallCorner,
+    [Entities.PB_WallDistorted]                 = Entities.PB_WallCorner,
+    [Entities.PB_WallStraight]                  = Entities.PB_WallCorner,
+}
+
+Stronghold.Building.Config.LegalWallType = {
+    [Entities.PB_DarkWallStraightGate_Closed]   = true,
+    [Entities.PB_DarkWallStraightGate]          = true,
+    [Entities.PB_DarkWallDistorted]             = true,
+    [Entities.PB_DarkWallStraight]              = true,
+    [Entities.PB_PalisadeStraightGate_Closed]   = true,
+    [Entities.PB_PalisadeStraightGate]          = true,
+    [Entities.PB_PalisadeDistorted]             = true,
+    [Entities.PB_PalisadeStraight]              = true,
+    [Entities.PB_WallStraightGate_Closed]       = true,
+    [Entities.PB_WallStraightGate]              = true,
+    [Entities.PB_WallDistorted]                 = true,
+    [Entities.PB_WallStraight]                  = true,
+}
+
+
