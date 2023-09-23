@@ -26,11 +26,27 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Melee</Category>
+        <Category>Sword</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>6</ArmorAmount>
+        <DodgeChance>8</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>40</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Gold>150</Gold>
             <Iron>60</Iron>
             <Wood/>
         </Cost>
+        <Upgrade>
+            <Category>LeaderBandit</Category>
+            <Type>CU_BanditLeaderSword1</Type>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -60,24 +76,6 @@
         <ModifyDamage>
             <Technology>T_EliteSquad</Technology>
         </ModifyDamage>
-
-
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Melee</Category>
-        <Category>Sword</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>6</ArmorAmount>
-        <DodgeChance>8</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>40</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>LeaderBandit</Category>
-            <Type>CU_BanditLeaderSword2</Type>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

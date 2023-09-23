@@ -26,11 +26,26 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Melee</Category>
+        <Category>Sword</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>3</ArmorAmount>
+        <DodgeChance>8</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Gold>150</Gold>
             <Iron>60</Iron>
             <Wood/>
         </Cost>
+        <Upgrade>
+            <Category>LeaderBandit</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -64,23 +79,6 @@
         <Upgrade>
             <Category>LeaderBandit</Category>
         </Upgrade>
-
-
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Melee</Category>
-        <Category>Sword</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>8</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>20</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>LeaderBandit</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
@@ -110,7 +108,7 @@
     <Behavior>
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
-            <SoldierType>CU_BanditSoldierSword1</SoldierType>
+            <SoldierType>CU_BanditSoldierSword2</SoldierType>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>1500</HomeRadius>
 

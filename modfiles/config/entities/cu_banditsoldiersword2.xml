@@ -25,15 +25,30 @@
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <MaxHealth>100</MaxHealth>
         <ArmorClass>ArmorClassIron</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
+        <Category>Military</Category>
+        <Category>Soldier</Category>
+        <Category>Melee</Category>
+        <Category>Sword</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>8</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Gold>40</Gold>
             <Iron>30</Iron>
             <Wood/>
         </Cost>
+        <Upgrade>
+            <Category>SoldierBandit</Category>
+            <Type>CU_BanditSoldierSword1</Type>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -63,23 +78,6 @@
         <ModifyDamage>
             <Technology>T_EliteSquad</Technology>
         </ModifyDamage>
-
-
-        <Category>Military</Category>
-        <Category>Soldier</Category>
-        <Category>Melee</Category>
-        <Category>Sword</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>8</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>SoldierBandit</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
