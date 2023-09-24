@@ -20,7 +20,7 @@
 
         <Upgrade>
             <Category>Palisade</Category>
-            <Time>30.0</Time>
+            <Time>10.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>0</Wood>

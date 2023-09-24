@@ -16,11 +16,16 @@
         <NeedsPlayer>true</NeedsPlayer>
         <IsWall>true</IsWall>
         <BuildOn>XD_WallConstructionSite</BuildOn>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
         <HideBase>true</HideBase>
 
 		<ModifyArmor>
             <Technology>T_Masonry</Technology>		  
 		</ModifyArmor>
+
+        <Upgrade>
+            <Category>Wall</Category>
+        </Upgrade>
 
         <ConstructionInfo>
             <Time>20</Time>
