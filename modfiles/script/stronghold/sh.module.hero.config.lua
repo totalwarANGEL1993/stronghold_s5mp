@@ -12,6 +12,7 @@ Stronghold.Hero.Config.Hero2 = {
     MinerExtractionFactor = 2.0,
     RefiningBonus = 1,
     TowerDistance = 900,
+    SwordmenBonusFactor = 1.009,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {

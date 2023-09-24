@@ -1371,6 +1371,14 @@ end
 function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _Damage)
     local PlayerID = Logic.EntityGetPlayer(_AttackerID);
     local Amount = _Damage;
+    if self:HasValidLordOfType(PlayerID, Entities.PU_Hero2) then
+        if Logic.IsEntityInCategory(_AttackerID, EntityCategories.Sword) == 1 then
+            local Archery2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Smith);
+            for i= 1, Archery2 do
+                Amount = Amount * self.Config.Hero2.SwordmenBonusFactor;
+            end
+        end
+    end
     if self:HasValidLordOfType(PlayerID, Entities.PU_Hero5) then
         if Logic.IsEntityInCategory(_AttackerID, EntityCategories.Bow) == 1 then
             local Archery2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PB_Archery2);
