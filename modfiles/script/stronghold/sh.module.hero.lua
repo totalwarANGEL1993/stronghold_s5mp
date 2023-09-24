@@ -1391,7 +1391,7 @@ function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _D
         local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_AttackerID));
         if string.find(TypeName, "Barbarian_L") or string.find(TypeName, "Barbarian_S") then
             -- Tavern Bonus
-            for k,v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
+            for k,v in pairs(Stronghold:GetWorkersOfType(PlayerID, 0)) do
                 local FarmID = Logic.GetSettlersFarm(v);
                 local FarmType = Logic.GetEntityType(FarmID);
                 if FarmType == Entities.PB_Tavern1 or FarmType == Entities.PB_Tavern2 then
