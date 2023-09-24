@@ -14,12 +14,12 @@
         <ForceNoPlayer>true</ForceNoPlayer>
 
         <TerrainPos1>
-            <X>-135</X>
-            <Y>200</Y>
+            <X>-35</X>
+            <Y>100</Y>
         </TerrainPos1>
         <TerrainPos2>
-            <X>135</X>
-            <Y>-190</Y>
+            <X>35</X>
+            <Y>-90</Y>
         </TerrainPos2>
     </Logic>
 </root>
