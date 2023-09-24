@@ -3,7 +3,7 @@
  <NameKey>MapDescription/Peaceful_Land_name</NameKey>
  <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
  <Name>(2) @color:200,70,40 SH @color:255,255,255 Schiffbruch</Name>
- <Desc>@color:200,70,40 von totalwarANGEL @cr @cr @color:255,255,255 Ihr seid gestranded. Und Ihr seid nicht alein.... Könnt Ihr Euch gegen den Feind behaupten und diese gottverlassene Insel als Sieger verlassen?</Desc>
+ <Desc>@color:200,70,40 von totalwarANGEL @cr @cr @color:255,255,255 Ihr seid gestranded. Und Ihr seid nicht alein.... Errichtet ein Bollwerk und verteidigt Euch gegen den feindlichen Burgherren. Könnt Ihr Euch gegen den Feind behaupten und diese gottverlassene Insel als Sieger verlassen?</Desc>
  <SizeX>417</SizeX>
  <SizeY>417</SizeY>
  <MPFlag>true</MPFlag>
@@ -12,6 +12,6 @@
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>b92e26da-afd6-4576-b6c2-0ffb5dafdf3c</Data>
+  <Data>07a10c60-dcf7-46d3-b62e-057f553298c8</Data>
  </GUID>
 </root>
