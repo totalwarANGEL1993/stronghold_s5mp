@@ -86,8 +86,10 @@ SHS5MP_RulesDefinition = {
 
         Tutorial.Install();
         LockRank(1, 0);
-        ForbidTechnology(Technologies.B_PowerPlant, 1);
         ForbidTechnology(Technologies.B_Bridge, 1);
+        ForbidTechnology(Technologies.B_Palisade, 1);
+        ForbidTechnology(Technologies.B_PowerPlant, 1);
+        ForbidTechnology(Technologies.B_Wall, 1);
         ForbidTechnology(Technologies.T_FreeCamera, 1);
         ChangePlayer("HQ1", 8);
         Tools.CreateSoldiersForLeader(GetID("Scout"), 3);

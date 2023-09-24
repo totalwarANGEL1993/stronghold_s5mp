@@ -10,6 +10,7 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <MaxHealth>1500</MaxHealth>
         <ArmorAmount>3</ArmorAmount>
+        <Exploration>10</Exploration>
 
         <Category>Wall</Category>
         <ForceNoPlayer>false</ForceNoPlayer>

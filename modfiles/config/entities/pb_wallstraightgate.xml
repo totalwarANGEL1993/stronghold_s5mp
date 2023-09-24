@@ -18,6 +18,7 @@
         <BuildOn>XD_WallConstructionSite</BuildOn>
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
         <HideBase>true</HideBase>
+        <Exploration>10</Exploration>
 
 		<ModifyArmor>
             <Technology>T_Masonry</Technology>		  
