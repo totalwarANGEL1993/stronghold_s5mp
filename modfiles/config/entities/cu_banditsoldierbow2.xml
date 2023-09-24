@@ -85,6 +85,7 @@
         <Exploration>25</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>25</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>SoldierBanditBow</Category>
         </Upgrade>

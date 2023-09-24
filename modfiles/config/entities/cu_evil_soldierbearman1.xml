@@ -79,7 +79,9 @@
         <ExperiencePoints>15</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
 
-
+        <Upgrade>
+            <Category>Evil_SoldierBearman</Category>
+        </Upgrade>
 
     </Logic>
     <Behavior>

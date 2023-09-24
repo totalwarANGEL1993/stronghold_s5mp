@@ -58,9 +58,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-        <Upgrade>
-            <Category>SoldierBarbarian</Category>
-        </Upgrade>
 
         <ModifySpeed>
             <Technology>T_EliteSquad</Technology>
@@ -82,6 +79,9 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>10</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SoldierBarbarian</Category>
+        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

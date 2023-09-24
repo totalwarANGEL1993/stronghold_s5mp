@@ -99,6 +99,10 @@
         <ExperiencePoints>35</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
 
+        <Upgrade>
+            <Category>Evil_LeaderSkirmisher</Category>
+        </Upgrade>
+
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

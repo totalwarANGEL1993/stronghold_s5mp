@@ -90,6 +90,9 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>15</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SoldierBanditBow</Category>
+        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

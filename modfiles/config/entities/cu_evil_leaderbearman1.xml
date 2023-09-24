@@ -77,6 +77,10 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        
+        <Upgrade>
+            <Category>Evil_LeaderBearman</Category>
+        </Upgrade>
 
     </Logic>
     <Behavior>

@@ -79,7 +79,6 @@
 
         <Upgrade>
             <Category>BlackKnightSoldierMace1</Category>
-            <Type>CU_BlackKnight_SoldierMace2</Type>
         </Upgrade>
 
     </Logic>

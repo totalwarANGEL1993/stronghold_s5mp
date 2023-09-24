@@ -82,6 +82,10 @@
         <ExperiencePoints>15</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
 
+        <Upgrade>
+            <Category>LeaderBarbarian</Category>
+        </Upgrade>
+
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

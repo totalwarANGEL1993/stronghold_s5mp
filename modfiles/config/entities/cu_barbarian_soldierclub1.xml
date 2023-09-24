@@ -82,7 +82,6 @@
 
         <Upgrade>
             <Category>SoldierBarbarian</Category>
-            <Type>CU_Barbarian_SoldierClub2</Type>
         </Upgrade>
 
     </Logic>
