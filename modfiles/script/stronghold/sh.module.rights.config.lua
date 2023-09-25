@@ -68,6 +68,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Barracks,
                 PlayerRight.SpearMilitia,
+                PlayerRight.BanditSword,
             },
         },
         [PlayerRank.Mayor]    = {
@@ -85,7 +86,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.WatchTower,
                 ---
                 PlayerRight.SwordMilitia,
-                PlayerRight.BanditSwordWeak,
+                PlayerRight.BerserkWeak,
                 PlayerRight.SpearLancer,
                 ---
                 PlayerRight.ShootingRange,
@@ -116,8 +117,10 @@ Stronghold.Rights.Config = {
                 PlayerRight.ArcherLongbow,
                 ---
                 PlayerRight.Barn,
-                PlayerRight.CavalryHobilar,
+                PlayerRight.CavalryBow,
+                PlayerRight.CavalryCrossbow,
                 PlayerRight.CavalryCrusader,
+                PlayerRight.CavalryRanger,
                 ---
                 PlayerRight.Foundry,
                 PlayerRight.BronzeCannon,
@@ -150,6 +153,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Archery,
                 PlayerRight.ArcherCrossbow,
+                PlayerRight.BanditCrossbow,
                 PlayerRight.GunWorkshop,
                 PlayerRight.RifleHandgunner,
                 ---
@@ -177,7 +181,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.SwordLong,
                 PlayerRight.SwordGuardist,
-                PlayerRight.BanditSwordStrong,
+                PlayerRight.BerserkStrong,
                 PlayerRight.BarbarianStrong,
                 PlayerRight.BlackKnightStrong,
                 ---
@@ -208,7 +212,8 @@ Stronghold.Rights.Config = {
                 PlayerRight.ArcherPavease,
                 ---
                 PlayerRight.Stables,
-                PlayerRight.CavalryKnight,
+                PlayerRight.CavalrySword,
+                PlayerRight.CavalryAxe,
                 PlayerRight.CavalryTemplar,
                 ---
                 PlayerRight.CannonFactory,

@@ -2,7 +2,7 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>CU_Barbarian_SoldierClub1</Model>
+        <Model>CU_Barbarian_SoldierClub2</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
         <Anim>CU_Barbarian_SoldierClub1_Walk</Anim>
         <Anim>CU_Barbarian_SoldierClub1_Run1</Anim>
@@ -18,8 +18,6 @@
         <Anim>CU_Barbarian_SoldierClub1_Finish</Anim>
         <Anim>CU_Barbarian_SoldierClub1_Dying1</Anim>
         <Anim>CU_Barbarian_SoldierClub1_Hit</Anim>
-
-
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
@@ -127,10 +125,10 @@
             <HitAnim>CU_Barbarian_SoldierClub1_Hit</HitAnim>
 
             <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>26</DamageAmount>
+            <DamageAmount>28</DamageAmount>
             <MaxRandomDamageBonus>28</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MaxRange>200</MaxRange>
             <MinRange>0.0f</MinRange>

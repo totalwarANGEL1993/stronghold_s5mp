@@ -1047,13 +1047,25 @@
         <Entity>CB_SignalFire_Fire</Entity>
 
         <Entity>CU_BanditLeaderBow2</Entity>
-        <Entity>CU_BlackKnight_Bodyguard</Entity>
+        <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierBow2</Entity>
+        <Entity>CU_BanditSoldierSword3</Entity>
+        <Entity>CU_BlackKnight_Bodyguard</Entity>
+        <Entity>CU_CrusaderLeaderCavalry1</Entity>
+        <Entity>CU_CrusaderSoldierCavalry1</Entity>
+        <Entity>CU_RangerLeaderCavalry1</Entity>
+        <Entity>CU_RangerSoldierCavalry1</Entity>
+        <Entity>CU_TemplarLeaderCavalry1</Entity>
+        <Entity>CU_TemplarSoldierCavalry1</Entity>
+        <Entity>CU_TemplarLeaderPoleArm1</Entity>
+        <Entity>CU_TemplarSoldierPoleArm1</Entity>
         <!-- <Entity>CU_Dragonboat</Entity> -->
+
+        <Entity>CV_Cannon1</Entity>
+        <Entity>CV_Cannon2</Entity>
 
         <Entity>PB_DarkTower1_ArrowLauncher</Entity>
         <Entity>PB_Tower1_ArrowLauncher</Entity>
-
         <Entity>PB_DarkWallCorner</Entity>
         <Entity>PB_DarkWallDistorted</Entity>
         <Entity>PB_DarkWallStraight</Entity>

@@ -693,4 +693,23 @@
 			<Model>Effects\XF_Arrow</Model>
 		</Display>
     </Effect>
+    
+    <Effect id="FXCannonBallLarge">
+        <Logic classname="GGL::CCannonBallEffectProps">
+            <Class>GGL::CCannonBallEffect</Class>
+            <Global>false</Global>
+            <Duration>0</Duration>
+            <Speed>1800.0</Speed>
+            <Radius>0</Radius>
+            <Damage>0</Damage>
+            <GravityFactor>800.0f</GravityFactor>
+            <HeightOffsetStart>240.0</HeightOffsetStart>
+            <HeightOffsetTarget>0.0</HeightOffsetTarget>
+            <ImpactEffectID>FXExplosion</ImpactEffectID>
+        </Logic>  
+		<Display classname="ED::CFlyingEffectProps">
+			<Class>ED::CFlyingEffect</Class>
+			<Model>XD_CannonBall</Model>
+		</Display>
+    </Effect>
 </root>

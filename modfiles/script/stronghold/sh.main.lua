@@ -665,6 +665,7 @@ function Stronghold:OnEntityCreated()
     Stronghold.Economy:SetSettlersMotivation(EntityID);
     Stronghold.Unit:SetFormationOnCreate(EntityID);
     Stronghold.Recruitment:InitQueuesForProducer(EntityID);
+    Stronghold.Recruitment:OnUnitCreated(EntityID);
 end
 
 function Stronghold:OnEntityDestroyed()

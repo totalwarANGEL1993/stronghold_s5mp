@@ -18,7 +18,6 @@
         <Anim>CU_Barbarian_LeaderClub1_Finish</Anim>
         <Anim>CU_Barbarian_LeaderClub1_Dying1</Anim>
         <Anim>CU_Barbarian_LeaderClub1_Hit</Anim>
-        <Anim>CU_Barbarian_LeaderClub1_Dead</Anim>
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
@@ -118,9 +117,9 @@
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
-            <HomeRadius>1500</HomeRadius>
+            <HomeRadius>3000</HomeRadius>
 
-            <SoldierType>CU_Barbarian_SoldierClub1</SoldierType>
+            <SoldierType>CU_Barbarian_SoldierClub2</SoldierType>
 
             <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
 
@@ -134,7 +133,7 @@
             <HitAnim>CU_Barbarian_LeaderClub1_Hit</HitAnim>
 
             <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>13</DamageAmount>
+            <DamageAmount>14</DamageAmount>
             <MaxRandomDamageBonus>14</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

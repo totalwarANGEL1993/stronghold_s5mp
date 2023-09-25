@@ -879,6 +879,16 @@
 <!-- Stronghold -->
 
 	<SettlerUpgrade>
+	    <Category>Cannon5</Category>
+	    <FirstSettler>CV_Cannon1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>Cannon6</Category>
+	    <FirstSettler>CV_Cannon2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
 	    <Category>BlackKnightBodyguard</Category>
 	    <FirstSettler>CU_BlackKnight_Bodyguard</FirstSettler>
 	</SettlerUpgrade>

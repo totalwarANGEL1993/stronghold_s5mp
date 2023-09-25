@@ -38,29 +38,29 @@
             </Cost>
             <BuilderSlot>
                 <Position>
-                    <X>100</X>
-                    <Y>-200</Y>
+                    <X>200</X>
+                    <Y>-300</Y>
                 </Position>
                 <Orientation>90</Orientation>
             </BuilderSlot>
             <BuilderSlot>
                 <Position>
-                    <X>-100</X>
-                    <Y>200</Y>
+                    <X>-200</X>
+                    <Y>300</Y>
                 </Position>
                 <Orientation>270</Orientation>
             </BuilderSlot>
             <BuilderSlot>
                 <Position>
-                    <X>-200</X>
-                    <Y>-100</Y>
+                    <X>-300</X>
+                    <Y>-200</Y>
                 </Position>
                 <Orientation>0</Orientation>
             </BuilderSlot>
             <BuilderSlot>
                 <Position>
-                    <X>-200</X>
-                    <Y>100</Y>
+                    <X>-300</X>
+                    <Y>200</Y>
                 </Position>
                 <Orientation>0</Orientation>
             </BuilderSlot>

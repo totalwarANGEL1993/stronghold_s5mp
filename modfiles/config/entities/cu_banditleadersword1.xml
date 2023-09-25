@@ -106,7 +106,7 @@
             <Class>GGL::CLeaderBehavior</Class>
             <SoldierType>CU_BanditSoldierSword1</SoldierType>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
-            <HomeRadius>1500</HomeRadius>
+            <HomeRadius>3000</HomeRadius>
 
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 

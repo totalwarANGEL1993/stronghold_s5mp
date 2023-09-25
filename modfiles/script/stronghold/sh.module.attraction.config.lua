@@ -48,6 +48,7 @@ Stronghold.Attraction.Config.ForeignSpecialists = {
 Stronghold.Attraction.Config.UsedSpace = {
     [Entities.CU_BanditLeaderSword1] = 1,
     [Entities.CU_BanditLeaderSword2] = 1,
+    [Entities.CU_BanditLeaderSword3] = 1,
     [Entities.CU_Barbarian_LeaderClub1] = 1,
     [Entities.CU_Barbarian_LeaderClub2] = 1,
     [Entities.CU_BlackKnight_LeaderMace1] = 1,
@@ -63,6 +64,7 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PU_LeaderSword4] = 1,
     ---
     [Entities.CU_BanditLeaderBow1] = 1,
+    [Entities.CU_BanditLeaderBow2] = 1,
     [Entities.CU_Evil_LeaderSkirmisher1] = 1,
     [Entities.PU_LeaderBow1] = 1,
     [Entities.PU_LeaderBow2] = 1,
@@ -71,6 +73,8 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PU_LeaderRifle1] = 2,
     [Entities.PU_LeaderRifle2] = 2,
     ---
+    [Entities.CU_CrusaderLeaderCavalry1] = 1,
+    [Entities.CU_TemplarLeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry2] = 2,
     [Entities.PU_LeaderHeavyCavalry1] = 3,

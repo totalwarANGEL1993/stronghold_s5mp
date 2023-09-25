@@ -65,7 +65,7 @@
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
-            <HomeRadius>1500</HomeRadius>
+            <HomeRadius>3000</HomeRadius>
 
             <SoldierType>PU_SoldierSword1</SoldierType>
 

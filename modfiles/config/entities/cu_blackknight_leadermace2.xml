@@ -111,7 +111,7 @@
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
-            <HomeRadius>1500</HomeRadius>
+            <HomeRadius>3000</HomeRadius>
 
             <SoldierType>CU_BlackKnight_SoldierMace2</SoldierType>
 

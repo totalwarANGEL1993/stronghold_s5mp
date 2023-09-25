@@ -81,7 +81,7 @@
 
             <BarrackUpgradeCategory>Foundry</BarrackUpgradeCategory>
 
-            <HomeRadius>1500</HomeRadius>
+            <HomeRadius>3000</HomeRadius>
 
             <BattleTaskList>TL_BATTLE_VEHICLE</BattleTaskList>
 

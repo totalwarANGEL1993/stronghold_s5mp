@@ -67,7 +67,7 @@ Stronghold.Hero.Config.Hero10 = {
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {
-    TradeBonusFactor = 0.5,
+    TradeBonusFactor = 0.3,
     InitialReputation = 100,
     ReputationCap = 300,
     ShurikenChance = 5,

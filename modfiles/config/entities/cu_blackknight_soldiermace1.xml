@@ -2,7 +2,7 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>CU_BlackKnight_SoldierMace1</Model>
+        <Model>CU_BlackKnight_SoldierMace2</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
         <Anim>CU_BlackKnight_SoldierMace1_Walk</Anim>
         <Anim>CU_BlackKnight_SoldierMace1_Run1</Anim>

@@ -219,7 +219,7 @@ Stronghold.Unit.Config = {
             [1] = {12, 180, 0, 45, 0, 30, 0},
             [2] = {0, 90, 0, 30, 0, 20, 0},
         },
-        Right             = PlayerRight.CavalryHobilar,
+        Right             = PlayerRight.CavalryBow,
         IsCivil           = false,
         Upkeep            = 50,
         Turns             = 125,
@@ -233,7 +233,7 @@ Stronghold.Unit.Config = {
             [1] = {12, 200, 0, 20, 0, 50, 0},
             [2] = {0, 95, 0, 40, 0, 30, 0},
         },
-        Right             = PlayerRight.CavalryCrusader,
+        Right             = PlayerRight.CavalryCrossbow,
         IsCivil           = false,
         Upkeep            = 60,
         Turns             = 125,
@@ -249,7 +249,7 @@ Stronghold.Unit.Config = {
             [1] = {26, 300, 0, 0, 0, 120, 0},
             [2] = {0, 115, 0, 0, 0, 65, 0},
         },
-        Right             = PlayerRight.CavalryKnight,
+        Right             = PlayerRight.CavalrySword,
         IsCivil           = false,
         Upkeep            = 75,
         Turns             = 200,
@@ -263,7 +263,7 @@ Stronghold.Unit.Config = {
             [1] = {26, 400, 0, 0, 0, 150, 0},
             [2] = {0, 130, 0, 0, 0, 85, 0},
         },
-        Right             = PlayerRight.CavalryTemplar,
+        Right             = PlayerRight.CavalryAxe,
         IsCivil           = false,
         Upkeep            = 85,
         Turns             = 200,
@@ -377,7 +377,38 @@ Stronghold.Unit.Config = {
         ProviderBuilding  = {},
     },
 
-    -- Bandits --
+    -- Crusader --
+
+    [Entities.CU_CrusaderLeaderCavalry1]            = {
+        Button            = "Buy_LeaderCavalryLight",
+        Costs             = {
+            [1] = {12, 180, 0, 20, 0, 40, 0},
+            [2] = {0, 95, 0, 20, 0, 15, 0},
+        },
+        Right             = PlayerRight.CavalryCrusader,
+        IsCivil           = false,
+        Upkeep            = 70,
+        Turns             = 125,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
+        ProviderBuilding  = {Entities.PB_Sawmill2},
+    },
+    [Entities.CU_TemplarLeaderCavalry1]       = {
+        Button            = "Buy_LeaderCavalryHeavy",
+        Costs             = {
+            [1] = {26, 250, 0, 0, 0, 100, 0},
+            [2] = {0, 65, 0, 0, 0, 34, 0},
+        },
+        Right             = PlayerRight.CavalryTemplar,
+        IsCivil           = false,
+        Upkeep            = 85,
+        Turns             = 200,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Stable2},
+        ProviderBuilding  = {Entities.PB_Blacksmith3},
+    },
+
+    -- Berserker --
 
     [Entities.CU_BanditLeaderSword2]        = {
         Button            = "Buy_LeaderSword",
@@ -385,7 +416,7 @@ Stronghold.Unit.Config = {
             [1] = {8, 130, 0, 10, 0, 50, 0},
             [2] = {0, 25, 0, 4, 0, 18, 0},
         },
-        Right             = PlayerRight.BanditSwordWeak,
+        Right             = PlayerRight.BerserkWeak,
         IsCivil           = false,
         Upkeep            = 50,
         Turns             = 65,
@@ -399,13 +430,30 @@ Stronghold.Unit.Config = {
             [1] = {16, 220, 0, 0, 0, 74, 0},
             [2] = {0, 35, 0, 16, 0, 32, 0},
         },
-        Right             = PlayerRight.BanditSwordStrong,
+        Right             = PlayerRight.BerserkStrong,
         IsCivil           = false,
         Upkeep            = 75,
         Turns             = 150,
         Soldiers          = 12,
         RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
         ProviderBuilding  = {Entities.PB_Blacksmith2, Entities.PB_Blacksmith3},
+    },
+
+    -- Bandits --
+
+    [Entities.CU_BanditLeaderSword3]        = {
+        Button            = "Buy_LeaderSword",
+        Costs             = {
+            [1] = {5, 50, 0, 0, 0, 60, 0},
+            [2] = {0, 5, 0, 0, 0, 15, 0},
+        },
+        Right             = PlayerRight.BanditSword,
+        IsCivil           = false,
+        Upkeep            = 30,
+        Turns             = 80,
+        Soldiers          = 12,
+        RecruiterBuilding = {Entities.PB_Barracks1, Entities.PB_Barracks2},
+        ProviderBuilding  = {},
     },
     [Entities.CU_BanditLeaderBow1]          = {
         Button            = "Buy_LeaderBow",
@@ -415,7 +463,7 @@ Stronghold.Unit.Config = {
         },
         Right             = PlayerRight.BanditBow,
         IsCivil           = false,
-        Upkeep            = 40,
+        Upkeep            = 20,
         Turns             = 75,
         Soldiers          = 12,
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
@@ -427,13 +475,27 @@ Stronghold.Unit.Config = {
             [1] = {6, 100, 0, 68, 0, 0, 0},
             [2] = {0, 12, 0, 14, 0, 0, 0},
         },
-        Right             = PlayerRight.BanditBow,
+        Right             = PlayerRight.BanditCrossbow,
         IsCivil           = false,
         Upkeep            = 45,
         Turns             = 175,
         Soldiers          = 12,
         RecruiterBuilding = {Entities.PB_Archery2},
         ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
+    },
+    [Entities.CU_RangerLeaderCavalry1]            = {
+        Button            = "Buy_LeaderCavalryLight",
+        Costs             = {
+            [1] = {12, 180, 0, 20, 0, 40, 0},
+            [2] = {0, 95, 0, 20, 0, 15, 0},
+        },
+        Right             = PlayerRight.CavalryRanger,
+        IsCivil           = false,
+        Upkeep            = 70,
+        Turns             = 125,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
+        ProviderBuilding  = {Entities.PB_Sawmill2},
     },
 
     -- Barbarians --

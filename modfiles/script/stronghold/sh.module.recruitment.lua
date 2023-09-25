@@ -105,6 +105,13 @@ function Stronghold.Recruitment:InitDefaultRoster(_PlayerID)
     };
 end
 
+function Stronghold.Recruitment:OnUnitCreated(_EntityID)
+    if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon1 then
+        SVLib.SetEntitySize(EntityID, 1.8);
+        Logic.SetSpeedFactor(EntityID, 1.8);
+    end
+end
+
 -- -------------------------------------------------------------------------- --
 
 -- DEPRECATED
