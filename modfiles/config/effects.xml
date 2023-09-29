@@ -703,7 +703,7 @@
             <Radius>0</Radius>
             <Damage>0</Damage>
             <GravityFactor>800.0f</GravityFactor>
-            <HeightOffsetStart>240.0</HeightOffsetStart>
+            <HeightOffsetStart>180.0</HeightOffsetStart>
             <HeightOffsetTarget>0.0</HeightOffsetTarget>
             <ImpactEffectID>FXExplosion</ImpactEffectID>
         </Logic>  

@@ -541,8 +541,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeSword1"] = Entities.CU_BanditLeaderSword3;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.CU_BanditLeaderBow1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_BanditLeaderBow2;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.CU_RangerLeaderCavalry1;
-        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = nil;
+        Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_RangerLeaderCavalry1;
     elseif _Type == Entities.PU_Hero6 then
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.CU_CrusaderLeaderCavalry1;
         Stronghold.Recruitment.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_TemplarLeaderCavalry1;

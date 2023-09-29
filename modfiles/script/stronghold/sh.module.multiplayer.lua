@@ -659,6 +659,9 @@ end
 
 function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
     self:ResumePlayer(_PlayerID);
+    if GUI.GetPlayerID() == _PlayerID then
+        Camera.FollowEntity(GetID("HQ" .._PlayerID));
+    end
     for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, 0)) do
         if Logic.IsBuilding(v) == 1 then
             local Type = Logic.GetEntityType(v);
@@ -682,6 +685,9 @@ function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
 end
 
 function Stronghold.Multiplayer:ResumePlayer(_PlayerID)
+    if GUI.GetPlayerID() == _PlayerID then
+        Camera.FollowEntity(0);
+    end
     for i= 1, table.getn(self.Data[_PlayerID].ReplacedEntities) do
         local ID = self.Data[_PlayerID].ReplacedEntities[i][1];
         local Type = self.Data[_PlayerID].ReplacedEntities[i][2];
@@ -712,7 +718,7 @@ function Stronghold.Multiplayer:ShowRuleSelection()
         XGUIEng.SetText("SHS5MP_ControlsConfirm", Text);
     end
     XGUIEng.SetWidgetPosition("Windows", 64, 148);
-    XGUIEng.ShowWidget("GCWindow", 0);
+    XGUIEng.ShowWidget("SocialResourceView", 0);
     XGUIEng.ShowWidget("BackGround_Top", 0);
     XGUIEng.ShowWidget("Top", 0);
     XGUIEng.ShowWidget("BackGroundBottomContainer", 0);
@@ -737,7 +743,7 @@ end
 
 function Stronghold.Multiplayer:HideRuleSelection()
     XGUIEng.SetWidgetPosition("Windows", 64, 94);
-    XGUIEng.ShowWidget("GCWindow", 1);
+    XGUIEng.ShowWidget("SocialResourceView", 1);
     XGUIEng.ShowWidget("BackGround_Top", 1);
     XGUIEng.ShowWidget("Top", 1);
     XGUIEng.ShowWidget("BackGroundBottomContainer", 1);
@@ -762,7 +768,7 @@ end
 function Stronghold.Multiplayer:ShowRuleTimer()
     GUI.ClearSelection();
     XGUIEng.SetWidgetPosition("Windows", 64, 148);
-    XGUIEng.ShowWidget("GCWindow", 0);
+    XGUIEng.ShowWidget("SocialResourceView", 0);
     XGUIEng.ShowWidget("BackGround_Top", 0);
     XGUIEng.ShowWidget("Top", 0);
     XGUIEng.ShowWidget("BackGroundBottomContainer", 0);
@@ -788,7 +794,7 @@ end
 
 function Stronghold.Multiplayer:HideRuleTimer()
     XGUIEng.SetWidgetPosition("Windows", 64, 94);
-    XGUIEng.ShowWidget("GCWindow", 1);
+    XGUIEng.ShowWidget("SocialResourceView", 1);
     XGUIEng.ShowWidget("BackGround_Top", 1);
     XGUIEng.ShowWidget("Top", 1);
     XGUIEng.ShowWidget("BackGroundBottomContainer", 1);

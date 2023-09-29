@@ -120,7 +120,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.CavalryBow,
                 PlayerRight.CavalryCrossbow,
                 PlayerRight.CavalryCrusader,
-                PlayerRight.CavalryRanger,
                 ---
                 PlayerRight.Foundry,
                 PlayerRight.BronzeCannon,
@@ -184,6 +183,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.BerserkStrong,
                 PlayerRight.BarbarianStrong,
                 PlayerRight.BlackKnightStrong,
+                PlayerRight.CavalryRanger,
                 ---
                 PlayerRight.Thief,
                 PlayerRight.Inn,

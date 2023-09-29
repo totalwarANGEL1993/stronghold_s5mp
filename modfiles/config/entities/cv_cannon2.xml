@@ -92,10 +92,10 @@
             <BattleIdleAnim>PV_Cannon4_Idle</BattleIdleAnim>
             <BattleWalkAnim>PV_Cannon4_Drive</BattleWalkAnim>
 
-            <DamageClass>DC_Siege</DamageClass>
+            <DamageClass>DC_Chaos</DamageClass>
             <DamageAmount>65</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>100</DamageRange>
+            <DamageRange>600</DamageRange>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
 

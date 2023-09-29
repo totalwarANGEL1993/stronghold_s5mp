@@ -15,10 +15,5 @@
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
-        <RequiredTecConditions>1</RequiredTecConditions>
-        <TecCondition>
-            <TecType>T_BetterStudies</TecType>
-            <TecCategoryType/>
-        </TecCondition>
     </Conditions>
 </root>

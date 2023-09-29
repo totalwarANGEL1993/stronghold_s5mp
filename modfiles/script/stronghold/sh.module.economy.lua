@@ -962,17 +962,19 @@ function Stronghold.Economy:OverrideFindViewUpdate()
         -- Overwrite.CallOriginal();
         XGUIEng.ShowWidget("FindView", 1);
         XGUIEng.ShowAllSubWidgets("FindView", 1);
-        Stronghold.Economy:HonorMenuUpdate();
+        GUIUpdate_SocialResource(1);
+        GUIUpdate_SocialResource(2);
+        GUIUpdate_SocialResource(3);
     end);
 end
 
 function Stronghold.Economy:OverrideKnowledgeProgressUpdate()
     GUIUpdate_KnowledgeProgress = function()
-        -- local PlayerID = GetLocalPlayerID();
-        -- local WidgetID = XGUIEng.GetCurrentWidgetID()
-        -- local Maximum = GetPlayerMaxKnowledgePoints(PlayerID);
-        -- local Current = Stronghold.Economy:GetPlayerKnowledgePoints(PlayerID);
-        -- XGUIEng.SetProgressBarValues(WidgetID, Current, Maximum);
+        local PlayerID = GetLocalPlayerID();
+        local WidgetID = XGUIEng.GetCurrentWidgetID()
+        local Maximum = GetPlayerMaxKnowledgePoints(PlayerID);
+        local Current = Stronghold.Economy:GetPlayerKnowledgePoints(PlayerID);
+        XGUIEng.SetProgressBarValues(WidgetID, Current, Maximum);
     end
 end
 
@@ -1004,62 +1006,59 @@ function Stronghold.Economy:HonorMenuInit()
         TextPos[2] = TextPos[2] + 3;
     end
 
-	XGUIEng.ShowWidget("GCWindow", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWindow", 868, 0, 156, 50);
-    XGUIEng.SetWidgetPositionAndSize("GCWindowNew", 0, 0, 0, 0);
-	XGUIEng.ShowAllSubWidgets("GCWindow", 0);
+	XGUIEng.ShowWidget("SocialResourceView", 1);
+    XGUIEng.SetWidgetPositionAndSize("SocialResourceView", 868, 0, 156, 50);
+	XGUIEng.ShowAllSubWidgets("SocialResourceView", 0);
 
     -- Reputation
-	XGUIEng.ShowWidget("GCWIcon1", 1);
-	XGUIEng.ShowWidget("GCWText1", 1);
-	XGUIEng.ShowWidget("GCWTooltip1", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWTooltip1", 0, 22, 60, 13);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon1", 0, 19, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText1", 30 + TextPos[1], 19 + TextPos[2], 37 + TextWidth[1], 18 + TextWidth[2]);
+	XGUIEng.ShowWidget("SocialResource1_Icon", 1);
+	XGUIEng.ShowWidget("SocialResource1_Text", 1);
+	XGUIEng.ShowWidget("SocialResource1_Tooltip", 1);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource1_Tooltip", 0, 22, 60, 13);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource1_Icon", 0, 19, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource1_Text", 30 + TextPos[1], 19 + TextPos[2], 37 + TextWidth[1], 18 + TextWidth[2]);
 
     -- Knowledge
-    XGUIEng.ShowWidget("GCWIcon2", 1);
-	XGUIEng.ShowWidget("GCWText2", 1);
-	XGUIEng.ShowWidget("GCWTooltip2", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWTooltip2", 75, 4, 53, 13);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon2", 75, 4, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText2", 89 + TextPos[1], 4 + TextPos[2], 26 + TextWidth[1], 18 + TextWidth[2]);
+    XGUIEng.ShowWidget("SocialResource2_Icon", 1);
+	XGUIEng.ShowWidget("SocialResource2_Text", 1);
+	XGUIEng.ShowWidget("SocialResource2_Tooltip", 1);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource2_Tooltip", 75, 4, 53, 13);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource2_Icon", 75, 4, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource2_Text", 89 + TextPos[1], 4 + TextPos[2], 26 + TextWidth[1], 18 + TextWidth[2]);
 
     -- Honor
-    XGUIEng.ShowWidget("GCWIcon3", 1);
-	XGUIEng.ShowWidget("GCWText3", 1);
-	XGUIEng.ShowWidget("GCWTooltip3", 1);
-    XGUIEng.SetWidgetPositionAndSize("GCWTooltip3", 0, 4, 60, 13);
-    XGUIEng.SetWidgetPositionAndSize("GCWIcon3", 0, 4, 18, 18);
-    XGUIEng.SetWidgetPositionAndSize("GCWText3", 30 + TextPos[1], 4 + TextPos[2], 37 + TextWidth[1], 18 + TextWidth[2]);
+    XGUIEng.ShowWidget("SocialResource3_Icon", 1);
+	XGUIEng.ShowWidget("SocialResource3_Text", 1);
+	XGUIEng.ShowWidget("SocialResource3_Tooltip", 1);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource3_Tooltip", 0, 4, 60, 13);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource3_Icon", 0, 4, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource3_Text", 30 + TextPos[1], 4 + TextPos[2], 37 + TextWidth[1], 18 + TextWidth[2]);
 end
 
-function Stronghold.Economy:HonorMenuUpdate()
+GUIUpdate_SocialResource = function(_Index)
     local PlayerID = GetLocalPlayerID();
-    local Reputation = GetReputation(PlayerID);
-    local ReputationLimit = GetMaxReputation(PlayerID);
-    local Honor = GetHonor(PlayerID);
-    local Knowledge = GetKnowledge(PlayerID);
-
-    -- Reputation
-    XGUIEng.SetText("GCWText1", " @ra " ..Reputation.. "/" ..ReputationLimit);
-    -- Knowledge
-    XGUIEng.SetText("GCWText2", " @ra " ..Knowledge);
-    -- Honor
-    XGUIEng.SetText("GCWText3", " @ra " ..Honor);
-    -- Pause color
-    local IsPaused = Game.GameTimeGetFactor() == 0;
-    for i= 1, 4 do
-        XGUIEng.SetMaterialColor("GCWIcon" ..i, 1, 255, 255, 255, 255);
-        XGUIEng.SetTextColor("GCWText" ..i, 178, 178, 178);
-        if IsPaused then
-            XGUIEng.SetMaterialColor("GCWIcon" ..i, 1, 80, 80, 80, 255);
-            XGUIEng.SetTextColor("GCWText" ..i, 80, 80, 80);
+    if _Index == 1 then
+        local Reputation = GetReputation(PlayerID);
+        local ReputationLimit = GetMaxReputation(PlayerID);
+        XGUIEng.SetText("SocialResource1_Text", " @ra " ..Reputation.. "/" ..ReputationLimit);
+        XGUIEng.SetTextColor("SocialResource1_Text", 178, 178, 178);
+        if Reputation < 50 then
+            XGUIEng.SetTextColor("SocialResource1_Text", 255, 120, 120);
         end
-    end
-    XGUIEng.SetMaterialColor("SHS5MP_ShowRules", 1, 255, 255, 255, 255);
-    if IsPaused then
-        XGUIEng.SetMaterialColor("SHS5MP_ShowRules", 1, 80, 80, 80);
+    elseif _Index == 2 then
+        local Knowledge = GetKnowledge(PlayerID);
+        XGUIEng.SetText("SocialResource2_Text", " @ra " ..Knowledge);
+        XGUIEng.SetTextColor("SocialResource2_Text", 178, 178, 178);
+        if Knowledge == 0 then
+            XGUIEng.SetTextColor("SocialResource2_Text", 255, 120, 120);
+        end
+    elseif _Index == 3 then
+        local Honor = GetHonor(PlayerID);
+        XGUIEng.SetText("SocialResource3_Text", " @ra " ..Honor);
+        XGUIEng.SetTextColor("SocialResource3_Text", 178, 178, 178);
+        if Honor == 0 then
+            XGUIEng.SetTextColor("SocialResource3_Text", 255, 120, 120);
+        end
     end
 end
 

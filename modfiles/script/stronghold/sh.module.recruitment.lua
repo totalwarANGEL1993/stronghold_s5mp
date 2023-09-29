@@ -107,8 +107,12 @@ end
 
 function Stronghold.Recruitment:OnUnitCreated(_EntityID)
     if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon1 then
-        SVLib.SetEntitySize(EntityID, 1.8);
-        Logic.SetSpeedFactor(EntityID, 1.8);
+        SVLib.SetEntitySize(_EntityID, 1.35);
+        Logic.SetSpeedFactor(_EntityID, 1.35);
+    end
+    if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon2 then
+        SVLib.SetEntitySize(_EntityID, 0.85);
+        Logic.SetSpeedFactor(_EntityID, 0.85);
     end
 end
 
@@ -250,13 +254,21 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Recruitment:BuyMilitaryUnitFromFoundryAction(_Type, _UpgradeCategory)
+    local PlayerID = GUI.GetPlayerID();
+    if PlayerID == 17 then
+        return;
+    end
     local UnitToRecruit = {
+        [Entities.CV_Cannon1] = {"Buy_Cannon1"},
+        [Entities.CV_Cannon2] = {"Buy_Cannon3"},
         [Entities.PV_Cannon1] = {"Buy_Cannon1"},
         [Entities.PV_Cannon2] = {"Buy_Cannon2"},
         [Entities.PV_Cannon3] = {"Buy_Cannon3"},
         [Entities.PV_Cannon4] = {"Buy_Cannon4"},
     };
-    return self:BuyMilitaryUnitFromRecruiterAction(UnitToRecruit, _Type);
+    local Button = UnitToRecruit[_Type][1];
+    local Type = Stronghold.Recruitment.Data[PlayerID].Roster[Button];
+    return self:BuyMilitaryUnitFromRecruiterAction(UnitToRecruit, Type);
 end
 
 function Stronghold.Recruitment:BuyMilitaryUnitFromTavernAction(_UpgradeCategory)

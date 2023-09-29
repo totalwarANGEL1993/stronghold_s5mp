@@ -278,7 +278,6 @@
         <Effect>SettlerPlayerColorSpecular</Effect>
     </Model>
 
-
     <Model id="CU_RegentDovbar">
         <Effect>SettlerPlayerColorSpecular</Effect>
     </Model>
@@ -3636,12 +3635,23 @@
         <OcclusionReceiver>True</OcclusionReceiver>
     </Model>
 
-    <Model id="CU_TemplarLeaderCavalry1">
+    <Model id="CU_LeaderCavalry5">
         <Effect>SettlerPlayerColorSpecular</Effect>
         <OcclusionReceiver>True</OcclusionReceiver>
     </Model>
 
-    <Model id="CU_TemplarSoldierCavalry1">
+    <Model id="CU_SoldierCavalry5">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_LeaderPoleArm5">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_SoldierPoleArm5">
         <Effect>SettlerPlayerColorSpecular</Effect>
         <SelectionTexture>Selection_Soldier</SelectionTexture>
         <OcclusionReceiver>True</OcclusionReceiver>

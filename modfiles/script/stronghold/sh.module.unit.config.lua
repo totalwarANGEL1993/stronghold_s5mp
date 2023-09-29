@@ -274,6 +274,34 @@ Stronghold.Unit.Config = {
 
     -- Cannons --
 
+    [Entities.CV_Cannon1]                   = {
+        Button            = "Buy_Cannon1",
+        Costs             = {
+            [1] = {16, 300, 0, 50, 0, 100, 200},
+            [2] = {0, 0, 0, 0, 0, 0, 0},
+        },
+        Right             = PlayerRight.BombardCannon,
+        IsCivil           = false,
+        Upkeep            = 30,
+        Turns             = 0,
+        Soldiers          = 0,
+        RecruiterBuilding = {Entities.PB_Foundry1, Entities.PB_Foundry2},
+        ProviderBuilding  = {},
+    },
+    [Entities.CV_Cannon2]                   = {
+        Button            = "Buy_Cannon3",
+        Costs             = {
+            [1] = {32, 600, 0, 100, 0, 250, 400},
+            [2] = {0, 0, 0, 0, 0, 0, 0},
+        },
+        Right             = PlayerRight.IronCannon,
+        IsCivil           = false,
+        Upkeep            = 90,
+        Turns             = 0,
+        Soldiers          = 0,
+        RecruiterBuilding = {Entities.PB_Foundry2},
+        ProviderBuilding  = {},
+    },
     [Entities.PV_Cannon1]                   = {
         Button            = "Buy_Cannon1",
         Costs             = {
@@ -407,6 +435,20 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Stable2},
         ProviderBuilding  = {Entities.PB_Blacksmith3},
     },
+    [Entities.CU_TemplarLeaderPoleArm1]            = {
+        Button            = "Buy_LeaderSpear",
+        Costs             = {
+            [1] = {10, 110, 0, 80, 0, 20, 0},
+            [2] = {0, 20, 0, 22, 0, 3, 0},
+        },
+        Right             = PlayerRight.SpearLandsknecht,
+        IsCivil           = false,
+        Upkeep            = 40,
+        Turns             = 175,
+        Soldiers          = 12,
+        RecruiterBuilding = {Entities.PB_Barracks2},
+        ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
+    },
 
     -- Berserker --
 
@@ -486,15 +528,15 @@ Stronghold.Unit.Config = {
     [Entities.CU_RangerLeaderCavalry1]            = {
         Button            = "Buy_LeaderCavalryLight",
         Costs             = {
-            [1] = {12, 180, 0, 20, 0, 40, 0},
-            [2] = {0, 95, 0, 20, 0, 15, 0},
+            [1] = {12, 200, 0, 20, 0, 50, 0},
+            [2] = {0, 95, 0, 40, 0, 30, 0},
         },
         Right             = PlayerRight.CavalryRanger,
         IsCivil           = false,
         Upkeep            = 70,
         Turns             = 125,
-        Soldiers          = 6,
-        RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
+        Soldiers          = 3,
+        RecruiterBuilding = {Entities.PB_Stable2},
         ProviderBuilding  = {Entities.PB_Sawmill2},
     },
 
