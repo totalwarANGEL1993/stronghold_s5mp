@@ -94,7 +94,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>320</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>CU_BlackKnight_SoldierMace1_Idle1</MoveIdleAnim>
@@ -123,10 +123,10 @@
             <HitAnim>CU_BlackKnight_SoldierMace1_Hit</HitAnim>
 
             <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>12</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <DamageAmount>10</DamageAmount>
+            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MaxRange>200</MaxRange>
             <MinRange>0.0f</MinRange>

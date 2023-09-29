@@ -63,7 +63,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>250</Speed>
+            <Speed>200</Speed>
             <RotationSpeed>10</RotationSpeed>
             <MoveTaskList>TL_VEHICLE_DRIVE</MoveTaskList>
         </Logic>
@@ -93,11 +93,11 @@
             <BattleWalkAnim>PV_Cannon3_Drive</BattleWalkAnim>
 
             <DamageClass>DC_Chaos</DamageClass>
-            <DamageAmount>60</DamageAmount>
+            <DamageAmount>45</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>500</DamageRange>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>2500</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
             <MaxRange>2800</MaxRange>

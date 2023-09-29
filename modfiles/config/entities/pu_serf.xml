@@ -36,7 +36,7 @@
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <Hat/>
-        <MaxHealth> 200 </MaxHealth>
+        <MaxHealth>200</MaxHealth>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>0</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>
@@ -171,9 +171,9 @@
             <BattleWalkAnim>PU_Serf_Run</BattleWalkAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>1</DamageAmount>
+            <DamageAmount>5</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
 

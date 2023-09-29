@@ -16,7 +16,6 @@
         <Anim>PU_LeaderCavalry3_Walk</Anim>
         <Anim>PU_LeaderCavalry3_Hit</Anim>
     </Display>
-    <!-- ReplaceEntity(GUI.GetSelectedEntity(),Entities.CU_TemplarLeaderCavalry1) -->
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
@@ -120,10 +119,10 @@
             <HitAnim>PU_LeaderCavalry3_Hit</HitAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageAmount>22</DamageAmount>
+            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>

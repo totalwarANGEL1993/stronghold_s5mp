@@ -70,7 +70,7 @@
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Headquarters</BarrackUpgradeCategory>
-            <HomeRadius>2000</HomeRadius>
+            <HomeRadius>3000</HomeRadius>
             <SoldierType>CU_BlackKnight_Bodyguard</SoldierType>
 
             <BattleTaskList>TL_BATTLE</BattleTaskList>
@@ -88,7 +88,7 @@
             <DamageAmount>50</DamageAmount>
             <MaxRandomDamageBonus>50</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MaxRange>200</MaxRange>
             <MinRange>0.0</MinRange>

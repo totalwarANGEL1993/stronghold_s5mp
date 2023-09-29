@@ -130,9 +130,9 @@
 
             <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>30</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <MissChance>9</MissChance>
 

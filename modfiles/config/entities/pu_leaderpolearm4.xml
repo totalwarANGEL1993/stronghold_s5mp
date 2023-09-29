@@ -89,7 +89,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>300</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>PU_LeaderPoleArm4_Idle1</MoveIdleAnim>
@@ -124,10 +124,10 @@
             <HitAnim>PU_LeaderPoleArm4_Hit</HitAnim>
 
             <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>14</DamageAmount>
+            <DamageAmount>15</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2700</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>

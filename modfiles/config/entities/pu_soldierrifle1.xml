@@ -99,7 +99,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>350</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>PU_SoldierRifle1_Idle1</MoveIdleAnim>
@@ -123,12 +123,12 @@
             <HitAnim>PU_SoldierRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>44</DamageAmount>
-            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+            <DamageAmount>40</DamageAmount>
+            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <AutoAttackRange>2300</AutoAttackRange>
 
-            <BattleWaitUntil>1800</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <MissChance>13</MissChance>
 

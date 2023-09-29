@@ -116,8 +116,8 @@
             <HitAnim>PU_SoldierCavalry3_Hit</HitAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>38</DamageAmount>
-            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
+            <DamageAmount>32</DamageAmount>
+            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
 

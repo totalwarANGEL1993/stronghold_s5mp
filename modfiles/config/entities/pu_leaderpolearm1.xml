@@ -134,9 +134,9 @@
 
             <DamageClass>DC_Pole</DamageClass>
             <DamageAmount>7</DamageAmount>
-            <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>

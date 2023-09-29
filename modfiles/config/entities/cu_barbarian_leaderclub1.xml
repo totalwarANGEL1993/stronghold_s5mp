@@ -130,10 +130,10 @@
             <HitAnim>CU_Barbarian_LeaderClub1_Hit</HitAnim>
 
             <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>28</DamageAmount>
-            <MaxRandomDamageBonus>28</MaxRandomDamageBonus>
+            <DamageAmount>24</DamageAmount>
+            <MaxRandomDamageBonus>24</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MaxRange>200</MaxRange>
             <MinRange>0.0f</MinRange>

@@ -97,7 +97,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSoldierMovement</Class>
-            <Speed>350</Speed>
+            <Speed>400</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>CU_Evil_LeaderBearman1_Idle1</MoveIdleAnim>
@@ -126,10 +126,10 @@
             <HitAnim>CU_Evil_LeaderBearman1_Hit</HitAnim>
 
             <DamageClass>DC_Evil</DamageClass>
-            <DamageAmount>13</DamageAmount>
+            <DamageAmount>143</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MaxRange>200</MaxRange>
             <MinRange>0.0f</MinRange>

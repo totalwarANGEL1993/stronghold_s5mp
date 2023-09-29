@@ -51,7 +51,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>450</Speed>
+            <Speed>400</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>PU_Hero5_Idle1</MoveIdleAnim>
@@ -91,7 +91,7 @@
             <MinRange>0</MinRange>
             <AutoAttackRange>2800</AutoAttackRange>
 
-            <BattleWaitUntil>3000</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MissChance>0</MissChance>
 

@@ -62,7 +62,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>370</Speed>
+            <Speed>300</Speed>
             <RotationSpeed>10</RotationSpeed>
             <MoveTaskList>TL_VEHICLE_DRIVE</MoveTaskList>
         </Logic>
@@ -98,7 +98,7 @@
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>400</DamageRange>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
             <ProjectileOffsetFront>40</ProjectileOffsetFront>
             <ProjectileOffsetRight/>
             <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>

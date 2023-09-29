@@ -118,7 +118,7 @@
             <HitAnim>PU_LeaderCavalry4_Hit</HitAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>42</DamageAmount>
+            <DamageAmount>38</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

@@ -88,7 +88,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSettlerMovement</Class>
-            <Speed>400</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
         </Logic>
@@ -121,7 +121,7 @@
 
             <!-- That is on purpose -->
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>24</DamageAmount>
+            <DamageAmount>18</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <MaxRange>200</MaxRange>

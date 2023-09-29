@@ -132,7 +132,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>380</Speed>
+            <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>PU_LeaderSword1_Idle1</MoveIdleAnim>
@@ -167,9 +167,9 @@
 
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>6</DamageAmount>
-            <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <MaxRange>200</MaxRange>
             <MinRange>0.0f</MinRange>
