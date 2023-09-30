@@ -1,0 +1,14 @@
+Version 0.2.0
+
+- Alle Helden haben jetzt mindestens eine Spezialeinheit
+- DPS aller Einheiten besser ausbalanciert
+- Area Damage der Helden angepasst
+- Sammelpunkte können nun auch für Gießereien festgelegt werden
+- Leibeigene sollten beim Mauerbau nicht mehr stecken bleiben
+- Mauerteile passen jetzt besser zusammen
+- Hochschule wurde auf vorherigen Stand zurückgesetzt
+- Die Anzeige der Sozialresourcen wurde überarbeitet
+  - Beliebtheit wird jetzt rot, wenn unter 50
+  - Ehre wird jetzt rot, wenn 0
+  - Wissen wird jetzt rot, wenn 0
+- Die Kamera kann beim Start Countdown nicht mehr verschoben werden

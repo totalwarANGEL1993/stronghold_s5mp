@@ -509,7 +509,9 @@ function Stronghold.Recruitment:OnFoundrySelected(_EntityID)
     end
     XGUIEng.SetWidgetPositionAndSize("Research_BetterChassis", 38, 38, 31, 31);
     XGUIEng.SetWidgetPositionAndSize("Research_AutoRepair", 4, 38, 31, 31);
+    XGUIEng.ShowWidget("RallyPoint", 1);
     self:OnRecruiterSelected(ButtonsToUpdate, _EntityID);
+    GUIUpdate_PlaceRallyPoint();
 end
 
 function Stronghold.Recruitment:OnTavernSelected(_EntityID)

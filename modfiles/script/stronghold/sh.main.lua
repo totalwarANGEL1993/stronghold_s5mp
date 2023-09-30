@@ -42,7 +42,7 @@
 ---
 
 Stronghold = {
-    Version = "0.1.2",
+    Version = "0.2.0",
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -278,6 +278,7 @@ function Stronghold:Init()
     EntityTracker.Install();
     BuyHero.Install();
     Extension.Install();
+    FreeCam.SetToggleable(true);
 
     if not CMod then
         Message("The S5 Community Server is required!");
@@ -612,37 +613,38 @@ end
 function Stronghold:OnEveryTurn()
     -- Send versions to all other players
     -- (Multiplayer only)
-    Stronghold.Multiplayer:BroadcastStrongholdVersion();
+    self.Multiplayer:BroadcastStrongholdVersion();
 
     local Players = GetMaxPlayers();
     -- Player jobs on each turn
     for i= 1, Players do
-        Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(i);
-        Stronghold.Hero:EntityAttackedController(i);
-        Stronghold.Hero:HeliasConvertController(i);
-        Stronghold.Hero:YukiShurikenConterController(i);
-        Stronghold.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
-        Stronghold.Recruitment:ControlProductionQueues(i);
-        Stronghold.Recruitment:ControlCannonProducers(i);
+        self.Attraction:UpdatePlayerCivilAttractionUsage(i);
+        self.Hero:EntityAttackedController(i);
+        self.Hero:HeliasConvertController(i);
+        self.Hero:YukiShurikenConterController(i);
+        self.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
+        self.Recruitment:ControlProductionQueues(i);
+        self.Recruitment:ControlCannonProducers(i);
     end
     -- Player jobs on modified turns
     ---@diagnostic disable-next-line: undefined-field
     local PlayerID = math.mod(Logic.GetCurrentTurn(), Players);
-    Stronghold.Attraction:ManageCriminalsOfPlayer(PlayerID);
-    Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
-    Stronghold.Building:FoundryCannonAutoRepair(PlayerID);
-    Stronghold.Economy:UpdateIncomeAndUpkeep(PlayerID);
-    Stronghold.Economy:GainMeasurePoints(PlayerID);
-    Stronghold.Economy:GainKnowledgePoints(PlayerID);
-    Stronghold.Hero:VargWolvesController(PlayerID);
+    self.Attraction:ManageCriminalsOfPlayer(PlayerID);
+    self.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
+    self.Building:FoundryCannonAutoRepair(PlayerID);
+    self.Economy:UpdateIncomeAndUpkeep(PlayerID);
+    self.Economy:GainMeasurePoints(PlayerID);
+    self.Economy:GainKnowledgePoints(PlayerID);
+    self.Hero:VargWolvesController(PlayerID);
 end
 
 function Stronghold:OnEverySecond()
     local Players = GetMaxPlayers();
     for i= 1, Players do
         self:PlayerDefeatCondition(i);
+        self.Building:CannonToRallyPointController(i);
     end
-    Stronghold.Province:ControlProvince();
+    self.Province:ControlProvince();
 end
 
 function Stronghold:OnEntityCreated()
@@ -656,24 +658,25 @@ function Stronghold:OnEntityCreated()
         end
     end
     if Logic.IsSettler(EntityID) == 1 then
-        Stronghold.Hero:ConfigurePlayersHeroPet(EntityID);
+        self.Hero:ConfigurePlayersHeroPet(EntityID);
         if GUI.GetPlayerID() == PlayerID then
             self:OnSelectionMenuChanged(EntityID);
         end
     end
-    Stronghold.Building:OnWallOrPalisadeCreated(EntityID);
-    Stronghold.Economy:SetSettlersMotivation(EntityID);
-    Stronghold.Unit:SetFormationOnCreate(EntityID);
-    Stronghold.Recruitment:InitQueuesForProducer(EntityID);
-    Stronghold.Recruitment:OnUnitCreated(EntityID);
+    self.Building:OnWallOrPalisadeCreated(EntityID);
+    self.Building:OnUnitCreated(EntityID);
+    self.Economy:SetSettlersMotivation(EntityID);
+    self.Unit:SetFormationOnCreate(EntityID);
+    self.Recruitment:InitQueuesForProducer(EntityID);
+    self.Recruitment:OnUnitCreated(EntityID);
 end
 
 function Stronghold:OnEntityDestroyed()
     local EntityID = Event.GetEntityID();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
     self:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
-    Stronghold.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
-    Stronghold.Building:OnWallOrPalisadeDestroyed(EntityID);
+    self.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
+    self.Building:OnWallOrPalisadeDestroyed(EntityID);
 end
 
 function Stronghold:OnEntityHurtEntity()

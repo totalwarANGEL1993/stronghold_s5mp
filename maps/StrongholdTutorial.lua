@@ -1,6 +1,6 @@
 SHS5MP_RulesDefinition = {
     -- Config version (Always an integer)
-    Version = 1,
+    Version = 2,
 
     -- ###################################################################### --
     -- #                             CONFIG                                 # --
@@ -225,9 +225,8 @@ function Tutorial_AddMainInterfaceSection()
     Tutorial.AddMessage {
         Text        = "{scarlet}Wissen{white} erlaubt die Erforschung von "..
                       "Technologien. Es wird in Euren Bildungseinrichtungen "..
-                      "erzeugt. Die üblichen Technologien der Hochschule "..
-                      "gibt es nicht mehr, sie haben jedoch würdigen Ersatz "..
-                      "bekommen, der Euch massive Vorteile bringt.",
+                      "erzeugt. Eure Gelehrten arbeiten unermütlich, um Euch "..
+                      "den nötigen Vorteil zu verschaffen.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_NewRes
     }

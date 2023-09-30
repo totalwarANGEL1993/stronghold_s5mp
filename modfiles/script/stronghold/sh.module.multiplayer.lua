@@ -660,7 +660,8 @@ end
 function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
     self:ResumePlayer(_PlayerID);
     if GUI.GetPlayerID() == _PlayerID then
-        Camera.FollowEntity(GetID("HQ" .._PlayerID));
+        Camera.ScrollSetBorderFlag(0);
+        Camera.ScrollSetSpeed(0);
     end
     for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, 0)) do
         if Logic.IsBuilding(v) == 1 then
@@ -686,7 +687,8 @@ end
 
 function Stronghold.Multiplayer:ResumePlayer(_PlayerID)
     if GUI.GetPlayerID() == _PlayerID then
-        Camera.FollowEntity(0);
+        Camera.ScrollSetBorderFlag(1);
+        Camera.ScrollSetSpeed(2500);
     end
     for i= 1, table.getn(self.Data[_PlayerID].ReplacedEntities) do
         local ID = self.Data[_PlayerID].ReplacedEntities[i][1];

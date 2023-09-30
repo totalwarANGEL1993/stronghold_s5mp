@@ -134,7 +134,7 @@
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>CU_Evil_Queen_PoisonAttack</Animation>
             <DamageClass>DC_HeroCircularAttack</DamageClass>
-            <DamageAmount>100</DamageAmount>
+            <DamageAmount>75</DamageAmount>
             <Range>1750.0</Range>
             <Effect>FXKalaPoison</Effect>
         </Logic>

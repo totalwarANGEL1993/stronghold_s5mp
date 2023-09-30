@@ -33,6 +33,7 @@ function Stronghold.Building:Install()
         self.Data[i] = {
             Measure = {},
             RallyPoint = {},
+            Cannons = {},
             Corners = {},
 
             HeadquarterLastWidgetID = 0,
@@ -551,8 +552,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
         end
     elseif _Button == "Research_DraconicPunishment" then
         local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_DraconicPunishment);
-        local Required = Logic.IsTechnologyResearched(_PlayerID, Technologies.T_BetterStudies) == 1;
-        if Level < 0 or TechState == 0 or not Required then
+        if Level < 0 or TechState == 0 then
             ButtonDisabled = 1;
         end
     elseif _Button == "Research_DecorativeSkull" then
@@ -878,7 +878,8 @@ function Stronghold.Building:OverrideShiftRightClick()
 
         -- Control visibility and highlight
         local Show = 1;
-        if not EntityID or not Stronghold.Building:CanBuildingHaveRallyPoint(EntityID) then
+        if not EntityID or not Stronghold.Building:CanBuildingHaveRallyPoint(EntityID)
+        or Logic.IsConstructionComplete(EntityID) == 0 then
             Show = 0;
         end
         local Highlight = 1;
@@ -900,6 +901,37 @@ function Stronghold.Building:OnRallyPointHolderDestroyed(_PlayerID, _EntityID)
     end
 end
 
+function Stronghold.Building:OnUnitCreated(_EntityID)
+    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 1 then
+        local PlayerID = Logic.EntityGetPlayer(_EntityID);
+        local x,y,z = Logic.EntityGetPos(_EntityID);
+        local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Foundry1, x, y, 800, 1);
+        local _,Foundry2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Foundry2, x, y, 800, 1);
+        if Foundry1ID ~= 0 and Foundry2ID ~= 0 then
+            local RecruiterID = (Foundry1ID ~= 0 and Foundry1ID) or Foundry2ID;
+            table.insert(self.Data[PlayerID].Cannons, {_EntityID, RecruiterID});
+        end
+    end
+end
+
+function Stronghold.Building:CannonToRallyPointController(_PlayerID)
+    if self.Data[_PlayerID] then
+        for i= table.getn(self.Data[_PlayerID].Cannons), 1, -1 do
+            local EntityID = self.Data[_PlayerID].Cannons[i][1];
+            local RecruiterID = self.Data[_PlayerID].Cannons[i][2];
+            if not IsExisting(RecruiterID) or not IsExisting(EntityID) then
+                return;
+            end
+            local Task = Logic.GetCurrentTaskList(EntityID);
+            if not Task or string.find(Task,"IDLE") then
+                local ScriptName = Logic.GetEntityName(RecruiterID);
+                self:MoveToRallyPoint(ScriptName, EntityID);
+                table.remove(self.Data[_PlayerID].Cannons, i);
+            end
+        end
+    end
+end
+
 function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
     if self.Data[_PlayerID] then
         local ScriptName;
@@ -908,7 +940,7 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
         end
 
         -- Cancel rally point on selection changed
-        if not _EntityID or not self:CanBuildingHaveRallyPoint(_EntityID) then
+        if Logic.IsConstructionComplete(_EntityID) == 0 or not self:CanBuildingHaveRallyPoint(_EntityID) then
             self:CancelRallyPointSelection(_PlayerID);
         end
         -- Hide all rally points of the player
@@ -1071,6 +1103,7 @@ function Stronghold.Building:CanBuildingHaveRallyPoint(_Building)
     if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2
     or Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2
     or Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2
+    or Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2
     or Type == Entities.PB_Headquarters1 or Type == Entities.PB_Headquarters2
     or Type == Entities.PB_Headquarters3
     or Type == Entities.PB_VillageCenter1 or Type == Entities.PB_VillageCenter2
@@ -1421,21 +1454,29 @@ end
 function Stronghold.Building:CreateWallCornerForSegment(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if IsPlayer(PlayerID) then
+        local IsGate = false;
         local SegmentType = Logic.GetEntityType(_EntityID);
-        local Angle1 = 135;
         if self.Config.OpenGateType[SegmentType] or self.Config.ClosedGateType[SegmentType] then
-            Angle1 = 90;
+            IsGate = true;
         end
-        local Angle2 = 315;
-        if self.Config.OpenGateType[SegmentType] or self.Config.ClosedGateType[SegmentType] then
-            Angle2 = 270;
+
+        local Distance = 283.1;
+        local Orientation = Logic.GetEntityOrientation(_EntityID);
+        if not IsGate then
+            if Orientation == 45 or Orientation == 135 or Orientation == 225 or Orientation == 315 then
+                Distance = 300.1;
+            end
         end
-        local Position1 = GetCirclePosition(_EntityID, 300.1, Angle1);
-        local Position2 = GetCirclePosition(_EntityID, 300.1, Angle2);
+
+        local Angle1 = (IsGate and 90) or 135;
+        local Angle2 = (IsGate and 270) or 315;
+        local Position1 = GetCirclePosition(_EntityID, Distance, Angle1);
+        local Position2 = GetCirclePosition(_EntityID, Distance, Angle2);
         local CornerType = self.Config.CornerForSegment[SegmentType];
         if not CornerType then
             return;
         end
+
         self.Data[PlayerID].Corners[_EntityID] = {};
         if not self:IsGroundToSteep(Position1.X, Position1.Y, 250) then
             local ID = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 0);

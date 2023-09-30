@@ -14,12 +14,12 @@
         <ForceNoPlayer>true</ForceNoPlayer>
 
         <Blocked1>
-            <X>-10</X>
-            <Y>10</Y>
+            <X>0</X>
+            <Y>0</Y>
         </Blocked1>
         <Blocked2>
-            <X>10</X>
-            <Y>-10</Y>
+            <X>0</X>
+            <Y>0</Y>
         </Blocked2>
         <ApproachPos>
             <X>100</X>
@@ -27,12 +27,12 @@
         </ApproachPos>
         <ApproachR>0</ApproachR>
         <TerrainPos1>
-            <X>-110</X>
-            <Y>110</Y>
+            <X>0</X>
+            <Y>0</Y>
         </TerrainPos1>
         <TerrainPos2>
-            <X>110</X>
-            <Y>-110</Y>
+            <X>0</X>
+            <Y>0</Y>
         </TerrainPos2>
     </Logic>
 </root>
