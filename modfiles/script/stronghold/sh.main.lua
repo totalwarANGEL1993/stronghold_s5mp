@@ -655,6 +655,7 @@ function Stronghold:OnEntityCreated()
     if Logic.IsBuilding(EntityID) == 1 then
         if GUI.GetPlayerID() == PlayerID then
             self:OnSelectionMenuChanged(EntityID);
+            self.Construction:OnBuildingPlaced(EntityID);
         end
     end
     if Logic.IsSettler(EntityID) == 1 then

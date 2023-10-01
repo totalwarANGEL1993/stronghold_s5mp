@@ -347,7 +347,11 @@ function Stronghold.Construction:InitBuildingLimits()
 end
 
 -- -------------------------------------------------------------------------- --
--- Palisade and Wall
+-- Reset Build Orientation
 
-
+function Stronghold.Construction:OnBuildingPlaced(_EntityID)
+    if Logic.IsConstructionComplete(_EntityID) == 0 then
+        CPlaceBuilding.SetRotation(0);
+    end
+end
 

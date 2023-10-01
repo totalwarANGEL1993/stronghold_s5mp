@@ -94,7 +94,7 @@
 
             <DamageClass>DC_Chaos</DamageClass>
             <DamageAmount>65</DamageAmount>
-            <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
             <DamageRange>600</DamageRange>
 
             <BattleWaitUntil>3000</BattleWaitUntil>

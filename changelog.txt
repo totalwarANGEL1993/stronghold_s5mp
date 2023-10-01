@@ -6,6 +6,7 @@ Version 0.2.0
 - Sammelpunkte können nun auch für Gießereien festgelegt werden
 - Leibeigene sollten beim Mauerbau nicht mehr stecken bleiben
 - Mauerteile passen jetzt besser zusammen
+- Gebäuderotation wird automatisch zurückgesetzt
 - Hochschule wurde auf vorherigen Stand zurückgesetzt
 - Die Anzeige der Sozialresourcen wurde überarbeitet
   - Beliebtheit wird jetzt rot, wenn unter 50
