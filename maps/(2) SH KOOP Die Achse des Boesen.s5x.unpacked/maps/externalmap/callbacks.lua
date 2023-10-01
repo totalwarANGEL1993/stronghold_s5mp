@@ -1,12 +1,6 @@
---- 
---- Community Server Callbacks
 ---
---- - OnMapStart
----   Loads the archive of the mod before the map is even started. Needed to
----   put the changed files on the stack.
---- 
-
-local OnMapStart;
+--- Mod Loader for current version.
+---
 
 local print = function(...)
 	if LuaDebugger and LuaDebugger.Log then
@@ -18,10 +12,13 @@ local print = function(...)
 	end;
 end;
 
-OnMapStart = function()
-    CMod.PushArchive("stronghold_s5mp\\archive.bba");
+function OnMapStart()
+	CMod.PushArchive("stronghold_s5mp\\textureslow.bba");
+	CMod.PushArchive("stronghold_s5mp\\texturesmed.bba");
+	CMod.PushArchive("stronghold_s5mp\\textures.bba");
+	CMod.PushArchive("stronghold_s5mp\\system.bba");
     print("Stronghold mod loaded!");
-end
+end;
 
 local Callbacks = {
 	OnMapStart = OnMapStart;
