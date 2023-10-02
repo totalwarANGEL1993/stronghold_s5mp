@@ -415,7 +415,7 @@ Stronghold.Unit.Config = {
         },
         Right             = PlayerRight.CavalryCrusader,
         IsCivil           = false,
-        Upkeep            = 70,
+        Upkeep            = 55,
         Turns             = 125,
         Soldiers          = 6,
         RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
@@ -450,7 +450,7 @@ Stronghold.Unit.Config = {
         ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
     },
 
-    -- Berserker --
+    -- Huscarls --
 
     [Entities.CU_BanditLeaderSword2]        = {
         Button            = "Buy_LeaderSword",

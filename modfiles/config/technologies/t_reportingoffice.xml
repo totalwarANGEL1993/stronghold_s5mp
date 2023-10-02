@@ -3,17 +3,32 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>45</TimeToResearch>
     <ResourceCosts>
-        <Silver>20</Silver>
+        <Silver>0</Silver>
         <Knowledge>2</Knowledge>
-        <Stone>400</Stone>
+        <Stone>200</Stone>
     </ResourceCosts>
-    <AutomaticResearch>false</AutomaticResearch>
+    <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
         <RequiredTecConditions>1</RequiredTecConditions>
         <TecCondition>
-            <TecType>T_BetterStudies</TecType>
+            <TecType>T_TownGuard</TecType>
             <TecCategoryType/>
         </TecCondition>
+
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_VillageCenter1</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_VillageCenter2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_VillageCenter3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
     </Conditions>
 </root>

@@ -38,10 +38,10 @@
     <!-- All spearmen -->
     <DamageClass id="DC_Pole">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
+            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
             <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>3.0</ArmorClassIronFactor>
+            <ArmorClassIronFactor>2.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        

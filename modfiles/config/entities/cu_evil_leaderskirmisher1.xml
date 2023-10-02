@@ -150,7 +150,7 @@
             <BattleWalkAnim>CU_Evil_LeaderSkirmisher1_Run1</BattleWalkAnim>
             <HitAnim>CU_Evil_LeaderSkirmisher1_Hit</HitAnim>
 
-            <DamageClass>DC_Evil</DamageClass>
+            <DamageClass>DC_Pole</DamageClass>
             <DamageAmount>14</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 

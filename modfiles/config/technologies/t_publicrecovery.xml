@@ -3,23 +3,27 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>90</TimeToResearch>
     <ResourceCosts>
-        <Silver>40</Silver>
+        <Silver>0</Silver>
         <Knowledge>4</Knowledge>
-        <Gold>400</Gold>
-        <Wood>400</Wood>
+        <Gold>200</Gold>
+        <Wood>200</Wood>
     </ResourceCosts>
-    <AutomaticResearch>false</AutomaticResearch>
+    <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <Conditions>
         <RequiredTecConditions>1</RequiredTecConditions>
         <TecCondition>
-            <TecType>T_SlavePenny</TecType>
+            <TecType>T_Loom</TecType>
             <TecCategoryType/>
         </TecCondition>
 
         <RequiredEntityConditions>1</RequiredEntityConditions>
         <EntityCondition>
-            <EntityType>PB_University2</EntityType>
+            <EntityType>PB_VillageCenter2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_VillageCenter3</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
     </Conditions>
