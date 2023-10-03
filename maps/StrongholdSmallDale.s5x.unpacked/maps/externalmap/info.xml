@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey></NameKey>
+ <DescKey></DescKey>
+ <Name>@color:200,70,40 SH @color:255,255,255 Kleines Tal</Name>
+ <Desc>@color:200,70,40 modifiziert von totalwarANGEL @cr @cr @color:255,255,255 Nach langer Zeit hat es Euch wieder in das Kleine Tal verschlagen, wo Ihr Euch vor grauen Jahren ein Jagdschloss bautet. Aber die Schatten der Vergangenheit lassen Euch keine Ruhe. Könnt Ihr gegen die garstigen Neider bestehen, die Euch den Frieden streitig machen wollen?</Desc>
+ <SizeX>100</SizeX>
+ <SizeY>100</SizeY>
+ <MPFlag>false</MPFlag>
+ <MPPlayerCount>0</MPPlayerCount>
+ <MPGameOptionFlagSet>0</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>15e03874-e1f7-4e58-8b23-0f046984d250</Data>
+ </GUID>
+</root>

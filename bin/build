@@ -60,6 +60,10 @@ bin/bba5.exe "maps/StrongholdTutorial.s5x.unpacked"
 cp "maps/StrongholdTutorial.s5x" release
 cp "maps/StrongholdTutorial.lua" release/shs5mp_configs
 
+bin/bba5.exe "maps/StrongholdSmallDale.s5x.unpacked"
+cp "maps/StrongholdSmallDale.s5x" release
+cp "maps/StrongholdSmallDale.lua" release/shs5mp_configs
+
 bin/bba5.exe "maps/(4) SH Auge der Sahara.s5x.unpacked"
 cp "maps/(4) SH Auge der Sahara.s5x" release
 cp "maps/(4) SH Auge der Sahara.lua" release/shs5mp_configs
