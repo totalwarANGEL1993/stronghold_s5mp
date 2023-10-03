@@ -757,7 +757,7 @@ function Stronghold.Economy:GetPlayerKnowledgePointsLimit(_PlayerID)
 end
 
 function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
-    if IsPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Add points per working scholar
         local ScholarList = Stronghold:GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
         for i= 1, table.getn(ScholarList) do

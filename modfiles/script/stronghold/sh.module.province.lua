@@ -345,7 +345,7 @@ end
 
 function Stronghold.Province:OnPayday(_PlayerID, _Amount)
     local TaxAmount = _Amount;
-    if IsPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         for k,v in pairs(self.Data.Provinces) do
             if v and v.Owner == _PlayerID then
                 if v.Type == ProvinceType.Resource then

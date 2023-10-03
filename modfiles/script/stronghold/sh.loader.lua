@@ -41,6 +41,7 @@ Lib.Require("comfort/GetLanguage");
 Lib.Require("comfort/GetResourceName");
 Lib.Require("comfort/GetSeparatedTooltipText");
 Lib.Require("comfort/IsBuildingBeingUpgraded");
+Lib.Require("comfort/IsFighting");
 Lib.Require("comfort/IsInTable");
 Lib.Require("comfort/IsValidEntity");
 Lib.Require("comfort/KeyOf");

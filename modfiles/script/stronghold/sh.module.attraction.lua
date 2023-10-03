@@ -252,7 +252,7 @@ function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
             end
             local Task = Logic.GetCurrentTaskList(Data[1]);
             if  Data[4] and Logic.IsEntityMoving(Data[1]) == false
-            and not string.find(Task or "", "BATTLE") then
+            and not IsFighting(Data[1]) then
                 Logic.GroupAttackMove(Data[1], Data[4].X, Data[4].Y);
             end
         end

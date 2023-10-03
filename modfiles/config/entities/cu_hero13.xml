@@ -133,18 +133,6 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CCircularAttackProps">
-            <Class>GGL::CCircularAttack</Class>
-            <RechargeTimeSeconds>90</RechargeTimeSeconds>
-            <TaskList>TL_BATTLE_SPECIAL</TaskList>
-            <Animation>PU_Herox_Finish</Animation>
-            <DamageClass>DC_HeroCircularAttack</DamageClass>
-            <DamageAmount>125</DamageAmount>
-            <Range>300.0</Range>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
             <Class>GGL::CGLBehaviorDying</Class>
             <DyingTaskList>TL_DIE_HERO</DyingTaskList>

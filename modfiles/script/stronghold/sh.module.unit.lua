@@ -41,7 +41,7 @@ end
 
 function Stronghold.Unit:StartSerfHealingJob()
     Job.Second(function()
-        for i= 1, table.getn(Score.Player) do
+        for i= 1, GetMaxPlayers() do
             if Logic.IsTechnologyResearched(i, Technologies.T_PublicRecovery) == 1 then
                 -- Heal sefs
                 for k, EntityID in pairs(GetPlayerEntities(i, Entities.PU_Serf)) do

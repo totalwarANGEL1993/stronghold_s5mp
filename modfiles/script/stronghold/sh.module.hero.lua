@@ -412,7 +412,7 @@ function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
         local ID = 0;
         local HeroList = self:GetHeroes(_PlayerID);
         if table.getn(HeroList) > 0 then
-            ID = ReplaceEntity(ID, _Type);
+            ID = ReplaceEntity(ID, HeroList[1]);
         else
             local Position = _Position;
             if type(Position) ~= "table" then
@@ -660,8 +660,7 @@ function Stronghold.Hero:VargWolvesController(_PlayerID)
     if IsPlayer(_PlayerID) then
         local WolvesBatteling = 0;
         for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, Entities.CU_Barbarian_Hero_wolf)) do
-            local Task = Logic.GetCurrentTaskList(v);
-            if Task and string.find(Task, "BATTLE") then
+            if IsFighting(v) then
                 WolvesBatteling = WolvesBatteling +1;
             end
         end

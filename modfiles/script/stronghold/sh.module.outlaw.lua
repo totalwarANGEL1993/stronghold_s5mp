@@ -424,7 +424,7 @@ function Stronghold.Outlaw:ExecuteStandGroundBehavior(_PlayerID, _CampID)
             local ID = self.Data[_PlayerID].Camps[_CampID].Troops[i];
             local Task = Logic.GetCurrentTaskList(ID);
             if AnchorDistance[Data.Troops[i]] > Data.ActionArea then
-                if string.find(Task or "", "BATTLE") or Logic.IsEntityMoving(ID) == false then
+                if IsFighting(ID) or Logic.IsEntityMoving(ID) == false then
                     Logic.MoveSettler(Data.Troops[i], Data.Anchor.X, Data.Anchor.Y);
                 end
             else

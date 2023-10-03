@@ -233,9 +233,8 @@ function Stronghold.Spawner:ControlSpawner(_PlayerID, _SpawnerID)
         -- Check in defend area
         for i= table.getn(Data.SpawnedTroops), 1, -1 do
             local ID = Data.SpawnedTroops[i];
-            local Task = Logic.GetCurrentTaskList(ID);
             local Distance = Data.DefendArea;
-            if Task and not string.find(Task, "BATTLE") then
+            if not IsFighting(ID) then
                 Distance = Data.DefendArea / 2;
             end
             if GetDistance(Data.SpawnedTroops[i], Data.SpawnPosition) > Distance then

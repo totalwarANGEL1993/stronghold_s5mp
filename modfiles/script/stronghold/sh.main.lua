@@ -40,6 +40,9 @@
 --- - <number> GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damage)
 ---   Calculates the damage of an attack
 ---
+--- - GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _IsAI)
+---   Called after the player is initialized.
+---
 
 Stronghold = {
     Version = "0.2.1",
@@ -131,11 +134,20 @@ end
 
 --- Creates a new player.
 --- @param _PlayerID number  ID of player
---- @param _IsAI?    boolean Player is AI
 --- @param _Serfs?   number  Amount of serfs
-function SetupPlayer(_PlayerID, _IsAI, _Serfs)
+function SetupPlayer(_PlayerID, _Serfs)
     if not IsPlayer(_PlayerID) then
-        Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs);
+        Stronghold:AddPlayer(_PlayerID, false, _Serfs);
+    end
+end
+
+--- Creates a new AI player.
+--- @param _PlayerID number  ID of player
+--- @param _Serfs?   number  Amount of serfs
+--- @param _HeroType? number Type of hero
+function SetupAiPlayer(_PlayerID, _Serfs, _HeroType)
+    if not IsPlayer(_PlayerID) then
+        Stronghold:AddPlayer(_PlayerID, true, _Serfs, _HeroType);
     end
 end
 
@@ -267,6 +279,9 @@ function GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damag
     return _Damage;
 end
 
+function GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _IsAI)
+end
+
 -- -------------------------------------------------------------------------- --
 -- Main
 
@@ -380,7 +395,7 @@ end
 
 -- Add player
 -- This function adds a new player.
-function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs)
+function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
     local LordName = "LordP" .._PlayerID;
     local HQName = "HQ" .._PlayerID;
 
@@ -405,16 +420,16 @@ function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs)
         SendEvent.SetTaxes(_PlayerID, 0);
     end
 
-    Job.Turn(function(_PlayerID, _Serfs)
-        return Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs);
-    end, _PlayerID, _Serfs);
+    Job.Turn(function(_PlayerID, _Serfs, _HeroType)
+        return Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType);
+    end, _PlayerID, _Serfs, _HeroType);
 end
 
-function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs)
+function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType)
     local HQID = self:GetPlayerHeadquarter(_PlayerID);
     if  Logic.IsEntityInCategory(HQID, EntityCategories.Headquarters) == 1
     and Logic.IsConstructionComplete(HQID) == 1 then
-        self:InitalizePlayer(_PlayerID, _Serfs);
+        self:InitalizePlayer(_PlayerID, _Serfs, _HeroType);
         return true;
     end
     return false;
@@ -466,7 +481,7 @@ function Stronghold:GetLocalPlayerID()
     return PlayerID1;
 end
 
-function Stronghold:InitalizePlayer(_PlayerID, _Serfs)
+function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     local HQName = "HQ" .._PlayerID;
     local DoorPosName = "DoorP" .._PlayerID;
     local CampName = "CampP" .._PlayerID;
@@ -497,8 +512,20 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs)
     DestroyEntity(CampName);
 
     SetRank(_PlayerID, self.Config.Base.InitialRank);
-
     self.Players[_PlayerID].IsInitalized = true;
+
+    self:InitalizeAiPlayer(_PlayerID, _HeroType);
+    GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, self:IsAIPlayer(_PlayerID));
+end
+
+function Stronghold:InitalizeAiPlayer(_PlayerID, _HeroType)
+    if self:IsAIPlayer(_PlayerID) then
+        local Position = self.Players[_PlayerID].DoorPos;
+        local Type = _HeroType or Entities.CU_Hero13;
+        PlayerCreateNoble(_PlayerID, Type, Position);
+        local HeroID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
+        Logic.RotateEntity(HeroID, 180);
+    end
 end
 
 function Stronghold:UnlockAllTechnologies()
@@ -776,17 +803,17 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 MakeInvulnerable(self.Players[_PlayerID].HQScriptName);
             end
             if not self.Players[_PlayerID].InvulnerabilityInfoShown then
-                -- 
-                self.Players[_PlayerID].InvulnerabilityInfoShown = true;
-                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-                -- 
-                local PlayerName = UserTool_GetPlayerName(_PlayerID);
-                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                Message(string.format(
-                    XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
-                    PlayerColor,
-                    PlayerName
-                ));
+                if not self:IsAIPlayer(_PlayerID) then
+                    self.Players[_PlayerID].InvulnerabilityInfoShown = true;
+                    Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                    local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                    local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                    Message(string.format(
+                        XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
+                        PlayerColor,
+                        PlayerName
+                    ));
+                end
             end
         end
     else
@@ -796,17 +823,17 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 MakeVulnerable(self.Players[_PlayerID].HQScriptName);
             end
             if not self.Players[_PlayerID].VulnerabilityInfoShown then
-                -- 
-                self.Players[_PlayerID].VulnerabilityInfoShown = true;
-                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-                -- 
-                local PlayerName = UserTool_GetPlayerName(_PlayerID);
-                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                Message(string.format(
-                    XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
-                    PlayerColor,
-                    PlayerName
-                ));
+                if not self:IsAIPlayer(_PlayerID) then
+                    self.Players[_PlayerID].VulnerabilityInfoShown = true;
+                    Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                    local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                    local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                    Message(string.format(
+                        XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
+                        PlayerColor,
+                        PlayerName
+                    ));
+                end
             end
         end
     end
@@ -1008,6 +1035,11 @@ end
 -- Applies everything that is happening on the payday.
 function Stronghold:OnPlayerPayday(_PlayerID)
     if self:IsPlayer(_PlayerID) then
+        -- Do not calculate for AI
+        if self:IsAIPlayer(_PlayerID) then
+            return 0;
+        end
+
         -- First regular payday
         if Logic.GetNumberOfAttractedWorker(_PlayerID) > 0 and Logic.GetTime() > 1 then
             self.Players[_PlayerID].HasHadRegularPayday = true;
@@ -1051,13 +1083,6 @@ end
 -- Honor
 
 function Stronghold:AddPlayerHonor(_PlayerID, _Amount)
-    -- if self:IsPlayer(_PlayerID) then
-    --     self.Players[_PlayerID].Honor = self.Players[_PlayerID].Honor + _Amount;
-    --     if self.Players[_PlayerID].Honor < 0 then
-    --         self.Players[_PlayerID].Honor = 0;
-    --     end
-    --     GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount);
-    -- end
     if _Amount > 0 then
         Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Silver, _Amount);
     elseif _Amount < 0 then
@@ -1067,9 +1092,6 @@ function Stronghold:AddPlayerHonor(_PlayerID, _Amount)
 end
 
 function Stronghold:GetPlayerHonor(_PlayerID)
-    -- if self:IsPlayer(_PlayerID) then
-    --     return self.Players[_PlayerID].Honor;
-    -- end
     return Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Silver);
 end
 

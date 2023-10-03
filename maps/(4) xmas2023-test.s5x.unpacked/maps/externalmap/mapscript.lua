@@ -22,6 +22,9 @@ function OnMapStart()
     for i= 1, table.getn(Players) do
         SetupPlayer(Players[i]);
     end
+    for i= 1, 4 do
+        SetupAiPlayer(i);
+    end
     SetupStrongholdMultiplayerConfig();
 
     for i= 1, 4 do
