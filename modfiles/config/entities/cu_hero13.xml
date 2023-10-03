@@ -2,19 +2,25 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>PU_Hero4</Model>
+        <Model>PU_Herox</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>PU_Hero4_Walk</Anim>
-        <Anim>PU_Hero4_Hit</Anim>
-        <Anim>PU_Hero4_Idle1</Anim>
-        <Anim>PU_Hero4_IdleAttack1</Anim>
-        <Anim>PU_Hero4_Attack1</Anim>
-        <Anim>PU_Hero4_Attack2</Anim>
-        <Anim>PU_Hero4_Finish</Anim>
-        <Anim>PU_Hero4_Dying1</Anim>
-        <Anim>PU_Hero4_Run1</Anim>
-        <Anim>PU_Hero4_Dead</Anim>
-        <Anim>PU_Hero4_CircularAttack</Anim>
+        <Anim>PU_Herox_Walk</Anim>
+        <Anim>PU_Herox_Hit</Anim>
+        <Anim>PU_Herox_Idle1</Anim>
+        <Anim>PU_Herox_Idle2</Anim>
+        <Anim>PU_Herox_Idle3</Anim>
+        <Anim>PU_Herox_Idle4</Anim>
+        <Anim>PU_Herox_Idle5</Anim>
+        <Anim>PU_Herox_Idle6</Anim>
+        <Anim>PU_Herox_IdleAttack1</Anim>
+        <Anim>PU_Herox_Attack1</Anim>
+        <Anim>PU_Herox_Attack2</Anim>
+        <Anim>PU_Herox_Finish</Anim>
+        <Anim>PU_Herox_Dying1</Anim>
+        <Anim>PU_Herox_Run1</Anim>
+        <Anim>PU_Herox_Dead</Anim>
+        <Anim>PU_Herox_Talk1</Anim>
+        <Anim>PU_Herox_Talk2</Anim>
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
@@ -28,7 +34,6 @@
         </Cost>
         <Convertible>false</Convertible>
         <Category>Hero</Category>
-        <Category>Hero4</Category>
         <Category>Military</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
@@ -43,8 +48,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PU_Hero4_Idle1</SuspensionAnimation>
-            <AnimSet>SET_HERO4</AnimSet>
+            <SuspensionAnimation>PU_Herox_Idle1</SuspensionAnimation>
+            <AnimSet>SET_CU_HERO13</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -56,7 +61,7 @@
             <Speed>400</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
-            <MoveIdleAnim>PU_Hero4_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>PU_Herox_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -68,24 +73,30 @@
         </Logic>
     </Behavior>
     <Behavior>
+        <Logic classname="GGL::CHeroBehaviorProps">
+            <Class>GGL::CHeroBehavior</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
-            <SoldierType>PU_SoldierSword4</SoldierType>
-
+            <SoldierType>PU_SoldierSword3</SoldierType>
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 
-            <NormalAttackAnim1>PU_Hero4_Attack2</NormalAttackAnim1>
-            <NormalAttackAnim2>PU_Hero4_Finish</NormalAttackAnim2>
-            <CounterAttackAnim>PU_Hero4_Attack1</CounterAttackAnim>
-            <FinishingMoveAnim>PU_Hero4_Attack2</FinishingMoveAnim>
-            <MissAttackAnim>PU_Hero4_Attack1</MissAttackAnim>
-            <BattleIdleAnim>PU_Hero4_IdleAttack1</BattleIdleAnim>
-            <BattleWalkAnim>PU_Hero4_Run1</BattleWalkAnim>
-            <HitAnim>PU_Hero4_Hit</HitAnim>
+            <NormalAttackAnim1>PU_Herox_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_Herox_Attack2</NormalAttackAnim2>
+            <CounterAttackAnim>PU_Herox_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_Herox_Attack2</FinishingMoveAnim>
+            <MissAttackAnim>PU_Herox_Attack1</MissAttackAnim>
+            <BattleIdleAnim>PU_Herox_IdleAttack1</BattleIdleAnim>
+            <BattleWalkAnim>PU_Herox_Run1</BattleWalkAnim>
+            <HitAnim>PU_Herox_Hit</HitAnim>
 
             <DamageClass>DC_Hero</DamageClass>
             <DamageAmount>50</DamageAmount>
             <MaxRandomDamageBonus>50</MaxRandomDamageBonus>
+
 
             <MaxRange>250</MaxRange>
             <MinRange>0.0f</MinRange>
@@ -98,7 +109,40 @@
         </Logic>
     </Behavior>
 
+    <Behavior>
+        <Logic classname="GGL::CSummonBehaviorProps">
+            <Class>GGL::CSummonBehavior</Class>
+            <RechargeTimeSeconds>180</RechargeTimeSeconds>
+            <SummonedEntityType>CU_Hero13_Summon</SummonedEntityType>
+            <NumberOfSummonedEntities>5</NumberOfSummonedEntities>
+            <SummonTaskList>TL_CU_HERO13_SUMMON</SummonTaskList>
+        </Logic>
+    </Behavior>
 
+    <Behavior>
+        <Logic classname="GGL::CRangedEffectAbilityProps">
+            <Class>GGL::CRangedEffectAbility</Class>
+            <RechargeTimeSeconds>180</RechargeTimeSeconds>
+            <AffectsOwn>true</AffectsOwn>
+            <AffectsFriends>true</AffectsFriends>
+            <AffectsOnlyMilitary>true</AffectsOnlyMilitary>
+            <Range>1000.0</Range>
+            <DurationInSeconds>150</DurationInSeconds>
+            <DamageFactor>2.0</DamageFactor>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CCircularAttackProps">
+            <Class>GGL::CCircularAttack</Class>
+            <RechargeTimeSeconds>90</RechargeTimeSeconds>
+            <TaskList>TL_BATTLE_SPECIAL</TaskList>
+            <Animation>PU_Herox_Finish</Animation>
+            <DamageClass>DC_HeroCircularAttack</DamageClass>
+            <DamageAmount>125</DamageAmount>
+            <Range>300.0</Range>
+        </Logic>
+    </Behavior>
 
     <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
@@ -106,13 +150,6 @@
             <DyingTaskList>TL_DIE_HERO</DyingTaskList>
         </Logic>
     </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CHeroBehaviorProps">
-            <Class>GGL::CHeroBehavior</Class>
-        </Logic>
-    </Behavior>
-
 
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
@@ -126,38 +163,4 @@
             <BasePriority>500</BasePriority>
         </Logic>
     </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CRangedEffectAbilityProps">
-            <Class>GGL::CRangedEffectAbility</Class>
-            <RechargeTimeSeconds>120</RechargeTimeSeconds>
-            <AffectsOwn>true</AffectsOwn>
-            <AffectsFriends>true</AffectsFriends>
-            <AffectsOnlyMilitary>true</AffectsOnlyMilitary>
-            <Range>1000.0</Range>
-            <DurationInSeconds>60</DurationInSeconds>
-            <DamageFactor>2.0</DamageFactor>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CCircularAttackProps">
-            <Class>GGL::CCircularAttack</Class>
-            <RechargeTimeSeconds>150</RechargeTimeSeconds>
-            <TaskList>TL_BATTLE_SPECIAL</TaskList>
-            <Animation>PU_Hero4_CircularAttack</Animation>
-            <DamageClass>DC_HeroCircularAttack</DamageClass>
-            <DamageAmount>125</DamageAmount>
-            <Range>300.0</Range>
-        </Logic>
-    </Behavior>
-
-    <!-- <Behavior>
-        <Logic classname="GGL::CAffectMotivationBehaviorProps">
-            <Class>GGL::CAffectMotivationBehavior</Class>
-            <MotivationEffect>1.00</MotivationEffect>
-        </Logic>
-    </Behavior> -->
-
-
 </root>

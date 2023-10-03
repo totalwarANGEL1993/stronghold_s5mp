@@ -3635,6 +3635,20 @@
         <OcclusionReceiver>True</OcclusionReceiver>
     </Model>
 
+    <Model id="PU_HeroX">
+        <Effect>SettlerPlayerColor</Effect>
+        <OcclusionReceiver>True</OcclusionReceiver>
+        <SelectionRadius>100</SelectionRadius>
+        <SelectionTexture>Selection_hero</SelectionTexture>
+    </Model>
+
+    <Model id="PU_HeroX_Summon">
+        <SelectionRadius>55</SelectionRadius>
+        <Effect>SettlerPlayerColor</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
     <Model id="CU_LeaderCavalry5">
         <Effect>SettlerPlayerColorSpecular</Effect>
         <OcclusionReceiver>True</OcclusionReceiver>

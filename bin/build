@@ -48,8 +48,10 @@ echo "Done!"
 echo "Create release..."
 
 # fill release folder
+rm -rf release/stronghold_s5mp
 rm -rf release/shs5mp_configs
 rm -rf release/*.s5x
+mkdir -p release/stronghold_s5mp
 mkdir -p release/shs5mp_configs
 cp -r var/stronghold_s5mp/* release/stronghold_s5mp
 

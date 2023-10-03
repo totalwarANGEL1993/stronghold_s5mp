@@ -468,6 +468,10 @@ end
 function Stronghold.Hero:ConfigurePlayersHeroPet(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
+    if Type == Entities.CU_Hero13_Summon then
+        Logic.SetSpeedFactor(_EntityID, 0.9);
+        SVLib.SetEntitySize(_EntityID, 0.9);
+    end
     if Type == Entities.CU_Barbarian_Hero_wolf then
         if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
             local CurrentRank = GetRank(PlayerID);

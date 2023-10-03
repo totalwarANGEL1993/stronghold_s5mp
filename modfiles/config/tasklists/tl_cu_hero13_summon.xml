@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CTaskList>
+	<Script></Script>
+	
+	<!-- Feel free to add wild handwaving or some such here -->
+ 
+	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_SUMMON_ENTITIES</TaskType>
+	</Task>
+
+	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+	    <TaskType>TASK_SET_DEFAULT_REACTION_TYPE</TaskType>
+	</Task>
+
+	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+		<TaskType>TASK_LIST_DONE</TaskType>
+	</Task>
+ 
+</CTaskList>

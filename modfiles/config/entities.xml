@@ -1053,6 +1053,8 @@
         <Entity>CU_BlackKnight_Bodyguard</Entity>
         <Entity>CU_CrusaderLeaderCavalry1</Entity>
         <Entity>CU_CrusaderSoldierCavalry1</Entity>
+        <Entity>CU_Hero13</Entity>
+        <Entity>CU_Hero13_Summon</Entity>
         <Entity>CU_RangerLeaderCavalry1</Entity>
         <Entity>CU_RangerSoldierCavalry1</Entity>
         <Entity>CU_TemplarLeaderCavalry1</Entity>
