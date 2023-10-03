@@ -488,16 +488,25 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
 
     -- Replace headquarters
     local HQID = GetID(self.Players[_PlayerID].HQScriptName);
-    ReplaceEntity(HQID, Logic.GetEntityType(HQID));
+    HQID = ReplaceEntity(HQID, Logic.GetEntityType(HQID));
+    local Orientation = Logic.GetEntityOrientation(HQID);
 
     -- Create door pos
-    local DoorPos = GetCirclePosition(HQName, 800, 180);
-    local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, 0, 0);
-    Logic.SetEntityName(ID, DoorPosName);
-    self.Players[_PlayerID].DoorPos = DoorPos;
+    local DoorPos;
+    if not IsExisting(DoorPosName) then
+        DoorPos = GetCirclePosition(HQName, 800, 180);
+        local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
+        Logic.SetEntityName(ID, DoorPosName);
+        self.Players[_PlayerID].DoorPos = DoorPos;
+    else
+        DoorPos = GetPosition(DoorPosName);
+        self.Players[_PlayerID].DoorPos = DoorPos;
+    end
 
     -- Create camp Pos
-    local CampPos = GetCirclePosition(self.Players[_PlayerID].HQScriptName, 1200, 180);
+    ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, _PlayerID);
+    local CampPos = GetCirclePosition(ID, 400, 180);
+    DestroyEntity(ID);
     Logic.CreateEntity(Entities.XD_Camp_Internal, CampPos.X, CampPos.Y, 0, _PlayerID);
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, CampPos.X, CampPos.Y, 0, _PlayerID);
     Logic.SetEntityName(ID, CampName);
