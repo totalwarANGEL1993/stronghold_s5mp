@@ -412,7 +412,7 @@ function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
         local ID = 0;
         local HeroList = self:GetHeroes(_PlayerID);
         if table.getn(HeroList) > 0 then
-            ID = ReplaceEntity(ID, HeroList[1]);
+            ID = HeroList[1];
         else
             local Position = _Position;
             if type(Position) ~= "table" then

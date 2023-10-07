@@ -1147,6 +1147,9 @@ end
 
 function Stronghold.Building:InitalizeBuyUnitKeybindings()
     Stronghold_KeyBindings_BuyUnit = function(_Key, _PlayerID, _EntityID)
+        if gvInterfaceCinematicFlag == 1 then
+            return;
+        end
         Sound.PlayGUISound(Sounds.klick_rnd_1, 0);
         Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _EntityID);
         Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _EntityID);

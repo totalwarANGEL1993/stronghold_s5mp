@@ -363,7 +363,7 @@ function Stronghold.Province:CheckVillageCenterAllowed(_Type, _x, _y, _rotation,
     local PlayerID = GUI.GetPlayerID()
     if IsPlayer(PlayerID) then
         if Logic.IsEntityTypeInCategory(_Type, EntityCategories.VillageCenter) == 1 then
-            return not AreEnemiesInArea(PlayerID, {X= _x, Y= _y}, 7000);
+            return not AreEnemiesInArea(PlayerID, {X= _x, Y= _y}, 5000);
         end
     end
     return true;

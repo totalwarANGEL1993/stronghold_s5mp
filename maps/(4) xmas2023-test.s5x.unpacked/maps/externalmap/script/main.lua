@@ -99,33 +99,6 @@ function CreateTestSpawners()
     );
 end
 
-function CreateTestArmy()
-    SetHostile(1, 5);
-    local Position = GetPosition("OP2_DoorPos");
-    TestArmyID = AiArmy.New(5, 10, Position, 3500);
-
-    local TroopID = Tools.CreateGroup(5, Entities.PU_LeaderSword4, 8, Position.X, Position.Y, 0);
-    AiArmy.AddTroop(TestArmyID, TroopID);
-    local TroopID = Tools.CreateGroup(5, Entities.PU_LeaderBow4, 8, Position.X, Position.Y, 0);
-    AiArmy.AddTroop(TestArmyID, TroopID);
-    local TroopID = Tools.CreateGroup(5, Entities.PU_LeaderRifle2, 8, Position.X, Position.Y, 0);
-    AiArmy.AddTroop(TestArmyID, TroopID);
-    local TroopID = Tools.CreateGroup(5, Entities.PV_Cannon4, 4, Position.X, Position.Y, 0);
-    AiArmy.AddTroop(TestArmyID, TroopID);
-end
-
-function ReinforceTestArmy()
-    local Position = GetPosition("OP2_DoorPos");
-    AiArmy.SpawnTroop(TestArmyID, Entities.PU_LeaderSword4, Position, 3);
-    AiArmy.SpawnTroop(TestArmyID, Entities.PU_LeaderBow4, Position, 3);
-    AiArmy.SpawnTroop(TestArmyID, Entities.PU_LeaderRifle2, Position, 3);
-    AiArmy.SpawnTroop(TestArmyID, Entities.PV_Cannon4, Position, 3);
-end
-
-function AttackWithTestArmy()
-    AiArmy.SetPosition(TestArmyID, Stronghold.Players[1].DoorPos);
-end
-
 function CreateMerchantNpc()
     Message("{scarlet}It{blue}just{yellow}work's{white}!")
     NonPlayerMerchant.Create {

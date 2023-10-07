@@ -111,8 +111,8 @@ function Stronghold.Recruitment:OnUnitCreated(_EntityID)
         Logic.SetSpeedFactor(_EntityID, 1.35);
     end
     if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon2 then
-        SVLib.SetEntitySize(_EntityID, 0.85);
-        Logic.SetSpeedFactor(_EntityID, 0.85);
+        SVLib.SetEntitySize(_EntityID, 0.65);
+        Logic.SetSpeedFactor(_EntityID, 0.65);
     end
 end
 

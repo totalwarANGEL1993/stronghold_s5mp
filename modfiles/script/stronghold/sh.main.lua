@@ -427,8 +427,7 @@ end
 
 function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType)
     local HQID = self:GetPlayerHeadquarter(_PlayerID);
-    if  Logic.IsEntityInCategory(HQID, EntityCategories.Headquarters) == 1
-    and Logic.IsConstructionComplete(HQID) == 1 then
+    if Logic.IsBuilding(HQID) == 1 and Logic.IsConstructionComplete(HQID) == 1 then
         self:InitalizePlayer(_PlayerID, _Serfs, _HeroType);
         return true;
     end
@@ -850,6 +849,13 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
     -- Check HQ
     if not IsExisting(HQID) and Logic.PlayerGetGameState(_PlayerID) == 1 then
         Logic.PlayerSetGameStateToLost(_PlayerID);
+        -- Nuke entities of AI player
+        if self:IsAIPlayer(_PlayerID) then
+            local PlayerEntities = GetPlayerEntities(_PlayerID, 0);
+            for i= 1, table.getn(PlayerEntities) do
+                DestroyEntity(PlayerEntities[i]);
+            end
+        end
 
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
