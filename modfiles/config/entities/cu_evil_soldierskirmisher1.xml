@@ -21,7 +21,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>75</MaxHealth>
+        <MaxHealth>50</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Fearless>true</Fearless>
@@ -136,7 +136,7 @@
             <BattleWalkAnim>CU_Evil_LeaderSkirmisher1_Run1</BattleWalkAnim>
             <HitAnim>CU_Evil_LeaderSkirmisher1_Hit</HitAnim>
 
-            <DamageClass>DC_Pole</DamageClass>
+            <DamageClass>DC_Javelin</DamageClass>
             <DamageAmount>14</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 

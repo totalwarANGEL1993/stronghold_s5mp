@@ -1,3 +1,9 @@
+Version 0.3.x
+- Entwurf für Turniermap hinzugefügt
+- Fehler behoben, der Bärenmenschen zu stark machte
+- Neue Schadensklasse für Speerwerfer
+- Rangfaktor für Maßnahmen angehoben
+
 Version 0.2.0
 
 - Alle Helden haben jetzt mindestens eine Spezialeinheit

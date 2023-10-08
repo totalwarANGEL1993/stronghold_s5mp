@@ -138,9 +138,10 @@ function BriefingSelectDifficulty()
         "und spielt auf erhöhter Schwierigkeit. Armeen sind normal groß, "..
         "sie erholen sich schnell und es gibt mehr Erzeugergebäude.", false);
     AP("FaderPage");
-    ASP("ChoseManiac", "HQ1", "Sehr hohe Schwierigkeit", "Ihr solltet "..
-        "vielleicht eine Therapie machen... Armeen sind riesig, erholen "..
-        "sich sehr schnell und es gibt mehr Erzeugergebäude.", false);
+    ASP("ChoseManiac", "HQ1", "Sehr hohe Schwierigkeit", "Wollt Ihr nicht "..
+        "lieber eine Therapie machen? So viel Selbsthass ist ungesund... "..
+        "Armeen sind riesig, erholen sich sehr schnell und es gibt mehr "..
+        "Erzeugergebäude.", false);
 
     AP {
         Name        = "FaderPage",
@@ -159,7 +160,7 @@ function BriefingSelectDifficulty()
         elseif Selected == 3 then
             SetHardDifficulty();
         elseif Selected == 4 then
-            SetLegendaryDifficulty();
+            SetManiacDifficulty();
         end
     end
     BriefingSystem.Start(1, "BriefingSelectDifficulty", Briefing);
@@ -350,7 +351,7 @@ function SetHardDifficulty()
     }
 end
 
-function SetLegendaryDifficulty()
+function SetManiacDifficulty()
     gv_Difficulty.Level = 4;
     gv_Difficulty.PassiveTime = 50*60;
 

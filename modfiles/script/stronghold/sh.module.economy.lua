@@ -707,7 +707,7 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
         if WorkerCount == 0 then
             MeasurePoints = 0;
         else
-            local RankFactor = 1.0 + (0.1 * CurrentRank);
+            local RankFactor = 1.0 + (0.2 * CurrentRank);
             -- FIXME: Does average motivation still work even if the motivation
             -- of the settlers is manipulated by CEntity?
             for k, v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do

@@ -44,14 +44,14 @@
             <ArmorClassIronFactor>2.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>2.0</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Any swordman on foot -->
     <DamageClass id="DC_Slash">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.8</ArmorClassJerkinFactor>
+            <ArmorClassNoneFactor>1.8</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.4</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.5</ArmorClassFortificationFactor>
@@ -101,7 +101,7 @@
             <ArmorClassJerkinFactor>0.001</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>0.001</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.001</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>2.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.001</ArmorClassHeroFactor>            
             <ArmorClassFurFactor>0.001</ArmorClassFurFactor>
         </Logic>
@@ -109,11 +109,11 @@
     <!-- All Riflemen -->
     <DamageClass id="DC_Bullet">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
+            <ArmorClassNoneFactor>1.6</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.6</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.1</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.05</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>2.0</ArmorClassFurFactor>
         </Logic>
@@ -121,13 +121,25 @@
     <!-- Shrouded -->
     <DamageClass id="DC_Evil">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.7</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.7</ArmorClassJerkinFactor>
+            <ArmorClassNoneFactor>1.6</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.6</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>2.5</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
+            <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
+            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
+        </Logic>
+    </DamageClass>
+    <!-- Evil Darters -->
+    <DamageClass id="DC_Javelin">
+        <Logic classname="GGL::CDamageClassProps">
+            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>0.5</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>2.5</ArmorClassIronFactor>
+            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
+            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
 </root>

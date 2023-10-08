@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <MapProps classname="EGL::CMapProps" classid="0x33ca7b88">
+  <NumberOfPlayer>8</NumberOfPlayer>
+ </MapProps>
+ <Entities>
+ </Entities>
+</root>

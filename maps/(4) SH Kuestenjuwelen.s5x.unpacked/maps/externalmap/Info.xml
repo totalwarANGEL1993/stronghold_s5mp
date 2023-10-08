@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey></NameKey>
+ <DescKey></DescKey>
+ <Name>(4) Küstenjuwelen</Name>
+ <Desc>...</Desc>
+ <SizeX>641</SizeX>
+ <SizeY>641</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>4</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>03283309-d62f-45aa-8752-fc3c5fa0ec27</Data>
+ </GUID>
+</root>
