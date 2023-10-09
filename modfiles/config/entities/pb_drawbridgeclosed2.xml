@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		  <Class>ED::CDisplayBuilding</Class>
+		  <Model>PB_DrawBridgeClosed2</Model>
+		  <Model2>PB_Farm1</Model2>
+		  <Model3>PB_Farm2</Model3>
+		  <Model4>PB_Farm3</Model4>
+	</Display>
+	<Logic classname="GGL::CBridgeProperties">
+        <Class>GGL::CBridgeEntity</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <Category>Bridge</Category>
+        <NeedsPlayer>false</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <MaxHealth>300</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>0</ArmorAmount>
+
+<!--        <BuildOn>XD_DrawBridgeClosed1</BuildOn>
+        <HideBase>true</HideBase>
+-->        <Upgrade>
+            <Category>Bridge1</Category>
+        </Upgrade>
+        <Height>
+            443
+        </Height>
+
+        <Blocked1>
+            <X>-300</X>
+            <Y>-925</Y>
+        </Blocked1>
+        <Blocked2>
+            <X>200</X>
+            <Y>925</Y>
+        </Blocked2>
+        <TerrainPos1>
+            <X>-10</X>
+            <Y>10</Y>
+        </TerrainPos1>
+        <TerrainPos2>
+            <X>10</X>
+            <Y>-10</Y>
+        </TerrainPos2>        
+
+        <BridgeArea>
+            <Blocked1>
+                <X>-200</X>
+                <Y>-925</Y>
+            </Blocked1>
+            <Blocked2>
+                <X>200</X>
+                <Y>925</Y>
+            </Blocked2>
+        </BridgeArea>
+
+        <ConstructionModel0>PB_Farm1</ConstructionModel0>
+        <ConstructionModel1>PB_Farm2</ConstructionModel1>
+        <ConstructionModel2>PB_Farm3</ConstructionModel2>
+
+        <ConstructionInfo>
+            <Time>80</Time>
+            <Cost>
+			    <Clay>5</Clay>
+			    <Wood>5</Wood>
+			    <Stone>5</Stone>
+			    <Gold/>
+			    <Iron/>
+			    <Sulfur/>
+            </Cost>
+            <BuilderSlot>
+                <Position>
+                <X>300</X>
+            	<Y>1000</Y>
+                </Position>
+                <Orientation>0</Orientation>
+            </BuilderSlot>
+            <BuilderSlot>
+                <Position>
+                <X>-400</X>
+            	<Y>-1600</Y>
+                </Position>
+                <Orientation>0</Orientation>
+            </BuilderSlot>
+            <ConstructionSite>ZB_ConstructionSiteFarm1</ConstructionSite>
+        </ConstructionInfo>
+	</Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+         <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+         <Class>GD::CBuildingBehavior</Class>
+         <NumDamageEffects>26</NumDamageEffects>
+         <NumDestroyEffects>18</NumDestroyEffects>
+        </Display>
+    </Behavior>
+</root>
