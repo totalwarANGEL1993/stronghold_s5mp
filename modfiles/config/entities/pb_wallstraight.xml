@@ -103,7 +103,7 @@
         </Logic>
         <Display classname="GD::CBuildingBehaviorProps">
             <Class>GD::CBuildingBehavior</Class>
-            <NumDamageEffects>3</NumDamageEffects>
+            <NumDamageEffects>0</NumDamageEffects>
             <NumDestroyEffects>0</NumDestroyEffects>
         </Display>
     </Behavior>

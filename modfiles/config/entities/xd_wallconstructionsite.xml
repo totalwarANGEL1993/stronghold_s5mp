@@ -6,13 +6,15 @@
     </Display>
     <Logic classname="GGL::CResourceDoodadProperties">
         <Class>GGL::CResourceDoodad</Class>
-        <AccessCategory>AccessCategoryStatic</AccessCategory>
-		<DoNotExecute>True</DoNotExecute>
+        <AccessCategory>AccessCategoryResourceDoodad</AccessCategory>
+		<DoNotExecute>true</DoNotExecute>
         <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
-        <Exploration>0</Exploration>
-        <NeedsPlayer>false</NeedsPlayer>
-        <ForceNoPlayer>true</ForceNoPlayer>
 
+        <ApproachPos>
+		    <X>0</X>
+		    <Y>0</Y>
+		</ApproachPos>
+		<ApproachR>500</ApproachR>
         <TerrainPos1>
             <X>-35</X>
             <Y>100</Y>
@@ -21,5 +23,10 @@
             <X>35</X>
             <Y>-90</Y>
         </TerrainPos2>
+        <Radius>230</Radius>
+        <Center>
+            <X>0</X>
+            <Y>0</Y>
+        </Center>
     </Logic>
 </root>

@@ -1,8 +1,11 @@
 Version 0.3.x
 - Entwurf für Turniermap hinzugefügt
+- Fehler behoben, der Drake Erfahrungseffekte gewährte
 - Fehler behoben, der Bärenmenschen zu stark machte
 - Neue Schadensklasse für Speerwerfer
 - Rangfaktor für Maßnahmen angehoben
+- Steinmauern brennen nicht mehr (Optics)
+- Mauerbauplätze sind frei dreh- und spiegelbar (Mapping)
 
 Version 0.2.0
 
