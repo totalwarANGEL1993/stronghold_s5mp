@@ -814,61 +814,93 @@ function CreatePlayer2()
 end
 
 function CreatePlayer2Armies()
-    gvP2HQSpawner = SpawnerCreate("HQ2", "HQ2Spawn");
-    SpawnerSetQuantity(gvP2HQSpawner, 3);
-    SpawnerSetFrequency(gvP2HQSpawner, 3*60);
-    SpawnerSetTypesToSpawn(gvP2HQSpawner,
-        Entities.CU_BlackKnight_LeaderMace2);
+    gvP2HQSpawner       = AiArmyRefiller.CreateSpawner {
+        ScriptName      = "HQ2",
+        SpawnPoint      = "HQ2Spawn",
+        SpawnAmount     = 3,
+        SpawnTimer      = 3*60,
+        AllowedTypes    = {
+            {Entities.CU_BlackKnight_LeaderMace2, 3},
+        }
+    };
 
-    gvP2BarracksSpawner = SpawnerCreate("P2Barracks1", "P2Barracks1Spawn");
-    SpawnerSetQuantity(gvP2BarracksSpawner, 1);
-    SpawnerSetFrequency(gvP2BarracksSpawner, 2*60);
-    SpawnerSetTypesToSpawn(gvP2BarracksSpawner,
-        Entities.PU_LeaderPoleArm2,
-        Entities.PU_LeaderSword3);
+    gvP2BarracksSpawner = AiArmyRefiller.CreateSpawner {
+        ScriptName      = "P2Barracks1",
+        SpawnPoint      = "P2Barracks1Spawn",
+        SpawnAmount     = 1,
+        SpawnTimer      = 3*60,
+        AllowedTypes    = {
+            {Entities.PU_LeaderPoleArm2, 3},
+            {Entities.PU_LeaderSword3, 3},
+        }
+    };
 
-    gvP2ArcherySpawner = SpawnerCreate("P2Archery1", "P2Archery1Spawn");
-    SpawnerSetQuantity(gvP2BarracksSpawner, 2);
-    SpawnerSetFrequency(gvP2ArcherySpawner, 3*60);
-    SpawnerSetTypesToSpawn(gvP2ArcherySpawner,
-        Entities.PU_LeaderBow2,
-        Entities.PU_LeaderBow3);
+    gvP2ArcherySpawner  = AiArmyRefiller.CreateSpawner {
+        ScriptName      = "P2Archery1",
+        SpawnPoint      = "P2Archery1Spawn",
+        SpawnAmount     = 2,
+        SpawnTimer      = 3*60,
+        AllowedTypes    = {
+            {Entities.PU_LeaderBow2, 3},
+            {Entities.PU_LeaderBow3, 3},
+        }
+    };
 
-    gvP2StableSpawner = SpawnerCreate("P2Stable1", "P2Stable1Spawn");
-    SpawnerSetQuantity(gvP2BarracksSpawner, 1);
-    SpawnerSetFrequency(gvP2StableSpawner, 4*60);
-    SpawnerSetTypesToSpawn(gvP2StableSpawner,
-        Entities.PU_LeaderHeavyCavalry1);
+    gvP2StableSpawner   = AiArmyRefiller.CreateSpawner {
+        ScriptName      = "P2Stable1",
+        SpawnPoint      = "P2Stable1Spawn",
+        SpawnAmount     = 1,
+        SpawnTimer      = 3*60,
+        AllowedTypes    = {
+            {Entities.PU_LeaderHeavyCavalry1, 3},
+        }
+    };
 
-    gvP2FoundrySpawner = SpawnerCreate("P2Foundry1", "P2Foundry1Spawn");
-    SpawnerSetQuantity(gvP2BarracksSpawner, 1);
-    SpawnerSetFrequency(gvP2FoundrySpawner, 3*60);
-    SpawnerSetTypesToSpawn(gvP2FoundrySpawner,
-        Entities.PV_Cannon1);
+    gvP2FoundrySpawner  = AiArmyRefiller.CreateSpawner {
+        ScriptName      = "P2Foundry1",
+        SpawnPoint      = "P2Foundry1Spawn",
+        SpawnAmount     = 3,
+        SpawnTimer      = 3*60,
+        AllowedTypes    = {
+            {Entities.PV_Cannon1, 0},
+        }
+    };
 
     ---
 
-    gvP2Army1 = ArmyCreate(2, 8, GetPosition("P2OuterPos"), 3000);
-    ArmyAddAttackTarget(gvP2Army1, "P2AttackPath1", "PlayerHome");
-    ArmySetSpawners(gvP2Army1,
-        gvP2HQSpawner, gvP2BarracksSpawner, gvP2ArcherySpawner,
-        gvP2StableSpawner, gvP2FoundrySpawner);
+    local ArmyID = AiArmy.New(2, 8, GetPosition("P2OuterPos"), 3000);
+    AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
+    AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);
+    AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);
+    AiArmyRefiller.AddArmy(gvP2StableSpawner, ArmyID);
+    AiArmyRefiller.AddArmy(gvP2FoundrySpawner, ArmyID);
+    AiArmyRefiller.AddArmy(gvP2HQSpawner, ArmyID);
+
+    gvP2Army1 = AiArmyManager.Create(ArmyID);
+    AiArmyManager.AddAttackTargetPath(gvP2Army1, "P2AttackPath1", "PlayerHome");
+
 
     for i= 2, 7 do
-        _G["gvP2Army"..i] = ArmyCreate(2, 3, GetPosition("P2DefPos1"), 5000);
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos1");
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos2");
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos3");
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos4");
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos5");
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos6");
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos7");
-        ArmyAddGuardPosition(_G["gvP2Army"..i], "P2DefPos8");
-        ArmySetSpawners(_G["gvP2Army"..i],
-            gvP2HQSpawner, gvP2BarracksSpawner, gvP2ArcherySpawner,
-            gvP2StableSpawner, gvP2FoundrySpawner);
+        ArmyID = AiArmy.New(2, 3, GetPosition("P2DefPos1"), 5000);
+        AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
+        AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);
+        AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);
+        AiArmyRefiller.AddArmy(gvP2StableSpawner, ArmyID);
+        AiArmyRefiller.AddArmy(gvP2FoundrySpawner, ArmyID);
+        AiArmyRefiller.AddArmy(gvP2HQSpawner, ArmyID);
+
+        _G["gvP2Army"..i] = AiArmyManager.Create(ArmyID);
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos1");
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos2");
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos3");
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos4");
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos5");
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos6");
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos7");
+        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos8");
     end
-    ArmySynchronize(gvP2Army2, gvP2Army3, gvP2Army4, gvP2Army5, gvP2Army6, gvP2Army7);
+    AiArmyManager.Synchronize(gvP2Army2, gvP2Army3, gvP2Army4, gvP2Army5, gvP2Army6, gvP2Army7);
+
 
     SetHostile(1, 2);
     MakeInvulnerable("Scorillo");
@@ -878,6 +910,11 @@ function CreatePlayer2Armies()
             return true;
         end
     end);
+end
+
+-- Overwrite formation selection
+function CustomTroopFomrationController(_ID)
+    Stronghold.Unit:SetFormationOnCreate(_ID);
 end
 
 -- The splitter group is implementet as standard bandit camp. They have the

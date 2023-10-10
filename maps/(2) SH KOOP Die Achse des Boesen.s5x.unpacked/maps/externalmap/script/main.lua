@@ -1,11 +1,16 @@
-
+-- ########################################################################## --
+-- #                                                                        # --
+-- #     Main Script                                                        # --
+-- #                                                                        # --
+-- ########################################################################## --
 
 function OnGameHasBeenStarted()
     Lib.Require("comfort/AreEnemiesInArea");
     Lib.Require("comfort/CreateNameForEntity");
     Lib.Require("module/weather/WeatherMaker");
     Lib.Require("module/ai/AiArmy");
-    Lib.Require("module/ai/AiTroopSpawner");
+    Lib.Require("module/ai/AiArmyManager");
+    Lib.Require("module/ai/AiArmyRefiller");
 
     UseWeatherSet("DesertWeatherSet");
     AddPeriodicSummer(360);

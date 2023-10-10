@@ -200,6 +200,12 @@ function BriefingExposition()
         Target  = "HQ1",
         CloseUp = false,
     }
+    AP {
+        Target      = "HQ1",
+        NoSkip      = true,
+        FadeOut     = 3,
+        Duration    = 3,
+    }
 
     Briefing.Finished = function()
         Logic.AddQuest(
