@@ -11,8 +11,8 @@ Stronghold.Hero.Config.Hero1 = {
 Stronghold.Hero.Config.Hero2 = {
     MinerExtractionFactor = 2.0,
     RefiningBonus = 1,
-    TowerDistance = 900,
     SwordmenBonusFactor = 1.009,
+    TowerBonusFactor = 1.1,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
@@ -76,7 +76,6 @@ Stronghold.Hero.Config.Hero11 = {
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {
     PopulationFactor = 1.2,
-    TowerDistance = 900,
 }
 
 -- Text overwrite

@@ -90,7 +90,7 @@
             <MaxRandomDamageBonus>25</MaxRandomDamageBonus>
 
 
-            <MaxRange>250</MaxRange>
+            <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>2200</AutoAttackRange>
 

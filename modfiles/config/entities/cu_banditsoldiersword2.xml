@@ -123,7 +123,7 @@
             <DamageAmount>11</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
-            <MaxRange>200</MaxRange>
+            <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>1500</AutoAttackRange>
 

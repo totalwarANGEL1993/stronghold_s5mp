@@ -33,7 +33,7 @@
     	     <MinRange>200.0f</MinRange>
     	    <DamageClass>DC_Evil</DamageClass>
             <!-- Note: That is single target damage! -->
-    	    <DamageAmount>80</DamageAmount>
+    	    <DamageAmount>60</DamageAmount>
     	    <DamageRange>300</DamageRange>
     	    <AutoAttackRange>2500</AutoAttackRange>
     	    <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

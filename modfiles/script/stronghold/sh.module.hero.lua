@@ -1375,12 +1375,7 @@ end
 -- Passive Ability: Soft tower limit
 function Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, _Amount)
     local Amount = _Amount;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
-        Amount = self.Config.Hero2.TowerDistance;
-    end
-    if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        Amount = self.Config.Hero12.TowerDistance;
-    end
+    -- Nothing to do
     return Amount;
 end
 
@@ -1388,10 +1383,22 @@ end
 function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _Damage)
     local PlayerID = Logic.EntityGetPlayer(_AttackerID);
     local Amount = _Damage;
+    local AttackerType = Logic.GetEntityType(_AttackerID);
     if self:HasValidLordOfType(PlayerID, Entities.PU_Hero2) then
+        -- Tower bonus
+        if AttackerType == Entities.CB_Evil_Tower1_ArrowLauncher
+        or AttackerType == Entities.PB_DarkTower1_ArrowLauncher
+        or AttackerType == Entities.PB_DarkTower2_Ballista
+        or AttackerType == Entities.PB_DarkTower3_Cannon
+        or AttackerType == Entities.PB_Tower1_ArrowLauncher
+        or AttackerType == Entities.PB_Tower2_Ballista
+        or AttackerType == Entities.PB_Tower3_Cannon then
+            Amount = Amount * self.Config.Hero2.TowerBonusFactor;
+        end
+        -- Axeman bonus
         if Logic.IsEntityInCategory(_AttackerID, EntityCategories.Sword) == 1 then
-            local Archery2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Smith);
-            for i= 1, Archery2 do
+            local Smith = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Smith);
+            for i= 1, Smith do
                 Amount = Amount * self.Config.Hero2.SwordmenBonusFactor;
             end
         end

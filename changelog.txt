@@ -1,9 +1,14 @@
-Version 0.3.x
+Version 0.3.7
 - Entwurf für Turniermap hinzugefügt
 - Fehler behoben, der Drake Erfahrungseffekte gewährte
 - Fehler behoben, der Bärenmenschen zu stark machte
 - Neue Schadensklasse für Speerwerfer
 - Rangfaktor für Maßnahmen angehoben
+- Leichte Kavalerie ist nun schwach gegen Speerträger
+- Alle Nahkämpfer haben jetzt 300 Reichweite
+- Passiver Skill Turmdistanz wurde entfernt
+- Alle Turmgeschütze geschwächt
+- Pilgrim steigert jetzt Turmgeschützschaden um 10%
 - Steinmauern brennen nicht mehr (Optics)
 - Mauerbauplätze sind frei dreh- und spiegelbar (Mapping)
 
