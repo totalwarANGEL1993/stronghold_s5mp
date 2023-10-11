@@ -143,12 +143,12 @@
     <Behavior>
         <Logic classname="GGL::CCircularAttackProps">
             <Class>GGL::CCircularAttack</Class>
-            <RechargeTimeSeconds>150</RechargeTimeSeconds>
+            <RechargeTimeSeconds>90</RechargeTimeSeconds>
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>PU_Hero4_CircularAttack</Animation>
             <DamageClass>DC_HeroCircularAttack</DamageClass>
             <DamageAmount>125</DamageAmount>
-            <Range>300.0</Range>
+            <Range>400.0</Range>
         </Logic>
     </Behavior>
 
