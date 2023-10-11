@@ -819,7 +819,7 @@ function Tutorial_StartPart4()
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Egal wie Ihr Euch entscheidet, ich "..
-                      "werde erst mal Kalkofe von der Südseeinsel herunter "..
+                      "werde nun Kalkofe von der Südseeinsel herunter "..
                       "werfen und mich anschließend selbst dort breit "..
                       "machen! Gehabt Euch wohl, Hochwohlgeboren!",
     }
@@ -837,7 +837,7 @@ function Tutorial_BridgeBuildTrigger()
     local n, EntityID = Logic.GetEntities(Entities.PB_Bridge3, 1);
     if n > 0 and Logic.IsConstructionComplete(EntityID) == 1 then
         BriefingGuardian2Npc();
-        Message("Der Turmwärter wird nun mit Euch sprechen!");
+        Message("TOM SIMPKINS: Der Turmwärter wird nun mit Euch sprechen!");
         Logic.SetQuestType(1, 2, SUBQUEST_CLOSED, 1);
         return true;
     end
@@ -845,6 +845,10 @@ end
 
 function Tutorial_CheckVictory()
     if not IsExisting("Scorillo") then
+        -- Not a stronghold AI so nuke manually.
+        for k,v in pairs(GetPlayerEntities(2,0)) do
+            DestroyEntity(v);
+        end
         Victory(1);
         return true;
     end

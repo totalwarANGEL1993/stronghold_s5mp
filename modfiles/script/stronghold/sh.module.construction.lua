@@ -71,7 +71,7 @@ end
 
 function Stronghold.Construction:GetBuildingLimit(_PlayerID, _Type)
     local LimitText = "";
-    local BuildingMax = EntityTracker.GetLimitOfType(_Type);
+    local BuildingMax = EntityTracker.GetLimitOfType(_Type, _PlayerID);
     if BuildingMax > -1 then
         local BuildingCount = EntityTracker.GetUsageOfType(_PlayerID, _Type);
         LimitText = "(" ..BuildingCount.. "/" ..BuildingMax.. ")";
@@ -159,7 +159,7 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
     -- Check limit
     local Limit = -1;
     if CheckList then
-        Limit = EntityTracker.GetLimitOfType(CheckList[1]);
+        Limit = EntityTracker.GetLimitOfType(CheckList[1], _PlayerID);
     end
     if Limit > -1 then
         for i= 1, table.getn(CheckList) do
@@ -245,7 +245,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         local Type = Logic.GetEntityType(GUI.GetSelectedEntity()) +1;
 
         -- Check limit
-        local Limit = EntityTracker.GetLimitOfType(Type);
+        local Limit = EntityTracker.GetLimitOfType(Type, PlayerID);
         local Usage = 0;
         if Limit > -1 then
             for i= 1, table.getn(CheckTechnologies) do

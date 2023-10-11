@@ -99,10 +99,10 @@
             <HitAnim>PU_Thief_Hit</HitAnim>
 
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>95</DamageAmount>
-            <MaxRandomDamageBonus>18</MaxRandomDamageBonus>
+            <DamageAmount>25</DamageAmount>
+            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
