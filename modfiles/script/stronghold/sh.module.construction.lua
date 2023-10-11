@@ -25,7 +25,9 @@ function Stronghold.Construction:Install()
         function EMS.RD.Rules.Markets:Evaluate(self) end
     end
 
+    self:OverwritePromotion();
     self:InitBuildingLimits();
+    self:InitBarracksBuildingLimits(-1);
     self:StartCheckTowerDistanceCallback();
     self:InitLightBricks();
 end
@@ -344,6 +346,33 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_Monastery3, 1);
     EntityTracker.SetLimitOfType(Entities.PB_Market2, 3);
     EntityTracker.SetLimitOfType(Entities.PB_PowerPlant1, 1);
+end
+
+function Stronghold.Construction:OverwritePromotion()
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
+        Overwrite.CallOriginal();
+        Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID, _NewRank);
+    end);
+end
+
+function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID, _Rank)
+    if _PlayerID == -1 then
+        for i= 1, table.getn(Score.Player) do
+            self:InitBarracksBuildingLimits(i, _Rank);
+        end
+        return;
+    end
+    local Limit = Stronghold.Construction.Config.MilitaryBuildingLimit;
+    local Bonus = Stronghold.Construction.Config.MilitaryBuildingBonus;
+    local Final = Limit + (Bonus * (_Rank or 0));
+    EntityTracker.SetLimitOfType(Entities.PB_Barracks1, Final, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Barracks2, Final, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Archery1, Final, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Archery2, Final, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Stable1, Final, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Stable2, Final, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Foundry1, Final, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Foundry2, Final, _PlayerID);
 end
 
 -- -------------------------------------------------------------------------- --

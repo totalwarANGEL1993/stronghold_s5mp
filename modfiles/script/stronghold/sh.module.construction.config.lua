@@ -5,6 +5,8 @@
 Stronghold.Construction.Config = {
     TowerDistance = 1500,
     LightBricksFactor = 1.2,
+    MilitaryBuildingLimit = 3,
+    MilitaryBuildingBonus = 1,
 
     -- Check types for construction technology
     TypesToCheckForConstruction = {
