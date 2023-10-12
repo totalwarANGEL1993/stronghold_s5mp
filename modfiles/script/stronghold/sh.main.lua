@@ -662,7 +662,7 @@ function Stronghold:OnEveryTurn()
         self.Recruitment:ControlCannonProducers(i);
     end
     -- Player jobs on modified turns
-    ---@diagnostic disable-next-line: undefined-field
+    --- @diagnostic disable-next-line: undefined-field
     local PlayerID = math.mod(Logic.GetCurrentTurn(), Players);
     self.Attraction:ManageCriminalsOfPlayer(PlayerID);
     self.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
@@ -678,6 +678,7 @@ function Stronghold:OnEverySecond()
     for i= 1, Players do
         self:PlayerDefeatCondition(i);
         self.Building:CannonToRallyPointController(i);
+        self.Building:CleanupTurretsOfBuilding(i);
     end
     self.Province:ControlProvince();
 end
@@ -1203,6 +1204,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_EntityID, _PlayerID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_EntityID);
+        Stronghold.Building:CreateTurretsForBuilding(_EntityID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
     end);
 
@@ -1210,6 +1212,8 @@ function Stronghold:OverwriteCommonCallbacks()
         Overwrite.CallOriginal();
         local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
         Stronghold:OnSelectionMenuChanged(_EntityIDNew);
+        Stronghold.Building:DestroyTurretsOfBuilding(_EntityIDOld);
+        Stronghold.Building:CreateTurretsForBuilding(_EntityIDNew);
         Stronghold.Province:OnBuildingUpgraded(_EntityIDNew, PlayerID);
     end);
 

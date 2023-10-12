@@ -82,6 +82,24 @@ Stronghold.Building.Config.Monastery = {
     },
 }
 
+Stronghold.Building.Config.Turrets = {
+    [Entities.PB_Headquarters1] = {
+        {Entities.CB_Turret1, 600, -50},
+        {Entities.CB_Turret1, 600,  45},
+        {Entities.CB_Turret1, 600, 135},
+    },
+    [Entities.PB_Headquarters2] = {
+        {Entities.CB_Turret2, 600, -50},
+        {Entities.CB_Turret2, 600,  45},
+        {Entities.CB_Turret2, 600, 135},
+    },
+    [Entities.PB_Headquarters3] = {
+        {Entities.CB_Turret3, 600, -50},
+        {Entities.CB_Turret3, 600,  45},
+        {Entities.CB_Turret3, 600, 135},
+    },
+}
+
 Stronghold.Building.Config.CornerForSegment = {
     [Entities.PB_DarkWallStraightGate_Closed]   = Entities.PB_DarkWallCorner,
     [Entities.PB_DarkWallStraightGate]          = Entities.PB_DarkWallCorner,

@@ -35,6 +35,7 @@ function Stronghold.Building:Install()
             RallyPoint = {},
             Cannons = {},
             Corners = {},
+            Turrets = {},
 
             HeadquarterLastWidgetID = 0,
         };
@@ -1558,6 +1559,44 @@ function Stronghold.Building:OnWallTurnedToGateCallback(_EntityID, _Type)
     SetHealth(ID, Health);
     if PlayerID == GUI.GetPlayerID() then
         GUI.SelectEntity(ID);
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Turrets
+
+function Stronghold.Building:CreateTurretsForBuilding(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Type = Logic.GetEntityType(_EntityID);
+    if self.Config.Turrets[Type] and IsPlayer(PlayerID) then
+        self.Data[PlayerID].Turrets[_EntityID] = {};
+        for k,v in pairs(self.Config.Turrets[Type]) do
+            local Position = GetCirclePosition(_EntityID, v[2], v[3]);
+            local TurretID = Logic.CreateEntity(v[1], Position.X, Position.Y, 0, PlayerID);
+            MakeInvulnerable(TurretID);
+            table.insert(self.Data[PlayerID].Turrets[_EntityID], TurretID);
+        end
+    end
+end
+
+function Stronghold.Building:DestroyTurretsOfBuilding(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) and self.Data[PlayerID].Turrets[_EntityID] then
+        for i= table.getn(self.Data[PlayerID].Turrets[_EntityID]), 1, -1 do
+            DestroyEntity(self.Data[PlayerID].Turrets[_EntityID][i]);
+        end
+    end
+end
+
+function Stronghold.Building:CleanupTurretsOfBuilding(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        for k,v in pairs(self.Data[_PlayerID].Turrets) do
+            if not IsExisting(k) then
+                for j= table.getn(v), 1, -1 do
+                    DestroyEntity(v[j]);
+                end
+            end
+        end
     end
 end
 
