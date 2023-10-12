@@ -75,7 +75,7 @@ function FillTreeTable()
     gvTreeTypeTable = gvTreeTypeTable or {};
     for k,v in pairs(Entities) do
         if v ~= Entities.XD_TreeStump1 then
-            for _, TypePart in pairs{"Tree", "Pine", "Fir", "Cypress", "Willow"} do
+            for _, TypePart in pairs{"Tree", "Palm", "Pine", "Fir", "Cypress", "Umbrella", "Willow"} do
                 if (string.find(k, TypePart)) then
                     gvTreeTypeTable[k] = true;
                     break;
