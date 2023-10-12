@@ -11,8 +11,8 @@
 		<NeedsPlayer>true</NeedsPlayer>
 		<ForceNoPlayer>false</ForceNoPlayer>
         <IsWall>true</IsWall>
-		<ArmorClass>ArmorClassJerkin</ArmorClass> 
-		<MaxHealth>300</MaxHealth>
+		<ArmorClass>ArmorClassFortification</ArmorClass> 
+		<MaxHealth>75</MaxHealth>
 	    <ArmorAmount>0</ArmorAmount>
         <ApproachPos>
             <X>-140</X>
