@@ -1,3 +1,11 @@
+Version 0.4.x
+- Hauptgebäude werden auch verwundbar, wenn der Held zu weit weg ist
+- Hauptgebäude haben jetzt Geschütze
+- Rekrutierungsgebäude sind nun dynamisch limitiert
+- Erecs Rundumschlag ist stärker und kann öfter eingesetzt werden
+- Verbrecher sind nicht mehr absurd stark
+- Tutorial verbessert (Atmosphäre)
+
 Version 0.3.7
 - Entwurf für Turniermap hinzugefügt
 - Fehler behoben, der Drake Erfahrungseffekte gewährte

@@ -799,17 +799,20 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
     end
 
     -- Check lord
-    local HeroAlive = false;
-    if IsEntityValid(self.Players[_PlayerID].LordScriptName) then
-        HeroAlive = true;
+    local HeroAtCastle = false;
+    local HeroName = self.Players[_PlayerID].LordScriptName;
+    local CastleName = self.Players[_PlayerID].HQScriptName;
+    local MaxDistance = self.Config.Base.MaxHeroDistance;
+    if IsEntityValid(HeroName) and GetDistance(HeroName, CastleName) <= MaxDistance then
+        HeroAtCastle = true;
     end
 
     local HQID = self:GetPlayerHeadquarter(_PlayerID);
-    if HeroAlive then
+    if HeroAtCastle then
         if Logic.IsEntityInCategory(HQID, EntityCategories.Headquarters) == 1 then
             self.Players[_PlayerID].VulnerabilityInfoShown = false;
             if IsExisting(HQID) then
-                MakeInvulnerable(self.Players[_PlayerID].HQScriptName);
+                MakeInvulnerable(CastleName);
             end
             if not self.Players[_PlayerID].InvulnerabilityInfoShown then
                 if not self:IsAIPlayer(_PlayerID) then
@@ -828,8 +831,8 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
     else
         if Logic.IsEntityInCategory(HQID, EntityCategories.Headquarters) == 1 then
             self.Players[_PlayerID].InvulnerabilityInfoShown = false;
-            if IsExisting(self.Players[_PlayerID].HQScriptName) then
-                MakeVulnerable(self.Players[_PlayerID].HQScriptName);
+            if IsExisting(CastleName) then
+                MakeVulnerable(CastleName);
             end
             if not self.Players[_PlayerID].VulnerabilityInfoShown then
                 if not self:IsAIPlayer(_PlayerID) then

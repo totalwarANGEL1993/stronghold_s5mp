@@ -6,6 +6,7 @@ Stronghold.Config = {
     Base = {
         MaxPossiblePlayers = 8,
         MaxHumanPlayers = 6,
+        MaxHeroDistance = 15000,
         InitialRank = 0,
         MaxRank = 7,
         StartingSerfs = 9,
