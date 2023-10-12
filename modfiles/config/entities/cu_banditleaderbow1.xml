@@ -64,13 +64,6 @@
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifyDamage>
 
-        <ModifySpeed>
-            <Technology>T_EliteSquad</Technology>
-        </ModifySpeed>
-        <ModifyDamage>
-            <Technology>T_EliteSquad</Technology>
-        </ModifyDamage>
-
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>

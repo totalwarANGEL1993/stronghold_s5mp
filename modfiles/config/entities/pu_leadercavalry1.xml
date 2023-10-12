@@ -69,13 +69,6 @@
             <Technology>T_Shoeing</Technology>
         </ModifySpeed>
 
-        <ModifySpeed>
-            <Technology>T_EliteSquad</Technology>
-        </ModifySpeed>
-        <ModifyDamage>
-            <Technology>T_EliteSquad</Technology>
-        </ModifyDamage>
-
 
         <Upgrade>
             <Type>PU_LeaderCavalry2</Type>

@@ -139,8 +139,8 @@
             <AffectsFriends>true</AffectsFriends>
             <AffectsLongRangeOnly>true</AffectsLongRangeOnly>
             <Range>1500.0</Range>
-            <DurationInSeconds>90</DurationInSeconds>
-            <DamageFactor>2.5</DamageFactor>
+            <DurationInSeconds>60</DurationInSeconds>
+            <DamageFactor>2.0</DamageFactor>
         </Logic>
     </Behavior>
 

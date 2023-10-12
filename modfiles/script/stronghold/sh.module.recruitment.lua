@@ -201,18 +201,6 @@ function Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
                 local Factor = self.Config.SlavePenny.CostsFactor;
                 Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
             end
-        -- Effect Stoic Philosophy
-        else
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_StoicPhilosophy) == 1 then
-                local Factor = self.Config.StoicPhilosophy.CostsFactor;
-                Costs[ResourceType.Honor]  = math.ceil((Costs[ResourceType.Honor] or 0)  * Factor);
-                Costs[ResourceType.Gold]   = math.ceil((Costs[ResourceType.Gold] or 0)   * Factor);
-                Costs[ResourceType.Clay]   = math.ceil((Costs[ResourceType.Clay] or 0)   * Factor);
-                Costs[ResourceType.Wood]   = math.ceil((Costs[ResourceType.Wood] or 0)   * Factor);
-                Costs[ResourceType.Stone]  = math.ceil((Costs[ResourceType.Stone] or 0)  * Factor);
-                Costs[ResourceType.Iron]   = math.ceil((Costs[ResourceType.Iron] or 0)   * Factor);
-                Costs[ResourceType.Sulfur] = math.ceil((Costs[ResourceType.Sulfur] or 0) * Factor);
-            end
         end
 
         Costs = Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, Costs);
@@ -233,19 +221,6 @@ function Stronghold.Recruitment:GetSoldierCostsByLeaderType(_PlayerID, _Type, _A
             Costs[i] = Costs[i] * (_Amount or Config.Soldiers);
         end
         Costs = CreateCostTable(unpack(Costs));
-
-        -- Effect Stoic Philosophy
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_StoicPhilosophy) == 1 then
-            local Factor = self.Config.StoicPhilosophy.CostsFactor;
-            Costs[ResourceType.Honor]  = math.ceil((Costs[ResourceType.Honor] or 0)  * Factor);
-            Costs[ResourceType.Gold]   = math.ceil((Costs[ResourceType.Gold] or 0)   * Factor);
-            Costs[ResourceType.Clay]   = math.ceil((Costs[ResourceType.Clay] or 0)   * Factor);
-            Costs[ResourceType.Wood]   = math.ceil((Costs[ResourceType.Wood] or 0)   * Factor);
-            Costs[ResourceType.Stone]  = math.ceil((Costs[ResourceType.Stone] or 0)  * Factor);
-            Costs[ResourceType.Iron]   = math.ceil((Costs[ResourceType.Iron] or 0)   * Factor);
-            Costs[ResourceType.Sulfur] = math.ceil((Costs[ResourceType.Sulfur] or 0) * Factor);
-        end
-
         Costs = Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _Type, Costs);
     end
     return Costs;
@@ -310,14 +285,15 @@ function Stronghold.Recruitment:BuyMilitaryUnitFromRecruiterAction(_UnitToRecrui
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
             local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
-            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
-            if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
-                if not Modifier then
-                    Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-                    Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
-                    return true;
-                end
-            end
+            -- local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
+            -- if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
+            --     if not Modifier then
+            --         Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
+            --         Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+            --         return true;
+            --     end
+            -- end
+
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
             if not Modifier then
                 if InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
@@ -404,14 +380,15 @@ function Stronghold.Recruitment:OnRecruiterSettlerUpgradeTechnologyClicked(_Unit
             local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
             local Modifier = XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1;
 
-            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
-            if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
-                if not Modifier then
-                    Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-                    Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
-                    return true;
-                end
-            end
+            -- local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(UnitType, Soldiers +1);
+            -- if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
+            --     if not Modifier then
+            --         Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
+            --         Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+            --         return true;
+            --     end
+            -- end
+
             local Costs = Stronghold.Recruitment:GetLeaderCosts(PlayerID, UnitType, Soldiers);
             if not Modifier then
                 if InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
@@ -871,16 +848,14 @@ function Stronghold.Recruitment:ControlProductionQueues(_PlayerID)
                         if Queue[1].Progress >= Queue[1].Limit then
                             if self:CanProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName) then
                                 self:ProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName);
-                            else
-                                -- Only for cosmetics
-                                local Progress = math.floor(Queue[1].Progress * 0.85);
-                                self.Data[_PlayerID].Queues[ButtonName][ScriptName][1].Progress = Progress;
                             end
                         else
                             local Health = Logic.GetEntityHealth(GetID(ScriptName));
                             local MaxHealth = Logic.GetEntityMaxHealth(GetID(ScriptName));
                             if Health / MaxHealth >= 0.2 then
-                                self.Data[_PlayerID].Queues[ButtonName][ScriptName][1].Progress = Queue[1].Progress + 1;
+                                if self:CanProduceUnitFromQueue(_PlayerID, ButtonName, ScriptName) then
+                                    self.Data[_PlayerID].Queues[ButtonName][ScriptName][1].Progress = Queue[1].Progress + 1;
+                                end
                             end
                         end
                     end
@@ -979,11 +954,12 @@ GUIUpdate_BuildingButtons_Recharge = function(_Button, _Technology)
     end
 
     local Color = {26, 115, 16, 190};
-    if not Stronghold.Recruitment:CanProduceUnitFromQueue(PlayerID, _Button, ScriptName) then
-        Color = {214, 44, 24, 190};
-    end
     local TimeCharged = FirstEntry.Progress;
     local RechargeTime = FirstEntry.Limit;
+    if not Stronghold.Recruitment:CanProduceUnitFromQueue(PlayerID, _Button, ScriptName) then
+        Color = {214, 44, 24, 190};
+        TimeCharged = FirstEntry.Limit;
+    end
     XGUIEng.SetMaterialColor(CurrentWidgetID, 1, unpack(Color));
     XGUIEng.SetProgressBarValues(CurrentWidgetID, TimeCharged, RechargeTime);
     XGUIEng.SetTextByValue(_Button.. "_Amount", QueueSize);

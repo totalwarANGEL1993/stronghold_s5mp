@@ -185,6 +185,9 @@ function Stronghold.Building:HeadquartersBuySerf()
     local GuiPlayer = GetLocalPlayerID();
     local PlayerID = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
+    if GuiPlayer ~= PlayerID then
+        return false;
+    end
     if Stronghold.Players[PlayerID].BuyUnitLock then
         return false;
     end

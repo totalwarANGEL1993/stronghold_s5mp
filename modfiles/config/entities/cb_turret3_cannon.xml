@@ -30,8 +30,8 @@
             <MaxAttackRange>3000.0f</MaxAttackRange>
             <MinRange>800</MinRange>
             <DamageClass>DC_Chaos</DamageClass>
-            <DamageAmount>60</DamageAmount>
-            <DamageRange>200</DamageRange>
+            <DamageAmount>35</DamageAmount>
+            <DamageRange>500</DamageRange>
             <BattleTaskList>TL_BATTLE_CANNONTOWER</BattleTaskList>
             <AutoAttackRange>3000</AutoAttackRange>
         </Logic>

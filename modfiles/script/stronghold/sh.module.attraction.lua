@@ -507,10 +507,6 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionUsage(_PlayerID)
     if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local RealUsage = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionUsage(_PlayerID);
         local Usage = RealUsage;
-        -- Technology effect
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ForeignSpecialists) == 1 then
-            Usage = Usage * self.Config.ForeignSpecialists.AttractionFactor;
-        end
         -- External
         Usage = GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, Usage);
         local FakeUsage = RealUsage - math.floor(Usage + 0.5);
@@ -588,10 +584,6 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
     local Usage = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         Usage = self:GetMillitarySize(_PlayerID);
-        -- Technology effect
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ReserveForces) == 1 then
-            Usage = Usage * self.Config.ReserveUnits.AttractionFactor;
-        end
         -- External
         Usage = GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
     end

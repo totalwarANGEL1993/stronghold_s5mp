@@ -56,13 +56,6 @@
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
 
-        <ModifySpeed>
-            <Technology>T_EliteSquad</Technology>
-        </ModifySpeed>
-        <ModifyDamage>
-            <Technology>T_EliteSquad</Technology>
-        </ModifyDamage>
-
 
         <Category>Military</Category>
         <Category>Leader</Category>

@@ -30,7 +30,7 @@
             <MinRange>200</MinRange>
             <DamageClass>DC_Arrow</DamageClass>
             <!-- Note: That is single target damage! -->
-            <DamageAmount>50</DamageAmount>
+            <DamageAmount>30</DamageAmount>
             <DamageRange>300</DamageRange>
             <AutoAttackRange>2400</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

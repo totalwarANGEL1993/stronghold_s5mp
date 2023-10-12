@@ -388,10 +388,6 @@
     <Technology>T_PublicRecovery</Technology>
     <Technology>T_ReportingOffice</Technology>
     <Technology>T_Vigilante</Technology>
-    <Technology>T_StoicPhilosophy</Technology>
-    <Technology>T_ReserveForces</Technology>
-    <Technology>T_EliteSquad</Technology>
-    <Technology>T_ForeignSpecialists</Technology>
 
     <!-- Toggle free camera -->
     <Technology>T_FreeCamera</Technology>
