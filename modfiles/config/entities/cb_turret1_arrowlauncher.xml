@@ -14,8 +14,6 @@
         <SnapTolerance>40.0f</SnapTolerance>
         <MapFileDontSave>true</MapFileDontSave>
         <Visible>false</Visible>
-        <Category>Wall</Category>
-        <Category>Cannon</Category>
     </Logic>
 
     <Behavior>

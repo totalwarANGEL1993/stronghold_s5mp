@@ -15,19 +15,16 @@
         <ArmorAmount>100</ArmorAmount>
         <Visible>false</Visible>
         <IsWall>true</IsWall>
-        <Category>Wall</Category>
 
 
-        <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
+
 
         <Upgrade>
             <Category>Tower</Category>

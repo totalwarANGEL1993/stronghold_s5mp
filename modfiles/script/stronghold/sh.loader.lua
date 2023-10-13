@@ -48,6 +48,7 @@ Lib.Require("comfort/KeyOf");
 
 -- Load modules
 Lib.Require("module/ai/AiArmyManager");
+Lib.Require("module/ai/AiArmyRefiller");
 Lib.Require("module/archive/Archive");
 Lib.Require("module/camera/FreeCam");
 Lib.Require("module/entity/EntityTracker");

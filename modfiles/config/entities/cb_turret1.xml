@@ -15,7 +15,6 @@
         <ArmorAmount>100</ArmorAmount>
         <Visible>false</Visible>
         <IsWall>true</IsWall>
-        <Category>Wall</Category>
 
 
         <ModifyArmor>

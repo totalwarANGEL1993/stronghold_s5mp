@@ -12,6 +12,7 @@ function StartTestStuff()
     CreateTestResourceProvince();
 
     Tutorial.Install();
+    CreateTestArmy()
 end
 
 function CreateTestHonorProvince()
@@ -58,6 +59,26 @@ function TutorialTest1()
     };
 
     Tutorial.Start();
+end
+
+-- -------------------------------------------------------------------------- --
+
+function CreateTestArmy()
+    gvArmy1 = AiArmy.New(2, 5, GetPosition("CampCenter"), 3000);
+    AiArmy.SetFormationController(gvArmy1, CustomTroopFomrationController);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PV_Cannon2, GetPosition("CampCenter"), 3);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PV_Cannon2, GetPosition("CampCenter"), 3);
+
+    gvArmyManager1 = AiArmyManager.Create(gvArmy1);
+    AiArmyManager.AddAttackTargetPath(gvArmyManager1, "WP1", "WP2", "WP3", "WP4");
+end
+
+-- Overwrite formation selection
+function CustomTroopFomrationController(_ID)
+    Stronghold.Unit:SetFormationOnCreate(_ID);
 end
 
 -- -------------------------------------------------------------------------- --

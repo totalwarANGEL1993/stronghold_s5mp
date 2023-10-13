@@ -11,11 +11,9 @@
         <DoNotExecute>false</DoNotExecute>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Exploration>1</Exploration>
-        <Category>Wall</Category>
         <SnapTolerance>30.0f</SnapTolerance>
         <MapFileDontSave>true</MapFileDontSave>
         <Visible>false</Visible>
-        <Category>Cannon</Category>
         <Category>SplashDamage</Category>
     </Logic>
 
