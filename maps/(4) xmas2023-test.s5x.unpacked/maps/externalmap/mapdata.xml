@@ -622,8 +622,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>6.800000e+003</X>
-    <Y>1.300000e+004</Y>
+    <X>5.180431e+003</X>
+    <Y>1.364415e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -637,8 +637,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>5.400000e+003</X>
-    <Y>1.510000e+004</Y>
+    <X>5.081390e+003</X>
+    <Y>1.603130e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -652,8 +652,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>5.300000e+003</X>
-    <Y>1.740000e+004</Y>
+    <X>5.100419e+003</X>
+    <Y>1.856768e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -667,8 +667,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>5.300000e+003</X>
-    <Y>1.980000e+004</Y>
+    <X>5.975757e+003</X>
+    <Y>2.016835e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
