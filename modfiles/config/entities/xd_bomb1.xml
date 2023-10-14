@@ -16,7 +16,7 @@
             <Radius>1500</Radius>
             <Delay>2.0</Delay>
             <Damage>75</Damage>
-            <DamageClass>DC_Chaos</DamageClass>
+            <DamageClass>DC_TroopCannon</DamageClass>
             <ExplodeEffectID>FXExplosionPilgrim</ExplodeEffectID>
 
             <AffectedEntityType>XD_ClosedIronPit1</AffectedEntityType>

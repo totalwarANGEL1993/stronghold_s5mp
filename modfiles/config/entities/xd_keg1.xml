@@ -20,7 +20,7 @@
 
             <!-- Radial damage (just like Pilgrim's bomb) -->
             <Radius>1500</Radius>
-            <DamageClass>DC_Siege</DamageClass>
+            <DamageClass>DC_SiegeCannon</DamageClass>
             <Damage>50</Damage>
 
             <!-- Damage done to target building -->

@@ -29,8 +29,8 @@
             <ReloadTime>2300</ReloadTime>
             <MaxAttackRange>2800.0f</MaxAttackRange>
             <MinRange>1000</MinRange>
-            <DamageClass>DC_Chaos</DamageClass>
-            <DamageAmount>25</DamageAmount>
+            <DamageClass>DC_Turret</DamageClass>
+            <DamageAmount>30</DamageAmount>
             <DamageRange>300</DamageRange>
             <AutoAttackRange>2800</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

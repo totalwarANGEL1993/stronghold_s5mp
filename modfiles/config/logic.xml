@@ -246,7 +246,7 @@
     <DefenderMaxRange>3000</DefenderMaxRange>
     <DefenderProjectileEffectType>FXArrow</DefenderProjectileEffectType>
     <DefenderProjectileDamage>5</DefenderProjectileDamage>
-    <DefenderProjectileDamageClass>DC_Chaos</DefenderProjectileDamageClass>
+    <DefenderProjectileDamageClass>DC_Turret</DefenderProjectileDamageClass>
     <DefenderMissChance>8</DefenderMissChance>
 
 <!-- LEADER MOVEMENT -->

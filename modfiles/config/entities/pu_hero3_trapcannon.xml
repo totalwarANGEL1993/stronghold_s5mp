@@ -28,7 +28,7 @@
             <ImpactEffectType>FXExplosionPilgrim</ImpactEffectType>
             <ReloadTime>5000</ReloadTime>
             <MaxAttackRange>1000.0f</MaxAttackRange>
-            <DamageClass>DC_Chaos</DamageClass>
+            <DamageClass>DC_TroopCannon</DamageClass>
             <DamageAmount>75</DamageAmount>
             <DamageRange>3000</DamageRange>
             <AutoAttackRange>1500</AutoAttackRange>

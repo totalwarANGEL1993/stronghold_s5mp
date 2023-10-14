@@ -21,10 +21,27 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>175</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>175</MaxHealth>
+        <Exploration>23</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>4</ArmorAmount>
+        <DodgeChance>10</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>23</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Category>Military</Category>
+        <Category>Rifle</Category>
+        <Category>Soldier</Category>
+        <Category>LongRange</Category>
+
+        <Upgrade>
+            <Type>PU_SoldierRifle2</Type>
+            <Category>SoldierRifle</Category>
+        </Upgrade>
         <Cost>
             <Gold>50</Gold>
             <Sulfur>40</Sulfur>
@@ -60,31 +77,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
-
-        <ModifySpeed>
-            <Technology>T_EliteSquad</Technology>
-        </ModifySpeed>
-        <ModifyDamage>
-            <Technology>T_EliteSquad</Technology>
-        </ModifyDamage>
-
-
-        <Category>Military</Category>
-        <Category>Rifle</Category>
-        <Category>Soldier</Category>
-        <Category>LongRange</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>23</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
-        <DodgeChance>10</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>23</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Type>PU_SoldierRifle2</Type>
-            <Category>SoldierRifle</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

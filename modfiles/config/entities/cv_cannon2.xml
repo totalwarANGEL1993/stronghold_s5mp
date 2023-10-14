@@ -92,7 +92,7 @@
             <BattleIdleAnim>PV_Cannon4_Idle</BattleIdleAnim>
             <BattleWalkAnim>PV_Cannon4_Drive</BattleWalkAnim>
 
-            <DamageClass>DC_Chaos</DamageClass>
+            <DamageClass>DC_TroopCannon</DamageClass>
             <DamageAmount>65</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
             <DamageRange>600</DamageRange>

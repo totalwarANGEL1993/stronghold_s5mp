@@ -29,7 +29,7 @@
             <ReloadTime>1300</ReloadTime>
             <MaxAttackRange>2500.0f</MaxAttackRange>
             <MinRange>800</MinRange>
-            <DamageClass>DC_Chaos</DamageClass>
+            <DamageClass>DC_Arrow</DamageClass>
             <!-- Note: That is single target damage! -->
             <DamageAmount>30</DamageAmount>
             <DamageRange>300</DamageRange>
