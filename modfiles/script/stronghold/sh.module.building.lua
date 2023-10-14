@@ -1469,10 +1469,10 @@ function Stronghold.Building:CreateWallCornerForSegment(_EntityID)
 
         local Distance = 283.1;
         local Orientation = Logic.GetEntityOrientation(_EntityID);
-        if not IsGate then
-            if Orientation == 45 or Orientation == 135 or Orientation == 225 or Orientation == 315 then
-                Distance = 300.1;
-            end
+        if Orientation == 45 or Orientation == 135 or Orientation == 225 or Orientation == 315 then
+            Distance = (not IsGate and 300.1) or 283.1;
+        else
+            Distance = (not IsGate and 283.1) or 300.1;
         end
 
         local Angle1 = (IsGate and 90) or 135;
@@ -1519,7 +1519,9 @@ end
 
 function Stronghold.Building:OnGateOpenedCallback(_EntityID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Health = GetHealth(_EntityID);
     local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.ClosedToOpenGate[_Type]);
+    SetHealth(ID, Health);
     if PlayerID == GUI.GetPlayerID() then
         GUI.SelectEntity(ID);
     end
@@ -1527,7 +1529,9 @@ end
 
 function Stronghold.Building:OnGateClosedCallback(_EntityID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Health = GetHealth(_EntityID);
     local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.OpenToClosedGate[_Type]);
+    SetHealth(ID, Health);
     if PlayerID == GUI.GetPlayerID() then
         GUI.SelectEntity(ID);
     end
