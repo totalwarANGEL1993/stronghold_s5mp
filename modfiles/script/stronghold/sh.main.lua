@@ -151,6 +151,14 @@ function SetupAiPlayer(_PlayerID, _Serfs, _HeroType)
     end
 end
 
+--- Destroys a player and deletes all entities belonging to them.
+--- @param _PlayerID number  ID of player
+function DestructPlayer(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        Stronghold:ForcedSelfDesctruct(_PlayerID);
+    end
+end
+
 --- Returns if a player is a player.
 --- @param _PlayerID number ID of player
 --- @return boolean IsPlayer Is human player
@@ -852,14 +860,7 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
 
     -- Check HQ
     if not IsExisting(HQID) and Logic.PlayerGetGameState(_PlayerID) == 1 then
-        Logic.PlayerSetGameStateToLost(_PlayerID);
-        -- Nuke entities of AI player
-        if self:IsAIPlayer(_PlayerID) then
-            local PlayerEntities = GetPlayerEntities(_PlayerID, 0);
-            for i= 1, table.getn(PlayerEntities) do
-                DestroyEntity(PlayerEntities[i]);
-            end
-        end
+        self:ForcedSelfDesctruct(_PlayerID);
 
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
         local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
@@ -870,6 +871,73 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
         ));
     end
 end
+
+-- Deletes all player entities safely.
+function Stronghold:ForcedSelfDesctruct(_PlayerID)
+    Logic.PlayerSetGameStateToLost(_PlayerID);
+
+    local destroy_later = {
+        [Entities.PB_Headquarters1] = true;
+        [Entities.PB_Headquarters2] = true;
+        [Entities.PB_Headquarters3] = true;
+        [Entities.PB_Market1] = true;
+        [Entities.PB_Market2] = true;
+
+        [Entities.PB_ClayMine1] = true;
+        [Entities.PB_ClayMine2] = true;
+        [Entities.PB_ClayMine3] = true;
+
+        [Entities.PB_IronMine1] = true;
+        [Entities.PB_IronMine2] = true;
+        [Entities.PB_IronMine3] = true;
+
+        [Entities.PB_StoneMine1] = true;
+        [Entities.PB_StoneMine2] = true;
+        [Entities.PB_StoneMine3] = true;
+
+        [Entities.PB_SulfurMine1] = true;
+        [Entities.PB_SulfurMine2] = true;
+        [Entities.PB_SulfurMine3] = true;
+
+        [Entities.PB_Outpost1] = true;
+        [Entities.PB_Outpost2] = true;
+        [Entities.PB_Outpost3] = true;
+    };
+
+    -- Singleplayer
+    if not Network_Handler_Diplomacy_Self_Destruct_Helper then
+        for k,v in pairs(Entities) do
+            if not destroy_later[v] then
+                self:ForcedSelfDesctructHelper(_PlayerID, v);
+            end;
+        end;
+        for k,v in pairs(destroy_later) do
+            self:ForcedSelfDesctructHelper(_PlayerID, k);
+        end;
+    -- Multiplayer
+    else
+        for k,v in pairs(Entities) do
+            if not destroy_later[v] then
+                Network_Handler_Diplomacy_Self_Destruct_Helper(_PlayerID, v);
+            end;
+        end;
+        for k,v in pairs(destroy_later) do
+            Network_Handler_Diplomacy_Self_Destruct_Helper(_PlayerID, k);
+        end;
+    end
+end
+
+function Stronghold:ForcedSelfDesctructHelper(_PlayerID, _Type)
+	while true do
+		local TempTable = {Logic.GetPlayerEntities(_PlayerID, _Type, 48)};
+		for j = 1,TempTable[1] + 1, 1 do
+			Logic.DestroyEntity(TempTable[j]);
+		end;
+		if TempTable[1] == 0 then
+			break;
+		end;
+	end;
+end;
 
 -- -------------------------------------------------------------------------- --
 -- Entity Record
