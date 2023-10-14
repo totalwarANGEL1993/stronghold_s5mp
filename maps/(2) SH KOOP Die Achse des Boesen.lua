@@ -81,9 +81,6 @@ SHS5MP_RulesDefinition = {
 
     -- Called after game start timer is over
     OnGameStart = function()
-        ForbidTechnology(Technologies.B_Palisade, 1);
-        ForbidTechnology(Technologies.B_Wall, 1);
-
         SetHostile(1, 7);
         SetHostile(2, 7);
 
