@@ -1428,6 +1428,13 @@ end
 -- -------------------------------------------------------------------------- --
 -- Wall Logic
 
+function Stronghold.Building:OnWallConstructionSiteReplacer(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    if Type == Entities.XD_WallConstructionMarker then
+        ReplaceEntity(_EntityID, Entities.XD_WallConstructionSite);
+    end
+end
+
 function Stronghold.Building:OnWallOrPalisadeCreated(_EntityID)
     local SegmentType = Logic.GetEntityType(_EntityID);
     if self.Config.LegalWallType[SegmentType] then

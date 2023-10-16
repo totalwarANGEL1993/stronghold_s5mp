@@ -1122,5 +1122,6 @@
         <Entity>XD_WreckedBoat1</Entity>
         <Entity>XD_WreckedBoat2</Entity>
 
+        <Entity>XD_WallConstructionMarker</Entity>
         <Entity>XD_WallConstructionSite</Entity>
 </root>

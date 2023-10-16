@@ -709,6 +709,7 @@ function Stronghold:OnEntityCreated()
         end
     end
     self.Building:OnWallOrPalisadeCreated(EntityID);
+    self.Building:OnWallConstructionSiteReplacer(EntityID);
     self.Building:OnUnitCreated(EntityID);
     self.Economy:SetSettlersMotivation(EntityID);
     self.Unit:SetFormationOnCreate(EntityID);
@@ -1264,11 +1265,6 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
 end
 
 function Stronghold:OverwriteCommonCallbacks()
-    -- Tab prevents things like hiding serfs in forests.
-    -- Takes away some of the tactics.
-    KeyBindings_ToggleOnScreenInformation = function()
-    end
-
     Overwrite.CreateOverwrite("GameCallback_GUI_SelectionChanged", function()
         Overwrite.CallOriginal();
         local EntityID = GUI.GetSelectedEntity();
