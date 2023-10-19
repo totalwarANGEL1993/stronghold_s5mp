@@ -25,7 +25,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>2500</MaxHealth>
+        <MaxHealth>10000</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -112,7 +112,7 @@
     <Behavior>
         <Logic classname="GGL::CSummonBehaviorProps">
             <Class>GGL::CSummonBehavior</Class>
-            <RechargeTimeSeconds>180</RechargeTimeSeconds>
+            <RechargeTimeSeconds>120</RechargeTimeSeconds>
             <SummonedEntityType>CU_Hero13_Summon</SummonedEntityType>
             <NumberOfSummonedEntities>5</NumberOfSummonedEntities>
             <SummonTaskList>TL_CU_HERO13_SUMMON</SummonTaskList>
@@ -122,12 +122,12 @@
     <Behavior>
         <Logic classname="GGL::CRangedEffectAbilityProps">
             <Class>GGL::CRangedEffectAbility</Class>
-            <RechargeTimeSeconds>180</RechargeTimeSeconds>
+            <RechargeTimeSeconds>150</RechargeTimeSeconds>
             <AffectsOwn>true</AffectsOwn>
             <AffectsFriends>true</AffectsFriends>
             <AffectsOnlyMilitary>true</AffectsOnlyMilitary>
-            <Range>1000.0</Range>
-            <DurationInSeconds>150</DurationInSeconds>
+            <Range>2500.0</Range>
+            <DurationInSeconds>180</DurationInSeconds>
             <DamageFactor>2.0</DamageFactor>
         </Logic>
     </Behavior>
