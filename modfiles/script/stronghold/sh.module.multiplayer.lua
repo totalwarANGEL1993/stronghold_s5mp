@@ -1010,27 +1010,27 @@ function Stronghold.Multiplayer:OnGameModeSet()
     end
 
     -- Fill clay
-    if self.Data.Config.MapStartFillClay then
+    if self.Data.Config.MapStartFillClay and self.Data.Config.MapStartFillClay > 0 then
         for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Clay1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillClay);
         end
     end
     -- Fill stone
-    if self.Data.Config.MapStartFillStone then
+    if self.Data.Config.MapStartFillStone and self.Data.Config.MapStartFillStone > 0 then
         for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillStone);
         end
     end
     -- Fill iron
-    if self.Data.Config.MapStartFillIron then
+    if self.Data.Config.MapStartFillIron and self.Data.Config.MapStartFillIron > 0 then
         for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Iron1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillIron);
         end
     end
     -- Fill sulfur
-    if self.Data.Config.MapStartFillSulfur then
+    if self.Data.Config.MapStartFillSulfur and self.Data.Config.MapStartFillSulfur > 0 then
         for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Sulfur1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, tonumber(Logic.GetEntityName(EntityID)) or 400);
+            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillSulfur);
         end
     end
 

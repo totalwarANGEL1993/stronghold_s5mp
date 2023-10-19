@@ -22,12 +22,12 @@ SHS5MP_RulesDefinition = {
     PeaceTimeOpenGates = true,
 
     -- Fill resource piles with resources
-    -- (script name becomes amout e.g. 4000 for 4000 resources)
-    MapStartFillClay = true,
-    MapStartFillStone = true,
-    MapStartFillIron = true,
-    MapStartFillSulfur = true,
-    MapStartFillWood = true,
+    -- (value of resources or 0 to not change)
+    MapStartFillClay = 4000,
+    MapStartFillStone = 4000,
+    MapStartFillIron = 4000,
+    MapStartFillSulfur = 4000,
+    MapStartFillWood = 4000,
 
     -- Rank
     Rank = {

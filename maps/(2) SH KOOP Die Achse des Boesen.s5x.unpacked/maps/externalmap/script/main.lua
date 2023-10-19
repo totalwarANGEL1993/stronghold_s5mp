@@ -23,11 +23,11 @@ function OnGameHasBeenStarted()
     ShowStrongholdConfiguration({
         DisableDefaultWinCondition = true,
         PeaceTimeOpenGates = false,
-        MapStartFillClay = false,
-        MapStartFillStone = false,
-        MapStartFillIron = false,
-        MapStartFillSulfur = false,
-        MapStartFillWood = false,
+        MapStartFillClay = 4000,
+        MapStartFillStone = 4000,
+        MapStartFillIron = 4000,
+        MapStartFillSulfur = 4000,
+        MapStartFillWood = 4000,
 
         AllowedHeroes = {
             [Entities.PU_Hero1c]             = true,
