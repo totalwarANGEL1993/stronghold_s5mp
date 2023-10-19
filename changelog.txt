@@ -1,4 +1,5 @@
 Version 0.4.x
+- Dovbar ist wesentlich zäher
 - Hauptgebäude werden auch verwundbar, wenn der Held zu weit weg ist
 - Hauptgebäude haben jetzt Geschütze
 - Rekrutierungsgebäude sind nun dynamisch limitiert
