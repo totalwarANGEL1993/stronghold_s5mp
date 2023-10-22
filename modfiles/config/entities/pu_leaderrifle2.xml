@@ -38,9 +38,7 @@
         <Category>LongRange</Category>
 
         <Cost>
-            <Gold>300</Gold>
-            <Sulfur>80</Sulfur>
-            <Wood/>
+            <Gold>0</Gold>
         </Cost>
 
         <ModifyArmor>

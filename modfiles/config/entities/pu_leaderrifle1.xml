@@ -42,9 +42,7 @@
             <Category>LeaderRifle</Category>
         </Upgrade>
         <Cost>
-            <Gold>250</Gold>
-            <Sulfur>70</Sulfur>
-            <Wood/>
+            <Gold>0</Gold>
         </Cost>
 
         <ModifyArmor>

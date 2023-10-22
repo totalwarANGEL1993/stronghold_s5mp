@@ -33,9 +33,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>300</Gold>
-            <Iron>30</Iron>
-            <Wood/>
+            <Gold>0</Gold>
         </Cost>
         <AttractionSlots>1</AttractionSlots>
         <Category>Thief</Category>

@@ -80,11 +80,11 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
                 Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, arg[1]);
             end
             if _Action == Stronghold.Building.SyncEvents.EnqueueSerf then
-                if arg[5] then
-                    Stronghold.Recruitment:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
-                else
-                    Stronghold.Recruitment:OrderUnit(_PlayerID, arg[4], arg[2], arg[1], arg[3]);
-                end
+                -- if arg[5] then
+                --     Stronghold.Recruit:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
+                -- else
+                --     Stronghold.Recruit:OrderUnit(_PlayerID, arg[4], arg[2], arg[1], arg[3]);
+                -- end
             end
             if _Action == Stronghold.Building.SyncEvents.BlessSettlers then
                 Stronghold.Building:MonasteryBlessSettlers(_PlayerID, arg[1]);
@@ -195,7 +195,7 @@ function Stronghold.Building:HeadquartersBuySerf()
     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
     local Costs = CreateCostTable(unpack(Config.Costs[1]));
     if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
-        local Factor = Stronghold.Recruitment.Config.SlavePenny.CostsFactor;
+        local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
         Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
     end
     if  XGUIEng.IsModifierPressed(Keys.ModifierControl) == 0
@@ -229,7 +229,7 @@ function Stronghold.Building:HeadquartersBuySerfTooltip()
     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
     local Costs = CreateCostTable(unpack(Config.Costs[1]));
     if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
-        local Factor = Stronghold.Recruitment.Config.SlavePenny.CostsFactor;
+        local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
         Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
     end
 	local CostString = FormatCostString(GuiPlayer, Costs);
@@ -1173,19 +1173,19 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
-                if _Key == 1 and XGUIEng.IsButtonDisabled("Research_UpgradeSword1") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeSword1);
-                elseif _Key == 2 and XGUIEng.IsButtonDisabled("Research_UpgradeSword2") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeSword2);
-                elseif _Key == 3 and XGUIEng.IsButtonDisabled("Research_UpgradeSword3") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeSword3);
-                elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear1") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear1);
-                elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear2") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear2);
-                elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear3") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear3);
-                end
+                -- if _Key == 1 and XGUIEng.IsButtonDisabled("Research_UpgradeSword1") == 0 then
+                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSword1);
+                -- elseif _Key == 2 and XGUIEng.IsButtonDisabled("Research_UpgradeSword2") == 0 then
+                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSword2);
+                -- elseif _Key == 3 and XGUIEng.IsButtonDisabled("Research_UpgradeSword3") == 0 then
+                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSword3);
+                -- elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear1") == 0 then
+                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear1);
+                -- elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear2") == 0 then
+                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear2);
+                -- elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear3") == 0 then
+                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear3);
+                -- end
             end
         end
     end

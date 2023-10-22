@@ -28,9 +28,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>30</Gold>
-            <Iron>0</Iron>
-            <Wood>20</Wood>
+            <Gold>0</Gold>
         </Cost>
 
 

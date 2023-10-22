@@ -48,7 +48,7 @@
         <Exploration>24</Exploration>
         <IdleTaskList>TL_SERF_IDLE</IdleTaskList>
         <Cost>
-            <Gold>50</Gold>
+            <Gold>0</Gold>
         </Cost>
 
         <ModifyExploration>

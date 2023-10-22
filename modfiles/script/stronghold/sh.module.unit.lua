@@ -70,7 +70,7 @@ end
 -- Buy Unit (Logic)
 
 function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
-    local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
+    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
     RemoveResourcesFromPlayer(_PlayerID, Costs);
     Stronghold.Players[_PlayerID].BuyUnitLock = nil;
 end
@@ -183,7 +183,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     end
 
     local Type = Logic.GetEntityType(EntityID);
-    local Costs = Stronghold.Recruitment:GetSoldierCostsByLeaderType(PlayerID, Type, BuyAmount);
+    local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, Type, BuyAmount);
     if InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
         return true;
     end
@@ -229,7 +229,7 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
     end
 
     local Type = Logic.GetEntityType(EntityID);
-    local Costs = Stronghold.Recruitment:GetSoldierCostsByLeaderType(PlayerID, Type, BuyAmount);
+    local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, Type, BuyAmount);
 
     local Index = (BuyAmount > 1 and "All") or "Single";
     local Text = XGUIEng.GetStringTableText("sh_text/UI_Recruit" ..Index);

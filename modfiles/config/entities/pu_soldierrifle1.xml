@@ -43,9 +43,7 @@
             <Category>SoldierRifle</Category>
         </Upgrade>
         <Cost>
-            <Gold>50</Gold>
-            <Sulfur>40</Sulfur>
-            <Wood/>
+            <Gold>0</Gold>
         </Cost>
 
 

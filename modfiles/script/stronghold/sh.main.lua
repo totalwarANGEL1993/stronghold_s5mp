@@ -1324,22 +1324,22 @@ function Stronghold:OverrideWidgetActions()
 
     Overwrite.CreateOverwrite("GUIAction_ReserachTechnology", function(_Technology)
         if GUI.GetPlayerID() ~= 17 then
-            if  not Stronghold.Recruitment:OnBarracksSettlerUpgradeTechnologyClicked(_Technology)
-            and not Stronghold.Recruitment:OnArcherySettlerUpgradeTechnologyClicked(_Technology)
-            and not Stronghold.Recruitment:OnStableSettlerUpgradeTechnologyClicked(_Technology) then
+            if  not Stronghold.Recruit:OnBarracksSettlerUpgradeTechnologyClicked(_Technology)
+            and not Stronghold.Recruit:OnArcherySettlerUpgradeTechnologyClicked(_Technology)
+            and not Stronghold.Recruit:OnStableSettlerUpgradeTechnologyClicked(_Technology) then
                 Overwrite.CallOriginal();
             end
         end
     end);
 
     Overwrite.CreateOverwrite("GUIAction_BuyMilitaryUnit", function(_UpgradeCategory)
-        if not Stronghold.Recruitment:BuyMilitaryUnitFromTavernAction(_UpgradeCategory) then
+        if not Stronghold.Recruit:BuyMilitaryUnitFromTavernAction(_UpgradeCategory) then
             Overwrite.CallOriginal();
         end
     end);
 
     Overwrite.CreateOverwrite("GUIAction_BuyCannon", function(_Type, _UpgradeCategory)
-        if not Stronghold.Recruitment:BuyMilitaryUnitFromFoundryAction(_Type, _UpgradeCategory) then
+        if not Stronghold.Recruit:BuyMilitaryUnitFromFoundryAction(_Type, _UpgradeCategory) then
             Overwrite.CallOriginal();
         end
     end);
@@ -1398,8 +1398,8 @@ function Stronghold:OverrideWidgetTooltips()
     Overwrite.CreateOverwrite("GUITooltip_BuyMilitaryUnit", function(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
         local PlayerID = GetLocalPlayerID();
         Overwrite.CallOriginal();
-        Stronghold.Recruitment:UpdateTavernBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
-        Stronghold.Recruitment:UpdateFoundryBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
+        Stronghold.Recruit:UpdateTavernBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
+        Stronghold.Recruit:UpdateFoundryBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_BlessSettlers", function(_TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
@@ -1468,13 +1468,13 @@ function Stronghold:OverrideWidgetTooltips()
         end
         local TooltipSet = false;
         if not TooltipSet then
-            TooltipSet = Stronghold.Recruitment:UpdateUpgradeSettlersBarracksTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
+            TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersBarracksTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
         end
         if not TooltipSet then
-            TooltipSet = Stronghold.Recruitment:UpdateUpgradeSettlersArcheryTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
+            TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersArcheryTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
         end
         if not TooltipSet then
-            TooltipSet = Stronghold.Recruitment:UpdateUpgradeSettlersStableTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
+            TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersStableTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
         end
         if not TooltipSet then
             return Overwrite.CallOriginal();

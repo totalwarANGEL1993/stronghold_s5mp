@@ -28,9 +28,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>40</Gold>
-            <Iron>30</Iron>
-            <Wood/>
+            <Gold>0</Gold>
         </Cost>
 
         <ModifyArmor>

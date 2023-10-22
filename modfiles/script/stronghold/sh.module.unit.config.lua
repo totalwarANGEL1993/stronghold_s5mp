@@ -655,6 +655,6 @@ function Stronghold.Unit.Config:Get(_Type, _PlayerID)
     if not _PlayerID or not IsPlayer(_PlayerID) then
         return self[_Type];
     end
-    return Stronghold.Recruitment.Data[_PlayerID].Config[_Type];
+    return Stronghold.Recruit.Data[_PlayerID].Config[_Type];
 end
 

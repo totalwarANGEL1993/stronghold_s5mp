@@ -24,8 +24,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>80</Gold>
-            <Iron>30</Iron>
+            <Gold>0</Gold>
         </Cost>
         <Category>Military</Category>
         <Category>CavalryLight</Category>

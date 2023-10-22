@@ -26,9 +26,7 @@
         <Convertible>false</Convertible>
         <Hat/>
         <Cost>
-            <Gold>150</Gold>
-            <Iron>0</Iron>
-            <Wood>60</Wood>
+            <Gold>0</Gold>
         </Cost>
 
 

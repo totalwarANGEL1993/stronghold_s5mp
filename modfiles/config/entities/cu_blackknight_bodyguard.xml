@@ -28,7 +28,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Money>100</Money>
+            <Gold>0</Gold>
         </Cost>
 
         <Category>Military</Category>

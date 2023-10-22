@@ -39,9 +39,7 @@
         <Category>LongRange</Category>
 
         <Cost>
-            <Gold>60</Gold>
-            <Sulfur>50</Sulfur>
-            <Wood/>
+            <Gold>0</Gold>
         </Cost>
 
 
