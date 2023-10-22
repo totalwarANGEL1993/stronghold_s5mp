@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
- <NameKey></NameKey>
- <DescKey></DescKey>
- <Name>(4) Küstenjuwelen</Name>
- <Desc>...</Desc>
+ <NameKey>MapDescription/Peaceful_Land_name</NameKey>
+ <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
+ <Name>(4) @color:200,70,40 SH @color:255,255,255 Küstenjuwelen</Name>
+ <Desc>@color:200,70,40 von totalwarANGEL @cr @cr @color:255,255,255 Inmitten der idyllischen Strände und atemberaubenden Klippen dieses Küstenparadieses haben sich jeweils zwei Burgherren zusammengeschlossen, um in einem epischen Kampf die Vorherrschaft über diese Landstriche zu erlangen. Welches Team wird als Sieger hervorgehen und welches Team wird in den Tiefen des Meeres seine letzte Ruhe finden? @cr @cr Empfohlene Teams: @cr Spieler 1 und 2 vs. Spieler 3 und 4</Desc>
  <SizeX>641</SizeX>
  <SizeY>641</SizeY>
  <MPFlag>true</MPFlag>
@@ -12,6 +12,6 @@
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>6e6422b5-23a8-49b4-836e-5df48307ad0e</Data>
+  <Data>2cab3593-63a6-4f69-897a-52cf0c6c8159</Data>
  </GUID>
 </root>

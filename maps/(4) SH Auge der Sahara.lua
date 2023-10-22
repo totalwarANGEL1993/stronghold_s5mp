@@ -1,6 +1,6 @@
 SHS5MP_RulesDefinition = {
     -- Config version (Always an integer)
-    Version = 2,
+    Version = 3,
 
     -- ###################################################################### --
     -- #                             CONFIG                                 # --
@@ -37,7 +37,7 @@ SHS5MP_RulesDefinition = {
 
     -- Resources
     -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
-    Resources = {0, 1000, 1200, 1500, 550, 0, 0},
+    Resources = {0, 0, 0, 0, 0, 0, 0},
 
     -- Setup heroes allowed
     AllowedHeroes = {

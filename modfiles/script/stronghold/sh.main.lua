@@ -709,7 +709,6 @@ function Stronghold:OnEntityCreated()
         end
     end
     self.Building:OnWallOrPalisadeCreated(EntityID);
-    self.Building:OnWallConstructionSiteReplacer(EntityID);
     self.Building:OnUnitCreated(EntityID);
     self.Economy:SetSettlersMotivation(EntityID);
     self.Unit:SetFormationOnCreate(EntityID);

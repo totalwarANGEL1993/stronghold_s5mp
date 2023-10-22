@@ -72,6 +72,10 @@ bin/bba5.exe "maps/(2) SH Schiffbruch.s5x.unpacked"
 cp "maps/(2) SH Schiffbruch.s5x" release
 cp "maps/(2) SH Schiffbruch.lua" release/shs5mp_configs
 
+bin/bba5.exe "maps/(4) SH Kuestenjuwelen.s5x.unpacked"
+cp "maps/(4) SH Kuestenjuwelen.s5x" release
+cp "maps/(4) SH Kuestenjuwelen.lua" release/shs5mp_configs
+
 echo "Done!"
 
 echo "Clean up..."
