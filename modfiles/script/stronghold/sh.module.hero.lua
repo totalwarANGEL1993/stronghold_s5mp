@@ -1050,8 +1050,7 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
         or _Type == ResourceType.StoneRaw
         or _Type == ResourceType.SulfurRaw
         then
-            local Bonus = Amount * self.Config.Hero2.MinerExtractionFactor;
-            Amount = Amount + math.floor(Bonus + 0.5);
+            Amount = math.floor((Amount * self.Config.Hero2.MinerExtractionFactor) + 0.5);
         end
     end
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
@@ -1394,42 +1393,6 @@ function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _D
         or AttackerType == Entities.PB_Tower2_Ballista
         or AttackerType == Entities.PB_Tower3_Cannon then
             Amount = Amount * self.Config.Hero2.TowerBonusFactor;
-        end
-        -- Axeman bonus
-        if Logic.IsEntityInCategory(_AttackerID, EntityCategories.Sword) == 1 then
-            local Smith = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Smith);
-            for i= 1, Smith do
-                Amount = Amount * self.Config.Hero2.SwordmenBonusFactor;
-            end
-        end
-    end
-    if self:HasValidLordOfType(PlayerID, Entities.PU_Hero5) then
-        if Logic.IsEntityInCategory(_AttackerID, EntityCategories.Bow) == 1 then
-            local Archery2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PB_Archery2);
-            for i= 1, Archery2 do
-                Amount = Amount * self.Config.Hero5.ArcheryBonusFactor;
-            end
-        end
-    end
-    if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
-        local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_AttackerID));
-        if string.find(TypeName, "Barbarian_L") or string.find(TypeName, "Barbarian_S") then
-            -- Tavern Bonus
-            for k,v in pairs(Stronghold:GetWorkersOfType(PlayerID, 0)) do
-                local FarmID = Logic.GetSettlersFarm(v);
-                local FarmType = Logic.GetEntityType(FarmID);
-                if FarmType == Entities.PB_Tavern1 or FarmType == Entities.PB_Tavern2 then
-                    Amount = Amount * self.Config.Hero9.TavernBonusFactor;
-                end
-            end
-            -- Cannon Malus
-            local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon1);
-            local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon2);
-            local Cannon3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon3);
-            local Cannon4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PV_Cannon4);
-            for i= 1, Cannon1 + Cannon2 + Cannon3 + Cannon4 do
-                Amount = Amount * self.Config.Hero9.CannonMalusFactor;
-            end
         end
     end
     return Amount;

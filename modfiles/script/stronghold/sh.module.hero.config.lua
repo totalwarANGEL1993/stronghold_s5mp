@@ -9,9 +9,8 @@ Stronghold.Hero.Config.Hero1 = {
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
-    MinerExtractionFactor = 2.0,
+    MinerExtractionFactor = 1.5,
     RefiningBonus = 1,
-    SwordmenBonusFactor = 1.009,
     TowerBonusFactor = 1.1,
 }
 -- Hero 3 properties
@@ -28,7 +27,6 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
-    ArcheryBonusFactor = 1.050,
     MinerMineralPreserve = 1,
     SerfMineralPreserve = 1,
     SerfWoodPreserve = 2,
@@ -54,10 +52,8 @@ Stronghold.Hero.Config.Hero8 = {
 }
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
-    TavernEfficiency = 2.0,
+    TavernEfficiency = 1.5,
     WolfHonorRate = 0.05,
-    TavernBonusFactor = 1.009,
-    CannonMalusFactor = 0.980,
 }
 -- Hero 10 properties
 Stronghold.Hero.Config.Hero10 = {
