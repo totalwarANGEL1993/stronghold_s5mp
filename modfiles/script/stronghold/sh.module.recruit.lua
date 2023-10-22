@@ -13,11 +13,17 @@ Stronghold.Recruit = Stronghold.Recruit or {
 function Stronghold.Recruit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
+            BuyLock = false,
             Config = CopyTable(Stronghold.Unit.Config),
             Roster = {},
+            AutoFill = {},
+            TrainingLeaders = {},
+            VirtualSoldiers = {},
         };
         self:InitDefaultRoster(i);
     end
+    self:CreateBuildingButtonHandlers();
+    self:InitAutoFillButtons();
 end
 
 function Stronghold.Recruit:OnSaveGameLoaded()
@@ -27,14 +33,24 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
     self.SyncEvents = {
         BuyCannon = 1,
         BuyUnit = 2,
+        ToggleAutoFill = 3,
     };
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Recruit.SyncEvents.BuyCannon then
+                if Stronghold.Recruit.Data[_PlayerID] then
+                    Stronghold.Recruit.Data[_PlayerID].BuyLock = false;
+                end
                 Stronghold.Unit:PayUnit(_PlayerID, arg[1], 0);
-                self:RegisterCannonOrder(_PlayerID, arg[2], arg[1]);
+                -- self:RegisterCannonOrder(_PlayerID, arg[3], arg[1]);
             elseif _Action == Stronghold.Recruit.SyncEvents.BuyUnit then
-                Stronghold.Unit:PayUnit(_PlayerID, arg[1], 0);
+                if Stronghold.Recruit.Data[_PlayerID] then
+                    Stronghold.Recruit.Data[_PlayerID].BuyLock = false;
+                end
+                Stronghold.Unit:PayUnit(_PlayerID, arg[1], arg[2]);
+            elseif _Action == Stronghold.Recruit.SyncEvents.ToggleAutoFill then
+                local Current = Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]];
+                Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]] = not Current;
             end
         end
     );
@@ -42,15 +58,95 @@ end
 
 -- -------------------------------------------------------------------------- --
 
+function Stronghold.Recruit:OnEntityCreated(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        -- Activate autofill
+        if Logic.IsBuilding(_EntityID) == 1 then
+            GUI.DeactivateAutoFillAtBarracks(_EntityID);
+            self.Data[PlayerID].AutoFill[_EntityID] = true;
+        end
+        -- Add training leader
+        if Logic.IsLeader(_EntityID) == 1 then
+            self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
+        end
+        -- -- Pay soldiers
+        -- if Logic.IsEntityInCategory(_EntityID, EntityCategories.Soldier) == 1 then
+        --     local LeaderID = SVLib.GetLeaderOfSoldier(_EntityID);
+        --     local EntityType = Logic.GetEntityType(LeaderID);
+        --     local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(EntityType, 1);
+        --     if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
+        --         local SoldierList = {Logic.GetSoldiersAttachedToLeader(LeaderID)};
+        --         if SoldierList[2] then
+        --             DestroyEntity(SoldierList[2]);
+        --         end
+        --     else
+        --         local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, EntityType, 1);
+        --         if not HasEnoughResources(PlayerID, Costs) then
+        --             local SoldierList = {Logic.GetSoldiersAttachedToLeader(LeaderID)};
+        --             if SoldierList[2] then
+        --                 DestroyEntity(SoldierList[2]);
+        --             end
+        --         else
+        --             RemoveResourcesFromPlayer(PlayerID, Costs);
+        --         end
+        --     end
+        -- end
+    end
+end
+
+function Stronghold.Recruit:OnEntityDestroyed(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        -- ...
+    end
+end
+
+function Stronghold.Recruit:OnEveryTurn(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        -- Update training leaders
+        for LeaderID,_ in pairs(self.Data[_PlayerID].TrainingLeaders) do
+            local BarracksID = Logic.LeaderGetBarrack(LeaderID);
+            if BarracksID == 0 then
+                if self.Data[_PlayerID].TrainingLeaders[LeaderID] then
+                    BarracksID = self.Data[_PlayerID].TrainingLeaders[LeaderID];
+                    self.Data[_PlayerID].TrainingLeaders[LeaderID] = nil;
+                    if self.Data[_PlayerID].AutoFill[BarracksID] then
+                        local Type = Logic.GetEntityType(LeaderID);
+                        local Config = Stronghold.Unit.Config:Get(Type, _PlayerID);
+                        local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, Type, 1);
+                        local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(Type, 1);
+                        for i= 1, Config.Soldiers do
+                            if  Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places)
+                            and HasEnoughResources(_PlayerID, Costs) then
+                                Stronghold.Unit:RefillUnit(
+                                    _PlayerID,
+                                    LeaderID,
+                                    1,
+                                    Costs[ResourceType.Honor],
+                                    Costs[ResourceType.Gold],
+                                    Costs[ResourceType.Clay],
+                                    Costs[ResourceType.Wood],
+                                    Costs[ResourceType.Stone],
+                                    Costs[ResourceType.Iron],
+                                    Costs[ResourceType.Sulfur]
+                                );
+                            end
+                        end
+                    end
+                end
+            else
+                self.Data[_PlayerID].TrainingLeaders[LeaderID] = BarracksID;
+            end
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+
 function Stronghold.Recruit:InitDefaultRoster(_PlayerID)
     if self.Data[_PlayerID] then
-        self.Data[_PlayerID].Roster = {
-            Melee   = {},
-            Ranged  = {},
-            Cavalry = {},
-            Cannon  = {},
-            Tavern  = {},
-        }
+        self.Data[_PlayerID].Roster = CopyTable(self.Config.DefaultRoster);
     end
 end
 
@@ -63,12 +159,176 @@ function Stronghold.Recruit:IsUnitAllowed(_BuildingID, _Type)
     return false;
 end
 
-function Stronghold.Recruit:BuyUnitAction(_WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
+function Stronghold.Recruit:HasSufficientRecruiterBuilding(_BuildingID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_BuildingID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    if Config then
+        local Providers = table.getn(Config.RecruiterBuilding);
+        if Providers == 0 then
+            return false;
+        end
+        for i= 1, Providers do
+            local BuildingType = Config.RecruiterBuilding[i];
+            local Buildings = Stronghold:GetBuildingsOfType(PlayerID, BuildingType, true);
+            if table.getn(Buildings) > 0 then
+                return true;
+            end
+        end
+    end
+    return false;
+end
 
-    if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") then
+function Stronghold.Recruit:HasSufficientProviderBuilding(_BuildingID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_BuildingID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    if Config then
+        local Providers = table.getn(Config.ProviderBuilding);
+        if Providers == 0 then
+            return true;
+        end
+        for i= 1, Providers do
+            local BuildingType = Config.ProviderBuilding[i];
+            local Buildings = Stronghold:GetBuildingsOfType(PlayerID, BuildingType, true);
+            if table.getn(Buildings) > 0 then
+                return true;
+            end
+        end
+    end
+    return false;
+end
+
+function Stronghold.Recruit:HasSufficientRank(_BuildingID, _Type)
+    local PlayerID = Logic.EntityGetPlayer(_BuildingID);
+    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    if Config then
+        if GetRank(PlayerID) >= GetRankRequired(PlayerID, Config.Right) then
+            return true;
+        end
+    end
+    return false;
+end
+
+function Stronghold.Recruit:GetLeaderTrainingAtBuilding(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        local LeaderIDs = {0};
+        for LeaderID,_ in pairs(self.Data[PlayerID].TrainingLeaders) do
+            local BarracksID = Logic.LeaderGetBarrack(LeaderID);
+            if BarracksID == _EntityID then
+                table.insert(LeaderIDs, LeaderID);
+                LeaderIDs[1] = LeaderIDs[1] + 1;
+            end
+        end
+        return LeaderIDs;
+    end
+    return 0;
+end
+
+function Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
+    local Costs = {};
+    local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
+    if Config then
+        _SoldierAmount = _SoldierAmount or Config.Soldiers;
+        Costs = CopyTable(Config.Costs[1]);
+        Costs = CreateCostTable(unpack(Costs));
+
+        -- Effect Slave Penny
+        if _Type == Entities.PU_Serf then
+            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SlavePenny) == 1 then
+                local Factor = self.Config.SlavePenny.CostsFactor;
+                Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
+            end
+        end
+
+        Costs = Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, Costs);
+        if _SoldierAmount and _SoldierAmount > 0 then
+            local SoldierCosts = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
+            Costs = MergeCostTable(Costs, SoldierCosts);
+        end
+    end
+    return Costs;
+end
+
+function Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amount)
+    local Costs = {};
+    local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
+    if Config then
+        Costs = CopyTable(Config.Costs[2]);
+        for i= 2, 7 do
+            Costs[i] = Costs[i] * (_Amount or Config.Soldiers);
+        end
+        Costs = CreateCostTable(unpack(Costs));
+        Costs = Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _Type, Costs);
+    end
+    return Costs;
+end
+
+function Stronghold.Recruit:BuyUnitAction(_WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
+    -- Prevent click spam
+    if self.Data[_PlayerID].BuyLock then
+        return;
+    end
+    -- Check if full
+    local IsFoundry = string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") ~= nil;
+    if IsFoundry then
+        if InterfaceTool_IsBuildingDoingSomething(_EntityID) then
+            return;
+        end
+    else
+        local LeaderIDs = self:GetLeaderTrainingAtBuilding(_EntityID);
+        if LeaderIDs[1] >= 3 then
+            return;
+        end
+    end
+    -- Check places
+    local AutoFillActive = Logic.IsAutoFillActive(_EntityID) == 1;
+    local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
+    local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_EntityType, 1);
+    if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
+        if not Modifier then
+            Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
+            Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+            return true;
+        end
+    end
+    -- Check has worker
+    if IsFoundry then
+        local Worker = {Logic.GetAttachedWorkersToBuilding(EntityID)};
+        if not Worker[1] or (Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 0) then
+            Sound.PlayQueuedFeedbackSound(Sounds.VoicesWorker_WORKER_FunnyNo_rnd_01, 100);
+            Message(XGUIEng.GetStringTableText("sh_text/Player_NoWorker"));
+            return;
+        end
+    end
+    -- Pay costs
+    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, 0);
+    if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
+        return;
+    end
+    self.Data[_PlayerID].BuyLock = true;
+    if IsFoundry then
+        Syncer.InvokeEvent(
+            self.NetworkCall,
+            self.SyncEvents.BuyCannon,
+            _EntityType,
+            0,
+            _EntityID
+        );
+    else
+        Syncer.InvokeEvent(
+            self.NetworkCall,
+            self.SyncEvents.BuyUnit,
+            _EntityType,
+            0,
+            _EntityID
+        );
+    end
+    -- Buy unit
+    if IsFoundry then
         GUIAction_BuyCannon(_UpgradeCategory);
     else
-        GUIAction_BuyMillitaryUnit(_UpgradeCategory);
+        GUI.DeactivateAutoFillAtBarracks(_EntityID);
+        GUIAction_BuyMilitaryUnit(_UpgradeCategory);
     end
 end
 
@@ -78,8 +338,10 @@ function Stronghold.Recruit:BuyUnitTooltip(_WidgetID, _PlayerID, _EntityID, _Ent
     if not self:IsUnitAllowed(_EntityID, _EntityType) then
         Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
     else
+        local TypeName = Logic.GetEntityTypeName(_EntityType);
+        local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
         local Soldiers = (Logic.IsAutoFillActive(_EntityID) == 1 and Config.Soldiers) or 0;
-        local Costs = Stronghold.Recruitment:GetLeaderCosts(_PlayerID, _EntityType, Soldiers);
+        local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, Soldiers);
         CostsText = FormatCostString(_PlayerID, Costs);
         local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);
         Text = Name.. " @cr " ..XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_normal");
@@ -96,11 +358,21 @@ function Stronghold.Recruit:BuyUnitTooltip(_WidgetID, _PlayerID, _EntityID, _Ent
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostsText);
 end
 
-function Stronghold.Recruit:BuyUnitUpdate(_WidgetID, _PlayerID, _EntityID, _EntityType)
+function Stronghold.Recruit:BuyUnitUpdate(_WidgetID, _PlayerID, _EntityID, _EntityType, _IconSource)
+    XGUIEng.TransferMaterials(_IconSource, _WidgetID);
 
+    local Disabled = 1;
+    if  self:IsUnitAllowed(_EntityID, _EntityType)
+    and self:HasSufficientRecruiterBuilding(_EntityID, _EntityType)
+    and self:HasSufficientProviderBuilding(_EntityID, _EntityType)
+    and self:HasSufficientRank(_EntityID, _EntityType) then
+        Disabled = 0;
+    end
+    XGUIEng.DisableButton(_WidgetID, Disabled);
 end
 
 -- -------------------------------------------------------------------------- --
+-- Castle
 
 function GUIAction_BuySerf()
     local PlayerID = GetLocalPlayerID();
@@ -132,17 +404,27 @@ end
 
 function Stronghold.Recruit:BuySerfAction(_PlayerID, _EntityID)
     local WidgetID = "Buy_Serf";
+    if Logic.IsEntityInCategory(_Entity, Categories.VillageCenter) == 1 then
+        WidgetID = "Buy_Serf_Village";
+    end
 end
 
 function Stronghold.Recruit:BuySerfTooltip(_PlayerID, _EntityID)
     local WidgetID = "Buy_Serf";
+    if Logic.IsEntityInCategory(_Entity, Categories.VillageCenter) == 1 then
+        WidgetID = "Buy_Serf_Village";
+    end
 end
 
 function Stronghold.Recruit:BuySerfUpdate(_PlayerID, _EntityID)
     local WidgetID = "Buy_Serf";
+    if Logic.IsEntityInCategory(_Entity, Categories.VillageCenter) == 1 then
+        WidgetID = "Buy_Serf_Village";
+    end
 end
 
 -- -------------------------------------------------------------------------- --
+-- Barracks
 
 function GUIAction_BuyMeleeUnit(_Index)
     local PlayerID = GetLocalPlayerID();
@@ -173,12 +455,13 @@ function GUIUpdate_BuyMeleeUnit(_Index)
 end
 
 function Stronghold.Recruit:OnBarracksSelected(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if Type ~= Entities.PB_Barracks1 and Type ~= Entities.PB_Barracks2 then
         return;
     end
     for i= 1, 8 do
-        local Visble = (self.Data[_PlayerID].Roster.Melee[i] and 1) or 0;
+        local Visble = (self.Data[PlayerID].Roster.Melee[i] and 1) or 0;
         XGUIEng.ShowWidget("Buy_MeleeUnit" ..i, Visble);
         GUIUpdate_BuyMeleeUnit(i);
     end
@@ -209,10 +492,12 @@ function Stronghold.Recruit:BuyMeleeUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Melee[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType);
+    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
+-- Archery
 
 function GUIAction_BuyRangedUnit(_Index)
     local PlayerID = GetLocalPlayerID();
@@ -243,12 +528,13 @@ function GUIUpdate_BuyRangedUnit(_Index)
 end
 
 function Stronghold.Recruit:OnArcherySelected(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if Type ~= Entities.PB_Archery1 and Type ~= Entities.PB_Archery2 then
         return;
     end
     for i= 1, 8 do
-        local Visble = (self.Data[_PlayerID].Roster.Ranged[i] and 1) or 0;
+        local Visble = (self.Data[PlayerID].Roster.Ranged[i] and 1) or 0;
         XGUIEng.ShowWidget("Buy_RangedUnit" ..i, Visble);
         GUIUpdate_BuyRangedUnit(i);
     end
@@ -279,10 +565,12 @@ function Stronghold.Recruit:BuyRangedUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Ranged[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType);
+    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
+-- Stable
 
 function GUIAction_BuyCavalryUnit(_Index)
     local PlayerID = GetLocalPlayerID();
@@ -313,12 +601,13 @@ function GUIUpdate_BuyCavalryUnit(_Index)
 end
 
 function Stronghold.Recruit:OnStableSelected(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if Type ~= Entities.PB_Stable1 and Type ~= Entities.PB_Stable2 then
         return;
     end
     for i= 1, 8 do
-        local Visble = (self.Data[_PlayerID].Roster.Cavalry[i] and 1) or 0;
+        local Visble = (self.Data[PlayerID].Roster.Cavalry[i] and 1) or 0;
         XGUIEng.ShowWidget("Buy_CavalryUnit" ..i, Visble);
         GUIUpdate_BuyCavalryUnit(i);
     end
@@ -349,10 +638,12 @@ function Stronghold.Recruit:BuyCavalryUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cavalry[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType);
+    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
+-- Foundry
 
 function GUIAction_BuyCannonUnit(_Index)
     local PlayerID = GetLocalPlayerID();
@@ -383,12 +674,13 @@ function GUIUpdate_BuyCannonUnit(_Index)
 end
 
 function Stronghold.Recruit:OnFoundrySelected(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if Type ~= Entities.PB_Foundry1 and Type ~= Entities.PB_Foundry2 then
         return;
     end
     for i= 1, 8 do
-        local Visble = (self.Data[_PlayerID].Roster.Cannon[i] and 1) or 0;
+        local Visble = (self.Data[PlayerID].Roster.Cannon[i] and 1) or 0;
         XGUIEng.ShowWidget("Buy_CannonUnit" ..i, Visble);
         GUIUpdate_BuyCannonUnit(i);
     end
@@ -419,10 +711,12 @@ function Stronghold.Recruit:BuyCannonUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cannon[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType);
+    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
+-- Tavern
 
 function GUIAction_BuyTavernUnit(_Index)
     local PlayerID = GetLocalPlayerID();
@@ -453,12 +747,13 @@ function GUIUpdate_BuyTavernUnit(_Index)
 end
 
 function Stronghold.Recruit:OnTavernSelected(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if Type ~= Entities.PB_Tavern1 and Type ~= Entities.PB_Tavern2 then
         return;
     end
     for i= 1, 2 do
-        local Visble = (self.Data[_PlayerID].Roster.Tavern[i] and 1) or 0;
+        local Visble = (self.Data[PlayerID].Roster.Tavern[i] and 1) or 0;
         XGUIEng.ShowWidget("Buy_TavernUnit" ..i, Visble);
         GUIUpdate_BuyTavernUnit(i);
     end
@@ -489,8 +784,42 @@ function Stronghold.Recruit:BuyTavernUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Tavern[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType);
+    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
+-- Auto Fill
+
+function Stronghold.Recruit:InitAutoFillButtons()
+    GUIAction_ToggleAutoFill = function()
+        local BuildingID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(BuildingID);
+        if Stronghold.Recruit.Data[PlayerID] then
+            Syncer.InvokeEvent(
+                self.NetworkCall,
+                self.SyncEvents.ToggleAutoFill,
+                BuildingID
+            );
+        end
+    end
+
+    GUIUpdate_ToggleGroupRecruitingButtons = function()
+        local BuildingID = GUI.GetSelectedEntity();
+        if BuildingID then
+            local PlayerID = Logic.EntityGetPlayer(BuildingID);
+            local AutoFillActive = Logic.IsAutoFillActive(BuildingID) == 1;
+            if Stronghold.Recruit.Data[PlayerID] then
+                AutoFillActive = Stronghold.Recruit.Data[PlayerID].AutoFill[BuildingID] == true;
+            end
+            if AutoFillActive then
+                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitSingleLeader, 1);
+                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitGroups, 0);
+            else
+                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitGroups, 1);
+                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitSingleLeader, 0);
+            end
+        end
+    end
+end
 

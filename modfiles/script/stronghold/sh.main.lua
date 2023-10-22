@@ -319,7 +319,7 @@ function Stronghold:Init()
     self.Economy:Install();
     self.Construction:Install();
     self.Building:Install();
-    self.Recruitment:Install();
+    self.Recruit:Install();
     self.Hero:Install();
     self.Unit:Install();
     self.Attraction:Install();
@@ -368,7 +368,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Rights:OnSaveGameLoaded();
     self.Construction:OnSaveGameLoaded();
     self.Building:OnSaveGameLoaded();
-    self.Recruitment:OnSaveGameLoaded();
+    self.Recruit:OnSaveGameLoaded();
     self.Economy:OnSaveGameLoaded();
     self.Hero:OnSaveGameLoaded();
     self.Unit:OnSaveGameLoaded();
@@ -666,8 +666,9 @@ function Stronghold:OnEveryTurn()
         self.Hero:HeliasConvertController(i);
         self.Hero:YukiShurikenConterController(i);
         self.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
-        self.Recruitment:ControlProductionQueues(i);
-        self.Recruitment:ControlCannonProducers(i);
+        -- self.Recruit:ControlProductionQueues(i);
+        -- self.Recruit:ControlCannonProducers(i);
+        self.Recruit:OnEveryTurn(i);
     end
     -- Player jobs on modified turns
     --- @diagnostic disable-next-line: undefined-field
@@ -712,8 +713,8 @@ function Stronghold:OnEntityCreated()
     self.Building:OnUnitCreated(EntityID);
     self.Economy:SetSettlersMotivation(EntityID);
     self.Unit:SetFormationOnCreate(EntityID);
-    self.Recruitment:InitQueuesForProducer(EntityID);
-    self.Recruitment:OnUnitCreated(EntityID);
+    --self.Recruit:InitQueuesForProducer(EntityID);
+    self.Recruit:OnEntityCreated(EntityID);
 end
 
 function Stronghold:OnEntityDestroyed()
@@ -722,6 +723,7 @@ function Stronghold:OnEntityDestroyed()
     self:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
     self.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
     self.Building:OnWallOrPalisadeDestroyed(EntityID);
+    self.Recruit:OnEntityDestroyed(EntityID);
 end
 
 function Stronghold:OnEntityHurtEntity()
@@ -1239,9 +1241,9 @@ end
 -- Menu update
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
-    local GuiPlayer = self:GetLocalPlayerID();
     local SelectedID = GUI.GetSelectedEntity();
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local GuiPlayer = self:GetLocalPlayerID();
     if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
         return;
     end
@@ -1256,11 +1258,11 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
     self.Hero:OnSelectLeader(SelectedID);
     self.Hero:OnSelectHero(SelectedID);
 
-    self.Recruitment:OnBarracksSelected(SelectedID);
-    self.Recruitment:OnArcherySelected(SelectedID);
-    self.Recruitment:OnStableSelected(SelectedID);
-    self.Recruitment:OnFoundrySelected(SelectedID);
-    self.Recruitment:OnTavernSelected(SelectedID);
+    self.Recruit:OnBarracksSelected(SelectedID);
+    self.Recruit:OnArcherySelected(SelectedID);
+    self.Recruit:OnStableSelected(SelectedID);
+    self.Recruit:OnFoundrySelected(SelectedID);
+    self.Recruit:OnTavernSelected(SelectedID);
 end
 
 function Stronghold:OverwriteCommonCallbacks()
@@ -1332,11 +1334,11 @@ function Stronghold:OverrideWidgetActions()
         end
     end);
 
-    Overwrite.CreateOverwrite("GUIAction_BuyMilitaryUnit", function(_UpgradeCategory)
-        if not Stronghold.Recruit:BuyMilitaryUnitFromTavernAction(_UpgradeCategory) then
-            Overwrite.CallOriginal();
-        end
-    end);
+    -- Overwrite.CreateOverwrite("GUIAction_BuyMilitaryUnit", function(_UpgradeCategory)
+    --     if not Stronghold.Recruit:BuyMilitaryUnitFromTavernAction(_UpgradeCategory) then
+    --         Overwrite.CallOriginal();
+    --     end
+    -- end);
 
     Overwrite.CreateOverwrite("GUIAction_BuyCannon", function(_Type, _UpgradeCategory)
         if not Stronghold.Recruit:BuyMilitaryUnitFromFoundryAction(_Type, _UpgradeCategory) then
@@ -1461,25 +1463,25 @@ function Stronghold:OverrideWidgetTooltips()
         end
     end);
 
-    Overwrite.CreateOverwrite("GUITooltip_ResearchTechnologies", function(_Technology, _TextKey, _ShortCut)
-        local PlayerID = GetLocalPlayerID();
-        if not IsPlayer(PlayerID) then
-            return Overwrite.CallOriginal();
-        end
-        local TooltipSet = false;
-        if not TooltipSet then
-            TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersBarracksTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
-        end
-        if not TooltipSet then
-            TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersArcheryTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
-        end
-        if not TooltipSet then
-            TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersStableTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
-        end
-        if not TooltipSet then
-            return Overwrite.CallOriginal();
-        end
-    end);
+    -- Overwrite.CreateOverwrite("GUITooltip_ResearchTechnologies", function(_Technology, _TextKey, _ShortCut)
+    --     local PlayerID = GetLocalPlayerID();
+    --     if not IsPlayer(PlayerID) then
+    --         return Overwrite.CallOriginal();
+    --     end
+    --     local TooltipSet = false;
+    --     if not TooltipSet then
+    --         TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersBarracksTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
+    --     end
+    --     if not TooltipSet then
+    --         TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersArcheryTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
+    --     end
+    --     if not TooltipSet then
+    --         TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersStableTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
+    --     end
+    --     if not TooltipSet then
+    --         return Overwrite.CallOriginal();
+    --     end
+    -- end);
 end
 
 -- Button Update Generic Override

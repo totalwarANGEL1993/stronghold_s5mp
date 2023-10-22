@@ -526,62 +526,124 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
 
     local ThiefRecruiter = {Entities.PB_Tavern2};
     AllowTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
-    if string.find(Logic.GetEntityTypeName(_Type), "^PU_Hero1[abc]+$") then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm4;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword4;
+    if string.find(Logic.GetEntityTypeName(_Type), "^PU_Hero1[abc]+$")
+    or _Type == Entities.CU_Hero13 then
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[2] = UpgradeCategories.LeaderPoleArm4;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[4] = UpgradeCategories.LeaderSword4;
     elseif _Type == Entities.PU_Hero2 then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BanditLeaderSword2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BanditLeaderSword1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[2] = UpgradeCategories.LeaderAxe2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[4] = UpgradeCategories.LeaderAxe1;
     elseif _Type == Entities.PU_Hero3 then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Buy_Cannon1"] = Entities.CV_Cannon1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Buy_Cannon3"] = Entities.CV_Cannon2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cannon[1] = UpgradeCategories.Cannon5;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cannon[3] = UpgradeCategories.Cannon6;
     elseif _Type == Entities.PU_Hero4 then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.PU_LeaderHeavyCavalry2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.PU_LeaderCavalry2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[1] = UpgradeCategories.LeaderCavalry2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[2] = UpgradeCategories.LeaderHeavyCavalry2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.PU_Hero5 then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword1"] = Entities.CU_BanditLeaderSword3;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.CU_BanditLeaderBow1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_BanditLeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_RangerLeaderCavalry1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[1] = UpgradeCategories.BanditLeaderSword1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = UpgradeCategories.BanditLeaderBow1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.BanditLeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[2] = UpgradeCategories.RangerLeaderCavalry1;
     elseif _Type == Entities.PU_Hero6 then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.CU_CrusaderLeaderCavalry1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_TemplarLeaderCavalry1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[2] = UpgradeCategories.TemplarLeaderPoleArm1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[1] = UpgradeCategories.CrusaderLeaderCavalry1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[2] = UpgradeCategories.TemplarLeaderCavalry1;
     elseif _Type == Entities.PU_Hero10 then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderRifle1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderRifle2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = Entities.PU_LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderRifle1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderRifle2;
     elseif _Type == Entities.PU_Hero11 then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderRifle1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderRifle2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = Entities.PU_LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderRifle1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderRifle2;
     elseif _Type == Entities.CU_BlackKnight then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BlackKnight_LeaderMace2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BlackKnight_LeaderMace1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[3] = UpgradeCategories.BlackKnightLeader2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[4] = UpgradeCategories.BlackKnightLeader1;
     elseif _Type == Entities.CU_Mary_de_Mortfichet then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow4;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow4;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
         ThiefRecruiter = {Entities.PB_Tavern1, Entities.PB_Tavern2};
     elseif _Type == Entities.CU_Barbarian_Hero then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Barbarian_LeaderClub2;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_Barbarian_LeaderClub1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow3;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = nil;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[3] = UpgradeCategories.BarbarianLeader2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[4] = UpgradeCategories.BarbarianLeader1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = nil;
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.CU_Evil_Queen then
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Evil_LeaderBearman1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword3;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_Evil_LeaderSkirmisher1;
-        Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[3] = UpgradeCategories.LeaderSword3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[4] = UpgradeCategories.BearmanLeader1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.SkirmisherLeader1;
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     end
     Stronghold.Recruit.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
 end
+
+-- Old system
+-- function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
+--     Stronghold.Recruit:InitDefaultRoster(_PlayerID);
+
+--     local ThiefRecruiter = {Entities.PB_Tavern2};
+--     AllowTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
+--     if string.find(Logic.GetEntityTypeName(_Type), "^PU_Hero1[abc]+$") then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm4;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword4;
+--     elseif _Type == Entities.PU_Hero2 then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BanditLeaderSword2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BanditLeaderSword1;
+--     elseif _Type == Entities.PU_Hero3 then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Buy_Cannon1"] = Entities.CV_Cannon1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Buy_Cannon3"] = Entities.CV_Cannon2;
+--     elseif _Type == Entities.PU_Hero4 then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.PU_LeaderHeavyCavalry2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.PU_LeaderCavalry2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
+--         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
+--     elseif _Type == Entities.PU_Hero5 then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword1"] = Entities.CU_BanditLeaderSword3;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.CU_BanditLeaderBow1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_BanditLeaderBow2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_RangerLeaderCavalry1;
+--     elseif _Type == Entities.PU_Hero6 then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.CU_CrusaderLeaderCavalry1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_TemplarLeaderCavalry1;
+--     elseif _Type == Entities.PU_Hero10 then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderRifle1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderRifle2;
+--     elseif _Type == Entities.PU_Hero11 then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderRifle1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderRifle2;
+--     elseif _Type == Entities.CU_BlackKnight then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BlackKnight_LeaderMace2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BlackKnight_LeaderMace1;
+--     elseif _Type == Entities.CU_Mary_de_Mortfichet then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow4;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle1;
+--         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
+--         ThiefRecruiter = {Entities.PB_Tavern1, Entities.PB_Tavern2};
+--     elseif _Type == Entities.CU_Barbarian_Hero then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Barbarian_LeaderClub2;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_Barbarian_LeaderClub1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow3;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = nil;
+--         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
+--     elseif _Type == Entities.CU_Evil_Queen then
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Evil_LeaderBearman1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword3;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_Evil_LeaderSkirmisher1;
+--         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
+--         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
+--     end
+--     Stronghold.Recruit.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
+-- end
 
 -- -------------------------------------------------------------------------- --
 -- Trigger

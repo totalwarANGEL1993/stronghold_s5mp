@@ -155,7 +155,6 @@ end
 -- Buy Unit (UI)
 
 function Stronghold.Unit:BuySoldierButtonAction()
-    local Language = GetLanguage();
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
@@ -175,11 +174,12 @@ function Stronghold.Unit:BuySoldierButtonAction()
     if BuyAmount < 1 then
         return true;
     end
-    if  not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, BuyAmount)
-    and not Logic.GetEntityType(EntityID) == Entities.CU_BlackKnight then
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-        Message(XGUIEng.GetStringTableText("sh_text/UI_MilitaryLimit"));
-        return true;
+    if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, BuyAmount) then
+        if Logic.GetEntityType(EntityID) ~= Entities.CU_BlackKnight then
+            Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
+            Message(XGUIEng.GetStringTableText("sh_text/UI_MilitaryLimit"));
+            return true;
+        end
     end
 
     local Type = Logic.GetEntityType(EntityID);
