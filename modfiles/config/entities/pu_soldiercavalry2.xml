@@ -38,6 +38,9 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>30</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SoldierCavalry2</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -72,8 +75,6 @@
         <ModifyDamage>
             <Technology>T_EliteSquad</Technology>
         </ModifyDamage>
-
-
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

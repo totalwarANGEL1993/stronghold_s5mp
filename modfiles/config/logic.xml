@@ -878,6 +878,8 @@
 
 <!-- Stronghold -->
 
+    <!-- Military cannon -->
+
 	<SettlerUpgrade>
 	    <Category>Cannon5</Category>
 	    <FirstSettler>CV_Cannon1</FirstSettler>
@@ -888,10 +890,353 @@
 	    <FirstSettler>CV_Cannon2</FirstSettler>
 	</SettlerUpgrade>
 
-	<SettlerUpgrade>
-	    <Category>BlackKnightBodyguard</Category>
-	    <FirstSettler>CU_BlackKnight_Bodyguard</FirstSettler>
+    <!-- Military Sword -->
+
+    <SettlerUpgrade>
+	    <Category>LeaderSword1</Category>
+	    <FirstSettler>PU_LeaderSword1</FirstSettler>
 	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierSword1</Category>
+	    <FirstSettler>PU_SoldierSword1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderSword2</Category>
+	    <FirstSettler>PU_LeaderSword2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierSword2</Category>
+	    <FirstSettler>PU_SoldierSword2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderSword3</Category>
+	    <FirstSettler>PU_LeaderSword3</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierSword3</Category>
+	    <FirstSettler>PU_SoldierSword3</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderSword4</Category>
+	    <FirstSettler>PU_LeaderSword4</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierSword4</Category>
+	    <FirstSettler>PU_SoldierSword4</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>BanditLeaderSword1</Category>
+	    <FirstSettler>CU_BanditLeaderSword3</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BanditSoldierSword1</Category>
+	    <FirstSettler>CU_BanditSoldierSword3</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Military axe -->
+
+    <SettlerUpgrade>
+	    <Category>LeaderAxe1</Category>
+	    <FirstSettler>CU_BanditLeaderSword1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierAxe1</Category>
+	    <FirstSettler>CU_BanditSoldierSword1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderAxe2</Category>
+	    <FirstSettler>CU_BanditLeaderSword2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierAxe2</Category>
+	    <FirstSettler>CU_BanditSoldierSword2</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Military mace -->
+
+    <SettlerUpgrade>
+	    <Category>BlackKnightLeader1</Category>
+	    <FirstSettler>CU_BlackKnight_LeaderMace1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BlackKnightSoldier1</Category>
+	    <FirstSettler>CU_BlackKnight_SoldierMace1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>BlackKnightLeader2</Category>
+	    <FirstSettler>CU_BlackKnight_LeaderMace2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BlackKnightSoldier2</Category>
+	    <FirstSettler>CU_BlackKnight_SoldierMace2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>BarbarianLeader1</Category>
+	    <FirstSettler>CU_Barbarian_LeaderClub1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BarbarianSoldier1</Category>
+	    <FirstSettler>CU_Barbarian_SoldierClub1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>BarbarianLeader2</Category>
+	    <FirstSettler>CU_Barbarian_LeaderClub2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BarbarianSoldier2</Category>
+	    <FirstSettler>CU_Barbarian_SoldierClub2</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Military fanatic -->
+
+    <SettlerUpgrade>
+	    <Category>BearmanLeader1</Category>
+	    <FirstSettler>CU_Evil_LeaderBearman1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BearmanSoldier1</Category>
+	    <FirstSettler>CU_Evil_SoldierBearman1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>SkirmisherLeader1</Category>
+	    <FirstSettler>CU_Evil_LeaderSkirmisher1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SkirmisherSoldier1</Category>
+	    <FirstSettler>CU_Evil_SoldierSkirmisher1</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Military Spear -->
+
+    <SettlerUpgrade>
+	    <Category>LeaderPoleArm1</Category>
+	    <FirstSettler>PU_LeaderPoleArm1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierPoleArm1</Category>
+	    <FirstSettler>PU_SoldierPoleArm1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderPoleArm2</Category>
+	    <FirstSettler>PU_LeaderPoleArm2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierPoleArm2</Category>
+	    <FirstSettler>PU_SoldierPoleArm2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderPoleArm3</Category>
+	    <FirstSettler>PU_LeaderPoleArm3</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierPoleArm3</Category>
+	    <FirstSettler>PU_SoldierPoleArm3</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderPoleArm4</Category>
+	    <FirstSettler>PU_LeaderPoleArm4</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierPoleArm4</Category>
+	    <FirstSettler>PU_SoldierPoleArm4</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>TemplarLeaderPoleArm1</Category>
+	    <FirstSettler>CU_TemplarLeaderPoleArm1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>TemplarSoldierPoleArm1</Category>
+	    <FirstSettler>CU_TemplarSoldierPoleArm1</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Military bow -->
+
+    <SettlerUpgrade>
+	    <Category>LeaderBow1</Category>
+	    <FirstSettler>PU_LeaderBow1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierBow1</Category>
+	    <FirstSettler>PU_SoldierBow1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderBow2</Category>
+	    <FirstSettler>PU_LeaderBow2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierBow2</Category>
+	    <FirstSettler>PU_SoldierBow2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderBow3</Category>
+	    <FirstSettler>PU_LeaderBow3</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierBow3</Category>
+	    <FirstSettler>PU_SoldierBow3</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderBow4</Category>
+	    <FirstSettler>PU_LeaderBow4</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierBow4</Category>
+	    <FirstSettler>PU_SoldierBow4</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>BanditLeaderBow1</Category>
+	    <FirstSettler>CU_BanditLeaderBow1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BanditSoldierBow1</Category>
+	    <FirstSettler>CU_BanditSoldierBow1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>BanditLeaderBow2</Category>
+	    <FirstSettler>CU_BanditLeaderBow2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BanditSoldierBow2</Category>
+	    <FirstSettler>CU_BanditSoldierBow2</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Military rifle -->
+
+    <SettlerUpgrade>
+	    <Category>LeaderRifle1</Category>
+	    <FirstSettler>PU_LeaderRifle1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierRifle1</Category>
+	    <FirstSettler>PU_SoldierRifle1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderRifle2</Category>
+	    <FirstSettler>PU_LeaderRifle2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierRifle2</Category>
+	    <FirstSettler>PU_SoldierRifle2</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Military cavalry -->
+
+    <SettlerUpgrade>
+	    <Category>LeaderCavalry1</Category>
+	    <FirstSettler>PU_LeaderCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierCavalry1</Category>
+	    <FirstSettler>PU_SoldierCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderCavalry2</Category>
+	    <FirstSettler>PU_LeaderCavalry2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierCavalry2</Category>
+	    <FirstSettler>PU_SoldierCavalry2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderHeavyCavalry1</Category>
+	    <FirstSettler>PU_LeaderHeavyCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierHeavyCavalry1</Category>
+	    <FirstSettler>PU_SoldierHeavyCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderHeavyCavalry2</Category>
+	    <FirstSettler>PU_LeaderHeavyCavalry2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierHeavyCavalry2</Category>
+	    <FirstSettler>PU_SoldierHeavyCavalry2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>CrusaderLeaderCavalry1</Category>
+	    <FirstSettler>PU_CrusaderLeaderCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>CrusaderSoldierCavalry1</Category>
+	    <FirstSettler>PU_CrusaderSoldierCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>RangerLeaderCavalry1</Category>
+	    <FirstSettler>PU_RangerLeaderCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>RangerSoldierCavalry1</Category>
+	    <FirstSettler>PU_RangerSoldierCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>TemplarLeaderCavalry1</Category>
+	    <FirstSettler>PU_TemplarLeaderCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>TemplarSoldierCavalry1</Category>
+	    <FirstSettler>PU_TemplarSoldierCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+    <!-- Other -->
 
     <BuildingUpgrade>
         <Category>EvilTower</Category>
@@ -912,4 +1257,9 @@
         <Category>Wall</Category>
         <FirstBuilding>PB_WallDistorted</FirstBuilding>
     </BuildingUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>BlackKnightBodyguard</Category>
+	    <FirstSettler>CU_BlackKnight_Bodyguard</FirstSettler>
+	</SettlerUpgrade>
 </root>

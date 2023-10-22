@@ -28,6 +28,23 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Bow</Category>
+        <Category>EvilLeader</Category>
+        <Category>LongRange</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>75</MaxHealth>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassFur</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>12</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>35</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SkirmisherLeader1</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -73,27 +90,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-
-
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Bow</Category>
-        <Category>EvilLeader</Category>
-        <Category>LongRange</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>75</MaxHealth>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>12</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>35</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-
-        <Upgrade>
-            <Category>Evil_LeaderSkirmisher</Category>
-        </Upgrade>
-
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

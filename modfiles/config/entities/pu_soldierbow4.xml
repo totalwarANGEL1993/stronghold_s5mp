@@ -29,6 +29,20 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Bow</Category>
+        <Category>Soldier</Category>
+        <Category>LongRange</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>29</Exploration>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>5</ArmorAmount>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>30</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SoldierBow4</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -69,19 +83,6 @@
         <ModifyDamage>
             <Technology>T_EliteSquad</Technology>
         </ModifyDamage>
-
-
-        <Category>Military</Category>
-        <Category>Bow</Category>
-        <Category>Soldier</Category>
-        <Category>LongRange</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>29</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>30</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

@@ -36,10 +36,12 @@
         <Category>Leader</Category>
         <Category>Rifle</Category>
         <Category>LongRange</Category>
-
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Upgrade>
+            <Category>LeaderRifle2</Category>
+        </Upgrade>
 
         <ModifyArmor>
             <Technology>T_FleeceLinedLeatherArmor</Technology>

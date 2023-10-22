@@ -31,6 +31,21 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Soldier</Category>
+        <Category>Sword</Category>
+        <Category>Melee</Category>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>10</DodgeChance>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SoldierSword1</Category>
+        </Upgrade>
 
 
         <!-- Super Tech -->
@@ -99,27 +114,6 @@
         <ModifyDamage>
             <Technology>T_EliteSquad</Technology>
         </ModifyDamage>
-
-
-        <Category>Military</Category>
-        <Category>Soldier</Category>
-        <Category>Sword</Category>
-        <Category>Melee</Category>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>10</DodgeChance>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Upgrade>
-            <Cost>
-                <Gold>10</Gold>
-            </Cost>
-            <Type>PU_SoldierSword2</Type>
-            <Category>SoldierSword</Category>
-        </Upgrade>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

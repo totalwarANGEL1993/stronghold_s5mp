@@ -28,6 +28,22 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Sword</Category>
+        <Category>Melee</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>250</MaxHealth>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>5</ArmorAmount>
+        <DodgeChance>5</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>45</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>LeaderSword3</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -50,30 +66,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-
-
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Sword</Category>
-        <Category>Melee</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>250</MaxHealth>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
-        <DodgeChance>5</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>45</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-
-            <Type>PU_LeaderSword4</Type>
-            <Category>LeaderSword</Category>
-        </Upgrade>
-
-        <ModifyExploration>
-            <Technology>T_Tracking</Technology>
-        </ModifyExploration>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

@@ -30,6 +30,20 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Soldier</Category>
+        <Category>LongRange</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassFur</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>12</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>15</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SkirmisherSoldier1</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -72,24 +86,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
-
-
-        <Category>Military</Category>
-        <Category>Soldier</Category>
-        <Category>LongRange</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>12</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>15</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-
-        <Upgrade>
-            <Category>Evil_SoldierSkirmisher</Category>
-        </Upgrade>
-
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

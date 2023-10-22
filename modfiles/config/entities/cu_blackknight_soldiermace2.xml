@@ -31,6 +31,21 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Soldier</Category>
+        <Category>Sword</Category>
+        <Category>Melee</Category>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorAmount>3</ArmorAmount>
+        <DodgeChance>8</DodgeChance>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>BlackKnightSoldier2</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -53,24 +68,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-
-        <Upgrade>
-            <Category>BlackKnightSoldierMace1</Category>
-        </Upgrade>
-
-
-        <Category>Military</Category>
-        <Category>Soldier</Category>
-        <Category>Sword</Category>
-        <Category>Melee</Category>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassJerkin</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>8</DodgeChance>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

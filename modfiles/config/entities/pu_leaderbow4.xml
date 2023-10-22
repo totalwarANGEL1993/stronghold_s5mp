@@ -26,6 +26,22 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Bow</Category>
+        <Category>LongRange</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>300</MaxHealth>
+        <Exploration>29</Exploration>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>5</ArmorAmount>
+        <DodgeChance>6</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>55</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>LeaderBow4</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -61,19 +77,6 @@
         </ModifySpeed>
 
 
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Bow</Category>
-        <Category>LongRange</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>300</MaxHealth>
-        <Exploration>29</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
-        <DodgeChance>6</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>55</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
     </Logic>
 
     <Behavior>

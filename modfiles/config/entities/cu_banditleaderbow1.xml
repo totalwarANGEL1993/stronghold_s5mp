@@ -67,7 +67,7 @@
         </ModifyArmor>
 
         <Upgrade>
-            <Category>LeaderBanditBow</Category>
+            <Category>BanditLeaderBow1</Category>
         </Upgrade>
 
         <Category>Military</Category>
@@ -83,9 +83,6 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>LeaderBanditBow</Category>
-        </Upgrade>
 
     </Logic>
     <Behavior>

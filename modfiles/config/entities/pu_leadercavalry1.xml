@@ -39,6 +39,9 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>LeaderCavalry1</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -66,12 +69,6 @@
         <ModifySpeed>
             <Technology>T_Shoeing</Technology>
         </ModifySpeed>
-
-
-        <Upgrade>
-            <Type>PU_LeaderCavalry2</Type>
-            <Category>LeaderCavalry</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

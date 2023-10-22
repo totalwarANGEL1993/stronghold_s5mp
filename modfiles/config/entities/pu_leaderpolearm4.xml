@@ -29,6 +29,22 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Spear</Category>
+        <Category>Melee</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>300</MaxHealth>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorAmount>8</ArmorAmount>
+        <DodgeChance>1</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>55</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>LeaderPoleArm4</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -51,21 +67,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-
-
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Spear</Category>
-        <Category>Melee</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>300</MaxHealth>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassJerkin</ArmorClass>
-        <ArmorAmount>8</ArmorAmount>
-        <DodgeChance>1</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>55</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

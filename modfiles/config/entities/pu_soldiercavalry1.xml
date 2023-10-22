@@ -35,14 +35,11 @@
         <ArmorClass>ArmorClassIron</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
         <DodgeChance>20</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Cost>
-                <Gold>10</Gold>
-                <Iron>10</Iron>
-                <Wood/>
-            </Cost>
-            <Type>PU_SoldierCavalry2</Type>
-            <Category>SoldierCavalry</Category>
+            <Category>SoldierCavalry1</Category>
         </Upgrade>
 
 
@@ -78,11 +75,6 @@
         <ModifyDamage>
             <Technology>T_EliteSquad</Technology>
         </ModifyDamage>
-
-
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>20</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

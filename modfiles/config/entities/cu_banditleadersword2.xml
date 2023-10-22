@@ -42,7 +42,7 @@
             <Gold>0</Gold>
         </Cost>
         <Upgrade>
-            <Category>LeaderBandit</Category>
+            <Category>LeaderAxe2</Category>
         </Upgrade>
 
 
@@ -66,10 +66,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-        
-        <Upgrade>
-            <Category>LeaderBandit</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

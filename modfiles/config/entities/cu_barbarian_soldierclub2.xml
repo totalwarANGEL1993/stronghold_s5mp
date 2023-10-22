@@ -29,6 +29,21 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Soldier</Category>
+        <Category>Sword</Category>
+        <Category>Melee</Category>
+        <Exploration>20</Exploration>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>1</ArmorAmount>
+        <DodgeChance>8</DodgeChance>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>BarbarianSoldier2</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -54,23 +69,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-
-
-        <Category>Military</Category>
-        <Category>Soldier</Category>
-        <Category>Sword</Category>
-        <Category>Melee</Category>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
-        <DodgeChance>8</DodgeChance>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>SoldierBarbarian</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

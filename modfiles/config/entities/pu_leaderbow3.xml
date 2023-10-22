@@ -26,6 +26,22 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Bow</Category>
+        <Category>LongRange</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>250</MaxHealth>
+        <Exploration>25</Exploration>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>3</ArmorAmount>
+        <DodgeChance>6</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>45</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>LeaderBow3</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
@@ -59,26 +75,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
-
-
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Bow</Category>
-        <Category>LongRange</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>250</MaxHealth>
-        <Exploration>25</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>6</DodgeChance>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>45</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-
-        <Upgrade>
-            <Type>PU_LeaderBow4</Type>
-            <Category>LeaderBow</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

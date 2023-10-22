@@ -19,7 +19,6 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
-
         <Category>Military</Category>
         <Category>Leader</Category>
         <Category>CavalryLight</Category>
@@ -31,7 +30,6 @@
         <DodgeChance>30</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>10</ExperiencePoints>
-
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

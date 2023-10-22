@@ -29,6 +29,21 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Category>Military</Category>
+        <Category>Bow</Category>
+        <Category>Soldier</Category>
+        <Category>LongRange</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>23</Exploration>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>1</ArmorAmount>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>20</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>SoldierBow2</Category>
+        </Upgrade>
+
 
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>
@@ -67,23 +82,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
-
-
-        <Category>Military</Category>
-        <Category>Bow</Category>
-        <Category>Soldier</Category>
-        <Category>LongRange</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>23</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>20</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Type>PU_SoldierBow3</Type>
-            <Category>SoldierBow</Category>
-        </Upgrade>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

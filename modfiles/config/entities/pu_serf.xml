@@ -50,6 +50,9 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Upgrade>
+            <Category>Serf</Category>
+        </Upgrade>
 
         <ModifyExploration>
             <Technology>T_Tracking</Technology>

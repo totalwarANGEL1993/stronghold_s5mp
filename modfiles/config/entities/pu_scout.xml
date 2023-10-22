@@ -32,6 +32,9 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Upgrade>
+            <Category>Scout</Category>
+        </Upgrade>
 
 
         <Category>Military</Category>

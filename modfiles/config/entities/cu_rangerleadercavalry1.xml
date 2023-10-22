@@ -38,6 +38,9 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>RangerLeaderCavalry1</Category>
+        </Upgrade>
 
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>

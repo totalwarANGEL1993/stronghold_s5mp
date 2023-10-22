@@ -37,10 +37,10 @@
         <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>
-        <Upgrade>
-            <Category>LeaderHeavyCavalry</Category>
-        </Upgrade>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>TemplarLeaderCavalry1</Category>
+        </Upgrade>
 
         <ModifyArmor>
             <Technology>T_LeatherMailArmor</Technology>

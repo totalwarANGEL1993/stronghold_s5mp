@@ -37,14 +37,12 @@
         <Category>Rifle</Category>
         <Category>Soldier</Category>
         <Category>LongRange</Category>
-
-        <Upgrade>
-            <Type>PU_SoldierRifle2</Type>
-            <Category>SoldierRifle</Category>
-        </Upgrade>
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Upgrade>
+            <Category>SoldierRifle1</Category>
+        </Upgrade>
 
 
         <ModifyArmor>

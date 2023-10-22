@@ -30,7 +30,6 @@
         <Cost>
             <Gold>1</Gold>
         </Cost>
-
         <Convertible>false</Convertible>
         <Category>Military</Category>
         <Category>Hero</Category>

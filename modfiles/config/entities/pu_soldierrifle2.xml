@@ -37,10 +37,12 @@
         <Category>Rifle</Category>
         <Category>Soldier</Category>
         <Category>LongRange</Category>
-
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Upgrade>
+            <Category>SoldierRifle2</Category>
+        </Upgrade>
 
 
         <ModifyArmor>

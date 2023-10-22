@@ -30,6 +30,9 @@
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
         <ExperiencePoints>60</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>Cannon2</Category>
+        </Upgrade>
 
 
         <ModifySpeed>
@@ -46,8 +49,6 @@
         <ModifyDamage>
             <Technology>T_BlisteringCannonballs</Technology>
         </ModifyDamage>
-
-
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">

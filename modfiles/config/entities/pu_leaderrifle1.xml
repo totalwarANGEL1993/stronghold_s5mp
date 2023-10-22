@@ -36,14 +36,12 @@
         <Category>Leader</Category>
         <Category>Rifle</Category>
         <Category>LongRange</Category>
-
-        <Upgrade>
-            <Type>PU_LeaderRifle2</Type>
-            <Category>LeaderRifle</Category>
-        </Upgrade>
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Upgrade>
+            <Category>LeaderRifle1</Category>
+        </Upgrade>
 
         <ModifyArmor>
             <Technology>T_FleeceLinedLeatherArmor</Technology>
