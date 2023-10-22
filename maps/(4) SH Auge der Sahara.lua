@@ -35,10 +35,6 @@ SHS5MP_RulesDefinition = {
         Final = 7,
     },
 
-    -- Resources
-    -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
-    Resources = {0, 0, 0, 0, 0, 0, 0},
-
     -- Setup heroes allowed
     AllowedHeroes = {
         -- Dario

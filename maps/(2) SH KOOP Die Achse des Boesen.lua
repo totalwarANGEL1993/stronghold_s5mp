@@ -10,10 +10,10 @@ SHS5MP_RulesDefinition = {
     -- (Game is not lost when the HQ falls)
     DisableDefaultWinCondition = false,
     -- Disable rule configuration?
-    DisableRuleConfiguration = false;
+    DisableRuleConfiguration = true;
     -- Disable game start timer?
     -- (Requires rule config to be disabled!)
-    DisableGameStartTimer = false;
+    DisableGameStartTimer = true;
 
     -- Peacetime in minutes
     PeaceTime = 30,

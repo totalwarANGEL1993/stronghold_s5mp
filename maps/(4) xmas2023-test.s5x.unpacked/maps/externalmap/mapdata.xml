@@ -292,7 +292,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>5.500000e+003</X>
+    <X>5.400000e+003</X>
     <Y>1.820000e+004</Y>
    </Position>
    <Orientation>4.500000e+001</Orientation>
@@ -307,7 +307,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>6.700000e+003</X>
+    <X>6.600000e+003</X>
     <Y>1.820000e+004</Y>
    </Position>
    <Orientation>4.500000e+001</Orientation>
@@ -322,7 +322,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>6.100000e+003</X>
+    <X>6.000000e+003</X>
     <Y>1.820000e+004</Y>
    </Position>
    <Orientation>4.500000e+001</Orientation>
@@ -337,7 +337,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>4.900000e+003</X>
+    <X>4.800000e+003</X>
     <Y>1.820000e+004</Y>
    </Position>
    <Orientation>4.500000e+001</Orientation>
@@ -352,7 +352,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>4.000000e+003</X>
+    <X>3.900000e+003</X>
     <Y>1.880000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
@@ -367,7 +367,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>4.400000e+003</X>
+    <X>4.300000e+003</X>
     <Y>1.840000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
@@ -382,7 +382,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>3.600000e+003</X>
+    <X>3.500000e+003</X>
     <Y>1.920000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
@@ -397,7 +397,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>3.200000e+003</X>
+    <X>3.100000e+003</X>
     <Y>1.960000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
@@ -412,7 +412,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>2.800000e+003</X>
+    <X>2.700000e+003</X>
     <Y>2.000000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
@@ -427,7 +427,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>7.300000e+003</X>
+    <X>7.200000e+003</X>
     <Y>1.820000e+004</Y>
    </Position>
    <Orientation>4.500000e+001</Orientation>
@@ -442,7 +442,7 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>7.900000e+003</X>
+    <X>7.800000e+003</X>
     <Y>1.820000e+004</Y>
    </Position>
    <Orientation>4.500000e+001</Orientation>
@@ -457,8 +457,23 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>1.850000e+004</Y>
+    <X>8.300000e+003</X>
+    <Y>1.840000e+004</Y>
+   </Position>
+   <Orientation>9.000000e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_WallConstructionSite</Type>
+   <Position>
+    <X>8.500000e+003</X>
+    <Y>1.890000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -472,8 +487,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>1.910000e+004</Y>
+    <X>8.500000e+003</X>
+    <Y>1.950000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -487,8 +502,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>1.970000e+004</Y>
+    <X>8.500000e+003</X>
+    <Y>2.010000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -502,8 +517,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>2.030000e+004</Y>
+    <X>8.500000e+003</X>
+    <Y>2.070000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -517,8 +532,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>2.090000e+004</Y>
+    <X>8.500000e+003</X>
+    <Y>2.130000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -532,8 +547,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>2.150000e+004</Y>
+    <X>8.500000e+003</X>
+    <Y>2.190000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -547,8 +562,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>2.210000e+004</Y>
+    <X>8.500000e+003</X>
+    <Y>2.250000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -562,8 +577,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>2.270000e+004</Y>
+    <X>8.500000e+003</X>
+    <Y>2.310000e+004</Y>
    </Position>
    <Orientation>1.350000e+002</Orientation>
    <Flags>0</Flags>
@@ -577,23 +592,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>8.200000e+003</X>
-    <Y>2.330000e+004</Y>
-   </Position>
-   <Orientation>1.350000e+002</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
-   <Health>-1</Health>
-   <Name></Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_WallConstructionSite</Type>
-   <Position>
-    <X>8.000000e+003</X>
-    <Y>2.380000e+004</Y>
+    <X>8.300000e+003</X>
+    <Y>2.360000e+004</Y>
    </Position>
    <Orientation>1.800000e+002</Orientation>
    <Flags>0</Flags>
@@ -607,8 +607,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_WallConstructionSite</Type>
    <Position>
-    <X>7.600000e+003</X>
-    <Y>2.420000e+004</Y>
+    <X>7.900000e+003</X>
+    <Y>2.400000e+004</Y>
    </Position>
    <Orientation>1.800000e+002</Orientation>
    <Flags>0</Flags>

@@ -431,13 +431,6 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Multiplayer:ConfigureResource(_Amount)
-    if _Amount == 1 then
-        self.Data.Config.Resources = {0, 1000, 1600, 1200, 550, 0, 0};
-    elseif _Amount == 2 then
-        self.Data.Config.Resources = {50, 2000, 3000, 2400, 1500, 600, 0};
-    elseif _Amount == 3 then
-        self.Data.Config.Resources = {300, 6000, 4000, 4000, 3000, 1500, 900};
-    end
     self.Data.Config.ResourceSelected = _Amount;
 end
 
@@ -549,6 +542,15 @@ function Stronghold.Multiplayer:Configure()
     end
 
     -- Setup resources
+    if not self.Data.Config.Resources then
+        if self.Data.Config.ResourceSelected == 1 then
+            self.Data.Config.Resources = {0, 1000, 1600, 1200, 550, 0, 0};
+        elseif _Amount == 2 then
+            self.Data.Config.ResourceSelected = {50, 2000, 3000, 2400, 1500, 600, 0};
+        elseif _Amount == 3 then
+            self.Data.Config.ResourceSelected = {300, 6000, 4000, 4000, 3000, 1500, 900};
+        end
+    end
     if self.Data.Config.Resources then
         if XNetwork.Manager_DoesExist() == 1 then
             local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
