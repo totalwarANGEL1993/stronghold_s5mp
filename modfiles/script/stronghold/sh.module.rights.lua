@@ -213,16 +213,29 @@ end
 function Stronghold.Rights:LockPlayerRight(_PlayerID, _RightToLock)
     if IsPlayer(_PlayerID) then
         self.Data[_PlayerID].Rights[_RightToLock] = -1;
+        if GUI.GetPlayerID() == _PlayerID then
+            Stronghold:OnSelectionMenuChanged(GUI.GetSelectedEntity());
+        end
     end
 end
 
 function Stronghold.Rights:UnlockPlayerRight(_PlayerID, _RightToLock)
     if IsPlayer(_PlayerID) then
         self.Data[_PlayerID].Rights[_RightToLock] = 0;
-        for i= 1, GetRank(_PlayerID) do
+        for i= 0, GetRank(_PlayerID) do
             self:GrantPlayerRights(_PlayerID, i);
         end
+        if GUI.GetPlayerID() == _PlayerID then
+            Stronghold:OnSelectionMenuChanged(GUI.GetSelectedEntity());
+        end
     end
+end
+
+function Stronghold.Rights:IsRightLockedForPlayer(_PlayerID, _RightToLock)
+    if IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].Rights[_RightToLock] == -1;
+    end
+    return false;
 end
 
 function Stronghold.Rights:GrantPlayerRights(_PlayerID, _Rank)
