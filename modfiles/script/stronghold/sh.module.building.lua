@@ -33,6 +33,7 @@ function Stronghold.Building:Install()
         self.Data[i] = {
             Measure = {},
             RallyPoint = {},
+            UnitMover = {},
             Cannons = {},
             Corners = {},
             Turrets = {},
@@ -181,64 +182,64 @@ function Stronghold.Building:AdjustTax(_Level)
     return true;
 end
 
-function Stronghold.Building:HeadquartersBuySerf()
-    local GuiPlayer = GetLocalPlayerID();
-    local PlayerID = GUI.GetPlayerID();
-    local EntityID = GUI.GetSelectedEntity();
-    if GuiPlayer ~= PlayerID then
-        return false;
-    end
-    if Stronghold.Players[PlayerID].BuyUnitLock then
-        return false;
-    end
+-- function Stronghold.Building:HeadquartersBuySerf()
+--     local GuiPlayer = GetLocalPlayerID();
+--     local PlayerID = GUI.GetPlayerID();
+--     local EntityID = GUI.GetSelectedEntity();
+--     if GuiPlayer ~= PlayerID then
+--         return false;
+--     end
+--     if Stronghold.Players[PlayerID].BuyUnitLock then
+--         return false;
+--     end
 
-    local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
-    local Costs = CreateCostTable(unpack(Config.Costs[1]));
-    if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
-        local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
-        Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
-    end
-    if  XGUIEng.IsModifierPressed(Keys.ModifierControl) == 0
-    and InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
-        return false;
-    end
+--     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
+--     local Costs = CreateCostTable(unpack(Config.Costs[1]));
+--     if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
+--         local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
+--         Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
+--     end
+--     if  XGUIEng.IsModifierPressed(Keys.ModifierControl) == 0
+--     and InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
+--         return false;
+--     end
 
-    local Button = "Buy_Serf";
-    if Logic.IsEntityInCategory(EntityID, EntityCategories.VillageCenter) == 1 then
-        Button = "Buy_Serf_Village";
-    end
+--     local Button = "Buy_Serf";
+--     if Logic.IsEntityInCategory(EntityID, EntityCategories.VillageCenter) == 1 then
+--         Button = "Buy_Serf_Village";
+--     end
 
-    Stronghold.Players[PlayerID].BuyUnitLock = true;
-    Syncer.InvokeEvent(
-        Stronghold.Building.NetworkCall,
-        Stronghold.Building.SyncEvents.EnqueueSerf,
-        EntityID,
-        Entities.PU_Serf,
-        false,
-        Button,
-        XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
-    );
-    return true;
-end
+--     Stronghold.Players[PlayerID].BuyUnitLock = true;
+--     Syncer.InvokeEvent(
+--         Stronghold.Building.NetworkCall,
+--         Stronghold.Building.SyncEvents.EnqueueSerf,
+--         EntityID,
+--         Entities.PU_Serf,
+--         false,
+--         Button,
+--         XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
+--     );
+--     return true;
+-- end
 
-function Stronghold.Building:HeadquartersBuySerfTooltip()
-    local GuiPlayer = GetLocalPlayerID();
-    if not IsPlayer(GuiPlayer) then
-        return false;
-    end
-    local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
-    local Costs = CreateCostTable(unpack(Config.Costs[1]));
-    if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
-        local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
-        Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
-    end
-	local CostString = FormatCostString(GuiPlayer, Costs);
-    local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits1") .. "]";
-	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
-	XGUIEng.SetTextKeyName(gvGUI_WidgetID.TooltipBottomText,"sh_menuheadquarter/buyserf");
-	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
-    return true;
-end
+-- function Stronghold.Building:HeadquartersBuySerfTooltip()
+--     local GuiPlayer = GetLocalPlayerID();
+--     if not IsPlayer(GuiPlayer) then
+--         return false;
+--     end
+--     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
+--     local Costs = CreateCostTable(unpack(Config.Costs[1]));
+--     if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
+--         local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
+--         Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
+--     end
+-- 	local CostString = FormatCostString(GuiPlayer, Costs);
+--     local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits1") .. "]";
+-- 	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
+-- 	XGUIEng.SetTextKeyName(gvGUI_WidgetID.TooltipBottomText,"sh_menuheadquarter/buyserf");
+-- 	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+--     return true;
+-- end
 
 function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
@@ -857,7 +858,7 @@ function Stronghold.Building:OverrideShiftRightClick()
     end
 
     GUITooltip_PlaceRallyPoint = function()
-        local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits2") .. "]";
+        local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/RallyPoint") .. "]";
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
         XGUIEng.SetTextKeyName(gvGUI_WidgetID.TooltipBottomText,"sh_menuheadquarter/rallypoint");
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
@@ -893,31 +894,62 @@ function Stronghold.Building:OnRallyPointHolderDestroyed(_PlayerID, _EntityID)
 end
 
 function Stronghold.Building:OnUnitCreated(_EntityID)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 1 then
-        local PlayerID = Logic.EntityGetPlayer(_EntityID);
-        local x,y,z = Logic.EntityGetPos(_EntityID);
-        local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Foundry1, x, y, 800, 1);
-        local _,Foundry2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Foundry2, x, y, 800, 1);
-        if Foundry1ID ~= 0 and Foundry2ID ~= 0 then
-            local RecruiterID = (Foundry1ID ~= 0 and Foundry1ID) or Foundry2ID;
-            table.insert(self.Data[PlayerID].Cannons, {_EntityID, RecruiterID});
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        if Logic.IsSettler(_EntityID) == 1 then
+            local BuildingID;
+            if Logic.IsEntityInCategory(_EntityID, EntityCategories.Serf) == 1 then
+                BuildingID = GetHeadquarterID(PlayerID);
+            elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 1 then
+                local x,y,z = Logic.EntityGetPos(_EntityID);
+                local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Foundry1, x, y, 800, 1);
+                local _,Foundry2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Foundry2, x, y, 800, 1);
+                BuildingID = Foundry1ID or Foundry2ID or 0;
+            elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.CavalryHeavy) == 1
+            or Logic.IsEntityInCategory(_EntityID, EntityCategories.CavalryLight) == 1 then
+                local x,y,z = Logic.EntityGetPos(_EntityID);
+                local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Stable1, x, y, 800, 1);
+                local _,Foundry2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Stable2, x, y, 800, 1);
+                BuildingID = Foundry1ID or Foundry2ID or 0;
+            elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.Sword) == 1
+            or Logic.IsEntityInCategory(_EntityID, EntityCategories.Spear) == 1 then
+                local x,y,z = Logic.EntityGetPos(_EntityID);
+                local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Barracks1, x, y, 800, 1);
+                local _,Foundry2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Barracks2, x, y, 800, 1);
+                BuildingID = Foundry1ID or Foundry2ID or 0;
+            elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.Bow) == 1
+            or Logic.IsEntityInCategory(_EntityID, EntityCategories.Rifle) == 1 then
+                local x,y,z = Logic.EntityGetPos(_EntityID);
+                local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Archery1, x, y, 900, 1);
+                local _,Foundry2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Archery2, x, y, 900, 1);
+                BuildingID = Foundry1ID or Foundry2ID or 0;
+            elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.Scout) == 1
+            or Logic.IsEntityInCategory(_EntityID, EntityCategories.Thief) == 1 then
+                local x,y,z = Logic.EntityGetPos(_EntityID);
+                local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Tavern1, x, y, 600, 1);
+                local _,Foundry2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Tavern2, x, y, 600, 1);
+                BuildingID = Foundry1ID or Foundry2ID or 0;
+            end
+            if BuildingID and BuildingID ~= 0 then
+                table.insert(self.Data[PlayerID].UnitMover, {_EntityID, BuildingID});
+            end
         end
     end
 end
 
 function Stronghold.Building:CannonToRallyPointController(_PlayerID)
-    if self.Data[_PlayerID] then
-        for i= table.getn(self.Data[_PlayerID].Cannons), 1, -1 do
-            local EntityID = self.Data[_PlayerID].Cannons[i][1];
-            local RecruiterID = self.Data[_PlayerID].Cannons[i][2];
+    if IsPlayer(_PlayerID) then
+        for i= table.getn(self.Data[_PlayerID].UnitMover), 1, -1 do
+            local EntityID = self.Data[_PlayerID].UnitMover[i][1];
+            local RecruiterID = self.Data[_PlayerID].UnitMover[i][2];
             if not IsExisting(RecruiterID) or not IsExisting(EntityID) then
                 return;
             end
             local Task = Logic.GetCurrentTaskList(EntityID);
-            if not Task or string.find(Task,"IDLE") then
+            if not Task or (string.find(Task,"IDLE") or string.find(Task,"BATTLE")) then
                 local ScriptName = Logic.GetEntityName(RecruiterID);
                 self:MoveToRallyPoint(ScriptName, EntityID);
-                table.remove(self.Data[_PlayerID].Cannons, i);
+                table.remove(self.Data[_PlayerID].UnitMover, i);
             end
         end
     end
@@ -991,8 +1023,11 @@ function Stronghold.Building:CommandSerfToExtractCloseResource(_SerfID, _x, _y, 
     if Resources[1] > 0 then
         local x,y,z = Logic.EntityGetPos(Resources[2]);
         local Type = Logic.GetResourceDoodadGoodType(Resources[2]);
-        SendEvent.SerfExtractResource(_SerfID, Type, x, y);
-        return;
+        local Amount = Logic.GetResourceDoodadGoodAmount(Resources[2]);
+        if Amount > 0 then
+            SendEvent.SerfExtractResource(_SerfID, Type, x, y);
+            return;
+        end
     end
     -- Trees
     local Trees = GetTreeAtPosition(_x, _y, _Area, 1);
@@ -1095,10 +1130,9 @@ function Stronghold.Building:CanBuildingHaveRallyPoint(_Building)
     or Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2
     or Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2
     or Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2
+    or Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2
     or Type == Entities.PB_Headquarters1 or Type == Entities.PB_Headquarters2
-    or Type == Entities.PB_Headquarters3
-    or Type == Entities.PB_VillageCenter1 or Type == Entities.PB_VillageCenter2
-    or Type == Entities.PB_VillageCenter3 then
+    or Type == Entities.PB_Headquarters3 then
         return true;
     end
     return false;
@@ -1145,6 +1179,8 @@ function Stronghold.Building:InitalizeBuyUnitKeybindings()
         Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _EntityID);
         Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _EntityID);
         Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _EntityID);
+        Stronghold.Building:ExecuteBuyUnitKeybindForFoundry(_Key, _PlayerID, _EntityID);
+        Stronghold.Building:ExecuteBuyUnitKeybindForTavern(_Key, _PlayerID, _EntityID);
     end
 
     Input.KeyBindDown(Keys.A, "Stronghold_KeyBindings_BuyUnit(1, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
@@ -1153,6 +1189,8 @@ function Stronghold.Building:InitalizeBuyUnitKeybindings()
     Input.KeyBindDown(Keys.F, "Stronghold_KeyBindings_BuyUnit(4, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
     Input.KeyBindDown(Keys.G, "Stronghold_KeyBindings_BuyUnit(5, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
     Input.KeyBindDown(Keys.H, "Stronghold_KeyBindings_BuyUnit(6, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
+    Input.KeyBindDown(Keys.J, "Stronghold_KeyBindings_BuyUnit(7, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
+    Input.KeyBindDown(Keys.K, "Stronghold_KeyBindings_BuyUnit(8, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _EntityID)
@@ -1160,19 +1198,7 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
-                -- if _Key == 1 and XGUIEng.IsButtonDisabled("Research_UpgradeSword1") == 0 then
-                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSword1);
-                -- elseif _Key == 2 and XGUIEng.IsButtonDisabled("Research_UpgradeSword2") == 0 then
-                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSword2);
-                -- elseif _Key == 3 and XGUIEng.IsButtonDisabled("Research_UpgradeSword3") == 0 then
-                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSword3);
-                -- elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear1") == 0 then
-                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear1);
-                -- elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear2") == 0 then
-                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear2);
-                -- elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeSpear3") == 0 then
-                --     GUIAction_ReserachTechnology(Technologies.T_UpgradeSpear3);
-                -- end
+                GUIAction_BuyMeleeUnit(_Key);
             end
         end
     end
@@ -1183,15 +1209,7 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _E
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
-                if _Key == 1 and XGUIEng.IsButtonDisabled("Research_UpgradeBow1") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeBow1);
-                elseif _Key == 2 and XGUIEng.IsButtonDisabled("Research_UpgradeBow2") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeBow2);
-                elseif _Key == 3 and XGUIEng.IsButtonDisabled("Research_UpgradeBow3") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeBow3);
-                elseif _Key == 4 and XGUIEng.IsButtonDisabled("Research_UpgradeRifle1") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeRifle1);
-                end
+                GUIAction_BuyRangedUnit(_Key);
             end
         end
     end
@@ -1202,11 +1220,29 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _En
         local Type = Logic.GetEntityType(_EntityID);
         if Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2 then
             if Logic.IsConstructionComplete(_EntityID) == 1 then
-                if _Key == 1 and XGUIEng.IsButtonDisabled("Research_UpgradeCavalryLight1") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeLightCavalry1);
-                elseif _Key == 2 and XGUIEng.IsButtonDisabled("Research_UpgradeCavalryHeavy1") == 0 then
-                    GUIAction_ReserachTechnology(Technologies.T_UpgradeHeavyCavalry1);
-                end
+                GUIAction_BuyCavalryUnit(_Key);
+            end
+        end
+    end
+end
+
+function Stronghold.Building:ExecuteBuyUnitKeybindForFoundry(_Key, _PlayerID, _EntityID)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Type = Logic.GetEntityType(_EntityID);
+        if Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2 then
+            if Logic.IsConstructionComplete(_EntityID) == 1 then
+                GUIAction_BuyCannonUnit(_Key);
+            end
+        end
+    end
+end
+
+function Stronghold.Building:ExecuteBuyUnitKeybindForTavern(_Key, _PlayerID, _EntityID)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Type = Logic.GetEntityType(_EntityID);
+        if _Key <= 2 and (Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2) then
+            if Logic.IsConstructionComplete(_EntityID) == 1 then
+                GUIAction_BuyTavernUnit(_Key);
             end
         end
     end

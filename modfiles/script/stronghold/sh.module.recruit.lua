@@ -18,13 +18,14 @@ function Stronghold.Recruit:Install()
             Roster = {},
             AutoFill = {},
             TrainingLeaders = {},
-            VirtualSoldiers = {},
+            ForgeRegister = {},
         };
         self:InitDefaultRoster(i);
     end
     self:CreateBuildingButtonHandlers();
     self:InitAutoFillButtons();
     self:OverwriteBuySerfAction();
+    self:OverrideCalculateMilitaryUsage();
 end
 
 function Stronghold.Recruit:OnSaveGameLoaded()
@@ -43,7 +44,7 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
                     Stronghold.Recruit.Data[_PlayerID].BuyLock = false;
                 end
                 Stronghold.Unit:PayUnit(_PlayerID, arg[1], 0);
-                -- self:RegisterCannonOrder(_PlayerID, arg[3], arg[1]);
+                self:RegisterCannonOrder(_PlayerID, arg[3], arg[1]);
             elseif _Action == Stronghold.Recruit.SyncEvents.BuyUnit then
                 if Stronghold.Recruit.Data[_PlayerID] then
                     Stronghold.Recruit.Data[_PlayerID].BuyLock = false;
@@ -71,6 +72,15 @@ function Stronghold.Recruit:OnEntityCreated(_EntityID)
         if Logic.IsLeader(_EntityID) == 1 then
             self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
         end
+        -- Scale units
+        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon1 then
+            SVLib.SetEntitySize(_EntityID, 1.35);
+            -- Logic.SetSpeedFactor(_EntityID, 1.35);
+        end
+        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon2 then
+            SVLib.SetEntitySize(_EntityID, 0.65);
+            -- Logic.SetSpeedFactor(_EntityID, 0.65);
+        end
     end
 end
 
@@ -93,23 +103,25 @@ function Stronghold.Recruit:OnEveryTurn(_PlayerID)
                     if self.Data[_PlayerID].AutoFill[BarracksID] then
                         local Type = Logic.GetEntityType(LeaderID);
                         local Config = Stronghold.Unit.Config:Get(Type, _PlayerID);
-                        local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, Type, 1);
-                        local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(Type, 1);
-                        for i= 1, Config.Soldiers do
-                            if  Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places)
-                            and HasEnoughResources(_PlayerID, Costs) then
-                                Stronghold.Unit:RefillUnit(
-                                    _PlayerID,
-                                    LeaderID,
-                                    1,
-                                    Costs[ResourceType.Honor],
-                                    Costs[ResourceType.Gold],
-                                    Costs[ResourceType.Clay],
-                                    Costs[ResourceType.Wood],
-                                    Costs[ResourceType.Stone],
-                                    Costs[ResourceType.Iron],
-                                    Costs[ResourceType.Sulfur]
-                                );
+                        if Config then
+                            local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, Type, 1);
+                            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(Type, 1);
+                            for i= 1, Config.Soldiers do
+                                if  Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places)
+                                and HasEnoughResources(_PlayerID, Costs) then
+                                    Stronghold.Unit:RefillUnit(
+                                        _PlayerID,
+                                        LeaderID,
+                                        1,
+                                        Costs[ResourceType.Honor],
+                                        Costs[ResourceType.Gold],
+                                        Costs[ResourceType.Clay],
+                                        Costs[ResourceType.Wood],
+                                        Costs[ResourceType.Stone],
+                                        Costs[ResourceType.Iron],
+                                        Costs[ResourceType.Sulfur]
+                                    );
+                                end
                             end
                         end
                     end
@@ -246,7 +258,7 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function Stronghold.Recruit:BuyUnitAction(_WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
+function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
     if self.Data[_PlayerID].BuyLock then
         return;
@@ -265,11 +277,13 @@ function Stronghold.Recruit:BuyUnitAction(_WidgetID, _PlayerID, _EntityID, _Upgr
     if _EntityType == Entities.PU_Serf then
         if not Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID) then
             GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            Message(XGUIEng.GetStringTableText("sh_text/Player_SerfLimit"));
             return true;
         end
     else
         if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
             GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
             return true;
         end
     end
@@ -295,7 +309,7 @@ function Stronghold.Recruit:BuyUnitAction(_WidgetID, _PlayerID, _EntityID, _Upgr
     end
 end
 
-function Stronghold.Recruit:BuyCannonAction(_WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
+function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
     if self.Data[_PlayerID].BuyLock then
         return;
@@ -312,12 +326,14 @@ function Stronghold.Recruit:BuyCannonAction(_WidgetID, _PlayerID, _EntityID, _Up
     local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_EntityType, 1);
     if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
         GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+        Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
         return true;
     end
     -- Check has worker
-    local Worker = {Logic.GetAttachedWorkersToBuilding(EntityID)};
+    local Worker = {Logic.GetAttachedWorkersToBuilding(_EntityID)};
     if not Worker[1] or (Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 0) then
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesWorker_WORKER_FunnyNo_rnd_01, 100);
+        Message(XGUIEng.GetStringTableText("sh_text/Player_NoWorker"));
         return;
     end
     -- Pay costs
@@ -334,12 +350,13 @@ function Stronghold.Recruit:BuyCannonAction(_WidgetID, _PlayerID, _EntityID, _Up
         _EntityID
     );
     -- Buy unit
-    GUIAction_BuyCannon(_UpgradeCategory);
+    GUIAction_BuyCannon(_EntityType, _UpgradeCategory);
 end
 
-function Stronghold.Recruit:BuyUnitTooltip(_WidgetID, _PlayerID, _EntityID, _EntityType)
+function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _EntityID, _EntityType)
     local Text = "";
     local CostsText = "";
+    local Shortcut = "";
     if not self:IsUnitAllowed(_EntityID, _EntityType) then
         Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
     else
@@ -357,13 +374,17 @@ function Stronghold.Recruit:BuyUnitTooltip(_WidgetID, _PlayerID, _EntityID, _Ent
             DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
             Text = Text.. " @cr " ..DisabledText;
         end
+        local KeyText = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [%s]";
+        local KeyName = Stronghold.Building.Config.RecuitIndexRecuitShortcut[_Index];
+        Shortcut = string.format(KeyText, KeyName);
     end
 
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, "@color:180,180,180,255 " ..Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostsText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, Shortcut);
 end
 
-function Stronghold.Recruit:BuyUnitUpdate(_WidgetID, _PlayerID, _EntityID, _EntityType, _IconSource)
+function Stronghold.Recruit:BuyUnitUpdate(_Index, _WidgetID, _PlayerID, _EntityID, _EntityType, _IconSource)
     if _IconSource then
         XGUIEng.TransferMaterials(_IconSource, _WidgetID);
     end
@@ -412,7 +433,7 @@ end
 
 function Stronghold.Recruit:BuySerfAction(_PlayerID, _EntityID)
     local WidgetID = "Buy_Serf";
-    Stronghold.Recruit:BuyUnitAction(WidgetID, _PlayerID, _EntityID, UpgradeCategories.Serf, Entities.PU_Serf);
+    Stronghold.Recruit:BuyUnitAction(1, WidgetID, _PlayerID, _EntityID, UpgradeCategories.Serf, Entities.PU_Serf);
 end
 
 function Stronghold.Recruit:BuySerfTooltip(_PlayerID, _EntityID)
@@ -443,7 +464,7 @@ end
 
 function Stronghold.Recruit:BuySerfUpdate(_PlayerID, _EntityID)
     local WidgetID = "Buy_Serf";
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, Entities.PU_Serf, nil);
+    Stronghold.Recruit:BuyUnitUpdate(1, WidgetID, _PlayerID, _EntityID, Entities.PU_Serf, nil);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -497,14 +518,16 @@ function Stronghold.Recruit:BuyMeleeUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_MeleeUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Melee[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitAction(WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+        Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    end
 end
 
 function Stronghold.Recruit:BuyMeleeUnitTooltip(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_MeleeUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Melee[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitTooltip(WidgetID, _PlayerID, _EntityID, EntityType);
+    Stronghold.Recruit:BuyUnitTooltip(_Index, WidgetID, _PlayerID, _EntityID, EntityType);
 end
 
 function Stronghold.Recruit:BuyMeleeUnitUpdate(_PlayerID, _EntityID, _Index)
@@ -516,7 +539,7 @@ function Stronghold.Recruit:BuyMeleeUnitUpdate(_PlayerID, _EntityID, _Index)
     local UpgradeCategory = self.Data[_PlayerID].Roster.Melee[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
     local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
+    Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -570,14 +593,16 @@ function Stronghold.Recruit:BuyRangedUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_RangedUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Ranged[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitAction(WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+        Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    end
 end
 
 function Stronghold.Recruit:BuyRangedUnitTooltip(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_RangedUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Ranged[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitTooltip(WidgetID, _PlayerID, _EntityID, EntityType);
+    Stronghold.Recruit:BuyUnitTooltip(_Index, WidgetID, _PlayerID, _EntityID, EntityType);
 end
 
 function Stronghold.Recruit:BuyRangedUnitUpdate(_PlayerID, _EntityID, _Index)
@@ -589,7 +614,7 @@ function Stronghold.Recruit:BuyRangedUnitUpdate(_PlayerID, _EntityID, _Index)
     local UpgradeCategory = self.Data[_PlayerID].Roster.Ranged[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
     local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
+    Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -643,14 +668,16 @@ function Stronghold.Recruit:BuyCavalryUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_CavalryUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cavalry[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitAction(WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+        Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    end
 end
 
 function Stronghold.Recruit:BuyCavalryUnitTooltip(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_CavalryUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cavalry[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitTooltip(WidgetID, _PlayerID, _EntityID, EntityType);
+    Stronghold.Recruit:BuyUnitTooltip(_Index, WidgetID, _PlayerID, _EntityID, EntityType);
 end
 
 function Stronghold.Recruit:BuyCavalryUnitUpdate(_PlayerID, _EntityID, _Index)
@@ -662,7 +689,7 @@ function Stronghold.Recruit:BuyCavalryUnitUpdate(_PlayerID, _EntityID, _Index)
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cavalry[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
     local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
+    Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -707,6 +734,10 @@ function Stronghold.Recruit:OnFoundrySelected(_EntityID)
         XGUIEng.ShowWidget("Buy_CannonUnit" ..i, Visble);
         GUIUpdate_BuyCannonUnit(i);
     end
+    XGUIEng.ShowWidget("Buy_Cannon1", 0);
+    XGUIEng.ShowWidget("Buy_Cannon2", 0);
+    XGUIEng.ShowWidget("Buy_Cannon3", 0);
+    XGUIEng.ShowWidget("Buy_Cannon4", 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
     XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
     GUIUpdate_PlaceRallyPoint();
@@ -716,14 +747,16 @@ function Stronghold.Recruit:BuyCannonUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_CannonUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cannon[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitAction(WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+        Stronghold.Recruit:BuyCannonAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    end
 end
 
 function Stronghold.Recruit:BuyCannonUnitTooltip(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_CannonUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cannon[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitTooltip(WidgetID, _PlayerID, _EntityID, EntityType);
+    Stronghold.Recruit:BuyUnitTooltip(_Index, WidgetID, _PlayerID, _EntityID, EntityType);
 end
 
 function Stronghold.Recruit:BuyCannonUnitUpdate(_PlayerID, _EntityID, _Index)
@@ -735,7 +768,7 @@ function Stronghold.Recruit:BuyCannonUnitUpdate(_PlayerID, _EntityID, _Index)
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cannon[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
     local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
+    Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -789,14 +822,16 @@ function Stronghold.Recruit:BuyTavernUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_TavernUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Tavern[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitAction(WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+        Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+    end
 end
 
 function Stronghold.Recruit:BuyTavernUnitTooltip(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_TavernUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Tavern[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    Stronghold.Recruit:BuyUnitTooltip(WidgetID, _PlayerID, _EntityID, EntityType);
+    Stronghold.Recruit:BuyUnitTooltip(_Index, WidgetID, _PlayerID, _EntityID, EntityType);
 end
 
 function Stronghold.Recruit:BuyTavernUnitUpdate(_PlayerID, _EntityID, _Index)
@@ -808,7 +843,7 @@ function Stronghold.Recruit:BuyTavernUnitUpdate(_PlayerID, _EntityID, _Index)
     local UpgradeCategory = self.Data[_PlayerID].Roster.Tavern[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
     local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
-    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
+    Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -844,5 +879,50 @@ function Stronghold.Recruit:InitAutoFillButtons()
             end
         end
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Cannon Spam
+
+function Stronghold.Recruit:OverrideCalculateMilitaryUsage()
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        local CannonPlaces = Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID);
+        return CurrentAmount + CannonPlaces;
+    end);
+end
+
+-- Registers a foundry for checking the forging process.
+function Stronghold.Recruit:RegisterCannonOrder(_PlayerID, _BarracksID, _Type)
+    if self.Data[_PlayerID] then
+        self.Data[_PlayerID].ForgeRegister[_BarracksID] = _Type;
+    end
+end
+
+-- Checks the forging process in all registered foundries.
+function Stronghold.Recruit:ControlCannonProducers(_PlayerID)
+    if self.Data[_PlayerID] then
+        for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
+            if not IsExisting(k) or Logic.GetCannonProgress(k) == 100 then
+                self.Data[_PlayerID].ForgeRegister[k] = nil;
+            end
+        end
+    end
+end
+
+-- Returns the places occupied by cannons currently in production.
+function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
+    local Places = 0;
+    if self.Data[_PlayerID] then
+        for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
+            local Size = Stronghold.Attraction:GetRequiredSpaceForUnitType(v, 1);
+            -- Salim passive skill
+            if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+                Size = math.floor((Size * Stronghold.Hero.Config.Hero3.UnitPlaceFactor) + 0.5);
+            end
+            Places = Places + Size;
+        end
+    end
+    return Places;
 end
 

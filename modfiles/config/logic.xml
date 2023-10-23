@@ -1208,32 +1208,32 @@
 
     <SettlerUpgrade>
 	    <Category>CrusaderLeaderCavalry1</Category>
-	    <FirstSettler>PU_CrusaderLeaderCavalry1</FirstSettler>
+	    <FirstSettler>CU_CrusaderLeaderCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
 	    <Category>CrusaderSoldierCavalry1</Category>
-	    <FirstSettler>PU_CrusaderSoldierCavalry1</FirstSettler>
+	    <FirstSettler>CU_CrusaderSoldierCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
     <SettlerUpgrade>
 	    <Category>RangerLeaderCavalry1</Category>
-	    <FirstSettler>PU_RangerLeaderCavalry1</FirstSettler>
+	    <FirstSettler>CU_RangerLeaderCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
 	    <Category>RangerSoldierCavalry1</Category>
-	    <FirstSettler>PU_RangerSoldierCavalry1</FirstSettler>
+	    <FirstSettler>CU_RangerSoldierCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
     <SettlerUpgrade>
 	    <Category>TemplarLeaderCavalry1</Category>
-	    <FirstSettler>PU_TemplarLeaderCavalry1</FirstSettler>
+	    <FirstSettler>CU_TemplarLeaderCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
 	    <Category>TemplarSoldierCavalry1</Category>
-	    <FirstSettler>PU_TemplarSoldierCavalry1</FirstSettler>
+	    <FirstSettler>CU_TemplarSoldierCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
     <!-- Other -->

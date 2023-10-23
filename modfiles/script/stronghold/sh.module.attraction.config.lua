@@ -54,6 +54,7 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.CU_BlackKnight_LeaderMace1] = 1,
     [Entities.CU_BlackKnight_LeaderMace2] = 1,
     [Entities.CU_Evil_LeaderBearman1] = 1,
+    [Entities.CU_TemplarLeaderPoleArm1] = 1,
     [Entities.PU_LeaderPoleArm1] = 1,
     [Entities.PU_LeaderPoleArm2] = 1,
     [Entities.PU_LeaderPoleArm3] = 1,
@@ -75,6 +76,7 @@ Stronghold.Attraction.Config.UsedSpace = {
     ---
     [Entities.CU_CrusaderLeaderCavalry1] = 1,
     [Entities.CU_TemplarLeaderCavalry1] = 2,
+    [Entities.CU_RangerLeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry2] = 2,
     [Entities.PU_LeaderHeavyCavalry1] = 3,
@@ -84,6 +86,8 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PV_Cannon2] = 8,
     [Entities.PV_Cannon3] = 8,
     [Entities.PV_Cannon4] = 8,
+    [Entities.CV_Cannon1] = 8,
+    [Entities.CV_Cannon2] = 8,
     ---
     [Entities.PU_Scout] = 1,
     [Entities.PU_Thief] = 5,

@@ -200,3 +200,14 @@ Stronghold.Building.Config.StoneWallTypes = {
     [Entities.PB_WallStraight]                  = true,
 }
 
+Stronghold.Building.Config.RecuitIndexRecuitShortcut = {
+    [1] = "A",
+    [2] = "S",
+    [3] = "D",
+    [4] = "F",
+    [5] = "G",
+    [6] = "H",
+    [7] = "J",
+    [8] = "K",
+}
+

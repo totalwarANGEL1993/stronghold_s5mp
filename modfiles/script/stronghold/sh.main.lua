@@ -666,8 +666,7 @@ function Stronghold:OnEveryTurn()
         self.Hero:HeliasConvertController(i);
         self.Hero:YukiShurikenConterController(i);
         self.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
-        -- self.Recruit:ControlProductionQueues(i);
-        -- self.Recruit:ControlCannonProducers(i);
+        self.Recruit:ControlCannonProducers(i);
         self.Recruit:OnEveryTurn(i);
     end
     -- Player jobs on modified turns
@@ -1333,18 +1332,6 @@ function Stronghold:OverrideWidgetActions()
         end
     end);
 
-    -- Overwrite.CreateOverwrite("GUIAction_BuyMilitaryUnit", function(_UpgradeCategory)
-    --     if not Stronghold.Recruit:BuyMilitaryUnitFromTavernAction(_UpgradeCategory) then
-    --         Overwrite.CallOriginal();
-    --     end
-    -- end);
-
-    Overwrite.CreateOverwrite("GUIAction_BuyCannon", function(_Type, _UpgradeCategory)
-        if not Stronghold.Recruit:BuyMilitaryUnitFromFoundryAction(_Type, _UpgradeCategory) then
-            Overwrite.CallOriginal();
-        end
-    end);
-
     Overwrite.CreateOverwrite("GUIAction_BuySoldier", function()
         if not Stronghold.Unit:BuySoldierButtonAction() then
             Overwrite.CallOriginal();
@@ -1394,13 +1381,6 @@ function Stronghold:OverrideWidgetTooltips()
     Overwrite.CreateOverwrite("GUITooltip_BuySoldier", function(_KeyNormal, _KeyDisabled, _ShortCut)
         Overwrite.CallOriginal();
         Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _ShortCut);
-    end);
-
-    Overwrite.CreateOverwrite("GUITooltip_BuyMilitaryUnit", function(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
-        local PlayerID = GetLocalPlayerID();
-        Overwrite.CallOriginal();
-        Stronghold.Recruit:UpdateTavernBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
-        Stronghold.Recruit:UpdateFoundryBuyUnitTooltip(PlayerID, _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_BlessSettlers", function(_TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
@@ -1461,26 +1441,6 @@ function Stronghold:OverrideWidgetTooltips()
             return Overwrite.CallOriginal();
         end
     end);
-
-    -- Overwrite.CreateOverwrite("GUITooltip_ResearchTechnologies", function(_Technology, _TextKey, _ShortCut)
-    --     local PlayerID = GetLocalPlayerID();
-    --     if not IsPlayer(PlayerID) then
-    --         return Overwrite.CallOriginal();
-    --     end
-    --     local TooltipSet = false;
-    --     if not TooltipSet then
-    --         TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersBarracksTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
-    --     end
-    --     if not TooltipSet then
-    --         TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersArcheryTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
-    --     end
-    --     if not TooltipSet then
-    --         TooltipSet = Stronghold.Recruit:UpdateUpgradeSettlersStableTooltip(PlayerID, _Technology, _TextKey, _ShortCut);
-    --     end
-    --     if not TooltipSet then
-    --         return Overwrite.CallOriginal();
-    --     end
-    -- end);
 end
 
 -- Button Update Generic Override
