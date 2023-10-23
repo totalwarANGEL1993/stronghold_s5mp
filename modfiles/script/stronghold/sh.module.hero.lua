@@ -1203,16 +1203,6 @@ function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, 
     return Costs;
 end
 
-function Stronghold.Hero:ApplyRecruitTimePassiveAbility(_PlayerID, _LeaderType, _Value)
-    local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10) then
-        if Logic.IsEntityTypeInCategory(_LeaderType, EntityCategories.Rifle) == 1 then
-            Value = Value * self.Config.Hero10.TrainTimeFactor;
-        end
-    end
-    return Value;
-end
-
 -- Passive Ability: Change civil places usage
 function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
@@ -1455,6 +1445,18 @@ function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _D
         or AttackerType == Entities.PB_Tower2_Ballista
         or AttackerType == Entities.PB_Tower3_Cannon then
             Amount = Amount * self.Config.Hero2.TowerBonusFactor;
+        end
+    end
+    return Amount;
+end
+
+function Stronghold.Hero:ApplyExperiencePassiveAbility(_PlayerID, _EntityID, _Amount)
+    local Amount = 0;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
+        if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 0
+        and Logic.IsEntityInCategory(_EntityID, EntityCategories.Scout) == 0
+        and Logic.IsEntityInCategory(_EntityID, EntityCategories.Thief) == 0 then
+            Amount = 500;
         end
     end
     return Amount;

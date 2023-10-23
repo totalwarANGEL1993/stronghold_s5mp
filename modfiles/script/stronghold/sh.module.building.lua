@@ -34,7 +34,6 @@ function Stronghold.Building:Install()
             Measure = {},
             RallyPoint = {},
             UnitMover = {},
-            Cannons = {},
             Corners = {},
             Turrets = {},
 
@@ -937,7 +936,7 @@ function Stronghold.Building:OnUnitCreated(_EntityID)
     end
 end
 
-function Stronghold.Building:CannonToRallyPointController(_PlayerID)
+function Stronghold.Building:UnitToRallyPointController(_PlayerID)
     if IsPlayer(_PlayerID) then
         for i= table.getn(self.Data[_PlayerID].UnitMover), 1, -1 do
             local EntityID = self.Data[_PlayerID].UnitMover[i][1];

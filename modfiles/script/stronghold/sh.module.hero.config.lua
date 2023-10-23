@@ -57,8 +57,7 @@ Stronghold.Hero.Config.Hero9 = {
 }
 -- Hero 10 properties
 Stronghold.Hero.Config.Hero10 = {
-    TrainTimeFactor = 0.5,
-    UpkeepFactor = 0.6,
+    UpkeepFactor = 0.5,
     RefiningBonus = 2,
 }
 -- Hero 11 properties

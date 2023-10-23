@@ -528,12 +528,12 @@ Stronghold.Unit.Config = {
     [Entities.CU_RangerLeaderCavalry1]            = {
         Button            = "Buy_LeaderCavalryLight",
         Costs             = {
-            [1] = {12, 200, 0, 20, 0, 50, 0},
+            [1] = {18, 200, 0, 20, 0, 50, 0},
             [2] = {0, 95, 0, 40, 0, 30, 0},
         },
         Right             = PlayerRight.CavalryRanger,
         IsCivil           = false,
-        Upkeep            = 70,
+        Upkeep            = 65,
         Turns             = 125,
         Soldiers          = 3,
         RecruiterBuilding = {Entities.PB_Stable2},

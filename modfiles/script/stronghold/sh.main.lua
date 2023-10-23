@@ -685,7 +685,7 @@ function Stronghold:OnEverySecond()
     local Players = GetMaxPlayers();
     for i= 1, Players do
         self:PlayerDefeatCondition(i);
-        self.Building:CannonToRallyPointController(i);
+        self.Building:UnitToRallyPointController(i);
         self.Building:CleanupTurretsOfBuilding(i);
     end
     self.Province:ControlProvince();
