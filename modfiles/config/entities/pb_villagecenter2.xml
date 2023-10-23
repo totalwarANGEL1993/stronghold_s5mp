@@ -18,16 +18,14 @@
         <ArmorAmount>4</ArmorAmount>
 
 
-        <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
+
 
         <BuildOn>XD_VillageCenter</BuildOn>
         <HideBase>true</HideBase>
@@ -47,18 +45,6 @@
         <NumberOfAttractableSettlers>50</NumberOfAttractableSettlers>
         <Exploration>40</Exploration>
         <ConstructionInfo>
-
-
-
-
-
-
-
-            <!--Time>90</Time>
-            <Cost>
-				    <Clay>500</Clay>
-				    <Stone>300</Stone>
-            </Cost-->
             <BuilderSlot>
                 <Position>
                     <X>400</X>
@@ -116,16 +102,6 @@
             <X>-400</X>
             <Y>180</Y>
         </DoorPos>
-
-
-
-
-
-
-
-
-        <!-- No need for build block bits because the XD_VillageCenter does that! Blocking, however, is now
-         required both in the XD_VillageCenter and in the village centers themselves -->
         <Blocked1>
             <X>-700</X>
             <Y>-500</Y>
@@ -135,6 +111,7 @@
             <Y>600</Y>
         </Blocked2>
     </Logic>
+
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>EGL::GLEBehaviorMultiSubAnims</Class>
@@ -143,6 +120,7 @@
             <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CBuildingBehavior</Class>
@@ -155,7 +133,6 @@
         </Display>
     </Behavior>
 
-
     <Behavior>
         <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
             <Class>GGL::CLimitedAttachmentBehavior</Class>
@@ -165,14 +142,10 @@
             </Attachment>
         </Logic>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CDefendableBuildingBehaviorProps">
             <Class>GGL::CDefendableBuildingBehavior</Class>
         </Logic>
     </Behavior>
-
-
-
-
-
 </root>

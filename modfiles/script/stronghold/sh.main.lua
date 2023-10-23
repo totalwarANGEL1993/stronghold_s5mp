@@ -1252,7 +1252,6 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
     self.Building:OnMonasterySelected(SelectedID);
     self.Building:OnAlchemistSelected(SelectedID);
     self.Building:OnTowerSelected(SelectedID);
-    self.Building:OnVillageCenterSelected(SelectedID);
     self.Building:OnWallSelected(SelectedID);
 
     self.Hero:OnSelectLeader(SelectedID);

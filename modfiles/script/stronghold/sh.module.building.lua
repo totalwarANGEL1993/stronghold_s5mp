@@ -148,13 +148,13 @@ function Stronghold.Building:OverrideHeadquarterButtons()
         XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
     end);
 
-    Overwrite.CreateOverwrite("GUIAction_BuySerf", function()
-        Stronghold.Building:HeadquartersBuySerf();
-    end);
+    -- Overwrite.CreateOverwrite("GUIAction_BuySerf", function()
+    --     Stronghold.Building:HeadquartersBuySerf();
+    -- end);
 
-    Overwrite.CreateOverwrite("GUITooltip_BuySerf", function()
-        Stronghold.Building:HeadquartersBuySerfTooltip();
-    end);
+    -- Overwrite.CreateOverwrite("GUITooltip_BuySerf", function()
+    --     Stronghold.Building:HeadquartersBuySerfTooltip();
+    -- end);
 
     GUIAction_CallMilitia = function()
         XGUIEng.ShowWidget("BuyHeroWindow", 1);
@@ -248,8 +248,7 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
 
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
         XGUIEng.ShowWidget("BuildingTabs", 1);
-        XGUIEng.ShowWidget("Buy_Serf_Recharge", 1);
-        XGUIEng.ShowWidget("Buy_Serf_Amount", 1);
+        GUIUpdate_BuySerf();
 
         local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID;
         if LastWidgetID == 0 then
@@ -844,18 +843,6 @@ function Stronghold.Building:OnTowerSelected(_EntityID)
     if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.DarkTower then
         XGUIEng.ShowWidget("Tower", 1);
         InterfaceTool_UpdateUpgradeButtons(Type, UpgradeCategories.DarkTower, "Upgrade_Tower");
-    end
-end
-
--- -------------------------------------------------------------------------- --
--- Village Center
-
-function Stronghold.Building:OnVillageCenterSelected(_EntityID)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.VillageCenter) == 1 then
-        XGUIEng.ShowWidget("Buy_Serf_Village_Recharge", 1);
-        XGUIEng.ShowWidget("Buy_Serf_Village_Amount", 1);
-        XGUIEng.ShowWidget("RallyPoint", 1);
-        GUIUpdate_PlaceRallyPoint();
     end
 end
 

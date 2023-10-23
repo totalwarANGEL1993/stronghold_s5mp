@@ -24,6 +24,7 @@ function Stronghold.Recruit:Install()
     end
     self:CreateBuildingButtonHandlers();
     self:InitAutoFillButtons();
+    self:OverwriteBuySerfAction();
 end
 
 function Stronghold.Recruit:OnSaveGameLoaded()
@@ -70,28 +71,6 @@ function Stronghold.Recruit:OnEntityCreated(_EntityID)
         if Logic.IsLeader(_EntityID) == 1 then
             self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
         end
-        -- -- Pay soldiers
-        -- if Logic.IsEntityInCategory(_EntityID, EntityCategories.Soldier) == 1 then
-        --     local LeaderID = SVLib.GetLeaderOfSoldier(_EntityID);
-        --     local EntityType = Logic.GetEntityType(LeaderID);
-        --     local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(EntityType, 1);
-        --     if not Stronghold.Attraction:HasPlayerSpaceForUnits(PlayerID, Places) then
-        --         local SoldierList = {Logic.GetSoldiersAttachedToLeader(LeaderID)};
-        --         if SoldierList[2] then
-        --             DestroyEntity(SoldierList[2]);
-        --         end
-        --     else
-        --         local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, EntityType, 1);
-        --         if not HasEnoughResources(PlayerID, Costs) then
-        --             local SoldierList = {Logic.GetSoldiersAttachedToLeader(LeaderID)};
-        --             if SoldierList[2] then
-        --                 DestroyEntity(SoldierList[2]);
-        --             end
-        --         else
-        --             RemoveResourcesFromPlayer(PlayerID, Costs);
-        --         end
-        --     end
-        -- end
     end
 end
 
@@ -154,7 +133,9 @@ function Stronghold.Recruit:IsUnitAllowed(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
     local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
     if Config then
-        return Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right) > 0;
+        if not Stronghold.Rights:IsRightLockedForPlayer(PlayerID, Config.Right) then
+            return Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right) >= 0;
+        end
     end
     return false;
 end
@@ -263,41 +244,33 @@ function Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amoun
     return Costs;
 end
 
+-- -------------------------------------------------------------------------- --
+
 function Stronghold.Recruit:BuyUnitAction(_WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
     if self.Data[_PlayerID].BuyLock then
         return;
     end
+    -- Check is foundry
+    if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") ~= nil then
+        return;
+    end
     -- Check if full
-    local IsFoundry = string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") ~= nil;
-    if IsFoundry then
-        if InterfaceTool_IsBuildingDoingSomething(_EntityID) then
-            return;
-        end
-    else
-        local LeaderIDs = self:GetLeaderTrainingAtBuilding(_EntityID);
-        if LeaderIDs[1] >= 3 then
-            return;
-        end
+    local LeaderIDs = self:GetLeaderTrainingAtBuilding(_EntityID);
+    if LeaderIDs[1] >= 3 then
+        return;
     end
     -- Check places
-    local AutoFillActive = Logic.IsAutoFillActive(_EntityID) == 1;
-    local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
     local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_EntityType, 1);
-    if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
-        if not Modifier then
-            Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-            Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+    if _EntityType == Entities.PU_Serf then
+        if not Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID) then
+            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
             return true;
         end
-    end
-    -- Check has worker
-    if IsFoundry then
-        local Worker = {Logic.GetAttachedWorkersToBuilding(EntityID)};
-        if not Worker[1] or (Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 0) then
-            Sound.PlayQueuedFeedbackSound(Sounds.VoicesWorker_WORKER_FunnyNo_rnd_01, 100);
-            Message(XGUIEng.GetStringTableText("sh_text/Player_NoWorker"));
-            return;
+    else
+        if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
+            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            return true;
         end
     end
     -- Pay costs
@@ -306,30 +279,62 @@ function Stronghold.Recruit:BuyUnitAction(_WidgetID, _PlayerID, _EntityID, _Upgr
         return;
     end
     self.Data[_PlayerID].BuyLock = true;
-    if IsFoundry then
-        Syncer.InvokeEvent(
-            self.NetworkCall,
-            self.SyncEvents.BuyCannon,
-            _EntityType,
-            0,
-            _EntityID
-        );
-    else
-        Syncer.InvokeEvent(
-            self.NetworkCall,
-            self.SyncEvents.BuyUnit,
-            _EntityType,
-            0,
-            _EntityID
-        );
-    end
+    Syncer.InvokeEvent(
+        self.NetworkCall,
+        self.SyncEvents.BuyUnit,
+        _EntityType,
+        0,
+        _EntityID
+    );
     -- Buy unit
-    if IsFoundry then
-        GUIAction_BuyCannon(_UpgradeCategory);
+    if _UpgradeCategory == UpgradeCategories.Serf then
+        GUI.BuySerf(_EntityID);
     else
         GUI.DeactivateAutoFillAtBarracks(_EntityID);
         GUIAction_BuyMilitaryUnit(_UpgradeCategory);
     end
+end
+
+function Stronghold.Recruit:BuyCannonAction(_WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
+    -- Prevent click spam
+    if self.Data[_PlayerID].BuyLock then
+        return;
+    end
+    -- Check is foundry
+    if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") == nil then
+        return;
+    end
+    -- Check if full
+    if InterfaceTool_IsBuildingDoingSomething(_EntityID) then
+        return;
+    end
+    -- Check places
+    local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_EntityType, 1);
+    if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
+        GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+        return true;
+    end
+    -- Check has worker
+    local Worker = {Logic.GetAttachedWorkersToBuilding(EntityID)};
+    if not Worker[1] or (Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 0) then
+        Sound.PlayQueuedFeedbackSound(Sounds.VoicesWorker_WORKER_FunnyNo_rnd_01, 100);
+        return;
+    end
+    -- Pay costs
+    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, 0);
+    if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
+        return;
+    end
+    self.Data[_PlayerID].BuyLock = true;
+    Syncer.InvokeEvent(
+        self.NetworkCall,
+        self.SyncEvents.BuyCannon,
+        _EntityType,
+        0,
+        _EntityID
+    );
+    -- Buy unit
+    GUIAction_BuyCannon(_UpgradeCategory);
 end
 
 function Stronghold.Recruit:BuyUnitTooltip(_WidgetID, _PlayerID, _EntityID, _EntityType)
@@ -359,8 +364,9 @@ function Stronghold.Recruit:BuyUnitTooltip(_WidgetID, _PlayerID, _EntityID, _Ent
 end
 
 function Stronghold.Recruit:BuyUnitUpdate(_WidgetID, _PlayerID, _EntityID, _EntityType, _IconSource)
-    XGUIEng.TransferMaterials(_IconSource, _WidgetID);
-
+    if _IconSource then
+        XGUIEng.TransferMaterials(_IconSource, _WidgetID);
+    end
     local Disabled = 1;
     if  self:IsUnitAllowed(_EntityID, _EntityType)
     and self:HasSufficientRecruiterBuilding(_EntityID, _EntityType)
@@ -374,53 +380,70 @@ end
 -- -------------------------------------------------------------------------- --
 -- Castle
 
-function GUIAction_BuySerf()
-    local PlayerID = GetLocalPlayerID();
-    local GuiPlayer = GUI.GetPlayerID();
-    local EntityID = GUI.GetSelectedEntity();
-    if GuiPlayer == 17 or not IsExisting(EntityID) then
-        return;
+function Stronghold.Recruit:OverwriteBuySerfAction()
+    GUIAction_BuySerf = function()
+        local PlayerID = GetLocalPlayerID();
+        local GuiPlayer = GUI.GetPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        if GuiPlayer == 17 or not IsExisting(EntityID) then
+            return;
+        end
+        Stronghold.Recruit:BuySerfAction(PlayerID, EntityID);
     end
-    Stronghold.Recruit:BuySerfAction(PlayerID, EntityID);
-end
 
-function GUITooltip_BuySerf()
-    local PlayerID = GetLocalPlayerID();
-    local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
-        return;
+    GUITooltip_BuySerf = function()
+        local PlayerID = GetLocalPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+            return;
+        end
+        Stronghold.Recruit:BuySerfTooltip(PlayerID, EntityID);
     end
-    Stronghold.Recruit:BuySerfTooltip(PlayerID, EntityID);
-end
 
-function GUIUpdate_BuySerf()
-    local PlayerID = GetLocalPlayerID();
-    local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
-        return;
+    GUIUpdate_BuySerf = function()
+        local PlayerID = GetLocalPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+            return;
+        end
+        Stronghold.Recruit:BuySerfUpdate(PlayerID, EntityID);
     end
-    Stronghold.Recruit:BuySerfUpdate(PlayerID, EntityID);
 end
 
 function Stronghold.Recruit:BuySerfAction(_PlayerID, _EntityID)
     local WidgetID = "Buy_Serf";
-    if Logic.IsEntityInCategory(_Entity, Categories.VillageCenter) == 1 then
-        WidgetID = "Buy_Serf_Village";
-    end
+    Stronghold.Recruit:BuyUnitAction(WidgetID, _PlayerID, _EntityID, UpgradeCategories.Serf, Entities.PU_Serf);
 end
 
 function Stronghold.Recruit:BuySerfTooltip(_PlayerID, _EntityID)
-    local WidgetID = "Buy_Serf";
-    if Logic.IsEntityInCategory(_Entity, Categories.VillageCenter) == 1 then
-        WidgetID = "Buy_Serf_Village";
+    local GuiPlayer = GetLocalPlayerID();
+    if not IsPlayer(GuiPlayer) then
+        return false;
     end
+    local Text = "";
+    local CostText = "";
+    local Shortcut = "";
+    if not self:IsUnitAllowed(_EntityID, Entities.PU_Serf) then
+        Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
+    else
+        local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
+        local Costs = CreateCostTable(unpack(Config.Costs[1]));
+        if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
+            local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
+            Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
+        end
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buyserf");
+        Shortcut = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits1") .. "]";
+        CostText = FormatCostString(GuiPlayer, Costs);
+    end
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostText);
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, Shortcut);
 end
 
 function Stronghold.Recruit:BuySerfUpdate(_PlayerID, _EntityID)
     local WidgetID = "Buy_Serf";
-    if Logic.IsEntityInCategory(_Entity, Categories.VillageCenter) == 1 then
-        WidgetID = "Buy_Serf_Village";
-    end
+    Stronghold.Recruit:BuyUnitUpdate(WidgetID, _PlayerID, _EntityID, Entities.PU_Serf, nil);
 end
 
 -- -------------------------------------------------------------------------- --

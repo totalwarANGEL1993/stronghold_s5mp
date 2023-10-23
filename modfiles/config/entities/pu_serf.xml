@@ -42,11 +42,11 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Category>Serf</Category>
-        <AttractionSlots>0</AttractionSlots>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <RepairFactor>0.3</RepairFactor>
         <Exploration>24</Exploration>
         <IdleTaskList>TL_SERF_IDLE</IdleTaskList>
+        <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Gold>0</Gold>
         </Cost>
