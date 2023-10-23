@@ -82,7 +82,7 @@ function Stronghold.Unit:RefillUnit(_PlayerID, _UnitID, _Amount, _Honor, _Gold, 
             if Logic.GetEntityHealth(_UnitID) > 0 then
                 local Task = Logic.GetCurrentTaskList(_UnitID);
                 if  (Task and not string.find(Task, "DIE") and not string.find(Task, "BATTLE"))
-                and not AreEnemiesInArea(_PlayerID, GetPosition(_UnitID), 3000) then
+                and not AreEnemiesInArea(_PlayerID, GetPosition(_UnitID), 2000) then
                     local BuildingID = Logic.LeaderGetNearbyBarracks(_UnitID);
                     if Logic.IsConstructionComplete(BuildingID) == 0 then
                         return;
@@ -191,7 +191,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
 
     local Task = Logic.GetCurrentTaskList(EntityID);
     if (Task and (string.find(Task, "BATTLE") or string.find(Task, "DIE")))
-    or AreEnemiesInArea(PlayerID, GetPosition(EntityID), 3000) then
+    or AreEnemiesInArea(PlayerID, GetPosition(EntityID), 2000) then
         return true;
     end
 
