@@ -703,6 +703,7 @@ function Stronghold:OnEntityCreated()
         end
     end
     if Logic.IsSettler(EntityID) == 1 then
+        self.Attraction:OnWorkerCreated(EntityID);
         self.Hero:ConfigurePlayersHeroPet(EntityID);
         if GUI.GetPlayerID() == PlayerID then
             self:OnSelectionMenuChanged(EntityID);

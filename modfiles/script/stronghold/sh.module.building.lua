@@ -417,10 +417,16 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         AddGold(_PlayerID, RandomTax);
 
     elseif _BlessCategory == BlessCategories.Financial then
+        local StanimaBonus = 0.5;
         local Workplaces = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
         for i= 1, table.getn(Workplaces) do
             local Workers = {Logic.GetAttachedWorkersToBuilding(Workplaces[i])};
             if Workers[1] > 0 and Logic.IsConstructionComplete(Workplaces[i]) == 1 then
+                for j= 2, Workers[1] +1 do
+                    local Stamina = CEntity.GetCurrentStamina(Workers[j]);
+                    local MaxStamina = CEntity.GetMaxStamina(Workers[j]);
+                    SetEntityStamina(Workers[j], math.min(Stamina + (MaxStamina * StanimaBonus), MaxStamina));
+                end
                 local x,y,z = Logic.EntityGetPos(Workplaces[i]);
                 Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
             end

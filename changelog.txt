@@ -7,6 +7,8 @@ Version 0.4.8
 - Hauptgebäude werden auch verwundbar, wenn der Held zu weit weg ist
 - Hauptgebäude haben jetzt Geschütze
 - Erecs Rundumschlag ist stärker und kann öfter eingesetzt werden
+- Pilgrims Abbaubonus wurde reduziert
+- Drake beschleunigt aus technischen Gründen Rekrutierung nicht mehr
 - Verbrecher sind nicht mehr absurd stark
 - Sammelpunkte nutzen jetzt R als Hotkey
 - Leibeigene hacken nicht mehr an Mauerbauplätzen

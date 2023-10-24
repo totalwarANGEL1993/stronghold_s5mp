@@ -408,6 +408,13 @@ end
 -- -------------------------------------------------------------------------- --
 -- Workers
 
+function Stronghold.Attraction:OnWorkerCreated(_EntityID)
+    if Logic.IsWorker(_EntityID) == 1 then
+        local MaxStamina = CEntity.GetMaxStamina(_EntityID);
+        SetEntityStamina(_EntityID, MaxStamina * 0.1);
+    end
+end
+
 function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Update Motivation of workers

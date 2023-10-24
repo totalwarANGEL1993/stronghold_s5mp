@@ -9,6 +9,31 @@ Stronghold = Stronghold or {};
 Stronghold.Utils = {};
 
 -- -------------------------------------------------------------------------- --
+-- Behavior hacks
+
+function GetEntityBehavior(_EntityID, _Behavior)
+    if Logic.IsEntityAlive(_EntityID) then
+        local entityadress = CUtilMemory.GetMemory(CUtilMemory.GetEntityAddress(_EntityID));
+        local startadress = entityadress[31];
+        local endadress = entityadress[32];
+        local lastindex = (endadress:GetInt() - startadress:GetInt()) / 4 - 1
+        for i = 0, lastindex do
+            local behavioraddress = startadress[i];
+            if behavioraddress:GetInt() ~= 0 and behavioraddress[0]:GetInt() == _Behavior then
+                return behavioraddress;
+            end
+        end
+    end
+end
+
+function SetEntityStamina(_EntityID, _Stamina)
+    local workerbehavior = GetEntityBehavior(_EntityID, 7809840);
+    if workerbehavior then
+        workerbehavior[4]:SetInt(_Stamina);
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- Find trees
 -- (Limited to 16 per type but Vanilla compatible)
 
