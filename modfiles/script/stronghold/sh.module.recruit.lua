@@ -366,7 +366,8 @@ function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _Entity
     else
         local TypeName = Logic.GetEntityTypeName(_EntityType);
         local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
-        local Soldiers = (Logic.IsAutoFillActive(_EntityID) == 1 and Config.Soldiers) or 0;
+        local AutoFillActive = Stronghold.Recruit.Data[_PlayerID].AutoFill[_EntityID] == true;
+        local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
         local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, Soldiers);
         CostsText = FormatCostString(_PlayerID, Costs);
         local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);

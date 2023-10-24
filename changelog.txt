@@ -1,16 +1,16 @@
-Version 0.4.x
+Version 0.4.8
 - Vanilla Rekrutierungssystem (behebt hoffentlich Desync)
-- Passive Soldatenstärkung vollständig entfernt
-- Soldaten konnen nicht in Feindesnähe gekauft werden
+- Rekrutierungsgebäude sind nun dynamisch limitiert
+- Passive Truppenstärkung vollständig entfernt
+- Soldaten können nicht in Feindesnähe gekauft werden
   (Soll campen an Rekrutierungsgebäuden verhindern)
 - Hauptgebäude werden auch verwundbar, wenn der Held zu weit weg ist
 - Hauptgebäude haben jetzt Geschütze
-- Rekrutierungsgebäude sind nun dynamisch limitiert
 - Erecs Rundumschlag ist stärker und kann öfter eingesetzt werden
 - Verbrecher sind nicht mehr absurd stark
 - Sammelpunkte nutzen jetzt R als Hotkey
 - Leibeigene hacken nicht mehr an Mauerbauplätzen
-- Dovbar ist wesentlich zäher
+- KI Held Dovbar ist wesentlich zäher
 - Tutorial verbessert (Atmosphäre)
 - Verbieten von Rechten funktioniert jetzt richtig (Mapping)
 - Gebäude können (theoretisch) 8 Einheitentypen rekrutieren (Mapping)
