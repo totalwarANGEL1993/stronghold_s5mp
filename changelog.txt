@@ -1,3 +1,7 @@
+Version 0.5.x
+- Tavernenfaktoren wurden angepasst
+  (Tavernen sollten jetzt nicht mehr so OP sein)
+
 Version 0.4.8
 - Vanilla Rekrutierungssystem (behebt hoffentlich Desync)
 - Rekrutierungsgebäude sind nun dynamisch limitiert
@@ -8,6 +12,7 @@ Version 0.4.8
 - Hauptgebäude haben jetzt Geschütze
 - Erecs Rundumschlag ist stärker und kann öfter eingesetzt werden
 - Pilgrims Abbaubonus wurde reduziert
+- Vargs Tavernenbonus verringert
 - Drake beschleunigt aus technischen Gründen Rekrutierung nicht mehr
 - Verbrecher sind nicht mehr absurd stark
 - Sammelpunkte nutzen jetzt R als Hotkey
