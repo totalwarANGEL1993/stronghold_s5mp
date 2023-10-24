@@ -1323,24 +1323,8 @@ function Stronghold:OverrideWidgetActions()
         Stronghold.Rights:OnlineHelpAction();
     end);
 
-    Overwrite.CreateOverwrite("GUIAction_ReserachTechnology", function(_Technology)
-        if GUI.GetPlayerID() ~= 17 then
-            if  not Stronghold.Recruit:OnBarracksSettlerUpgradeTechnologyClicked(_Technology)
-            and not Stronghold.Recruit:OnArcherySettlerUpgradeTechnologyClicked(_Technology)
-            and not Stronghold.Recruit:OnStableSettlerUpgradeTechnologyClicked(_Technology) then
-                Overwrite.CallOriginal();
-            end
-        end
-    end);
-
     Overwrite.CreateOverwrite("GUIAction_BuySoldier", function()
         if not Stronghold.Unit:BuySoldierButtonAction() then
-            Overwrite.CallOriginal();
-        end
-    end);
-
-    Overwrite.CreateOverwrite("GUIAction_ExpelSettler", function()
-        if not Stronghold.Unit:ExpelSettlerButtonAction() then
             Overwrite.CallOriginal();
         end
     end);
@@ -1374,11 +1358,6 @@ end
 
 -- Button Tooltip Generic Override
 function Stronghold:OverrideWidgetTooltips()
-    Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_Key)
-        Overwrite.CallOriginal();
-        Stronghold.Unit:ExpelSettlerButtonTooltip(_Key);
-    end);
-
     Overwrite.CreateOverwrite("GUITooltip_BuySoldier", function(_KeyNormal, _KeyDisabled, _ShortCut)
         Overwrite.CallOriginal();
         Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _ShortCut);

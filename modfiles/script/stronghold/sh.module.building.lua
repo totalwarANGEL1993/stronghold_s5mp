@@ -181,65 +181,6 @@ function Stronghold.Building:AdjustTax(_Level)
     return true;
 end
 
--- function Stronghold.Building:HeadquartersBuySerf()
---     local GuiPlayer = GetLocalPlayerID();
---     local PlayerID = GUI.GetPlayerID();
---     local EntityID = GUI.GetSelectedEntity();
---     if GuiPlayer ~= PlayerID then
---         return false;
---     end
---     if Stronghold.Players[PlayerID].BuyUnitLock then
---         return false;
---     end
-
---     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
---     local Costs = CreateCostTable(unpack(Config.Costs[1]));
---     if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
---         local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
---         Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
---     end
---     if  XGUIEng.IsModifierPressed(Keys.ModifierControl) == 0
---     and InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
---         return false;
---     end
-
---     local Button = "Buy_Serf";
---     if Logic.IsEntityInCategory(EntityID, EntityCategories.VillageCenter) == 1 then
---         Button = "Buy_Serf_Village";
---     end
-
---     Stronghold.Players[PlayerID].BuyUnitLock = true;
---     Syncer.InvokeEvent(
---         Stronghold.Building.NetworkCall,
---         Stronghold.Building.SyncEvents.EnqueueSerf,
---         EntityID,
---         Entities.PU_Serf,
---         false,
---         Button,
---         XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1
---     );
---     return true;
--- end
-
--- function Stronghold.Building:HeadquartersBuySerfTooltip()
---     local GuiPlayer = GetLocalPlayerID();
---     if not IsPlayer(GuiPlayer) then
---         return false;
---     end
---     local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
---     local Costs = CreateCostTable(unpack(Config.Costs[1]));
---     if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
---         local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
---         Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
---     end
--- 	local CostString = FormatCostString(GuiPlayer, Costs);
---     local ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits1") .. "]";
--- 	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
--- 	XGUIEng.SetTextKeyName(gvGUI_WidgetID.TooltipBottomText,"sh_menuheadquarter/buyserf");
--- 	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
---     return true;
--- end
-
 function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if not IsPlayer(PlayerID) then
