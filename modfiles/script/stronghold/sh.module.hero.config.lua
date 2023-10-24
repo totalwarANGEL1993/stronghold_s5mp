@@ -15,14 +15,13 @@ Stronghold.Hero.Config.Hero2 = {
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
-    UnitPlaceFactor = 0.5,
-    UnitCostFactor = 1.25,
+    UnitPlaceFactor = 0.75,
     KnowledgeFactor = 1.15,
 }
 -- Hero 4 properties
 Stronghold.Hero.Config.Hero4 = {
-    TrainExperience = 1,
-    UnitCostFactor = 1.5,
+    TrainExperience = 300,
+    UnitCostFactor = 1.25,
 }
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
@@ -48,7 +47,7 @@ Stronghold.Hero.Config.Hero7 = {
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {
     UpkeepFactor = 0.5,
-    SlaveFactor = 1.2,
+    SlaveFactor = 1.1,
 }
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {

@@ -72,7 +72,7 @@ function Stronghold.Recruit:OnEntityCreated(_EntityID)
         if Logic.IsLeader(_EntityID) == 1 then
             local Experience = Stronghold.Hero:ApplyExperiencePassiveAbility(PlayerID, _EntityID, 0);
             if Experience > 0 then
-                CEntity.SetLeaderExperience(_EntityID, 500);
+                CEntity.SetLeaderExperience(_EntityID, Experience);
             end
             self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
         end

@@ -479,7 +479,6 @@ function Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID)
         if Rank > 0 then
             RawLimit = RawLimit + (Rank * self.Config.Attraction.RankSlaveBonus);
         end
-
         -- External
         Limit = GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, RawLimit);
     end

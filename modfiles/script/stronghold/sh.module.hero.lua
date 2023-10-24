@@ -1184,15 +1184,6 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
             end
         end
     end
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-        local Factor = self.Config.Hero3.UnitCostFactor;
-        if Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1 then
-            Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
-            Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
-            Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
-            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
-        end
-    end
     return Costs;
 end
 
@@ -1456,7 +1447,7 @@ function Stronghold.Hero:ApplyExperiencePassiveAbility(_PlayerID, _EntityID, _Am
         if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 0
         and Logic.IsEntityInCategory(_EntityID, EntityCategories.Scout) == 0
         and Logic.IsEntityInCategory(_EntityID, EntityCategories.Thief) == 0 then
-            Amount = 500;
+            Amount = self.Config.Hero4.TrainExperience;
         end
     end
     return Amount;
