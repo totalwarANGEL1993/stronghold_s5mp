@@ -26,8 +26,6 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
-    MinerMineralPreserve = 1,
-    SerfMineralPreserve = 1,
     SerfWoodPreserve = 2,
 }
 -- Hero 6 properties
@@ -36,13 +34,11 @@ Stronghold.Hero.Config.Hero6 = {
     ConversionArea = 600,
     ConversionChance = 6,
     ConversionMax = 1000,
-    SermonReputation = 3,
-    SermonHonor = 3,
 }
 -- Hero 7 properties
 Stronghold.Hero.Config.Hero7 = {
     ReputationCap = 175,
-    ReputationLossFactor = 0.5,
+    ReputationLossFactor = 0.75,
 }
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {

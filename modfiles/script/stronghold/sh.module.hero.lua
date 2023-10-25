@@ -582,69 +582,6 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     Stronghold.Recruit.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
 end
 
--- Old system
--- function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
---     Stronghold.Recruit:InitDefaultRoster(_PlayerID);
-
---     local ThiefRecruiter = {Entities.PB_Tavern2};
---     AllowTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
---     if string.find(Logic.GetEntityTypeName(_Type), "^PU_Hero1[abc]+$") then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm4;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword4;
---     elseif _Type == Entities.PU_Hero2 then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BanditLeaderSword2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BanditLeaderSword1;
---     elseif _Type == Entities.PU_Hero3 then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Buy_Cannon1"] = Entities.CV_Cannon1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Buy_Cannon3"] = Entities.CV_Cannon2;
---     elseif _Type == Entities.PU_Hero4 then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.PU_LeaderHeavyCavalry2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.PU_LeaderCavalry2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
---         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
---     elseif _Type == Entities.PU_Hero5 then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword1"] = Entities.CU_BanditLeaderSword3;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.CU_BanditLeaderBow1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_BanditLeaderBow2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_RangerLeaderCavalry1;
---     elseif _Type == Entities.PU_Hero6 then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryLight1"] = Entities.CU_CrusaderLeaderCavalry1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeCavalryHeavy1"] = Entities.CU_TemplarLeaderCavalry1;
---     elseif _Type == Entities.PU_Hero10 then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderRifle1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderRifle2;
---     elseif _Type == Entities.PU_Hero11 then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow1"] = Entities.PU_LeaderBow2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderRifle1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderRifle2;
---     elseif _Type == Entities.CU_BlackKnight then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_BlackKnight_LeaderMace2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_BlackKnight_LeaderMace1;
---     elseif _Type == Entities.CU_Mary_de_Mortfichet then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow4;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeRifle1"] = Entities.PU_LeaderRifle1;
---         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
---         ThiefRecruiter = {Entities.PB_Tavern1, Entities.PB_Tavern2};
---     elseif _Type == Entities.CU_Barbarian_Hero then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Barbarian_LeaderClub2;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.CU_Barbarian_LeaderClub1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.PU_LeaderBow3;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = nil;
---         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
---     elseif _Type == Entities.CU_Evil_Queen then
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword2"] = Entities.PU_LeaderPoleArm3;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSword3"] = Entities.CU_Evil_LeaderBearman1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeSpear1"] = Entities.PU_LeaderSword3;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow2"] = Entities.CU_Evil_LeaderSkirmisher1;
---         Stronghold.Recruit.Data[_PlayerID].Roster["Research_UpgradeBow3"] = Entities.PU_LeaderBow3;
---         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
---     end
---     Stronghold.Recruit.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
--- end
-
 -- -------------------------------------------------------------------------- --
 -- Trigger
 
@@ -1115,9 +1052,6 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
             Amount = math.floor((Amount * self.Config.Hero2.MinerExtractionFactor) + 0.5);
         end
     end
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        ResourceRemaining = ResourceRemaining + self.Config.Hero5.MinerMineralPreserve;
-    end
     return Amount, ResourceRemaining;
 end
 
@@ -1126,14 +1060,12 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local ResourceRemaining = _Remaining
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        if _Type ~= ResourceType.WoodRaw then
-            ResourceRemaining = ResourceRemaining + self.Config.Hero5.SerfMineralPreserve;
-        else
-local Current = Logic.GetEntityScriptingValue(_SourceID, 9);
-local Maximum = Logic.GetEntityScriptingValue(_SourceID, 10);
-if Current / Maximum > 0.6 then
-    ResourceRemaining = ResourceRemaining + self.Config.Hero5.SerfWoodPreserve;
-end
+        if _Type == ResourceType.WoodRaw then
+            local Current = Logic.GetEntityScriptingValue(_SourceID, 9);
+            local Maximum = Logic.GetEntityScriptingValue(_SourceID, 10);
+            if Current / Maximum > 0.6 then
+                ResourceRemaining = ResourceRemaining + self.Config.Hero5.SerfWoodPreserve;
+            end
         end
     end
     return Amount, ResourceRemaining;
@@ -1399,18 +1331,14 @@ end
 -- Passive Ability: Bonus honor for sermons
 function Stronghold.Hero:ApplyHonorSermonPassiveAbility(_PlayerID, _BlessCategory, _Amount)
     local Amount = _Amount;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
-        Amount = Amount + self.Config.Hero6.SermonHonor;
-    end
+    -- Nothing to do
     return Amount;
 end
 
 -- Passive Ability: Bonus reputation for sermons
 function Stronghold.Hero:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCategory, _Amount)
     local Amount = _Amount;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
-        Amount = Amount + self.Config.Hero6.SermonReputation;
-    end
+    -- Nothing to do
     return Amount;
 end
 
