@@ -54,8 +54,8 @@ function Stronghold.AI:ControlAiPlayerHeroes()
             local Type = Logic.GetEntityType(HeroID);
             if IsEntityValid(HeroID) then
                 local DoorPos = Stronghold.Players[PlayerID].DoorPos;
-                local OuterMaxDistance = 8000;
-                local InnerMaxDistance = 6000;
+                local OuterMaxDistance = 6000;
+                local InnerMaxDistance = 4000;
                 local PeaceDistance = 500;
 
                 -- Find enemies
@@ -107,11 +107,273 @@ end
 
 function Stronghold.AI:ControlAiPlayerHero(_PlayerID, _HeroID)
     local Type = Logic.GetEntityType(_HeroID);
-    -- Default AI hero
-    if Type == Entities.CU_Hero13 then
+    local TypeName = Logic.GetEntityTypeName(Type);
+
+    if string.find(TypeName, "^PU_Hero1[abc]+$") then
+        self:ControlHero1DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.PU_Hero2 then
+        self:ControlHero2DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.PU_Hero3 then
+        self:ControlHero3DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.PU_Hero4 then
+        self:ControlHero4DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.PU_Hero5 then
+        self:ControlHero5DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.PU_Hero6 then
+        self:ControlHero6DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.CU_BlackKnight then
+        self:ControlHero7DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.CU_Mary_de_Mortfichet then
+        self:ControlHero8DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.CU_Barbarian_Hero then
+        self:ControlHero9DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.PU_Hero10 then
+        self:ControlHero10DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.PU_Hero11 then
+        self:ControlHero11DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.CU_Evil_Queen then
+        self:ControlHero12DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.CU_Hero13 then
         self:ControlHero13DefendCastle(_PlayerID, _HeroID);
     end
-    -- TODO: Add other heroes
+end
+
+-- Hero 1
+
+function Stronghold.AI:ControlHero1DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Scare enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
+        if table.getn(CloseEnemies) >= 5 then
+            self:HeroTriggerAbilityInflictFear(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 2
+
+function Stronghold.AI:ControlHero2DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Place bomb unter hero
+        if math.mod(math.floor(Logic.GetTime()), 90) == 0 then
+            local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
+            if table.getn(CloseEnemies) >= 5 then
+                local x,y,z = Logic.EntityGetPos(_HeroID);
+                Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
+            end
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 3
+
+function Stronghold.AI:ControlHero3DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Place "trap" near random enemy
+        if math.mod(math.floor(Logic.GetTime()), 90) == 0 then
+            local Selected = math.random(1, table.getn(FarEnemyList));
+            local EnemyID = FarEnemyList[Selected];
+            local x,y,z = Logic.EntityGetPos(EnemyID);
+            local ID = Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
+            SVLib.SetInvisibility(ID, true);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 4
+
+function Stronghold.AI:ControlHero4DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Hurt enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
+        if table.getn(CloseEnemies) >= 5 then
+            self:HeroTriggerAbilityCircularAttack(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 5
+
+function Stronghold.AI:ControlHero5DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Hurt enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1800);
+        local Selected = math.random(1, table.getn(CloseEnemies));
+        local EnemyID = CloseEnemies[Selected];
+        if Logic.IsSettler(EnemyID) == 1 then
+            if Logic.IsEntityInCategory(EnemyID, EntityCategories.Soldier) == 1 then
+                EnemyID = SVLib.GetLeaderOfSoldier(EnemyID);
+            end
+            self:HeroTriggerAbilityShuriken(_HeroID, EnemyID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 6
+
+function Stronghold.AI:ControlHero6DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Buff allies
+        local AllyAmount = Logic.GetPlayerEntitiesInArea(_PlayerID, 0, HeroPos.X, HeroPos.Y, 1500, 16);
+        if AllyAmount > 5 then
+            self:HeroTriggerAbilityAffectUnits(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 7
+
+function Stronghold.AI:ControlHero7DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Debuff enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
+        if table.getn(CloseEnemies) >= 5 then
+            self:HeroTriggerAbilityAffectUnits(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 8
+
+function Stronghold.AI:ControlHero8DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Hurt enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
+        if table.getn(CloseEnemies) >= 5 then
+            self:HeroTriggerAbilityCircularAttack(_HeroID);
+            self:HeroTriggerAbilityAffectUnits(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 9
+
+function Stronghold.AI:ControlHero9DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Summon wolves
+        if Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.CU_Barbarian_Hero_wolf) == 0 then
+            local EnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 2000);
+            if table.getn(EnemyList) > 0 then
+                self:HeroTriggerAbilitySummon(_HeroID);
+                return;
+            end
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+
+            local WolfList = GetPlayerEntities(_PlayerID, Entities.CU_Barbarian_Hero_wolf);
+            for i= 1, table.getn(WolfList) do
+                if not IsFighting(WolfList[i]) then
+                    Logic.GroupAttackMove(WolfList[i], EnemyPos.X, EnemyPos.Y);
+                end
+            end
+        end
+    end
+end
+
+-- Hero 10
+
+function Stronghold.AI:ControlHero10DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Buff allies
+        local AllyAmount = Logic.GetPlayerEntitiesInArea(_PlayerID, 0, HeroPos.X, HeroPos.Y, 1500, 16);
+        if AllyAmount > 5 then
+            self:HeroTriggerAbilityAffectUnits(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 11
+
+function Stronghold.AI:ControlHero11DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Scare enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
+        if table.getn(CloseEnemies) >= 5 then
+            self:HeroTriggerAbilityInflictFear(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
+end
+
+-- Hero 12
+
+function Stronghold.AI:ControlHero12DefendCastle(_PlayerID, _HeroID)
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Hurt enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
+        if table.getn(CloseEnemies) >= 5 then
+            self:HeroTriggerAbilityCircularAttack(_HeroID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
 end
 
 -- Hero 13
@@ -161,7 +423,25 @@ end
 
 -- Helper
 
+function Stronghold.AI:HeroTriggerAbilityInflictFear(_HeroID)
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_HeroID, Abilities.AbilityInflictFear);
+    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_HeroID, Abilities.AbilityInflictFear);
+    if TimeLeft ~= RechargeTime then
+        return;
+    end
+    if XNetwork.Manager_DoesExist() == 1 and SendEvent then
+        SendEvent.SettlerInflictFear(_HeroID);
+        return;
+    end
+    GUI.SettlerInflictFear(_HeroID);
+end
+
 function Stronghold.AI:HeroTriggerAbilityAffectUnits(_HeroID)
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_HeroID, Abilities.AbilityRangedEffect);
+    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_HeroID, Abilities.AbilityRangedEffect);
+    if TimeLeft ~= RechargeTime then
+        return;
+    end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
         SendEvent.SettlerAffectUnitsInArea(_HeroID);
         return;
@@ -170,6 +450,11 @@ function Stronghold.AI:HeroTriggerAbilityAffectUnits(_HeroID)
 end
 
 function Stronghold.AI:HeroTriggerAbilityCircularAttack(_HeroID)
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_HeroID, Abilities.AbilityCircularAttack);
+    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_HeroID, Abilities.AbilityCircularAttack);
+    if TimeLeft ~= RechargeTime then
+        return;
+    end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
         SendEvent.SettlerCircularAttack(_HeroID);
         return;
@@ -178,10 +463,28 @@ function Stronghold.AI:HeroTriggerAbilityCircularAttack(_HeroID)
 end
 
 function Stronghold.AI:HeroTriggerAbilitySummon(_HeroID)
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_HeroID, Abilities.AbilitySummon);
+    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_HeroID, Abilities.AbilitySummon);
+    if TimeLeft ~= RechargeTime then
+        return;
+    end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
         SendEvent.SettlerSummon(_HeroID);
         return;
     end
     GUI.SettlerSummon(_HeroID);
+end
+
+function Stronghold.AI:HeroTriggerAbilityShuriken(_HeroID, _TargetID)
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_HeroID, Abilities.AbilityShuriken);
+    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_HeroID, Abilities.AbilityShuriken);
+    if TimeLeft ~= RechargeTime then
+        return;
+    end
+    if XNetwork.Manager_DoesExist() == 1 and SendEvent then
+        SendEvent.HeroShuriken(_HeroID, _TargetID);
+        return;
+    end
+    GUI.SettlerSummon(_HeroID, _TargetID);
 end
 
