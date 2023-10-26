@@ -12,7 +12,7 @@
 		<ForceNoPlayer>false</ForceNoPlayer>
         <IsWall>true</IsWall>
 		<ArmorClass>ArmorClassFortification</ArmorClass> 
-		<MaxHealth>75</MaxHealth>
+		<MaxHealth>200</MaxHealth>
 	    <ArmorAmount>0</ArmorAmount>
         <ApproachPos>
             <X>-140</X>
