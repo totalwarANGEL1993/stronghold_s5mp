@@ -68,6 +68,21 @@ function DelinquentsCampDestroy(_ID)
     end
 end
 
+--- Checks if a camp has at least one spawner left.
+--- @param _ID integer ID of camp
+--- @return boolean Alive Camp is alive
+function DelinquentsCampIsAlive(_ID)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        local Data = Stronghold.AI.Data.Delinquents[_ID];
+        for i= 1, table.getn(Data.Spawner) do
+            if AiArmyRefiller.IsAlive(Data.Spawner[i]) then
+                return true;
+            end
+        end
+    end
+    return false;
+end
+
 --- Creates a spawner for the camp.
 --- @param _ID integer ID of camp
 --- @param _ScriptName string Scriptname of spawner
