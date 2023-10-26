@@ -1061,11 +1061,10 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type == ResourceType.WoodRaw then
-            local Current = Logic.GetEntityScriptingValue(_SourceID, 9);
-            local Maximum = Logic.GetEntityScriptingValue(_SourceID, 10);
-            if Current / Maximum > 0.6 then
-                ResourceRemaining = ResourceRemaining + self.Config.Hero5.SerfWoodPreserve;
-            end
+            -- This has the same effect as the previous implementation were as
+            -- long as the tree was half full the amount of wood was restored
+            -- without the downside of trees blocking building places longer.
+            Logic.AddToPlayersGlobalResource(_PlayerID, _Type, self.Config.Hero5.SerfWoodBonus);
         end
     end
     return Amount, ResourceRemaining;

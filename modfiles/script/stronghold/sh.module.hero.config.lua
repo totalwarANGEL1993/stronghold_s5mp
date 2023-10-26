@@ -26,7 +26,7 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
-    SerfWoodPreserve = 2,
+    SerfWoodBonus = 1,
 }
 -- Hero 6 properties
 Stronghold.Hero.Config.Hero6 = {
