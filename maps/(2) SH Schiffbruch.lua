@@ -80,8 +80,6 @@ SHS5MP_RulesDefinition = {
         SetHostile(1, 7);
         SetHostile(2, 7);
         CreatePassiveBanditCamps();
-        CreateAggressiveBanditCamps();
-        OverwriteOutlawCallbacks();
     end,
 
     -- Called after peacetime is over
@@ -96,11 +94,15 @@ SHS5MP_RulesDefinition = {
 -- -------------------------------------------------------------------------- --
 
 function CreatePassiveBanditCamps()
-    for k,v in pairs{1, 3} do
-        Treasure.RandomChest("VCCamp" ..v.. "Chest1", 1000, 2000);
+    for _, Index in pairs{1, 3} do
+        Treasure.RandomChest("VCCamp" ..Index.. "Chest1", 1000, 2000);
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "VCCamp" ..Index.. "Center",
+            Strength = 3,
+        };
         for j= 1, 3 do
-            CreateTroopSpawner(
-                7, "VCCamp" ..v.. "Tent" ..j, nil, 1, 60, 3000,
+            DelinquentsCampAddSpawner(
+                CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
                 Entities.CU_BanditLeaderSword2,
                 Entities.PU_LeaderBow1,
                 Entities.CU_BanditLeaderBow1,
@@ -109,72 +111,23 @@ function CreatePassiveBanditCamps()
             );
         end
     end
-end
 
-function CreateAggressiveBanditCamps()
-    local CampID = {2, 4};
-    for i= 1, table.getn(CampID) do
-        local v = CampID[i];
-        Treasure.RandomChest("VCCamp" ..v.. "Chest1", 2000, 4000);
+    for _, Index in pairs{2, 4} do
+        Treasure.RandomChest("VCCamp" ..Index.. "Chest1", 2000, 4000);
 
-        -- Initalize spawner
-        _G["VCCamp"] = {};
-        _G["VCCamp" ..v.. "Attacks"] = 0;
-        _G["VCCamp" ..v.. "Spawners"] = {};
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "VCCamp" ..Index.. "Center",
+            Strength = 12,
+        };
         for j= 1, 5 do
-            local ID = CreateTroopSpawner(
-                7, "VCCamp" ..v.. "Tent" ..j, nil, 2, 60, 3000,
-                Entities.PU_LeaderPoleArm1,
+            DelinquentsCampAddSpawner(
+                CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
                 Entities.CU_BanditLeaderSword2,
                 Entities.PU_LeaderBow1,
-                Entities.PV_Cannon1,
                 Entities.CU_BanditLeaderBow1,
-                Entities.PU_LeaderBow1
+                Entities.PV_Cannon1,
+                Entities.PU_LeaderPoleArm1
             );
-            table.insert(_G["VCCamp" ..v.. "Spawners"], ID);
-        end
-
-        -- Initalize camps
-        local TargetIndex = math.random(1,3);
-        local ID = CreateOutlawCamp(
-            7,
-            "VCCamp" ..v.. "Center",
-            "VCCamp" ..v.. "Pos" ..TargetIndex,
-            2500,
-            3,
-            5 * 60,
-            unpack(_G["VCCamp" ..v.. "Spawners"])
-        );
-        table.insert(_G["VCCamp"], ID);
-
-        -- Allow attacks after 10 minutes
-        AllowAttackForOutlawCamp(7, ID, false);
-        Stronghold:AddDelayedAction((5 * 60) * 10, function(_ID)
-            AllowAttackForOutlawCamp(7, _ID, true);
-        end, ID);
-    end
-end
-
-function OverwriteOutlawCallbacks()
-    -- Outlaws choose next attack target by random
-    GameCallback_SH_Logic_OutlawAttackFinished = function(_PlayerID, _CampID, _AttackResult)
-        local Index = 2;
-        if _G["VCCamp"][2] == _CampID then
-            Index = 4;
-        end
-        -- Attack target
-        local Target = "VCCamp" ..Index.. "Pos" ..math.random(1,3);
-        SetAttackTargetOfOutlawCamp(_PlayerID, _CampID, Target);
-        -- Attack strength
-        _G["VCCamp" ..Index.. "Attacks"] = _G["VCCamp" ..Index.. "Attacks"] +1;
-        if _G["VCCamp" ..Index.. "Attacks"] == 10 then
-            SetAttackStrengthOfOutlawCamp(_PlayerID, _CampID, 4);
-        end
-        if _G["VCCamp" ..Index.. "Attacks"] == 15 then
-            SetAttackStrengthOfOutlawCamp(_PlayerID, _CampID, 6);
-        end
-        if _G["VCCamp" ..Index.. "Attacks"] == 20 then
-            SetAttackStrengthOfOutlawCamp(_PlayerID, _CampID, 8);
         end
     end
 end

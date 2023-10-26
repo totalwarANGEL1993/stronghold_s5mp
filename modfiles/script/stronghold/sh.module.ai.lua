@@ -16,20 +16,10 @@ Stronghold.AI = {
         SpawnerSequence = 0,
 
         Heroes = {},
-        Players = {},
-        Armies = {},
-        Spawner = {},
+        Delinquents = {Sequence = 0,},
     },
     Config = {},
 };
-
--- -------------------------------------------------------------------------- --
--- API
-
-
-
--- -------------------------------------------------------------------------- --
--- Main
 
 function Stronghold.AI:Install()
     Job.Second(function()
@@ -38,6 +28,150 @@ function Stronghold.AI:Install()
 end
 
 function Stronghold.AI:OnSaveGameLoaded()
+end
+
+-- -------------------------------------------------------------------------- --
+-- Delinquents
+
+--- Creates a camp.
+---
+--- The camp needs spawners to have an army.
+---
+--- #### Configuration
+--- * `PlayerID` - ID of player (Default: [max human player] +1)
+--- * `HomePosition` - Center position of camp
+--- * `Strength` - Strength shared by both armies (Default: 4)
+--- * `RodeLength` - Action shared by both armies (Default: 3500)
+---
+--- @param _Data table Camp configuration
+--- @return integer ID ID of camp
+function DelinquentsCampCreate(_Data)
+    return Stronghold.AI:CreateDelinquentsCamp(_Data);
+end
+
+--- Removes a camp. Soldiers will be deleted, buildings not.
+--- @param _ID integer ID of camp
+function DelinquentsCampDestroy(_ID)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        local Data = Stronghold.AI.Data.Delinquents[_ID];
+        AiArmyManager.Delete(Data.AttackManagerID);
+        AiArmyManager.Delete(Data.DefendManagerID);
+
+        local AttackArmy = AiArmy.Get(Data.AttackArmyID);
+        AttackArmy:Abadon(true);
+        AttackArmy:Dispose();
+        local DefendArmy = AiArmy.Get(Data.DefendArmyID);
+        DefendArmy:Abadon(true);
+        DefendArmy:Dispose();
+
+        Stronghold.AI.Data.Delinquents[_ID] = nil;
+    end
+end
+
+--- Creates a spawner for the camp.
+--- @param _ID integer ID of camp
+--- @param _ScriptName string Scriptname of spawner
+--- @param _Time integer Respawn time
+--- @param _Amount integer Amount to spawn
+--- @param ... integer|table List of troop types
+--- @return integer ID ID of spawner
+function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
+    local ID = 0;
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        local Data = Stronghold.AI.Data.Delinquents[_ID];
+        local Troops = {};
+        for i= 1, table.getn(arg) do
+            local Troop = (type(arg[i]) ~= "table" and {arg[i], 0}) or arg[i];
+            table.insert(Troops, Troop);
+        end
+        ID = AiArmyRefiller.CreateSpawner{
+            ScriptName   = _ScriptName,
+            SpawnPoint   = (IsExisting(_ScriptName.. "Spawn") and _ScriptName.. "Spawn") or nil,
+            SpawnAmount  = _Amount,
+            SpawnTimer   = _Time,
+            AllowedTypes = Troops,
+        }
+        AiArmyRefiller.AddArmy(ID, Data.AttackArmyID);
+        AiArmyRefiller.AddArmy(ID, Data.DefendArmyID);
+        table.insert(Stronghold.AI.Data.Delinquents[_ID].Spawner, ID);
+    end
+    return ID;
+end
+
+--- Removes all spawners from the camp.
+--- @param _ID integer ID of camp
+function DelinquentsCampClearSpawners(_ID)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        local Data = Stronghold.AI.Data.Delinquents[_ID];
+        for i= 1, table.getn(Data.Spawner) do
+            AiArmyRefiller.DeleteRefiller(Data.Spawner[i]);
+        end
+        Stronghold.AI.Data.Delinquents[_ID].Spawner = {};
+    end
+end
+
+--- Adds attack targets to the camp.
+---
+--- If the target is a table, the last element of it becomes the attack target.
+--- @param _ID integer ID of camp
+--- @param ... string|table List of targets
+function DelinquentsCampAddTarget(_ID, ...)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        local Data = Stronghold.AI.Data.Delinquents[_ID];
+        AiArmyManager.AddAttackTargetPath(Data.AttackArmyID, unpack(arg));
+    end
+end
+
+--- Removes all attack targets from the camp.
+--- @param _ID integer ID of camp
+function DelinquentsCampClearTargets(_ID)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        local Data = Stronghold.AI.Data.Delinquents[_ID];
+        AiArmyManager.ClearAttackTargets(Data.AttackArmyID);
+        AiArmyManager.ClearAttackTargets(Data.DefendArmyID);
+    end
+end
+
+function Stronghold.AI:CreateDelinquentsCamp(_Data)
+    -- Camp Data
+    local Data = CopyTable(_Data);
+    self.Data.Delinquents.Sequence = self.Data.Delinquents.Sequence +1;
+    Data.ID = self.Data.Delinquents.Sequence;
+    Data.PlayerID = Data.PlayerID or GetMaxHumanPlayers() +1;
+    Data.Spawner = {};
+    if type(Data.HomePosition) ~= "table" then
+        Data.HomePosition = GetPosition(Data.HomePosition);
+    end
+    -- Attack army
+    local AttackArmyID = AiArmy.New(
+        Data.PlayerID,
+        math.ceil(Data.Strength/2) or 4,
+        Data.HomePosition,
+        Data.RodeLength or 3500
+    );
+    AiArmy.SetFormationController(AttackArmyID, function (_ID)
+        Stronghold.Unit:SetFormationOnCreate(_ID);
+    end);
+    Data.AttackArmyID = AttackArmyID;
+    local AttackManagerID = AiArmyManager.Create(AttackArmyID);
+    Data.AttackManagerID = AttackManagerID;
+    -- Defend army
+    local DefendArmyID = AiArmy.New(
+        Data.PlayerID,
+        math.floor(Data.Strength/2) or 4,
+        Data.HomePosition,
+        Data.RodeLength or 3500
+    );
+    AiArmy.SetFormationController(DefendArmyID, function (_ID)
+        Stronghold.Unit:SetFormationOnCreate(_ID);
+    end);
+    Data.DefendArmyID = DefendArmyID;
+    local DefendManagerID = AiArmyManager.Create(DefendArmyID);
+    Data.DefendManagerID = DefendManagerID;
+
+    AiArmyManager.ForbidAttacking(DefendManagerID, true);
+    self.Data.Delinquents[Data.ID] = Data;
+    return Data.ID;
 end
 
 -- -------------------------------------------------------------------------- --
