@@ -147,6 +147,16 @@ function DelinquentsCampClearTargets(_ID)
     end
 end
 
+--- Sets if a camp is attacking it's targets.
+--- @param _ID integer ID of camp
+--- @param _Flag boolean Camp does attack
+function DelinquentsCampActivateAttack(_ID, _Flag)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        local Data = Stronghold.AI.Data.Delinquents[_ID];
+        AiArmyManager.ForbidAttacking(Data.AttackManagerID, _Flag == true);
+    end
+end
+
 function Stronghold.AI:CreateDelinquentsCamp(_Data)
     -- Camp Data
     local Data = CopyTable(_Data);

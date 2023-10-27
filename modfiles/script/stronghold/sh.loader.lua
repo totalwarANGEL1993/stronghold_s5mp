@@ -114,11 +114,6 @@ Script.Load(gvStrongholdPath.. "sh.module.statistic.lua");
 Script.Load(gvStrongholdPath.. "sh.module.unit.lua");
 Script.Load(gvStrongholdPath.. "sh.module.unit.config.lua");
 ---
-Script.Load(gvStrongholdPath.. "sh.module.spawner.lua");
-Script.Load(gvStrongholdPath.. "sh.module.spawner.config.lua");
-Script.Load(gvStrongholdPath.. "sh.module.outlaw.lua");
-Script.Load(gvStrongholdPath.. "sh.module.outlaw.constants.lua");
----
 Script.Load(gvStrongholdPath.. "sh.module.multiplayer.lua");
 Script.Load(gvStrongholdPath.. "sh.module.multiplayer.config.lua");
 ---

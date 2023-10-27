@@ -165,16 +165,22 @@ function SetupCamps()
 end
 
 function SetupCampsWS0()
-    for j= 1,2 do
-        CreateTroopSpawner(
-            7, "Outpost" ..j, nil, 3, 120, 3000,
+    for j= 1, 2 do
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "Province" ..j.. "Pos",
+            RodeLength = 4500,
+            Strength = 7,
+        };
+
+        DelinquentsCampAddSpawner(
+            CampID, "Outpost" ..j, 120, 1,
             Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
-            CreateTroopSpawner(
-                7, "OP" ..j.. "Tent"..i, nil, 1, 120, 3000,
+            DelinquentsCampAddSpawner(
+                CampID, "OP" ..j.. "Tent" ..i, 120, 1,
                 Entities.PU_LeaderPoleArm1,
                 Entities.PU_LeaderPoleArm1,
                 Entities.PU_LeaderBow1
@@ -184,17 +190,23 @@ function SetupCampsWS0()
 end
 
 function SetupCampsWS10()
-    for j= 1,2 do
-        CreateTroopSpawner(
-            7, "Outpost" ..j, nil, 3, 120, 3000,
+    for j= 1, 2 do
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "Province" ..j.. "Pos",
+            RodeLength = 4500,
+            Strength = 7,
+        };
+
+        DelinquentsCampAddSpawner(
+            CampID, "Outpost" ..j, 120, 2,
             Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
-            CreateTroopSpawner(
-                7, "OP" ..j.. "Tent"..i, nil, 2, 120, 3000,
-                Entities.PU_LeaderPoleArm1,
+            DelinquentsCampAddSpawner(
+                CampID, "OP" ..j.. "Tent" ..i, 120, 2,
+                Entities.PU_LeaderSword1,
                 Entities.PU_LeaderPoleArm1,
                 Entities.PU_LeaderBow1
             );
@@ -203,18 +215,22 @@ function SetupCampsWS10()
 end
 
 function SetupCampsWS20()
-    for j= 1,2 do
-        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower2);
-        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower2);
-        CreateTroopSpawner(
-            7, "Outpost" ..j, nil, 4, 90, 3000,
+    for j= 1, 2 do
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "Province" ..j.. "Pos",
+            RodeLength = 4500,
+            Strength = 7,
+        };
+
+        DelinquentsCampAddSpawner(
+            CampID, "Outpost" ..j, 90, 2,
             Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
-            CreateTroopSpawner(
-                7, "OP" ..j.. "Tent"..i, nil, 1, 90, 3000,
+            DelinquentsCampAddSpawner(
+                CampID, "OP" ..j.. "Tent" ..i, 90, 2,
                 Entities.PU_LeaderPoleArm2,
                 Entities.PU_LeaderBow2
             );
@@ -223,42 +239,57 @@ function SetupCampsWS20()
 end
 
 function SetupCampsWS30()
-    for j= 1,2 do
+    for j= 1, 2 do
         ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower2);
         ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower2);
-        CreateTroopSpawner(
-            7, "Outpost" ..j, nil, 4, 90, 3000,
-            Entities.PU_LeaderSword2,
+
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "Province" ..j.. "Pos",
+            RodeLength = 4500,
+            Strength = 7,
+        };
+
+        DelinquentsCampAddSpawner(
+            CampID, "Outpost" ..j, 90, 3,
+            Entities.PU_LeaderSword3,
             Entities.PU_LeaderBow2,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
-            CreateTroopSpawner(
-                7, "OP" ..j.. "Tent"..i, nil, 2, 90, 3000,
+            DelinquentsCampAddSpawner(
+                CampID, "OP" ..j.. "Tent" ..i, 90, 3,
                 Entities.PU_LeaderPoleArm2,
-                Entities.PU_LeaderBow2
+                Entities.PU_LeaderBow3
             );
         end
     end
 end
 
 function SetupCampsWS40()
-    for j= 1,2 do
+    for j= 1, 2 do
         ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower3);
         ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower3);
-        CreateTroopSpawner(
-            7, "Outpost" ..j, nil, 3, 60, 3000,
-            Entities.PU_LeaderSword3,
-            Entities.PU_LeaderRifle1,
-            Entities.PU_LeaderRifle1,
+
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "Province" ..j.. "Pos",
+            RodeLength = 4500,
+            Strength = 7,
+        };
+
+        DelinquentsCampAddSpawner(
+            CampID, "Outpost" ..j, 60, 3,
+            Entities.PU_LeaderSword4,
+            Entities.PU_LeaderRifle2,
+            Entities.PU_LeaderRifle2,
             Entities.PV_Cannon3
         );
         for i= 1, 4 do
-            CreateTroopSpawner(
-                7, "OP" ..j.. "Tent"..i, nil, 2, 60, 3000,
-                Entities.PU_LeaderPoleArm2,
-                Entities.PU_LeaderPoleArm2,
-                Entities.PV_Cannon1
+            DelinquentsCampAddSpawner(
+                CampID, "OP" ..j.. "Tent" ..i, 60, 3,
+                Entities.PU_LeaderPoleArm3,
+                Entities.PU_LeaderPoleArm3,
+                Entities.PU_LeaderBow3,
+                Entities.PV_Cannon3
             );
         end
     end

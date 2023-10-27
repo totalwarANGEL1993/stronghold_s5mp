@@ -81,45 +81,6 @@ function CustomTroopFomrationController(_ID)
     Stronghold.Unit:SetFormationOnCreate(_ID);
 end
 
--- -------------------------------------------------------------------------- --
-
-function CreateTestCamp()
-    CreateTestSpawners();
-    SetHostile(2, 7);
-
-    OutlawCamp1 = CreateOutlawCamp(
-        7, "CampCenter", "CampTarget", 2500, 5, 3*60,
-        OutlawSpawner1, OutlawSpawner2, OutlawSpawner3, OutlawSpawner4
-    );
-end
-
-function CreateTestSpawners()
-    OutlawSpawner1 = CreateTroopSpawner(
-        7, "Camp1", nil, 3, 60, 2500,
-        Entities.CU_BanditLeaderSword2,
-        Entities.CU_BanditLeaderBow1,
-        Entities.PV_Cannon2
-    );
-    OutlawSpawner2 = CreateTroopSpawner(
-        7, "Camp2", nil, 3, 60, 2500,
-        Entities.CU_BanditLeaderSword2,
-        Entities.CU_BanditLeaderBow1,
-        Entities.PV_Cannon2
-    );
-    OutlawSpawner3 = CreateTroopSpawner(
-        7, "Camp3", nil, 3, 60, 2500,
-        Entities.CU_BanditLeaderSword2,
-        Entities.CU_BanditLeaderBow1,
-        Entities.PV_Cannon2
-    );
-    OutlawSpawner4 = CreateTroopSpawner(
-        7, "Camp4", nil, 3, 60, 2500,
-        Entities.CU_BanditLeaderSword2,
-        Entities.CU_BanditLeaderBow1,
-        Entities.PV_Cannon2
-    );
-end
-
 function CreateMerchantNpc()
     Message("{scarlet}It{blue}just{yellow}work's{white}!")
     NonPlayerMerchant.Create {
