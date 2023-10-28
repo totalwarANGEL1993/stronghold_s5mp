@@ -1,8 +1,5 @@
-Version 0.4.x
-- Ari steigert nur noch die Menge an Holz pro Baum
-- Alle Adligen können von der KI verwendet werden (Mapping)
-
-Version 0.4.10
+Version 0.4.11
+- Soldaten können für mehrere Gruppen gleichzeitig gekauft werden
 - Tavernenfaktoren wurden angepasst
   (Tavernen sollten jetzt nicht mehr so OP sein)
 - Hochschulen zeigen wieder den Wissensfortschritt an
@@ -11,8 +8,10 @@ Version 0.4.10
 - Salim erlässt nur noch 2 Plätze pro Kanone (ohne Verteuerung)
 - Erec rekrutiert mit weniger Erfahrung (25% Verteuerung)
 - Ari sorgt nur noch für langlebigere Bäume
+- Ari steigert nur noch die Menge an Holz pro Baum
 - Helias gibt keinen Bonus mehr auf Gebete
 - Wetterset gefixt (Turnier-Map)
+- Alle Adligen können von der KI verwendet werden (Mapping)
 
 Version 0.4.8
 - Vanilla Rekrutierungssystem (behebt hoffentlich Desync)
