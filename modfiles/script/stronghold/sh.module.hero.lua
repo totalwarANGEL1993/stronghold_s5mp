@@ -158,6 +158,8 @@ function Stronghold.Hero:OnSelectLeader(_EntityID)
     XGUIEng.ShowWidget("Selection_MilitaryUnit", 1);
     XGUIEng.ShowWidget("Selection_Leader", 1);
     XGUIEng.ShowWidget("Commands_Leader", 0);
+    XGUIEng.ShowWidget("Buy_Soldier", 1);
+    XGUIEng.ShowWidget("Buy_Soldier_Button", 1);
 end
 
 function Stronghold.Hero:OnSelectHero(_EntityID)
@@ -642,7 +644,7 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
                                     if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
                                         ChangePlayer(AttackerID, HeliasPlayerID);
                                         if GUI.GetPlayerID() == HeliasPlayerID then
-                                            Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 0);
+                                            Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 100);
                                         end
                                     end
                                 end
@@ -690,7 +692,7 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
                                 and IsNear(k, AttackerID, 3000) then
                                     SendEvent.HeroShuriken(k, AttackerID);
                                     if GUI.GetPlayerID() == YukiPlayerID then
-                                        Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 0);
+                                        Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 100);
                                     end
                                 end
                             end

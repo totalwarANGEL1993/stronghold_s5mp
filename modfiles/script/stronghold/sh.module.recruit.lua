@@ -104,27 +104,36 @@ function Stronghold.Recruit:OnEveryTurn(_PlayerID)
                 if self.Data[_PlayerID].TrainingLeaders[LeaderID] then
                     BarracksID = self.Data[_PlayerID].TrainingLeaders[LeaderID];
                     self.Data[_PlayerID].TrainingLeaders[LeaderID] = nil;
-                    if self.Data[_PlayerID].AutoFill[BarracksID] then
-                        local Type = Logic.GetEntityType(LeaderID);
-                        local Config = Stronghold.Unit.Config:Get(Type, _PlayerID);
-                        if Config then
-                            local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, Type, 1);
-                            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(Type, 1);
-                            for i= 1, Config.Soldiers do
-                                if  Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places)
-                                and HasEnoughResources(_PlayerID, Costs) then
-                                    Stronghold.Unit:RefillUnit(
-                                        _PlayerID,
-                                        LeaderID,
-                                        1,
-                                        Costs[ResourceType.Honor],
-                                        Costs[ResourceType.Gold],
-                                        Costs[ResourceType.Clay],
-                                        Costs[ResourceType.Wood],
-                                        Costs[ResourceType.Stone],
-                                        Costs[ResourceType.Iron],
-                                        Costs[ResourceType.Sulfur]
-                                    );
+                    if IsExisting(BarracksID) and self.Data[_PlayerID].AutoFill[BarracksID] then
+                        local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(LeaderID);
+                        local Soldiers = Logic.LeaderGetNumberOfSoldiers(LeaderID);
+                        local SoldierAmount = MaxSoldiers - Soldiers;
+                        if SoldierAmount > 0 then
+                            -- Buy soldiers normally for human players
+                            if not IsAIPlayer(_PlayerID) then
+                                local EntityType = Logic.GetEntityType(LeaderID);
+                                local Places = GetMilitaryPlacesUsedByUnit(EntityType, 1);
+                                local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, EntityType, 1);
+                                if GUI.GetPlayerID() == _PlayerID then
+                                    local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
+                                    local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
+                                    local MilitarySpace = MiitaryLimit - MiitaryUsage;
+                                    for i= 1, SoldierAmount do
+                                        if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
+                                            Stronghold.Unit:PaySoldiers(_PlayerID, EntityType, 1);
+                                            GUI.BuySoldier(LeaderID);
+                                            MilitarySpace = MilitarySpace - Places;
+                                        end
+                                    end
+                                end
+                            -- Just create soldiers for AI players
+                            else
+                                local MaxHealth = Logic.GetEntityMaxHealth(LeaderID);
+                                local Health = Logic.GetEntityHealth(LeaderID);
+                                local Task = Logic.GetCurrentTaskList(LeaderID);
+                                if  Health > 0 and Health < MaxHealth and Task
+                                and (not string.find(Task, "BATTLE") and not string.find(Task, "DIE")) then
+                                    Tools.CreateSoldiersForLeader(LeaderID, SoldierAmount);
                                 end
                             end
                         end
@@ -261,6 +270,7 @@ function Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amoun
 end
 
 -- -------------------------------------------------------------------------- --
+-- Button Actions
 
 function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
@@ -277,16 +287,16 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
         return;
     end
     -- Check places
-    local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_EntityType, 1);
+    local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
     if _EntityType == Entities.PU_Serf then
-        if not Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID) then
-            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+        if not HasPlayerSpaceForSlave(_PlayerID) then
+            Sound.PlayFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 100);
             Message(XGUIEng.GetStringTableText("sh_text/Player_SerfLimit"));
             return true;
         end
     else
-        if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
-            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+        if not HasPlayerSpaceForUnits(_PlayerID, Places) then
+            Sound.PlayFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
             Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
             return true;
         end
@@ -308,7 +318,9 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
     if _UpgradeCategory == UpgradeCategories.Serf then
         GUI.BuySerf(_EntityID);
     else
-        GUI.DeactivateAutoFillAtBarracks(_EntityID);
+        if not IsAIPlayer(_PlayerID) then
+            GUI.DeactivateAutoFillAtBarracks(_EntityID);
+        end
         GUIAction_BuyMilitaryUnit(_UpgradeCategory);
     end
 end
@@ -327,9 +339,9 @@ function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _Entit
         return;
     end
     -- Check places
-    local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_EntityType, 1);
-    if not Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, Places) then
-        GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+    local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
+    if not HasPlayerSpaceForUnits(_PlayerID, Places) then
+        Sound.PlayFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
         Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
         return true;
     end
@@ -920,7 +932,7 @@ function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
     local Places = 0;
     if self.Data[_PlayerID] then
         for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
-            local Size = Stronghold.Attraction:GetRequiredSpaceForUnitType(v, 1);
+            local Size = GetMilitaryPlacesUsedByUnit(v, 1);
             -- Salim passive skill
             if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
                 Size = math.floor((Size * Stronghold.Hero.Config.Hero3.UnitPlaceFactor) + 0.5);

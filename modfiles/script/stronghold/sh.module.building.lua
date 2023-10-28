@@ -64,7 +64,6 @@ end
 function Stronghold.Building:CreateBuildingButtonHandlers()
     self.SyncEvents = {
         ChangeTax = 1,
-        EnqueueSerf = 2,
         BlessSettlers = 4,
         MeasureTaken = 5,
         RallyPoint = 6,
@@ -78,13 +77,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Building.SyncEvents.ChangeTax then
                 Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, arg[1]);
-            end
-            if _Action == Stronghold.Building.SyncEvents.EnqueueSerf then
-                -- if arg[5] then
-                --     Stronghold.Recruit:AbortLatestQueueEntry(_PlayerID, arg[4], Logic.GetEntityName(arg[1]));
-                -- else
-                --     Stronghold.Recruit:OrderUnit(_PlayerID, arg[4], arg[2], arg[1], arg[3]);
-                -- end
             end
             if _Action == Stronghold.Building.SyncEvents.BlessSettlers then
                 Stronghold.Building:MonasteryBlessSettlers(_PlayerID, arg[1]);
@@ -147,14 +139,6 @@ function Stronghold.Building:OverrideHeadquarterButtons()
         XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
         XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
     end);
-
-    -- Overwrite.CreateOverwrite("GUIAction_BuySerf", function()
-    --     Stronghold.Building:HeadquartersBuySerf();
-    -- end);
-
-    -- Overwrite.CreateOverwrite("GUITooltip_BuySerf", function()
-    --     Stronghold.Building:HeadquartersBuySerfTooltip();
-    -- end);
 
     GUIAction_CallMilitia = function()
         XGUIEng.ShowWidget("BuyHeroWindow", 1);
@@ -639,7 +623,7 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
         local TextKey = self.Config.Monastery[_BlessCategory].Text;
         Message(XGUIEng.GetStringTableText(TextKey.. "_message"));
         Sound.PlayGUISound(Sounds.Buildings_Monastery, 0);
-        Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_SettlersBlessed_rnd_01, 0);
+        Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_SettlersBlessed_rnd_01, 100);
     end
 end
 
@@ -687,7 +671,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiAction(_PlayerID, _EntityI
         );
     else
         GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/GUI_NotEnoughFaith"));
-        Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_MonksNeedMoreTime_rnd_01, 0);
+        Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_MonksNeedMoreTime_rnd_01, 100);
     end
     return true;
 end
@@ -923,7 +907,7 @@ function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
         if _EntityID then
             if self:CanBuildingHaveRallyPoint(_EntityID)
             and not self.Data[_PlayerID].RallyPoint[ScriptName] then
-                local Position = Stronghold.Unit:GetBarracksDoorPosition(_EntityID);
+                local Position = self:GetBarracksDoorPosition(_EntityID);
                 self:SendPlaceRallyPointEvent(Position.X, Position.Y, true);
             end
         end
@@ -1574,6 +1558,33 @@ function Stronghold.Building:CleanupTurretsOfBuilding(_PlayerID)
             end
         end
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Building entrance
+
+function Stronghold.Building:GetBarracksDoorPosition(_BarracksID)
+    local PlayerID = Logic.EntityGetPlayer(_BarracksID);
+    local Position = Stronghold.Players[PlayerID].DoorPos;
+
+    local BarracksType = Logic.GetEntityType(_BarracksID);
+    if BarracksType == Entities.PB_Barracks1 or BarracksType == Entities.PB_Barracks2 then
+        Position = GetCirclePosition(_BarracksID, 900, 180);
+    elseif BarracksType == Entities.PB_Archery1 or BarracksType == Entities.PB_Archery2 then
+        Position = GetCirclePosition(_BarracksID, 800, 180);
+    elseif BarracksType == Entities.PB_Stable1 or BarracksType == Entities.PB_Stable2 then
+        Position = GetCirclePosition(_BarracksID, 1000, 165);
+    elseif BarracksType == Entities.PB_Foundry1 or BarracksType == Entities.PB_Foundry2 then
+        Position = GetCirclePosition(_BarracksID, 1000, 280);
+    elseif BarracksType == Entities.PB_Tavern1 or BarracksType == Entities.PB_Tavern2 then
+        Position = GetCirclePosition(_BarracksID, 800, 220);
+    elseif BarracksType == Entities.PB_VillageCenter1 or
+           BarracksType == Entities.PB_VillageCenter2 or
+           BarracksType == Entities.PB_VillageCenter3 then
+        Position = GetCirclePosition(_BarracksID, 650, 270);
+    -- TODO: Add more positions if needed
+    end
+    return Position;
 end
 
 -- -------------------------------------------------------------------------- --

@@ -20,7 +20,7 @@ Stronghold.Hero.Config.Hero3 = {
 }
 -- Hero 4 properties
 Stronghold.Hero.Config.Hero4 = {
-    TrainExperience = 300,
+    TrainExperience = 400,
     UnitCostFactor = 1.25,
 }
 -- Hero 5 properties

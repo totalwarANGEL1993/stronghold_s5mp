@@ -77,12 +77,20 @@ function GetMilitaryAttractionUsage(_PlayerID)
     return Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID);
 end
 
+function HasPlayerSpaceForUnits(_PlayerID, _Amount)
+    return Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount);
+end
+
 function GetSlaveAttractionLimit(_PlayerID)
     return Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID);
 end
 
 function GetSlaveAttractionUsage(_PlayerID)
     return Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID);
+end
+
+function HasPlayerSpaceForSlave(_PlayerID)
+    return Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID);
 end
 
 function GetMilitaryPlacesUsedByUnit(_Type, _Amount)
