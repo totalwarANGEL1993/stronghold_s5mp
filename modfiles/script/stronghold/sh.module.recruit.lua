@@ -39,6 +39,8 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
     };
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
+            WriteSyncCallToLog("Recruit", _Action, _PlayerID, unpack(arg));
+
             if _Action == Stronghold.Recruit.SyncEvents.BuyCannon then
                 if Stronghold.Recruit.Data[_PlayerID] then
                     Stronghold.Recruit.Data[_PlayerID].BuyLock = false;

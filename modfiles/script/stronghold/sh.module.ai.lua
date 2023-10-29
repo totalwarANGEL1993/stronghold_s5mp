@@ -58,11 +58,15 @@ function DelinquentsCampDestroy(_ID)
         AiArmyManager.Delete(Data.DefendManagerID);
 
         local AttackArmy = AiArmy.Get(Data.AttackArmyID);
-        AttackArmy:Abadon(true);
-        AttackArmy:Dispose();
+        if AttackArmy then
+            AttackArmy:Abadon(true);
+            AttackArmy:Dispose();
+        end
         local DefendArmy = AiArmy.Get(Data.DefendArmyID);
-        DefendArmy:Abadon(true);
-        DefendArmy:Dispose();
+        if DefendArmy then
+            DefendArmy:Abadon(true);
+            DefendArmy:Dispose();
+        end
 
         Stronghold.AI.Data.Delinquents[_ID] = nil;
     end
@@ -321,11 +325,13 @@ function Stronghold.AI:ControlHero2DefendCastle(_PlayerID, _HeroID)
     local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
     if table.getn(FarEnemyList) > 0 then
         -- Place bomb unter hero
+        --- @diagnostic disable-next-line: undefined-field
         if math.mod(math.floor(Logic.GetTime()), 90) == 0 then
             local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
             if table.getn(CloseEnemies) >= 5 then
                 local x,y,z = Logic.EntityGetPos(_HeroID);
-                Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
+                local ID = Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
+                WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
             end
         end
         -- Attack enemies
@@ -342,11 +348,13 @@ function Stronghold.AI:ControlHero3DefendCastle(_PlayerID, _HeroID)
     local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
     if table.getn(FarEnemyList) > 0 then
         -- Place "trap" near random enemy
+        --- @diagnostic disable-next-line: undefined-field
         if math.mod(math.floor(Logic.GetTime()), 90) == 0 then
             local Selected = math.random(1, table.getn(FarEnemyList));
             local EnemyID = FarEnemyList[Selected];
             local x,y,z = Logic.EntityGetPos(EnemyID);
             local ID = Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
+            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
             SVLib.SetInvisibility(ID, true);
         end
         -- Attack enemies

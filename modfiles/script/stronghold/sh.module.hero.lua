@@ -430,6 +430,7 @@ function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
                 Position = GetPosition(Position);
             end
             ID = Logic.CreateEntity(_Type, Position.X, Position.Y, 0, _PlayerID);
+            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         end
         self:BuyHeroSetupNoble(_PlayerID, ID, _Type, true);
         self:InitSpecialUnits(_PlayerID, _Type);
@@ -640,6 +641,7 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
                         self.Data[_PlayerID].Hero6.ConvertAllowed = 1;
                     end
                     -- Convert 1 enemy
+                    --- @diagnostic disable-next-line: undefined-field
                     if math.mod(Logic.GetCurrentTurn(), self.Config.Hero6.ConversionFrequency) == 0 then
                         if self.Data[_PlayerID].Hero6.ConvertAllowed > 0 then
                             local HeliasPlayerID = Logic.EntityGetPlayer(k);
@@ -657,9 +659,14 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
                                     and Logic.IsSettler(AttackerID) == 1
                                     and Logic.IsHero(AttackerID) == 0 then
                                         if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
-                                            ChangePlayer(AttackerID, HeliasPlayerID);
+                                            local ID = ChangePlayer(AttackerID, HeliasPlayerID);
                                             if GUI.GetPlayerID() == HeliasPlayerID then
                                                 Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 100);
+                                            end
+                                            WriteEntityCreatedToLog(HeliasPlayerID, ID, Logic.GetEntityType(ID));
+                                            local CreatedSoldiers = {Logic.GetSoldiersAttachedToLeader(ID)};
+                                            for j= 2, CreatedSoldiers[1] +1 do
+                                                WriteEntityCreatedToLog(_PlayerID, CreatedSoldiers[j], Logic.GetEntityType(CreatedSoldiers[j]));
                                             end
                                         end
                                     end
@@ -704,6 +711,7 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
                                 self.Data[_PlayerID].Hero11.ShurikenAllowed = 1;
                             end
                             -- Throw shuriken
+                            --- @diagnostic disable-next-line: undefined-field
                             if math.mod(Logic.GetCurrentTurn(), self.Config.Hero11.ShurikenFrequency) == 0 then
                                 if self.Data[_PlayerID].Hero11.ShurikenAllowed == 1 then
                                     local YukiPlayerID = Logic.EntityGetPlayer(k);
@@ -1094,6 +1102,7 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
         if _Type ~= ResourceType.WoodRaw then
             -- Using only the n-th turn to grant the bonus on preservation is
             -- the same as doing it with random values but more deterministic.
+            --- @diagnostic disable-next-line: undefined-field
             if math.mod(Logic.GetCurrentTurn(), self.Config.Hero5.SerfMineralFrequency) == 0 then
                 ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
             end
@@ -1102,6 +1111,7 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
             -- long as the tree was half full the amount of wood was restored
             -- without the downside of trees blocking building places longer.
             Logic.AddToPlayersGlobalResource(_PlayerID, _Type, self.Config.Hero5.SerfWoodBonus);
+            WriteResourcesGainedToLog(_PlayerID, _Type, self.Config.Hero5.SerfWoodBonus);
         end
     end
     return Amount, ResourceRemaining;
@@ -1358,6 +1368,7 @@ function Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyTy
     end
     if Bonus > 0 then
         Logic.AddToPlayersGlobalResource(_PlayerID, _BuyType, Bonus);
+        WriteResourcesGainedToLog(_PlayerID, _BuyType, Bonus);
         if GuiPlayer == _PlayerID then
             Message(string.format(Text, Bonus, ResourceName));
         end

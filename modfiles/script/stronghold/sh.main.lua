@@ -251,6 +251,55 @@ function GetMaxHumanPlayers()
     return Stronghold:GetMaxAmountOfHumanPlayersPossible();
 end
 
+--- Writes a log entry into the server log.
+--- @param _Msg string Text of log message
+--- @param ... any Optional text parameters
+function WriteToLog(_Msg, ...)
+    arg = arg or {};
+    Stronghold:WriteToLog(_Msg, unpack(arg));
+end
+
+--- Writes an sync call to the server log.
+--- @param _Module string Name of module
+--- @param _Action integer ID of action
+--- @param _PlayerID integer ID of player
+--- @param ... any Optional text parameters
+function WriteSyncCallToLog(_Module, _Action, _PlayerID, ...)
+    arg = arg or {};
+    local ParameterString = "";
+    for i= 1, table.getn(arg) do
+        if i > 1 then
+            ParameterString = ParameterString .. ",";
+        end
+        ParameterString = ParameterString .. tostring(arg[i]);
+    end
+    Stronghold:WriteToLog(Stronghold.Config.Logging.SyncCall, _Module, _Action, _PlayerID, ParameterString);
+end
+
+--- Writes an entity creation to the server log.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of entity
+--- @param _Type string|integer type of entity
+function WriteEntityCreatedToLog(_PlayerID, _EntityID, _Type)
+    local Type = _Type;
+    if type(Type) == "number" then
+        Type = Logic.GetEntityTypeName(Type);
+    end
+    Stronghold:WriteToLog(Stronghold.Config.Logging.EntityCreated, _PlayerID, _EntityID, Type);
+end
+
+--- Writes given resources to the server log.
+--- @param _PlayerID integer ID of player
+--- @param _Type string|integer type of resource
+--- @param _Amount integer Amount of resource
+function WriteResourcesGainedToLog(_PlayerID, _Type, _Amount)
+    local Type = _Type;
+    if type(Type) == "number" then
+        Type = KeyOf(Type, ResourceType);
+    end
+    Stronghold:WriteToLog(Stronghold.Config.Logging.Resource, _PlayerID, Type, _Amount);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
@@ -492,6 +541,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     -- Replace headquarters
     local HQID = GetID(self.Players[_PlayerID].HQScriptName);
     HQID = ReplaceEntity(HQID, Logic.GetEntityType(HQID));
+    WriteEntityCreatedToLog(_PlayerID, HQID, Logic.GetEntityType(HQID));
     local Orientation = Logic.GetEntityOrientation(HQID);
 
     -- Create door pos
@@ -499,6 +549,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     if not IsExisting(DoorPosName) then
         DoorPos = GetCirclePosition(HQName, 800, 180);
         local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
+        WriteEntityCreatedToLog(0, ID, Logic.GetEntityType(ID));
         Logic.SetEntityName(ID, DoorPosName);
         self.Players[_PlayerID].DoorPos = DoorPos;
     else
@@ -508,10 +559,13 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
 
     -- Create camp Pos
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, _PlayerID);
+    WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
     local CampPos = GetCirclePosition(ID, 400, 180);
     DestroyEntity(ID);
-    Logic.CreateEntity(Entities.XD_Camp_Internal, CampPos.X, CampPos.Y, 0, _PlayerID);
+    ID = Logic.CreateEntity(Entities.XD_Camp_Internal, CampPos.X, CampPos.Y, 0, _PlayerID);
+    WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, CampPos.X, CampPos.Y, 0, _PlayerID);
+    WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
     Logic.SetEntityName(ID, CampName);
 
     -- Create serfs
@@ -519,6 +573,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     for i= 1, SerfCount do
         local SerfPos = GetCirclePosition(CampPos, 250, (360/SerfCount) * i);
         local ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
+        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         LookAt(ID, CampName);
     end
     DestroyEntity(CampName);
@@ -585,6 +640,27 @@ end
 function Stronghold:SetMaxAmountOfHumanPlayersPossible(_Max)
     assert(_Max < 14);
     self.Config.Base.MaxHumanPlayers = _Max;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Logging
+
+function Stronghold:WriteToLog(_Msg, ...)
+    local LogMethod;
+    -- get log method
+    if CLogger then
+        LogMethod = CLogger.Log;
+    elseif LuaDebugger then
+        LogMethod = LuaDebugger.Log;
+    end
+    -- print log
+    if LogMethod then
+        if arg and arg[1] then
+            LogMethod(string.format(_Msg, unpack(arg)));
+        else
+            LogMethod(_Msg);
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -668,7 +744,9 @@ function Stronghold:OnEveryTurn()
     -- Player jobs on modified turns
     --- @diagnostic disable-next-line: undefined-field
     for PlayerID = 1, Players do
+        --- @diagnostic disable-next-line: undefined-field
         local TimeMod = math.mod(Logic.GetCurrentTurn(), 10);
+        --- @diagnostic disable-next-line: undefined-field
         local PlayerMod = math.mod(PlayerID, 10);
         if TimeMod == PlayerMod then
             self.Attraction:ManageCriminalsOfPlayer(PlayerID);
@@ -680,15 +758,6 @@ function Stronghold:OnEveryTurn()
             self.Hero:VargWolvesController(PlayerID);
         end
     end
-
-    -- local PlayerID = math.mod(Logic.GetCurrentTurn(), Players);
-    -- self.Attraction:ManageCriminalsOfPlayer(PlayerID);
-    -- self.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
-    -- self.Building:FoundryCannonAutoRepair(PlayerID);
-    -- self.Economy:UpdateIncomeAndUpkeep(PlayerID);
-    -- self.Economy:GainMeasurePoints(PlayerID);
-    -- self.Economy:GainKnowledgePoints(PlayerID);
-    -- self.Hero:VargWolvesController(PlayerID);
 end
 
 function Stronghold:OnEverySecond()
@@ -1184,8 +1253,10 @@ end
 function Stronghold:AddPlayerHonor(_PlayerID, _Amount)
     if _Amount > 0 then
         Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Silver, _Amount);
+        WriteResourcesGainedToLog(_PlayerID, "Silver", _Amount);
     elseif _Amount < 0 then
         Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Silver, (-1) * _Amount);
+        WriteResourcesGainedToLog(_PlayerID, "Silver", (-1) * _Amount);
     end
     GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount);
 end

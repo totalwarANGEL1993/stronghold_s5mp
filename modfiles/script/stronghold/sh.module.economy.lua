@@ -727,8 +727,10 @@ end
 function Stronghold.Economy:AddPlayerKnowledge(_PlayerID, _Amount)
     if _Amount > 0 then
         Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Knowledge, _Amount);
+        WriteResourcesGainedToLog(_PlayerID, "Knowledge", _Amount);
     elseif _Amount < 0 then
         Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Knowledge, _Amount);
+        WriteResourcesGainedToLog(_PlayerID, "Knowledge", (-1) * _Amount);
     end
 end
 

@@ -63,6 +63,8 @@ function Stronghold.Multiplayer:CreateMultiplayerButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
+            WriteSyncCallToLog("Multiplayer", _Action, _PlayerID, unpack(arg));
+
             if _Action == Stronghold.Multiplayer.SyncEvents.ChangeResource then
                 Stronghold.Multiplayer:ConfigureResource(arg[1]);
             elseif _Action == Stronghold.Multiplayer.SyncEvents.ChangeHero then
@@ -671,6 +673,7 @@ function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
             local TypeName = Logic.GetEntityTypeName(Type);
             if not string.find(TypeName, "Headquarter") then
                 local ID = ReplaceEntity(v, Entities.XD_ScriptEntity);
+                WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
                 table.insert(self.Data[_PlayerID].ReplacedEntities, {ID, Type, 0});
             end
         elseif Logic.IsSettler(v) == 1 then
@@ -682,6 +685,7 @@ function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
             end
             local Type = Logic.GetEntityType(v);
             local ID = ReplaceEntity(v, Entities.XD_ScriptEntity);
+            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[_PlayerID].ReplacedEntities, {ID, Type, Soldiers[1] or 0});
         end
     end
@@ -700,8 +704,13 @@ function Stronghold.Multiplayer:ResumePlayer(_PlayerID)
             Soldiers = self.Data[_PlayerID].ReplacedEntities[i][3];
         end
         ID = ReplaceEntity(ID, Type);
+        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         if Soldiers > 0 then
             Tools.CreateSoldiersForLeader(ID, Soldiers);
+            local CreatedSoldiers = {Logic.GetSoldiersAttachedToLeader(ID)};
+            for j= 2, CreatedSoldiers[1] +1 do
+                WriteEntityCreatedToLog(_PlayerID, CreatedSoldiers[j], Logic.GetEntityType(CreatedSoldiers[j]));
+            end
         end
     end
     self.Data[_PlayerID].ReplacedEntities = {};
@@ -961,15 +970,19 @@ function Stronghold.Multiplayer:OnPeaceTimeOver()
             end
 
             local ID = GetID("PTGate" ..Index);
+            local PlayerID = Logic.EntityGetPlayer(ID);
             local Type = Logic.GetEntityType(ID);
             if Type == Entities.XD_PalisadeGate1 then
-                ReplaceEntity(ID, Entities.XD_PalisadeGate2);
+                local NewID = ReplaceEntity(ID, Entities.XD_PalisadeGate2);
+                WriteEntityCreatedToLog(PlayerID, NewID, Logic.GetEntityType(NewID));
             end
             if Type == Entities.XD_DarkWallStraightGate_Closed then
-                ReplaceEntity(ID, Entities.XD_DarkWallStraightGate);
+                local NewID = ReplaceEntity(ID, Entities.XD_DarkWallStraightGate);
+                WriteEntityCreatedToLog(PlayerID, NewID, Logic.GetEntityType(NewID));
             end
             if Type == Entities.XD_WallStraightGate_Closed then
-                ReplaceEntity(ID, Entities.XD_WallStraightGate);
+                local NewID = ReplaceEntity(ID, Entities.XD_WallStraightGate);
+                WriteEntityCreatedToLog(PlayerID, NewID, Logic.GetEntityType(NewID));
             end
         end
     end

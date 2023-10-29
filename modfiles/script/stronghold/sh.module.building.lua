@@ -75,6 +75,8 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
+            WriteSyncCallToLog("Building", _Action, _PlayerID, unpack(arg));
+
             if _Action == Stronghold.Building.SyncEvents.ChangeTax then
                 Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, arg[1]);
             end
@@ -585,6 +587,7 @@ end
 function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
     local CurrentFaith = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Faith);
     Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Faith, CurrentFaith);
+    WriteResourcesGainedToLog(_PlayerID, "Faith", (-1) * CurrentFaith);
 
     local BlessData = self.Config.Monastery[_BlessCategory];
     if BlessData.Reputation > 0 then
@@ -976,6 +979,7 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y, _Init
         -- Create position entity
         local ScriptName = CreateNameForEntity(_EntityID);
         local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X, _Y, 0, _PlayerID);
+        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         -- Check connectivity
         if not ArePositionsConnected(ID, _EntityID) then
             DestroyEntity(ID);
@@ -1392,7 +1396,8 @@ function Stronghold.Building:OnWallOrPalisadeUpgraded(_EntityID)
     or PlayerHasLordOfType(PlayerID, Entities.CU_Evil_Queen) then
         local SegmentType = Logic.GetEntityType(_EntityID);
         SegmentType = Stronghold.Building.Config.WallToDarkWall[SegmentType] or SegmentType;
-        ReplaceEntity(_EntityID, SegmentType);
+        local ID = ReplaceEntity(_EntityID, SegmentType);
+        WriteEntityCreatedToLog(PlayerID, ID, SegmentType);
     end
 end
 
@@ -1437,10 +1442,12 @@ function Stronghold.Building:CreateWallCornerForSegment(_EntityID)
         self.Data[PlayerID].Corners[_EntityID] = {};
         if not self:IsGroundToSteep(Position1.X, Position1.Y, 250) then
             local ID = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 0);
+            WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
         end
         if not self:IsGroundToSteep(Position2.X, Position2.Y, 250) then
             local ID = Logic.CreateEntity(CornerType, Position2.X, Position2.Y, 0, 0);
+            WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
         end
     end
@@ -1450,7 +1457,8 @@ function Stronghold.Building:IsGroundToSteep(_X, _Y, _Height)
     local Heights = {};
     for x = -200, 200, 200 do
         for y = -200, 200, 200 do
-            local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X+x, _Y+y, 0, 8);
+            local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X+x, _Y+y, 0, 0);
+            WriteEntityCreatedToLog(0, ID, Logic.GetEntityType(ID));
             if IsExisting(ID) then
                 local _,_,z = Logic.EntityGetPos(ID);
                 table.insert(Heights, z);
@@ -1471,6 +1479,7 @@ function Stronghold.Building:OnGateOpenedCallback(_EntityID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Health = GetHealth(_EntityID);
     local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.ClosedToOpenGate[_Type]);
+    WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
     SetHealth(ID, Health);
     if PlayerID == GUI.GetPlayerID() then
         GUI.SelectEntity(ID);
@@ -1481,6 +1490,7 @@ function Stronghold.Building:OnGateClosedCallback(_EntityID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Health = GetHealth(_EntityID);
     local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.OpenToClosedGate[_Type]);
+    WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
     SetHealth(ID, Health);
     if PlayerID == GUI.GetPlayerID() then
         GUI.SelectEntity(ID);
@@ -1496,6 +1506,7 @@ function Stronghold.Building:OnGateTurnedToWallCallback(_EntityID, _Type)
     local Health = GetHealth(_EntityID);
     DestroyEntity(_EntityID);
     local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, PlayerID);
+    WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
     Logic.SetEntityName(ID, ScriptName);
     SetHealth(ID, Health);
     if PlayerID == GUI.GetPlayerID() then
@@ -1512,6 +1523,7 @@ function Stronghold.Building:OnWallTurnedToGateCallback(_EntityID, _Type)
     local Health = GetHealth(_EntityID);
     DestroyEntity(_EntityID);
     local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, PlayerID);
+    WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
     Logic.SetEntityName(ID, ScriptName);
     SetHealth(ID, Health);
     if PlayerID == GUI.GetPlayerID() then
@@ -1530,6 +1542,7 @@ function Stronghold.Building:CreateTurretsForBuilding(_EntityID)
         for k,v in pairs(self.Config.Turrets[Type]) do
             local Position = GetCirclePosition(_EntityID, v[2], v[3]);
             local TurretID = Logic.CreateEntity(v[1], Position.X, Position.Y, 0, PlayerID);
+            WriteEntityCreatedToLog(PlayerID, TurretID, Logic.GetEntityType(TurretID));
             MakeInvulnerable(TurretID);
             table.insert(self.Data[PlayerID].Turrets[_EntityID], TurretID);
         end

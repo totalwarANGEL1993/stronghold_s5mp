@@ -1,4 +1,4 @@
-Version 0.4.x
+Version 0.4.13
 - Zwangssteuer verwendet jetzt feste Werte
   (5 Taler pro Arbeiter (+1 Taler pro Verbesserung))
 - Ari lässt Knechte wieder schonender Mineralien abbauen
@@ -7,6 +7,8 @@ Version 0.4.x
   (nur, wenn Helias angegriffen wird und Feinde nah sind)
 - Yuki wirft alle 15 Sekunden Shuriken
   (nur, wenn Yuki angegriffen wird)
+- Erzeugte Entities werden ins Desync Log geschrieben (Debug)
+- Sync Calls werden ins Desync Log geschrieben (Debug)
 
 Version 0.4.12
 - Es können nicht mehr als 5 Arbeiter pro Zahltag zum Verbrecher werden.

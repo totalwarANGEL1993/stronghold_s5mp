@@ -35,6 +35,8 @@ function Stronghold.Unit:CreateUnitButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
+            WriteSyncCallToLog("Unit", _Action, _PlayerID, unpack(arg));
+
             if _Action == Stronghold.Unit.SyncEvents.BuySoldier then
                 if Stronghold.Unit.Data[_PlayerID] then
                     Stronghold.Unit.Data[_PlayerID].BuyLock = false;

@@ -189,7 +189,6 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
     local ResourcesToSub = {};
     local ResourcesToSteal = {"Gold", "Wood", "Clay", "Stone", "Iron", "Sulfur"};
     local Criminals = self:CountCriminals(_PlayerID);
-
     if Criminals > 0 then
         for i= 1, Criminals do
             local Type = ResourceType[ResourcesToSteal[math.random(1, 6)]];
@@ -399,6 +398,13 @@ function Stronghold.Attraction:CountCriminals(_PlayerID)
         CriminalCount = table.getn(self.Data[_PlayerID].Criminals);
     end
     return CriminalCount;
+end
+
+function Stronghold.Attraction:GetCriminals(_PlayerID)
+    if self.Data[_PlayerID] then
+        return self.Data[_PlayerID].Criminals;
+    end
+    return {};
 end
 
 function Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID)

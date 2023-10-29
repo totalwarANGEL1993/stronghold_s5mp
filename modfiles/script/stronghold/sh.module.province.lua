@@ -200,6 +200,7 @@ function Stronghold.Province:ClaimProvince(_ID, _PlayerID, _BuildingID)
             local ExploreRange = Logic.GetEntityExplorationRange(GetID(Explorer));
             local Location = GetPosition(Explorer);
             local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, Location.X, Location.Y, 0, _PlayerID);
+            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
             Logic.SetEntityExplorationRange(ID, ExploreRange);
             table.insert(self.Data.Provinces[_ID].Explorers.Entities, ID);
         end
@@ -351,6 +352,7 @@ function Stronghold.Province:OnPayday(_PlayerID, _Amount)
                 if v.Type == ProvinceType.Resource then
                     local Amount = Stronghold.Province:GetProvinceRevenue(k, v.Owner);
                     Logic.AddToPlayersGlobalResource(v.Owner, v.Resource, Amount);
+                    WriteResourcesGainedToLog(v.Owner, v.Resource, Amount);
                 end
                 GameCallback_SH_Logic_OnProvincePayday(v.Owner, k);
             end
