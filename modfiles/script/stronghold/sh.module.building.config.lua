@@ -24,12 +24,12 @@ Stronghold.Building.Config.Headquarters = {
     },
     [BlessCategories.Weapons] = {
         Reputation = 0,
-        Honor = 20,
+        Honor = 15,
 
         Text = "sh_menuheadquarter/blesssettlers3",
     },
     [BlessCategories.Financial] = {
-        Reputation = 5,
+        Reputation = 15,
         Honor = 0,
 
         Text = "sh_menuheadquarter/blesssettlers4",

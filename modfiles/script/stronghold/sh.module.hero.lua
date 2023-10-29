@@ -1332,14 +1332,18 @@ end
 -- Passive Ability: Bonus honor for sermons
 function Stronghold.Hero:ApplyHonorSermonPassiveAbility(_PlayerID, _BlessCategory, _Amount)
     local Amount = _Amount;
-    -- Nothing to do
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
+        Amount = Amount + self.Config.Hero6.SermonHonorBonus;
+    end
     return Amount;
 end
 
 -- Passive Ability: Bonus reputation for sermons
 function Stronghold.Hero:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCategory, _Amount)
     local Amount = _Amount;
-    -- Nothing to do
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
+        Amount = Amount + self.Config.Hero6.SermonReputationBonus;
+    end
     return Amount;
 end
 

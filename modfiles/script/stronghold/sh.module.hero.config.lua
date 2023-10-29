@@ -31,6 +31,8 @@ Stronghold.Hero.Config.Hero5 = {
 -- Hero 6 properties
 Stronghold.Hero.Config.Hero6 = {
     CrimeRateFactor = 0.5,
+    SermonHonorBonus = 3,
+    SermonReputationBonus = 3,
     ConversionArea = 600,
     ConversionChance = 6,
     ConversionMax = 1000,

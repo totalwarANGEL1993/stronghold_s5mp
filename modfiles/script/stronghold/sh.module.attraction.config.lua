@@ -33,7 +33,8 @@ Stronghold.Attraction.Config.Crime = {
     Convert = {
         Chance = 5,
         Rate = 1.0,
-        TimeBetween = 10
+        MaxPerCycle = 5,
+        TimeBetween = 10,
     },
 }
 

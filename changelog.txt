@@ -1,15 +1,18 @@
-Version 0.4.11
+Version 0.4.12
+- Es können nicht mehr als 5 Arbeiter pro Zahltag zum Verbrecher werden.
 - Soldaten können für mehrere Gruppen gleichzeitig gekauft werden
 - Tavernenfaktoren wurden angepasst
   (Tavernen sollten jetzt nicht mehr so OP sein)
 - Hochschulen zeigen wieder den Wissensfortschritt an
 - Kerberos verringert Beliebtheitsstrafe nur noch um 25%
+  (Da die Beliebtheitsstrafe abgeschwächt wurde, musste die Fähigkeit auch angepasst werden)
 - Mary erhöht Knechtelimit nur noch um 10%
+  (Viel mehr Knechte zu haben als andere Spieler erschien mir für zu unfair.)
 - Salim erlässt nur noch 2 Plätze pro Kanone (ohne Verteuerung)
+  (m.E.n. war Platzhalbierung zu stark)
 - Erec rekrutiert mit weniger Erfahrung (25% Verteuerung)
-- Ari sorgt nur noch für langlebigere Bäume
 - Ari steigert nur noch die Menge an Holz pro Baum
-- Helias gibt keinen Bonus mehr auf Gebete
+  (Langlebigere Bäume sorgten dafür, dass der Spieler länger auf Bauplatz warten muss und so einen Nachteil hat)
 - Wetterset gefixt (Turnier-Map)
 - Alle Adligen können von der KI verwendet werden (Mapping)
 

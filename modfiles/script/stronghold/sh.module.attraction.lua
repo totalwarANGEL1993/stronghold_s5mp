@@ -113,6 +113,7 @@ function Stronghold.Attraction:Install()
         self.Data[i] = {
             LastAttempt = 0,
             VirtualSettlers = 0,
+            CriminalsCounter = 0,
             Criminals = {},
         };
     end
@@ -177,6 +178,7 @@ function Stronghold.Attraction:InitCriminalsEffects()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
         local Amount = Overwrite.CallOriginal();
         Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
+        Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID);
         return Amount;
     end);
 end
@@ -206,22 +208,31 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
     end
 end
 
+function Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].CriminalsCounter = 0;
+    end
+end
+
 function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
     if IsPlayerInitalized(_PlayerID) then
         -- Converting workers to criminals
         -- Depending on the crime rate each x seconds a settler can become a
         -- criminal by a chance of y%.
         if self:DoCriminalsAppear(_PlayerID) then
-            local LastAttemptTime = self.Data[_PlayerID].LastAttempt;
+            local Data = self.Data[_PlayerID];
             local TimeBetween = self.Config.Crime.Convert.TimeBetween;
-            if LastAttemptTime + TimeBetween < Logic.GetTime() then
-                local WorkerList = self:GetPotentialCriminalSettlers(_PlayerID);
-                local WorkerCount = table.getn(WorkerList);
-                if WorkerCount > 0 then
-                    local Selected = WorkerList[math.random(1, WorkerCount)];
-                    self:AddCriminal(_PlayerID, Selected[2], Selected[1]);
+            if Data.CriminalsCounter < self.Config.Crime.Convert.MaxPerCycle then
+                if Data.LastAttempt + TimeBetween < Logic.GetTime() then
+                    local WorkerList = self:GetPotentialCriminalSettlers(_PlayerID);
+                    local WorkerCount = table.getn(WorkerList);
+                    if WorkerCount > 0 then
+                        local Selected = WorkerList[math.random(1, WorkerCount)];
+                        self:AddCriminal(_PlayerID, Selected[2], Selected[1]);
+                    end
+                    self.Data[_PlayerID].CriminalsCounter = Data.CriminalsCounter +1;
+                    self.Data[_PlayerID].LastAttempt = Logic.GetTime();
                 end
-                self.Data[_PlayerID].LastAttempt = Logic.GetTime();
             end
         end
 
