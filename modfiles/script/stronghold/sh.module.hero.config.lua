@@ -26,6 +26,7 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
+    SerfMineralFrequency = 5,
     SerfWoodBonus = 1,
 }
 -- Hero 6 properties
@@ -33,9 +34,8 @@ Stronghold.Hero.Config.Hero6 = {
     CrimeRateFactor = 0.5,
     SermonHonorBonus = 3,
     SermonReputationBonus = 3,
+    ConversionFrequency = 450,
     ConversionArea = 600,
-    ConversionChance = 6,
-    ConversionMax = 1000,
 }
 -- Hero 7 properties
 Stronghold.Hero.Config.Hero7 = {
@@ -62,8 +62,7 @@ Stronghold.Hero.Config.Hero11 = {
     TradeBonusFactor = 0.3,
     InitialReputation = 100,
     ReputationCap = 300,
-    ShurikenChance = 5,
-    ShurikenMax = 100,
+    ShurikenFrequency = 150,
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {

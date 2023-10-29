@@ -1,3 +1,13 @@
+Version 0.4.x
+- Zwangssteuer verwendet jetzt feste Werte
+  (5 Taler pro Arbeiter (+1 Taler pro Verbesserung))
+- Ari lässt Knechte wieder schonender Mineralien abbauen
+  (alle 5 Sekunden schonen alle gerade Hackenden Knechte Hackmenge -1)
+- Helias bekehrt alle 45 Sekunden einen Gegner
+  (nur, wenn Helias angegriffen wird und Feinde nah sind)
+- Yuki wirft alle 15 Sekunden Shuriken
+  (nur, wenn Yuki angegriffen wird)
+
 Version 0.4.12
 - Es können nicht mehr als 5 Arbeiter pro Zahltag zum Verbrecher werden.
 - Soldaten können für mehrere Gruppen gleichzeitig gekauft werden

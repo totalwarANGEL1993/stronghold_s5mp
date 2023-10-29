@@ -321,20 +321,17 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
 
     if _BlessCategory == BlessCategories.Construction then
         local MsgText = XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers1_message_2");
-        local RandomTax, Min, Max = 0, 4, 8;
+        local RandomTax, AmountPerSettler = 0, 5;
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
-            Min = Min + 1;
+            AmountPerSettler = AmountPerSettler + 1;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-            Max = Max + 1;
+            AmountPerSettler = AmountPerSettler + 1;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            Min = Min + 1;
-            Max = Max + 1;
+            AmountPerSettler = AmountPerSettler + 1;
         end
-        for i= 1, Logic.GetNumberOfAttractedWorker(_PlayerID) do
-            RandomTax = RandomTax + math.random(Min, Max);
-        end
+        RandomTax = AmountPerSettler * Logic.GetNumberOfAttractedWorker(_PlayerID);
         if GuiPlayer == _PlayerID then
             Message(string.format(MsgText, RandomTax));
             Sound.PlayGUISound(Sounds.LevyTaxes, 100);

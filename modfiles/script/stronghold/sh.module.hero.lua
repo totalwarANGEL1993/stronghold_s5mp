@@ -84,7 +84,16 @@ end
 
 function Stronghold.Hero:Install()
     for i= 1, GetMaxPlayers() do
-        self.Data[i] = {};
+        self.Data[i] = {
+            Hero6 = {
+                ConvertAllowed = 1,
+                ConversionTime = 0,
+            },
+            Hero11 = {
+                ShurikenAllowed = 1,
+                ShurikenTime = 0,
+            },
+        };
         -- NEVER EVER CHANGE THIS!!!
         BuyHero.SetNumberOfBuyableHeroes(i, 1);
     end
@@ -626,29 +635,39 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID)
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             if Logic.GetEntityType(k) == Entities.PU_Hero6 then
                 if Logic.GetEntityHealth(k) > 0 then
-                    if math.random(1, self.Config.Hero6.ConversionMax) <= self.Config.Hero6.ConversionChance then
-                        local HeliasPlayerID = Logic.EntityGetPlayer(k);
-                        local AttackerID = v[2];
-                        if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
-                            AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
-                        end
-                        if not self.Data.ConvertBlacklist[AttackerID] then
-                            local UnitType = Logic.GetEntityType(AttackerID);
-                            local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
-                            if Config then
-                                local RankRequired = GetRankRequired(UnitType, Config.Right);
-                                if  (RankRequired ~= -1 and GetRank(_PlayerID) >= RankRequired)
-                                and Logic.GetEntityHealth(AttackerID) > 0
-                                and Logic.IsSettler(AttackerID) == 1
-                                and Logic.IsHero(AttackerID) == 0 then
-                                    if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
-                                        ChangePlayer(AttackerID, HeliasPlayerID);
-                                        if GUI.GetPlayerID() == HeliasPlayerID then
-                                            Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 100);
+                    -- Reset limit
+                    if Logic.GetCurrentTurn() - self.Data[_PlayerID].Hero6.ConversionTime >= 10 then
+                        self.Data[_PlayerID].Hero6.ConvertAllowed = 1;
+                    end
+                    -- Convert 1 enemy
+                    if math.mod(Logic.GetCurrentTurn(), self.Config.Hero6.ConversionFrequency) == 0 then
+                        if self.Data[_PlayerID].Hero6.ConvertAllowed > 0 then
+                            local HeliasPlayerID = Logic.EntityGetPlayer(k);
+                            local AttackerID = v[2];
+                            if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
+                                AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
+                            end
+                            if not self.Data.ConvertBlacklist[AttackerID] then
+                                local UnitType = Logic.GetEntityType(AttackerID);
+                                local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
+                                if Config then
+                                    local RankRequired = GetRankRequired(UnitType, Config.Right);
+                                    if  (RankRequired ~= -1 and GetRank(_PlayerID) >= RankRequired)
+                                    and Logic.GetEntityHealth(AttackerID) > 0
+                                    and Logic.IsSettler(AttackerID) == 1
+                                    and Logic.IsHero(AttackerID) == 0 then
+                                        if GetDistance(AttackerID, k) <= self.Config.Hero6.ConversionArea then
+                                            ChangePlayer(AttackerID, HeliasPlayerID);
+                                            if GUI.GetPlayerID() == HeliasPlayerID then
+                                                Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 100);
+                                            end
                                         end
                                     end
                                 end
                             end
+                            -- Save timestamp
+                            self.Data[_PlayerID].Hero6.ConversionTime = Logic.GetCurrentTurn();
+                            self.Data[_PlayerID].Hero6.ConvertAllowed = 0;
                         end
                     end
                 end
@@ -680,20 +699,30 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID)
                         local RechargeTime = Logic.HeroGetAbilityRechargeTime(k, Abilities.AbilityShuriken);
                         local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(k, Abilities.AbilityShuriken);
                         if TimeLeft == RechargeTime then
-                            if math.random(1, self.Config.Hero11.ShurikenMax) <= self.Config.Hero11.ShurikenChance then
-                                local YukiPlayerID = Logic.EntityGetPlayer(k);
-                                local AttackerID = v[2];
-                                if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
-                                    AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
-                                end
-                                if Logic.IsSettler(AttackerID) == 1
-                                and Logic.IsHero(AttackerID) == 0
-                                and Logic.GetEntityHealth(AttackerID) > 0
-                                and IsNear(k, AttackerID, 3000) then
-                                    SendEvent.HeroShuriken(k, AttackerID);
-                                    if GUI.GetPlayerID() == YukiPlayerID then
-                                        Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 100);
+                            -- Reset limit
+                            if Logic.GetCurrentTurn() - self.Data[_PlayerID].Hero11.ShurikenTime >= 10 then
+                                self.Data[_PlayerID].Hero11.ShurikenAllowed = 1;
+                            end
+                            -- Throw shuriken
+                            if math.mod(Logic.GetCurrentTurn(), self.Config.Hero11.ShurikenFrequency) == 0 then
+                                if self.Data[_PlayerID].Hero11.ShurikenAllowed == 1 then
+                                    local YukiPlayerID = Logic.EntityGetPlayer(k);
+                                    local AttackerID = v[2];
+                                    if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
+                                        AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
                                     end
+                                    if Logic.IsSettler(AttackerID) == 1
+                                    and Logic.IsHero(AttackerID) == 0
+                                    and Logic.GetEntityHealth(AttackerID) > 0
+                                    and IsNear(k, AttackerID, 3000) then
+                                        SendEvent.HeroShuriken(k, AttackerID);
+                                        if GUI.GetPlayerID() == YukiPlayerID then
+                                            Sound.PlayFeedbackSound(Sounds.AOVoicesHero11_HERO11_Shuriken_rnd_01, 100);
+                                        end
+                                    end
+                                    -- Safe timestamp
+                                    self.Data[_PlayerID].Hero11.ShurikenTime = Logic.GetCurrentTurn();
+                                    self.Data[_PlayerID].Hero11.ShurikenAllowed = 0;
                                 end
                             end
                         end
@@ -1062,7 +1091,13 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local ResourceRemaining = _Remaining
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        if _Type == ResourceType.WoodRaw then
+        if _Type ~= ResourceType.WoodRaw then
+            -- Using only the n-th turn to grant the bonus on preservation is
+            -- the same as doing it with random values but more deterministic.
+            if math.mod(Logic.GetCurrentTurn(), self.Config.Hero5.SerfMineralFrequency) == 0 then
+                ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
+            end
+        else
             -- This has the same effect as the previous implementation were as
             -- long as the tree was half full the amount of wood was restored
             -- without the downside of trees blocking building places longer.

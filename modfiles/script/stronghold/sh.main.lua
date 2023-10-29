@@ -656,25 +656,39 @@ function Stronghold:OnEveryTurn()
 
     local Players = GetMaxPlayers();
     -- Player jobs on each turn
-    for i= 1, Players do
-        self.Attraction:UpdatePlayerCivilAttractionUsage(i);
-        self.Hero:EntityAttackedController(i);
-        self.Hero:HeliasConvertController(i);
-        self.Hero:YukiShurikenConterController(i);
-        self.Rights:OnlineHelpUpdate(i, "OnlineHelpButton", Technologies.T_OnlineHelp);
-        self.Recruit:ControlCannonProducers(i);
-        self.Recruit:OnEveryTurn(i);
+    for PlayerID = 1, Players do
+        self.Attraction:UpdatePlayerCivilAttractionUsage(PlayerID);
+        self.Hero:EntityAttackedController(PlayerID);
+        self.Hero:HeliasConvertController(PlayerID);
+        self.Hero:YukiShurikenConterController(PlayerID);
+        self.Rights:OnlineHelpUpdate(PlayerID, "OnlineHelpButton", Technologies.T_OnlineHelp);
+        self.Recruit:ControlCannonProducers(PlayerID);
+        self.Recruit:OnEveryTurn(PlayerID);
     end
     -- Player jobs on modified turns
     --- @diagnostic disable-next-line: undefined-field
-    local PlayerID = math.mod(Logic.GetCurrentTurn(), Players);
-    self.Attraction:ManageCriminalsOfPlayer(PlayerID);
-    self.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
-    self.Building:FoundryCannonAutoRepair(PlayerID);
-    self.Economy:UpdateIncomeAndUpkeep(PlayerID);
-    self.Economy:GainMeasurePoints(PlayerID);
-    self.Economy:GainKnowledgePoints(PlayerID);
-    self.Hero:VargWolvesController(PlayerID);
+    for PlayerID = 1, Players do
+        local TimeMod = math.mod(Logic.GetCurrentTurn(), 10);
+        local PlayerMod = math.mod(PlayerID, 10);
+        if TimeMod == PlayerMod then
+            self.Attraction:ManageCriminalsOfPlayer(PlayerID);
+            self.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
+            self.Building:FoundryCannonAutoRepair(PlayerID);
+            self.Economy:UpdateIncomeAndUpkeep(PlayerID);
+            self.Economy:GainMeasurePoints(PlayerID);
+            self.Economy:GainKnowledgePoints(PlayerID);
+            self.Hero:VargWolvesController(PlayerID);
+        end
+    end
+
+    -- local PlayerID = math.mod(Logic.GetCurrentTurn(), Players);
+    -- self.Attraction:ManageCriminalsOfPlayer(PlayerID);
+    -- self.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
+    -- self.Building:FoundryCannonAutoRepair(PlayerID);
+    -- self.Economy:UpdateIncomeAndUpkeep(PlayerID);
+    -- self.Economy:GainMeasurePoints(PlayerID);
+    -- self.Economy:GainKnowledgePoints(PlayerID);
+    -- self.Hero:VargWolvesController(PlayerID);
 end
 
 function Stronghold:OnEverySecond()
