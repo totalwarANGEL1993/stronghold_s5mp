@@ -433,10 +433,38 @@ end
 -- -------------------------------------------------------------------------- --
 -- Workers
 
-function Stronghold.Attraction:OnWorkerCreated(_EntityID)
+function Stronghold.Attraction:OnEntityCreated(_EntityID)
+    -- Set stamina
     if Logic.IsWorker(_EntityID) == 1 then
         local MaxStamina = CEntity.GetMaxStamina(_EntityID);
         SetEntityStamina(_EntityID, MaxStamina * 0.1);
+    end
+    -- Set workplace limit
+    self:UpdateWorkplaceUsage(_EntityID);
+end
+
+function Stronghold.Attraction:OnEntityDestroyed(_EntityID)
+    -- Set workplace limit
+    self:UpdateWorkplaceUsage(_EntityID);
+end
+
+function Stronghold.Attraction:UpdateWorkplaceUsage(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        local AllWorkplaces = Stronghold:GetWorkplacesOfType(PlayerID, 0, true);
+        local AttracktionLimit = Logic.GetPlayerAttractionLimit(PlayerID);
+        local AttracktionUsage = Logic.GetPlayerAttractionUsage(PlayerID);
+        if AttracktionLimit <= AttracktionUsage then
+            for i= 1, table.getn(AllWorkplaces) do
+                local CurrentAmount = Logic.GetAttachedWorkersToBuilding(AllWorkplaces[i]);
+                Logic.SetCurrentMaxNumWorkersInBuilding(AllWorkplaces[i], CurrentAmount);
+            end
+        else
+            for i= 1, table.getn(AllWorkplaces) do
+                local Max = Logic.GetMaxNumWorkersInBuilding(AllWorkplaces[i]);
+                Logic.SetCurrentMaxNumWorkersInBuilding(AllWorkplaces[i], Max);
+            end
+        end
     end
 end
 
@@ -465,10 +493,10 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
     end
 end
 
-function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
+function Stronghold.Attraction:GetVirtualPlayerCivilAttractionLimit(_PlayerID)
+    local Limit = 0;
+    local RawLimit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Limit = 0;
-        local RawLimit = 0;
         -- Village Centers
         local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
         RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCCivil[1]);
@@ -487,7 +515,15 @@ function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
         Limit = GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, RawLimit);
         -- Virtual settlers
         Limit = Limit + self.Data[_PlayerID].VirtualSettlers;
+    end
+    return Limit, RawLimit;
+end
 
+function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Limit, RawLimit = self:GetVirtualPlayerCivilAttractionLimit(_PlayerID);
+        -- Hack: higher hidden limit
+        Limit = math.max(Limit, 10000000);
         CLogic.SetAttractionLimitOffset(_PlayerID, math.max(math.ceil(Limit - RawLimit), 0));
     end
 end
@@ -498,14 +534,16 @@ end
 function Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local RawLimit = self.Config.Attraction.SlaveLimit;
-        -- Rank
-        local Rank = GetRank(_PlayerID);
-        if Rank > 0 then
-            RawLimit = RawLimit + (Rank * self.Config.Attraction.RankSlaveBonus);
+        if IsEntityValid(Stronghold:GetPlayerHero(_PlayerID)) then
+            local RawLimit = self.Config.Attraction.SlaveLimit;
+            -- Rank
+            local Rank = GetRank(_PlayerID);
+            if Rank > 0 then
+                RawLimit = RawLimit + (Rank * self.Config.Attraction.RankSlaveBonus);
+            end
+            -- External
+            Limit = GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, RawLimit);
         end
-        -- External
-        Limit = GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, RawLimit);
     end
     return math.floor(Limit + 0.5);
 end
@@ -549,7 +587,7 @@ function Stronghold.Attraction:InitLogicOverride()
     self.Orig_Logic_GetPlayerAttractionLimit = Logic.GetPlayerAttractionLimit;
     --- @diagnostic disable-next-line: duplicate-set-field
     Logic.GetPlayerAttractionLimit = function(_PlayerID)
-        local Limit = Stronghold.Attraction.Orig_Logic_GetPlayerAttractionLimit(_PlayerID);
+        local Limit = self:GetVirtualPlayerCivilAttractionLimit(_PlayerID);
         if Stronghold.Attraction.Data[_PlayerID] then
             Limit = math.max(Limit - Stronghold.Attraction.Data[_PlayerID].VirtualSettlers, 0);
         end

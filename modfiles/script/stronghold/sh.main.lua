@@ -782,17 +782,16 @@ function Stronghold:OnEntityCreated()
         end
     end
     if Logic.IsSettler(EntityID) == 1 then
-        self.Attraction:OnWorkerCreated(EntityID);
         self.Hero:ConfigurePlayersHeroPet(EntityID);
         if GUI.GetPlayerID() == PlayerID then
             self:OnSelectionMenuChanged(EntityID);
         end
     end
+    self.Attraction:OnEntityCreated(EntityID);
     self.Building:OnWallOrPalisadeCreated(EntityID);
     self.Building:OnUnitCreated(EntityID);
     self.Economy:SetSettlersMotivation(EntityID);
     self.Unit:SetFormationOnCreate(EntityID);
-    --self.Recruit:InitQueuesForProducer(EntityID);
     self.Recruit:OnEntityCreated(EntityID);
 end
 
@@ -800,6 +799,7 @@ function Stronghold:OnEntityDestroyed()
     local EntityID = Event.GetEntityID();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
     self:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
+    self.Attraction:OnEntityDestroyed(EntityID);
     self.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
     self.Building:OnWallOrPalisadeDestroyed(EntityID);
     self.Recruit:OnEntityDestroyed(EntityID);
