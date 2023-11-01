@@ -1,4 +1,9 @@
 Version 0.4.13
+- Der Fehler das bei ausgelastetem Arbeiterlimit nicht mehr rekrutieren
+  kann, ist behoben
+- Leibeigene benötigen einen lebendigen Adligen
+  (Es war ein Logikfehler, dass das persönliche Eigentum des Adligen ohne
+   einen Adligen angeworben werden kann)
 - Zwangssteuer verwendet jetzt feste Werte
   (5 Taler pro Arbeiter (+1 Taler pro Verbesserung))
 - Ari lässt Knechte wieder schonender Mineralien abbauen
@@ -8,6 +13,7 @@ Version 0.4.13
 - Yuki wirft alle 15 Sekunden Shuriken
   (nur, wenn Yuki angegriffen wird)
 - Erzeugte Entities werden ins Desync Log geschrieben (Debug)
+- Gutgeschriebene Resourcen werden ins Desync Log geschrieben (Debug)
 - Sync Calls werden ins Desync Log geschrieben (Debug)
 
 Version 0.4.12
