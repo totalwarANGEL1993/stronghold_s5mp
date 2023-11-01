@@ -1,5 +1,4 @@
 - Ungeklärter Desync
-- Knechte können gespamt werden
 - Andere Spieler können Tore beeinflussen
 - Mauern lösen Lua Error aus
 - Beförderung haben/soll Anzeige

@@ -29,6 +29,7 @@ end
 
 function Stronghold.Unit:CreateUnitButtonHandlers()
     self.SyncEvents = {
+        ReleaseBuyLock = 1,
         BuySoldier = 2,
         PayCosts = 3,
     };
@@ -37,16 +38,20 @@ function Stronghold.Unit:CreateUnitButtonHandlers()
         function(_PlayerID, _Action, ...)
             WriteSyncCallToLog("Unit", _Action, _PlayerID, unpack(arg));
 
-            if _Action == Stronghold.Unit.SyncEvents.BuySoldier then
+            if _Action == Stronghold.Unit.SyncEvents.ReleaseBuyLock then
                 if Stronghold.Unit.Data[_PlayerID] then
                     Stronghold.Unit.Data[_PlayerID].BuyLock = false;
                 end
+            elseif _Action == Stronghold.Unit.SyncEvents.BuySoldier then
                 Stronghold.Unit:PaySoldiers(_PlayerID, arg[1], arg[2]);
-            elseif _Action == Stronghold.Unit.SyncEvents.PayCosts then
-                if Stronghold.Unit.Data[_PlayerID] then
-                    Stronghold.Unit.Data[_PlayerID].BuyLock = false;
+                if GUI.GetPlayerID() == _PlayerID then
+                    Syncer.InvokeEvent(self.NetworkCall, self.SyncEvents.ReleaseBuyLock);
                 end
+            elseif _Action == Stronghold.Unit.SyncEvents.PayCosts then
                 Stronghold.Unit:PayCosts(_PlayerID, unpack(arg));
+                if GUI.GetPlayerID() == _PlayerID then
+                    Syncer.InvokeEvent(self.NetworkCall, self.SyncEvents.ReleaseBuyLock);
+                end
             end
         end
     );
