@@ -545,10 +545,10 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     local Orientation = Logic.GetEntityOrientation(HQID);
 
     -- Create door pos
-    local DoorPos;
+    local ID, DoorPos;
     if not IsExisting(DoorPosName) then
         DoorPos = GetCirclePosition(HQName, 800, 180);
-        local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
+        ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
         WriteEntityCreatedToLog(0, ID, Logic.GetEntityType(ID));
         Logic.SetEntityName(ID, DoorPosName);
         self.Players[_PlayerID].DoorPos = DoorPos;
@@ -572,7 +572,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     local SerfCount = _Serfs or self.Config.Base.StartingSerfs;
     for i= 1, SerfCount do
         local SerfPos = GetCirclePosition(CampPos, 250, (360/SerfCount) * i);
-        local ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
+        ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
         WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         LookAt(ID, CampName);
     end
@@ -1349,8 +1349,8 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_GUI_SelectionChanged", function()
         Overwrite.CallOriginal();
         local EntityID = GUI.GetSelectedEntity();
-        local GuiPlayer = GetLocalPlayerID();
-        Stronghold.Building:OnRallyPointHolderSelected(GuiPlayer, EntityID);
+        local PlayerID = GUI.GetPlayerID();
+        Stronghold.Building:OnRallyPointHolderSelected(PlayerID, EntityID);
         Stronghold:OnSelectionMenuChanged(EntityID);
     end);
 

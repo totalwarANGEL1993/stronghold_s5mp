@@ -1,3 +1,13 @@
+Version 0.5.x
+- Potentielle Desync-Quelle Sammelpunkt gefixt.
+  (Sammelpunkte werden nicht mehr automatisch erzeugt.)
+- Effekte von Verbrechern abgeschwächt
+  (Auf wunsch der Tester)
+- Verbrechensrate und Bestrafungsrate entschärft
+  (Auf wunsch der Tester)
+- Yukis einmaliger Beliebtheitsbonus halbiert
+  (Auf wunsch der Tester)
+
 Version 0.4.13
 - Der Fehler das bei ausgelastetem Arbeiterlimit nicht mehr rekrutieren
   kann, ist behoben

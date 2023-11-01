@@ -1,1 +1,7 @@
 - Ungeklärter Desync
+- Schießplatz Lua Error
+- Knechte können gespamt werden
+- Andere Spieler können Töre beeinflussen
+- Mauern lösen Lua Error aus
+- Beförderung haben/soll Anzeige
+- Wahrscheinlich zu schwierig

@@ -19,22 +19,22 @@ Stronghold.Attraction.Config.Attraction = {
 
 Stronghold.Attraction.Config.Crime = {
     Unveil = {
-        Points = 180,
-        SerfArea = 2400,
+        Points = 120,
+        SerfArea = 3000,
         TowerArea = 4500,
-        SerfRate = 1.8,
-        TowerRate = 2.5,
+        SerfRate = 2.1,
+        TowerRate = 3.5,
         TownGuardFactor = 1.5,
     },
     Effects = {
         TheftAmount = {Min = 25, Max = 75},
-        ReputationDamage = 4,
+        ReputationDamage = 2,
     },
     Convert = {
-        Chance = 5,
+        Chance = 3,
         Rate = 1.0,
         MaxPerCycle = 5,
-        TimeBetween = 10,
+        TimeBetween = 20,
     },
 }
 
