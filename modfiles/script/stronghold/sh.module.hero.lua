@@ -564,11 +564,11 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[1] = UpgradeCategories.CrusaderLeaderCavalry1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[2] = UpgradeCategories.TemplarLeaderCavalry1;
     elseif _Type == Entities.PU_Hero10 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = Entities.PU_LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderRifle1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderRifle2;
     elseif _Type == Entities.PU_Hero11 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = Entities.PU_LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderRifle1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderRifle2;
     elseif _Type == Entities.CU_BlackKnight then

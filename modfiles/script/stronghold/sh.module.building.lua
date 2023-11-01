@@ -71,7 +71,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         CloseGate = 8,
         TurnToGate = 9,
         TurnToWall = 10,
-        PlaceRallyPoint = 11,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
