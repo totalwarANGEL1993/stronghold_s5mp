@@ -1047,13 +1047,23 @@ function Stronghold:GetEntitiesOfType(_PlayerID, _Type, _IsConstructed, _Group)
     if self:IsPlayer(_PlayerID) then
         for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
             if IsExisting(ID) then
-                if _Type == 0 or Logic.GetEntityType(ID) == _Type then
+                local Type = Logic.GetEntityType(ID);
+                local TypeName = Logic.GetEntityTypeName(Type);
+                if _Type == 0 or Type == _Type then
                     if Logic.IsBuilding(ID) == 1 then
-                        if not _IsConstructed or Logic.IsConstructionComplete(ID) == 1 then
-                            table.insert(List, ID);
+                        if string.find(TypeName, "CB_") or string.find(TypeName, "PB_") then
+                            local Appropiate = true;
+                            if _IsConstructed and Logic.IsConstructionComplete(ID) == 0 then
+                                Appropiate = false;
+                            end
+                            if Appropiate then
+                                table.insert(List, ID);
+                            end
                         end
                     else
-                        table.insert(List, ID);
+                        if string.find(TypeName, "CU_") or string.find(TypeName, "PU_") then
+                            table.insert(List, ID);
+                        end
                     end
                 end
             end
@@ -1068,9 +1078,17 @@ function Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed, _Group)
     if self:IsPlayer(_PlayerID) then
         for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
             if IsExisting(ID) then
-                if _Type == 0 or Logic.GetEntityType(ID) == _Type then
-                    if not _IsConstructed or Logic.IsConstructionComplete(ID) == 1 then
-                        table.insert(List, ID);
+                local Type = Logic.GetEntityType(ID);
+                local TypeName = Logic.GetEntityTypeName(Type);
+                if _Type == 0 or Type == _Type then
+                    if string.find(TypeName, "CB_") or string.find(TypeName, "PB_") then
+                        local Appropiate = true;
+                        if _IsConstructed and Logic.IsConstructionComplete(ID) == 0 then
+                            Appropiate = false;
+                        end
+                        if Appropiate then
+                            table.insert(List, ID);
+                        end
                     end
                 end
             end
@@ -1093,8 +1111,12 @@ function Stronghold:GetSettlersOfType(_PlayerID, _Type, _Group)
     if self:IsPlayer(_PlayerID) then
         for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
             if IsExisting(ID) then
-                if _Type == 0 or Logic.GetEntityType(ID) == _Type then
-                    table.insert(List, ID);
+                local Type = Logic.GetEntityType(ID);
+                local TypeName = Logic.GetEntityTypeName(Type);
+                if _Type == 0 or Type == _Type then
+                    if string.find(TypeName, "CU_") or string.find(TypeName, "PU_") then
+                        table.insert(List, ID);
+                    end
                 end
             end
         end

@@ -1,6 +1,8 @@
 Version 0.5.x
 - Fehler behoben, bei dem es zu einem Fehler kam, wenn der Schießplatz
   angeklickt und als Held Drake oder Yuki gewälht wurde
+- Für die Beförderung gibt es nun eine Mengenanzeige (aktuell/benötigt)
+  für alle Bedingungen die eine Anzahl von etwas voraussetzen.
 - Potentielle Desync-Quelle Sammelpunkt gefixt.
   (Sammelpunkte werden nicht mehr automatisch erzeugt.)
 - Effekte von Verbrechern abgeschwächt

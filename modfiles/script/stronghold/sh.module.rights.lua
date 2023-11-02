@@ -303,26 +303,39 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
     elseif _Type == PlayerDuty.Settlers then
         if arg[1] == 1 then
             local TypeName = Logic.GetEntityTypeName(arg[2]);
+            local Amount = self:GetSettlersOfTypeInSettlement(_PlayerID, arg[2]);
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
-            Text = string.format("%dx %s", arg[3], Name);
+            Text = string.format("%d/%d %s", Amount, arg[3], Name);
         else
-            Text = arg[2].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Worker");
+            local Amount = self:GetSettlersOfTypeInSettlement(_PlayerID, 0);
+            Text = XGUIEng.GetStringTableText("sh_rights/Require_Worker");
+            Text = string.format("%d/%d %s", Amount, arg[2], Text);
         end
     elseif _Type == PlayerDuty.Beautification then
         if arg[1] == 1 then
-            Text = arg[2].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Beautification");
+            local Amount = self:GetBeautificationAmountInSettlement(_PlayerID);
+            Text = XGUIEng.GetStringTableText("sh_rights/Require_Beautification");
+            Text = string.format("%d/%d %s", Amount, arg[2], Text);
         else
             Text = XGUIEng.GetStringTableText("sh_rights/Require_Beautifications");
         end
     elseif _Type == PlayerDuty.Soldiers then
-        Text = arg[1].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Soldiers");
+        local Amount = self:GetSoldierAmountInSettlement(_PlayerID);
+        Text = XGUIEng.GetStringTableText("sh_rights/Require_Soldiers");
+        Text = string.format("%d/%d %s", Amount, arg[1], Text);
     elseif _Type == PlayerDuty.Buildings then
-        Text = arg[1].. " ".. XGUIEng.GetStringTableText("sh_rights/Require_Workplaces");
+        local Amount = self:GetBuildingAmountInSettlement(_PlayerID);
+        Text = XGUIEng.GetStringTableText("sh_rights/Require_Workplaces");
+        Text = string.format("%d/%d %s", Amount, arg[1], Text);
     elseif _Type == PlayerDuty.Technology then
         local TechnologyKey = KeyOf(arg[1], Technologies);
         Text = XGUIEng.GetStringTableText("Names/" ..TechnologyKey);
     elseif _Type == PlayerDuty.Custom then
+        local Fulfilled, Amount, Required = self:DoCustomConditionSucceed(i, _PlayerID, Condition[3]);
         Text = (type(arg[1]) == "table" and arg[1][Lang]) or arg[1];
+        if Amount and Required then
+            Text = Amount.. "/" ..Required.. " " ..Text;
+        end
     elseif _Type == PlayerDuty.Noble then
         Text = XGUIEng.GetStringTableText("sh_rights/Require_Noble");
     end
@@ -364,7 +377,7 @@ function Stronghold.Rights:ArePromotionRequirementsFulfilled(_PlayerID, _Rank)
                 Fulfilled = Fulfilled and self:DoAllBeautificationsInSettlementExist(_PlayerID);
             end
         elseif Condition[1] == PlayerDuty.Buildings then
-            Fulfilled = Fulfilled and self:DooesBuildingAmountInSettlementExist(_PlayerID, Condition[2]);
+            Fulfilled = Fulfilled and self:DoesBuildingAmountInSettlementExist(_PlayerID, Condition[2]);
         elseif Condition[1] == PlayerDuty.Soldiers then
             Fulfilled = Fulfilled and self:DoesSoldierAmountInSettlementExist(_PlayerID, Condition[2]);
         elseif Condition[1] == PlayerDuty.Technology then
@@ -374,6 +387,56 @@ function Stronghold.Rights:ArePromotionRequirementsFulfilled(_PlayerID, _Rank)
         end
     end
     return Fulfilled;
+end
+
+function Stronghold.Rights:IsTechnologyResearched(_PlayerID, _Technology)
+    return Logic.IsTechnologyResearched(_PlayerID, _Technology) == 1;
+end
+
+function Stronghold.Rights:GetWorkerAmountInSettlement(_PlayerID)
+    local Serfs = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
+    local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
+    return Serfs + Workers;
+end
+
+function Stronghold.Rights:GetSoldierAmountInSettlement(_PlayerID)
+    return Logic.GetNumberOfAttractedSoldiers(_PlayerID);
+end
+
+function Stronghold.Rights:GetSettlersOfTypeInSettlement(_PlayerID, _Type)
+    local CurrentAmount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, _Type);
+    return CurrentAmount;
+end
+
+function Stronghold.Rights:GetBuildingAmountInSettlement(_PlayerID)
+    local WorkplaceAmount = table.getn(Stronghold:GetWorkplacesOfType(_PlayerID, 0, true));
+    return WorkplaceAmount;
+end
+
+function Stronghold.Rights:GetBuildingsOfTypeInSettlement(_PlayerID, _Type)
+    local CurrentAmount = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, _Type, true));
+    return CurrentAmount;
+end
+
+function Stronghold.Rights:GetBeautificationAmountInSettlement(_PlayerID)
+    local Amount = 0;
+    for i= 1, 12 do
+        local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
+        Amount = Amount + table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true));
+    end
+    return Amount;
+end
+
+function Stronghold.Rights:GetAllBeautificationsInSettlement(_PlayerID)
+    local Amount = 0;
+    for i= 1, 12 do
+        local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
+        local Beautification = Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true);
+        if Beautification and Beautification[1] then
+            Amount = Amount +1;
+        end
+    end
+    return Amount;
 end
 
 function Stronghold.Rights:DoesHeadquarterOfUpgradeLevelExist(_PlayerID, _Level)
@@ -395,54 +458,37 @@ function Stronghold.Rights:DoesCathedralOfUpgradeLevelExist(_PlayerID, _Level)
     return false;
 end
 
-function Stronghold.Rights:IsTechnologyResearched(_PlayerID, _Technology)
-    return Logic.IsTechnologyResearched(_PlayerID, _Technology) == 1;
-end
-
 function Stronghold.Rights:DoesWorkerAmountInSettlementExist(_PlayerID, _Amount)
-    local Serfs = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
-    local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
-    return Serfs + Workers >= _Amount;
+    return self:GetWorkerAmountInSettlement(_PlayerID) >= _Amount;
 end
 
 function Stronghold.Rights:DoesSoldierAmountInSettlementExist(_PlayerID, _Amount)
-    return Logic.GetNumberOfAttractedSoldiers(_PlayerID) >= _Amount;
+    return self:GetSoldierAmountInSettlement(_PlayerID) >= _Amount;
 end
 
 function Stronghold.Rights:DoSettlersOfTypeInSettlementExist(_PlayerID, _Type, _Amount)
-    return Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, _Type) >= _Amount;
+    return self:GetSettlersOfTypeInSettlement(_PlayerID, _Type) >= _Amount;
 end
 
-function Stronghold.Rights:DooesBuildingAmountInSettlementExist(_PlayerID, _Amount)
-    local WorkplaceAmount = table.getn(Stronghold:GetWorkplacesOfType(_PlayerID, 0, true));
-    return WorkplaceAmount >= _Amount;
+function Stronghold.Rights:DoesBuildingAmountInSettlementExist(_PlayerID, _Amount)
+    return self:GetBuildingAmountInSettlement(_PlayerID) >= _Amount;
 end
 
 function Stronghold.Rights:DoBuildingsOfTypeInSettlementExist(_PlayerID, _Type, _Amount)
-    return table.getn(Stronghold:GetBuildingsOfType(_PlayerID, _Type, true)) >= _Amount;
+    return self:GetBuildingsOfTypeInSettlement(_PlayerID, _Type) >= _Amount;
 end
 
 function Stronghold.Rights:DoesBeautificationAmountInSettlementExist(_PlayerID, _Amount)
-    local Amount = 0;
-    for i= 1, 12 do
-        local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-        Amount = Amount + table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true));
-    end
-    return Amount >= _Amount;
+    return self:GetBeautificationAmountInSettlement(_PlayerID) >= _Amount;
 end
 
 function Stronghold.Rights:DoAllBeautificationsInSettlementExist(_PlayerID)
-    for i= 1, 12 do
-        local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-        if table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true)) < 1 then
-            return false;
-        end
-    end
-    return true;
+    return self:GetAllBeautificationsInSettlement(_PlayerID) == 12;
 end
 
 function Stronghold.Rights:DoCustomConditionSucceed(_i, _PlayerID, _Function)
-    return _Function(_PlayerID, _i);
+    local Fulfulled, Current, Required = _Function(_PlayerID, _i);
+    return Fulfulled, Current, Required;
 end
 
 -- -------------------------------------------------------------------------- --
