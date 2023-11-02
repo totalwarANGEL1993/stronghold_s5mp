@@ -379,7 +379,6 @@ function Stronghold:Init()
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
-    self:StartTurnDelayTrigger();
     self:StartPlayerPaydayUpdater();
     self:UnlockAllTechnologies();
     self:StartTriggers();
@@ -689,120 +688,88 @@ function Stronghold:DelayedActionController()
     end
 end
 
-function Stronghold:StartTurnDelayTrigger()
-    function Stronghold_Trigger_TurnDelay()
-        Stronghold:DelayedActionController();
-    end
-    StartSimpleHiResJob("Stronghold_Trigger_TurnDelay");
-end
-
 -- -------------------------------------------------------------------------- --
 -- Trigger
 
 function Stronghold:StartTriggers()
     Job.Second(function()
-        Stronghold:OnEverySecond();
+        local Players = GetMaxPlayers();
+        for i= 1, Players do
+            Stronghold:PlayerDefeatCondition(i);
+        end
+        Stronghold.Building:OnEverySecond();
+        Stronghold.Province:OnEverySecond();
     end);
 
     Job.Turn(function()
-        Stronghold:OnEveryTurn();
+        Stronghold:DelayedActionController();
+        -- Send versions to all other players
+        -- (Multiplayer only)
+        Stronghold.Multiplayer:BroadcastStrongholdVersion();
+
+        -- Player jobs on each turn
+        local Players = GetMaxPlayers();
+        for PlayerID = 1, Players do
+            Stronghold.Attraction:OnEveryTurn(PlayerID);
+            Stronghold.Rights:OnEveryTurn(PlayerID);
+            Stronghold.Recruit:OnEveryTurn(PlayerID);
+        end
+        -- Player jobs on modified turns
+        --- @diagnostic disable-next-line: undefined-field
+        for PlayerID = 1, Players do
+            --- @diagnostic disable-next-line: undefined-field
+            local TimeMod = math.mod(Logic.GetCurrentTurn(), 10);
+            --- @diagnostic disable-next-line: undefined-field
+            local PlayerMod = math.mod(PlayerID, 10);
+            if TimeMod == PlayerMod then
+                Stronghold.Attraction:OncePerSecond(PlayerID);
+                Stronghold.Building:OncePerSecond(PlayerID);
+                Stronghold.Economy:OncePerSecond(PlayerID);
+                Stronghold.Hero:OncePerSecond(PlayerID);
+                Stronghold.Unit:OncePerSecond(_PlayerID);
+            end
+        end
     end);
 
     Job.Create(function()
-        Stronghold:OnEntityCreated();
+        local EntityID = Event.GetEntityID();
+        Stronghold:AddEntityToPlayerRecordOnCreate(EntityID);
+        Stronghold:OnSelectionMenuChanged(EntityID);
+        Stronghold.Attraction:OnEntityCreated(EntityID);
+        Stronghold.Building:OnEntityCreated(EntityID);
+        Stronghold.Construction:OnEntityCreated(EntityID);
+        Stronghold.Economy:OnEntityCreated(EntityID);
+        Stronghold.Hero:OnEntityCreated(EntityID);
+        Stronghold.Unit:OnEntityCreated(EntityID);
+        Stronghold.Recruit:OnEntityCreated(EntityID);
     end);
 
     Job.Destroy(function()
-        Stronghold:OnEntityDestroyed();
+        local EntityID = Event.GetEntityID();
+        Stronghold:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
+        Stronghold.Attraction:OnEntityDestroyed(EntityID);
+        Stronghold.Building:OnEntityDestroyed(EntityID);
+    end);
+
+    Job.Trade(function()
+        local BuyType = Event.GetBuyResource();
+        local BuyAmount = Event.GetBuyAmount();
+        local SellType = Event.GetSellResource();
+        local SellAmount = Event.GetSellAmount();
+        local EntityID = Event.GetEntityID();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
+
+        local PurchasePrice = Logic.GetCurrentPrice(PlayerID, BuyType);
+        Stronghold:ManipulateGoodPurchasePrice(PlayerID, BuyType, PurchasePrice);
+        local SellPrice = Logic.GetCurrentPrice(PlayerID, SellType);
+        Stronghold:ManipulateGoodSellPrice(PlayerID, SellType, SellPrice);
+
+        GameCallback_SH_GoodsTraded(PlayerID, EntityID, BuyType, BuyAmount, SellType, SellAmount);
     end);
 
     Job.Hurt(function()
         Stronghold:OnEntityHurtEntity();
     end);
-
-    Job.Trade(function()
-        Stronghold:OnGoodsTraded();
-    end);
-end
-
-function Stronghold:OnEveryTurn()
-    -- Send versions to all other players
-    -- (Multiplayer only)
-    self.Multiplayer:BroadcastStrongholdVersion();
-
-    local Players = GetMaxPlayers();
-    -- Player jobs on each turn
-    for PlayerID = 1, Players do
-        self.Attraction:UpdatePlayerCivilAttractionUsage(PlayerID);
-        self.Hero:EntityAttackedController(PlayerID);
-        self.Hero:HeliasConvertController(PlayerID);
-        self.Hero:YukiShurikenConterController(PlayerID);
-        self.Rights:OnlineHelpUpdate(PlayerID, "OnlineHelpButton", Technologies.T_OnlineHelp);
-        self.Recruit:ControlCannonProducers(PlayerID);
-        self.Recruit:OnEveryTurn(PlayerID);
-    end
-    -- Player jobs on modified turns
-    --- @diagnostic disable-next-line: undefined-field
-    for PlayerID = 1, Players do
-        --- @diagnostic disable-next-line: undefined-field
-        local TimeMod = math.mod(Logic.GetCurrentTurn(), 10);
-        --- @diagnostic disable-next-line: undefined-field
-        local PlayerMod = math.mod(PlayerID, 10);
-        if TimeMod == PlayerMod then
-            self.Attraction:ManageCriminalsOfPlayer(PlayerID);
-            self.Attraction:UpdatePlayerCivilAttractionLimit(PlayerID);
-            self.Building:FoundryCannonAutoRepair(PlayerID);
-            self.Economy:UpdateIncomeAndUpkeep(PlayerID);
-            self.Economy:GainMeasurePoints(PlayerID);
-            self.Economy:GainKnowledgePoints(PlayerID);
-            self.Hero:VargWolvesController(PlayerID);
-        end
-    end
-end
-
-function Stronghold:OnEverySecond()
-    local Players = GetMaxPlayers();
-    for i= 1, Players do
-        self:PlayerDefeatCondition(i);
-        self.Building:UnitToRallyPointController(i);
-        self.Building:CleanupTurretsOfBuilding(i);
-    end
-    self.Province:ControlProvince();
-end
-
-function Stronghold:OnEntityCreated()
-    local EntityID = Event.GetEntityID();
-    local PlayerID = Logic.EntityGetPlayer(EntityID);
-
-    self:AddEntityToPlayerRecordOnCreate(EntityID);
-    if Logic.IsBuilding(EntityID) == 1 then
-        if GUI.GetPlayerID() == PlayerID then
-            self:OnSelectionMenuChanged(EntityID);
-            self.Construction:OnBuildingPlaced(EntityID);
-        end
-    end
-    if Logic.IsSettler(EntityID) == 1 then
-        self.Hero:ConfigurePlayersHeroPet(EntityID);
-        if GUI.GetPlayerID() == PlayerID then
-            self:OnSelectionMenuChanged(EntityID);
-        end
-    end
-    self.Attraction:OnEntityCreated(EntityID);
-    self.Building:OnWallOrPalisadeCreated(EntityID);
-    self.Building:OnUnitCreated(EntityID);
-    self.Economy:SetSettlersMotivation(EntityID);
-    self.Unit:SetFormationOnCreate(EntityID);
-    self.Recruit:OnEntityCreated(EntityID);
-end
-
-function Stronghold:OnEntityDestroyed()
-    local EntityID = Event.GetEntityID();
-    local PlayerID = Logic.EntityGetPlayer(EntityID);
-    self:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
-    self.Attraction:OnEntityDestroyed(EntityID);
-    self.Building:OnRallyPointHolderDestroyed(PlayerID, EntityID);
-    self.Building:OnWallOrPalisadeDestroyed(EntityID);
-    self.Recruit:OnEntityDestroyed(EntityID);
 end
 
 function Stronghold:OnEntityHurtEntity()
@@ -846,22 +813,6 @@ function Stronghold:OnEntityHurtEntity()
             CEntity.HurtTrigger.SetDamage(math.ceil(Damage));
         end
     end
-end
-
-function Stronghold:OnGoodsTraded()
-    local BuyType = Event.GetBuyResource();
-    local BuyAmount = Event.GetBuyAmount();
-    local SellType = Event.GetSellResource();
-    local SellAmount = Event.GetSellAmount();
-    local EntityID = Event.GetEntityID();
-    local PlayerID = Logic.EntityGetPlayer(EntityID);
-
-    local PurchasePrice = Logic.GetCurrentPrice(PlayerID, BuyType);
-    self:ManipulateGoodPurchasePrice(PlayerID, BuyType, PurchasePrice);
-    local SellPrice = Logic.GetCurrentPrice(PlayerID, SellType);
-    self:ManipulateGoodSellPrice(PlayerID, SellType, SellPrice);
-
-    GameCallback_SH_GoodsTraded(PlayerID, EntityID, BuyType, BuyAmount, SellType, SellAmount)
 end
 
 function Stronghold:ManipulateGoodPurchasePrice(_PlayerID, _Resource, _Price)

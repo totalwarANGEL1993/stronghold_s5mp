@@ -15,7 +15,6 @@
 Stronghold = Stronghold or {};
 
 Stronghold.Hero = {
-    SyncEvents = {},
     Data = {
         ConvertBlacklist = {},
     },
@@ -81,6 +80,7 @@ function SetHeroSelectionDescription(_Type, _Text)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Internal
 
 function Stronghold.Hero:Install()
     for i= 1, GetMaxPlayers() do
@@ -110,7 +110,7 @@ function Stronghold.Hero:OnSaveGameLoaded()
     for i= 1, GetMaxPlayers() do
         local Wolves = Stronghold:GetLeadersOfType(i, Entities.CU_Barbarian_Hero_wolf);
         for j=1, table.getn(Wolves) do
-            self:ConfigurePlayersHeroPet(Wolves[j]);
+            self:ConfigureSummonedEntities(Wolves[j]);
         end
     end
 end
@@ -146,6 +146,29 @@ end
 function Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, _Flag)
     -- Deactivates both the selection and the buy hero window.
     BuyHero.SetNumberOfBuyableHeroes(_PlayerID, (_Flag and 1) or 0);
+end
+
+function Stronghold.Hero:OnEntityCreated(_EntityID)
+    -- Configure summons
+    if Logic.IsSettler(_EntityID) == 1 then
+        self:ConfigureSummonedEntities(_EntityID);
+    end
+end
+
+function Stronghold.Hero:OnEveryTurn(_PlayerID)
+    -- Configure summons
+    self:VargWolvesController(_PlayerID);
+end
+
+function Stronghold.Hero:OncePerSecond(_PlayerID)
+    -- Configure summons
+    self:VargWolvesController(_PlayerID);
+    -- Register attacks
+    self:AttackMemoryController(_PlayerID);
+    -- Helias conversion
+    self:HeliasConvertController(_PlayerID);
+    -- Yukis Shuriken
+    self:YukiShurikenConterController(_PlayerID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -477,7 +500,7 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
 end
 
 -- The wolves of Varg becoming stronger when he gets higher titles.
-function Stronghold.Hero:ConfigurePlayersHeroPet(_EntityID)
+function Stronghold.Hero:ConfigureSummonedEntities(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
     if Type == Entities.CU_Hero13_Summon then
@@ -597,7 +620,7 @@ end
 -- -------------------------------------------------------------------------- --
 -- Trigger
 
-function Stronghold.Hero:EntityAttackedController(_PlayerID)
+function Stronghold.Hero:AttackMemoryController(_PlayerID)
     if IsPlayer(_PlayerID) then
         for k,v in pairs(Stronghold.Players[_PlayerID].AttackMemory) do
             -- Count down and remove

@@ -64,7 +64,7 @@ Stronghold.Economy.Config.Income = {
     ScaleBonusFactor = 1.1,
     DebentureBonus = 1,
     CoinageBonus = 1,
-    KnowledgePointsPerWorker = 10,
+    KnowledgePointsPerWorker = 8,
     BetterStudiesFactor = 1.3,
 
     TaxEffect = {

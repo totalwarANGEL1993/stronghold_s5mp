@@ -1,5 +1,3 @@
 - Ungeklärter Desync
 - Andere Spieler können Tore beeinflussen
 - Mauern lösen Lua Error aus
-- Beförderung haben/soll Anzeige
-- Friedenszeiten müssen überdacht werden

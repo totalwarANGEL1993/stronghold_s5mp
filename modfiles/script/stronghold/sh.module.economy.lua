@@ -73,65 +73,8 @@ Stronghold.Economy = {
     Text = {},
 };
 
-function Stronghold.Economy:Install()
-    for i= 1, GetMaxPlayers() do
-        CUtil.AddToPlayersMotivationSoftcap(i, 1);
-
-        self.Data[i] = {
-            MeasurePoints = 0,
-            KnowledgePoints = 0,
-
-            IncomeMoney = 0,
-            UpkeepMoney = 0,
-            UpkeepDetails = {},
-
-            IncomeReputation = 0,
-            IncomeReputationSingle = 0,
-            ReputationDetails = {
-                TaxBonus = 0,
-                Housing = 0,
-                Providing = 0,
-                Buildings = 0,
-                OtherBonus = 0,
-                TaxPenalty = 0,
-                Homelessness = 0,
-                Hunger = 0,
-                Criminals = 0,
-                OtherMalus = 0,
-            },
-
-            IncomeHonor = 0,
-            IncomeHonorSingle = 0,
-            HonorDetails = {
-                TaxBonus = 0,
-                Housing = 0,
-                Providing = 0,
-                Buildings = 0,
-                Criminals = 0,
-                OtherBonus = 0,
-            },
-        };
-    end
-
-    self:HonorMenuInit();
-    self:OverrideResourceCallbacks();
-    self:OverrideFindViewUpdate();
-    self:OverrideTaxAndPayStatistics();
-    self:OverrideSelectUnitCallbacks();
-    self:OverrideKnowledgeProgressUpdate();
-end
-
-function Stronghold.Economy:OnSaveGameLoaded()
-    self:HonorMenuInit();
-end
-
-function Stronghold.Economy:GetStaticTypeConfiguration(_Type)
-    return Stronghold.Economy.Config.Income.Static[_Type];
-end
-
-function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
-    return Stronghold.Economy.Config.Income.Dynamic[_Type];
-end
+-- -------------------------------------------------------------------------- --
+-- API
 
 --- Gives Measure points to the player.
 function AddPlayerMeasure(_PlayerID, _Amount)
@@ -253,6 +196,85 @@ end
 
 function GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
     return _Amount;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Internal
+
+function Stronghold.Economy:Install()
+    for i= 1, GetMaxPlayers() do
+        CUtil.AddToPlayersMotivationSoftcap(i, 1);
+
+        self.Data[i] = {
+            MeasurePoints = 0,
+            KnowledgePoints = 0,
+
+            IncomeMoney = 0,
+            UpkeepMoney = 0,
+            UpkeepDetails = {},
+
+            IncomeReputation = 0,
+            IncomeReputationSingle = 0,
+            ReputationDetails = {
+                TaxBonus = 0,
+                Housing = 0,
+                Providing = 0,
+                Buildings = 0,
+                OtherBonus = 0,
+                TaxPenalty = 0,
+                Homelessness = 0,
+                Hunger = 0,
+                Criminals = 0,
+                OtherMalus = 0,
+            },
+
+            IncomeHonor = 0,
+            IncomeHonorSingle = 0,
+            HonorDetails = {
+                TaxBonus = 0,
+                Housing = 0,
+                Providing = 0,
+                Buildings = 0,
+                Criminals = 0,
+                OtherBonus = 0,
+            },
+        };
+    end
+
+    self:HonorMenuInit();
+    self:OverrideResourceCallbacks();
+    self:OverrideFindViewUpdate();
+    self:OverrideTaxAndPayStatistics();
+    self:OverrideSelectUnitCallbacks();
+    self:OverrideKnowledgeProgressUpdate();
+end
+
+function Stronghold.Economy:OnSaveGameLoaded()
+    self:HonorMenuInit();
+end
+
+function Stronghold.Economy:GetStaticTypeConfiguration(_Type)
+    return Stronghold.Economy.Config.Income.Static[_Type];
+end
+
+function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
+    return Stronghold.Economy.Config.Income.Dynamic[_Type];
+end
+
+function Stronghold.Economy:OncePerSecond(_PlayerID)
+    -- Income and Costs
+    self:UpdateIncomeAndUpkeep(_PlayerID);
+    -- Measure
+    self:GainMeasurePoints(_PlayerID);
+    -- Knowledge
+    self:GainKnowledgePoints(_PlayerID);
+end
+
+function Stronghold.Economy:OnEntityCreated(_EntityID)
+    -- Initalize motivation
+    if Logic.IsWorker(_EntityID) == 1 then
+        self:SetSettlersMotivation(_EntityID);
+    end
 end
 
 -- -------------------------------------------------------------------------- --

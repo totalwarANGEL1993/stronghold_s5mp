@@ -118,7 +118,13 @@ function Stronghold.Rights:CreateButtonHandlers()
     );
 end
 
+function Stronghold.Rights:OnEveryTurn(_PlayerID)
+    -- Update promote button
+    Stronghold.Rights:OnlineHelpUpdate(_PlayerID, "OnlineHelpButton", Technologies.T_OnlineHelp);
+end
+
 -- -------------------------------------------------------------------------- --
+-- Attributes
 
 function Stronghold.Rights:GetPlayerRank(_PlayerID)
     if IsPlayer(_PlayerID) then

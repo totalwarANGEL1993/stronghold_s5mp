@@ -28,14 +28,8 @@ Stronghold.Province = {
     Text = {},
 }
 
-function Stronghold.Province:Install()
-    self:StartTriggers();
-end
-
-function Stronghold.Province:OnSaveGameLoaded()
-end
-
 -- -------------------------------------------------------------------------- --
+-- API
 
 -- Creates a province that is granting honor when claimed.
 function CreateHonorProvince(_Name, _Position, _AmountOfHonor, _UpgradeFactor, ...)
@@ -117,6 +111,7 @@ function SetProvincesNeutralPlayerID(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Game Callbacks
 
 function GameCallback_SH_Logic_OnProvinceClaimed(_PlayerID, _ProvinceID, _BuildingID)
 end
@@ -131,8 +126,21 @@ function GameCallback_SH_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Internal
 
-function Stronghold.Province:StartTriggers()
+function Stronghold.Province:Install()
+    self:OerwriteGameCallbacks();
+end
+
+function Stronghold.Province:OnSaveGameLoaded()
+end
+
+function Stronghold.Province:OnEverySecond()
+    -- Controls provinces
+    self:ControlProvince();
+end
+
+function Stronghold.Province:OerwriteGameCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
         local Amount = Overwrite.CallOriginal();
         Amount = Stronghold.Province:OnPayday(_PlayerID, Amount);

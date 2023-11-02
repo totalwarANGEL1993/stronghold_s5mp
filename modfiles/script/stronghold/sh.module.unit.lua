@@ -57,31 +57,31 @@ function Stronghold.Unit:CreateUnitButtonHandlers()
     );
 end
 
-function Stronghold.Unit:StartSerfHealingJob()
-    Job.Second(function()
-        for i= 1, GetMaxPlayers() do
-            if Logic.IsTechnologyResearched(i, Technologies.T_PublicRecovery) == 1 then
-                -- Heal sefs
-                for k, EntityID in pairs(GetPlayerEntities(i, Entities.PU_Serf)) do
-                    local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
-                    local Health = Logic.GetEntityHealth(EntityID);
-                    local Task = Logic.GetCurrentTaskList(EntityID);
-                    if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
-                    end
-                end
-                -- Heal militia
-                for k, EntityID in pairs(GetPlayerEntities(i, Entities.PU_BattleSerf)) do
-                    local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
-                    local Health = Logic.GetEntityHealth(EntityID);
-                    local Task = Logic.GetCurrentTaskList(EntityID);
-                    if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                        Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
-                    end
-                end
-            end
-        end
-    end);
+function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
+    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
+    RemoveResourcesFromPlayer(_PlayerID, Costs);
+end
+
+function Stronghold.Unit:PaySoldiers(_PlayerID, _Type, _SoldierAmount)
+    local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
+    RemoveResourcesFromPlayer(_PlayerID, Costs);
+end
+
+function Stronghold.Unit:PayCosts(_PlayerID, _Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur, _Knowledge)
+    local Costs = CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur, _Knowledge);
+    RemoveResourcesFromPlayer(_PlayerID, Costs);
+end
+
+function Stronghold.Unit:OnEntityCreated(_EntityID)
+    -- Change formation
+    if Logic.IsLeader(_EntityID) == 1 then
+        Stronghold.Unit:SetFormationOnCreate(_EntityID);
+    end
+end
+
+function Stronghold.Unit:OncePerSecond(_PlayerID)
+    -- Heal entities
+    self:StartSerfHealingJob(_PlayerID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -124,21 +124,29 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Pay unit
+-- Heal units
 
-function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
-    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
-    RemoveResourcesFromPlayer(_PlayerID, Costs);
-end
-
-function Stronghold.Unit:PaySoldiers(_PlayerID, _Type, _SoldierAmount)
-    local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
-    RemoveResourcesFromPlayer(_PlayerID, Costs);
-end
-
-function Stronghold.Unit:PayCosts(_PlayerID, _Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur, _Knowledge)
-    local Costs = CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur, _Knowledge);
-    RemoveResourcesFromPlayer(_PlayerID, Costs);
+function Stronghold.Unit:StartSerfHealingJob(_PlayerID)
+    if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PublicRecovery) == 1 then
+        -- Heal sefs
+        for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.PU_Serf)) do
+            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
+            local Health = Logic.GetEntityHealth(EntityID);
+            local Task = Logic.GetCurrentTaskList(EntityID);
+            if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
+            end
+        end
+        -- Heal militia
+        for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.PU_BattleSerf)) do
+            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
+            local Health = Logic.GetEntityHealth(EntityID);
+            local Task = Logic.GetCurrentTaskList(EntityID);
+            if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
+            end
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --

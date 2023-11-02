@@ -16,6 +16,16 @@ Stronghold.Construction = {
     Text = {},
 }
 
+-- -------------------------------------------------------------------------- --
+-- Game Callbacks
+
+function GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, _CurrentAmount)
+    return Stronghold.Construction.Config.TowerDistance;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Internal
+
 function Stronghold.Construction:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
@@ -35,11 +45,13 @@ end
 function Stronghold.Construction:OnSaveGameLoaded()
 end
 
--- -------------------------------------------------------------------------- --
--- Game Callbacks
-
-function GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, _CurrentAmount)
-    return Stronghold.Construction.Config.TowerDistance;
+function Stronghold.Construction:OnEntityCreated(_EntityID)
+    -- Reset rotation
+    if Logic.IsBuilding(_EntityID) == 1 then
+        if Logic.IsConstructionComplete(_EntityID) == 0 then
+            CPlaceBuilding.SetRotation(0);
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -373,14 +385,5 @@ function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID, _Rank)
     EntityTracker.SetLimitOfType(Entities.PB_Stable2, Final, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry1, Final, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry2, Final, _PlayerID);
-end
-
--- -------------------------------------------------------------------------- --
--- Reset Build Orientation
-
-function Stronghold.Construction:OnBuildingPlaced(_EntityID)
-    if Logic.IsConstructionComplete(_EntityID) == 0 then
-        CPlaceBuilding.SetRotation(0);
-    end
 end
 

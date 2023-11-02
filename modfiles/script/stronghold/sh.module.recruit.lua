@@ -65,92 +65,16 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
     );
 end
 
--- -------------------------------------------------------------------------- --
-
 function Stronghold.Recruit:OnEntityCreated(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if IsPlayer(PlayerID) then
-        -- Activate autofill
-        if Logic.IsBuilding(_EntityID) == 1 then
-            GUI.DeactivateAutoFillAtBarracks(_EntityID);
-            self.Data[PlayerID].AutoFill[_EntityID] = true;
-        end
-        -- Add training leader
-        if Logic.IsLeader(_EntityID) == 1 then
-            local Experience = Stronghold.Hero:ApplyExperiencePassiveAbility(PlayerID, _EntityID, 0);
-            if Experience > 0 then
-                CEntity.SetLeaderExperience(_EntityID, Experience);
-            end
-            self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
-        end
-        -- Scale units
-        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon1 then
-            SVLib.SetEntitySize(_EntityID, 1.35);
-            -- Logic.SetSpeedFactor(_EntityID, 1.35);
-        end
-        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon2 then
-            SVLib.SetEntitySize(_EntityID, 0.65);
-            -- Logic.SetSpeedFactor(_EntityID, 0.65);
-        end
-    end
-end
-
-function Stronghold.Recruit:OnEntityDestroyed(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if IsPlayer(PlayerID) then
-        -- ...
-    end
+    -- Recruit units
+    self:UnitRecruiterController(_EntityID);
 end
 
 function Stronghold.Recruit:OnEveryTurn(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        -- Update training leaders
-        for LeaderID,_ in pairs(self.Data[_PlayerID].TrainingLeaders) do
-            local BarracksID = Logic.LeaderGetBarrack(LeaderID);
-            if BarracksID == 0 then
-                if self.Data[_PlayerID].TrainingLeaders[LeaderID] then
-                    BarracksID = self.Data[_PlayerID].TrainingLeaders[LeaderID];
-                    self.Data[_PlayerID].TrainingLeaders[LeaderID] = nil;
-                    if IsExisting(BarracksID) and self.Data[_PlayerID].AutoFill[BarracksID] then
-                        local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(LeaderID);
-                        local Soldiers = Logic.LeaderGetNumberOfSoldiers(LeaderID);
-                        local SoldierAmount = MaxSoldiers - Soldiers;
-                        if SoldierAmount > 0 then
-                            -- Buy soldiers normally for human players
-                            if not IsAIPlayer(_PlayerID) then
-                                local EntityType = Logic.GetEntityType(LeaderID);
-                                local Places = GetMilitaryPlacesUsedByUnit(EntityType, 1);
-                                local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, EntityType, 1);
-                                if GUI.GetPlayerID() == _PlayerID then
-                                    local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
-                                    local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
-                                    local MilitarySpace = MiitaryLimit - MiitaryUsage;
-                                    for i= 1, SoldierAmount do
-                                        if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
-                                            Stronghold.Unit:PaySoldiers(_PlayerID, EntityType, 1);
-                                            GUI.BuySoldier(LeaderID);
-                                            MilitarySpace = MilitarySpace - Places;
-                                        end
-                                    end
-                                end
-                            -- Just create soldiers for AI players
-                            else
-                                local MaxHealth = Logic.GetEntityMaxHealth(LeaderID);
-                                local Health = Logic.GetEntityHealth(LeaderID);
-                                local Task = Logic.GetCurrentTaskList(LeaderID);
-                                if  Health > 0 and Health < MaxHealth and Task
-                                and (not string.find(Task, "BATTLE") and not string.find(Task, "DIE")) then
-                                    Tools.CreateSoldiersForLeader(LeaderID, SoldierAmount);
-                                end
-                            end
-                        end
-                    end
-                end
-            else
-                self.Data[_PlayerID].TrainingLeaders[LeaderID] = BarracksID;
-            end
-        end
-    end
+    -- Auto recruit soldiers
+    self:SoldierRecruiterController(_PlayerID);
+    -- Cannon progress
+    self:ControlCannonProducers(_PlayerID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -948,5 +872,87 @@ function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
         end
     end
     return Places;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Recruit military
+
+function Stronghold.Recruit:UnitRecruiterController(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        -- Activate autofill
+        if Logic.IsBuilding(_EntityID) == 1 then
+            GUI.DeactivateAutoFillAtBarracks(_EntityID);
+            self.Data[PlayerID].AutoFill[_EntityID] = true;
+        end
+        -- Add training leader
+        if Logic.IsLeader(_EntityID) == 1 then
+            local Experience = Stronghold.Hero:ApplyExperiencePassiveAbility(PlayerID, _EntityID, 0);
+            if Experience > 0 then
+                CEntity.SetLeaderExperience(_EntityID, Experience);
+            end
+            self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
+        end
+        -- Scale units
+        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon1 then
+            SVLib.SetEntitySize(_EntityID, 1.35);
+            -- Logic.SetSpeedFactor(_EntityID, 1.35);
+        end
+        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon2 then
+            SVLib.SetEntitySize(_EntityID, 0.65);
+            -- Logic.SetSpeedFactor(_EntityID, 0.65);
+        end
+    end
+end
+
+function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        -- Update training leaders
+        for LeaderID,_ in pairs(self.Data[_PlayerID].TrainingLeaders) do
+            local BarracksID = Logic.LeaderGetBarrack(LeaderID);
+            if BarracksID == 0 then
+                if self.Data[_PlayerID].TrainingLeaders[LeaderID] then
+                    BarracksID = self.Data[_PlayerID].TrainingLeaders[LeaderID];
+                    self.Data[_PlayerID].TrainingLeaders[LeaderID] = nil;
+                    if IsExisting(BarracksID) and self.Data[_PlayerID].AutoFill[BarracksID] then
+                        local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(LeaderID);
+                        local Soldiers = Logic.LeaderGetNumberOfSoldiers(LeaderID);
+                        local SoldierAmount = MaxSoldiers - Soldiers;
+                        if SoldierAmount > 0 then
+                            -- Buy soldiers normally for human players
+                            if not IsAIPlayer(_PlayerID) then
+                                local EntityType = Logic.GetEntityType(LeaderID);
+                                local Places = GetMilitaryPlacesUsedByUnit(EntityType, 1);
+                                local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, EntityType, 1);
+                                if GUI.GetPlayerID() == _PlayerID then
+                                    local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
+                                    local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
+                                    local MilitarySpace = MiitaryLimit - MiitaryUsage;
+                                    for i= 1, SoldierAmount do
+                                        if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
+                                            Stronghold.Unit:PaySoldiers(_PlayerID, EntityType, 1);
+                                            GUI.BuySoldier(LeaderID);
+                                            MilitarySpace = MilitarySpace - Places;
+                                        end
+                                    end
+                                end
+                            -- Just create soldiers for AI players
+                            else
+                                local MaxHealth = Logic.GetEntityMaxHealth(LeaderID);
+                                local Health = Logic.GetEntityHealth(LeaderID);
+                                local Task = Logic.GetCurrentTaskList(LeaderID);
+                                if  Health > 0 and Health < MaxHealth and Task
+                                and (not string.find(Task, "BATTLE") and not string.find(Task, "DIE")) then
+                                    Tools.CreateSoldiersForLeader(LeaderID, SoldierAmount);
+                                end
+                            end
+                        end
+                    end
+                end
+            else
+                self.Data[_PlayerID].TrainingLeaders[LeaderID] = BarracksID;
+            end
+        end
+    end
 end
 

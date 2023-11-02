@@ -106,27 +106,6 @@ function GetCivilAttractionUsage(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Internal
-
-function Stronghold.Attraction:Install()
-    for i= 1, GetMaxPlayers() do
-        self.Data[i] = {
-            LastAttempt = 0,
-            VirtualSettlers = 0,
-            CriminalsCounter = 0,
-            Criminals = {},
-        };
-    end
-
-    self:InitCriminalsEffects();
-    self:InitLogicOverride();
-end
-
-function Stronghold.Attraction:OnSaveGameLoaded()
-    self:InitLogicOverride();
-end
-
--- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
 function GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
@@ -168,6 +147,63 @@ function GameCallback_SH_Logic_CriminalCatched(_PlayerID, _OldEntityID, _Buildin
 end
 
 -- -------------------------------------------------------------------------- --
+-- Internal
+
+function Stronghold.Attraction:Install()
+    for i= 1, GetMaxPlayers() do
+        self.Data[i] = {
+            LastAttempt = 0,
+            VirtualSettlers = 0,
+            CriminalsCounter = 0,
+            Criminals = {},
+        };
+    end
+
+    self:InitCriminalsEffects();
+    self:InitLogicOverride();
+end
+
+function Stronghold.Attraction:OnSaveGameLoaded()
+    self:InitLogicOverride();
+end
+
+function Stronghold.Attraction:OnEntityCreated(_EntityID)
+    -- Set stamina
+    if Logic.IsWorker(_EntityID) == 1 then
+        local MaxStamina = CEntity.GetMaxStamina(_EntityID);
+        SetEntityStamina(_EntityID, MaxStamina * 0.1);
+    end
+    -- Set workplace limit
+    if Logic.IsBuilding(_EntityID) == 1 or Logic.IsWorker(_EntityID) == 1 then
+        self:UpdateWorkplaceUsage(_EntityID);
+    end
+end
+
+function Stronghold.Attraction:OnEntityDestroyed(_EntityID)
+    -- Set workplace limit
+    if Logic.IsBuilding(_EntityID) == 1 or Logic.IsWorker(_EntityID) == 1 then
+        self:UpdateWorkplaceUsage(_EntityID);
+    end
+end
+
+function Stronghold.Attraction:OncePerSecond(_PlayerID)
+    -- Criminals
+    self:ManageCriminalsOfPlayer(_PlayerID);
+    -- Worker limit
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Limit, RawLimit = self:GetVirtualPlayerCivilAttractionLimit(_PlayerID);
+        -- Hack: higher hidden limit
+        Limit = math.max(Limit, 10000000);
+        CLogic.SetAttractionLimitOffset(_PlayerID, math.max(math.ceil(Limit - RawLimit), 0));
+    end
+end
+
+function Stronghold.Attraction:OnEveryTurn(_PlayerID)
+    -- Update attraction
+    self:UpdatePlayerCivilAttractionUsage(_PlayerID);
+end
+
+-- -------------------------------------------------------------------------- --
 -- Criminals
 
 -- Criminals steal resources. The losses are discovered on payday (because I am
@@ -181,6 +217,12 @@ function Stronghold.Attraction:InitCriminalsEffects()
         Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID);
         return Amount;
     end);
+end
+
+function Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].CriminalsCounter = 0;
+    end
 end
 
 function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
@@ -204,12 +246,6 @@ function Stronghold.Attraction:StealGoodsOnPayday(_PlayerID)
             Message(string.format(Text, TotalAmount));
         end
         RemoveResourcesFromPlayer(_PlayerID, ResourcesToSub);
-    end
-end
-
-function Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        self.Data[_PlayerID].CriminalsCounter = 0;
     end
 end
 
@@ -433,21 +469,6 @@ end
 -- -------------------------------------------------------------------------- --
 -- Workers
 
-function Stronghold.Attraction:OnEntityCreated(_EntityID)
-    -- Set stamina
-    if Logic.IsWorker(_EntityID) == 1 then
-        local MaxStamina = CEntity.GetMaxStamina(_EntityID);
-        SetEntityStamina(_EntityID, MaxStamina * 0.1);
-    end
-    -- Set workplace limit
-    self:UpdateWorkplaceUsage(_EntityID);
-end
-
-function Stronghold.Attraction:OnEntityDestroyed(_EntityID)
-    -- Set workplace limit
-    self:UpdateWorkplaceUsage(_EntityID);
-end
-
 function Stronghold.Attraction:UpdateWorkplaceUsage(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if IsPlayer(PlayerID) then
@@ -517,15 +538,6 @@ function Stronghold.Attraction:GetVirtualPlayerCivilAttractionLimit(_PlayerID)
         Limit = Limit + self.Data[_PlayerID].VirtualSettlers;
     end
     return Limit, RawLimit;
-end
-
-function Stronghold.Attraction:UpdatePlayerCivilAttractionLimit(_PlayerID)
-    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Limit, RawLimit = self:GetVirtualPlayerCivilAttractionLimit(_PlayerID);
-        -- Hack: higher hidden limit
-        Limit = math.max(Limit, 10000000);
-        CLogic.SetAttractionLimitOffset(_PlayerID, math.max(math.ceil(Limit - RawLimit), 0));
-    end
 end
 
 -- -------------------------------------------------------------------------- --
