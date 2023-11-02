@@ -5,12 +5,13 @@ Version 0.5.x
   für alle Bedingungen die eine Anzahl von etwas voraussetzen.
 - Potentielle Desync-Quelle Sammelpunkt gefixt.
   (Sammelpunkte werden nicht mehr automatisch erzeugt.)
-- Effekte von Verbrechern abgeschwächt
-  (Auf wunsch der Tester)
-- Verbrechensrate und Bestrafungsrate entschärft
-  (Auf wunsch der Tester)
-- Yukis einmaliger Beliebtheitsbonus halbiert
-  (Auf wunsch der Tester)
+- Yukis einmaliger Beliebtheitsbonus wurde auf 50 verringert
+- Auf Wunsch der Tester wurden negative Effekte auf die Beliebtheit
+  abgeschwächt, damit auch schwächere Spieler Spaß haben können.
+  * Beliebtheitsverlust durch Verbrecher halbiert
+  * Chance für Kriminalität verringert
+  * Türme und bewaffnete Knechte finden Diebe schneller
+  * Der Adlige kann Verbrecher stellen
 
 Version 0.4.13
 - Der Fehler das bei ausgelastetem Arbeiterlimit nicht mehr rekrutieren

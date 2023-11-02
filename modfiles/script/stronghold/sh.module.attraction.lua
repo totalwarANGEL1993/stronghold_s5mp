@@ -420,6 +420,11 @@ function Stronghold.Attraction:GetSettlersExposition(_PlayerID, _CriminalID)
         or (TowerID and Logic.IsConstructionComplete(TowerID) == 1) then
             Exposition = Exposition + (1 * self.Config.Crime.Unveil.TowerRate);
         end
+        -- Check hero
+        local HeroID = Stronghold:GetPlayerHero(_PlayerID);
+        if Logic.CheckEntitiesDistance(_CriminalID, HeroID, self.Config.Crime.Unveil.HeroArea) == 1 then
+            Exposition = Exposition + (1 * self.Config.Crime.Unveil.HeroRate);
+        end
         -- Check town guard
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ReportingOffice) == 1 then
             Exposition = Exposition * self.Config.Crime.Unveil.TownGuardFactor;
@@ -448,7 +453,7 @@ function Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID)
     if self.Data[_PlayerID] then
         local Criminals = self:CountCriminals(_PlayerID);
         local Damage = self.Config.Crime.Effects.ReputationDamage;
-        Loss = Loss + (Damage + GetRank(_PlayerID)) * Criminals;
+        Loss = Loss + (Damage * Criminals);
     end
     return Loss;
 end
