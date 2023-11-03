@@ -54,10 +54,10 @@ end
 ---
 --- Possible values:
 --- * 1: no peacetime
---- * 2: 10 minutes
---- * 3: 20 minutes
---- * 4: 30 minutes
---- * 5: 40 minutes
+--- * 2: 15 minutes
+--- * 3: 30 minutes
+--- * 4: 45 minutes
+--- * 5: 60 minutes
 --- @return number Selected Selected peacetime
 function GetSelectedPeacetime()
     return Stronghold.Multiplayer.Data.Config.PeacetimeSelected;
@@ -222,7 +222,8 @@ end
 
 function Stronghold.Multiplayer:ConfigurePeaceTime(_Time)
     self.Data.Config.PeacetimeSelected = _Time;
-    self.Data.Config.PeaceTime = (_Time -1) * 10;
+    local TimeMap = {0, 10, 20, 30, 40, 0, 15, 30, 45, 60};
+    self.Data.Config.PeaceTime = TimeMap[_Time];
 end
 
 function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
@@ -280,7 +281,7 @@ function Stronghold.Multiplayer:ConfigureReset()
     self.Data.Config = self.Config.DefaultSettings;
 
     self.Data.Config.ResourceSelected = 1;
-    self.Data.Config.PeacetimeSelected = 1;
+    self.Data.Config.PeacetimeSelected = 6;
     self.Data.Config.Rank.Initial = 0;
     self.Data.Config.Rank.Final = 7;
     if self.Data.Config.AllowedHeroes then
@@ -518,6 +519,10 @@ function Stronghold.Multiplayer:ShowRuleSelection()
     XGUIEng.ShowWidget("SHS5MP_ControlsRow", 1);
     XGUIEng.ShowWidget("SHS5MP_ControlsConfirm", 1);
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
+    for i= 1, 5 do
+        XGUIEng.ShowWidget("SHS5MP_Peacetime" ..(i+5), 1);
+        XGUIEng.ShowWidget("SHS5MP_Peacetime" ..i, 0);
+    end
 end
 
 function Stronghold.Multiplayer:HideRuleSelection()
@@ -569,6 +574,10 @@ function Stronghold.Multiplayer:ShowRuleTimer()
     XGUIEng.ShowWidget("SHS5MP_Counter_BG", 0);
     XGUIEng.ShowWidget("SHS5MP_ShowRules", 0);
     XGUIEng.ShowWidget("GameClock", 0);
+    for i= 1, 5 do
+        XGUIEng.ShowWidget("SHS5MP_Peacetime" ..(i+5), 1);
+        XGUIEng.ShowWidget("SHS5MP_Peacetime" ..i, 0);
+    end
 end
 
 function Stronghold.Multiplayer:HideRuleTimer()
@@ -1040,7 +1049,7 @@ function GUIUpdate_SHMP_Config_SetResource(_Widget)
 end
 
 function GUIUpdate_SHMP_Config_SetPeacetime(_Widget)
-    local Selected = Stronghold.Multiplayer.Data.Config.PeacetimeSelected or 1;
+    local Selected = Stronghold.Multiplayer.Data.Config.PeacetimeSelected or 6;
     local Flag = (string.find(_Widget, "Peacetime" ..Selected) ~= nil and 1) or 0;
     XGUIEng.HighLightButton(_Widget, Flag);
 end
