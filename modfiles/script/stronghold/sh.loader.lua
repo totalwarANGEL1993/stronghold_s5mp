@@ -44,6 +44,7 @@ Lib.Require("comfort/IsBuildingBeingUpgraded");
 Lib.Require("comfort/IsFighting");
 Lib.Require("comfort/IsInTable");
 Lib.Require("comfort/IsValidEntity");
+Lib.Require("comfort/IsValidPosition");
 Lib.Require("comfort/KeyOf");
 
 -- Load modules

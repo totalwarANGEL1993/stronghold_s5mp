@@ -17,6 +17,7 @@ Stronghold.AI = {
 
         Heroes = {},
         Delinquents = {Sequence = 0,},
+        Armies = {Sequence = 0,},
     },
     Config = {},
 };
@@ -201,6 +202,174 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
     AiArmyManager.ForbidAttacking(DefendManagerID, true);
     self.Data.Delinquents[Data.ID] = Data;
     return Data.ID;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Army
+
+--- Creates a regiment with refillers.
+---
+--- #### Regiment configuration:
+--- * `PlayerID`   - (Required) Owner of army
+--- * `Strength`   - (Required) Max amount of leaders
+--- * `Position`   - (Required) Position of army
+--- * `RodeLength` - (Required) Radius of action
+---
+--- #### Refiller configuration:
+--- * `ScriptName`   - (Required) Scriptname of spawner (Can be a list for multiple spawner entities)
+--- * `SpawnPoint`   - (Optional) Scriptname of position (Can be a list but must then as large as scriptname list)
+--- * `SpawnAmount`  - (Optional) Max amount to spawn per cycle
+--- * `SpawnTimer`   - (Optional) Time between spawn cycles
+--- * `Sequentially` - (Optional) Order of spawns is sequentially
+--- * `Endlessly`    - (Optional) Spawns repeat infinite
+--- * `AllowedTypes` - (Optional) List of types {Type, Experience}
+---
+--- @param _Data table Regiment properties
+--- @return integer ID ID of regiment
+function CreateRespawningRegiment(_Data)
+    return Stronghold.AI:CreateRespawningRegiment(_Data);
+end
+
+--- Creates a normal regiment.
+---
+--- #### Regiment configuration:
+--- * `PlayerID`   - (Required) Owner of army
+--- * `Strength`   - (Required) Max amount of leaders
+--- * `Position`   - (Required) Position of army
+--- * `RodeLength` - (Required) Radius of action
+---
+--- @param _Data table Regiment properties
+--- @return integer ID ID of regiment
+function CreateRegiment(_Data)
+    return Stronghold.AI:CreateRegiment(_Data);
+end
+
+--- Destroys an regiment and removes the troops.
+--- @param _ID integer ID of army
+function DestroyRegiment(_ID)
+    if self.Data.Armies[_ID] then
+        -- Delete spawners
+        if self.Data.Armies[_ID].Spawners then
+            local Spawners = self.Data.Armies[_ID].Spawners;
+            for i= 1, table.getn(Spawners) do
+                AiArmyRefiller.DeleteRefiller(Spawners[i].ID);
+            end
+        end
+        -- Delete manager
+        local ManagerID = self.Data.Armies[_ID].ManagerID;
+        AiArmyManager.Delete(ManagerID);
+        -- Delete army
+        local ArmyID = self.Data.Armies[_ID].ArmyID;
+        AiArmyData_ArmyIdToArmyInstance[ArmyID]:Abandon(true);
+        for EntityID,_ in pairs(AiArmyData_ArmyIdToArmyInstance[ArmyID].CleanUp) do
+            DestroyEntity(EntityID);
+        end
+        AiArmyData_ArmyIdToArmyInstance[ArmyID] = nil;
+    end
+end
+
+--- Returns the ID of the army.
+--- @param _ID integer ID of regiment
+--- @return integer ID ID of army
+function GetRegimentArmyID(_ID)
+    if Stronghold.AI.Data.Armies[_ID] then
+        return Stronghold.AI.Data.Armies[_ID].ArmyID;
+    end
+    return 0;
+end
+
+--- Returns the ID of the army manager.
+--- @param _ID integer ID of regiment
+--- @return integer ID ID of army manager
+function GetRegimentManagerID(_ID)
+    if Stronghold.AI.Data.Armies[_ID] then
+        return Stronghold.AI.Data.Armies[_ID].ManagerID;
+    end
+    return 0;
+end
+
+--- Returns the ID(s) of refiller(s) of the regiment.
+--- @param _ID integer ID of regiment
+--- @return integer ... Refiller IDs
+function GetRegimentSpawnerID(_ID)
+    if Stronghold.AI.Data.Armies[_ID] then
+        if Stronghold.AI.Data.Armies[_ID].Spawners then
+            local Spawners = {};
+            for i= 1, table.getn(Stronghold.AI.Data.Armies[_ID].Spawners) do
+                table.insert(Spawners, Stronghold.AI.Data.Armies[_ID].Spawners[i]);
+            end
+            return unpack(Spawners);
+        end
+    end
+    return 0;
+end
+
+function Stronghold.AI:CreateRegiment(_Data)
+    self.Data.Armies.Sequence = self.Data.Armies.Sequence + 1;
+    local ID = self.Data.Armies.Sequence;
+
+    local Data = CopyTable(_Data);
+    assert(Data.PlayerID and Data.PlayerID > 0 and Data.PlayerID <= table.getn(Score.Player));
+    assert(Data.Strength and Data.Strength > 0);
+    assert(Data.Position and IsValidPosition(Data.Position));
+    assert(Data.RodeLength and Data.RodeLength > 0);
+
+    -- Create army
+    local ArmyID = AiArmy.New(Data.PlayerID, Data.Strength, Data.Position, Data.RodeLength);
+    AiArmy.SetFormationController(ArmyID, function (_ID)
+        Stronghold.Unit:SetFormationOnCreate(_ID);
+    end);
+    Data.ArmyID = ArmyID;
+    -- Create manager
+    local ManagerID = AiArmyManager.Create(ArmyID);
+    Data.ManagerID = ManagerID;
+
+    self.Data.Armies[ID] = Data;
+    return ID;
+end
+
+function Stronghold.AI:CreateRespawningRegiment(_Data)
+    local ID = self:CreateArmy(_Data);
+    local Data = self.Data.Armies[ID];
+
+    assert(_Data.ScriptName);
+    assert(type(_Data.AllowedTypes) == "table");
+    if type(_Data.ScriptName) ~= "table" then
+        _Data.ScriptName = {_Data.ScriptName};
+    end
+    if _Data.SpawnPoint and type(_Data.SpawnPoint) ~= "table" then
+        _Data.SpawnPoint = {_Data.SpawnPoint};
+    end
+    assert(table.getn(_Data.ScriptName) == table.getn(_Data.SpawnPoint));
+
+    Data.Spawners = {};
+    for i= 1, table.getn(_Data.ScriptName) do
+        Data.Spawners[i].ScriptName = _Data.ScriptName[i];
+        if _Data.SpawnPoint then
+            Data.Spawners[i].SpawnPoint = _Data.SpawnPoint[i];
+        end
+        Data.Spawners[i].SpawnAmount = _Data.SpawnAmount;
+        Data.Spawners[i].SpawnTimer = _Data.SpawnTimer;
+        Data.Spawners[i].Sequentially = _Data.Sequentially;
+        Data.Spawners[i].Endlessly = _Data.Endlessly;
+        Data.Spawners[i].AllowedTypes = _Data.AllowedTypes;
+
+        local RefillerID = AiArmyRefiller.CreateSpawner(Data.Spawners[i]);
+        Data.Spawners[i].ID = RefillerID;
+    end
+
+    self.Data.Armies[ID] = Data;
+    return ID;
+end
+
+function Stronghold.AI:CreateInvadingRegiment(_Data)
+    local ID = self:CreateArmy(_Data);
+    local Data = self.Data.Armies[ID];
+
+    -- TODO
+
+    self.Data.Armies[ID] = Data;
+    return ID;
 end
 
 -- -------------------------------------------------------------------------- --
