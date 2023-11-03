@@ -13,7 +13,7 @@
         <MaxHealth>20000</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>100</ArmorAmount>
-        <Visible>false</Visible>
+        <Visible>true</Visible>
         <IsWall>true</IsWall>
 
 

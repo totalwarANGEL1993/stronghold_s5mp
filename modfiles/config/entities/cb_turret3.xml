@@ -13,7 +13,7 @@
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>100</ArmorAmount>
         <IsWall>true</IsWall>
-        <Visible>false</Visible>
+        <Visible>true</Visible>
 
         <!-- Armor -->
         <ModifyArmor>

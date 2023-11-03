@@ -28,7 +28,7 @@
             <MaxAttackRange>2700.0f</MaxAttackRange>
             <MinRange>400</MinRange>
             <DamageClass>DC_Turret</DamageClass>
-            <DamageAmount>30</DamageAmount>
+            <DamageAmount>25</DamageAmount>
             <DamageRange>300</DamageRange>
             <AutoAttackRange>2700</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

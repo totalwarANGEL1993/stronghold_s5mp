@@ -1580,6 +1580,7 @@ function Stronghold.Building:CreateTurretsForBuilding(_EntityID)
             local Position = GetCirclePosition(_EntityID, v[2], v[3]);
             local TurretID = Logic.CreateEntity(v[1], Position.X, Position.Y, 0, PlayerID);
             WriteEntityCreatedToLog(PlayerID, TurretID, Logic.GetEntityType(TurretID));
+            SVLib.SetInvisibility(TurretID, true);
             MakeInvulnerable(TurretID);
             table.insert(self.Data[PlayerID].Turrets[_EntityID], TurretID);
         end
