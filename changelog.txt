@@ -1,6 +1,6 @@
 Version 0.5.x
 - Fehler behoben, bei dem es zu einem Fehler kam, wenn der Schießplatz
-  angeklickt und als Held Drake oder Yuki gewälht wurde
+  angeklickt und als Held Drake oder Yuki gewälht waren
 - Für die Beförderung gibt es nun eine Mengenanzeige (aktuell/benötigt)
   für alle Bedingungen die eine Anzahl von etwas voraussetzen.
 - Potentielle Desync-Quelle Sammelpunkt gefixt.
@@ -8,8 +8,7 @@ Version 0.5.x
 - Yukis einmaliger Beliebtheitsbonus wurde auf 50 verringert
 - Auf Wunsch der Tester wurden negative Effekte auf die Beliebtheit
   abgeschwächt, damit auch schwächere Spieler Spaß haben können.
-  * Beliebtheitsverlust durch Verbrecher halbiert
-  * Chance für Kriminalität verringert
+  * Beliebtheitsverlust durch Verbrecher nun fix bei -6
   * Türme und bewaffnete Knechte finden Diebe schneller
   * Der Adlige kann Verbrecher stellen
 
