@@ -140,58 +140,59 @@ function CreateProvinces()
 
     local Troops = {
         {Entities.PU_LeaderPoleArm1, 0},
-        {Entities.PU_LeaderPoleArm1, 0},
         {Entities.PU_LeaderBow2, 0},
+        {Entities.PU_LeaderPoleArm1, 0},
         {Entities.PU_LeaderBow2, 0},
     }
 
-    if Stronghold.Multiplayer.Data.Config.PeaceTime == 10 then
+    local PeaceTimeSelected = GetSelectedPeacetime();
+    if PeaceTimeSelected == 2 or PeaceTimeSelected == 7 then
         Troops = {
             {Entities.PU_LeaderPoleArm1, 1},
-            {Entities.PU_LeaderPoleArm2, 1},
             {Entities.PU_LeaderSword1, 2},
             {Entities.PU_LeaderBow2, 1},
+            {Entities.PU_LeaderPoleArm2, 1},
             {Entities.PU_LeaderBow2, 1},
             {Entities.PU_LeaderBow2, 1},
         }
-    elseif Stronghold.Multiplayer.Data.Config.PeaceTime == 20 then
+    elseif PeaceTimeSelected == 3 or PeaceTimeSelected == 8 then
         Troops = {
             {Entities.PU_LeaderPoleArm2, 2},
-            {Entities.PU_LeaderPoleArm2, 2},
-            {Entities.PU_LeaderPoleArm2, 2},
             {Entities.PU_LeaderSword2, 2},
+            {Entities.PU_LeaderPoleArm2, 2},
             {Entities.PU_LeaderSword2, 2},
             {Entities.PU_LeaderBow2, 2},
             {Entities.PU_LeaderRifle1, 2},
+            {Entities.PU_LeaderPoleArm2, 2},
             {Entities.PU_LeaderRifle1, 2},
         }
-    elseif Stronghold.Multiplayer.Data.Config.PeaceTime == 30 then
+    elseif PeaceTimeSelected == 4 or PeaceTimeSelected == 9 then
         Troops = {
             {Entities.PU_LeaderPoleArm3, 3},
+            {Entities.PU_LeaderSword3, 2},
+            {Entities.PV_Cannon1, 0},
+            {Entities.PU_LeaderBow3, 2},
+            {Entities.PU_LeaderSword3, 2},
+            {Entities.PU_LeaderBow3, 2},
+            {Entities.PV_Cannon1, 0},
             {Entities.PU_LeaderPoleArm3, 3},
-            {Entities.PU_LeaderSword3, 2},
-            {Entities.PU_LeaderSword3, 2},
             {Entities.PU_LeaderBow3, 2},
-            {Entities.PU_LeaderBow3, 2},
-            {Entities.PU_LeaderBow3, 2},
-            {Entities.PV_Cannon1, 0},
-            {Entities.PV_Cannon1, 0},
             {Entities.PV_Cannon1, 0},
         }
-    elseif Stronghold.Multiplayer.Data.Config.PeaceTime == 40 then
+    elseif PeaceTimeSelected == 5 or PeaceTimeSelected == 10 then
         Troops = {
-            {Entities.PU_LeaderSword4, 3},
+            {Entities.PU_LeaderPoleArm4, 3},
             {Entities.PU_LeaderSword4, 3},
             {Entities.PU_LeaderPoleArm4, 3},
-            {Entities.PU_LeaderPoleArm4, 3},
+            {Entities.PV_Cannon3, 0},
+            {Entities.PU_LeaderRifle2, 3},
             {Entities.PU_LeaderPoleArm4, 3},
             {Entities.PU_LeaderBow4, 3},
+            {Entities.PV_Cannon3, 0},
             {Entities.PU_LeaderBow4, 3},
             {Entities.PU_LeaderRifle2, 3},
+            {Entities.PU_LeaderSword4, 3},
             {Entities.PU_LeaderRifle2, 3},
-            {Entities.PU_LeaderRifle2, 3},
-            {Entities.PV_Cannon3, 0},
-            {Entities.PV_Cannon3, 0},
         }
     end
 

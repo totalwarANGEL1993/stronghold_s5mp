@@ -39,10 +39,10 @@ end
 --- The camp needs spawners to have an army.
 ---
 --- #### Configuration
---- * `PlayerID` - ID of player (Default: [max human player] +1)
+--- * `PlayerID`     - ID of player (Default: [max human player] +1)
 --- * `HomePosition` - Center position of camp
---- * `Strength` - Strength shared by both armies (Default: 4)
---- * `RodeLength` - Action shared by both armies (Default: 3500)
+--- * `Strength`     - Strength shared by both armies (Default: 4)
+--- * `RodeLength`   - Action shared by both armies (Default: 3500)
 ---
 --- @param _Data table Camp configuration
 --- @return integer ID ID of camp
@@ -109,6 +109,8 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
             SpawnPoint   = (IsExisting(_ScriptName.. "Spawn") and _ScriptName.. "Spawn") or nil,
             SpawnAmount  = _Amount,
             SpawnTimer   = _Time,
+            Sequentially = true,
+            Endlessly    = true,
             AllowedTypes = Troops,
         }
         AiArmyRefiller.AddArmy(ID, Data.AttackArmyID);

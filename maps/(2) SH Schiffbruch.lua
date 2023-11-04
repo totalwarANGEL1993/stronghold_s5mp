@@ -103,11 +103,11 @@ function CreatePassiveBanditCamps()
         for j= 1, 3 do
             DelinquentsCampAddSpawner(
                 CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
-                Entities.CU_BanditLeaderSword2,
-                Entities.PU_LeaderBow1,
+                Entities.PU_LeaderPoleArm1,
                 Entities.CU_BanditLeaderBow1,
                 Entities.PV_Cannon1,
-                Entities.PU_LeaderPoleArm1
+                Entities.CU_BanditLeaderSword2,
+                Entities.CU_BanditLeaderBow1
             );
         end
     end
@@ -123,10 +123,13 @@ function CreatePassiveBanditCamps()
             DelinquentsCampAddSpawner(
                 CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
                 Entities.CU_BanditLeaderSword2,
-                Entities.PU_LeaderBow1,
+                Entities.PU_LeaderPoleArm2,
+                Entities.PV_Cannon1,
                 Entities.CU_BanditLeaderBow1,
                 Entities.PV_Cannon1,
-                Entities.PU_LeaderPoleArm1
+                Entities.PU_LeaderPoleArm2,
+                Entities.CU_BanditLeaderSword2,
+                Entities.PV_Cannon1
             );
         end
     end

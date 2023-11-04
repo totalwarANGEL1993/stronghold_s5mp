@@ -151,13 +151,13 @@ end
 
 function SetupCamps()
     local Peacetime = GetSelectedPeacetime();
-    if Peacetime == 1 then
+    if Peacetime == 1 or Peacetime == 6 then
         SetupCampsWS0();
-    elseif Peacetime == 2 then
+    elseif Peacetime == 2 or Peacetime == 7 then
         SetupCampsWS10();
-    elseif Peacetime == 3 then
+    elseif Peacetime == 3 or Peacetime == 8 then
         SetupCampsWS20();
-    elseif Peacetime == 4 then
+    elseif Peacetime == 4 or Peacetime == 9 then
         SetupCampsWS30();
     else
         SetupCampsWS40();
@@ -174,16 +174,16 @@ function SetupCampsWS0()
 
         DelinquentsCampAddSpawner(
             CampID, "Outpost" ..j, 120, 1,
-            Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2,
+            Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
             DelinquentsCampAddSpawner(
                 CampID, "OP" ..j.. "Tent" ..i, 120, 1,
                 Entities.PU_LeaderPoleArm1,
-                Entities.PU_LeaderPoleArm1,
-                Entities.PU_LeaderBow1
+                Entities.PU_LeaderBow1,
+                Entities.PU_LeaderPoleArm1
             );
         end
     end
@@ -199,8 +199,8 @@ function SetupCampsWS10()
 
         DelinquentsCampAddSpawner(
             CampID, "Outpost" ..j, 120, 2,
-            Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2,
+            Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
@@ -224,8 +224,8 @@ function SetupCampsWS20()
 
         DelinquentsCampAddSpawner(
             CampID, "Outpost" ..j, 90, 2,
-            Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2,
+            Entities.PU_LeaderSword2,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
@@ -251,8 +251,8 @@ function SetupCampsWS30()
 
         DelinquentsCampAddSpawner(
             CampID, "Outpost" ..j, 90, 3,
-            Entities.PU_LeaderSword3,
             Entities.PU_LeaderBow2,
+            Entities.PU_LeaderSword3,
             Entities.PU_LeaderBow2
         );
         for i= 1, 4 do
@@ -280,15 +280,15 @@ function SetupCampsWS40()
             CampID, "Outpost" ..j, 60, 3,
             Entities.PU_LeaderSword4,
             Entities.PU_LeaderRifle2,
-            Entities.PU_LeaderRifle2,
-            Entities.PV_Cannon3
+            Entities.PV_Cannon3,
+            Entities.PU_LeaderRifle2
         );
         for i= 1, 4 do
             DelinquentsCampAddSpawner(
                 CampID, "OP" ..j.. "Tent" ..i, 60, 3,
                 Entities.PU_LeaderPoleArm3,
-                Entities.PU_LeaderPoleArm3,
                 Entities.PU_LeaderBow3,
+                Entities.PU_LeaderPoleArm3,
                 Entities.PV_Cannon3
             );
         end
