@@ -1356,9 +1356,7 @@ end
 -- Passive Ability: Change factor of becoming a criminal
 function Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
-        Value = Value * self.Config.Hero6.CrimeRateFactor;
-    end
+    -- Nothing to do
     return Value;
 end
 
