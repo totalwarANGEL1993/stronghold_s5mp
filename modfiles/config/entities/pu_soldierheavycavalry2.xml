@@ -33,7 +33,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassIron</ArmorClass>
-        <ArmorAmount>7</ArmorAmount>
+        <ArmorAmount>9</ArmorAmount>
         <DodgeChance>7</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>

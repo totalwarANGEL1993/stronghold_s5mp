@@ -47,9 +47,11 @@ end
 
 function Stronghold.Construction:OnEntityCreated(_EntityID)
     -- Reset rotation
-    if Logic.IsBuilding(_EntityID) == 1 then
-        if Logic.IsConstructionComplete(_EntityID) == 0 then
-            CPlaceBuilding.SetRotation(0);
+    if GUI.GetPlayerID() == Logic.EntityGetPlayer(_EntityID) then
+        if Logic.IsBuilding(_EntityID) == 1 then
+            if Logic.IsConstructionComplete(_EntityID) == 0 then
+                CPlaceBuilding.SetRotation(0);
+            end
         end
     end
 end

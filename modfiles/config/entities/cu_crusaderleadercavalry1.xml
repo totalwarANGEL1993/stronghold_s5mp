@@ -34,7 +34,7 @@
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassIron</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>15</DodgeChance>
+        <DodgeChance>30</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
@@ -115,10 +115,10 @@
             <HitAnim>PU_LeaderCavalry2_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>20</DamageAmount>
+            <DamageAmount>21</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <MissChance>4</MissChance>
 

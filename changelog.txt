@@ -1,18 +1,26 @@
-Version 0.5.6
+Version 0.5.7
 - Auf Wunsch der Tester wurden negative Effekte auf die Beliebtheit
   abgeschwächt, damit auch schwächere Spieler Spaß haben können.
   * Beliebtheitsverlust durch Verbrecher nun fix bei -6
   * Türme und bewaffnete Knechte finden Diebe schneller
   * Der Adlige kann Verbrecher stellen
+- Neue Friedenszeiten: 0, 15, 30, 45, 60 Minuten
+  (Weil man länger für den Aufbau braucht.)
 - Banditencamps spawnen ihre Truppen nicht mehr zufällig, sondern in einer
   Endlosschleiße. So hat jeder Spieler die gleichen Gegner.
-- Helias halbiert nicht mehr die Verbrechensrate
+- Erecs Kavalerie verbessert
+  (LCav +2 Schanden, SCav +2 Rüstung)
+- Helias reduziert die Verbrechensrate nur noch um 15%
   (Die Halbierung hatte dafür gesorgt, dass u.U. gar keine Verbrecher
    entstanden. Außerdem können Adlige Verbrecher nun direkt stellen.)
+- Helias Spezialtruppen sind verstärkt
+  (Haben hohe Ausweichchance und geringfügig mehr Schaden)
 - Yukis einmaliger Beliebtheitsbonus wurde auf 25 verringert
   (Es wurde kritisiert, dass ein Spieler, der einfach so 100 Beliebtheit
    bekommt, einen viel zu großen Vorteil hat. Man kann Beliebtheit fast
    ignorieren und Arbeiter sind doppelt so effektiv.)
+- Yuki setzt Shuriken seltener ein
+  (15 Sekunden -> 20 Sekunden)
 - Für die Beförderung gibt es nun eine Mengenanzeige (aktuell/benötigt)
   für alle Bedingungen die eine Anzahl von etwas voraussetzen.
 - Fehler behoben, bei dem es zu einem Lua Error kam, wenn der Schießplatz

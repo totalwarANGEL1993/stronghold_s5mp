@@ -34,7 +34,7 @@ Stronghold.Hero.Config.Hero6 = {
     CrimeRateFactor = 0.85,
     SermonHonorBonus = 3,
     SermonReputationBonus = 3,
-    ConversionFrequency = 450,
+    ConversionFrequency = 400,
     ConversionArea = 600,
 }
 -- Hero 7 properties
@@ -62,7 +62,7 @@ Stronghold.Hero.Config.Hero11 = {
     TradeBonusFactor = 0.3,
     InitialReputation = 25,
     ReputationCap = 300,
-    ShurikenFrequency = 150,
+    ShurikenFrequency = 200,
 }
 -- Hero 12 properties
 Stronghold.Hero.Config.Hero12 = {

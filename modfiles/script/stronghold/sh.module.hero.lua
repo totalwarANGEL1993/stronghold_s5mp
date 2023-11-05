@@ -601,6 +601,10 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow4;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
+        local RankScout = GetRankRequired(_PlayerID, PlayerRight.Scout);
+        local RightsAndDuties = Stronghold.Rights.Data[_PlayerID].Titles;
+        table.insert(RightsAndDuties[RankScout].Rights, PlayerRight.Thief);
+        SetRightsAndDuties(_PlayerID, RightsAndDuties);
         ThiefRecruiter = {Entities.PB_Tavern1, Entities.PB_Tavern2};
     elseif _Type == Entities.CU_Barbarian_Hero then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[3] = UpgradeCategories.BarbarianLeader2;
