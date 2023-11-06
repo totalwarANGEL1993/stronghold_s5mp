@@ -40,6 +40,7 @@ Lib.Require("comfort/GetPlayerEntities");
 Lib.Require("comfort/GetLanguage");
 Lib.Require("comfort/GetResourceName");
 Lib.Require("comfort/GetSeparatedTooltipText");
+Lib.Require("comfort/GetUpgradedEntityType");
 Lib.Require("comfort/IsBuildingBeingUpgraded");
 Lib.Require("comfort/IsFighting");
 Lib.Require("comfort/IsInTable");
