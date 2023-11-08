@@ -221,14 +221,12 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
     local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
     if _EntityType == Entities.PU_Serf then
         if not HasPlayerSpaceForSlave(_PlayerID) then
-            Sound.PlayFeedbackSound(Sounds.VoicesSerf_SERF_No_rnd_01, 100);
-            Message(XGUIEng.GetStringTableText("sh_text/Player_SerfLimit"));
+            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
             return true;
         end
     else
         if not HasPlayerSpaceForUnits(_PlayerID, Places) then
-            Sound.PlayFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-            Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
             return true;
         end
     end
@@ -272,8 +270,7 @@ function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _Entit
     -- Check places
     local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
     if not HasPlayerSpaceForUnits(_PlayerID, Places) then
-        Sound.PlayFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-        Message(XGUIEng.GetStringTableText("sh_text/Player_MilitaryLimit"));
+        GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
         return true;
     end
     -- Check has worker

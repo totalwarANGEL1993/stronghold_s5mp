@@ -1013,13 +1013,13 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Attraction --
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CivilAttrationLimit", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_AttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CivilAttrationUsage", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_AttrationUsage", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;

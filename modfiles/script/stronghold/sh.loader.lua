@@ -35,6 +35,7 @@ Lib.Require("comfort/GetCirclePosition");
 Lib.Require("comfort/GetDistance");
 Lib.Require("comfort/GetEnemiesInArea");
 Lib.Require("comfort/GetHealth");
+Lib.Require("comfort/GetMaxAmountOfPlayer");
 Lib.Require("comfort/GetGeometricCenter");
 Lib.Require("comfort/GetPlayerEntities");
 Lib.Require("comfort/GetLanguage");

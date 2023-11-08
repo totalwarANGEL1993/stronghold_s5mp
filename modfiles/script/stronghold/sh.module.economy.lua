@@ -1143,8 +1143,8 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         local Usage = 0;
         local Limit = 0;
         if IsPlayer(PlayerID) then
-            Usage = GetCivilAttractionUsage(PlayerID);
-            Limit = GetCivilAttractionLimit(PlayerID);
+            Usage = GetAttractionUsage(PlayerID);
+            Limit = GetAttractionLimit(PlayerID);
         end
         local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
         XGUIEng.SetText("PopulationPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
@@ -1154,24 +1154,38 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         local PlayerID = GetLocalPlayerID();
         local Usage = 0;
         local Limit = 0;
+        local MilitaryUsage = 0;
+        local MilitaryLimit = 0;
         if IsPlayer(PlayerID) then
-            Usage = GetMilitaryAttractionUsage(PlayerID);
-            Limit = GetMilitaryAttractionLimit(PlayerID);
+            Usage = GetAttractionUsage(PlayerID);
+            Limit = GetAttractionLimit(PlayerID);
+            MilitaryUsage = GetMilitaryAttractionUsage(PlayerID);
+            MilitaryLimit = GetMilitaryAttractionLimit(PlayerID);
         end
-        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
-        XGUIEng.SetText("MilitaryPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+        local Color = "";
+        if MilitaryUsage >= MilitaryLimit or Usage >= Limit then
+            Color = " @color:255,120,120,255 ";
+        end
+        XGUIEng.SetText("MilitaryPlaces", Color.. " @ra " ..MilitaryUsage.. "/" ..MilitaryLimit);
     end
 
     function GUIUpdate_Slaves()
         local PlayerID = GetLocalPlayerID();
         local Usage = 0;
         local Limit = 0;
+        local SlaveUsage = 0;
+        local SlaveLimit = 0;
         if IsPlayer(PlayerID) then
-            Usage = GetSlaveAttractionUsage(PlayerID);
-            Limit = GetSlaveAttractionLimit(PlayerID);
+            Usage = GetAttractionUsage(PlayerID);
+            Limit = GetAttractionLimit(PlayerID);
+            SlaveUsage = GetSlaveAttractionUsage(PlayerID);
+            SlaveLimit = GetSlaveAttractionLimit(PlayerID);
         end
-        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
-        XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+        local Color = "";
+        if SlaveUsage >= SlaveLimit or Usage >= Limit then
+            Color = " @color:255,120,120,255 ";
+        end
+        XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..SlaveUsage.. "/" ..SlaveLimit);
     end
 end
 

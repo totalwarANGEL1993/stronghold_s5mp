@@ -311,7 +311,7 @@ function Stronghold.AI:CreateRegiment(_Data)
     local ID = self.Data.Armies.Sequence;
 
     local Data = CopyTable(_Data);
-    assert(Data.PlayerID and Data.PlayerID > 0 and Data.PlayerID <= table.getn(Score.Player));
+    assert(Data.PlayerID and Data.PlayerID > 0 and Data.PlayerID <= GetMaxAmountOfPlayer());
     assert(Data.Strength and Data.Strength > 0);
     assert(Data.Position and IsValidPosition(Data.Position));
     assert(Data.RodeLength and Data.RodeLength > 0);

@@ -370,15 +370,16 @@ function Stronghold.Construction:OverwritePromotion()
 end
 
 function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID, _Rank)
+    _Rank = _Rank or 0;
     if _PlayerID == -1 then
-        for i= 1, table.getn(Score.Player) do
+        for i= 1, GetMaxAmountOfPlayer() do
             self:InitBarracksBuildingLimits(i, _Rank);
         end
         return;
     end
     local Limit = Stronghold.Construction.Config.MilitaryBuildingLimit;
     local Bonus = Stronghold.Construction.Config.MilitaryBuildingBonus;
-    local Final = Limit + (Bonus * (_Rank or 0));
+    local Final = Limit + math.floor(Bonus * ((_Rank/2) or 0));
     EntityTracker.SetLimitOfType(Entities.PB_Barracks1, Final, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Barracks2, Final, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Archery1, Final, _PlayerID);

@@ -194,8 +194,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     -- Check space
     if not HasPlayerSpaceForUnits(PlayerID, BuyAmount) then
         if Logic.GetEntityType(EntityID) ~= Entities.CU_BlackKnight then
-            Sound.PlayQueuedFeedbackSound(Sounds.VoicesLeader_LEADER_NO_rnd_01, 100);
-            Message(XGUIEng.GetStringTableText("sh_text/UI_MilitaryLimit"));
+            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
             return true;
         end
     end
