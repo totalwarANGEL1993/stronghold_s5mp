@@ -631,26 +631,33 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
         if IsEntityValid(Stronghold:GetPlayerHero(_PlayerID)) then
             -- Headquarters
             local HQ1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true));
-            Limit = Limit + (HQ1 * self.Config.Attraction.HQMilitary[1]);
             local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
-            Limit = Limit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
             local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
+            Limit = Limit + (HQ1 * self.Config.Attraction.HQMilitary[1]);
+            Limit = Limit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
             Limit = Limit + (HQ3 * self.Config.Attraction.HQMilitary[3]);
+
             -- Barracks
             local BB1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true));
-            Limit = Limit + (BB1 * self.Config.Attraction.BBMilitary[1]);
             local BB2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Barracks2);
+            Limit = Limit + (BB1 * self.Config.Attraction.BBMilitary[1]);
             Limit = Limit + (BB2 * self.Config.Attraction.BBMilitary[2]);
+
             -- Archery
             local AR1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Archery1, true));
-            Limit = Limit + (AR1 * self.Config.Attraction.BBMilitary[1]);
             local AR2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Archery2);
+            Limit = Limit + (AR1 * self.Config.Attraction.BBMilitary[1]);
             Limit = Limit + (AR2 * self.Config.Attraction.BBMilitary[2]);
+
             -- Stables
             local ST1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Stable1, true));
-            Limit = Limit + (ST1 * self.Config.Attraction.BBMilitary[1]);
             local ST2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Stable2);
+            Limit = Limit + (ST1 * self.Config.Attraction.BBMilitary[1]);
             Limit = Limit + (ST2 * self.Config.Attraction.BBMilitary[2]);
+
+            if BB1 > 0 or BB2 > 0 or AR1 > 0 or AR2 > 0 or ST1 > 0 or ST2 > 0 then
+                Limit = Limit - self.Config.Attraction.BBMilitary[1];
+            end
 
             -- External
             Limit = GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, Limit);

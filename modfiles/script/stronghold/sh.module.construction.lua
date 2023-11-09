@@ -89,7 +89,7 @@ function Stronghold.Construction:GetBuildingLimit(_PlayerID, _Type)
     local LimitText = "";
     local BuildingMax = EntityTracker.GetLimitOfType(_Type, _PlayerID);
     if BuildingMax > -1 then
-        local BuildingCount = EntityTracker.GetUsageOfType(_PlayerID, _Type);
+        local BuildingCount = EntityTracker.GetUsageOfType(_Type, _PlayerID, true);
         LimitText = "(" ..BuildingCount.. "/" ..BuildingMax.. ")";
     end
     return LimitText;
@@ -178,10 +178,7 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
         Limit = EntityTracker.GetLimitOfType(CheckList[1], _PlayerID);
     end
     if Limit > -1 then
-        for i= 1, table.getn(CheckList) do
-            Usage = Usage + EntityTracker.GetUsageOfType(_PlayerID, CheckList[i]);
-        end
-        Disable = Limit <= Usage;
+        Disable = EntityTracker.IsLimitOfTypeReached(CheckList[1], _PlayerID, true);
     end
     -- Check right
     local Right = Stronghold.Rights:GetRankRequiredForRight(_PlayerID, CheckRight);
@@ -264,10 +261,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         local Limit = EntityTracker.GetLimitOfType(Type, PlayerID);
         local Usage = 0;
         if Limit > -1 then
-            for i= 1, table.getn(CheckTechnologies) do
-                Usage = Usage + EntityTracker.GetUsageOfType(PlayerID, CheckTechnologies[i]);
-            end
-            Disable = Limit <= Usage;
+            Disable = EntityTracker.IsLimitOfTypeReached(CheckTechnologies[1], PlayerID, true);
         end
         -- Check right
         local Right = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
@@ -378,7 +372,7 @@ function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID, _Rank)
     end
     local Limit = Stronghold.Construction.Config.MilitaryBuildingLimit;
     local Bonus = Stronghold.Construction.Config.MilitaryBuildingBonus;
-    local Final = Limit + (Bonus * (_Rank or 0));
+    local Final = Limit + math.floor((Bonus * (_Rank or 0))/2);
     EntityTracker.SetLimitOfType(Entities.PB_Barracks1, Final, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Barracks2, Final, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Archery1, Final, _PlayerID);

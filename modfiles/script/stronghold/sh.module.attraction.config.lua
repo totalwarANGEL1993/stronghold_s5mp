@@ -10,7 +10,7 @@ Stronghold.Attraction.Config.Attraction = {
     -- Military attraction limit
     -- This is freely changeable in Lua
     HQMilitary = {[1] = 50, [2] = 75, [3] = 100},
-    BBMilitary = {[1] = 15, [2] = 30},
+    BBMilitary = {[1] = 10, [2] = 20},
     -- Serf attraction limit
     -- This is freely changeable in Lua
     SlaveLimit = 24,
