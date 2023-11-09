@@ -206,6 +206,7 @@ function Stronghold.Hero:OnSelectHero(_EntityID)
     XGUIEng.SetWidgetPosition("Command_Patrol", 106, 4);
     XGUIEng.SetWidgetPosition("Command_Guard", 140, 4);
     XGUIEng.SetWidgetPosition("Formation01", 404, 4);
+    XGUIEng.ShowWidget("Buy_Soldier_Button", 0);
 
     XGUIEng.ShowWidget("Formation01", 0);
     XGUIEng.ShowWidget("Formation02", 0);

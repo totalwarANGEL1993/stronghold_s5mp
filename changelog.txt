@@ -1,3 +1,11 @@
+Version 0.6.x
+- Bevölkerungslimit angepasst
+  * Absolutes Bevölkerungslimit wie im normalen Spiel
+  * Rekrutenlimit für Militär, abhängig vom absoluten Limit
+  * Knechtelimit, abhängig vom absoluten Limit
+- Kerberos Bodyguard kostet jetzt Bevölkerungsplatz
+- Scharfschützen halten weniger aus
+
 Version 0.5.7
 - Auf Wunsch der Tester wurden negative Effekte auf die Beliebtheit
   abgeschwächt, damit auch schwächere Spieler Spaß haben können.
