@@ -188,9 +188,9 @@ function Tutorial_AddMainInterfaceSection()
     local ArrowPos_FindTroops = {581, 60};
     local ArrowPos_NewRes = {930, 60};
     local ArrowPos_Promote = {135, 690};
-    local ArrowPos_Military = {240, 674};
-    local ArrowPos_Slaves = {240, 686};
-    local ArrowPos_Civil = {240, 698};
+    local ArrowPos_Military = {240, 686};
+    local ArrowPos_Slaves = {240, 698};
+    local ArrowPos_Civil = {240, 674};
     local ArrowPos_Care = {240, 712};
 
     Tutorial.AddMessage {
@@ -277,20 +277,19 @@ function Tutorial_AddMainInterfaceSection()
         Arrow       = ArrowPos_Civil,
     }
     Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Knechte sind Unfreie und zählen weder "..
-                      "als Bevölkerung noch als Militär, sondern sind "..
-                      "Eigentum Eures Adligen. Die Anzahl an "..
+        Text        = "TOM SIMPKINS: Hier seht Ihr, wie stark Euer Heer ist "..
+                      "und wie groß es noch werden kann. Wie viele Eurer "..
+                      "Untertanen Ihr in den Krieg schicken könnt, {scarlet}"..
+                      "hängt von der Stufe des Haupthaus und der Anzahl der "..
+                      "Rekrutierungsgebäude ab.",
+        Arrow       = ArrowPos_Military,
+    }
+    Tutorial.AddMessage {
+        Text        = "TOM SIMPKINS: Knechte sind Unfreie und persönliches "..
+                      "Eigentum des Adligen. Die Anzahl an "..
                       "Knechten, die Ihr besitzen könnt, {scarlet}steigt "..
                       "mit jedem weiteren Titel, den Euer Adliger erreicht.",
         Arrow       = ArrowPos_Slaves,
-    }
-    Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Hier seht Ihr, wie stark Euer Heer ist "..
-                      "und wie groß es noch werden kann. Alle Agenten, "..
-                      "Soldaten und Kanonen zählen als Militär. {scarlet}"..
-                      "Baut die Burg aus oder errichtet Rekrutierungs"..
-                      "gebäude,{white} um Eure Heeresstärke zu erhöhen.",
-        Arrow       = ArrowPos_Military,
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Die Zahltagsuhr zeigt Euch an, wie "..
