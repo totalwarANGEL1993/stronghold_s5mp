@@ -1454,7 +1454,7 @@ end
 
 function Stronghold.Building:OnGateClosedCallback(_PlayerID, _EntityID, _Type)
     if IsPlayer(_PlayerID) and IsExisting(_EntityID) then
-        if Stronghold.Building.Config.ClosedToOpenGate[_Type] then
+        if Stronghold.Building.Config.OpenToClosedGate[_Type] then
             local Health = GetHealth(_EntityID);
             local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.OpenToClosedGate[_Type]);
             WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
