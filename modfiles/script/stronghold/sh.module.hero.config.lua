@@ -4,7 +4,7 @@
 
 -- Hero 1 properties
 Stronghold.Hero.Config.Hero1 = {
-    MeasureFactor = 2.0,
+    MeasureFactor = 1.5,
     MilitaryFactor = 1.2,
 }
 -- Hero 2 properties

@@ -725,20 +725,15 @@ end
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local CurrentRank = GetRank(_PlayerID);
-        local Motivation = 0;
+        local Motivation = GetReputation(_PlayerID) / 100;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local MeasurePoints = 12;
         if WorkerCount == 0 then
             MeasurePoints = 0;
         else
             local RankFactor = 1.0 + (0.2 * CurrentRank);
-            -- FIXME: Does average motivation still work even if the motivation
-            -- of the settlers is manipulated by CEntity?
-            for k, v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
-                Motivation = Motivation + Logic.GetSettlersMotivation(v);
-            end
-            Motivation = Motivation / WorkerCount;
-            MeasurePoints = (MeasurePoints * Motivation) * RankFactor;
+            local SlopeFactor = math.max(3 * RankFactor + 0.1, 0.1);
+            MeasurePoints = (MeasurePoints * Motivation) * SlopeFactor;
         end
         MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
         self:AddPlayerMeasurePoints(_PlayerID, MeasurePoints);

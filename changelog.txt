@@ -1,8 +1,10 @@
-Version 0.6.7
-- Es gibt nun ein 0,5 Sekunden Delay beim Rekrutieren von Einheiten
+Version 0.6.8
+- Es gibt nun ein 0,3 Sekunden Delay beim Rekrutieren von Einheiten
 - Soldatenlimit wurde überarbeitet
   * Haupthaus: 60, 120, 180
   * Ausgebaute Rekrutierungsgebäude: 20
+- Maßnahmen laden sich nun viel schneller auf.
+- Dario beschleunigt Maßnahmen nur noch um 50%
 - Mary erhält nun für jeden Rang 2 weitere mögliche Knechte
 - Scharfschützen halten weniger aus
 - Kanonen kosten jetzt tatsächlich Unterhalt
