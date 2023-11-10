@@ -1061,7 +1061,8 @@ function Stronghold:GetEntitiesOfType(_PlayerID, _Type, _IsConstructed, _Group)
                             end
                         end
                     else
-                        if string.find(TypeName, "CU_") or string.find(TypeName, "PU_") then
+                        if string.find(TypeName, "CU_") or string.find(TypeName, "CV_")
+                        or string.find(TypeName, "PU_") or string.find(TypeName, "PV_") then
                             table.insert(List, ID);
                         end
                     end
@@ -1114,7 +1115,8 @@ function Stronghold:GetSettlersOfType(_PlayerID, _Type, _Group)
                 local Type = Logic.GetEntityType(ID);
                 local TypeName = Logic.GetEntityTypeName(Type);
                 if _Type == 0 or Type == _Type then
-                    if string.find(TypeName, "CU_") or string.find(TypeName, "PU_") then
+                    if string.find(TypeName, "CU_") or string.find(TypeName, "CV_")
+                    or string.find(TypeName, "PU_") or string.find(TypeName, "PV_") then
                         table.insert(List, ID);
                     end
                 end

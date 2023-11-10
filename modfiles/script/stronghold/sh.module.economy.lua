@@ -659,7 +659,9 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
         local Upkeep = 0;
         for k, v in pairs(Stronghold.Unit.Config) do
             if type(k) == "number" then
-                local Military = Stronghold:GetLeadersOfType(_PlayerID, k);
+                local LeaderList = Stronghold:GetLeadersOfType(_PlayerID, k);
+                local CannonList = Stronghold:GetCannonsOfType(_PlayerID, k);
+                local Military = CopyTable(LeaderList, CannonList);
                 -- Calculate regular upkeep
                 local TypeUpkeep = 0;
                 for i= 1, table.getn(Military) do

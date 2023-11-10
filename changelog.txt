@@ -1,3 +1,12 @@
+Version 0.5.10
+- Es gibt nun ein 0,5 Sekunden Delay beim Rekrutieren von Einheiten
+- Soldatenlimit ist kastriert auf 320
+  Erstes Militärgebäude zählt nicht mit, danach alle 2 Gebäude +10 (+20)
+- Scharfschützen halten weniger aus
+- Kanonen kosten jetzt tatsächlich Unterhalt
+- Turniermap hat ein Turmlimit von 12 bekommen
+- Gegner sehen nur noch, dass irgend ein Adliger befördert wurde
+
 Version 0.5.7
 - Auf Wunsch der Tester wurden negative Effekte auf die Beliebtheit
   abgeschwächt, damit auch schwächere Spieler Spaß haben können.
