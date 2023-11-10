@@ -590,12 +590,7 @@ function Stronghold.Rights:PromotePlayer(_PlayerID)
         if GUI.GetPlayerID() == _PlayerID then
             Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
         else
-            MsgText = string.format(
-                XGUIEng.GetStringTableText("sh_rights/PromoteOther"),
-                UserTool_GetPlayerName(_PlayerID),
-                "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ","),
-                GetRankName(CurrentRank +1, _PlayerID)
-            );
+            MsgText = XGUIEng.GetStringTableText("sh_rights/PromoteOther");
         end
         Message(MsgText);
         GameCallback_SH_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);

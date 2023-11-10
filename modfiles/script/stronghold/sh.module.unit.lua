@@ -17,6 +17,7 @@ Stronghold.Unit = {
 function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
+            BuyTimeStamp = 0,
             BuyLock = false,
         };
     end
@@ -166,7 +167,8 @@ function Stronghold.Unit:BuySoldierButtonAction()
         return true;
     end
     -- Check buy lock
-    if self.Data[PlayerID].BuyLock then
+    if self.Data[PlayerID].BuyTimeStamp + 5 >= Logic.GetCurrentTurn()
+    or self.Data[PlayerID].BuyLock then
         return true;
     end
     -- Check is leader
@@ -205,6 +207,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     end
     -- Buy soldiers
     self.Data[PlayerID].BuyLock = true;
+    self.Data[PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
     Syncer.InvokeEvent(
         Stronghold.Unit.NetworkCall,
         Stronghold.Unit.SyncEvents.BuySoldier,
@@ -302,7 +305,8 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
         return true;
     end
     -- Check buy lock
-    if self.Data[PlayerID].BuyLock then
+    if self.Data[PlayerID].BuyTimeStamp + 5 >= Logic.GetCurrentTurn()
+    or self.Data[PlayerID].BuyLock then
         return true;
     end
     -- Get leaders to fill
@@ -336,6 +340,7 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
     end
     -- Pay costs
     self.Data[PlayerID].BuyLock = true;
+    self.Data[PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
     Syncer.InvokeEvent(
         Stronghold.Unit.NetworkCall,
         Stronghold.Unit.SyncEvents.PayCosts,
