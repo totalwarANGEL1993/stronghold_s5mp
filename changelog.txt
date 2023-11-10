@@ -1,4 +1,4 @@
-Version 0.5.10
+Version 0.6.5
 - Es gibt nun ein 0,5 Sekunden Delay beim Rekrutieren von Einheiten
 - Soldatenlimit ist kastriert auf 320
   Erstes Militärgebäude zählt nicht mit, danach alle 2 Gebäude +10 (+20)
