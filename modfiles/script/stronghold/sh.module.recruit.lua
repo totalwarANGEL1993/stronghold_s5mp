@@ -14,6 +14,7 @@ function Stronghold.Recruit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             BuyLock = false,
+            BuyTimeStamp = 0,
             Config = CopyTable(Stronghold.Unit.Config),
             Roster = {},
             AutoFill = {},
@@ -205,7 +206,8 @@ end
 
 function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
-    if self.Data[_PlayerID].BuyLock then
+    if self.Data[_PlayerID].BuyTimeStamp + 5 >= Logic.GetCurrentTurn()
+    or self.Data[_PlayerID].BuyLock then
         return;
     end
     -- Check is foundry
@@ -238,6 +240,7 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
         return;
     end
     self.Data[_PlayerID].BuyLock = true;
+    self.Data[_PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
     Syncer.InvokeEvent(
         self.NetworkCall,
         self.SyncEvents.BuyUnit,
@@ -258,7 +261,8 @@ end
 
 function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
-    if self.Data[_PlayerID].BuyLock then
+    if self.Data[_PlayerID].BuyTimeStamp + 5 >= Logic.GetCurrentTurn()
+    or self.Data[_PlayerID].BuyLock then
         return;
     end
     -- Check is foundry
@@ -289,6 +293,7 @@ function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _Entit
         return;
     end
     self.Data[_PlayerID].BuyLock = true;
+    self.Data[_PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
     Syncer.InvokeEvent(
         self.NetworkCall,
         self.SyncEvents.BuyCannon,
