@@ -166,11 +166,23 @@ end
 -- upgrade button instead of the construction button. A classical case of the
 -- infamos "BB-Logic".... To avoid boilerplate we outsource the changes.
 function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Button, _Technology)
-    local Disable = false;
-    local CheckList = Stronghold.Construction.Config.TypesToCheckForConstruction[_Technology];
-    local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
+    -- Kerberos/Kala hack
+    local HeroID = Stronghold:GetPlayerHero(_PlayerID);
+    local HeroType = Logic.GetEntityType(HeroID);
+    local Technology = _Technology;
+    if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
+        if self.Config.TechnologyAlternateHack[Technology] then
+            Technology = self.Config.TechnologyAlternateHack[Technology];
+        end
+    end
 
-    local Usage = 0;
+    -- Get right and technology
+    local Disable = false;
+    local CheckList = Stronghold.Construction.Config.TypesToCheckForConstruction[Technology];
+    local CheckRight = Stronghold.Construction.Config.RightsToCheckForConstruction[_Technology];
+    if not CheckRight or not CheckList or not CheckList[1] then
+        return false;
+    end
 
     -- Check limit
     local Limit = -1;
@@ -251,17 +263,30 @@ end
 
 function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technology)
     local PlayerID = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local UpgradeLevel = Logic.GetUpgradeLevelForBuilding(EntityID);
+    -- Kerberos/Kala hack
+    local HeroID = Stronghold:GetPlayerHero(_PlayerID);
+    local HeroType = Logic.GetEntityType(HeroID);
+    local Technology = _Technology;
+    if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
+        if self.Config.TechnologyAlternateHack[Technology] then
+            Technology = self.Config.TechnologyAlternateHack[Technology];
+        end
+    end
+
     if IsPlayer(PlayerID) then
         local Disable = false;
-        local CheckTechnologies = Stronghold.Construction.Config.TypesToCheckForUpgrade[_Technology] or {};
+        local CheckTechnologies = Stronghold.Construction.Config.TypesToCheckForUpgrade[Technology] or {};
         local CheckRight = Stronghold.Construction.Config.RightsToCheckForUpgrade[_Technology];
-        local Type = Logic.GetEntityType(GUI.GetSelectedEntity()) +1;
+        if not CheckRight or not CheckTechnologies or not CheckTechnologies[1] then
+            return false;
+        end
 
         -- Check limit
-        local Limit = EntityTracker.GetLimitOfType(Type, PlayerID);
-        local Usage = 0;
+        local Limit = EntityTracker.GetLimitOfType(CheckTechnologies[UpgradeLevel +2], PlayerID);
         if Limit > -1 then
-            Disable = EntityTracker.IsLimitOfTypeReached(CheckTechnologies[1], PlayerID, true);
+            Disable = EntityTracker.IsLimitOfTypeReached(CheckTechnologies[UpgradeLevel +3], PlayerID, true);
         end
         -- Check right
         local Right = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);

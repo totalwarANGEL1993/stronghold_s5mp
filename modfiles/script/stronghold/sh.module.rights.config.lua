@@ -50,6 +50,10 @@ Stronghold.Rights.Config = {
                 PlayerRight.Beautification6,
                 PlayerRight.Beautification9,
                 ---
+                PlayerRight.Barracks,
+                PlayerRight.SpearMilitia,
+                PlayerRight.BanditSword,
+                ---
                 PlayerRight.BlackKnightGuard,
             }
         },
@@ -66,10 +70,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.Bridge,
                 ---
                 PlayerRight.Palisade,
-                ---
-                PlayerRight.Barracks,
-                PlayerRight.SpearMilitia,
-                PlayerRight.BanditSword,
             },
         },
         [PlayerRank.Mayor]    = {

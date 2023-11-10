@@ -352,8 +352,13 @@
 
     <!-- Buildings -->
     <Technology>B_Palisade</Technology>
+    <Technology>B_TowerDark</Technology>
     <Technology>B_Wall</Technology>
+    <Technology>B_WallDark</Technology>
     <Technology>UP1_Palisade</Technology>
+    <Technology>UP1_PalisadeDark</Technology>
+    <Technology>UP1_TowerDark</Technology>
+    <Technology>UP2_TowerDark</Technology>
 
     <!-- Resources -->
     <Technology>T_PickAxeClay</Technology>

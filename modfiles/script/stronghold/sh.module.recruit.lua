@@ -206,7 +206,7 @@ end
 
 function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
-    if self.Data[_PlayerID].BuyTimeStamp + 5 >= Logic.GetCurrentTurn()
+    if self.Data[_PlayerID].BuyTimeStamp + 3 >= Logic.GetCurrentTurn()
     or self.Data[_PlayerID].BuyLock then
         return;
     end
@@ -261,7 +261,7 @@ end
 
 function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
-    if self.Data[_PlayerID].BuyTimeStamp + 5 >= Logic.GetCurrentTurn()
+    if self.Data[_PlayerID].BuyTimeStamp + 3 >= Logic.GetCurrentTurn()
     or self.Data[_PlayerID].BuyLock then
         return;
     end
