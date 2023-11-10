@@ -280,8 +280,8 @@ function Tutorial_AddMainInterfaceSection()
         Text        = "TOM SIMPKINS: Hier seht Ihr, wie stark Euer Heer ist "..
                       "und wie groß es noch werden kann. Wie viele Eurer "..
                       "Untertanen Ihr in den Krieg schicken könnt, {scarlet}"..
-                      "hängt von der Stufe des Haupthaus und der Anzahl der "..
-                      "Rekrutierungsgebäude ab.",
+                      "hängt von der Stufe des Haupthaus und von Euren "..
+                      "ausgebauten Rekrutierungsgebäude ab.",
         Arrow       = ArrowPos_Military,
     }
     Tutorial.AddMessage {
