@@ -908,8 +908,8 @@ function Stronghold.Building:UnitToRallyPointController(_PlayerID)
             if not IsExisting(RecruiterID) or not IsExisting(EntityID) then
                 return;
             end
-            local Task = Logic.GetCurrentTaskList(EntityID);
-            if not Task or (string.find(Task,"IDLE") or string.find(Task,"BATTLE")) then
+            local Task = Logic.GetCurrentTaskList(EntityID) or "";
+            if string.find(Task,"IDLE") then
                 local ScriptName = Logic.GetEntityName(RecruiterID);
                 self:MoveToRallyPoint(ScriptName, EntityID);
                 table.remove(self.Data[_PlayerID].UnitMover, i);
