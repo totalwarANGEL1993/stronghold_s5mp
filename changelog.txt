@@ -1,7 +1,8 @@
-Version 0.6.5
+Version 0.6.6
 - Es gibt nun ein 0,5 Sekunden Delay beim Rekrutieren von Einheiten
 - Soldatenlimit ist kastriert auf 320
   Erstes Militärgebäude zählt nicht mit, danach alle 2 Gebäude +10 (+20)
+- Mary erhält nun für jeden Rang 2 weitere mögliche Knechte
 - Scharfschützen halten weniger aus
 - Kanonen kosten jetzt tatsächlich Unterhalt
 - Turniermap hat ein Turmlimit von 12 bekommen

@@ -1220,7 +1220,7 @@ end
 function Stronghold.Hero:ApplyMaxSlaveAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
-        Value = Value * self.Config.Hero8.SlaveFactor;
+        Value = Value + (self.Config.Hero8.BonusSlaves * GetRank(_PlayerID));
     end
     return Value;
 end

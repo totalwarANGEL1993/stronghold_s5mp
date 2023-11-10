@@ -45,7 +45,7 @@ Stronghold.Hero.Config.Hero7 = {
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {
     UpkeepFactor = 0.5,
-    SlaveFactor = 1.1,
+    BonusSlaves = 2,
 }
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
