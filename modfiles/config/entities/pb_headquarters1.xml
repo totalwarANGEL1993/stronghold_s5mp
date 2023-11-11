@@ -49,7 +49,7 @@
             <Category>Headquarters</Category>
         </Upgrade>
         <CanBeSold>false</CanBeSold>
-        <NumberOfAttractableSettlers>100</NumberOfAttractableSettlers>
+        <NumberOfAttractableSettlers>125</NumberOfAttractableSettlers>
         <Exploration>50</Exploration>
         <ConstructionInfo>
             <Time>110</Time>

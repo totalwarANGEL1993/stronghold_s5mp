@@ -40,7 +40,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>10</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>1</AttractionSlots>
         <Upgrade>
             <Category>BarbarianSoldier2</Category>
         </Upgrade>

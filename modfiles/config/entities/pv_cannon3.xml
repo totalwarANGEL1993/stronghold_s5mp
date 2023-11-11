@@ -30,7 +30,7 @@
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
         <ExperiencePoints>80</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>8</AttractionSlots>
         <Upgrade>
             <Category>Cannon3</Category>
         </Upgrade>

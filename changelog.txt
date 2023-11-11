@@ -1,15 +1,29 @@
-Version 0.6.8
+Version 0.6.15
 - Es gibt nun ein 0,3 Sekunden Delay beim Rekrutieren von Einheiten
-- Soldatenlimit wurde überarbeitet
-  * Haupthaus: 60, 120, 180
-  * Ausgebaute Rekrutierungsgebäude: 20
-- Maßnahmen laden sich nun viel schneller auf.
+- Es werden nun immer die belegten Plätze angezeigt
+- Schaden von einigen Einheiten wurde überarbeitet
+- Maßnahmen laden sich nun viel schneller auf
 - Dario beschleunigt Maßnahmen nur noch um 50%
-- Mary erhält nun für jeden Rang 2 weitere mögliche Knechte
-- Scharfschützen halten weniger aus
-- Kanonen kosten jetzt tatsächlich Unterhalt
-- Turniermap hat ein Turmlimit von 12 bekommen
-- Gegner sehen nur noch, dass irgend ein Adliger befördert wurde
+- Pilgrims Bombe hat mehr Wums
+- Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
+- Salim steigert Wissensgewinn Gelehrter um 20%
+- Mary erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
+- Mary heißt jetzt nur noch "Marie"
+- Bevölkerungslimit wurde überarbeitet
+  * Haupthaus: 125, 175, 225
+  * Dorfzentrum: 45, 90, 135
+- Rekrutenlimit wurde überarbeitet
+  * Haupthaus: 78, 130, 195
+  * Ausgebaute Rekrutierungsgebäude: 26
+- Anzahl an Rekrutierungsgebäude hängt von Burg und Dorfzentrum ab
+  * Burgstufe: 6, 9, 12
+  * Dorfzentrum: 2, 4, 6
+- Anzahl an Kanonengießereien hängt von Burg und Dorfzentrum ab
+  * Burgstufe: 2, 4, 6
+  * Dorfzentrum: 1, 2, 3
+- Benötigte Plätze für Kanonen überarbeitet
+  * Bombarde, Große Bombarde, Bronzekanone: 4
+  * Eisenkanone, Dschihad, Belagerungskanone: 8
 
 Version 0.5.7
 - Auf Wunsch der Tester wurden negative Effekte auf die Beliebtheit

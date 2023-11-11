@@ -45,7 +45,7 @@
 ---
 
 Stronghold = {
-    Version = "0.6.7",
+    Version = "0.6.15",
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -749,6 +749,7 @@ function Stronghold:StartTriggers()
         Stronghold:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
         Stronghold.Attraction:OnEntityDestroyed(EntityID);
         Stronghold.Building:OnEntityDestroyed(EntityID);
+        Stronghold.Construction:OnEntityDestroyed(EntityID);
     end);
 
     Job.Trade(function()

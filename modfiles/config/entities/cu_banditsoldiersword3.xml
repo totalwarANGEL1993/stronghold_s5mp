@@ -37,7 +37,7 @@
         <ArmorAmount>2</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <ExperiencePoints>10</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>1</AttractionSlots>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <Cost>
@@ -111,8 +111,8 @@
 
             <!-- That is on purpose -->
             <DamageClass>DC_Slash</DamageClass>
-            <DamageAmount>8</DamageAmount>
-            <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
+            <DamageAmount>9</DamageAmount>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>

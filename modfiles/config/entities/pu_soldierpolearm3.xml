@@ -41,7 +41,7 @@
         <DodgeChance>5</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>23</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>1</AttractionSlots>
         <Upgrade>
             <Category>SoldierPoleArm3</Category>
         </Upgrade>
@@ -113,7 +113,7 @@
 
             <DamageClass>DC_Pole</DamageClass>
             <DamageAmount>20</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

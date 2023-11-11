@@ -10,13 +10,20 @@ Stronghold.Hero.Config.Hero1 = {
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
     MinerExtractionFactor = 1.5,
-    RefiningBonus = 1,
     TowerBonusFactor = 1.1,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
-    UnitPlaceFactor = 0.75,
-    KnowledgeFactor = 1.15,
+    CannonPlaceReduction = 1,
+    KnowledgeFactor = 1.20,
+    CannonTypes = {
+        Entities.CV_Cannon1,
+        Entities.CV_Cannon2,
+        Entities.PV_Cannon1,
+        Entities.PV_Cannon2,
+        Entities.PV_Cannon3,
+        Entities.PV_Cannon4
+    },
 }
 -- Hero 4 properties
 Stronghold.Hero.Config.Hero4 = {

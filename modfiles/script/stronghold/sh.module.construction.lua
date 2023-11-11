@@ -30,12 +30,7 @@ function Stronghold.Construction:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
     end
-    -- Don't let EMS fuck with my script...
-    if EMS then
-        function EMS.RD.Rules.Markets:Evaluate(self) end
-    end
-
-    self:OverwritePromotion();
+    self:OverwriteCallbacks();
     self:InitBuildingLimits();
     self:InitBarracksBuildingLimits(-1);
     self:StartCheckTowerDistanceCallback();
@@ -54,6 +49,12 @@ function Stronghold.Construction:OnEntityCreated(_EntityID)
             end
         end
     end
+end
+
+function Stronghold.Construction:OnEntityDestroyed(_EntityID)
+    -- Reset military building limit
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    self:InitBarracksBuildingLimits(PlayerID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -356,31 +357,52 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_PowerPlant1, 1);
 end
 
-function Stronghold.Construction:OverwritePromotion()
-    Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
+function Stronghold.Construction:OverwriteCallbacks()
+    Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_BuildingID, _PlayerID)
         Overwrite.CallOriginal();
-        Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID, _NewRank);
+        Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID);
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_OnBuildingUpgradeComplete", function(_OldID, _NewID)
+        Overwrite.CallOriginal();
+        local PlayerID = Logic.EntityGetPlayer(_NewID);
+        Stronghold.Construction:InitBarracksBuildingLimits(PlayerID);
     end);
 end
 
-function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID, _Rank)
-    _Rank = _Rank or 0;
+function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID)
+    -- Call for all players
     if _PlayerID == -1 then
         for i= 1, GetMaxAmountOfPlayer() do
-            self:InitBarracksBuildingLimits(i, _Rank);
+            self:InitBarracksBuildingLimits(i);
         end
         return;
     end
-    local Limit = Stronghold.Construction.Config.MilitaryBuildingLimit;
-    local Bonus = Stronghold.Construction.Config.MilitaryBuildingBonus;
-    local Final = Limit + math.floor(Bonus * ((_Rank/2) or 0));
-    EntityTracker.SetLimitOfType(Entities.PB_Barracks1, Final, _PlayerID);
-    EntityTracker.SetLimitOfType(Entities.PB_Barracks2, Final, _PlayerID);
-    EntityTracker.SetLimitOfType(Entities.PB_Archery1, Final, _PlayerID);
-    EntityTracker.SetLimitOfType(Entities.PB_Archery2, Final, _PlayerID);
-    EntityTracker.SetLimitOfType(Entities.PB_Stable1, Final, _PlayerID);
-    EntityTracker.SetLimitOfType(Entities.PB_Stable2, Final, _PlayerID);
-    EntityTracker.SetLimitOfType(Entities.PB_Foundry1, Final, _PlayerID);
-    EntityTracker.SetLimitOfType(Entities.PB_Foundry2, Final, _PlayerID);
+    -- Break on invalid player
+    if not IsPlayer(_PlayerID) then
+        return;
+    end
+
+    -- Set limit of recruiter buildings
+    local RecruiterLimit = 0;
+    for Type, Bonus in pairs(self.Config.RecruitBuildingAmounts) do
+        local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, Type, true);
+        RecruiterLimit = RecruiterLimit + (Bonus * table.getn(Buildings));
+    end
+    EntityTracker.SetLimitOfType(Entities.PB_Barracks1, RecruiterLimit, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Barracks2, RecruiterLimit, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Archery1, RecruiterLimit, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Archery2, RecruiterLimit, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Stable1, RecruiterLimit, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Stable2, RecruiterLimit, _PlayerID);
+
+    -- Set limit of smelter buildings
+    local SmelterLimit = 0;
+    for Type, Bonus in pairs(self.Config.RecruitBuildingAmounts) do
+        local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, Type, true);
+        SmelterLimit = SmelterLimit + (Bonus * table.getn(Buildings));
+    end
+    EntityTracker.SetLimitOfType(Entities.PB_Foundry1, SmelterLimit, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_Foundry2, SmelterLimit, _PlayerID);
 end
 

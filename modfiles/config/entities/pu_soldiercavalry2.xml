@@ -37,7 +37,7 @@
         <DodgeChance>15</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>30</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>2</AttractionSlots>
         <Upgrade>
             <Category>SoldierCavalry2</Category>
         </Upgrade>

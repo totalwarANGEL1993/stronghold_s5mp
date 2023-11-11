@@ -732,7 +732,7 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
             MeasurePoints = 0;
         else
             local RankFactor = 1.0 + (0.2 * CurrentRank);
-            local SlopeFactor = math.max(3 * RankFactor + 0.1, 0.1);
+            local SlopeFactor = math.max(4 * RankFactor + 0.1, 0.1);
             MeasurePoints = (MeasurePoints * Motivation) * SlopeFactor;
         end
         MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);

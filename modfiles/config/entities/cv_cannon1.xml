@@ -29,7 +29,7 @@
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
         <ExperiencePoints>100</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>4</AttractionSlots>
         <Upgrade>
             <Category>Cannon5</Category>
         </Upgrade>
@@ -95,10 +95,10 @@
 
             <DamageClass>DC_TroopCannon</DamageClass>
             <DamageAmount>40</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>500</DamageRange>
 
-            <BattleWaitUntil>3000</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBallLarge</ProjectileEffectID>
             <MaxRange>3500</MaxRange>

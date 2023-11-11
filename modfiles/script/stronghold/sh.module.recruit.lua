@@ -315,6 +315,8 @@ function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _Entity
         local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
         local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, Soldiers);
         CostsText = FormatCostString(_PlayerID, Costs);
+        local NeededPlaces = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
+        CostsText = CostsText .. XGUIEng.GetStringTableText("InGameMessages/GUI_NamePlaces") .. ": " .. NeededPlaces;
         local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);
         Text = Name.. " @cr " ..XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_normal");
         if XGUIEng.IsButtonDisabled(_WidgetID) == 1 then
@@ -868,7 +870,7 @@ function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
             local Size = GetMilitaryPlacesUsedByUnit(v, 1);
             -- Salim passive skill
             if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-                Size = math.floor((Size * Stronghold.Hero.Config.Hero3.UnitPlaceFactor) + 0.5);
+                Size = Size - Stronghold.Hero.Config.Hero3.CannonPlaceReduction;
             end
             Places = Places + Size;
         end

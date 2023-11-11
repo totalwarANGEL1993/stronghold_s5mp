@@ -40,7 +40,7 @@
         <DodgeChance>10</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>20</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>1</AttractionSlots>
         <Upgrade>
             <Category>LeaderPoleArm2</Category>
         </Upgrade>
@@ -120,7 +120,7 @@
             <HitAnim>PU_LeaderPoleArm2_Hit</HitAnim>
 
             <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>10</DamageAmount>
+            <DamageAmount>11</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>

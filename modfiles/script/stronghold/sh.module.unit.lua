@@ -251,6 +251,8 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
     local Index = (BuyAmount > 1 and "All") or "Single";
     local Text = XGUIEng.GetStringTableText("sh_text/UI_Recruit" ..Index);
     local CostText = FormatCostString(PlayerID, Costs);
+    local NeededPlaces = GetMilitaryPlacesUsedByUnit(Type, 1);
+    CostText = CostText .. XGUIEng.GetStringTableText("InGameMessages/GUI_NamePlaces") .. ": " .. NeededPlaces;
     if BuyAmount == 0 then
         CostText = "";
     end

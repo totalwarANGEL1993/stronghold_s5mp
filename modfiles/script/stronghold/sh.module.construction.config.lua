@@ -5,8 +5,25 @@
 Stronghold.Construction.Config = {
     TowerDistance = 1500,
     LightBricksFactor = 1.2,
-    MilitaryBuildingLimit = 3,
-    MilitaryBuildingBonus = 1,
+
+    -- Limit of recruiter buildings
+    RecruitBuildingAmounts = {
+        [Entities.PB_Headquarters1] = 6,
+        [Entities.PB_Headquarters2] = 9,
+        [Entities.PB_Headquarters3] = 12,
+        [Entities.PB_VillageCenter1] = 2,
+        [Entities.PB_VillageCenter2] = 4,
+        [Entities.PB_VillageCenter3] = 6,
+    },
+    -- Limit of cannon factories
+    SmeltingBuildingAmounts = {
+        [Entities.PB_Headquarters1] = 2,
+        [Entities.PB_Headquarters2] = 4,
+        [Entities.PB_Headquarters3] = 6,
+        [Entities.PB_VillageCenter1] = 1,
+        [Entities.PB_VillageCenter2] = 2,
+        [Entities.PB_VillageCenter3] = 3,
+    },
 
     -- Check types for construction technology
     TypesToCheckForConstruction = {

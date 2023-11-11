@@ -1016,13 +1016,13 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_AttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyMaxAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_AttrationUsage", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1201,14 +1201,20 @@ function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, 
 end
 
 -- Passive Ability: Change civil places usage
-function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
+function Stronghold.Hero:ApplyAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    -- Do nothing
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+        for Type, Places in pairs (self.Config.Hero3.CannonTypes) do
+            local Amount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Type);
+            local Occupied = Amount * Places;
+            Value = Value - Occupied;
+        end
+    end
     return Value;
 end
 
 -- Passive Ability: Increase of max civil attraction
-function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
+function Stronghold.Hero:ApplyMaxAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
         Value = Value * self.Config.Hero12.PopulationFactor;
@@ -1236,15 +1242,11 @@ end
 function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-        local Cannon1 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon1);
-        Cannon1 = math.floor(((Cannon1 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
-        local Cannon2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon2);
-        Cannon2 = math.floor(((Cannon2 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
-        local Cannon3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon3);
-        Cannon3 = math.floor(((Cannon3 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
-        local Cannon4 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PV_Cannon4);
-        Cannon4 = math.floor(((Cannon4 * 8) * self.Config.Hero3.UnitPlaceFactor) + 0.5);
-        Value = Value - (Cannon1 + Cannon2 + Cannon3 + Cannon4);
+        for Type, Places in pairs (self.Config.Hero3.CannonTypes) do
+            local Amount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Type);
+            local Occupied = Amount * Places;
+            Value = Value - Occupied;
+        end
     end
     return Value;
 end

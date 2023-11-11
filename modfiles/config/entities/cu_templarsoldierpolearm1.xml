@@ -41,7 +41,7 @@
         <DodgeChance>5</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>23</ExperiencePoints>
-        <AttractionSlots>0</AttractionSlots>
+        <AttractionSlots>1</AttractionSlots>
         <Upgrade>
             <Category>TemplarSoldierPoleArm1</Category>
         </Upgrade>
@@ -105,7 +105,7 @@
             <HitAnim>PU_SoldierPoleArm3_Hit</HitAnim>
 
             <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>12</DamageAmount>
+            <DamageAmount>14</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>

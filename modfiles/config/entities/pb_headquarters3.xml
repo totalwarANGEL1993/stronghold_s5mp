@@ -43,7 +43,7 @@
         </Upgrade>
         <CanBeSold>false</CanBeSold>
 		  
-		<NumberOfAttractableSettlers>250</NumberOfAttractableSettlers>
+		<NumberOfAttractableSettlers>225</NumberOfAttractableSettlers>
 		<Exploration>50</Exploration>		
         <ConstructionInfo>
 

@@ -5,12 +5,12 @@
 Stronghold.Attraction.Config.Attraction = {
     -- Civil attration limit
     -- THIS MUST BE IN SYNC WITH ENTITY DEFINITION XML!
-    HQCivil = {[1] = 100, [2] = 175, [3] = 250},
+    HQCivil = {[1] = 125, [2] = 175, [3] = 225},
     VCCivil = {[1] = 45, [2] = 90, [3] = 135},
     -- Military attraction limit
     -- This is freely changeable in Lua
-    HQMilitary = {[1] = 60, [2] = 120, [3] = 180},
-    BBMilitary = {[1] = 0, [2] = 20},
+    HQMilitary = {[1] = 78, [2] = 130, [3] = 195},
+    BBMilitary = {[1] = 0, [2] = 26},
     -- Serf attraction limit
     -- This is freely changeable in Lua
     SlaveLimit = 24,
@@ -82,14 +82,14 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.CU_RangerLeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry2] = 2,
-    [Entities.PU_LeaderHeavyCavalry1] = 3,
-    [Entities.PU_LeaderHeavyCavalry2] = 3,
+    [Entities.PU_LeaderHeavyCavalry1] = 2,
+    [Entities.PU_LeaderHeavyCavalry2] = 2,
     ---
-    [Entities.PV_Cannon1] = 8,
-    [Entities.PV_Cannon2] = 8,
+    [Entities.PV_Cannon1] = 4,
+    [Entities.PV_Cannon2] = 4,
     [Entities.PV_Cannon3] = 8,
     [Entities.PV_Cannon4] = 8,
-    [Entities.CV_Cannon1] = 8,
+    [Entities.CV_Cannon1] = 4,
     [Entities.CV_Cannon2] = 8,
     ---
     [Entities.PU_Scout] = 1,
@@ -97,5 +97,6 @@ Stronghold.Attraction.Config.UsedSpace = {
     ---
     [Entities.PU_BattleSerf] = 1,
     [Entities.PU_Serf] = 1,
+    [Entities.CU_BlackKnight] = 1,
 }
 
