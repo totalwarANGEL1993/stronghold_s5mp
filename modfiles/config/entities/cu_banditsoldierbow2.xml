@@ -117,9 +117,9 @@
 
             <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
-            <ArmorClass>ArmorClassNone</ArmorClass>
-            <ArmorAmount>3</ArmorAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <ArmorClass>ArmorClassLeather</ArmorClass>
+            <ArmorAmount>4</ArmorAmount>
             <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MissChance>2</MissChance>

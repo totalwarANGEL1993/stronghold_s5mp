@@ -39,7 +39,7 @@
         <ArmorAmount>5</ArmorAmount>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>30</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>2</AttractionSlots>
         <Upgrade>
             <Category>SoldierBow4</Category>
         </Upgrade>
@@ -121,7 +121,7 @@
             <HitAnim>PU_SoldierBow4_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>33</DamageAmount>
+            <DamageAmount>50</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

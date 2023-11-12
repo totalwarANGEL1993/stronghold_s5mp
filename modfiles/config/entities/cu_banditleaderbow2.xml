@@ -51,8 +51,8 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>250</MaxHealth>
         <Exploration>25</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>45</ExperiencePoints>
@@ -148,7 +148,7 @@
 
             <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

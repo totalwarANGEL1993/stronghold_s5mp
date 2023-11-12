@@ -73,7 +73,7 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PU_LeaderBow1] = 1,
     [Entities.PU_LeaderBow2] = 1,
     [Entities.PU_LeaderBow3] = 1,
-    [Entities.PU_LeaderBow4] = 1,
+    [Entities.PU_LeaderBow4] = 2,
     [Entities.PU_LeaderRifle1] = 2,
     [Entities.PU_LeaderRifle2] = 2,
     ---

@@ -31,7 +31,7 @@
     	    <MinRange>800</MinRange>
     	    <DamageClass>DC_Turret</DamageClass>
     	    <DamageAmount>40</DamageAmount>
-    	    <DamageRange>600</DamageRange>
+    	    <DamageRange>700</DamageRange>
     	    <AutoAttackRange>3200</AutoAttackRange>
     	    <BattleTaskList>TL_BATTLE_CANNONTOWER</BattleTaskList>
     	</Logic>

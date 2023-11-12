@@ -168,14 +168,14 @@ Stronghold.Unit.Config = {
     [Entities.PU_LeaderBow4]                = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {16, 150, 0, 50, 0, 75, 0},
-            [2] = {0, 40, 0, 20, 0, 45, 0},
+            [1] = {16, 180, 0, 80, 0, 105, 0},
+            [2] = {0, 70, 0, 30, 0, 80, 0},
         },
         Right             = PlayerRight.ArcherPavease,
         IsCivil           = false,
         Upkeep            = 55,
         Turns             = 175,
-        Soldiers          = 6,
+        Soldiers          = 3,
         RecruiterBuilding = {Entities.PB_Archery2},
         ProviderBuilding  = {Entities.PB_Sawmill2},
     },

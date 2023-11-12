@@ -38,7 +38,7 @@
         <DodgeChance>6</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>2</AttractionSlots>
         <Upgrade>
             <Category>LeaderBow4</Category>
         </Upgrade>
@@ -129,7 +129,7 @@
             <HitAnim>PU_LeaderBow4_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>33</DamageAmount>
+            <DamageAmount>50</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
@@ -153,7 +153,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>6</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>

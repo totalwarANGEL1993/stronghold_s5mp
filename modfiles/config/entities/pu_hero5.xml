@@ -161,11 +161,11 @@
             <Animation>PU_Hero5_Attack2</Animation>
             <Range>3000.0</Range>
             <MaxArcDegree>90</MaxArcDegree>
-            <NumberShuriken>6</NumberShuriken>
+            <NumberShuriken>8</NumberShuriken>
             <ProjectileType>FXArrow</ProjectileType>
             <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight>
             <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>100</DamageAmount>
+            <DamageAmount>150</DamageAmount>
         </Logic>
     </Behavior>
 
