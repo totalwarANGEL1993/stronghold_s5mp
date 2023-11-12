@@ -167,7 +167,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
         return true;
     end
     -- Check buy lock
-    if self.Data[PlayerID].BuyTimeStamp + 3 >= Logic.GetCurrentTurn()
+    if self.Data[PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
     or self.Data[PlayerID].BuyLock then
         return true;
     end
@@ -307,7 +307,7 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
         return true;
     end
     -- Check buy lock
-    if self.Data[PlayerID].BuyTimeStamp + 3 >= Logic.GetCurrentTurn()
+    if self.Data[PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
     or self.Data[PlayerID].BuyLock then
         return true;
     end

@@ -1299,9 +1299,16 @@ end
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
     local SelectedID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    local GuiPlayer = self:GetLocalPlayerID();
+    -- Check if other player than owner or spectator selects entity
+    -- (Can happen because of entity created/destroyed)
     if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return;
+    end
+    -- Check selected entity is the same as passed entity
+    -- (That should never happen in theory)
+    if SelectedID ~= _EntityID then
         return;
     end
 

@@ -423,7 +423,7 @@ function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID)
 
     -- Set limit of smelter buildings
     local SmelterLimit = 0;
-    for Type, Bonus in pairs(self.Config.RecruitBuildingAmounts) do
+    for Type, Bonus in pairs(self.Config.SmeltingBuildingAmounts) do
         local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, Type, true);
         SmelterLimit = SmelterLimit + (Bonus * table.getn(Buildings));
     end

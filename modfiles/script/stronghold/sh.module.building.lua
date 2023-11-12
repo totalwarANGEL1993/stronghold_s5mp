@@ -292,7 +292,7 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "HQ_BackToWork");
 
     -- TODO: Proper disable in singleplayer!
-    -- local ShowBuyHero = XNetwork.Manager_DoesExist()
+    -- local ShowBuyHero = XNetwork.Manager_DoesExist() == 1
     XGUIEng.ShowWidget("HQ_CallMilitia", 1);
     XGUIEng.ShowWidget("HQ_BackToWork", 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
@@ -908,8 +908,8 @@ function Stronghold.Building:UnitToRallyPointController(_PlayerID)
             if not IsExisting(RecruiterID) or not IsExisting(EntityID) then
                 return;
             end
-            local Task = Logic.GetCurrentTaskList(EntityID) or "";
-            if string.find(Task,"IDLE") then
+            local Task = Logic.GetCurrentTaskList(EntityID);
+            if not Task or (string.find(Task,"IDLE") or string.find(Task,"BATTLE")) then
                 local ScriptName = Logic.GetEntityName(RecruiterID);
                 self:MoveToRallyPoint(ScriptName, EntityID);
                 table.remove(self.Data[_PlayerID].UnitMover, i);

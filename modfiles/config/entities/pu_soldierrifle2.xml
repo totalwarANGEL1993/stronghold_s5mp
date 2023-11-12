@@ -116,7 +116,7 @@
 
             <AutoAttackRange>2800</AutoAttackRange>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2800</BattleWaitUntil>
 
             <MissChance>2</MissChance>
 

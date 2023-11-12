@@ -206,7 +206,7 @@ end
 
 function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
-    if self.Data[_PlayerID].BuyTimeStamp + 3 >= Logic.GetCurrentTurn()
+    if self.Data[_PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
     or self.Data[_PlayerID].BuyLock then
         return;
     end
@@ -259,7 +259,7 @@ end
 
 function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Prevent click spam
-    if self.Data[_PlayerID].BuyTimeStamp + 3 >= Logic.GetCurrentTurn()
+    if self.Data[_PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
     or self.Data[_PlayerID].BuyLock then
         return;
     end
@@ -426,7 +426,7 @@ function GUIAction_BuyMeleeUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if GuiPlayer == 17 or not IsExisting(EntityID) then
+    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyMeleeUnitAction(PlayerID, EntityID, _Index);
@@ -435,16 +435,18 @@ end
 function GUITooltip_BuyMeleeUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyMeleeUnitTooltip(PlayerID, EntityID, _Index);
 end
 
 function GUIUpdate_BuyMeleeUnit(_Index)
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsExisting(EntityID) then
+        XGUIEng.ShowWidget(WidgetID, 0);
         return;
     end
     Stronghold.Recruit:BuyMeleeUnitUpdate(PlayerID, EntityID, _Index);
@@ -501,7 +503,7 @@ function GUIAction_BuyRangedUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if GuiPlayer == 17 or not IsExisting(EntityID) then
+    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyRangedUnitAction(PlayerID, EntityID, _Index);
@@ -510,16 +512,18 @@ end
 function GUITooltip_BuyRangedUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyRangedUnitTooltip(PlayerID, EntityID, _Index);
 end
 
 function GUIUpdate_BuyRangedUnit(_Index)
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsExisting(EntityID) then
+        XGUIEng.ShowWidget(WidgetID, 0);
         return;
     end
     Stronghold.Recruit:BuyRangedUnitUpdate(PlayerID, EntityID, _Index);
@@ -574,9 +578,8 @@ end
 
 function GUIAction_BuyCavalryUnit(_Index)
     local PlayerID = GetLocalPlayerID();
-    local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if GuiPlayer == 17 or not IsExisting(EntityID) then
+    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyCavalryUnitAction(PlayerID, EntityID, _Index);
@@ -584,17 +587,20 @@ end
 
 function GUITooltip_BuyCavalryUnit(_Index)
     local PlayerID = GetLocalPlayerID();
+    local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyCavalryUnitTooltip(PlayerID, EntityID, _Index);
 end
 
 function GUIUpdate_BuyCavalryUnit(_Index)
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsExisting(EntityID) then
+        XGUIEng.ShowWidget(WidgetID, 0);
         return;
     end
     Stronghold.Recruit:BuyCavalryUnitUpdate(PlayerID, EntityID, _Index);
@@ -651,7 +657,7 @@ function GUIAction_BuyCannonUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if GuiPlayer == 17 or not IsExisting(EntityID) then
+    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyCannonUnitAction(PlayerID, EntityID, _Index);
@@ -660,16 +666,18 @@ end
 function GUITooltip_BuyCannonUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyCannonUnitTooltip(PlayerID, EntityID, _Index);
 end
 
 function GUIUpdate_BuyCannonUnit(_Index)
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsExisting(EntityID) then
+        XGUIEng.ShowWidget(WidgetID, 0);
         return;
     end
     Stronghold.Recruit:BuyCannonUnitUpdate(PlayerID, EntityID, _Index);
@@ -730,7 +738,7 @@ function GUIAction_BuyTavernUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if GuiPlayer == 17 or not IsExisting(EntityID) then
+    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyTavernUnitAction(PlayerID, EntityID, _Index);
@@ -739,16 +747,18 @@ end
 function GUITooltip_BuyTavernUnit(_Index)
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Recruit:BuyTavernUnitTooltip(PlayerID, EntityID, _Index);
 end
 
 function GUIUpdate_BuyTavernUnit(_Index)
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
     local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    if PlayerID == 17 or not IsExisting(EntityID) then
+        XGUIEng.ShowWidget(WidgetID, 0);
         return;
     end
     Stronghold.Recruit:BuyTavernUnitUpdate(PlayerID, EntityID, _Index);

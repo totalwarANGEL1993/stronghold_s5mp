@@ -7,6 +7,7 @@ Version 0.6.15
 - Pilgrims Bombe hat mehr Wums
 - Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
 - Salim steigert Wissensgewinn Gelehrter um 20%
+- Salims Falle ist geschwächt
 - Mary erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
 - Mary heißt jetzt nur noch "Marie"
 - Bevölkerungslimit wurde überarbeitet

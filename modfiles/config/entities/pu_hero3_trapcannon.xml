@@ -29,7 +29,7 @@
             <ReloadTime>5000</ReloadTime>
             <MaxAttackRange>1000.0f</MaxAttackRange>
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>75</DamageAmount>
+            <DamageAmount>60</DamageAmount>
             <DamageRange>3000</DamageRange>
             <AutoAttackRange>1500</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_TRAP</BattleTaskList>

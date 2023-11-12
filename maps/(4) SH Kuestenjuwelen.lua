@@ -91,10 +91,8 @@ SHS5MP_RulesDefinition = {
         SetHostile(3, 7);
         SetHostile(4, 7);
 
-        EntityTracker.SetLimitOfType(Entities.PB_DarkTower1, 12);
         EntityTracker.SetLimitOfType(Entities.PB_DarkTower2, 12);
         EntityTracker.SetLimitOfType(Entities.PB_DarkTower3, 12);
-        EntityTracker.SetLimitOfType(Entities.PB_Tower1, 12);
         EntityTracker.SetLimitOfType(Entities.PB_Tower2, 12);
         EntityTracker.SetLimitOfType(Entities.PB_Tower3, 12);
 
