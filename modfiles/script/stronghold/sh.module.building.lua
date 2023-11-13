@@ -124,7 +124,9 @@ end
 
 function Stronghold.Building:OncePerSecond(_PlayerID)
     -- Cannon auto repair
-    Stronghold.Building:FoundryCannonAutoRepair(_PlayerID);
+    self:FoundryCannonAutoRepair(_PlayerID);
+    -- Castle upgrade
+    self:CheckBuildingTechnologyConditions(_PlayerID);
 end
 
 function Stronghold.Building:OnEverySecond()
@@ -158,6 +160,35 @@ end
 function Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, _Level)
     if IsPlayer(_PlayerID) then
         Stronghold.Players[_PlayerID].TaxHeight = math.min(math.max(_Level +1, 0), 5);
+    end
+end
+
+function Stronghold.Building:CheckBuildingTechnologyConditions(_PlayerID)
+    local WorkplaceList = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+
+    -- Upgrade keep
+    if  Logic.GetTechnologyState(_PlayerID, Technologies.UP1_Headquarter) == 1
+    and GetRank(_PlayerID) >= GetRankRequired(_PlayerID, PlayerRight.Fortress)
+    and Logic.GetUpgradeLevelForBuilding(GetHeadquarterID(_PlayerID)) < 1 then
+        Logic.SetTechnologyState(_PlayerID, Technologies.UP1_Headquarter, 2);
+    end
+
+    -- Upgrade Fortress
+    -- TODO: Turn this into a propper feature later on?
+    if  Logic.GetTechnologyState(_PlayerID, Technologies.UP1_Headquarter) >= 2
+    and Logic.GetTechnologyState(_PlayerID, Technologies.UP2_Headquarter) == 1
+    and GetRank(_PlayerID) >= GetRankRequired(_PlayerID, PlayerRight.Zitadel)
+    and Logic.GetUpgradeLevelForBuilding(GetHeadquarterID(_PlayerID)) < 2 then
+        local BuildingAmount = 0;
+        for i= 1, table.getn(WorkplaceList) do
+            local Type = Logic.GetEntityType(WorkplaceList[i]);
+            if self.Config.CastleBuildingUpgradeRequirements[Type] then
+                BuildingAmount = BuildingAmount + 1;
+            end
+        end
+        if BuildingAmount >= 3 then
+            Logic.SetTechnologyState(_PlayerID, Technologies.UP2_Headquarter, 2);
+        end
     end
 end
 
@@ -1340,8 +1371,10 @@ end
 
 function Stronghold.Building:OnWallSelected(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
-
-    GUIUpdate_UpgradeButtons("Upgrade_Palisade", Technologies.UP1_Palisade);
+    local TypeName = Logic.GetEntityTypeName(Type);
+    if string.find(TypeName, "Palisade") then
+        GUIUpdate_UpgradeButtons("Upgrade_Palisade", Technologies.UP1_Palisade);
+    end
     GUIUpdate_OpenGate();
     GUIUpdate_CloseGate();
 
@@ -1574,15 +1607,17 @@ end
 function Stronghold.Building:CreateTurretsForBuilding(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
-    if self.Config.Turrets[Type] and IsPlayer(PlayerID) then
-        self.Data[PlayerID].Turrets[_EntityID] = {};
-        for k,v in pairs(self.Config.Turrets[Type]) do
-            local Position = GetCirclePosition(_EntityID, v[2], v[3]);
-            local TurretID = Logic.CreateEntity(v[1], Position.X, Position.Y, 0, PlayerID);
-            WriteEntityCreatedToLog(PlayerID, TurretID, Logic.GetEntityType(TurretID));
-            SVLib.SetInvisibility(TurretID, true);
-            MakeInvulnerable(TurretID);
-            table.insert(self.Data[PlayerID].Turrets[_EntityID], TurretID);
+    if IsPlayer(PlayerID) and self.Config.Turrets[Type] then
+        if not self.Data[PlayerID].Turrets[_EntityID] then
+            self.Data[PlayerID].Turrets[_EntityID] = {};
+            for k,v in pairs(self.Config.Turrets[Type]) do
+                local Position = GetCirclePosition(_EntityID, v[2], v[3]);
+                local TurretID = Logic.CreateEntity(v[1], Position.X, Position.Y, 0, PlayerID);
+                WriteEntityCreatedToLog(PlayerID, TurretID, Logic.GetEntityType(TurretID));
+                SVLib.SetInvisibility(TurretID, true);
+                MakeInvulnerable(TurretID);
+                table.insert(self.Data[PlayerID].Turrets[_EntityID], TurretID);
+            end
         end
     end
 end

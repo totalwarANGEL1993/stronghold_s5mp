@@ -577,7 +577,19 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     end
     DestroyEntity(CampName);
 
+    -- Fix castle upgrade message
+    if Logic.GetUpgradeLevelForBuilding(HQID) < 1 then
+        Logic.SetTechnologyState(_PlayerID, Technologies.UP1_Headquarter, 1);
+    end
+    if Logic.GetUpgradeLevelForBuilding(HQID) < 2 then
+        Logic.SetTechnologyState(_PlayerID, Technologies.UP2_Headquarter, 1);
+    end
+    -- Create turrets
+    self.Building:CreateTurretsForBuilding(HQID);
+    -- Set rank
     SetRank(_PlayerID, self.Config.Base.InitialRank);
+
+    -- Save player initialized
     self.Players[_PlayerID].IsInitalized = true;
 
     self:InitalizeAiPlayer(_PlayerID, _HeroType);

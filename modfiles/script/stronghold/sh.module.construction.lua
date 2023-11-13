@@ -294,6 +294,12 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         if Right > 0 and GetRank(PlayerID) < Right then
             Disable = true;
         end
+        -- Check technology
+        if not Disable then
+            if Logic.GetTechnologyState(_PlayerID, _Technology) >= 2 then
+                Disable = true;
+            end
+        end
 
         if Disable then
             XGUIEng.DisableButton(_Button, 1);

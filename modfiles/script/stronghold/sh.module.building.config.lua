@@ -100,6 +100,24 @@ Stronghold.Building.Config.Turrets = {
     },
 }
 
+Stronghold.Building.Config.CastleBuildingUpgradeRequirements = {
+    [Entities.PB_Alchemist1]                = true,
+    [Entities.PB_Alchemist2]                = true,
+    [Entities.PB_Bank1]                     = true,
+    [Entities.PB_Bank2]                     = true,
+    [Entities.PB_Blacksmith1]               = true,
+    [Entities.PB_Blacksmith2]               = true,
+    [Entities.PB_Blacksmith3]               = true,
+    [Entities.PB_Brickworks1]               = true,
+    [Entities.PB_Brickworks2]               = true,
+    [Entities.PB_GunsmithWorkshop1]         = true,
+    [Entities.PB_GunsmithWorkshop2]         = true,
+    [Entities.PB_StoneMason1]               = true,
+    [Entities.PB_StoneMason2]               = true,
+    [Entities.PB_Sawmill1]                  = true,
+    [Entities.PB_Sawmill2]                  = true,
+}
+
 Stronghold.Building.Config.CornerForSegment = {
     [Entities.PB_DarkWallStraightGate_Closed]   = Entities.PB_DarkWallCorner,
     [Entities.PB_DarkWallStraightGate]          = Entities.PB_DarkWallCorner,

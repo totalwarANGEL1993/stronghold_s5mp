@@ -579,10 +579,12 @@ end
 
 function Stronghold.Rights:PromotePlayer(_PlayerID)
     if self:CanPlayerBePromoted(_PlayerID) then
+        -- Pay costs
         local CurrentRank = GetRank(_PlayerID);
         local Costs = CreateCostTable(unpack(self.Data[_PlayerID].Titles[CurrentRank +1].Costs));
         SetRank(_PlayerID, CurrentRank +1);
         RemoveResourcesFromPlayer(_PlayerID, Costs);
+        -- Info message
         local MsgText = string.format(
             XGUIEng.GetStringTableText("sh_rights/PromoteSelf"),
             GetRankName(CurrentRank +1, _PlayerID)
@@ -593,6 +595,7 @@ function Stronghold.Rights:PromotePlayer(_PlayerID)
             MsgText = XGUIEng.GetStringTableText("sh_rights/PromoteOther");
         end
         Message(MsgText);
+        -- Callbacks
         GameCallback_SH_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);
         if CurrentRank + 1 >= self:GetPlayerMaxRank(_PlayerID) then
             GameCallback_SH_Logic_PlayerReachedHighestRank(_PlayerID, CurrentRank +1);
