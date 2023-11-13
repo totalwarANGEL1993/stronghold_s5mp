@@ -109,7 +109,7 @@ function Stronghold.Rights:CreateButtonHandlers()
 
             if _Action == Stronghold.Rights.SyncEvents.RankUp then
                 Stronghold.Rights:PromotePlayer(_PlayerID);
-                if GUI.GetPlayerID() == _PlayerID then
+                if _PlayerID == GUI.GetPlayerID() or GUI.GetPlayerID() == 17 then
                     Stronghold.Rights:OnlineHelpUpdate("OnlineHelpButton", Technologies.T_OnlineHelp);
                     GameCallback_GUI_SelectionChanged();
                 end
@@ -559,7 +559,7 @@ end
 function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
     if _Button == "OnlineHelpButton" then
         local Texture = "graphics/textures/gui/b_rank_f2.png";
-        if GUI.GetPlayerID() == _PlayerID then
+        if _PlayerID == GUI.GetPlayerID() or GUI.GetPlayerID() == 17 then
             if IsPlayerInitalized(_PlayerID) then
                 local CurrentRank = GetRank(_PlayerID);
                 Texture = "graphics/textures/gui/b_rank_" ..CurrentRank.. ".png";
@@ -571,8 +571,8 @@ function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
             for i= 0, 6 do
                 XGUIEng.SetMaterialTexture(_Button, i, Texture);
             end
-            return true;
         end
+        return true;
     end
     return false;
 end

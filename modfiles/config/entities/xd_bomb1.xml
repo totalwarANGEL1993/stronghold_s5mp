@@ -13,10 +13,10 @@
     <Behavior>
         <Logic classname="GGL::CBombBehaviorProperties">
             <Class>GGL::CBombBehavior</Class>
-            <Radius>1500</Radius>
+            <Radius>1000</Radius>
             <Delay>2.0</Delay>
-            <Damage>90</Damage>
-            <DamageClass>DC_TroopCannon</DamageClass>
+            <Damage>1</Damage>
+            <DamageClass>DC_Hero</DamageClass>
             <ExplodeEffectID>FXExplosionPilgrim</ExplodeEffectID>
 
             <AffectedEntityType>XD_ClosedIronPit1</AffectedEntityType>

@@ -220,7 +220,7 @@ end
 -- Upgrade Button
 
 function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDisabled, _KeyNormal, _Technology)
-    local PlayerID = GUI.GetPlayerID();
+    local PlayerID = GetLocalPlayerID();
     if not IsPlayer(PlayerID) then
         return false;
     end

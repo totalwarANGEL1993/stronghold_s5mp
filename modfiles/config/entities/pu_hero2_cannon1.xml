@@ -14,22 +14,21 @@
         <Category>Military</Category>
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
-        <SnapTolerance>30.0f</SnapTolerance>
-
+        <SnapTolerance>30</SnapTolerance>
     </Logic>
 
     <Behavior>
         <Logic classname="GGL::CAutoCannonBehaviorProps">
             <Class>GGL::CAutoCannonBehavior</Class>
-            <NumberOfShots>4</NumberOfShots>
+            <NumberOfShots>5</NumberOfShots>
             <RotationSpeed>7</RotationSpeed>
             <CannonBallEffectType>FXCannonBall</CannonBallEffectType>
-            <ReloadTime>5000</ReloadTime>
-            <MaxAttackRange>3000.0f</MaxAttackRange>
-            <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>15</DamageAmount>
-            <DamageRange>800</DamageRange>
-            <AutoAttackRange>3000</AutoAttackRange>
+            <ReloadTime>7500</ReloadTime>
+            <MaxAttackRange>2500</MaxAttackRange>
+            <DamageClass>DC_Hero</DamageClass>
+            <DamageAmount>75</DamageAmount>
+            <DamageRange>500</DamageRange>
+            <AutoAttackRange>2500</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_STATIONARY_CANNON</BattleTaskList>
         </Logic>
         <Display classname="ED::CBehaviorProps">

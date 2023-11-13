@@ -14,10 +14,8 @@
         <Category>Military</Category>
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
-        <!--NumBlockedPoints>2</NumBlockedPoints-->
         <SnapTolerance>30.0f</SnapTolerance>
         <Visible>false</Visible>
-
     </Logic>
 
     <Behavior>
@@ -28,7 +26,7 @@
             <ImpactEffectType>FXExplosionPilgrim</ImpactEffectType>
             <ReloadTime>5000</ReloadTime>
             <MaxAttackRange>1000.0f</MaxAttackRange>
-            <DamageClass>DC_TroopCannon</DamageClass>
+            <DamageClass>DC_Hero</DamageClass>
             <DamageAmount>60</DamageAmount>
             <DamageRange>3000</DamageRange>
             <AutoAttackRange>1500</AutoAttackRange>

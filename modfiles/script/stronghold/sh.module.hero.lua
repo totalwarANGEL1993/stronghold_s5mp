@@ -185,13 +185,16 @@ function Stronghold.Hero:OnSelectLeader(_EntityID)
     XGUIEng.SetWidgetPosition("Command_Defend", 72, 4);
     XGUIEng.SetWidgetPosition("Command_Patrol", 106, 4);
     XGUIEng.SetWidgetPosition("Command_Guard", 140, 4);
-    XGUIEng.SetWidgetPosition("Formation01", 4, 38);
+
+    XGUIEng.ShowWidget("Formation01", 0);
+    XGUIEng.ShowWidget("Formation02", 0);
+    XGUIEng.ShowWidget("Formation03", 0);
+    XGUIEng.ShowWidget("Formation04", 0);
 
     XGUIEng.ShowWidget("Selection_MilitaryUnit", 1);
     XGUIEng.ShowWidget("Selection_Leader", 1);
     XGUIEng.ShowWidget("Commands_Leader", 0);
     XGUIEng.ShowWidget("Buy_Soldier", 1);
-    XGUIEng.ShowWidget("Buy_Soldier_Button", 1);
 end
 
 function Stronghold.Hero:OnSelectHero(_EntityID)
@@ -205,8 +208,7 @@ function Stronghold.Hero:OnSelectHero(_EntityID)
     XGUIEng.SetWidgetPosition("Command_Defend", 72, 4);
     XGUIEng.SetWidgetPosition("Command_Patrol", 106, 4);
     XGUIEng.SetWidgetPosition("Command_Guard", 140, 4);
-    XGUIEng.SetWidgetPosition("Formation01", 404, 4);
-    XGUIEng.ShowWidget("Buy_Soldier_Button", 0);
+    XGUIEng.ShowWidget("Buy_Soldier", 0);
 
     XGUIEng.ShowWidget("Formation01", 0);
     XGUIEng.ShowWidget("Formation02", 0);
@@ -242,10 +244,10 @@ end
 function Stronghold.Hero:OnSelectHero2(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
     if Type == Entities.PU_Hero2 then
-        XGUIEng.SetWidgetPosition("Hero2_RechargePlaceBomb", 4, 38);
-        XGUIEng.SetWidgetPosition("Hero2_PlaceBomb", 4, 38);
-        XGUIEng.ShowWidget("Hero2_RechargeBuildCannon", 0);
-        XGUIEng.ShowWidget("Hero2_BuildCannon", 0);
+        XGUIEng.SetWidgetPosition("Hero2_RechargeBuildCannon", 4, 38);
+        XGUIEng.SetWidgetPosition("Hero2_BuildCannon", 4, 38);
+        XGUIEng.ShowWidget("Hero2_RechargePlaceBomb", 0);
+        XGUIEng.ShowWidget("Hero2_PlaceBomb", 0);
     end
 end
 
@@ -301,7 +303,6 @@ function Stronghold.Hero:OnSelectHero7(_EntityID)
         XGUIEng.ShowWidget("Hero7_RechargeInflictFear", 0);
         XGUIEng.ShowWidget("Hero7_InflictFear", 0);
         XGUIEng.ShowWidget("Buy_Soldier", 1);
-        XGUIEng.ShowWidget("Buy_Soldier_Button", 1);
     end
 end
 

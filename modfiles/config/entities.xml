@@ -1090,6 +1090,7 @@
         <Entity>PB_WallStraightGate_Closed</Entity>
         <Entity>PB_WallStraightGate</Entity>
 
+        <Entity>XD_Bomb2</Entity>
         <Entity>XD_BushDesert01</Entity>
         <Entity>XD_BushDesert02</Entity>
         <Entity>XD_BushDesert03</Entity>

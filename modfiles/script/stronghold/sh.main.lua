@@ -788,7 +788,6 @@ end
 function Stronghold:OnEntityHurtEntity()
     local Attacker = Event.GetEntityID1();
     local AttackerPlayer = Logic.EntityGetPlayer(Attacker);
-    local AttackerType = Logic.GetEntityType(Attacker);
     local Attacked = Event.GetEntityID2();
     local AttackedPlayer = Logic.EntityGetPlayer(Attacked);
     local AttackedType = Logic.GetEntityType(Attacked);
@@ -807,14 +806,7 @@ function Stronghold:OnEntityHurtEntity()
                 self.Players[AttackedPlayer].AttackMemory[Attacked] = {15, Attacker};
             end
             local Damage = CEntity.HurtTrigger.GetDamage();
-            local DamageSource = CEntity.HurtTrigger.GetDamageSourceType();
-            -- prevent serf harrasment
-            if DamageSource == CEntity.HurtTrigger.DamageSources.BOMB
-            or Logic.IsHero(Attacker) == 1 then
-                if AttackedType == Entities.PU_Serf then
-                    Damage = 1;
-                end
-            end
+            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
             -- Vigilante
             if Logic.IsBuilding(Attacker) == 1 then
                 if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then
@@ -823,6 +815,14 @@ function Stronghold:OnEntityHurtEntity()
             end
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(Attacker, Attacked, Damage);
+            -- prevent eco harrasment
+            if DamageClass == 0 or DamageClass == 1 then
+                if Logic.IsEntityInCategory(Attacked, EntityCategories.Worker) == 1
+                or Logic.IsEntityInCategory(Attacked, EntityCategories.Workplace) == 1
+                or AttackedType == Entities.PU_Serf then
+                    Damage = 1;
+                end
+            end
             CEntity.HurtTrigger.SetDamage(math.ceil(Damage));
         end
     end
@@ -1352,6 +1352,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_EntityID, _PlayerID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_EntityID);
+        Stronghold.Building:SetIgnoreRallyPointSelectionCancel(_PlayerID);
         Stronghold.Building:CreateTurretsForBuilding(_EntityID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
     end);
@@ -1360,6 +1361,7 @@ function Stronghold:OverwriteCommonCallbacks()
         Overwrite.CallOriginal();
         local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
         Stronghold:OnSelectionMenuChanged(_EntityIDNew);
+        Stronghold.Building:SetIgnoreRallyPointSelectionCancel(PlayerID);
         Stronghold.Building:DestroyTurretsOfBuilding(_EntityIDOld);
         Stronghold.Building:CreateTurretsForBuilding(_EntityIDNew);
         Stronghold.Province:OnBuildingUpgraded(_EntityIDNew, PlayerID);

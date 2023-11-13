@@ -132,14 +132,20 @@
         </Logic>
     </Behavior>
 
+    <Behavior>
+        <Logic classname="GGL::CHeroAbilityProps">
+            <Class>GGL::CBombPlacerBehavior</Class>
+            <RechargeTimeSeconds>45</RechargeTimeSeconds>
+        </Logic>
+    </Behavior>
 
     <Behavior>
         <Logic classname="GGL::CAbilityScoutBinocularProps">
             <Class>GGL::CAbilityScoutBinocular</Class>
             <RechargeTimeSeconds>20</RechargeTimeSeconds>
-            <NumberOfExplorationEntities>15</NumberOfExplorationEntities>
-            <SpacingOfExplorationEntities>800</SpacingOfExplorationEntities>
-            <ExplorationRangeOfExplorationEntities>8</ExplorationRangeOfExplorationEntities>            <!-- In m, not cm!! -->
+            <NumberOfExplorationEntities>8</NumberOfExplorationEntities>
+            <SpacingOfExplorationEntities>1000</SpacingOfExplorationEntities>
+            <ExplorationRangeOfExplorationEntities>15</ExplorationRangeOfExplorationEntities>
             <ExplorationEntityType>XD_ScriptEntity</ExplorationEntityType>
             <ExplorationTaskList>TL_EXPLORE_WITH_BINOCULARS</ExplorationTaskList>
         </Logic>

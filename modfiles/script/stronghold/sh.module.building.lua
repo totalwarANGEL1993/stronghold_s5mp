@@ -201,6 +201,9 @@ function Stronghold.Building:OverrideHeadquarterButtons()
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxesButtons", function()
         local PlayerID = GetLocalPlayerID();
+        if PlayerID == 17 then
+            return;
+        end
         local TaxLevel = Stronghold.Players[PlayerID].TaxHeight -1;
         XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
         XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
@@ -215,12 +218,8 @@ function Stronghold.Building:OverrideHeadquarterButtons()
 end
 
 function Stronghold.Building:AdjustTax(_Level)
-    local GuiPlayer = GetLocalPlayerID();
-    local PlayerID = GUI.GetPlayerID();
-    if GuiPlayer ~= PlayerID then
-        return false;
-    end
-    if not Stronghold.Building.Data[PlayerID] then
+    local PlayerID = GetLocalPlayerID();
+    if not IsPlayer(PlayerID) or GUI.GetPlayerID() == 17 then
         return false;
     end
     Syncer.InvokeEvent(
@@ -313,6 +312,8 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     XGUIEng.ShowWidget("Monastery", 0);
     XGUIEng.ShowWidget("WorkerInBuilding", 0);
 
+    XGUIEng.ShowWidget("HQTaxes", 1);
+    XGUIEng.ShowAllSubWidgets("HQTaxes", 1);
     XGUIEng.SetWidgetPosition("TaxesAndPayStatistics", 105, 35);
     XGUIEng.SetWidgetPosition("HQTaxes", 143, 5);
 
@@ -859,19 +860,23 @@ function Stronghold.Building:OverrideShiftRightClick()
     end
 
     GUIUpdate_PlaceRallyPoint = function()
-        local PlayerID = GUI.GetPlayerID();
+        local GuiPlayer = GUI.GetPlayerID();
         local EntityID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
 
-        -- Control visibility and highlight
+        -- Control visibility
         local Show = 1;
-        if not EntityID or not Stronghold.Building:CanBuildingHaveRallyPoint(EntityID)
-        or Logic.IsConstructionComplete(EntityID) == 0 then
+        if not EntityID or GuiPlayer == 17
+        or Logic.IsConstructionComplete(EntityID) == 0
+        or not Stronghold.Building:CanBuildingHaveRallyPoint(EntityID) then
             Show = 0;
         end
+        -- Control highlight
         local Highlight = 1;
-        if PlayerID == 17 or not Stronghold.Building:IsRallyPointSelection(PlayerID) then
+        if Show == 1 and not Stronghold.Building:IsRallyPointSelection(PlayerID) then
             Highlight = 0;
         end
+
         XGUIEng.ShowWidget("ActivateSetRallyPoint", Show);
         XGUIEng.HighLightButton("ActivateSetRallyPoint", Highlight);
     end
@@ -949,25 +954,46 @@ function Stronghold.Building:UnitToRallyPointController(_PlayerID)
     end
 end
 
-function Stronghold.Building:OnRallyPointHolderSelected(_PlayerID, _EntityID)
-    if IsPlayer(_PlayerID) then
-        local ScriptName = Logic.GetEntityName(_EntityID);
-        -- Cancel rally point on selection changed
-        if Logic.IsConstructionComplete(_EntityID) == 0 or not self:CanBuildingHaveRallyPoint(_EntityID) then
-            self:CancelRallyPointSelection(_PlayerID);
+function Stronghold.Building:OnRallyPointHolderSelected(_GuiPlayerID, _EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local ScriptName = Logic.GetEntityName(_EntityID);
+
+    -- Cancel rally point on selection changed
+    -- (Only for the player)
+    if IsPlayer(PlayerID) then
+        if Logic.IsConstructionComplete(_EntityID) == 0
+        or not self:CanBuildingHaveRallyPoint(_EntityID) then
+            self:CancelRallyPointSelection(PlayerID);
         end
-        -- Hide all rally points of the player
-        for k,v in pairs(self.Data[_PlayerID].RallyPoint) do
+    end
+
+    -- Hide all rally points for viewer
+    local ViewerPlayer = (PlayerID == 0 and _GuiPlayerID) or PlayerID;
+    if ViewerPlayer == 17 then
+        for i= 1, GetMaxAmountOfPlayer() do
+            for k,v in pairs(self.Data[i].RallyPoint) do
+                if IsExisting(v) then
+                    SVLib.SetInvisibility(v, true);
+                    Logic.SetEntityExplorationRange(v, 0);
+                end
+            end
+        end
+    else
+        for k,v in pairs(self.Data[ViewerPlayer].RallyPoint) do
             if IsExisting(v) then
                 SVLib.SetInvisibility(v, true);
                 Logic.SetEntityExplorationRange(v, 0);
             end
         end
-        -- Display the rally point of the building
+    end
+
+    -- Show rally point for owner
+    if IsPlayer(PlayerID) then
         if _EntityID and IsExisting(_EntityID) then
-            if self.Data[_PlayerID].RallyPoint[ScriptName] then
-                local ID = GetID(self.Data[_PlayerID].RallyPoint[ScriptName]);
-                SVLib.SetInvisibility(ID, GetLocalPlayerID() ~= _PlayerID);
+            if self.Data[PlayerID].RallyPoint[ScriptName] then
+                local ID = GetID(self.Data[PlayerID].RallyPoint[ScriptName]);
+                local Invisible = PlayerID ~= _GuiPlayerID and _GuiPlayerID ~= 17;
+                SVLib.SetInvisibility(ID, Invisible);
                 Logic.SetEntityExplorationRange(ID, 1);
             end
         end
@@ -1099,9 +1125,15 @@ function Stronghold.Building:ControlRallyPointSelection(_PlayerID)
         return true;
     end
     if GUI.GetCurrentStateID() ~= 9 then
-        self:CancelRallyPointSelection(_PlayerID);
-        self:SendPlaceRallyPointEvent();
-        return true;
+        if self.Data[_PlayerID].RallyPoint.IgnoreCancel then
+            self.Data[_PlayerID].RallyPoint.IgnoreCancel = false;
+            GUI.ActivatePatrolCommandState();
+        else
+            self.Data[_PlayerID].RallyPoint.IgnoreCancel = false;
+            self:CancelRallyPointSelection(_PlayerID);
+            self:SendPlaceRallyPointEvent();
+            return true;
+        end
     end
     return false;
 end
@@ -1126,6 +1158,17 @@ function Stronghold.Building:IsRallyPointSelection(_PlayerID)
         return self.Data[_PlayerID].RallyPoint.IsSelecting;
     end
     return false;
+end
+
+function Stronghold.Building:SetIgnoreRallyPointSelectionCancel(_PlayerID)
+    if Logic.GetTime() > 1 then
+        if  self.Data[_PlayerID].RallyPoint.IsSelecting
+        and GUI.GetPlayerID() == _PlayerID
+        and GUI.GetSelectedEntity() ~= nil
+        and IsPlayer(_PlayerID) then
+            self.Data[_PlayerID].RallyPoint.IgnoreCancel = true;
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --

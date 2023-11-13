@@ -23,6 +23,7 @@ function Stronghold.Unit:Install()
     end
     self:CreateUnitButtonHandlers();
     self:StartSerfHealingJob();
+    self:OverwriteScoutFindResources();
 end
 
 function Stronghold.Unit:OnSaveGameLoaded()
@@ -83,6 +84,15 @@ end
 function Stronghold.Unit:OncePerSecond(_PlayerID)
     -- Heal entities
     self:StartSerfHealingJob(_PlayerID);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Scout
+
+function Stronghold.Unit:OverwriteScoutFindResources()
+    GUIAction_ScoutFindResources = function()
+        GUI.ActivatePlaceBombCommandState();
+    end
 end
 
 -- -------------------------------------------------------------------------- --
