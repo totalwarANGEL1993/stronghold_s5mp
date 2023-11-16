@@ -197,8 +197,8 @@ function Tutorial_AddMainInterfaceSection()
         Text        = "TOM SIMPKINS: Es ist schön, Euch nach all den Jahren "..
                       "widerzusehen, Sire. Auch dieses Mal hat man mich "..
                       "auserkoren, Euch mit Rat und Tat zur Seite zu stehen. "..
-                      "Ach diese Erinnerungen an unsere rumreichen "..
-                      "Schlachten gegen finstere Schatten...",
+                      "Hach, diese Erinnerungen an unsere rumreichen "..
+                      "Schlachten gegen Lord Barkley...",
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Doch ich fürchte, wir werden keine Zeit "..
@@ -226,9 +226,9 @@ function Tutorial_AddMainInterfaceSection()
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: {scarlet}Ehre{white} steht für Euer "..
                       "ansehen beim Adelsstand. Sie ist nötig, um Truppen "..
-                      "auszubilden, den Adligen in einenhöheren Stand zu "..
-                      "erheben und viele andere Dinge. Prunkbauten,  "..
-                      "Ziergebäude undverschiedene Maßnahmen gereichen "..
+                      "auszubilden, den Adligen in einen höheren Stand zu "..
+                      "erheben und viele andere Dinge. Prunkbauten, "..
+                      "Ziergebäude und verschiedene Maßnahmen gereichen "..
                       "Euch an Ehre.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_NewRes,
@@ -236,7 +236,7 @@ function Tutorial_AddMainInterfaceSection()
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: {scarlet}Beliebtheit{white} gibt an, "..
                       "wie es um Euer Ansehen beim Volk bestellt ist. Fällt "..
-                      "das Ansehen, seid Ihr bald allein auf der Burg. Die "..
+                      "das Ansehen, seid Ihr bald allein auf der Burg! Die "..
                       "Versorgung, die Steuer, Verbrechensbekämpfung und "..
                       "Effekte von einigen Spezialgebäuden beeinflussen die "..
                       "Beliebtheit.",
@@ -247,7 +247,7 @@ function Tutorial_AddMainInterfaceSection()
         Text        = "TOM SIMPKINS: {scarlet}Wissen{white} erlaubt die "..
                       "Erforschung von Technologien. Es wird in Euren "..
                       "Bildungseinrichtungen erzeugt. Eure Gelehrten "..
-                      "arbeiten unermütlich, um Euch den nötigen Vorteil "..
+                      "arbeiten unermütlich, um Euch den einen Vorteil "..
                       "zu verschaffen.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_NewRes,
@@ -255,7 +255,7 @@ function Tutorial_AddMainInterfaceSection()
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Habt Ihr genug Ehre erlangt und die "..
                       "Bedingungen für die Beförderung erfüllt, könnt Ihr "..
-                      "hier euren Adligen {scarlet}in einen neuen Stand"..
+                      "hier Euren Adligen {scarlet}in einen höheren Stand"..
                       "{white} erheben.",
         Arrow       = ArrowPos_Promote,
     }
@@ -263,7 +263,7 @@ function Tutorial_AddMainInterfaceSection()
         Text        = "TOM SIMPKINS: Achtet darauf, Euer Volk {scarlet}zu "..
                       "versorgen{white} oder sie werden schnell unzufrieden. "..
                       "Die Kosten von Haus und Hof sind in diesem Spielmodus "..
-                      "verbilligt. {scarlet}Ausbau{white} ermöglicht Euch "..
+                      "verbilligt. {scarlet}Ausbau{white} ermöglicht Euch, "..
                       "schneller an Ansehen und Ehre zu gelangen.",
         Arrow       = ArrowPos_Care,
     }
@@ -318,7 +318,7 @@ function Tutorial_AddMainInterfaceSection()
         Arrow       = ArrowPos_Clock,
     }
     Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Hier findet Ihr wie gewohnt Eure "..
+        Text        = "TOM SIMPKINS: Hier findet Ihr, wie gewohnt, Eure "..
                       "untätigen Knechte.",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_FindSerf,
@@ -382,7 +382,7 @@ function Tutorial_AddCastleInterfaceSection()
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Anders als Ihr es gewohnt seid, könnt "..
                       "Ihr sofort die Steuern einstellen. Aber gebt acht, "..
-                      "{scarlet}denn der Pöbel wird hohe Steuern nicht mögen.",
+                      "{scarlet}denn der Pöbel wird hohe Steuern nicht mögen!",
         ArrowWidget = "TutorialArrowUp",
         Arrow       = ArrowPos_Tax,
         Action      = function(_Data)
@@ -570,7 +570,7 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Die Angriffskraft gibt den Schaden an, "..
                       "den ein Trupp austeilen kann. Die Angriffskraft wird "..
-                      "mit der Rüstungdes Angriffsziels verrechnet.",
+                      "mit der Rüstung des Angriffsziels verrechnet.",
         Arrow       = ArrowPos_Damage,
         ArrowWidget = "TutorialArrowRight",
         Action      = function(_Data)
@@ -592,8 +592,7 @@ function Tutorial_AddUnitSelectionSection()
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Natürlich könnt Ihr Truppen entlassen, "..
-                      "wenn Ihr sie nicht mehr benötigt.{scarlet} Haltet "..
-                      "STRG und sie werden noch schneller entlassen.",
+                      "wenn Ihr sie nicht mehr benötigt.",
         Arrow       = ArrowPos_Expel,
         Action      = function(_Data)
             GUI.ClearSelection();
@@ -615,11 +614,6 @@ function Tutorial_AddProvisionSection()
                       "den Titel gebunden.",
         Action      = function(_Data)
             Logic.ResumeAllEntities();
-            if Logic.GetEntityType(Stronghold:GetPlayerHero(1)) ~= Entities.PU_Hero2 then
-                ReplaceEntity("AutoBomb1", Entities.XD_Bomb1);
-                ReplaceEntity("AutoBomb2", Entities.XD_Bomb1);
-                ReplaceEntity("AutoBomb3", Entities.XD_Bomb1);
-            end
             AddResourcesToPlayer(1, {
                 [ResourceType.GoldRaw]   = 1500,
                 [ResourceType.ClayRaw]   = 1000,
@@ -653,8 +647,8 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Schnell, stellt ihnen Haus und Hof "..
-                      "bereit! Wenn sie essen und schlafen können, sind sie "..
-                      "zufriedener.",
+                      "bereit! Wenn sie ihre Mägen füllen und ihre müden "..
+                      "Knochen zur Ruhe betten können, sind sie zufriedener.",
         Condition   = function(_Data)
             local NoFarm = Logic.GetNumberOfWorkerWithoutEatPlace(1);
             local NoHouse = Logic.GetNumberOfWorkerWithoutSleepPlace(1);
@@ -666,7 +660,7 @@ function Tutorial_AddProvisionSection()
                       "wird dies noch nicht reichen. Ihr werdet schon mehr "..
                       "tun müssen. Ziergebäude bauen, Technologien "..
                       "erforschen.... Denkt an das, was ich Euch bereits "..
-                      "beigebracht habe.",
+                      "beigebracht habe!",
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Versucht, die Abzüge auf die "..
@@ -681,9 +675,9 @@ function Tutorial_AddProvisionSection()
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Die neuen Arbeiter spülen frisches "..
                       "Gold in Eurer Stadtsäckel. Fianzen, die Ihr bitter "..
-                      "benötigen, um Truppen auszuheben. Aber als "..
+                      "benötigen werdet, um Truppen auszuheben. Aber als "..
                       "herkömmlicher Adliger könnt Ihr nur Eure Knechte "..
-                      "bewaffnen.",
+                      "bewaffnen und Speerträger rekrutieren.",
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Erhebt Euren Adligen in den Rang "..
@@ -699,17 +693,22 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Jeder Rang bringt neue Rechte und "..
-                      "DPflichten mit sich. as Volk wird ebenfalls immer "..
+                      "Pflichten mit sich. as Volk wird ebenfalls immer "..
                       "schwieriger zufrieden zu stellen. Sobald Ihr das "..
                       "Fürstentum erreicht, {scarlet} müsst Ihr Euch um "..
                       "die Strafverfolgung kümmern!",
     }
     Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Arbeiter werden {scarlet}das Gesetz  "..
+        Text        = "TOM SIMPKINS: Arbeiter werden {scarlet}das Gesetz "..
                       "brechen. {white}Verbrecher nicht zu fangen, {scarlet}"..
                       "ruiniert schnell Euer Ansehen! {white}Versucht sie "..
                       "schnell zu fangen. {scarlet} Lasst dazu bewaffnete "..
                       "Knechte Wache schieben oder baut Aussichtstürme!",
+    }
+    Tutorial.AddMessage {
+        Text        = "TOM SIMPKINS: Auch der Adlige kann Verbrecher fangen. "..
+                      "{scarlet}Dazu müsst ihr den Adligen entsenden, diese "..
+                      "kriminellen Elemente zu jagen.",
     }
 end
 
@@ -725,29 +724,16 @@ function Tutorial_AddMilitarySection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Wundervoll! Im Rang eines Kastellan "..
-                      "seid Ihr nun in der Lage, Speerträger auszurüsten. "..
+        Text        = "TOM SIMPKINS: Wundervoll! Durch die Kaserne seid Ihr"..
+                      "nun in der Position, Speerträger auszurüsten. "..
                       "Sie sind schwach aber billig und können in Massen "..
                       "in die Schlacht geworfen werden.",
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Rekrutiert einen Trupp Speerträger!",
         Condition   = function(_Data)
-            return Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_LeaderPoleArm1) > 0;
+            return Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PU_LeaderPoleArm1) > 0;
         end
-    }
-    Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Truppen werden in eine {scarlet}"..
-                      "Produktionskette {white}eingereiht. Jeder Typ hat "..
-                      "eine eigene Kette. Ihr könnt somit {scarlet}mehrere "..
-                      "Truppentypen gleichzeitig ausbilden. {white}"..
-                      "Allerdings müsst Ihr den nötigen Rang haben.",
-    }
-    Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Kanonen bilden eine Ausnahme. Sie "..
-                      "werden so gebaut, wie Ihr es gewohnt seid. Kanonen "..
-                      "belegen Plätze {scarlet}sobald sie in Auftrag "..
-                      "gegeben werden.",
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Ihr werdet Eure neuen Truppen schon "..
@@ -1017,7 +1003,7 @@ function BriefingTutorialIntro()
         Duration    = 0,
         Target      = "CamPos3",
         Rotation    = -45,
-        Distance    = 100,
+        Distance    = 1000,
         Angle       = 5,
     }
     AP {
@@ -1043,7 +1029,7 @@ function BriefingTutorialIntro()
     AP {
         Text        = "ERZÄHLER: Die Ruhe wurde jäg von einem Emporkömling "..
                       "mit üblen Absichten gestört. Eingeschläfert von "..
-                      "güldenen Versprechen schworen ihm einige die Treue.",
+                      "güldenen Versprechen, schworen ihm einige die Treue.",
         Flight      = true,
         NoSkip      = true,
         Duration    = 25,
@@ -1218,7 +1204,7 @@ function BriefingGuardian1(_Npc, _HeroID)
         Title    = "Turmwärter",
         Text     = "Ich war der Wärter des Turms, den Eure Leute zerstört "..
                    "haben. Das war einmal eine Zollstation, bevor die "..
-                   "Schergen dieses Irren Scorillo alles übernommen haben.",
+                   "Schergen dieses Irren alles übernommen haben.",
         Target   = _Npc.ScriptName,
         CloseUp  = true,
     }
@@ -1274,7 +1260,7 @@ function BriefingGuardian2(_Npc, _HeroID)
     AP {
         Title    = gvGender.Name,
         Text     = "Ich habe die Brücke wieder aufbauen lassen. Damit ist "..
-                   "Eure Bedingung erfüllt. Offnet jetzt das Tor!",
+                   "Eure Bedingung erfüllt. Öffnet jetzt das Tor!",
         Target   = _HeroID,
         CloseUp  = true,
     }
