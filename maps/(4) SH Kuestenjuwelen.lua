@@ -1,6 +1,6 @@
 SHS5MP_RulesDefinition = {
     -- Config version (Always an integer)
-    Version = 1,
+    Version = 2,
 
     -- ###################################################################### --
     -- #                             CONFIG                                 # --
@@ -73,6 +73,9 @@ SHS5MP_RulesDefinition = {
         Logic.AddWeatherElement(1, 20, 1, 1, 5, 10);
         LocalMusic.UseSet = HIGHLANDMUSIC;
 
+        for i= 1, 8 do
+            CreateWoodPile("WoodPile" ..i, 7500);
+        end
         for i= 1, 8 do
             MakeInvulnerable("DrawBridge" ..i);
         end
