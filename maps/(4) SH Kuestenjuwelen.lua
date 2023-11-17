@@ -1,6 +1,6 @@
 SHS5MP_RulesDefinition = {
     -- Config version (Always an integer)
-    Version = 2,
+    Version = 3,
 
     -- ###################################################################### --
     -- #                             CONFIG                                 # --
@@ -105,21 +105,21 @@ SHS5MP_RulesDefinition = {
     -- Called after peacetime is over
     OnPeaceTimeOver = function()
         -- Rain (normal)
-        Logic.AddWeatherElement(2, 30, 1, 2, 5, 10);
+        Logic.AddWeatherElement(2, 1*60, 1, 2, 5, 10);
         -- Rain (with snow)
-        Logic.AddWeatherElement(2, 60, 1, 4, 5, 10);
+        Logic.AddWeatherElement(2, 1*60, 1, 4, 5, 10);
         -- Winter (normal)
-        Logic.AddWeatherElement(3, 90, 1, 3, 5, 10);
+        Logic.AddWeatherElement(3, 2*60, 1, 3, 5, 10);
         -- Winter (without snow)
-        Logic.AddWeatherElement(3, 150, 1, 7, 5, 10);
+        Logic.AddWeatherElement(3, 4*60, 1, 7, 5, 10);
         -- Winter (normal)
-        Logic.AddWeatherElement(3, 30, 1, 3, 5, 10);
+        Logic.AddWeatherElement(3, 2*60, 1, 3, 5, 10);
         -- Winter (with rain)
-        Logic.AddWeatherElement(3, 60, 1, 8, 5, 10);
+        Logic.AddWeatherElement(3, 2*60, 1, 8, 5, 10);
         -- Rain (normal)
-        Logic.AddWeatherElement(2, 30, 1, 2, 5, 10);
+        Logic.AddWeatherElement(2, 1*60, 1, 2, 5, 10);
         -- Summer (normal)
-        Logic.AddWeatherElement(1, 250, 1, 1, 5, 10);
+        Logic.AddWeatherElement(1, 480, 1, 1, 5, 10);
 
         for i= 1, 12 do
             DestroyEntity("PT_Barrier" ..i);

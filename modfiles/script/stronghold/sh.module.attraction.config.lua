@@ -14,7 +14,7 @@ Stronghold.Attraction.Config.Attraction = {
     -- Serf attraction limit
     -- This is freely changeable in Lua
     SlaveLimit = 24,
-    RankSlaveBonus = 6,
+    RankSlaveBonus = 8,
 }
 
 Stronghold.Attraction.Config.Crime = {
