@@ -285,9 +285,13 @@ function Stronghold.Unit:BuySoldierButtonUpdate()
     local Type = Logic.GetEntityType(EntityID);
     if IsPlayer(PlayerID) then
         local BarracksID = Logic.LeaderGetNearbyBarracks(EntityID);
+        local MaxHealth = Logic.GetEntityMaxHealth(BarracksID);
+        local Health = Logic.GetEntityHealth(BarracksID);
         local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(EntityID);
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(EntityID);
-        if BarracksID == 0 or CurrentSoldiers == MaxSoldiers then
+        local IsConstructed = Logic.IsConstructionComplete(BarracksID) == 1;
+        if BarracksID == 0 or CurrentSoldiers == MaxSoldiers
+        or Health / MaxHealth <= 0.2 or not IsConstructed then
             XGUIEng.DisableButton("Buy_Soldier_Button", 1);
         else
             if Type == Entities.CU_BlackKnight then
@@ -415,7 +419,11 @@ function Stronghold.Unit:BuySoldierButtonUpdateForMultipleLeaders()
             local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(SelectedLeader[i]);
             local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(SelectedLeader[i]);
             local BarracksID = Logic.LeaderGetNearbyBarracks(SelectedLeader[i]);
-            if BarracksID ~= 0 and MaxSoldiers - CurrentSoldiers > 0 then
+            local MaxHealth = Logic.GetEntityMaxHealth(BarracksID);
+            local Health = Logic.GetEntityHealth(BarracksID);
+            local IsConstructed = Logic.IsConstructionComplete(BarracksID) == 1;
+            if BarracksID ~= 0 and MaxSoldiers - CurrentSoldiers > 0
+            and Health / MaxHealth > 0.2 and IsConstructed then
                 table.insert(LeaderList, SelectedLeader[i]);
             end
         end
