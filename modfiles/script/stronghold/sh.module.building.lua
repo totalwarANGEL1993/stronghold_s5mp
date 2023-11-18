@@ -217,6 +217,13 @@ function Stronghold.Building:OverrideHeadquarterButtons()
     end
 end
 
+function Stronghold.Building:GetLastSelectedHeadquarterTab(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].HeadquarterLastWidgetID;
+    end
+    return 0;
+end
+
 function Stronghold.Building:AdjustTax(_Level)
     local PlayerID = GetLocalPlayerID();
     if not IsPlayer(PlayerID) or GUI.GetPlayerID() == 17 then

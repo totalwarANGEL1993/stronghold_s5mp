@@ -246,6 +246,12 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
             self.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
         end
 
+        self.Config.MapStartFillClay = _Config.MapStartFillClay or 4000;
+        self.Config.MapStartFillStone = _Config.MapStartFillStone or 4000;
+        self.Config.MapStartFillIron = _Config.MapStartFillIron or 4000;
+        self.Config.MapStartFillSulfur = _Config.MapStartFillSulfur or 4000;
+        self.Config.MapStartFillWood = _Config.MapStartFillWood or 4000;
+
         self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime or Default.PeaceTime;
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
         self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
@@ -278,7 +284,7 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
 end
 
 function Stronghold.Multiplayer:ConfigureReset()
-    self.Data.Config = self.Config.DefaultSettings;
+    self.Data.Config = CopyTable(self.Config.DefaultSettings);
 
     self.Data.Config.ResourceSelected = 1;
     self.Data.Config.PeacetimeSelected = 6;

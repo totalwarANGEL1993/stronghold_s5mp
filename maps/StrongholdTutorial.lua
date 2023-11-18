@@ -201,10 +201,10 @@ function Tutorial_AddMainInterfaceSection()
                       "Schlachten gegen Lord Barkley...",
     }
     Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Doch ich fürchte, wir werden keine Zeit "..
-                      "haben, in Erinnerungen zu schwelgen! Abermals sind "..
-                      "finstere Schatten erschienen und bedrohen das Reich "..
-                      "und seine Bewohner!",
+        Text        = "TOM SIMPKINS: Doch bedauerlicher Weise, werden wir "..
+                      "keine Zeit haben, in Erinnerungen zu schwelgen! "..
+                      "Abermals sind finstere Schatten erschienen und "..
+                      "bedrohen das Reich und seine Bewohner!",
     }
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Ich fürchte, es ist an Euch, die "..
@@ -346,6 +346,8 @@ function Tutorial_AddCastleInterfaceSection()
     local ArrowPos_Measure = {362, 575};
     local ArrowPos_BuyNoble = {350, 700};
     local ArrowPos_Tax = {517, 692};
+    local ArrowPos_Measures_Row = {522, 635};
+    local ArrowPos_Measures_Bar = {522, 680};
 
     Tutorial.AddMessage {
         Text        = "TOM SIMPKINS: Bitte selektiert nun die Burg!",
@@ -364,16 +366,6 @@ function Tutorial_AddCastleInterfaceSection()
                       "Knechte und erhaltet Auskunft über Einnahmen und "..
                       "Ausgaben.",
         Arrow       = ArrowPos_Treasury,
-        Action      = function(_Data)
-            GUI.ClearSelection();
-            GUI.SelectEntity(GetID("HQ1"));
-        end
-    }
-    Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Diese Registerkarte wechselt zu den "..
-                      "Maßnahmen. Mit ihnen könnt Ihr verschiedene Vorteile "..
-                      "erhalten. Es funktioniert ähnlich wie die Kirche.",
-        Arrow       = ArrowPos_Measure,
         Action      = function(_Data)
             GUI.ClearSelection();
             GUI.SelectEntity(GetID("HQ1"));
@@ -450,6 +442,48 @@ function Tutorial_AddCastleInterfaceSection()
                       "{white} Jeder hat individuelle Vorteile gegenüber "..
                       "den anderen.",
         Action      = function(_Data)
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "TOM SIMPKINS: Diese Registerkarte wechselt zu den "..
+                      "Maßnahmen. Mit ihnen könnt Ihr verschiedene Vorteile "..
+                      "erhalten. Es funktioniert ähnlich wie die Kirche.",
+        Arrow       = ArrowPos_Measure,
+        Action      = function(_Data)
+            GUI.ClearSelection();
+            GUI.SelectEntity(GetID("HQ1"));
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "TOM SIMPKINS: Wechselt zu den Maßnahmen, damit ich "..
+                      "sie Euch ebenfalls näher bringen kann.",
+        Arrow       = ArrowPos_Measure,
+        Condition   = function(_Data)
+            local WidgetID = Stronghold.Building:GetLastSelectedHeadquarterTab(1);
+            return WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu;
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "TOM SIMPKINS: Dies sind die Maßnahmen, die Euch zur "..
+                      "Verfügung stehen. Eine Maßnahme funktioniert ähnlich "..
+                      "wie die Segnungen in der Kirche. Allerdings helfen "..
+                      "Gebete nicht, Euren Einfluss zu mehren.",
+        Arrow       = ArrowPos_Measures_Row,
+        Action      = function(_Data)
+            GUI.ClearSelection();
+            GUI.SelectEntity(GetID("HQ1"));
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "TOM SIMPKINS: Wie schnell Ihr Maßnahmen ergreifen "..
+                      "könnt, wird von Eurem Einfluss bestimmt.{scarlet} "..
+                      "Einfluss steigt mit jedem erreichten Titel aber "..
+                      "sinkt je größer Euer Volk wird.{white} Ihr müsst "..
+                      "die Balance finden, Sire!",
+        Arrow       = ArrowPos_Measures_Bar,
+        Action      = function(_Data)
+            GUI.ClearSelection();
+            GUI.SelectEntity(GetID("HQ1"));
             Tutorial_AddHeroSelectedSection();
         end
     }
@@ -457,15 +491,12 @@ end
 
 function Tutorial_AddHeroSelectedSection()
     Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Ihr habt Euch für " ..gvGender.Name.. " "..
-                      "entschieden. Auf, auf, selektiert " ..gvGender.Pronome[2].. "!",
+        Text        = "TOM SIMPKINS: Wendet Euch nun " ..gvGender.Name.. " "..
+                      "zu und selektiert " ..gvGender.Pronome[2].. "! Wir "..
+                      "haben die Späher lang genug warten lassen!",
         Condition   = function(_Data)
             return IsEntitySelected(Stronghold:GetPlayerHero(1));
         end
-    }
-    Tutorial.AddMessage {
-        Text        = "TOM SIMPKINS: Nun solltet Ihr jedoch endlich die "..
-                      "Späher anhören..."
     }
 end
 
