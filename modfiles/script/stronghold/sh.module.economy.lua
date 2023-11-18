@@ -724,16 +724,19 @@ end
 
 function Stronghold.Economy:GainMeasurePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local CurrentRank = GetRank(_PlayerID);
-        local Motivation = GetReputation(_PlayerID) / 100;
+        local MeasurePoints = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-        local MeasurePoints = 12;
-        if WorkerCount == 0 then
-            MeasurePoints = 0;
-        else
-            local RankFactor = 1.0 + (0.2 * CurrentRank);
-            local SlopeFactor = math.max(4 * RankFactor + 0.1, 0.1);
-            MeasurePoints = (MeasurePoints * Motivation) * SlopeFactor;
+        if WorkerCount > 0 then
+            local Reputation = GetReputation(_PlayerID);
+            local Rank = GetRank(_PlayerID);
+            local BaseInfluence = self.Config.Income.InfluenceBase;
+            local RankInfluence = self.Config.Income.InfluenceRank * Rank;
+            local WorkerFactor = self.Config.Income.InfluenceWorkerFactor;
+            local Influence = BaseInfluence + (RankInfluence * Rank);
+            for i= 1, WorkerCount do
+                Influence = Influence * WorkerFactor;
+            end
+            MeasurePoints = Influence * math.log(12 * Reputation);
         end
         MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
         self:AddPlayerMeasurePoints(_PlayerID, MeasurePoints);
