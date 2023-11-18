@@ -205,36 +205,13 @@ end
 -- Button Actions
 
 function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
-    -- Prevent click spam
-    if self.Data[_PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
-    or self.Data[_PlayerID].BuyLock then
-        return;
-    end
-    -- Check health
-    if Logic.GetEntityHealth(_EntityID) / Logic.GetEntityMaxHealth(_EntityID) <= 0.2 then
+    -- Check building can produce units
+    if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType) then
         return;
     end
     -- Check is foundry
     if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") ~= nil then
-        return;
-    end
-    -- Check if full
-    local LeaderIDs = self:GetLeaderTrainingAtBuilding(_EntityID);
-    if LeaderIDs[1] >= 3 then
-        return;
-    end
-    -- Check places
-    local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
-    if _EntityType == Entities.PU_Serf then
-        if not HasPlayerSpaceForSlave(_PlayerID) then
-            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
-            return true;
-        end
-    else
-        if not HasPlayerSpaceForUnits(_PlayerID, Places) then
-            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
-            return true;
-        end
+        return false;
     end
     -- Pay costs
     local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, 0);
@@ -262,28 +239,13 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
 end
 
 function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
-    -- Prevent click spam
-    if self.Data[_PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
-    or self.Data[_PlayerID].BuyLock then
-        return;
-    end
-    -- Check health
-    if Logic.GetEntityHealth(_EntityID) / Logic.GetEntityMaxHealth(_EntityID) <= 0.2 then
+    -- Check building can produce units
+    if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType) then
         return;
     end
     -- Check is foundry
     if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") == nil then
         return;
-    end
-    -- Check if full
-    if InterfaceTool_IsBuildingDoingSomething(_EntityID) then
-        return;
-    end
-    -- Check places
-    local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
-    if not HasPlayerSpaceForUnits(_PlayerID, Places) then
-        GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
-        return true;
     end
     -- Check has worker
     local Worker = {Logic.GetAttachedWorkersToBuilding(_EntityID)};
@@ -356,6 +318,37 @@ function Stronghold.Recruit:BuyUnitUpdate(_Index, _WidgetID, _PlayerID, _EntityI
         Disabled = 0;
     end
     XGUIEng.DisableButton(_WidgetID, Disabled);
+end
+
+function Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType)
+    -- Prevent click spam
+    if self.Data[_PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
+    or self.Data[_PlayerID].BuyLock then
+        return false;
+    end
+    -- Check health
+    if Logic.GetEntityHealth(_EntityID) / Logic.GetEntityMaxHealth(_EntityID) <= 0.2 then
+        return false;
+    end
+    -- Check if full
+    local LeaderIDs = self:GetLeaderTrainingAtBuilding(_EntityID);
+    if LeaderIDs[1] >= 3 then
+        return false;
+    end
+    -- Check places
+    local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
+    if _EntityType == Entities.PU_Serf then
+        if not HasPlayerSpaceForSlave(_PlayerID) then
+            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            return false;
+        end
+    else
+        if not HasPlayerSpaceForUnits(_PlayerID, Places) then
+            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            return false;
+        end
+    end
+    return true;
 end
 
 -- -------------------------------------------------------------------------- --

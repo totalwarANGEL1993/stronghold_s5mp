@@ -29,9 +29,9 @@
             <Category>Tower</Category>
             <Time>15.0</Time>
             <Cost>
-                <Clay>0</Clay>
+                <Clay>200</Clay>
                 <Wood>200</Wood>
-                <Stone>200</Stone>
+                <Stone>0</Stone>
                 <Gold/>
                 <Iron>100</Iron>
                 <Sulfur/>
