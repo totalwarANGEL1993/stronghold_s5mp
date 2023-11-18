@@ -43,7 +43,7 @@
             </Cost>
             <Type>PB_VillageCenter2</Type>
         </Upgrade>
-        <NumberOfAttractableSettlers>45</NumberOfAttractableSettlers>
+        <NumberOfAttractableSettlers>90</NumberOfAttractableSettlers>
         <Exploration>40</Exploration>
         <ConstructionInfo>
             <Time>110</Time>

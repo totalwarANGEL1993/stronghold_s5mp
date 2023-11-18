@@ -527,24 +527,7 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
 end
 
 function Stronghold.Attraction:GetRawPlayerAttractionLimit(_PlayerID)
-    local RawLimit = 0;
-    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        -- Village Centers
-        local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
-        RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCCivil[1]);
-        local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
-        RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCCivil[2]);
-        local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
-        RawLimit = RawLimit + (VC3 * self.Config.Attraction.VCCivil[3]);
-        -- Headquarters
-        local HQ1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true));
-        RawLimit = RawLimit + (HQ1 * self.Config.Attraction.HQCivil[1]);
-        local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
-        RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQCivil[2]);
-        local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
-        RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQCivil[3]);
-    end
-    return RawLimit;
+    return Stronghold.Attraction.Orig_Logic_GetPlayerAttractionLimit(_PlayerID);
 end
 
 function Stronghold.Attraction:GetVirtualPlayerAttractionLimit(_PlayerID)

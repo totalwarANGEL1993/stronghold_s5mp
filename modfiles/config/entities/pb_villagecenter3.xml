@@ -31,7 +31,7 @@
         <Upgrade>
             <Category>VillageCenter</Category>
         </Upgrade>
-        <NumberOfAttractableSettlers>135</NumberOfAttractableSettlers>
+        <NumberOfAttractableSettlers>180</NumberOfAttractableSettlers>
         <Exploration>40</Exploration>
         <ConstructionInfo>
             <BuilderSlot>
