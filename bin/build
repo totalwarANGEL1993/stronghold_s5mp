@@ -42,6 +42,10 @@ mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/pl
 cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/pl
 mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/ru
 cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/ru
+# Testing en
+# cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/de
+# rm -rf var/stronghold_s5mp/system.bba.unpacked/text/de/ingame/keybindings.xml
+# cp -r modfiles/text/de/ingame/keybindings.xml var/stronghold_s5mp/system.bba.unpacked/text/de/ingame
 
 # copy cerberus folder
 mkdir -p var/stronghold_s5mp/system.bba.unpacked/script

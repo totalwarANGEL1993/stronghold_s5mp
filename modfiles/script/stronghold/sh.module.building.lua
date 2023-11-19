@@ -1169,11 +1169,13 @@ end
 
 function Stronghold.Building:SetIgnoreRallyPointSelectionCancel(_PlayerID)
     if Logic.GetTime() > 1 then
-        if  self.Data[_PlayerID].RallyPoint.IsSelecting
-        and GUI.GetPlayerID() == _PlayerID
-        and GUI.GetSelectedEntity() ~= nil
-        and IsPlayer(_PlayerID) then
-            self.Data[_PlayerID].RallyPoint.IgnoreCancel = true;
+        if IsPlayer(_PlayerID) then
+            if  self.Data[_PlayerID].RallyPoint.IsSelecting
+            and GUI.GetPlayerID() == _PlayerID
+            and GUI.GetSelectedEntity() ~= nil
+            and IsPlayer(_PlayerID) then
+                self.Data[_PlayerID].RallyPoint.IgnoreCancel = true;
+            end
         end
     end
 end
