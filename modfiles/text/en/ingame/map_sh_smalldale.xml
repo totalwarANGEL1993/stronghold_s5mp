@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<string id="BriefingSelectDifficulty_1_Title">Difficulty</string>
+<string id="BriefingSelectDifficulty_1_Text">Choose the difficulty you want to play at.</string>
+<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Comfortable</string>
+<string id="BriefingSelectDifficulty_1_Option_2">{yellow} @center Average</string>
+<string id="BriefingSelectDifficulty_1_Option_3">{orange} @center Challenging</string>
+<string id="BriefingSelectDifficulty_1_Option_4">{red} @center Maniac</string>
+<string id="BriefingSelectDifficulty_2_Title">Easy Difficulty</string>
+<string id="BriefingSelectDifficulty_2_Text">You have choosen the easy option. Armies are very small and their refill rate is very slow. Also, there are fewer troop producer buildings.</string>
+<string id="BriefingSelectDifficulty_4_Title">Normal Difficulty</string>
+<string id="BriefingSelectDifficulty_4_Text">You play at the normal difficulty. Armies are small and their refill rate is not that fast. But there are more buildings who are producing troops.</string>
+<string id="BriefingSelectDifficulty_6_Title">High Difficulty</string>
+<string id="BriefingSelectDifficulty_6_Text">You want a little challenge and play at higher difficulty. Armies still have a reasonable size but they recover faster. Also, there are more troop producer buildings.</string>
+<string id="BriefingSelectDifficulty_8_Title">Very high Difficulty</string>
+<string id="BriefingSelectDifficulty_8_Text">Wouldn't you rather consider going to therapy? So much self-hate is not healthy... Armies are huge, recover fast and the enemy has many troop producer buildings.</string>
+
+<string id="BriefingExposition_1_Title">Mission Description</string>
+<string id="BriefingExposition_1_Text">In this small vally peace will not last very long. @cr The lord of Schwarzenberg regards your settlement intentions with a suspicious eye...</string>
+<string id="BriefingExposition_2_Title">Mission Description</string>
+<string id="BriefingExposition_2_Text">... and so his ally, the lord of Finsterwalde.</string>
+<string id="BriefingExposition_3_Title">Mission Description</string>
+<string id="BriefingExposition_3_Text">You will have to destroy both castles!</string>
+
+<string id="Quest_1_Title">Custom Game</string>
+<string id="Quest_1_Text">
+In this small vally peace will not last long. The lords 
+of Schwarzenberg and Finsterwalde looking at your arrival 
+with suspision. 
+@cr @cr 
+Task: @cr 1) Destroy both enemy castles. 
+@cr @cr 
+Info: @cr 
+- You win the game by destroying both enemy castles. @cr 
+- Keep an eye on your own castle. If it falls you will lose the game. @cr 
+</string>
+</stringtable>

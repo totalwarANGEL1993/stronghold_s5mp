@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<string id="BriefingSelectDifficulty_1_Title">Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_1_Text">Wählt die Schwierigkeit mit der Ihr spielen wollt.</string>
+<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Wolkenweich</string>
+<string id="BriefingSelectDifficulty_1_Option_2">{yellow} @center Durschnittlich</string>
+<string id="BriefingSelectDifficulty_1_Option_3">{orange} @center Herausfordernd</string>
+<string id="BriefingSelectDifficulty_1_Option_4">{red} @center Geisteskrank</string>
+<string id="BriefingSelectDifficulty_2_Title">Leichte Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_2_Text">Ihr habt Euch für die leichte Schwierigkeit entschieden. Armeen sind klein, erholen sich langsam und es gibt nur wenige Erzeugergebäude.</string>
+<string id="BriefingSelectDifficulty_4_Title">Normale Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_4_Text">Ihr spielt auf der normalen Schwierigkeit. Armeen sind klein, erholen sich normal aber es gibt mehr Erzeugergebäude.</string>
+<string id="BriefingSelectDifficulty_6_Title">Hohe Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_6_Text">Ihr wollt Euch beweisen und spielt auf erhöhter Schwierigkeit. Armeen sind normal groß, sie erholen sich schnell und es gibt mehr Erzeugergebäude.</string>
+<string id="BriefingSelectDifficulty_8_Title">Sehr hohe Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_8_Text">Wollt Ihr nicht lieber eine Therapie machen? So viel Selbsthass ist ungesund... Armeen sind riesig, erholen sich sehr schnell und es gibt mehr Erzeugergebäude.</string>
+
+<string id="BriefingExposition_1_Title">Missionsbeschreibung</string>
+<string id="BriefingExposition_1_Text">In diesem kleinen Tal wird der Friede nur von kurzer Dauer sein. @cr Der Burgherr von Schwarzenberg sieht Euren Siedlungsabsichten mit argwöhnischen Blicken entgegen...</string>
+<string id="BriefingExposition_2_Title">Missionsbeschreibung</string>
+<string id="BriefingExposition_2_Text">... so auch sein Verbündeter, der Burgherr von Finsterwalde.</string>
+<string id="BriefingExposition_3_Title">Missionsbeschreibung</string>
+<string id="BriefingExposition_3_Text">Zerstört alle feindlichen Burgen!</string>
+
+<string id="Quest_1_Title">Freies Spiel</string>
+<string id="Quest_1_Text">
+In diesem kleinen Tal wird der Friede nur von kurzer 
+Dauer sein, denn die Burgherren der Umgebung sehen Eure 
+Siedlungsabsichten mit argwöhnischen Blicken entgegen. 
+@cr @cr 
+Aufgabe: @cr 1) Zerstört die feindlichen Burgen. 
+@cr @cr 
+Hinweise: @cr 
+- Ihr habt gewonnen, wenn beide feindlichen Burgen zerstört sind. @cr 
+- Achtet darauf, Eure eigene Burg nicht zu verlieren, sonst habt Ihr verloren. @cr 
+</string>
+</stringtable>

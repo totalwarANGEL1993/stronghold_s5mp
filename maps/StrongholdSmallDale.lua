@@ -115,33 +115,47 @@ function BriefingSelectDifficulty()
 
     AP {
         Name        = "ChoicePage",
-        Title       = "Schwierigkeit",
-        Text        = "Wählt die Schwierigkeit mit der Ihr spielen wollt.",
+        Title       = "map_sh_smalldale/BriefingSelectDifficulty_1_Title",
+        Text        = "map_sh_smalldale/BriefingSelectDifficulty_1_Text",
         Target      = "HQ1",
         MC          = {
-            {"{green} @center Wolkenweich", "ChoseEasy"},
-            {"{yellow} @center Durschnittlich", "ChoseMedium"},
-            {"{orange} @center Herausfordernd", "ChoseHard"},
-            {"{red} @center Geisteskrank", "ChoseManiac"},
+            {"map_sh_smalldale/BriefingSelectDifficulty_1_Option_1", "ChoseEasy"},
+            {"map_sh_smalldale/BriefingSelectDifficulty_1_Option_2", "ChoseMedium"},
+            {"map_sh_smalldale/BriefingSelectDifficulty_1_Option_3", "ChoseHard"},
+            {"map_sh_smalldale/BriefingSelectDifficulty_1_Option_4", "ChoseManiac"},
         }
     }
 
-    ASP("ChoseEasy", "HQ1", "Leichte Schwierigkeit", "Ihr habt Euch für die "..
-        "leichte Schwierigkeit entschieden. Armeen sind klein, erholen sich "..
-        "langsam und es gibt nur wenige Erzeugergebäude.", false);
+    AP {
+        Name        = "ChoseEasy",
+        Title       = "map_sh_smalldale/BriefingSelectDifficulty_2_Title",
+        Text        = "map_sh_smalldale/BriefingSelectDifficulty_2_Text",
+        Target      = "HQ1",
+    }
     AP("FaderPage");
-    ASP("ChoseMedium", "HQ1", "Normale Schwierigkeit", "Ihr spielt auf der "..
-        "normalen Schwierigkeit. Armeen sind klein, erholen sich normal aber "..
-        "es gibt mehr Erzeugergebäude.", false);
+
+    AP {
+        Name        = "ChoseMedium",
+        Title       = "map_sh_smalldale/BriefingSelectDifficulty_4_Title",
+        Text        = "map_sh_smalldale/BriefingSelectDifficulty_4_Text",
+        Target      = "HQ1",
+    }
     AP("FaderPage");
-    ASP("ChoseHard", "HQ1", "Hohe Schwierigkeit", "Ihr wollt Euch beweisen "..
-        "und spielt auf erhöhter Schwierigkeit. Armeen sind normal groß, "..
-        "sie erholen sich schnell und es gibt mehr Erzeugergebäude.", false);
+
+    AP {
+        Name        = "ChoseHard",
+        Title       = "map_sh_smalldale/BriefingSelectDifficulty_6_Title",
+        Text        = "map_sh_smalldale/BriefingSelectDifficulty_6_Text",
+        Target      = "HQ1",
+    }
     AP("FaderPage");
-    ASP("ChoseManiac", "HQ1", "Sehr hohe Schwierigkeit", "Wollt Ihr nicht "..
-        "lieber eine Therapie machen? So viel Selbsthass ist ungesund... "..
-        "Armeen sind riesig, erholen sich sehr schnell und es gibt mehr "..
-        "Erzeugergebäude.", false);
+
+    AP {
+        Name        = "ChoseManiac",
+        Title       = "map_sh_smalldale/BriefingSelectDifficulty_8_Title",
+        Text        = "map_sh_smalldale/BriefingSelectDifficulty_8_Text",
+        Target      = "HQ1",
+    }
 
     AP {
         Name        = "FaderPage",
@@ -179,24 +193,20 @@ function BriefingExposition()
         Duration    = 3,
     }
     AP {
-        Title   = "Missionsbeschreibung",
-        Text    = "In diesem kleinen Tal wird der Friede nur von kurzer "..
-                  "Dauer sein. @cr Der Burgherr von Schwarzenberg sieht "..
-                  "Euren Siedlungsabsichten mit argwöhnischen Blicken "..
-                  "entgegen...",
+        Title   = "map_sh_smalldale/BriefingExposition_1_Title",
+        Text    = "map_sh_smalldale/BriefingExposition_1_Text",
         Target  = "HQ5",
         CloseUp = false,
     }
     AP {
-        Title   = "Missionsbeschreibung",
-        Text    = "... so auch sein Verbündeter, der Burgherr von "..
-                  "Finsterwalde.",
+        Title   = "map_sh_smalldale/BriefingExposition_2_Title",
+        Text    = "map_sh_smalldale/BriefingExposition_2_Text",
         Target  = "HQ2",
         CloseUp = false,
     }
     AP {
-        Title   = "Missionsbeschreibung",
-        Text    = "Zerstört alle feindlichen Burgen!",
+        Title   = "map_sh_smalldale/BriefingExposition_3_Title",
+        Text    = "map_sh_smalldale/BriefingExposition_3_Text",
         Target  = "HQ1",
         CloseUp = false,
     }
@@ -208,25 +218,10 @@ function BriefingExposition()
     }
 
     Briefing.Finished = function()
-        Logic.AddQuest(
-            PlayerID,
-            1,
-            MAINQUEST_OPEN,
-            "Freies Spiel",
-            "In diesem kleinen Tal wird der Friede nur von kurzer "..
-            "Dauer sein, denn die Burgherren der Umgebung sehen Eure "..
-            "Siedlungsabsichten mit argwöhnischen Blicken entgegen. "..
-            "@cr @cr "..
-            "Aufgabe: @cr 1) Zerstört die feindlichen Burgen. "..
-            "@cr @cr "..
-            "Hinweise: @cr - Ihr habt gewonnen, wenn beide feindlichen "..
-            "Burgen zerstört sind. @cr - Ihr könnt Euch auch mit Euren "..
-            "Nachbarn friedlich stellen und endlos weiter spielen. "..
-            "@cr - Achtet darauf, Eure eigene Burg nicht zu verlieren, "..
-            "sonst habt Ihr verloren.  @cr - Es gibt viel zu entdecken "..
-            "auf der Karte.",
-            1
-        );
+        local QuestTitle = XGUIEng.GetStringTableText("map_sh_smalldale/Quest_1_Title");
+        local QuestText  = XGUIEng.GetStringTableText("map_sh_smalldale/Quest_1_Text");
+        Logic.AddQuest(PlayerID, 1, MAINQUEST_OPEN, QuestTitle, QuestText, 1);
+
         StartAiPlayerAggressiveTimer();
         CreateAiPlayer2();
         CreateAiPlayer5();
