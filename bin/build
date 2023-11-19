@@ -31,6 +31,18 @@ cp -r modfiles/script var/stronghold_s5mp/system.bba.unpacked
 cp -r modfiles/text var/stronghold_s5mp/system.bba.unpacked
 cp -r modfiles/menu var/stronghold_s5mp/system.bba.unpacked
 
+# lokalisation
+mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/es
+cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/es
+mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/fr
+cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/fr
+mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/it
+cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/it
+mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/pl
+cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/pl
+mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/ru
+cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/ru
+
 # copy cerberus folder
 mkdir -p var/stronghold_s5mp/system.bba.unpacked/script
 cp -r "E:/Repositories/cerberus/var/cerberus" .
