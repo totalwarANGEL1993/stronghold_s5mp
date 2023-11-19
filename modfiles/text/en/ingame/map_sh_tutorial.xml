@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<string id="Quest_Main_1_Title">Shadows of the past</string>
+<string id="Quest_Main_1_Text">Destroy the Dark Castle and dispose of Scorillo once and for all!</string>
+<string id="Quest_Sub_1_Title">Bridge building</string>
+<string id="Quest_Sub_1_Text">Repair the destroyed bridge! Be prepared for hevy attacks from the enemy!</string>
+
+<string id="Info_GateGuardian">TOM SIMPKINS: The Guardian has something to say!</string>
+
+<string id="BriefingTutorialIntro_2_Title"> </string>
+<string id="BriefingTutorialIntro_2_Text">NARRATOR: The peaceful borderlands of the Reich...</string>
+<string id="BriefingTutorialIntro_4_Title"> </string>
+<string id="BriefingTutorialIntro_4_Text">NARRATOR: The peace was suddenly disturbed by an upstart with evil intentions. Lulled to sleep by golden promises, some swore loyalty to him.</string>
+<string id="BriefingTutorialIntro_6_Title"> </string>
+<string id="BriefingTutorialIntro_6_Text">NARRATOR: That is why the emperor sent one of his loyal followers to take care of the problem...</string>
+
+<string id="BriefingScout_1_Title"> </string>
+<string id="BriefingScout_1_Text">The province is in turmoil. They say there was a riot. Speak, what do you have to report?</string>
+<string id="BriefingScout_2_Title">Leader of the scouts</string>
+<string id="BriefingScout_2_Text">%s, it looks like an old enemy has regained its power.</string>
+<string id="BriefingScout_3_Title">Leader of the scouts</string>
+<string id="BriefingScout_3_Text">The Black Knight Scorillo has once again gathered a large army around him. It seems as if he wants to overthrow the emperor and seize power himself.</string>
+<string id="BriefingScout_4_Title"> </string>
+<string id="BriefingScout_4_Text">And I thought this guy is dead. Why do this bastards keep reappearing no matter how often you kill them...</string>
+<string id="BriefingScout_5_Title">Leader of the scouts</string>
+<string id="BriefingScout_5_Text">That, %s, is a question I unfortunately can not answer.</string>
+<string id="BriefingScout_6_Title">Leader of the scouts</string>
+<string id="BriefingScout_6_Text">However, the enemy is not as united as it seems. A splinter group of Scorillo's army has moved into this old tower and is blocking the road. They make no distinction between friend and enemy.</string>
+<string id="BriefingScout_7_Title">Leader of the scouts</string>
+<string id="BriefingScout_7_Text">In addition, the large bridge fell victim to the last earthquake. Both entrances to the traitor's castle are cut off. You must find a way to restore them or no one will stop Scorillo!</string>
+<string id="BriefingScout_8_Title"> </string>
+<string id="BriefingScout_8_Text">Well, leave it to me!</string>
+<string id="BriefingScout_9_Title">Leader of the scouts</string>
+<string id="BriefingScout_9_Text">I'm full of confidence, %s! Me and my people are under your command.</string>
+
+<string id="BriefingGuardian1_1_Title">Guardian</string>
+<string id="BriefingGuardian1_1_Text">Ah, finally free! Ever wondered what it's like to taste numb feet? Kind of like the stuff they served me. Ugh!</string>
+<string id="BriefingGuardian1_2_Title"> </string>
+<string id="BriefingGuardian1_2_Text">And who was you again?</string>
+<string id="BriefingGuardian1_3_Title">Guardian</string>
+<string id="BriefingGuardian1_3_Text">I was the guard of the tower your people destroyed. This used to be a customs station before this crazy man's henchmen took over everything.</string>
+<string id="BriefingGuardian1_4_Title"> </string>
+<string id="BriefingGuardian1_4_Text">I'm here because of this man. I act on behalf of the emperor. I'm supposed to take care of the uprising.</string>
+<string id="BriefingGuardian1_5_Title">Guardian</string>
+<string id="BriefingGuardian1_5_Text">The bridge collapsed in an earthquake. If I open the gate, the bad guys will squeeze through here. Then Poland is open! The gate will remain closed until the bridge is rebuilt.</string>
+<string id="BriefingGuardian1_6_Title"> </string>
+<string id="BriefingGuardian1_6_Text">All right, then I'll take care of that first.</string>
+
+<string id="BriefingGuardian2_1_Title"> </string>
+<string id="BriefingGuardian2_1_Text">I had the bridge rebuilt. This means your condition is fulfilled. Open the gate now!</string>
+<string id="BriefingGuardian2_2_Title">Guardian</string>
+<string id="BriefingGuardian2_2_Text">That's how it should be, %s! Now that they no longer have to take this route, I can unlock the gate with a clear conscience.</string>
+</stringtable>

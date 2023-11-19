@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<string id="Quest_Main_1_Title">Schatten der Vergangenheit</string>
+<string id="Quest_Main_1_Text">Zerstört die Schwarze Festung und tötet Scorillo. Diesmal wird es endgültig sein!</string>
+<string id="Quest_Sub_1_Title">Brückenbau</string>
+<string id="Quest_Sub_1_Text">Baut die zerstörte Brücke wieder auf! Bereitet Euch auf schwere Angriffe des Gegners vor!</string>
+
+<string id="Info_GateGuardian">TOM SIMPKINS: Der Turmwärter wird nun mit Euch sprechen!</string>
+
+<string id="BriefingTutorialIntro_2_Title"> </string>
+<string id="BriefingTutorialIntro_2_Text">ERZÄHLER: Die friedlichen Grenzlande des Kaiserreich...</string>
+<string id="BriefingTutorialIntro_4_Title"> </string>
+<string id="BriefingTutorialIntro_4_Text">ERZÄHLER: Die Ruhe wurde jäg von einem Emporkömmling mit üblen Absichten gestört. Eingeschläfert von güldenen Versprechen, schworen ihm einige die Treue.</string>
+<string id="BriefingTutorialIntro_6_Title"> </string>
+<string id="BriefingTutorialIntro_6_Text">ERZÄHLER: Darum entsandte der Kaiser einen seiner Getreuen, sich dem Problem anzunehmen...</string>
+
+<string id="BriefingScout_1_Title"> </string>
+<string id="BriefingScout_1_Text">Die Provinz ist in Aufruhr. Es heißt, es habe einen Aufstand gegeben. Sprecht, was habt Ihr zu berichten?</string>
+<string id="BriefingScout_2_Title">Anführer der Späher</string>
+<string id="BriefingScout_2_Text">%s, es sieht so aus, als habe ein alter Feind seine Macht wiedererlangt.</string>
+<string id="BriefingScout_3_Title">Anführer der Späher</string>
+<string id="BriefingScout_3_Text">Der Schwarze Ritter Scorillo hat erneut eine große Armee um sich geschaart. Es hat den Anschein, als wolle er den Kaiser stürzen und selbst die Macht ergreifen.</string>
+<string id="BriefingScout_4_Title"> </string>
+<string id="BriefingScout_4_Text">Und ich dachte, der Kerl wäre tot. Warum müssen die eigentlich immer wieder aufstehen...</string>
+<string id="BriefingScout_5_Title">Anführer der Späher</string>
+<string id="BriefingScout_5_Text">Entschuldigt, %s, aber das kann ich Euch nicht beantworten.</string>
+<string id="BriefingScout_6_Title">Anführer der Späher</string>
+<string id="BriefingScout_6_Text">Der Feind ist allerdings nicht so geeint, wie es den Anschein hat. Eine Splittergruppe von Scorillos Armee hat diesen alten Turm bezogen und blockiert die Straße. Sie machen keinen Unterschied zwischen Freund und Feind.</string>
+<string id="BriefingScout_7_Title">Anführer der Späher</string>
+<string id="BriefingScout_7_Text">Außerdem ist die große Brücke dem letztem Erdbeben zum Opfer gefallen. Beide Zugänge zur Burg des Verräters sind abgeschnitten. Ihr müsst einen Weg finden, sie wiederherzustellen, oder niemand wird Scorillo stoppen!</string>
+<string id="BriefingScout_8_Title"> </string>
+<string id="BriefingScout_8_Text">Na, das könnt Ihr getroßt mir überlassen.</string>
+<string id="BriefingScout_9_Title">Anführer der Späher</string>
+<string id="BriefingScout_9_Text">Ich bin voller Zuversicht, %s! Ich und meine Leute unterstehen Eurem Befehl.</string>
+
+<string id="BriefingGuardian1_1_Title">Turmwärter</string>
+<string id="BriefingGuardian1_1_Text">Ah, endlich frei! Wisst Ihr wie eingeschlafene Füße schmecken? Ungefähr so wie das Zeug, was mir vorgesetzt wurde. Wäh!</string>
+<string id="BriefingGuardian1_2_Title"> </string>
+<string id="BriefingGuardian1_2_Text">Und wer war Ihr noch mal?</string>
+<string id="BriefingGuardian1_3_Title">Turmwärter</string>
+<string id="BriefingGuardian1_3_Text">Ich war der Wärter des Turms, den Eure Leute zerstört haben. Das war einmal eine Zollstation, bevor die Schergen dieses Irren alles übernommen haben.</string>
+<string id="BriefingGuardian1_4_Title"> </string>
+<string id="BriefingGuardian1_4_Text">Wegen diesem Mann bin ich hier. Ich handele im Auftrag des Kaisers. Ich soll mich dem Aufstand annehmen.</string>
+<string id="BriefingGuardian1_5_Title">Turmwärter</string>
+<string id="BriefingGuardian1_5_Text">Die Brücke ist bei einem Erdbeben eingestürzt. Wenn ich das Tor öffne, dann quetschen sich die bösen Jungs hier durch. Dann ist Polen offen! Das Tor bleibt zu, bis die Brücke wieder aufgebaut ist.</string>
+<string id="BriefingGuardian1_6_Title"> </string>
+<string id="BriefingGuardian1_6_Text">Na gut, dann werde ich mich zuerst darum kümmern.</string>
+
+<string id="BriefingGuardian2_1_Title"> </string>
+<string id="BriefingGuardian2_1_Text">Ich habe die Brücke wieder aufbauen lassen. Damit ist Eure Bedingung erfüllt. Öffnet jetzt das Tor!</string>
+<string id="BriefingGuardian2_2_Title">Turmwärter</string>
+<string id="BriefingGuardian2_2_Text">So soll es sein, %s! Nun da sie nicht mehr diesen Weg nehmen müssen, kann ich das Tor ruhigen Gewissens aufsperren.</string>
+</stringtable>

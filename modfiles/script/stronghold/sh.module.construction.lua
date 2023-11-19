@@ -198,6 +198,15 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
     if Right > 0 and GetRank(_PlayerID) < Right then
         Disable = true;
     end
+    -- Check technology
+    if _Technology == Technologies.B_Bridge then
+        LuaDebugger.Break()
+    end
+    if not Disable then
+        if Logic.GetTechnologyState(_PlayerID, _Technology) < 2 then
+            Disable = true;
+        end
+    end
 
     if Disable then
         XGUIEng.DisableButton(_Button, 1);
@@ -296,7 +305,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         end
         -- Check technology
         if not Disable then
-            if Logic.GetTechnologyState(_PlayerID, _Technology) >= 2 then
+            if Logic.GetTechnologyState(_PlayerID, _Technology) < 2 then
                 Disable = true;
             end
         end

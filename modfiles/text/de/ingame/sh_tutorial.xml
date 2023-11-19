@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<string id="ExplainInterface_1">TOM SIMPKINS: Es ist schön, Euch nach all den Jahren widerzusehen, Sire. Auch dieses Mal hat man mich auserkoren, Euch mit Rat und Tat zur Seite zu stehen. Hach, diese Erinnerungen an unsere rumreichen Schlachten gegen Lord Barkley...</string>
+<string id="ExplainInterface_2">TOM SIMPKINS: Doch ich fürchte, wir werden keine Zeit haben, in Erinnerungen zu schwelgen! Abermals sind finstere Schatten erschienen und bedrohen das Reich und seine Bewohner!</string>
+<string id="ExplainInterface_3">TOM SIMPKINS: Ich fürchte, es ist an Euch, die Schrecken abermals zu vertreiben. Aber Ihr seid etwas eingerostet was die Führung einer Burg betrifft.</string>
+<string id="ExplainInterface_4">TOM SIMPKINS: Lasst mich Euch die neuen Elemente des Interfaces erklären.</string>
+<string id="ExplainInterface_5">TOM SIMPKINS: Diese Ansicht zeigt die sozialen Resourcen. Mit ihnen erforscht Ihr Technologien, schaltet neue Ränge frei und macht Euer Volk zufrieden.</string>
+<string id="ExplainInterface_6">TOM SIMPKINS: {scarlet}Ehre{white} steht für Euer ansehen beim Adelsstand. Sie ist nötig, um Truppen auszubilden, den Adligen in einen höheren Stand zu erheben und viele andere Dinge. Prunkbauten, Ziergebäude und verschiedene Maßnahmen gereichen Euch an Ehre.</string>
+<string id="ExplainInterface_7">TOM SIMPKINS: {scarlet}Beliebtheit{white} gibt an, wie es um Euer Ansehen beim Volk bestellt ist. Fällt das Ansehen, seid Ihr bald allein auf der Burg! Die Versorgung, die Steuer, Verbrechensbekämpfung und Effekte von einigen Spezialgebäuden beeinflussen die Beliebtheit.</string>
+<string id="ExplainInterface_8">TOM SIMPKINS: {scarlet}Wissen{white} erlaubt die Erforschung von Technologien. Es wird in Euren Bildungseinrichtungen erzeugt. Eure Gelehrten arbeiten unermütlich, um Euch den einen Vorteil zu verschaffen.</string>
+<string id="ExplainInterface_9">TOM SIMPKINS: Habt Ihr genug Ehre erlangt und die Bedingungen für die Beförderung erfüllt, könnt Ihr hier Euren Adligen {scarlet}in einen höheren Stand {white} erheben.</string>
+<string id="ExplainInterface_10">TOM SIMPKINS: Achtet darauf, Euer Volk {scarlet}zu versorgen{white} oder sie werden schnell unzufrieden. Die Kosten von Haus und Hof sind in diesem Spielmodus verbilligt. {scarlet}Ausbau{white} ermöglicht Euch, schneller an Ansehen und Ehre zu gelangen.</string>
+<string id="ExplainInterface_11">TOM SIMPKINS: Diese Anzeige gibt an, wie viele Menschen unter Eurer Herrschaft leben. Alle Eure steuerpflichtigen Arbeiter aber auch miese Verbrecher zählen zu Eurer Bevölkerung. {scarlet}Baut die Burg aus oder besetzt Dörfer,{white} um mehr Volk aufnehmen zu können.</string>
+<string id="ExplainInterface_12">TOM SIMPKINS: Knechte sind Unfreie und zählen weder als Bevölkerung noch als Militär, sondern sind Eigentum Eures Adligen. Die Anzahl an Knechten, die Ihr besitzen könnt, {scarlet}steigt mit jedem weiteren Titel, den Euer Adliger erreicht.</string>
+<string id="ExplainInterface_13">TOM SIMPKINS: Hier seht Ihr, wie stark Euer Heer ist und wie groß es noch werden kann. Alle Agenten, Soldaten und Kanonen zählen als Militär. {scarlet} Baut die Burg aus oder errichtet Rekrutierungs gebäude,{white} um Eure Heeresstärke zu erhöhen.</string>
+<string id="ExplainInterface_14">TOM SIMPKINS: Die Zahltagsuhr zeigt Euch an, wie lange Ihr bis zum nächsten Geld warten müsst. {scarlet} Der Zahltag ist in diesem Spielmodus alle 90 Sekunden.</string>
+<string id="ExplainInterface_15">TOM SIMPKINS: Die Uhr gibt nicht nur die Zeit bis zum Zahltag an. Hier seht Ihr auch, {scarlet}wie sich Beliebtheit und Ehre verändern werden. {white} Ihr könnt mehr Details sehen, wenn Ihr STRG gedrückt haltet.</string>
+<string id="ExplainInterface_16">TOM SIMPKINS: Beliebtheit und Ehre verändern sich {scarlet}niemals {white}sofort sondern {scarlet} ausschließlich{white} am Zahltag! Die einzige Außnahme ist Yuki, die Euch einmalig Bonusbeliebtheit gewährt.</string>
+<string id="ExplainInterface_17">TOM SIMPKINS: Hier findet Ihr, wie gewohnt, Eure untätigen Knechte.</string>
+<string id="ExplainInterface_18">TOM SIMPKINS: Ebenso könnt Ihr auch Eure Truppen ausfindig machen. Zusätzlich zeigt der Tooltip jedes Button an, wie viel Sold Ihr für die Einheitenart ausgebt.</string>
+<string id="ExplainInterface_19">TOM SIMPKINS: Lasst uns nun einen Blick in die Burg werfen.</string>
+
+<string id="ExplainCastle_1">TOM SIMPKINS: Bitte selektiert nun die Burg!</string>
+<string id="ExplainCastle_2">TOM SIMPKINS: Die Burg besitzt nun zwei Ansichten. Neben der gewohnten gibt es auch eine zweite, die Euch in die Lage versetzt, Maßnahmen zu erlassen.</string>
+<string id="ExplainCastle_3">TOM SIMPKINS: Diese Registerkarte zeigt Eure Schatzkammer an. Hier stellt Ihr Steuern ein, kauft Knechte und erhaltet Auskunft über Einnahmen und Ausgaben.</string>
+<string id="ExplainCastle_4">TOM SIMPKINS: Diese Registerkarte wechselt zu den Maßnahmen. Mit ihnen könnt Ihr verschiedene Vorteile erhalten. Es funktioniert ähnlich wie die Kirche.</string>
+<string id="ExplainCastle_5">TOM SIMPKINS: Anders als Ihr es gewohnt seid, könnt Ihr sofort die Steuern einstellen. Aber gebt acht, {scarlet}denn der Pöbel wird hohe Steuern nicht mögen!</string>
+<string id="ExplainCastle_6">TOM SIMPKINS: Dieser Button ermöglich Euch, {scarlet}Sammelpunkte {white} festzulegen. In Gebäuden produzierte Truppen werden zur Position laufen. Im Falle der Burg, werden Knechte {scarlet}automatisch Resourcen abbauen.</string>
+<string id="ExplainCastle_7">TOM SIMPKINS: Ihr platziert einen Sammelpunkt, {scarlet}indem Ihr rechts auf die Spielwelt klickt, nachdem die Maus zu einer Hand mit einer Flagge wurde. {white} Das klappt nur, wenn die Position erreichbar ist.</string>
+<string id="ExplainCastle_8">TOM SIMPKINS: Probiert es einmal aus! Um einen Sammelpunkt zu setzen, müsst Ihr rechts auf eine von dem Gebäude erreichbare Position klicken.</string>
+<string id="ExplainCastle_9">TOM SIMPKINS: Gut gemacht! Künftig ausgebildete Knechte werden zu der markierten Position gehen!</string>
+<string id="ExplainCastle_10">TOM SIMPKINS: Nun ist es an der Zeit, Euren Adligen zu wählen. {scarlet} Ohne einen Adligen könnt Ihr kein Militär anheuern! {white}Fällt der Adlige im Kampf, {scarlet}findet Ihr ihn oder sie vor Eurer Burg.</string>
+<string id="ExplainCastle_11">TOM SIMPKINS: Öffnet das Menü und sucht Euch einen Adligen aus! Für das Bestehen dieser Einführung ist es unherheblich, welchen Adligen Ihr wählt.</string>
+<string id="ExplainCastle_12">TOM SIMPKINS: Jeder Adlige besitzt andere Eigenschaften. Ihr tut gut daran, einen Adligen zu wählen, {scarlet}der zu Eurem Spielstil passt. {white} Jeder hat individuelle Vorteile gegenüber den anderen.</string>
+<string id="ExplainCastle_13">TOM SIMPKINS: Wechselt zu den Maßnahmen, damit ich sie Euch ebenfalls näher bringen kann.</string>
+<string id="ExplainCastle_14">TOM SIMPKINS: Dies sind die Maßnahmen, die Euch zur Verfügung stehen. Eine Maßnahme funktioniert ähnlich wie die Segnungen in der Kirche. Allerdings helfen Gebete nicht, Euren Einfluss zu mehren.</string>
+<string id="ExplainCastle_15">TOM SIMPKINS: Wie schnell Ihr Maßnahmen ergreifen könnt, wird von Eurem Einfluss bestimmt.{scarlet} Einfluss steigt mit jedem erreichten Titel aber sinkt je größer Euer Volk wird.{white} Ihr müsst die Balance finden, Sire!</string>
+<string id="ExplainCastle_16">TOM SIMPKINS: Wendet Euch nun %s zu und selektiert %s! Wir haben die Späher lang genug warten lassen!</string>
+
+<string id="ExplainUnit_1">TOM SIMPKINS: Ihr habt Euren ersten Hauptmann erhalten. Die leichte Kavalerie sollte man nicht unterschätzen!</string>
+<string id="ExplainUnit_2">TOM SIMPKINS: Wählt den Trupp an, um fortzufahren!</string>
+<string id="ExplainUnit_3">TOM SIMPKINS: Hier könnt Ihr wie gewohnt direkte Befehle an die Soldaten erteilen.</string>
+<string id="ExplainUnit_4">TOM SIMPKINS: Sollten Soldaten des Hauptmannes fallen, könnt Ihr mit diesem Button bei einem entsprechenden Gebäude neue Soldaten anwerben. {scarlet} Mit STRG könnt Ihr den Trupp voll auffüllen.</string>
+<string id="ExplainUnit_5">TOM SIMPKINS: Diese Anzeige gibt die Gesundheit des Hauptmannes an.</string>
+<string id="ExplainUnit_6">TOM SIMPKINS: Hier seht Ihr die Erfahrung des Hauptmannes.{scarlet} Erfahrene Hauptmänner führen ihre Truppen besser.</string>
+<string id="ExplainUnit_7">TOM SIMPKINS: Diese Zahlen geben die Truppenstärke an. Fast alle Militäreinheiten und Kerberos verfügen über Soldaten.</string>
+<string id="ExplainUnit_8">TOM SIMPKINS: Hier seht Ihr die Verteidigung des Trupps. Sie wird erlittenen Schaden reduzieren.</string>
+<string id="ExplainUnit_9">TOM SIMPKINS: Die Angriffskraft gibt den Schaden an, den ein Trupp austeilen kann. Die Angriffskraft wird mit der Rüstung des Angriffsziels verrechnet.</string>
+<string id="ExplainUnit_10">TOM SIMPKINS: Und schließich der Unterhalt. Eure Einheiten werden unterschiedlich viel Sold verlangen. Der Unterhalt richtet sich nach {scarlet}der Truppenart{white} und {scarlet}der Anzahl an Soldaten.</string>
+<string id="ExplainUnit_11">TOM SIMPKINS: Natürlich könnt Ihr Truppen entlassen, wenn Ihr sie nicht mehr benötigt.</string>
+
+<string id="ExplainManage_1">TOM SIMPKINS: Es ist an der Zeit, dass ich Euch erkläre, wie Ihr Eure Burg zu führen habt.</string>
+<string id="ExplainManage_2">TOM SIMPKINS: Eure Gebäude werden noch immer von Knechten gebaut. Manche Gebäude sind an einen Titel gebunden. {scarlet} Ihr seht die Bedigungen im Tooltip. {white} Ebenso sind Technologien u.a. an den Titel gebunden.</string>
+<string id="ExplainManage_3">TOM SIMPKINS: Nicht weit von Euer Burg gibt es ein Lehmvorkommen. Beginnen wir damit, dass Ihr es abbaut. Baut eine Lehmgrube an der markierten Stelle!</string>
+<string id="ExplainManage_4">TOM SIMPKINS: Schaut, die Bergmänner kommen auf die Burg. Doch was ist das? Sie sind nicht zufrieden! Wenn das so weiter geht, werden sie sehr schnell wieder gehen! Macht nicht den Fehler den Pöbel zu unterschätzen!</string>
+<string id="ExplainManage_5">TOM SIMPKINS: Schnell, stellt ihnen Haus und Hof bereit! Wenn sie ihre Mägen füllen und ihre müden Knochen zur Ruhe betten können, sind sie zufriedener.</string>
+<string id="ExplainManage_6">TOM SIMPKINS: Das sieht schon besser aus! Allerdings wird dies noch nicht reichen. Ihr werdet schon mehr tun müssen. Ziergebäude bauen, Technologien erforschen.... Denkt an das, was ich Euch bereits beigebracht habe!</string>
+<string id="ExplainManage_7">TOM SIMPKINS: Versucht, die Abzüge auf die Beliebtheit am Zahltag auszugleichen und lockt insgesamt 15 Arbeiter (keine Knechte) an!</string>
+<string id="ExplainManage_8">TOM SIMPKINS: Die neuen Arbeiter spülen frisches Gold in Eurer Stadtsäckel. Fianzen, die Ihr bitter benötigen werdet, um Truppen auszuheben. Aber als herkömmlicher Adliger könnt Ihr nur Eure Knechte bewaffnen und Speerträger rekrutieren.</string>
+<string id="ExplainManage_9">TOM SIMPKINS: Erhebt Euren Adligen in den Rang eines Kastellan!</string>
+<string id="ExplainManage_10">TOM SIMPKINS: Jeder Rang bringt neue Rechte und Pflichten mit sich. as Volk wird ebenfalls immer schwieriger zufrieden zu stellen. Sobald Ihr das Fürstentum erreicht, {scarlet} müsst Ihr Euch um die Strafverfolgung kümmern!</string>
+<string id="ExplainManage_11">TOM SIMPKINS: Arbeiter werden {scarlet}das Gesetz brechen. {white}Verbrecher nicht zu fangen, {scarlet}ruiniert schnell Euer Ansehen! {white}Versucht sie schnell zu fangen. {scarlet} Lasst dazu bewaffnete Knechte Wache schieben oder baut Aussichtstürme!</string>
+<string id="ExplainManage_12">TOM SIMPKINS: Auch der Adlige kann Verbrecher fangen. {scarlet}Dazu müsst ihr den Adligen entsenden, diese kriminellen Elemente zu jagen.</string>
+
+<string id="ExplainRecruit_1">TOM SIMPKINS: Soldaten werden in Barracken und ähnlichen Gebäuden angeworben. Errichtet eine Kaserne!</string>
+<string id="ExplainRecruit_2">TOM SIMPKINS: Wundervoll! Durch die Kaserne seid Ihrnun in der Position, Speerträger auszurüsten. Sie sind schwach aber billig und können in Massen in die Schlacht geworfen werden.</string>
+<string id="ExplainRecruit_3">TOM SIMPKINS: Rekrutiert einen Trupp Speerträger!</string>
+<string id="ExplainRecruit_4">TOM SIMPKINS: Ihr werdet Eure neuen Truppen schon bald brauchen. {scarlet}Die Wegelagerer haben von uns Notiz genommen und planen einen Angriff auf Eure Burg! {white}Die Gelegenheit, das Erlernte anzuwenden!</string>
+
+<string id="ExplainProvince_1">TOM SIMPKINS: Schaut, eine Provinz! Manche Dorfzentren gewähren Euch die Hoheit über eine Länderei. {scarlet}Sie produzieren Beliebtheit, Ehre oder Rohstoffe zum Zahltag, gewähren mehr Platz für das Militär {white}oder verleihen andere missionsabhängige Boni.</string>
+<string id="ExplainProvince_2">TOM SIMPKINS: Nehmt die Provinz ein, um zu erfahren, welchen Bonus sie für Euch bereit hält!</string>
+
+<string id="TutorialEnd_1">TOM SIMPKINS: Meinen Glückwunsch, Hochwohlgeboren! Ihr habt die Einführung in {scarlet}Stronghold {white} erfolgreich gemeistert. Ihr könnt das Spiel nun beenden oder die Mission zu Ende spielen.</string>
+<string id="TutorialEnd_2">TOM SIMPKINS: Egal wie Ihr Euch entscheidet, ich werde nun Kalkofe von der Südseeinsel herunter werfen und mich anschließend selbst dort breit machen! Gehabt Euch wohl, Hochwohlgeboren!</string>
+</stringtable>
