@@ -49,8 +49,7 @@
             <Category>Headquarters</Category>
         </Upgrade>
         <CanBeSold>false</CanBeSold>
-        <!-- This may not be higher than 50! -->
-        <NumberOfAttractableSettlers>50</NumberOfAttractableSettlers>
+        <NumberOfAttractableSettlers>90</NumberOfAttractableSettlers>
         <Exploration>50</Exploration>
         <ConstructionInfo>
             <Time>110</Time>
