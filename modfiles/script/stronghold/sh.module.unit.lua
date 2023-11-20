@@ -206,7 +206,7 @@ function Stronghold.Unit:BuySoldierButtonAction()
     -- Check space
     if not HasPlayerSpaceForUnits(PlayerID, BuyAmount) then
         if Logic.GetEntityType(EntityID) ~= Entities.CU_BlackKnight then
-            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            GUI.SendPopulationLimitReachedFeedbackEvent(PlayerID);
             return true;
         end
     end

@@ -293,7 +293,7 @@ end
 -- -------------------------------------------------------------------------- --
 -- Duties
 
-function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
+function Stronghold.Rights:GetDutyDescription(_PlayerID, _Index, _Type, ...)
     local Lang = GetLanguage();
     local Text = "";
     if _Type == PlayerDuty.Headquarters then
@@ -331,7 +331,7 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Type, ...)
         local TechnologyKey = KeyOf(arg[1], Technologies);
         Text = XGUIEng.GetStringTableText("Names/" ..TechnologyKey);
     elseif _Type == PlayerDuty.Custom then
-        local Fulfilled, Amount, Required = self:DoCustomConditionSucceed(i, _PlayerID, Condition[3]);
+        local Fulfilled, Amount, Required = self:DoCustomConditionSucceed(_Index, _PlayerID, Condition[3]);
         Text = (type(arg[1]) == "table" and arg[1][Lang]) or arg[1];
         if Amount and Required then
             Text = Amount.. "/" ..Required.. " " ..Text;
@@ -351,7 +351,7 @@ function Stronghold.Rights:GetDutiesDescription(_PlayerID, _Rank)
     local Text = "";
     for i= 1, table.getn(Duties) do
         Text = Text .. ((i > 1 and ", ") or "");
-        Text = Text .. self:GetDutyDescription(_PlayerID, unpack(Duties[i]));
+        Text = Text .. self:GetDutyDescription(_PlayerID, i, unpack(Duties[i]));
     end
     return Text;
 end

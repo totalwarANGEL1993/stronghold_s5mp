@@ -738,7 +738,7 @@ function Stronghold:StartTriggers()
                 Stronghold.Building:OncePerSecond(PlayerID);
                 Stronghold.Economy:OncePerSecond(PlayerID);
                 Stronghold.Hero:OncePerSecond(PlayerID);
-                Stronghold.Unit:OncePerSecond(_PlayerID);
+                Stronghold.Unit:OncePerSecond(PlayerID);
             end
         end
     end);
@@ -788,6 +788,7 @@ end
 function Stronghold:OnEntityHurtEntity()
     local Attacker = Event.GetEntityID1();
     local AttackerPlayer = Logic.EntityGetPlayer(Attacker);
+    local AttackerType = Logic.GetEntityType(Attacker);
     local Attacked = Event.GetEntityID2();
     local AttackedPlayer = Logic.EntityGetPlayer(Attacked);
     local AttackedType = Logic.GetEntityType(Attacked);

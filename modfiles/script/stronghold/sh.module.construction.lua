@@ -276,7 +276,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
     local EntityID = GUI.GetSelectedEntity();
     local UpgradeLevel = Logic.GetUpgradeLevelForBuilding(EntityID);
     -- Kerberos/Kala hack
-    local HeroID = Stronghold:GetPlayerHero(_PlayerID);
+    local HeroID = Stronghold:GetPlayerHero(PlayerID);
     local HeroType = Logic.GetEntityType(HeroID);
     local Technology = _Technology;
     if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
@@ -305,7 +305,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         end
         -- Check technology
         if not Disable then
-            if Logic.GetTechnologyState(_PlayerID, _Technology) < 2 then
+            if Logic.GetTechnologyState(PlayerID, _Technology) < 2 then
                 Disable = true;
             end
         end

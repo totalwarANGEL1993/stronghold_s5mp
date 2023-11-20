@@ -493,7 +493,7 @@ function Stronghold.Recruit:BuyMeleeUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Melee[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -570,7 +570,7 @@ function Stronghold.Recruit:BuyRangedUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Ranged[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -579,6 +579,7 @@ end
 
 function GUIAction_BuyCavalryUnit(_Index)
     local PlayerID = GetLocalPlayerID();
+    local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
@@ -646,7 +647,7 @@ function Stronghold.Recruit:BuyCavalryUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cavalry[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -727,7 +728,7 @@ function Stronghold.Recruit:BuyCannonUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cannon[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -804,7 +805,7 @@ function Stronghold.Recruit:BuyTavernUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Tavern[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, PlayerID);
+    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 

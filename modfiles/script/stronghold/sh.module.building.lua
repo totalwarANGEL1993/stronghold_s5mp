@@ -1410,7 +1410,6 @@ GUIUpdate_CloseGate = function()
     local EntityID = GUI.GetSelectedEntity();
     local Type = Logic.GetEntityType(EntityID);
     local Highlight = (Stronghold.Building.Config.ClosedGateType[Type] and 1) or 0;
-    XGUIEng.HighLightButton(WidgetID, Highlight);
     XGUIEng.HighLightButton("ClosePalisadeGate", Highlight);
     XGUIEng.HighLightButton("CloseWallGate", Highlight);
 end

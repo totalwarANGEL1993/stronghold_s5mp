@@ -249,19 +249,19 @@ end
 --- Destroys an regiment and removes the troops.
 --- @param _ID integer ID of army
 function DestroyRegiment(_ID)
-    if self.Data.Armies[_ID] then
+    if Stronghold.AI.Data.Armies[_ID] then
         -- Delete spawners
-        if self.Data.Armies[_ID].Spawners then
-            local Spawners = self.Data.Armies[_ID].Spawners;
+        if Stronghold.AI.Data.Armies[_ID].Spawners then
+            local Spawners = Stronghold.AI.Data.Armies[_ID].Spawners;
             for i= 1, table.getn(Spawners) do
                 AiArmyRefiller.DeleteRefiller(Spawners[i].ID);
             end
         end
         -- Delete manager
-        local ManagerID = self.Data.Armies[_ID].ManagerID;
+        local ManagerID = Stronghold.AI.Data.Armies[_ID].ManagerID;
         AiArmyManager.Delete(ManagerID);
         -- Delete army
-        local ArmyID = self.Data.Armies[_ID].ArmyID;
+        local ArmyID = Stronghold.AI.Data.Armies[_ID].ArmyID;
         AiArmyData_ArmyIdToArmyInstance[ArmyID]:Abandon(true);
         for EntityID,_ in pairs(AiArmyData_ArmyIdToArmyInstance[ArmyID].CleanUp) do
             DestroyEntity(EntityID);
@@ -580,6 +580,7 @@ end
 -- Hero 6
 
 function Stronghold.AI:ControlHero6DefendCastle(_PlayerID, _HeroID)
+    local HeroPos = GetPosition(_HeroID);
     local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
     if table.getn(FarEnemyList) > 0 then
         -- Buff allies
@@ -663,6 +664,7 @@ end
 -- Hero 10
 
 function Stronghold.AI:ControlHero10DefendCastle(_PlayerID, _HeroID)
+    local HeroPos = GetPosition(_HeroID);
     local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
     if table.getn(FarEnemyList) > 0 then
         -- Buff allies

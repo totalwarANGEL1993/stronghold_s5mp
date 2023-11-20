@@ -235,12 +235,23 @@
         "gvKeyBindings_GameClockFlag",
         "CEntityIterator",
         "FreeCam",
-        "GetGold"
+        "GetGold",
+        "CPlaceBuilding",
+        "InterfaceTool_UpdateUpgradeButtons",
+        "GUIUpdate_UpgradeButtons",
+        "GUIAction_BuyMilitaryUnit",
+        "GUIAction_BuyCannon",
+        "GameCallback_GUI_SelectionChanged",
+        "CUtilMemory",
+        "CLogger",
+        "CInterface",
+        "Network_Handler_Diplomacy_Self_Destruct_Helper",
+        "SHS5MP_RulesDefinition",
+        "Music"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
-        "lowercase-global",
-        "undefined-global"
+        "lowercase-global"
     ],
     "Lua.workspace.ignoreDir": [
         "maps",
