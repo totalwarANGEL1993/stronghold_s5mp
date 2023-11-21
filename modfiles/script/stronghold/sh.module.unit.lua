@@ -46,6 +46,7 @@ function Stronghold.Unit:CreateUnitButtonHandlers()
                 end
             elseif _Action == Stronghold.Unit.SyncEvents.BuySoldier then
                 Stronghold.Unit:PaySoldiers(_PlayerID, arg[1], arg[2]);
+                Stronghold.Unit:FillHeroGuard(_PlayerID, arg[1], arg[3], arg[2]);
                 if GUI.GetPlayerID() == _PlayerID then
                     Syncer.InvokeEvent(self.NetworkCall, self.SyncEvents.ReleaseBuyLock);
                 end
@@ -57,6 +58,12 @@ function Stronghold.Unit:CreateUnitButtonHandlers()
             end
         end
     );
+end
+
+function Stronghold.Unit:FillHeroGuard(_PlayerID, _Type, _EntityID, _SoldierAmount)
+    if _SoldierAmount > 0 and _Type == Entities.CU_BlackKnight then
+        Tools.CreateSoldiersForLeader(_EntityID, _SoldierAmount);
+    end
 end
 
 function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
@@ -187,6 +194,10 @@ function Stronghold.Unit:BuySoldierButtonAction()
     if Logic.IsLeader(EntityID) == 0 and Type ~= Entities.CU_BlackKnight then
         return true;
     end
+    -- Check if is being upgraded
+    if IsBuildingBeingUpgraded(Logic.LeaderGetNearbyBarracks(EntityID)) then
+        return true;
+    end
     -- Check needs soldiers
     local BuyAmount = 0;
     local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(EntityID);
@@ -225,8 +236,10 @@ function Stronghold.Unit:BuySoldierButtonAction()
         BuyAmount,
         EntityID
     );
-    for i= 1, BuyAmount do
-        GUI.BuySoldier(EntityID);
+    if Type ~= Entities.CU_BlackKnight then
+        for i= 1, BuyAmount do
+            GUI.BuySoldier(EntityID);
+        end
     end
     return true;
 end
@@ -328,7 +341,7 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
     -- Get leaders to fill
     local SelectedLeader = {GUI.GetSelectedEntities()};
     for i= table.getn(SelectedLeader), 1, -1 do
-        if Logic.IsLeader(SelectedLeader[i]) == 0 then
+        if Logic.IsLeader(SelectedLeader[i]) == 0 or Logic.IsHero(SelectedLeader[i]) == 1 then
             table.remove(SelectedLeader, i);
         end
     end
@@ -345,12 +358,15 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
         local Places = GetMilitaryPlacesUsedByUnit(EntityType, 1);
         local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(SelectedLeader[i]);
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(SelectedLeader[i]);
-        for j= 1, MaxSoldiers - CurrentSoldiers do
-            if MilitarySpace >= Places then
-                local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, EntityType, 1);
-                MergedCosts = MergeCostTable(MergedCosts, Costs);
-                GUI.BuySoldier(SelectedLeader[i]);
-                MilitarySpace = MilitarySpace - Places;
+        local BarracksID = Logic.LeaderGetNearbyBarracks(SelectedLeader[i]);
+        if BarracksID > 0 and IsBuildingBeingUpgraded(BarracksID) then
+            for j= 1, MaxSoldiers - CurrentSoldiers do
+                if MilitarySpace >= Places then
+                    local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, EntityType, 1);
+                    MergedCosts = MergeCostTable(MergedCosts, Costs);
+                    GUI.BuySoldier(SelectedLeader[i]);
+                    MilitarySpace = MilitarySpace - Places;
+                end
             end
         end
     end

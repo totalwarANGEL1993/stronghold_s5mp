@@ -209,6 +209,10 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
     if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType) then
         return;
     end
+    -- Check upgrade
+    if IsBuildingBeingUpgraded(_EntityID) then
+        return;
+    end
     -- Check is foundry
     if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") ~= nil then
         return false;
@@ -241,6 +245,10 @@ end
 function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
     -- Check building can produce units
     if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType) then
+        return;
+    end
+    -- Check upgrade
+    if IsBuildingBeingUpgraded(_EntityID) then
         return;
     end
     -- Check is foundry
@@ -935,8 +943,9 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                         local HealthMax = Logic.GetEntityMaxHealth(BarracksID);
                         local Health = Logic.GetEntityHealth(BarracksID);
                         local IsConstructed = Logic.IsConstructionComplete(BarracksID) == 1;
+                        local IsUpgrading = Logic.LeaderGetNearbyBarracks(BarracksID)
                         local SoldierAmount = MaxSoldiers - Soldiers;
-                        if IsConstructed and SoldierAmount > 0 and Health / HealthMax > 0.2 then
+                        if IsConstructed and not IsUpgrading and SoldierAmount > 0 and Health / HealthMax > 0.2 then
                             -- Buy soldiers normally for human players
                             if not IsAIPlayer(_PlayerID) then
                                 local EntityType = Logic.GetEntityType(LeaderID);

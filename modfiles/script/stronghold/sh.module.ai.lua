@@ -177,7 +177,7 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
     -- Attack army
     local AttackArmyID = AiArmy.New(
         Data.PlayerID,
-        math.ceil(Data.Strength/2) or 4,
+        math.ceil((Data.Strength or 4)/2),
         Data.HomePosition,
         Data.RodeLength or 3500
     );
@@ -190,7 +190,7 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
     -- Defend army
     local DefendArmyID = AiArmy.New(
         Data.PlayerID,
-        math.floor(Data.Strength/2) or 4,
+        math.floor((Data.Strength or 4)/2),
         Data.HomePosition,
         Data.RodeLength or 3500
     );

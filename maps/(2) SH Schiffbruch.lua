@@ -80,6 +80,10 @@ SHS5MP_RulesDefinition = {
         SetHostile(1, 7);
         SetHostile(2, 7);
         CreatePassiveBanditCamps();
+
+        for i= 1, 4 do
+            CreateWoodPile("WoodPile" ..i, 1200);
+        end
     end,
 
     -- Called after peacetime is over
