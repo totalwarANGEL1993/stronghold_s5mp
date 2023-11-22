@@ -359,7 +359,7 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
         local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(SelectedLeader[i]);
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(SelectedLeader[i]);
         local BarracksID = Logic.LeaderGetNearbyBarracks(SelectedLeader[i]);
-        if BarracksID > 0 and IsBuildingBeingUpgraded(BarracksID) then
+        if BarracksID > 0 and not IsBuildingBeingUpgraded(BarracksID) then
             for j= 1, MaxSoldiers - CurrentSoldiers do
                 if MilitarySpace >= Places then
                     local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, EntityType, 1);

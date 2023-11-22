@@ -151,9 +151,12 @@ function Stronghold.Multiplayer:Install()
     self:CreateMultiplayerButtonHandlers();
     self:OverrideFunctions();
     self:OnGameStart();
+    self:InitEmsFeatureReplicaKeybindings();
+    self:InitEmsFeatureReplicaFunctions();
 end
 
 function Stronghold.Multiplayer:OnSaveGameLoaded()
+    self:InitEmsFeatureReplicaKeybindings();
 end
 
 function Stronghold.Multiplayer:CreateMultiplayerButtonHandlers()
@@ -873,6 +876,46 @@ function Stronghold.Multiplayer:OverrideFunctions()
         end
     else
         Stronghold.Multiplayer:OnGameStart();
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- EMS Stuff
+
+function Stronghold.Multiplayer:InitEmsFeatureReplicaKeybindings()
+    Input.KeyBindDown(Keys.Back, "Stronghold_KeyBindings_FastDemolish(GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
+end
+
+function Stronghold.Multiplayer:InitEmsFeatureReplicaFunctions()
+    self.Orig_GUIAction_ExpelSettler = GUIAction_ExpelSettler;
+    GUIAction_ExpelSettler = function()
+        if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
+            local SelectedEntities = {GUI.GetSelectedEntities()};
+            for i= 1, table.getn(SelectedEntities) do
+                if Logic.IsHero(SelectedEntities[i]) == 0 then
+                    if Logic.IsLeader(SelectedEntities[i]) == 1 then
+                        local SoldierAmount = Logic.GetSoldiersAttachedToLeader(SelectedEntities[i]);
+                        for j= 1, SoldierAmount do
+                            GUI.ExpelSettler(SelectedEntities[i]);
+                        end
+                    end
+                    GUI.ExpelSettler(SelectedEntities[i]);
+                    GUI.DeselectEntity(SelectedEntities[i]);
+                end
+            end
+        else
+            Stronghold.Multiplayer.Orig_GUIAction_ExpelSettler();
+        end
+    end
+end
+
+function Stronghold_KeyBindings_FastDemolish(_PlayerID, _EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if _PlayerID ~= 17 and PlayerID == _PlayerID then
+        if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0
+        and Logic.IsBuilding(_EntityID) == 1 then
+            GUI.SellBuilding(_EntityID);
+        end
     end
 end
 

@@ -943,7 +943,7 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                         local HealthMax = Logic.GetEntityMaxHealth(BarracksID);
                         local Health = Logic.GetEntityHealth(BarracksID);
                         local IsConstructed = Logic.IsConstructionComplete(BarracksID) == 1;
-                        local IsUpgrading = Logic.LeaderGetNearbyBarracks(BarracksID)
+                        local IsUpgrading = IsBuildingBeingUpgraded(BarracksID);
                         local SoldierAmount = MaxSoldiers - Soldiers;
                         if IsConstructed and not IsUpgrading and SoldierAmount > 0 and Health / HealthMax > 0.2 then
                             -- Buy soldiers normally for human players

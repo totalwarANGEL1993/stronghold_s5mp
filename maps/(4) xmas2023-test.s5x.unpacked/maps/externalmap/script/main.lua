@@ -66,13 +66,16 @@ end
 function CreateTestArmy()
     local RegimentID = CreateRegiment {
         PlayerID   = 2,
-        Strength   = 5,
+        Strength   = 8,
         Position   = GetPosition("CampCenter"),
         RodeLength = 3000,
     };
 
     gvArmy1 = GetRegimentArmyID(RegimentID);
     -- AiArmy.SetFormationController(gvArmy1, CustomTroopFomrationController);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
+    AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
     AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
     AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
     AiArmy.SpawnTroop(gvArmy1, Entities.PU_LeaderPoleArm3, GetPosition("CampCenter"), 3);
