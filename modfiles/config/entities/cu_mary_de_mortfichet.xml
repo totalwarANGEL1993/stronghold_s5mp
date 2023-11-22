@@ -125,7 +125,7 @@
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>CU_Mary_de_Mortfichet_Finish</Animation>
             <DamageClass>DC_HeroCircularAttack</DamageClass>
-            <DamageAmount>100</DamageAmount>
+            <DamageAmount>85</DamageAmount>
             <Range>400.0</Range>
         </Logic>
     </Behavior>
