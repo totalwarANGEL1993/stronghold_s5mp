@@ -615,7 +615,7 @@ function Tutorial_AddExplainBarracks()
         Text        = "sh_tutorial/ExplainRecruit_4",
         Action      = function(_Data)
             ReplaceEntity("BridgeBarrier", Entities.XD_Rock7);
-            DelinquentsCampActivateAttack(CampID, true);
+            DelinquentsCampActivateAttack(gvPlayer3Camp, true);
         end,
     }
 end
@@ -776,7 +776,7 @@ function CreatePlayer2Armies()
     AiArmyRefiller.AddArmy(gvP2HQSpawner, ArmyID);
 
     gvP2Army1 = AiArmyManager.Create(ArmyID);
-    AiArmyManager.AddAttackTargetPath(gvP2Army1, "P2AttackPath1", "PlayerHome");
+    AiArmyManager.AddAttackTargetPath(gvP2Army1, "P2OuterPos", "P2AttackPath1", "PlayerHome");
 
 
     for i= 2, 7 do
@@ -798,6 +798,7 @@ function CreatePlayer2Armies()
         AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos7");
         AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos8");
     end
+    --- @diagnostic disable-next-line: undefined-global
     AiArmyManager.Synchronize(gvP2Army2, gvP2Army3, gvP2Army4, gvP2Army5, gvP2Army6, gvP2Army7);
 
 

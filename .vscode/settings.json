@@ -247,7 +247,11 @@
         "CInterface",
         "Network_Handler_Diplomacy_Self_Destruct_Helper",
         "SHS5MP_RulesDefinition",
-        "Music"
+        "Music",
+        "SUBQUEST_CLOSED",
+        "Victory",
+        "IsEntitySelected",
+        "AiArmyManager"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

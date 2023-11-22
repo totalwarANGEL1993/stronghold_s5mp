@@ -1113,7 +1113,7 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
         or _Type == ResourceType.StoneRaw
         or _Type == ResourceType.SulfurRaw
         then
-            Amount = math.floor((Amount * self.Config.Hero2.MinerExtractionFactor) + 0.5);
+            Amount = Amount + self.Config.Hero2.MinerExtractionBonus;
         end
     end
     return Amount, ResourceRemaining;

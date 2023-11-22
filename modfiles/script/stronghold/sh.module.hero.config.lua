@@ -9,8 +9,8 @@ Stronghold.Hero.Config.Hero1 = {
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
-    MinerExtractionFactor = 1.5,
-    TowerBonusFactor = 1.1,
+    MinerExtractionBonus = 2,
+    TowerBonusFactor = 1.2,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
@@ -47,7 +47,7 @@ Stronghold.Hero.Config.Hero6 = {
 -- Hero 7 properties
 Stronghold.Hero.Config.Hero7 = {
     ReputationCap = 175,
-    ReputationLossFactor = 0.75,
+    ReputationLossFactor = 0.70,
 }
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {
@@ -57,7 +57,7 @@ Stronghold.Hero.Config.Hero8 = {
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
     TavernEfficiency = 1.5,
-    WolfHonorRate = 0.05,
+    WolfHonorRate = 0.08,
 }
 -- Hero 10 properties
 Stronghold.Hero.Config.Hero10 = {
@@ -66,7 +66,7 @@ Stronghold.Hero.Config.Hero10 = {
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {
-    TradeBonusFactor = 0.3,
+    TradeBonusFactor = 0.5,
     InitialReputation = 25,
     ReputationCap = 300,
     ShurikenFrequency = 200,

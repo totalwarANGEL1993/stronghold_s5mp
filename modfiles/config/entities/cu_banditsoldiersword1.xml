@@ -112,7 +112,7 @@
             <!-- That is on purpose -->
             <DamageClass>DC_Strike</DamageClass>
             <DamageAmount>18</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>
