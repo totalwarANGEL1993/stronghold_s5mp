@@ -23,7 +23,7 @@
             <RotationSpeed>20</RotationSpeed>
             <CannonBallEffectType>FXTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
-            <ReloadTime>1500</ReloadTime>
+            <ReloadTime>2000</ReloadTime>
             <MaxAttackRange>2400.0f</MaxAttackRange>
             <MinRange>200</MinRange>
             <DamageClass>DC_Arrow</DamageClass>

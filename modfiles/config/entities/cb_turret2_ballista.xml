@@ -24,11 +24,11 @@
             <RotationSpeed>7</RotationSpeed>
             <CannonBallEffectType>FXBalistaTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
-            <ReloadTime>2500</ReloadTime>
+            <ReloadTime>3500</ReloadTime>
             <MaxAttackRange>2700.0f</MaxAttackRange>
             <MinRange>400</MinRange>
             <DamageClass>DC_Turret</DamageClass>
-            <DamageAmount>25</DamageAmount>
+            <DamageAmount>20</DamageAmount>
             <DamageRange>300</DamageRange>
             <AutoAttackRange>2700</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

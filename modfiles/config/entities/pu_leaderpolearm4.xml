@@ -34,10 +34,10 @@
         <Category>Spear</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>300</MaxHealth>
+        <MaxHealth>350</MaxHealth>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassJerkin</ArmorClass>
-        <ArmorAmount>8</ArmorAmount>
+        <ArmorAmount>7</ArmorAmount>
         <DodgeChance>1</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>
@@ -116,7 +116,7 @@
             <HitAnim>PU_LeaderPoleArm4_Hit</HitAnim>
 
             <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>18</DamageAmount>
+            <DamageAmount>16</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
@@ -136,7 +136,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>6</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>

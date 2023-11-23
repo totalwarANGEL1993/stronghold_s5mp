@@ -117,7 +117,7 @@
             <DamageAmount>20</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>

@@ -128,7 +128,7 @@
             <HitAnim>PU_LeaderBow1_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>8</DamageAmount>
+            <DamageAmount>12</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
@@ -153,7 +153,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>12</Limit>
+                <Limit>9</Limit>
             </Attachment>
         </Logic>
     </Behavior>

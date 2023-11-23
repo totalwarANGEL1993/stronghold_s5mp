@@ -112,8 +112,8 @@
             <HitAnim>PU_SoldierPoleArm3_Hit</HitAnim>
 
             <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>20</DamageAmount>
-            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
+            <DamageAmount>21</DamageAmount>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

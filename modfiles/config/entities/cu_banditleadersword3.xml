@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>100</MaxHealth>
+        <MaxHealth>150</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -110,16 +110,15 @@
 	        <BattleWalkAnim>CU_BanditLeaderSword1_Walk</BattleWalkAnim>
             <HitAnim>CU_BanditLeaderSword1_Hit</HitAnim>
 
-            <!-- That is on purpose -->
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>9</DamageAmount>
-            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>
             <AutoAttackRange>2000</AutoAttackRange>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
@@ -132,7 +131,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>12</Limit>
+                <Limit>6</Limit>
             </Attachment>
         </Logic>
     </Behavior>

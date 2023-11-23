@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>50</MaxHealth>
+        <MaxHealth>100</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -35,7 +35,7 @@
         <Category>Melee</Category>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
+        <ArmorAmount>2</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -112,8 +112,8 @@
             <HitAnim>CU_Barbarian_SoldierClub1_Hit</HitAnim>
 
             <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>12</DamageAmount>
-            <MaxRandomDamageBonus>12</MaxRandomDamageBonus>
+            <DamageAmount>14</DamageAmount>
+            <MaxRandomDamageBonus>18</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 

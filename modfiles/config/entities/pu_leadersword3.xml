@@ -36,7 +36,7 @@
         <MaxHealth>250</MaxHealth>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <DodgeChance>5</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>45</ExperiencePoints>
@@ -114,10 +114,10 @@
             <HitAnim>PU_LeaderSword3_Hit</HitAnim>
 
             <DamageClass>DC_Slash</DamageClass>
-            <DamageAmount>22</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <DamageAmount>28</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>
@@ -136,7 +136,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>6</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>

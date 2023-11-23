@@ -23,7 +23,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>250</MaxHealth>
+        <MaxHealth>275</MaxHealth>
         <ArmorClass>ArmorClassIron</ArmorClass>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
@@ -111,14 +111,14 @@
 
             <!-- That is on purpose -->
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>18</DamageAmount>
-            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
+            <DamageAmount>26</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>1500</AutoAttackRange>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>1500</BattleWaitUntil>
         </Logic>
     </Behavior>
     <Behavior>

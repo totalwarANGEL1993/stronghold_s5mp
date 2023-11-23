@@ -23,7 +23,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>75</MaxHealth>
+        <MaxHealth>125</MaxHealth>
         <ArmorClass>ArmorClassIron</ArmorClass>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
@@ -109,16 +109,15 @@
 	        <BattleWalkAnim>CU_BanditLeaderSword1_Walk</BattleWalkAnim>
             <HitAnim>CU_BanditLeaderSword1_Hit</HitAnim>
 
-            <!-- That is on purpose -->
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>9</DamageAmount>
-            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>
             <AutoAttackRange>1500</AutoAttackRange>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
         </Logic>
     </Behavior>
     <Behavior>
