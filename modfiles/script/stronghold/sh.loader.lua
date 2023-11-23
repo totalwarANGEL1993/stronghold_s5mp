@@ -44,6 +44,7 @@ Lib.Require("comfort/GetSeparatedTooltipText");
 Lib.Require("comfort/GetUpgradedEntityType");
 Lib.Require("comfort/IsBuildingBeingUpgraded");
 Lib.Require("comfort/IsFighting");
+Lib.Require("comfort/IsTraining");
 Lib.Require("comfort/IsInTable");
 Lib.Require("comfort/IsValidEntity");
 Lib.Require("comfort/IsValidPosition");

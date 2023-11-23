@@ -608,7 +608,13 @@ function Tutorial_AddExplainBarracks()
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainRecruit_3",
         Condition   = function(_Data)
-            return Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PU_LeaderPoleArm1) > 0;
+            local LeaderList = Stronghold:GetLeadersOfType(1, 0);
+            for i= table.getn(LeaderList), 1, -1 do
+                if IsTraining(LeaderList[i]) then
+                    table.remove(LeaderList, i);
+                end
+            end
+            return table.getn(LeaderList) >= 3;
         end
     }
     Tutorial.AddMessage {
