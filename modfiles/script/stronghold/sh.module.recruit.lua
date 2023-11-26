@@ -268,6 +268,10 @@ function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _Entit
     if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
         return;
     end
+    -- Buy unit
+    GUI.BuyCannon(_EntityID, _EntityType);
+    XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress, 1);
+    -- Lock purchase
     self.Data[_PlayerID].BuyLock = true;
     self.Data[_PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
     Syncer.InvokeEvent(
@@ -277,8 +281,6 @@ function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _Entit
         0,
         _EntityID
     );
-    -- Buy unit
-    GUI.BuyCannon(_EntityID, _EntityType);
 end
 
 function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _EntityID, _EntityType)
