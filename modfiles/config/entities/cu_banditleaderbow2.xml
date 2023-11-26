@@ -56,7 +56,7 @@
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>45</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>BanditLeaderBow2</Category>
         </Upgrade>

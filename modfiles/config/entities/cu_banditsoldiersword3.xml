@@ -37,7 +37,7 @@
         <ArmorAmount>2</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <ExperiencePoints>10</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <Cost>

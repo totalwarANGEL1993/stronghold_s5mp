@@ -35,7 +35,7 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Category>Thief</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>

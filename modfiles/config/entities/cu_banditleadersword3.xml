@@ -36,7 +36,7 @@
         <Exploration>20</Exploration>
         <ArmorAmount>2</ArmorAmount>
         <ExperiencePoints>20</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <DodgeChance>10</DodgeChance>
         <Cost>
             <Gold>0</Gold>

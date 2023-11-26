@@ -37,7 +37,7 @@
         <DodgeChance>8</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>40</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Gold>0</Gold>
         </Cost>

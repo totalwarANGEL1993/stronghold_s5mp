@@ -227,6 +227,12 @@ function Stronghold.Unit:BuySoldierButtonAction()
         return true;
     end
     -- Buy soldiers
+    if Type ~= Entities.CU_BlackKnight then
+        for i= 1, BuyAmount do
+            GUI.BuySoldier(EntityID);
+        end
+    end
+    -- Lock purchase
     self.Data[PlayerID].BuyLock = true;
     self.Data[PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
     Syncer.InvokeEvent(
@@ -236,11 +242,6 @@ function Stronghold.Unit:BuySoldierButtonAction()
         BuyAmount,
         EntityID
     );
-    if Type ~= Entities.CU_BlackKnight then
-        for i= 1, BuyAmount do
-            GUI.BuySoldier(EntityID);
-        end
-    end
     return true;
 end
 
@@ -364,8 +365,10 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
                 if MilitarySpace >= Places then
                     local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, EntityType, 1);
                     MergedCosts = MergeCostTable(MergedCosts, Costs);
-                    GUI.BuySoldier(SelectedLeader[i]);
                     MilitarySpace = MilitarySpace - Places;
+                    if GUI.GetPlayerID() == PlayerID then
+                        GUI.BuySoldier(SelectedLeader[i]);
+                    end
                 end
             end
         end

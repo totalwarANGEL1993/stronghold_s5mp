@@ -39,7 +39,7 @@
         <ArmorAmount>5</ArmorAmount>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>30</ExperiencePoints>
-        <AttractionSlots>2</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>SoldierBow4</Category>
         </Upgrade>

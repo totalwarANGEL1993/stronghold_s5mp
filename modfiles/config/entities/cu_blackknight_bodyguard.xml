@@ -40,7 +40,7 @@
         <Exploration>20</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>125</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>BlackKnightBodyguard</Category>
         </Upgrade>

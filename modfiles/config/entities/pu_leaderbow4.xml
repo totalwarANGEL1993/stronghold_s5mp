@@ -38,7 +38,7 @@
         <DodgeChance>6</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>
-        <AttractionSlots>2</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>LeaderBow4</Category>
         </Upgrade>

@@ -1011,15 +1011,15 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Attraction --
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_AttrationLimit", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CivilAttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyMaxAttractionPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_AttrationUsage", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CivilAttrationUsage", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyAttractionPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1198,7 +1198,7 @@ function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, 
 end
 
 -- Passive Ability: Change civil places usage
-function Stronghold.Hero:ApplyAttractionPassiveAbility(_PlayerID, _Value)
+function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
         for Type, Places in pairs (self.Config.Hero3.CannonTypes) do
@@ -1211,7 +1211,7 @@ function Stronghold.Hero:ApplyAttractionPassiveAbility(_PlayerID, _Value)
 end
 
 -- Passive Ability: Increase of max civil attraction
-function Stronghold.Hero:ApplyMaxAttractionPassiveAbility(_PlayerID, _Value)
+function Stronghold.Hero:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
         Value = Value * self.Config.Hero12.PopulationFactor;

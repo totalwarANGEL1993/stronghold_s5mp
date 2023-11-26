@@ -222,6 +222,16 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
     if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
         return;
     end
+    -- Buy unit
+    if _UpgradeCategory == UpgradeCategories.Serf then
+        GUI.BuySerf(_EntityID);
+    else
+        if not IsAIPlayer(_PlayerID) then
+            GUI.DeactivateAutoFillAtBarracks(_EntityID);
+        end
+        GUI.BuyLeader(_EntityID, _UpgradeCategory);
+    end
+    -- Lock purchase
     self.Data[_PlayerID].BuyLock = true;
     self.Data[_PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
     Syncer.InvokeEvent(
@@ -231,15 +241,6 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
         0,
         _EntityID
     );
-    -- Buy unit
-    if _UpgradeCategory == UpgradeCategories.Serf then
-        GUI.BuySerf(_EntityID);
-    else
-        if not IsAIPlayer(_PlayerID) then
-            GUI.DeactivateAutoFillAtBarracks(_EntityID);
-        end
-        GUIAction_BuyMilitaryUnit(_UpgradeCategory);
-    end
 end
 
 function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
@@ -277,7 +278,7 @@ function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _Entit
         _EntityID
     );
     -- Buy unit
-    GUIAction_BuyCannon(_EntityType, _UpgradeCategory);
+    GUI.BuyCannon(_EntityID, _EntityType);
 end
 
 function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _EntityID, _EntityType)
@@ -951,15 +952,15 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                                 local EntityType = Logic.GetEntityType(LeaderID);
                                 local Places = GetMilitaryPlacesUsedByUnit(EntityType, 1);
                                 local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, EntityType, 1);
-                                if GUI.GetPlayerID() == _PlayerID then
-                                    local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
-                                    local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
-                                    local MilitarySpace = MiitaryLimit - MiitaryUsage;
-                                    for i= 1, SoldierAmount do
-                                        if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
-                                            Stronghold.Unit:PaySoldiers(_PlayerID, EntityType, 1);
+                                local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
+                                local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
+                                local MilitarySpace = MiitaryLimit - MiitaryUsage;
+                                for i= 1, SoldierAmount do
+                                    if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
+                                        Stronghold.Unit:PaySoldiers(_PlayerID, EntityType, 1);
+                                        MilitarySpace = MilitarySpace - Places;
+                                        if GUI.GetPlayerID() == _PlayerID then
                                             GUI.BuySoldier(LeaderID);
-                                            MilitarySpace = MilitarySpace - Places;
                                         end
                                     end
                                 end

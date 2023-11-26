@@ -32,7 +32,7 @@
         <DodgeChance>20</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>37</ExperiencePoints>
-        <AttractionSlots>2</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Category>Military</Category>
         <Category>Rifle</Category>
         <Category>Soldier</Category>

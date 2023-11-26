@@ -1090,7 +1090,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
         local Amount = Overwrite.CallOriginal();
         -- Remove the one time bonuses
-        if Stronghold.Economy.Data[_PlayerID] then
+        if IsPlayer(_PlayerID) then
             Stronghold.Economy.Data[_PlayerID].IncomeReputationSingle = 0;
             Stronghold.Economy.Data[_PlayerID].IncomeHonorSingle = 0;
         end
@@ -1099,14 +1099,14 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_CriminalCatched", function(_PlayerID, _OldEntityID, _BuildingID)
         Overwrite.CallOriginal();
-        if Stronghold.Economy.Data[_PlayerID] then
+        if IsPlayer(_PlayerID) then
             Stronghold.Economy:AddOneTimeHonor(_PlayerID, 1);
         end
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxPaydayIncome", function()
         local PlayerID = GetLocalPlayerID();
-        if not Stronghold.Economy.Data[PlayerID] then
+        if not IsPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         local Income = Stronghold.Economy.Data[PlayerID].IncomeMoney;
@@ -1122,7 +1122,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxSumOfTaxes", function()
         local PlayerID = GetLocalPlayerID();
-        if not Stronghold.Economy.Data[PlayerID] then
+        if not IsPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         local Income = Stronghold.Economy.Data[PlayerID].IncomeMoney;
@@ -1131,7 +1131,7 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxLeaderCosts", function()
         local PlayerID = GetLocalPlayerID();
-        if not Stronghold.Economy.Data[PlayerID] then
+        if not IsPlayer(PlayerID) then
             return Overwrite.CallOriginal();
         end
         local Upkeep = Stronghold.Economy.Data[PlayerID].UpkeepMoney;
@@ -1140,52 +1140,26 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 
     function GUIUpdate_Population()
         local PlayerID = GetLocalPlayerID();
-        local Usage = 0;
-        local Limit = 0;
-        if IsPlayer(PlayerID) then
-            Usage = GetAttractionUsage(PlayerID);
-            Limit = GetAttractionLimit(PlayerID);
-        end
+        local Usage = GetCivilAttractionUsage(PlayerID);
+        local Limit = GetCivilAttractionLimit(PlayerID);
         local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
         XGUIEng.SetText("PopulationPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
     end
 
     function GUIUpdate_Military()
         local PlayerID = GetLocalPlayerID();
-        local Usage = 0;
-        local Limit = 0;
-        local MilitaryUsage = 0;
-        local MilitaryLimit = 0;
-        if IsPlayer(PlayerID) then
-            Usage = GetAttractionUsage(PlayerID);
-            Limit = GetAttractionLimit(PlayerID);
-            MilitaryUsage = GetMilitaryAttractionUsage(PlayerID);
-            MilitaryLimit = GetMilitaryAttractionLimit(PlayerID);
-        end
-        local Color = "";
-        if MilitaryUsage >= MilitaryLimit or Usage >= Limit then
-            Color = " @color:255,120,120,255 ";
-        end
-        XGUIEng.SetText("MilitaryPlaces", Color.. " @ra " ..MilitaryUsage.. "/" ..MilitaryLimit);
+        local Usage = GetMilitaryAttractionUsage(PlayerID);
+        local Limit = GetMilitaryAttractionLimit(PlayerID);
+        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
+        XGUIEng.SetText("MilitaryPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
     end
 
     function GUIUpdate_Slaves()
         local PlayerID = GetLocalPlayerID();
-        local Usage = 0;
-        local Limit = 0;
-        local SlaveUsage = 0;
-        local SlaveLimit = 0;
-        if IsPlayer(PlayerID) then
-            Usage = GetAttractionUsage(PlayerID);
-            Limit = GetAttractionLimit(PlayerID);
-            SlaveUsage = GetSlaveAttractionUsage(PlayerID);
-            SlaveLimit = GetSlaveAttractionLimit(PlayerID);
-        end
-        local Color = "";
-        if SlaveUsage >= SlaveLimit or Usage >= Limit then
-            Color = " @color:255,120,120,255 ";
-        end
-        XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..SlaveUsage.. "/" ..SlaveLimit);
+        local Usage = GetSlaveAttractionUsage(PlayerID);
+        local Limit = GetSlaveAttractionLimit(PlayerID);
+        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
+        XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
     end
 end
 

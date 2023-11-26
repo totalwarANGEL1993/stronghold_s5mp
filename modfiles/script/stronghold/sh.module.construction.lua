@@ -199,9 +199,6 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
         Disable = true;
     end
     -- Check technology
-    if _Technology == Technologies.B_Bridge then
-        LuaDebugger.Break()
-    end
     if not Disable then
         if Logic.GetTechnologyState(_PlayerID, _Technology) < 2 then
             Disable = true;

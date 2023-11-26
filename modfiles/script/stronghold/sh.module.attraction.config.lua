@@ -3,9 +3,14 @@
 --- 
 
 Stronghold.Attraction.Config.Attraction = {
+    -- Civil attration limit
+    -- THIS MUST BE IN SYNC WITH ENTITY DEFINITION XML!
+    HQCivil = {[1] = 50, [2] = 75, [3] = 100},
+    VCCivil = {[1] = 35, [2] = 50, [3] = 65},
     -- Military attraction limit
-    HQMilitary = {[1] = 78, [2] = 130, [3] = 195},
-    BBMilitary = {[1] = 0, [2] = 26},
+    -- This is freely changeable in Lua
+    HQMilitary = {[1] = 75, [2] = 100, [3] = 125},
+    BBMilitary = {[1] = 0, [2] = 15},
     -- Serf attraction limit
     SlaveLimit = 24,
     RankSlaveBonus = 8,
@@ -32,14 +37,6 @@ Stronghold.Attraction.Config.Crime = {
         MaxPerCycle = 5,
         TimeBetween = 10,
     },
-}
-
-Stronghold.Attraction.Config.ReserveUnits = {
-    AttractionFactor = 0.85,
-}
-
-Stronghold.Attraction.Config.ForeignSpecialists = {
-    AttractionFactor = 0.85,
 }
 
 Stronghold.Attraction.Config.UsedSpace = {

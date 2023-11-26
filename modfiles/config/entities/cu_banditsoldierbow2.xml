@@ -37,7 +37,7 @@
         <ArmorAmount>4</ArmorAmount>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>25</ExperiencePoints>
-        <AttractionSlots>1</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>BanditSoldierBow2</Category>
         </Upgrade>
