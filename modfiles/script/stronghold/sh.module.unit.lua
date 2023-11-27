@@ -365,10 +365,8 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
                 if MilitarySpace >= Places then
                     local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(PlayerID, EntityType, 1);
                     MergedCosts = MergeCostTable(MergedCosts, Costs);
+                    GUI.BuySoldier(SelectedLeader[i]);
                     MilitarySpace = MilitarySpace - Places;
-                    if GUI.GetPlayerID() == PlayerID then
-                        GUI.BuySoldier(SelectedLeader[i]);
-                    end
                 end
             end
         end

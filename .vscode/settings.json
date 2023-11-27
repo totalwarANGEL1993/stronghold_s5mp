@@ -251,7 +251,8 @@
         "SUBQUEST_CLOSED",
         "Victory",
         "IsEntitySelected",
-        "AiArmyManager"
+        "AiArmyManager",
+        "CSendEvent"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

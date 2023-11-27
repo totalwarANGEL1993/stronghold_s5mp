@@ -227,7 +227,7 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
         GUI.BuySerf(_EntityID);
     else
         if not IsAIPlayer(_PlayerID) then
-            GUI.DeactivateAutoFillAtBarracks(_EntityID);
+            SendEvent.DeactivateAutoFillAtBarracks(_EntityID);
         end
         GUI.BuyLeader(_EntityID, _UpgradeCategory);
     end
@@ -943,12 +943,12 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                     if IsExisting(BarracksID) and self.Data[_PlayerID].AutoFill[BarracksID] then
                         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(LeaderID);
                         local Soldiers = Logic.LeaderGetNumberOfSoldiers(LeaderID);
-                        local HealthMax = Logic.GetEntityMaxHealth(BarracksID);
+                        local MaxHealth = Logic.GetEntityMaxHealth(BarracksID);
                         local Health = Logic.GetEntityHealth(BarracksID);
                         local IsConstructed = Logic.IsConstructionComplete(BarracksID) == 1;
                         local IsUpgrading = IsBuildingBeingUpgraded(BarracksID);
                         local SoldierAmount = MaxSoldiers - Soldiers;
-                        if IsConstructed and not IsUpgrading and SoldierAmount > 0 and Health / HealthMax > 0.2 then
+                        if IsConstructed and not IsUpgrading and SoldierAmount > 0 and Health / MaxHealth > 0.2 then
                             -- Buy soldiers normally for human players
                             if not IsAIPlayer(_PlayerID) then
                                 local EntityType = Logic.GetEntityType(LeaderID);
@@ -968,9 +968,9 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                                 end
                             -- Just create soldiers for AI players
                             else
-                                local MaxHealth = Logic.GetEntityMaxHealth(LeaderID);
-                                local Health = Logic.GetEntityHealth(LeaderID);
                                 local Task = Logic.GetCurrentTaskList(LeaderID);
+                                MaxHealth = Logic.GetEntityMaxHealth(LeaderID);
+                                Health = Logic.GetEntityHealth(LeaderID);
                                 if  Health > 0 and Health < MaxHealth and Task
                                 and (not string.find(Task, "BATTLE") and not string.find(Task, "DIE")) then
                                     Tools.CreateSoldiersForLeader(LeaderID, SoldierAmount);

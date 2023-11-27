@@ -22,9 +22,11 @@ mkdir -p var/stronghold_s5mp/textures.bba.unpacked/graphics
 mkdir -p var/stronghold_s5mp/system.bba.unpacked/graphics
 cp -r modfiles/graphics/animations var/stronghold_s5mp/system.bba.unpacked/graphics
 cp -r modfiles/graphics/models var/stronghold_s5mp/system.bba.unpacked/graphics
-cp -r modfiles/graphics/textureslow var/stronghold_s5mp/textureslow.bba.unpacked/graphics
-cp -r modfiles/graphics/texturesmed var/stronghold_s5mp/texturesmed.bba.unpacked/graphics
 cp -r modfiles/graphics/textures var/stronghold_s5mp/textures.bba.unpacked/graphics
+cp -r modfiles/graphics/textureslow var/stronghold_s5mp/textureslow.bba.unpacked/graphics
+cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/textureslow.bba.unpacked/graphics/textureslow
+cp -r modfiles/graphics/texturesmed var/stronghold_s5mp/texturesmed.bba.unpacked/graphics
+cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/texturesmed.bba.unpacked/graphics/texturesmed
 cp -r modfiles/graphics/videos var/stronghold_s5mp/system.bba.unpacked/graphics
 cp -r modfiles/config var/stronghold_s5mp/system.bba.unpacked
 cp -r modfiles/script var/stronghold_s5mp/system.bba.unpacked
