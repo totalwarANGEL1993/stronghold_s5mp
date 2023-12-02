@@ -23,7 +23,9 @@ Stronghold = Stronghold or {};
 
 Stronghold.Building = Stronghold.Building or {
     SyncEvents = {},
-    Data = {},
+    Data = {
+        LastWeatherChange = 0,
+    },
     Config = {},
     Text = {},
 }
@@ -63,6 +65,7 @@ function Stronghold.Building:Install()
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
     self:OverrideShiftRightClick();
+    self:OverwriteWeatherTowerButtons();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -88,6 +91,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         CloseGate = 8,
         TurnToGate = 9,
         TurnToWall = 10,
+        ChangeWeather = 11,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -117,6 +121,10 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             end
             if _Action == Stronghold.Building.SyncEvents.TurnToWall then
                 Stronghold.Building:OnGateTurnedToWallCallback(_PlayerID, arg[1], arg[2]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.ChangeWeather then
+                local State = Logic.GetWeatherState();
+                Stronghold.Building:OnWeatherStateChanged(_PlayerID, State, arg[1]);
             end
         end
     );
@@ -1691,6 +1699,133 @@ function Stronghold.Building:CleanupTurretsOfBuilding(_PlayerID)
                 end
             end
         end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Weather Change
+
+function Stronghold.Building:OverwriteWeatherTowerButtons()
+    self.Orig_GUIAction_ChangeWeather = GUIAction_ChangeWeather;
+    GUIAction_ChangeWeather = function(_StateID)
+        Stronghold.Building:ChangeWeatherAction(_StateID);
+    end
+
+    self.Orig_GUITooltip_ResearchTechnologies = GUITooltip_ResearchTechnologies;
+    GUITooltip_ResearchTechnologies = function(_Technology, _TextKey, _KeyBind)
+        Stronghold.Building:ChangeWeatherTooltip(_Technology, _TextKey, _KeyBind);
+    end
+
+    self.Orig_GUIUpdate_ChangeWeatherButtons = GUIUpdate_ChangeWeatherButtons;
+    GUIUpdate_ChangeWeatherButtons = function(_Button, _Technology, _StateID)
+        Stronghold.Building:ChangeWeatherUpdate(_Button, _Technology, _StateID);
+    end
+end
+
+function Stronghold.Building:SetWeatherChangeDelay(_Delay)
+    self.Config.WeatherChange = _Delay;
+end
+
+function Stronghold.Building:OnWeatherStateChanged(_PlayerID, _OldState, _NewState)
+    local CurrentTime = Logic.GetTime();
+    self.Data.LastWeatherChange = CurrentTime;
+    if GUI.GetPlayerID() == _PlayerID then
+        GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/GUI_WeathermashineActivated"));
+        GUI.SetWeather(_NewState);
+    end
+end
+
+function Stronghold.Building:ChangeWeatherAction(_StateID)
+    local PlayerID = GUI.GetPlayerID();
+	local CurrentWeatherEnergy = Logic.GetPlayersGlobalResource(PlayerID, ResourceType.WeatherEnergy);
+	local NeededWeatherEnergy = Logic.GetEnergyRequiredForWeatherChange();
+    if Logic.IsWeatherChangeActive() == true then
+		GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/Note_WeatherIsCurrentlyChanging"));
+		return;
+	end
+    if CurrentWeatherEnergy < NeededWeatherEnergy then
+		GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/GUI_WeathermashineNotReady"));
+	end
+    Syncer.InvokeEvent(
+        Stronghold.Building.NetworkCall,
+        Stronghold.Building.SyncEvents.ChangeWeather,
+        _StateID
+    );
+end
+
+function Stronghold.Building:ChangeWeatherTooltip(_Technology, _TextKey, _KeyBind)
+	local PlayerID = GUI.GetPlayerID();
+	local TechState = Logic.GetTechnologyState(PlayerID, _Technology);
+	Logic.FillTechnologyCostsTable(_Technology, InterfaceGlobals.CostTable);
+	local CostString = InterfaceTool_CreateCostString(InterfaceGlobals.CostTable);
+	local TooltipText = " ";
+	local ShortCutToolTip = " ";
+	local ShowCosts = 1;
+    local LastChange = self.Data.LastWeatherChange;
+    local ChangeFrequency = self.Config.WeatherChange.TimeBetweenChanges;
+    local CurrentTime = Logic.GetTime();
+
+    if TechState == 0 then
+		TooltipText =  XGUIEng.GetStringTableText("MenuGeneric/TechnologyNotAvailable");
+		ShowCosts = 0;
+	elseif TechState == 1 or  TechState == 5 then
+		TooltipText =  XGUIEng.GetStringTableText(_TextKey .. "_disabled");
+		ShowCosts = 1;
+	elseif TechState == 2 or TechState == 3 then
+		TooltipText = XGUIEng.GetStringTableText(_TextKey .. "_normal");
+		if _KeyBind ~= nil then
+			ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText(_KeyBind) .. "]";
+		end
+	elseif TechState == 4 then
+		TooltipText = XGUIEng.GetStringTableText(_TextKey .. "_normal");
+		ShowCosts = 1;
+	end
+
+    if TechState > 0 then
+        if LastChange > 0 and LastChange + ChangeFrequency >= CurrentTime then
+            local TimeLeft = LastChange + ChangeFrequency - CurrentTime;
+            TooltipText = XGUIEng.GetStringTableText("sh_menuweathermachine/WeatherChangeLocked");
+            TooltipText = string.format(TooltipText, TimeLeft);
+        end
+    end
+	if ShowCosts == 0 then
+		CostString = " ";
+	end
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, TooltipText);
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+end
+
+function Stronghold.Building:ChangeWeatherUpdate(_Button, _Technology, _StateID)
+    local PlayerID = GUI.GetPlayerID();
+	local TechState = Logic.GetTechnologyState(PlayerID, _Technology);
+	local CurrentWeather = Logic.GetWeatherState();
+    local LastChange = self.Data.LastWeatherChange;
+    local ChangeFrequency = self.Config.WeatherChange.TimeBetweenChanges;
+    local CurrentTime = Logic.GetTime();
+    -- Disable if same state
+    if _StateID == CurrentWeather then
+		XGUIEng.DisableButton(_Button, 1);
+		return;
+	end
+    -- Disable if weather is currently changing
+    if Logic.IsWeatherChangeActive() == true then
+		XGUIEng.DisableButton(_Button, 1);
+		return;
+	end
+    -- Disable/enable based on technology state
+    if TechState == 0 then
+		XGUIEng.DisableButton(_Button, 1);
+	elseif TechState == 1 or TechState == 5 then
+		XGUIEng.DisableButton(_Button, 1);
+		XGUIEng.ShowWidget(_Button, 1);
+	elseif TechState == 2 or TechState == 3 or TechState == 4 then
+		XGUIEng.ShowWidget(_Button, 1);
+		XGUIEng.DisableButton(_Button, 0);
+	end
+    -- Disable if it hasn't been long enough since the last change
+    if LastChange > 0 and LastChange + ChangeFrequency >= CurrentTime then
+        XGUIEng.DisableButton(_Button, 1);
     end
 end
 

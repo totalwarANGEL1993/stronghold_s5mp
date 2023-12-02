@@ -82,6 +82,10 @@ Stronghold.Building.Config.Monastery = {
     },
 }
 
+Stronghold.Building.Config.WeatherChange = {
+    TimeBetweenChanges = 5 * 60,
+}
+
 Stronghold.Building.Config.Turrets = {
     [Entities.PB_Headquarters1] = {
         {Entities.CB_Turret1, 600, -50},
