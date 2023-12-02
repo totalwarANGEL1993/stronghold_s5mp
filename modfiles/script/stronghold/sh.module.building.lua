@@ -107,16 +107,16 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
                 Stronghold.Building:PlaceRallyPoint(_PlayerID, arg[1], arg[2], arg[3], arg[4]);
             end
             if _Action == Stronghold.Building.SyncEvents.OpenGate then
-                self:OnGateOpenedCallback(_PlayerID, arg[1], arg[2]);
+                Stronghold.Building:OnGateOpenedCallback(_PlayerID, arg[1], arg[2]);
             end
             if _Action == Stronghold.Building.SyncEvents.CloseGate then
-                self:OnGateClosedCallback(_PlayerID, arg[1], arg[2]);
+                Stronghold.Building:OnGateClosedCallback(_PlayerID, arg[1], arg[2]);
             end
             if _Action == Stronghold.Building.SyncEvents.TurnToGate then
-                self:OnWallTurnedToGateCallback(_PlayerID, arg[1], arg[2]);
+                Stronghold.Building:OnWallTurnedToGateCallback(_PlayerID, arg[1], arg[2]);
             end
             if _Action == Stronghold.Building.SyncEvents.TurnToWall then
-                self:OnGateTurnedToWallCallback(_PlayerID, arg[1], arg[2]);
+                Stronghold.Building:OnGateTurnedToWallCallback(_PlayerID, arg[1], arg[2]);
             end
         end
     );

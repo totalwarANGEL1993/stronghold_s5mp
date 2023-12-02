@@ -51,12 +51,12 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
                 Stronghold.Recruit:PayUnit(_PlayerID, arg[1], 0);
                 self:RegisterCannonOrder(_PlayerID, arg[3], arg[1]);
                 if GUI.GetPlayerID() == _PlayerID then
-                    Syncer.InvokeEvent(self.NetworkCall, self.SyncEvents.ReleaseBuyLock);
+                    Syncer.InvokeEvent(Stronghold.Recruit.NetworkCall, Stronghold.Recruit.SyncEvents.ReleaseBuyLock);
                 end
             elseif _Action == Stronghold.Recruit.SyncEvents.BuyUnit then
                 Stronghold.Recruit:PayUnit(_PlayerID, arg[1], arg[2]);
                 if GUI.GetPlayerID() == _PlayerID then
-                    Syncer.InvokeEvent(self.NetworkCall, self.SyncEvents.ReleaseBuyLock);
+                    Syncer.InvokeEvent(Stronghold.Recruit.NetworkCall, Stronghold.Recruit.SyncEvents.ReleaseBuyLock);
                 end
             elseif _Action == Stronghold.Recruit.SyncEvents.ToggleAutoFill then
                 local Current = Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]];
@@ -839,8 +839,8 @@ function Stronghold.Recruit:InitAutoFillButtons()
         local PlayerID = Logic.EntityGetPlayer(BuildingID);
         if Stronghold.Recruit.Data[PlayerID] then
             Syncer.InvokeEvent(
-                self.NetworkCall,
-                self.SyncEvents.ToggleAutoFill,
+                Stronghold.Recruit.NetworkCall,
+                Stronghold.Recruit.SyncEvents.ToggleAutoFill,
                 BuildingID
             );
         end
