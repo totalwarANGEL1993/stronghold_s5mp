@@ -51,16 +51,6 @@ function Stronghold.Unit:FillHeroGuard(_PlayerID, _Type, _EntityID, _SoldierAmou
     end
 end
 
-function Stronghold.Unit:PayUnit(_PlayerID, _Type, _SoldierAmount)
-    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
-    RemoveResourcesFromPlayer(_PlayerID, Costs);
-end
-
-function Stronghold.Unit:PaySoldiers(_PlayerID, _Type, _SoldierAmount)
-    local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
-    RemoveResourcesFromPlayer(_PlayerID, Costs);
-end
-
 function Stronghold.Unit:OnEntityCreated(_EntityID)
     -- Change formation
     if Logic.IsLeader(_EntityID) == 1 then
@@ -148,7 +138,7 @@ function Stronghold.Unit:StartSerfHealingJob(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Buy soldiers single
+-- Buy soldiers
 
 function Stronghold.Unit:BuySoldierActionCallback(_PlayerID, _EntityID, _LeaderType, _SoldierAmount)
     -- Abort if barracks is being upgraded
@@ -309,9 +299,6 @@ function Stronghold.Unit:BuySoldierButtonUpdate()
     end
     return false;
 end
-
--- -------------------------------------------------------------------------- --
--- Buy soldiers multiple
 
 function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
     -- Check player

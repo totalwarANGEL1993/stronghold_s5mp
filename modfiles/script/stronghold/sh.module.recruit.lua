@@ -48,13 +48,13 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
                     Stronghold.Recruit.Data[_PlayerID].BuyLock = false;
                 end
             elseif _Action == Stronghold.Recruit.SyncEvents.BuyCannon then
-                Stronghold.Unit:PayUnit(_PlayerID, arg[1], 0);
+                Stronghold.Recruit:PayUnit(_PlayerID, arg[1], 0);
                 self:RegisterCannonOrder(_PlayerID, arg[3], arg[1]);
                 if GUI.GetPlayerID() == _PlayerID then
                     Syncer.InvokeEvent(self.NetworkCall, self.SyncEvents.ReleaseBuyLock);
                 end
             elseif _Action == Stronghold.Recruit.SyncEvents.BuyUnit then
-                Stronghold.Unit:PayUnit(_PlayerID, arg[1], arg[2]);
+                Stronghold.Recruit:PayUnit(_PlayerID, arg[1], arg[2]);
                 if GUI.GetPlayerID() == _PlayerID then
                     Syncer.InvokeEvent(self.NetworkCall, self.SyncEvents.ReleaseBuyLock);
                 end
@@ -76,6 +76,16 @@ function Stronghold.Recruit:OnEveryTurn(_PlayerID)
     self:SoldierRecruiterController(_PlayerID);
     -- Cannon progress
     self:ControlCannonProducers(_PlayerID);
+end
+
+function Stronghold.Recruit:PayUnit(_PlayerID, _Type, _SoldierAmount)
+    local Costs = self:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
+    RemoveResourcesFromPlayer(_PlayerID, Costs);
+end
+
+function Stronghold.Recruit:PaySoldiers(_PlayerID, _Type, _SoldierAmount)
+    local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
+    RemoveResourcesFromPlayer(_PlayerID, Costs);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -959,7 +969,7 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                                 local MilitarySpace = MiitaryLimit - MiitaryUsage;
                                 for i= 1, SoldierAmount do
                                     if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
-                                        Stronghold.Unit:PaySoldiers(_PlayerID, EntityType, 1);
+                                        self:PaySoldiers(_PlayerID, EntityType, 1);
                                         MilitarySpace = MilitarySpace - Places;
                                         if GUI.GetPlayerID() == _PlayerID then
                                             GUI.BuySoldier(LeaderID);
