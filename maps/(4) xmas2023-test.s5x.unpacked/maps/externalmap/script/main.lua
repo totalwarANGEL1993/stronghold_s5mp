@@ -12,7 +12,7 @@ function StartTestStuff()
     CreateTestResourceProvince();
 
     Tutorial.Install();
-    CreateTestArmy()
+    CreateTestArmy();
 end
 
 function CreateTestHonorProvince()

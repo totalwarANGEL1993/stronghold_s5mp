@@ -227,10 +227,21 @@ end
 
 function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDisabled, _KeyNormal, _Technology)
     local PlayerID = GetLocalPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
     if not IsPlayer(PlayerID) then
         return false;
     end
     local IsForbidden = false;
+
+    -- Kerberos/Kala hack
+    local HeroID = Stronghold:GetPlayerHero(PlayerID);
+    local HeroType = Logic.GetEntityType(HeroID);
+    local Technology = _Technology;
+    if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
+        if self.Config.TechnologyAlternateHack[Technology] then
+            Technology = self.Config.TechnologyAlternateHack[Technology];
+        end
+    end
 
     -- Get default text
     local ForbiddenText = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
@@ -239,7 +250,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
     local DefaultText = NormalText;
     if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
         DefaultText = DisabledText;
-        if _Technology and Logic.GetTechnologyState(PlayerID, _Technology) == 0 then
+        if Technology and Logic.GetTechnologyState(PlayerID, Technology) == 0 then
             DefaultText = ForbiddenText;
             IsForbidden = true;
         end
@@ -249,14 +260,16 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
     local CostString = "";
     local ShortCutToolTip = "";
     if not IsForbidden then
+        local UpgradeLevel = Logic.GetUpgradeLevelForBuilding(EntityID);
+        local CheckTechnologies = Stronghold.Construction.Config.TypesToCheckForUpgrade[Technology] or {};
         Logic.FillBuildingUpgradeCostsTable(_Type, InterfaceGlobals.CostTable);
         CostString = InterfaceTool_CreateCostString(InterfaceGlobals.CostTable);
         ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
             ": [" .. XGUIEng.GetStringTableText("KeyBindings/UpgradeBuilding") .. "]"
         DefaultText = string.format(
-            self:GetBuildingRequiredRank(PlayerID, _Technology, DefaultText, true),
-            self:GetBuildingLimit(PlayerID, _Type +1),
-            self:GetBuildingEffects(_Type +1, _Technology)
+            self:GetBuildingRequiredRank(PlayerID, Technology, DefaultText, true),
+            self:GetBuildingLimit(PlayerID, CheckTechnologies[UpgradeLevel +2]),
+            self:GetBuildingEffects(CheckTechnologies[UpgradeLevel +2], Technology)
         );
     end
 
@@ -293,7 +306,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         -- Check limit
         local Limit = EntityTracker.GetLimitOfType(CheckTechnologies[UpgradeLevel +2], PlayerID);
         if Limit > -1 then
-            Disable = EntityTracker.IsLimitOfTypeReached(CheckTechnologies[UpgradeLevel +3], PlayerID, true);
+            Disable = EntityTracker.IsLimitOfTypeReached(CheckTechnologies[UpgradeLevel +2], PlayerID, true);
         end
         -- Check right
         local Right = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
