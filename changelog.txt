@@ -26,6 +26,89 @@ Version 0.6.15
   * Bombarde, Große Bombarde, Bronzekanone: 4
   * Eisenkanone, Dschihad, Belagerungskanone: 8
 
+Version 0.5.28
+- Der Konfigurationsfehler beim Limit einigen Gebäudetypen wurde behoben.
+- Das Problem mit der Serververzögerung beim Soldatenkauf wurde behoben.
+- Es ist wieder möglich, im Singleplayer zu speichern.
+- Es gibt nun eine globale Wartezeit von 5 Minuten zwischen Wetterwechseln.
+
+Version 0.5.24
+- Neue Callbacks für die Bevölkerungsgrenze sind implementiert.
+- Das Blocking offener und geschlossener Tore ist an den Rändern nun gleich.
+
+Version 0.5.23
+- Aris Kampffähigkeit wurde spürbar verbessert
+- Soldaten werden beim Rekrutieren wieder automatisch gekauft.
+- Es ist wieder möglich, mehrere Gruppen auf einmal zu füllen.
+- Wissen wird nun schneller erzeugt.
+- EMS Massenentlassung wurde implementiert.
+- EMS Schnellabriss wurde implementiert.
+
+Version 0.5.22
+- Truppenkanonen haben weniger Reichweite.
+- Banditen füllen ihre Truppen nur noch auf, wenn ihre Spawner noch existieren.
+- Es ist fortan nicht mehr möglich, Leibeigene zu kaufen, wenn die Burg
+  gerade ausgebaut wird.
+- Der Fehler, das Kerberos Leibwache nicht wiederaufgefüllt werden kann,
+  ist nun behoben.
+
+Version 0.5.21
+- Fehler behoben, der das Laden von Spielständen verhinderte.
+- Das Problem mit undefinierten Globalen wurde behoben.
+
+Version 0.5.20
+- Fehler behoben, durch den Sperren von Gebäuden über Technologien ignorierte
+- Tutorial wurde auf Englisch übersetzt.
+  (Bei Sprachen Spanisch, Französisch, Italienisch, Polisch und Russisch
+   wird Englisch verwendet)
+- Kleines Tal wurde auf Englisch übersetzt
+  (Bei Sprachen Spanisch, Französisch, Italienisch, Polisch und Russisch
+   wird Englisch verwendet)
+
+Version 0.5.18
+- Textkorrekturen im Tutorial
+- Textkorrekturen bei Minentechnologien
+- Positionskorrektur Briefing Buttons
+
+Version 0.5.17
+- Zivilistenschutz vor Helden erweitert
+  * Helden verursachen Minimalschaden gegen Arbeitsstätten
+  * Helden verursachen Minimalschaden gegen Arbeiter
+  * Helden verursachen Minimalschaden gegen Knechte
+- Rekrutierungsdelay ist nun 0,2 Sekunden
+- Überblendungen nun hoffentlich gefixt
+- Gebäudelimits angepasst
+  * Kasernen: 6, 9, 12 je Burgstufe und 2, 4, 6 für DZ-Stufe
+  * Gießereien: 1. 2. 3 je Burgstufe
+- Ausbaunachricht für das Haupthaus kommt jetzt
+- Fernglastextur der Leibeigenen gefixt
+- Einige Fehler bei Sammelpunkten behoben
+  * Gebäudebau bricht nicht mehr den das Setzen von Sammelpunkten ab
+  * Der Zuschauer sieht nicht mehr den Button
+  * Der Zuschauer kann gesetzte Sammelpunkte eines Spielers sehen
+- Kundschafter können Schächte und Steinschläge sprengen
+- Nur Kerberos zeigt den Button zum Soldatenrekrutieren an
+- Aris Spezialeinheiten haben Schwertkämpferrüstung erhalten
+- Pilgrim nutzt jtzt die Selbstschusskanone anstatt der Bombe
+- Salims Falle ist jetzt schwächer
+- Passives Bekehren von Gegnern durch Helias funktioniert wieder
+- Marys Spezialeinheiten angepasst
+  * Schaden: 33 -> 54
+  * Plätze: 1 -> 2
+  * Soldaten: 6 -> 3
+- Pasiver Einsatz von Shuriken durch Yuki funktioniert wieder
+
+Version 0.5.10
+- Es gibt nun ein 0,3 Sekunden Delay beim Rekrutieren von Einheiten
+- Soldatenlimit ist kastriert auf 320
+  Erstes Militärgebäude zählt nicht mit, danach alle 2 Gebäude +10 (+20)
+- Scharfschützen halten weniger aus
+- Kanonen kosten jetzt tatsächlich Unterhalt
+- Turniermap hat ein Turmlimit von 12 bekommen
+- Gegner sehen nur noch, dass irgend ein Adliger befördert wurde
+- Upgrades werden nicht mehr fälschlich zu früh freigeschaltet
+- Tore können jetzt wieder geschlossen werden
+
 Version 0.5.7
 - Auf Wunsch der Tester wurden negative Effekte auf die Beliebtheit
   abgeschwächt, damit auch schwächere Spieler Spaß haben können.

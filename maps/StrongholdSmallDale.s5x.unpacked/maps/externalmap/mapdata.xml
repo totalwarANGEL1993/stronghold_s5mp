@@ -78254,7 +78254,7 @@
    <Flags>0</Flags>
    <PlayerID>5</PlayerID>
    <Health>-1</Health>
-   <Name></Name>
+   <Name>LordP5</Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>1.000000e+000</Scale>
@@ -78269,7 +78269,7 @@
    <Flags>0</Flags>
    <PlayerID>2</PlayerID>
    <Health>-1</Health>
-   <Name></Name>
+   <Name>LordP2</Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>1.000000e+000</Scale>
