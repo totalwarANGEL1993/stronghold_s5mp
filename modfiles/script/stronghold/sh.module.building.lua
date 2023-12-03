@@ -1713,6 +1713,7 @@ function Stronghold.Building:OverwriteWeatherTowerButtons()
 
     self.Orig_GUITooltip_ResearchTechnologies = GUITooltip_ResearchTechnologies;
     GUITooltip_ResearchTechnologies = function(_Technology, _TextKey, _KeyBind)
+        Stronghold.Building.Orig_GUITooltip_ResearchTechnologies(_Technology, _TextKey, _KeyBind);
         Stronghold.Building:ChangeWeatherTooltip(_Technology, _TextKey, _KeyBind);
     end
 
@@ -1798,6 +1799,10 @@ end
 
 function Stronghold.Building:ChangeWeatherUpdate(_Button, _Technology, _StateID)
     local PlayerID = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    if Logic.GetEntityType(EntityID) ~= Entities.PB_WeatherTower1 then
+        return;
+    end
 	local TechState = Logic.GetTechnologyState(PlayerID, _Technology);
 	local CurrentWeather = Logic.GetWeatherState();
     local LastChange = self.Data.LastWeatherChange;

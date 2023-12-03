@@ -262,12 +262,15 @@ function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
 end
 
 function Stronghold.Economy:OncePerSecond(_PlayerID)
-    -- Income and Costs
-    self:UpdateIncomeAndUpkeep(_PlayerID);
     -- Measure
     self:GainMeasurePoints(_PlayerID);
     -- Knowledge
     self:GainKnowledgePoints(_PlayerID);
+end
+
+function Stronghold.Economy:OncePerTurn(_PlayerID)
+    -- Income and Costs
+    self:UpdateIncomeAndUpkeep(_PlayerID);
 end
 
 function Stronghold.Economy:OnEntityCreated(_EntityID)

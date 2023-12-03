@@ -547,11 +547,18 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     local ID, DoorPos;
     if not IsExisting(DoorPosName) then
         DoorPos = GetCirclePosition(HQName, 800, 180);
-        ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
+        if (Orientation >= 45 and Orientation <= 135) then
+            DoorPos.X = DoorPos.X + 150;
+        end
+        if (Orientation >= 225 and Orientation <= 315) then
+            DoorPos.X = DoorPos.X - 150;
+        end
+        ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
         WriteEntityCreatedToLog(0, ID, Logic.GetEntityType(ID));
         Logic.SetEntityName(ID, DoorPosName);
         self.Players[_PlayerID].DoorPos = DoorPos;
     else
+        ID = ReplaceEntity(DoorPosName, Entities.XD_BuildBlockScriptEntity);
         DoorPos = GetPosition(DoorPosName);
         self.Players[_PlayerID].DoorPos = DoorPos;
     end
@@ -559,12 +566,12 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     -- Create camp Pos
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, _PlayerID);
     WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-    local CampPos = GetCirclePosition(ID, 400, 180);
+    local CampPos = GetCirclePosition(ID, 400, 160);
     DestroyEntity(ID);
-    ID = Logic.CreateEntity(Entities.XD_Camp_Internal, CampPos.X, CampPos.Y, 0, _PlayerID);
+    ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, CampPos.X, CampPos.Y, 0, 0);
     WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-    ID = Logic.CreateEntity(Entities.XD_ScriptEntity, CampPos.X, CampPos.Y, 0, _PlayerID);
-    WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
+    Logic.SetModelAndAnimSet(ID, Models.XD_LargeCampFire);
+    SVLib.SetInvisibility(ID, false);
     Logic.SetEntityName(ID, CampName);
 
     -- Create serfs
@@ -575,7 +582,6 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
         WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         LookAt(ID, CampName);
     end
-    DestroyEntity(CampName);
 
     -- Fix castle upgrade message
     if Logic.GetUpgradeLevelForBuilding(HQID) < 1 then
@@ -724,6 +730,7 @@ function Stronghold:StartTriggers()
         local Players = GetMaxPlayers();
         for PlayerID = 1, Players do
             Stronghold.Attraction:OnEveryTurn(PlayerID);
+            Stronghold.Economy:OncePerTurn(PlayerID);
             Stronghold.Rights:OnEveryTurn(PlayerID);
             Stronghold.Recruit:OnEveryTurn(PlayerID);
         end
