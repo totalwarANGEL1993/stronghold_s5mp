@@ -100,7 +100,7 @@
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 
-            <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
+            <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
             <MaxRange>2600</MaxRange>
             <MinRange>1500</MinRange>
             <AutoAttackRange>2600</AutoAttackRange>

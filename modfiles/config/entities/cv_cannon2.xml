@@ -94,13 +94,13 @@
             <BattleWalkAnim>PV_Cannon4_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>60</DamageAmount>
+            <DamageAmount>45</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>600</DamageRange>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
+            <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
             <MaxRange>2600</MaxRange>
             <MinRange>1500</MinRange>
 

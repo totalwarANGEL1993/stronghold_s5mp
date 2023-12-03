@@ -96,7 +96,7 @@
             <DamageClass>DC_SiegeCannon</DamageClass>
             <DamageAmount>225</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>100</DamageRange>
+            <DamageRange>600</DamageRange>
 
             <BattleWaitUntil>6000</BattleWaitUntil>
 

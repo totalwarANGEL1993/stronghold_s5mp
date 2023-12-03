@@ -278,10 +278,10 @@
             <Class>GGL::CCannonBallEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1800.0</Speed>
+            <Speed>800.0</Speed>
             <Radius>0</Radius>
             <Damage>0</Damage>
-            <GravityFactor>800.0f</GravityFactor>
+            <GravityFactor>200.0f</GravityFactor>
             <HeightOffsetStart>120.0</HeightOffsetStart>
             <HeightOffsetTarget>0.0</HeightOffsetTarget>
             <ImpactEffectID>FXExplosion</ImpactEffectID>
@@ -297,10 +297,10 @@
             <Class>GGL::CCannonBallEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1800.0</Speed>
+            <Speed>3600.0</Speed>
             <Radius>0</Radius>
             <Damage>0</Damage>
-            <GravityFactor>800.0f</GravityFactor>
+            <GravityFactor>2800.0f</GravityFactor>
             <HeightOffsetStart>680.0</HeightOffsetStart>
             <HeightOffsetTarget>0.0</HeightOffsetTarget>
             <ImpactEffectID>FXExplosion</ImpactEffectID>
@@ -335,10 +335,10 @@
             <Class>GGL::CCannonBallEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1800.0</Speed>
+            <Speed>3600.0</Speed>
             <Radius>0</Radius>
             <Damage>0</Damage>
-            <GravityFactor>800.0f</GravityFactor>
+            <GravityFactor>2800.0f</GravityFactor>
             <HeightOffsetStart>120.0</HeightOffsetStart>
             <HeightOffsetTarget>0.0</HeightOffsetTarget>
             <ImpactEffectID>FXExplosionShrapnel</ImpactEffectID>
@@ -566,7 +566,7 @@
             <Class>GGL::CCannonBallEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>4000.0</Speed>
+            <Speed>8000.0</Speed>
             <Radius>0</Radius>
             <Damage>0</Damage>
             <GravityFactor>5.0f</GravityFactor>

@@ -96,11 +96,11 @@
             <DamageClass>DC_SiegeCannon</DamageClass>
             <DamageAmount>150</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>50</DamageRange>
+            <DamageRange>600</DamageRange>
 
-            <BattleWaitUntil>4000</BattleWaitUntil>
+            <BattleWaitUntil>4500</BattleWaitUntil>
             <ProjectileOffsetFront>90</ProjectileOffsetFront>
-            <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
+            <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
             <MaxRange>2800</MaxRange>
             <MinRange>1000.0f</MinRange>
 
