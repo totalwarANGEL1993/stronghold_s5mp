@@ -592,6 +592,7 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     -- Save player initialized
     self.Players[_PlayerID].IsInitalized = true;
 
+    Logic.PlayerSetGameStateToPlaying(_PlayerID);
     self:InitalizeAiPlayer(_PlayerID, _HeroType);
     GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, self:IsAIPlayer(_PlayerID));
 end
@@ -863,43 +864,39 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
 
     local HQID = self:GetPlayerHeadquarter(_PlayerID);
     if HeroAtCastle then
-        if Logic.IsEntityInCategory(HQID, EntityCategories.Headquarters) == 1 then
-            self.Players[_PlayerID].VulnerabilityInfoShown = false;
-            if IsExisting(HQID) then
-                MakeInvulnerable(CastleName);
-            end
-            if not self.Players[_PlayerID].InvulnerabilityInfoShown then
-                if not self:IsAIPlayer(_PlayerID) then
-                    self.Players[_PlayerID].InvulnerabilityInfoShown = true;
-                    Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-                    local PlayerName = UserTool_GetPlayerName(_PlayerID);
-                    local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                    Message(string.format(
-                        XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
-                        PlayerColor,
-                        PlayerName
-                    ));
-                end
+        self.Players[_PlayerID].VulnerabilityInfoShown = false;
+        if IsExisting(HQID) then
+            MakeInvulnerable(CastleName);
+        end
+        if not self.Players[_PlayerID].InvulnerabilityInfoShown then
+            if not self:IsAIPlayer(_PlayerID) then
+                self.Players[_PlayerID].InvulnerabilityInfoShown = true;
+                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_IsProtected"),
+                    PlayerColor,
+                    PlayerName
+                ));
             end
         end
     else
-        if Logic.IsEntityInCategory(HQID, EntityCategories.Headquarters) == 1 then
-            self.Players[_PlayerID].InvulnerabilityInfoShown = false;
-            if IsExisting(CastleName) then
-                MakeVulnerable(CastleName);
-            end
-            if not self.Players[_PlayerID].VulnerabilityInfoShown then
-                if not self:IsAIPlayer(_PlayerID) then
-                    self.Players[_PlayerID].VulnerabilityInfoShown = true;
-                    Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-                    local PlayerName = UserTool_GetPlayerName(_PlayerID);
-                    local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-                    Message(string.format(
-                        XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
-                        PlayerColor,
-                        PlayerName
-                    ));
-                end
+        self.Players[_PlayerID].InvulnerabilityInfoShown = false;
+        if IsExisting(CastleName) then
+            MakeVulnerable(CastleName);
+        end
+        if not self.Players[_PlayerID].VulnerabilityInfoShown then
+            if not self:IsAIPlayer(_PlayerID) then
+                self.Players[_PlayerID].VulnerabilityInfoShown = true;
+                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_IsVulnerable"),
+                    PlayerColor,
+                    PlayerName
+                ));
             end
         end
     end
