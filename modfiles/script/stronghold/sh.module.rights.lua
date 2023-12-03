@@ -307,7 +307,7 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Index, _Type, ...)
             local Name = XGUIEng.GetStringTableText("Names/" ..TypeName);
             Text = string.format("%d/%d %s", Amount, arg[3], Name);
         else
-            local Amount = self:GetSettlersOfTypeInSettlement(_PlayerID, 0);
+            local Amount = self:GetWorkerAmountInSettlement(_PlayerID);
             Text = XGUIEng.GetStringTableText("sh_rights/Require_Worker");
             Text = string.format("%d/%d %s", Amount, arg[2], Text);
         end
@@ -394,9 +394,8 @@ function Stronghold.Rights:IsTechnologyResearched(_PlayerID, _Technology)
 end
 
 function Stronghold.Rights:GetWorkerAmountInSettlement(_PlayerID)
-    local Serfs = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Serf);
     local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
-    return Serfs + Workers;
+    return Workers;
 end
 
 function Stronghold.Rights:GetSoldierAmountInSettlement(_PlayerID)

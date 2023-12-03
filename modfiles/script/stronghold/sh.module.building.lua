@@ -250,7 +250,6 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     if not IsPlayer(PlayerID) then
         return;
     end
-
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
         XGUIEng.ShowWidget("BuildingTabs", 1);
         GUIUpdate_BuySerf();
@@ -709,30 +708,30 @@ end
 
 function Stronghold.Building:OnMonasterySelected(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    local Type = Logic.GetEntityType(_EntityID);
-    if not IsPlayer(PlayerID)
-    or Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
+    if not IsPlayer(PlayerID) then
         return;
     end
-
-    local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
-    if Level == 1 then
-        XGUIEng.ShowWidget("Upgrade_Monastery2", 1);
+    local Type = Logic.GetEntityType(_EntityID);
+    if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.Monastery then
+        local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
+        if Level == 1 then
+            XGUIEng.ShowWidget("Upgrade_Monastery2", 1);
+        end
+        if Level == 0 then
+            XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
+        end
+        XGUIEng.ShowWidget("Research_SundayAssembly", 1);
+        XGUIEng.ShowWidget("Research_HolyRelics", 1);
+        XGUIEng.ShowWidget("Research_PopalBlessing", 1);
+        XGUIEng.ShowWidget("Research_DraconicPunishment", 0);
+        XGUIEng.ShowWidget("Research_DecorativeSkull", 0);
+        XGUIEng.ShowWidget("Research_TjostingArmor", 0);
+        XGUIEng.TransferMaterials("BlessSettlers1Source", "BlessSettlers1");
+        XGUIEng.TransferMaterials("BlessSettlers2Source", "BlessSettlers2");
+        XGUIEng.TransferMaterials("BlessSettlers3Source", "BlessSettlers3");
+        XGUIEng.TransferMaterials("BlessSettlers4Source", "BlessSettlers4");
+        XGUIEng.TransferMaterials("BlessSettlers5Source", "BlessSettlers5");
     end
-    if Level == 0 then
-        XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
-    end
-    XGUIEng.ShowWidget("Research_SundayAssembly", 1);
-    XGUIEng.ShowWidget("Research_HolyRelics", 1);
-    XGUIEng.ShowWidget("Research_PopalBlessing", 1);
-    XGUIEng.ShowWidget("Research_DraconicPunishment", 0);
-    XGUIEng.ShowWidget("Research_DecorativeSkull", 0);
-    XGUIEng.ShowWidget("Research_TjostingArmor", 0);
-    XGUIEng.TransferMaterials("BlessSettlers1Source", "BlessSettlers1");
-    XGUIEng.TransferMaterials("BlessSettlers2Source", "BlessSettlers2");
-    XGUIEng.TransferMaterials("BlessSettlers3Source", "BlessSettlers3");
-    XGUIEng.TransferMaterials("BlessSettlers4Source", "BlessSettlers4");
-    XGUIEng.TransferMaterials("BlessSettlers5Source", "BlessSettlers5");
 end
 
 function Stronghold.Building:MonasteryBlessSettlersGuiAction(_PlayerID, _EntityID, _BlessCategory)

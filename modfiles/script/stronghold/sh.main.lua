@@ -1316,33 +1316,29 @@ end
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
     local SelectedID = GUI.GetSelectedEntity();
-    local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    -- Check if other player than owner or spectator selects entity
-    -- (Can happen because of entity created/destroyed)
-    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
-        return;
-    end
     -- Check selected entity is the same as passed entity
     -- (That should never happen in theory)
+    local EntityID = _EntityID;
     if SelectedID ~= _EntityID then
-        return;
+        EntityID = SelectedID;
     end
 
-    self.Building:OnHeadquarterSelected(SelectedID);
-    self.Building:OnMonasterySelected(SelectedID);
-    self.Building:OnAlchemistSelected(SelectedID);
-    self.Building:OnTowerSelected(SelectedID);
-    self.Building:OnWallSelected(SelectedID);
+    if SelectedID then
+        self.Building:OnHeadquarterSelected(EntityID);
+        self.Building:OnMonasterySelected(EntityID);
+        self.Building:OnAlchemistSelected(EntityID);
+        self.Building:OnTowerSelected(EntityID);
+        self.Building:OnWallSelected(EntityID);
 
-    self.Hero:OnSelectLeader(SelectedID);
-    self.Hero:OnSelectHero(SelectedID);
+        self.Hero:OnSelectLeader(EntityID);
+        self.Hero:OnSelectHero(EntityID);
 
-    self.Recruit:OnBarracksSelected(SelectedID);
-    self.Recruit:OnArcherySelected(SelectedID);
-    self.Recruit:OnStableSelected(SelectedID);
-    self.Recruit:OnFoundrySelected(SelectedID);
-    self.Recruit:OnTavernSelected(SelectedID);
+        self.Recruit:OnBarracksSelected(EntityID);
+        self.Recruit:OnArcherySelected(EntityID);
+        self.Recruit:OnStableSelected(EntityID);
+        self.Recruit:OnFoundrySelected(EntityID);
+        self.Recruit:OnTavernSelected(EntityID);
+    end
 end
 
 function Stronghold:OverwriteCommonCallbacks()

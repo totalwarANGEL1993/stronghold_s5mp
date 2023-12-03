@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-16"?>
 <stringtable>
-<string id="ExplainInterface_1">TOM SIMPKINS: Es ist schön, Euch nach all den Jahren widerzusehen, Sire. Auch dieses Mal hat man mich auserkoren, Euch mit Rat und Tat zur Seite zu stehen. Hach, diese Erinnerungen an unsere rumreichen Schlachten gegen Lord Barkley...</string>
+<string id="ExplainInterface_1">TOM SIMPKINS: Es ist schön, Euch nach all den Jahren widerzusehen, Sire. Auch dieses Mal hat man mich auserkoren, Euch mit Rat und Tat zur Seite zu stehen. Hach, diese Erinnerungen an unsere ruhmreichen Schlachten gegen Lord Barkley...</string>
 <string id="ExplainInterface_2">TOM SIMPKINS: Doch ich fürchte, wir werden keine Zeit haben, in Erinnerungen zu schwelgen! Abermals sind finstere Schatten erschienen und bedrohen das Reich und seine Bewohner!</string>
 <string id="ExplainInterface_3">TOM SIMPKINS: Ich fürchte, es ist an Euch, die Schrecken abermals zu vertreiben. Aber Ihr seid etwas eingerostet was die Führung einer Burg betrifft.</string>
 <string id="ExplainInterface_4">TOM SIMPKINS: Lasst mich Euch die neuen Elemente des Interfaces erklären.</string>
-<string id="ExplainInterface_5">TOM SIMPKINS: Diese Ansicht zeigt die sozialen Resourcen. Mit ihnen erforscht Ihr Technologien, schaltet neue Ränge frei und macht Euer Volk zufrieden.</string>
+<string id="ExplainInterface_5">TOM SIMPKINS: Diese Ansicht zeigt die sozialen Ressourcen. Mit ihnen erforscht Ihr Technologien, schaltet neue Ränge frei und macht Euer Volk zufrieden.</string>
 <string id="ExplainInterface_6">TOM SIMPKINS: {scarlet}Ehre{white} steht für Euer ansehen beim Adelsstand. Sie ist nötig, um Truppen auszubilden, den Adligen in einen höheren Stand zu erheben und viele andere Dinge. Prunkbauten, Ziergebäude und verschiedene Maßnahmen gereichen Euch an Ehre.</string>
 <string id="ExplainInterface_7">TOM SIMPKINS: {scarlet}Beliebtheit{white} gibt an, wie es um Euer Ansehen beim Volk bestellt ist. Fällt das Ansehen, seid Ihr bald allein auf der Burg! Die Versorgung, die Steuer, Verbrechensbekämpfung und Effekte von einigen Spezialgebäuden beeinflussen die Beliebtheit.</string>
 <string id="ExplainInterface_8">TOM SIMPKINS: {scarlet}Wissen{white} erlaubt die Erforschung von Technologien. Es wird in Euren Bildungseinrichtungen erzeugt. Eure Gelehrten arbeiten unermütlich, um Euch den einen Vorteil zu verschaffen.</string>
@@ -25,7 +25,7 @@
 <string id="ExplainCastle_3">TOM SIMPKINS: Diese Registerkarte zeigt Eure Schatzkammer an. Hier stellt Ihr Steuern ein, kauft Knechte und erhaltet Auskunft über Einnahmen und Ausgaben.</string>
 <string id="ExplainCastle_4">TOM SIMPKINS: Diese Registerkarte wechselt zu den Maßnahmen. Mit ihnen könnt Ihr verschiedene Vorteile erhalten. Es funktioniert ähnlich wie die Kirche.</string>
 <string id="ExplainCastle_5">TOM SIMPKINS: Anders als Ihr es gewohnt seid, könnt Ihr sofort die Steuern einstellen. Aber gebt acht, {scarlet}denn der Pöbel wird hohe Steuern nicht mögen!</string>
-<string id="ExplainCastle_6">TOM SIMPKINS: Dieser Button ermöglich Euch, {scarlet}Sammelpunkte {white} festzulegen. In Gebäuden produzierte Truppen werden zur Position laufen. Im Falle der Burg, werden Knechte {scarlet}automatisch Resourcen abbauen.</string>
+<string id="ExplainCastle_6">TOM SIMPKINS: Dieser Button ermöglich Euch, {scarlet}Sammelpunkte {white} festzulegen. In Gebäuden produzierte Truppen werden zur Position laufen. Im Falle der Burg, werden Knechte {scarlet}automatisch Ressourcen abbauen.</string>
 <string id="ExplainCastle_7">TOM SIMPKINS: Ihr platziert einen Sammelpunkt, {scarlet}indem Ihr rechts auf die Spielwelt klickt, nachdem die Maus zu einer Hand mit einer Flagge wurde. {white} Das klappt nur, wenn die Position erreichbar ist.</string>
 <string id="ExplainCastle_8">TOM SIMPKINS: Probiert es einmal aus! Um einen Sammelpunkt zu setzen, müsst Ihr rechts auf eine von dem Gebäude erreichbare Position klicken.</string>
 <string id="ExplainCastle_9">TOM SIMPKINS: Gut gemacht! Künftig ausgebildete Knechte werden zu der markierten Position gehen!</string>
@@ -37,7 +37,7 @@
 <string id="ExplainCastle_15">TOM SIMPKINS: Wie schnell Ihr Maßnahmen ergreifen könnt, wird von Eurem Einfluss bestimmt.{scarlet} Einfluss steigt mit jedem erreichten Titel aber sinkt je größer Euer Volk wird.{white} Ihr müsst die Balance finden, Sire!</string>
 <string id="ExplainCastle_16">TOM SIMPKINS: Wendet Euch nun %s zu und selektiert %s! Wir haben die Späher lang genug warten lassen!</string>
 
-<string id="ExplainUnit_1">TOM SIMPKINS: Ihr habt Euren ersten Hauptmann erhalten. Die leichte Kavalerie sollte man nicht unterschätzen!</string>
+<string id="ExplainUnit_1">TOM SIMPKINS: Ihr habt Euren ersten Hauptmann erhalten. Die leichte Kavallerie sollte man nicht unterschätzen!</string>
 <string id="ExplainUnit_2">TOM SIMPKINS: Wählt den Trupp an, um fortzufahren!</string>
 <string id="ExplainUnit_3">TOM SIMPKINS: Hier könnt Ihr wie gewohnt direkte Befehle an die Soldaten erteilen.</string>
 <string id="ExplainUnit_4">TOM SIMPKINS: Sollten Soldaten des Hauptmannes fallen, könnt Ihr mit diesem Button bei einem entsprechenden Gebäude neue Soldaten anwerben. {scarlet} Mit STRG könnt Ihr den Trupp voll auffüllen.</string>
