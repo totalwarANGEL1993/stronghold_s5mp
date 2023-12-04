@@ -73,13 +73,6 @@
         <ModifySpeed>
             <Technology>T_BetterTrainingBarracks</Technology>
         </ModifySpeed>
-
-        <ModifySpeed>
-            <Technology>T_EliteSquad</Technology>
-        </ModifySpeed>
-        <ModifyDamage>
-            <Technology>T_EliteSquad</Technology>
-        </ModifyDamage>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
