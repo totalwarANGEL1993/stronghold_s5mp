@@ -320,40 +320,33 @@ function Stronghold.Multiplayer:Configure()
     end
 
     -- Setup resources
-    if not self.Data.Config.Resources then
-        if self.Data.Config.ResourceSelected == 1 then
-            self.Data.Config.Resources = {0, 1000, 1600, 1200, 550, 0, 0};
-        elseif self.Data.Config.ResourceSelected == 2 then
-            self.Data.Config.ResourceSelected = {50, 2000, 3000, 2400, 1500, 600, 0};
-        elseif self.Data.Config.ResourceSelected == 3 then
-            self.Data.Config.ResourceSelected = {300, 6000, 4000, 4000, 3000, 1500, 900};
-        end
-    end
     if self.Data.Config.Resources then
+        local Selected = self.Data.Config.ResourceSelected;
+        local Resources = self.Data.Config.Resources[Selected];
         if XNetwork.Manager_DoesExist() == 1 then
             local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
             for PlayerID= 1, HumenPlayer, 1 do
-                AddHonor(PlayerID, self.Data.Config.Resources[1] or 0);
+                AddHonor(PlayerID, Resources[1] or 0);
                 Tools.GiveResouces(
                     PlayerID,
-                    self.Data.Config.Resources[2] or 0,
-                    self.Data.Config.Resources[3] or 0,
-                    self.Data.Config.Resources[4] or 0,
-                    self.Data.Config.Resources[5] or 0,
-                    self.Data.Config.Resources[6] or 0,
-                    self.Data.Config.Resources[7] or 0
+                    Resources[2] or 0,
+                    Resources[3] or 0,
+                    Resources[4] or 0,
+                    Resources[5] or 0,
+                    Resources[6] or 0,
+                    Resources[7] or 0
                 );
             end
         else
-            AddHonor(GUI.GetPlayerID(), self.Data.Config.Resources[1] or 0);
+            AddHonor(GUI.GetPlayerID(), Resources[1] or 0);
             Tools.GiveResouces(
                 GUI.GetPlayerID(),
-                self.Data.Config.Resources[2] or 0,
-                self.Data.Config.Resources[3] or 0,
-                self.Data.Config.Resources[4] or 0,
-                self.Data.Config.Resources[5] or 0,
-                self.Data.Config.Resources[6] or 0,
-                self.Data.Config.Resources[7] or 0
+                Resources[2] or 0,
+                Resources[3] or 0,
+                Resources[4] or 0,
+                Resources[5] or 0,
+                Resources[6] or 0,
+                Resources[7] or 0
             );
         end
     end
