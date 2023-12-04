@@ -46,7 +46,7 @@ Stronghold.Hero.Config.Hero6 = {
 }
 -- Hero 7 properties
 Stronghold.Hero.Config.Hero7 = {
-    ReputationCap = 175,
+    ReputationCap = 180,
     ReputationLossFactor = 0.70,
 }
 -- Hero 8 properties
