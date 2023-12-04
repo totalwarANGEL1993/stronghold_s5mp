@@ -13,13 +13,12 @@ Stronghold.Recruit = Stronghold.Recruit or {
 function Stronghold.Recruit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
-            BuyLock = false,
-            BuyTimeStamp = 0,
             Config = CopyTable(Stronghold.Unit.Config),
             Roster = {},
             AutoFill = {},
             TrainingLeaders = {},
             ForgeRegister = {},
+            RecruitCommands = {},
         };
         self:InitDefaultRoster(i);
     end
@@ -34,30 +33,21 @@ end
 
 function Stronghold.Recruit:CreateBuildingButtonHandlers()
     self.SyncEvents = {
-        ReleaseBuyLock = 1,
-        BuyUnit = 3,
-        BuyCannon = 2,
+        BuyCannon = 1,
+        BuyLeader = 2,
+        BuySerf = 3,
         ToggleAutoFill = 4,
     };
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
             WriteSyncCallToLog("Recruit", _Action, _PlayerID, unpack(arg));
 
-            if _Action == Stronghold.Recruit.SyncEvents.ReleaseBuyLock then
-                if Stronghold.Recruit.Data[_PlayerID] then
-                    Stronghold.Recruit.Data[_PlayerID].BuyLock = false;
-                end
-            elseif _Action == Stronghold.Recruit.SyncEvents.BuyCannon then
-                Stronghold.Recruit:PayUnit(_PlayerID, arg[1], 0);
-                self:RegisterCannonOrder(_PlayerID, arg[3], arg[1]);
-                if GUI.GetPlayerID() == _PlayerID then
-                    Syncer.InvokeEvent(Stronghold.Recruit.NetworkCall, Stronghold.Recruit.SyncEvents.ReleaseBuyLock);
-                end
-            elseif _Action == Stronghold.Recruit.SyncEvents.BuyUnit then
-                Stronghold.Recruit:PayUnit(_PlayerID, arg[1], arg[2]);
-                if GUI.GetPlayerID() == _PlayerID then
-                    Syncer.InvokeEvent(Stronghold.Recruit.NetworkCall, Stronghold.Recruit.SyncEvents.ReleaseBuyLock);
-                end
+            if _Action == Stronghold.Recruit.SyncEvents.BuyCannon then
+                Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
+            elseif _Action == Stronghold.Recruit.SyncEvents.BuyLeader then
+                Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
+            elseif _Action == Stronghold.Recruit.SyncEvents.BuySerf then
+                Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
             elseif _Action == Stronghold.Recruit.SyncEvents.ToggleAutoFill then
                 local Current = Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]];
                 Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]] = not Current;
@@ -72,6 +62,8 @@ function Stronghold.Recruit:OnEntityCreated(_EntityID)
 end
 
 function Stronghold.Recruit:OnEveryTurn(_PlayerID)
+    -- Buy leader queue
+    self:RecruitCommandController(_PlayerID);
     -- Auto recruit soldiers
     self:SoldierRecruiterController(_PlayerID);
     -- Cannon progress
@@ -215,82 +207,45 @@ end
 -- Button Actions
 
 function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
-    -- Check building can produce units
-    if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType) then
-        return;
+    if XGUIEng.IsButtonDisabled(_WidgetID) == 1 then
+        return true;
     end
-    -- Check upgrade
-    if IsBuildingBeingUpgraded(_EntityID) then
-        return;
-    end
-    -- Check is foundry
-    if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") ~= nil then
+    if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType, true) then
         return false;
     end
-    -- Pay costs
-    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, 0);
-    if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
-        return;
-    end
-    -- Buy unit
+    -- Send buy serf event
     if _UpgradeCategory == UpgradeCategories.Serf then
-        GUI.BuySerf(_EntityID);
-    else
-        if not IsAIPlayer(_PlayerID) then
-            SendEvent.DeactivateAutoFillAtBarracks(_EntityID);
+        Syncer.InvokeEvent(
+            self.NetworkCall,
+            self.SyncEvents.BuySerf,
+            _EntityType,
+            _UpgradeCategory,
+            _EntityID
+        );
+    -- Send buy cannon event
+    elseif Logic.IsEntityTypeInCategory(_EntityType, EntityCategories.Cannon) == 1 then
+        if not self.Data[_PlayerID].ForgeRegister[_EntityID] then
+            XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress, 1);
+            self:RegisterCannonOrder(_PlayerID, _EntityID, _EntityType);
+            Syncer.InvokeEvent(
+                self.NetworkCall,
+                self.SyncEvents.BuyCannon,
+                _EntityType,
+                _UpgradeCategory,
+                _EntityID
+            );
         end
-        GUI.BuyLeader(_EntityID, _UpgradeCategory);
+    -- Send buy leader event
+    else
+        Syncer.InvokeEvent(
+            self.NetworkCall,
+            self.SyncEvents.BuyLeader,
+            _EntityType,
+            _UpgradeCategory,
+            _EntityID
+        );
     end
-    -- Lock purchase
-    self.Data[_PlayerID].BuyLock = true;
-    self.Data[_PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
-    Syncer.InvokeEvent(
-        self.NetworkCall,
-        self.SyncEvents.BuyUnit,
-        _EntityType,
-        0,
-        _EntityID
-    );
-end
-
-function Stronghold.Recruit:BuyCannonAction(_Index, _WidgetID, _PlayerID, _EntityID, _UpgradeCategory, _EntityType)
-    -- Check building can produce units
-    if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType) then
-        return;
-    end
-    -- Check upgrade
-    if IsBuildingBeingUpgraded(_EntityID) then
-        return;
-    end
-    -- Check is foundry
-    if string.find(Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID)), "PB_Foundry") == nil then
-        return;
-    end
-    -- Check has worker
-    local Worker = {Logic.GetAttachedWorkersToBuilding(_EntityID)};
-    if not Worker[1] or (Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 0) then
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesWorker_WORKER_FunnyNo_rnd_01, 100);
-        Message(XGUIEng.GetStringTableText("sh_text/Player_NoWorker"));
-        return;
-    end
-    -- Pay costs
-    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, 0);
-    if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
-        return;
-    end
-    -- Buy unit
-    GUI.BuyCannon(_EntityID, _EntityType);
-    XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress, 1);
-    -- Lock purchase
-    self.Data[_PlayerID].BuyLock = true;
-    self.Data[_PlayerID].BuyTimeStamp = Logic.GetCurrentTurn();
-    Syncer.InvokeEvent(
-        self.NetworkCall,
-        self.SyncEvents.BuyCannon,
-        _EntityType,
-        0,
-        _EntityID
-    );
+    return true;
 end
 
 function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _EntityID, _EntityType)
@@ -341,14 +296,21 @@ function Stronghold.Recruit:BuyUnitUpdate(_Index, _WidgetID, _PlayerID, _EntityI
     XGUIEng.DisableButton(_WidgetID, Disabled);
 end
 
-function Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType)
-    -- Prevent click spam
-    if self.Data[_PlayerID].BuyTimeStamp + 2 >= Logic.GetCurrentTurn()
-    or self.Data[_PlayerID].BuyLock then
+function Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType, _Verbose)
+    -- Check existing
+    if not IsExisting(_EntityID) then
+        return false;
+    end
+    -- Check upgrade
+    if IsBuildingBeingUpgraded(_EntityID) then
         return false;
     end
     -- Check health
     if Logic.GetEntityHealth(_EntityID) / Logic.GetEntityMaxHealth(_EntityID) <= 0.2 then
+        return false;
+    end
+    -- Check is busy
+    if InterfaceTool_IsBuildingDoingSomething(_EntityID) == true then
         return false;
     end
     -- Check if full
@@ -356,16 +318,32 @@ function Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _Entity
     if LeaderIDs[1] >= 3 then
         return false;
     end
+    -- Check costs
+    -- TODO: Check if this applies for serfs
+    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, 0);
+    if _Verbose and GUI.GetPlayerID() == _PlayerID then
+        if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
+            return false;
+        end
+    else
+        if not HasEnoughResources(_PlayerID, Costs) then
+            return false;
+        end
+    end
     -- Check places
     local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
     if _EntityType == Entities.PU_Serf then
         if not HasPlayerSpaceForSlave(_PlayerID) then
-            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            if _Verbose and GUI.GetPlayerID() == _PlayerID then
+                GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            end
             return false;
         end
     else
         if not HasPlayerSpaceForUnits(_PlayerID, Places) then
-            GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            if _Verbose and GUI.GetPlayerID() == _PlayerID then
+                GUI.SendPopulationLimitReachedFeedbackEvent(_PlayerID);
+            end
             return false;
         end
     end
@@ -494,7 +472,7 @@ function Stronghold.Recruit:BuyMeleeUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_MeleeUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Melee[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+    if Amount > 0 then
         Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
     end
 end
@@ -571,7 +549,7 @@ function Stronghold.Recruit:BuyRangedUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_RangedUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Ranged[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+    if Amount > 0 then
         Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
     end
 end
@@ -648,7 +626,7 @@ function Stronghold.Recruit:BuyCavalryUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_CavalryUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cavalry[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+    if Amount > 0 then
         Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
     end
 end
@@ -722,6 +700,9 @@ function Stronghold.Recruit:OnFoundrySelected(_EntityID)
     XGUIEng.ShowWidget("Buy_Cannon4", 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
     XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+    if self.Data[PlayerID].ForgeRegister[_EntityID] then
+        XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress, 1);
+    end
     GUIUpdate_PlaceRallyPoint();
 end
 
@@ -730,7 +711,7 @@ function Stronghold.Recruit:BuyCannonUnitAction(_PlayerID, _EntityID, _Index)
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cannon[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
     if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
-        Stronghold.Recruit:BuyCannonAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
+        Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
     end
 end
 
@@ -806,7 +787,7 @@ function Stronghold.Recruit:BuyTavernUnitAction(_PlayerID, _EntityID, _Index)
     local WidgetID = "Buy_TavernUnit" .._Index;
     local UpgradeCategory = self.Data[_PlayerID].Roster.Tavern[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    if Amount > 0 and XGUIEng.IsButtonDisabled(WidgetID) == 0 then
+    if Amount > 0 then
         Stronghold.Recruit:BuyUnitAction(_Index, WidgetID, _PlayerID, _EntityID, UpgradeCategory, EntityType);
     end
 end
@@ -879,16 +860,39 @@ end
 -- Registers a foundry for checking the forging process.
 function Stronghold.Recruit:RegisterCannonOrder(_PlayerID, _BarracksID, _Type)
     if self.Data[_PlayerID] then
-        self.Data[_PlayerID].ForgeRegister[_BarracksID] = _Type;
+        if not self.Data[_PlayerID].ForgeRegister[_BarracksID] then
+            -- Save delay and type. The delay is used to ensure that a worker
+            -- has been long enough in the building befor deleting entry.
+            self.Data[_PlayerID].ForgeRegister[_BarracksID] = {50, _Type};
+        end
     end
 end
 
 -- Checks the forging process in all registered foundries.
 function Stronghold.Recruit:ControlCannonProducers(_PlayerID)
     if self.Data[_PlayerID] then
-        for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
-            if not IsExisting(k) or Logic.GetCannonProgress(k) == 100 then
-                self.Data[_PlayerID].ForgeRegister[k] = nil;
+        for BuildingID, Data in pairs(self.Data[_PlayerID].ForgeRegister) do
+            local CannonProgress = Logic.GetCannonProgress(BuildingID);
+            local Worker = {Logic.GetAttachedWorkersToBuilding(BuildingID)};
+            if not IsExisting(BuildingID) then
+                -- Delete dictionary entry
+                self.Data[_PlayerID].ForgeRegister[BuildingID] = nil;
+            elseif CannonProgress > 0 and CannonProgress < 100 then
+                -- Invalidate wait for worker delay
+                self.Data[_PlayerID].ForgeRegister[BuildingID][1] = 0;
+            elseif CannonProgress == 100 then
+                if Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 1 then
+                    -- Count down worker delay
+                    self.Data[_PlayerID].ForgeRegister[BuildingID][1] = Data[1] - 1;
+                    if Data[1] <= 0 then
+                        -- Delete dictionary entry
+                        self.Data[_PlayerID].ForgeRegister[BuildingID] = nil;
+                        -- Deselect, if selected
+                        if IsEntitySelected(BuildingID) then
+                            XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress, 0);
+                        end
+                    end
+                end
             end
         end
     end
@@ -898,8 +902,8 @@ end
 function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
     local Places = 0;
     if self.Data[_PlayerID] then
-        for k,v in pairs(self.Data[_PlayerID].ForgeRegister) do
-            local Size = GetMilitaryPlacesUsedByUnit(v, 1);
+        for _, Data in pairs(self.Data[_PlayerID].ForgeRegister) do
+            local Size = GetMilitaryPlacesUsedByUnit(Data[2], 1);
             -- Salim passive skill
             if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
                 Size = Size - Stronghold.Hero.Config.Hero3.CannonPlaceReduction;
@@ -918,7 +922,6 @@ function Stronghold.Recruit:UnitRecruiterController(_EntityID)
     if IsPlayer(PlayerID) then
         -- Activate autofill
         if Logic.IsBuilding(_EntityID) == 1 then
-            GUI.DeactivateAutoFillAtBarracks(_EntityID);
             self.Data[PlayerID].AutoFill[_EntityID] = true;
         end
         -- Add training leader
@@ -932,11 +935,10 @@ function Stronghold.Recruit:UnitRecruiterController(_EntityID)
         -- Scale units
         if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon1 then
             SVLib.SetEntitySize(_EntityID, 1.35);
-            -- Logic.SetSpeedFactor(_EntityID, 1.35);
         end
         if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon2 then
             SVLib.SetEntitySize(_EntityID, 0.65);
-            -- Logic.SetSpeedFactor(_EntityID, 0.65);
+            Logic.SetSpeedFactor(_EntityID, 1.15);
         end
     end
 end
@@ -991,6 +993,52 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                 end
             else
                 self.Data[_PlayerID].TrainingLeaders[LeaderID] = BarracksID;
+            end
+        end
+    end
+end
+
+function Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, _BuildingID, _EntityType, _UpgradeCategory)
+    if IsPlayer(_PlayerID) then
+        table.insert(self.Data[_PlayerID].RecruitCommands, {
+            _BuildingID,
+            _EntityType,
+            _UpgradeCategory
+        });
+    end
+end
+
+function Stronghold.Recruit:RecruitCommandController(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        if math.mod(Logic.GetCurrentTurn(), 5) == 0 then
+            while self.Data[_PlayerID].RecruitCommands[1] do
+                local Command = table.remove(self.Data[_PlayerID].RecruitCommands, 1);
+                if self:CanBuildingProduceUnit(_PlayerID, Command[1], Command[2], false) then
+                    -- Pay costs
+                    local Costs = self:GetLeaderCosts(_PlayerID, Command[2], 0);
+                    RemoveResourcesFromPlayer(_PlayerID, Costs);
+                    -- Buy serf
+                    if Command[3] == UpgradeCategories.Serf then
+                        if GUI.GetPlayerID() == _PlayerID then
+                            GUI.BuySerf(Command[1]);
+                        end
+                    -- Buy cannon
+                    elseif Logic.IsEntityTypeInCategory(Command[2], EntityCategories.Cannon) == 1 then
+                        if GUI.GetPlayerID() == _PlayerID then
+                            GUI.BuyCannon(Command[1], Command[2]);
+                        end
+                    -- Buy leader
+                    else
+                        if GUI.GetPlayerID() == _PlayerID then
+                            if SendEvent.DeactivateAutoFillAtBarracks then
+                                SendEvent.DeactivateAutoFillAtBarracks(Command[1]);
+                            end
+                            GUI.DeactivateAutoFillAtBarracks(Command[1]);
+                            GUI.BuyLeader(Command[1], Command[3]);
+                        end
+                    end
+                    break;
+                end
             end
         end
     end
