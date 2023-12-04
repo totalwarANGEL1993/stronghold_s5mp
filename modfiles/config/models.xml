@@ -3624,17 +3624,6 @@
         <SelectionRadius>500</SelectionRadius>
     </Model>
 
-    <Model id="CU_CrusaderLeaderCavalry1">
-        <Effect>SettlerPlayerColorSpecular</Effect>
-        <OcclusionReceiver>True</OcclusionReceiver>
-    </Model>
-
-    <Model id="CU_CrusaderSoldierCavalry1">
-        <Effect>SettlerPlayerColorSpecular</Effect>
-        <SelectionTexture>Selection_Soldier</SelectionTexture>
-        <OcclusionReceiver>True</OcclusionReceiver>
-    </Model>
-
     <Model id="PU_HeroX">
         <Effect>SettlerPlayerColor</Effect>
         <OcclusionReceiver>True</OcclusionReceiver>
@@ -3645,28 +3634,6 @@
     <Model id="PU_HeroX_Summon">
         <SelectionRadius>55</SelectionRadius>
         <Effect>SettlerPlayerColor</Effect>
-        <SelectionTexture>Selection_Soldier</SelectionTexture>
-        <OcclusionReceiver>True</OcclusionReceiver>
-    </Model>
-
-    <Model id="CU_LeaderCavalry5">
-        <Effect>SettlerPlayerColorSpecular</Effect>
-        <OcclusionReceiver>True</OcclusionReceiver>
-    </Model>
-
-    <Model id="CU_SoldierCavalry5">
-        <Effect>SettlerPlayerColorSpecular</Effect>
-        <SelectionTexture>Selection_Soldier</SelectionTexture>
-        <OcclusionReceiver>True</OcclusionReceiver>
-    </Model>
-
-    <Model id="CU_LeaderPoleArm5">
-        <Effect>SettlerPlayerColorSpecular</Effect>
-        <OcclusionReceiver>True</OcclusionReceiver>
-    </Model>
-
-    <Model id="CU_SoldierPoleArm5">
-        <Effect>SettlerPlayerColorSpecular</Effect>
         <SelectionTexture>Selection_Soldier</SelectionTexture>
         <OcclusionReceiver>True</OcclusionReceiver>
     </Model>

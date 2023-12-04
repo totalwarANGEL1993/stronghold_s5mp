@@ -45,7 +45,7 @@
 ---
 
 Stronghold = {
-    Version = "0.6.15",
+    Version = "0.6.16",
     Shared = {
         DelayedAction = {},
         HQInfo = {},

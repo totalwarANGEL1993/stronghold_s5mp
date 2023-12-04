@@ -100,7 +100,7 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Stable</BarrackUpgradeCategory>
             <HomeRadius>3000</HomeRadius>
-            <SoldierType>CU_CrusaderSoldierCavalry1</SoldierType>
+            <SoldierType>CU_RangerSoldierCavalry1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_CROSSBOW</BattleTaskList>
 

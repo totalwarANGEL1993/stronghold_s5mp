@@ -1,4 +1,4 @@
-Version 0.6.15
+Version 0.6.16
 - Es gibt nun ein 0,3 Sekunden Delay beim Rekrutieren von Einheiten
 - Es werden nun immer die belegten Plätze angezeigt
 - Schaden von einigen Einheiten wurde überarbeitet
@@ -8,6 +8,7 @@ Version 0.6.15
 - Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
 - Salim steigert Wissensgewinn Gelehrter um 20%
 - Salims Falle ist geschwächt
+- Helias hat nun ebenfalls Erecs Kavallerie als Spezialeinheiten
 - Mary erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
 - Mary heißt jetzt nur noch "Marie"
 - Bevölkerungslimit wurde überarbeitet
