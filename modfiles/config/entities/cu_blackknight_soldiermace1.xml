@@ -111,8 +111,8 @@
             <HitAnim>CU_BlackKnight_SoldierMace1_Hit</HitAnim>
 
             <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>20</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <DamageAmount>24</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

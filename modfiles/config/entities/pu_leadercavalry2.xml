@@ -32,7 +32,7 @@
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>28</Exploration>
-        <ArmorClass>ArmorClassIron</ArmorClass>
+        <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <DodgeChance>15</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -113,7 +113,7 @@
             <BattleWalkAnim>PU_LeaderCavalry2_Run1</BattleWalkAnim>
             <HitAnim>PU_LeaderCavalry2_Hit</HitAnim>
 
-            <DamageClass>DC_Arrow</DamageClass>
+            <DamageClass>DC_Bolt</DamageClass>
             <DamageAmount>34</DamageAmount>
             <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 

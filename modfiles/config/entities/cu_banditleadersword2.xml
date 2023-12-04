@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>175</MaxHealth>
+        <MaxHealth>200</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -33,7 +33,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>20</ExperiencePoints>
@@ -110,16 +110,15 @@
             <BattleWalkAnim>CU_LeaderOutlaw1_Run1</BattleWalkAnim>
             <HitAnim>CU_LeaderOutlaw1_Hit</HitAnim>
 
-            <!-- That is on purpose -->
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageAmount>15</DamageAmount>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>2000</AutoAttackRange>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>

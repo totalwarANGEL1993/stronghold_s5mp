@@ -37,7 +37,7 @@
         <MaxHealth>350</MaxHealth>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassJerkin</ArmorClass>
-        <ArmorAmount>7</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <DodgeChance>1</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>
@@ -115,8 +115,8 @@
             <BattleWalkAnim>PU_LeaderPoleArm4_Run1</BattleWalkAnim>
             <HitAnim>PU_LeaderPoleArm4_Hit</HitAnim>
 
-            <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>16</DamageAmount>
+            <DamageClass>DC_Halberd</DamageClass>
+            <DamageAmount>19</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>

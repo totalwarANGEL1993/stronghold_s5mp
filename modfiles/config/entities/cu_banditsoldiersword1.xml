@@ -36,7 +36,7 @@
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
-        <DodgeChance>8</DodgeChance>
+        <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>20</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
@@ -109,10 +109,9 @@
             <BattleWalkAnim>CU_SoldierOutlaw1_Run1</BattleWalkAnim>
             <HitAnim>CU_SoldierOutlaw1_Hit</HitAnim>
 
-            <!-- That is on purpose -->
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>26</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageAmount>27</DamageAmount>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>

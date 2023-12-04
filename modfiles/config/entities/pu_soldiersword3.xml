@@ -95,10 +95,10 @@
             <Class>GGL::CSoldierBehavior</Class>
 
             <BattleTaskList>TL_BATTLE</BattleTaskList>
-            <NormalAttackAnim1>PU_SoldierSword3_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim1>PU_SoldierSword3_Finish</NormalAttackAnim1>
             <NormalAttackAnim2>PU_SoldierSword3_Attack2</NormalAttackAnim2>
             <CounterAttackAnim>PU_SoldierSword3_Finish</CounterAttackAnim>
-            <FinishingMoveAnim>PU_SoldierSword3_Finish</FinishingMoveAnim>
+            <FinishingMoveAnim>PU_SoldierSword3_Attack1</FinishingMoveAnim>
             <MissAttackAnim>PU_SoldierSword3_IdleAttack1</MissAttackAnim>
             <BattleIdleAnim>PU_SoldierSword3_IdleAttack1</BattleIdleAnim>
             <BattleWalkAnim>PU_SoldierSword3_Run1</BattleWalkAnim>

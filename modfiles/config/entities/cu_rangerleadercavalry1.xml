@@ -2,24 +2,25 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>PU_LeaderCavalry2</Model>
+        <Model>PU_LeaderCavalry1</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>PU_LeaderCavalry2_Run1</Anim>
-        <Anim>PU_LeaderCavalry2_Idle1</Anim>
-        <Anim>PU_LeaderCavalry2_Idle2</Anim>
-        <Anim>PU_LeaderCavalry2_Idle3</Anim>
-        <Anim>PU_LeaderCavalry2_Idle4</Anim>
-        <Anim>PU_LeaderCavalry2_Idle5</Anim>
-        <Anim>PU_LeaderCavalry2_Idle6</Anim>
-        <Anim>PU_LeaderCavalry2_Attack1</Anim>
-        <Anim>PU_LeaderCavalry2_Dying1</Anim>
-        <Anim>PU_LeaderCavalry2_Walk</Anim>
-        <Anim>PU_LeaderCavalry2_Hit</Anim>
+        <Anim>PU_LeaderCavalry1_Run1</Anim>
+        <Anim>PU_LeaderCavalry1_Idle1</Anim>
+        <Anim>PU_LeaderCavalry1_Idle2</Anim>
+        <Anim>PU_LeaderCavalry1_Idle3</Anim>
+        <Anim>PU_LeaderCavalry1_Idle4</Anim>
+        <Anim>PU_LeaderCavalry1_Idle5</Anim>
+        <Anim>PU_LeaderCavalry1_Idle6</Anim>
+        <Anim>PU_LeaderCavalry1_Attack1</Anim>
+        <Anim>PU_LeaderCavalry1_Dying1</Anim>
+        <Anim>PU_LeaderCavalry1_Walk</Anim>
+        <Anim>PU_LeaderCavalry1_Hit</Anim>
+
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>375</MaxHealth>
+        <MaxHealth>325</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -39,8 +40,9 @@
         <ExperiencePoints>55</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Category>RangerLeaderCavalry1</Category>
+            <Category>LeaderCavalry1</Category>
         </Upgrade>
+
 
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>
@@ -71,8 +73,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PU_LeaderCavalry2_Idle1</SuspensionAnimation>
-            <AnimSet>SET_LEADERCAVALRY2</AnimSet>
+            <SuspensionAnimation>PU_LeaderCavalry1_Idle1</SuspensionAnimation>
+            <AnimSet>SET_LEADERCAVALRY1</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -84,7 +86,7 @@
             <Speed>550</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
-            <MoveIdleAnim>PU_LeaderCavalry2_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>PU_LeaderCavalry1_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -99,38 +101,38 @@
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Stable</BarrackUpgradeCategory>
-            <HomeRadius>3000</HomeRadius>
+            <HomeRadius>2000</HomeRadius>
+
             <SoldierType>CU_RangerSoldierCavalry1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_CROSSBOW</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_BOW</BattleTaskList>
 
-            <NormalAttackAnim1>PU_LeaderCavalry2_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>PU_LeaderCavalry2_Attack1</NormalAttackAnim2>
-            <CounterAttackAnim>PU_LeaderCavalry2_Attack1</CounterAttackAnim>
-            <FinishingMoveAnim>PU_LeaderCavalry2_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>PU_LeaderCavalry2_Idle1</MissAttackAnim>
-            <BattleIdleAnim>PU_LeaderCavalry2_Idle1</BattleIdleAnim>
-            <BattleWalkAnim>PU_LeaderCavalry2_Run1</BattleWalkAnim>
-            <HitAnim>PU_LeaderCavalry2_Hit</HitAnim>
+            <NormalAttackAnim1>PU_LeaderCavalry1_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_LeaderCavalry1_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>PU_LeaderCavalry1_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_LeaderCavalry1_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_LeaderCavalry1_Idle1</MissAttackAnim>
+            <BattleIdleAnim>PU_LeaderCavalry1_Idle1</BattleIdleAnim>
+            <BattleWalkAnim>PU_LeaderCavalry1_Run1</BattleWalkAnim>
+            <HitAnim>PU_LeaderCavalry1_Hit</HitAnim>
 
-            <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>30</DamageAmount>
+            <DamageClass>DC_Bolt</DamageClass>
+            <DamageAmount>32</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
             <MissChance>2</MissChance>
 
-            <ProjectileEffectID>FXCrossBowCavalryArrow</ProjectileEffectID>
+            <ProjectileEffectID>FXCavalryArrow</ProjectileEffectID>
             <MaxRange>2800</MaxRange>
-            <MinRange>0.0f</MinRange>
+            <MinRange>0</MinRange>
             <AutoAttackRange>2800</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
 
             <UpkeepCost>20</UpkeepCost>
-
         </Logic>
     </Behavior>
 
@@ -170,14 +172,4 @@
             <EntityType>XD_DroppedBow</EntityType>
         </Logic>
     </Behavior>
-
-
-
-
-
-
-
-
-
-
 </root>

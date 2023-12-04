@@ -104,11 +104,11 @@
 
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 
-            <NormalAttackAnim1>PU_LeaderSword3_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim1>PU_LeaderSword3_Finish</NormalAttackAnim1>
             <NormalAttackAnim2>PU_LeaderSword3_Attack2</NormalAttackAnim2>
             <CounterAttackAnim>PU_LeaderSword3_Finish</CounterAttackAnim>
             <FinishingMoveAnim>PU_LeaderSword3_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>PU_LeaderSword3_Attack1</MissAttackAnim>
+            <MissAttackAnim>PU_LeaderSword3_IdleAttack1</MissAttackAnim>
             <BattleIdleAnim>PU_LeaderSword3_IdleAttack1</BattleIdleAnim>
             <BattleWalkAnim>PU_LeaderSword3_Run1</BattleWalkAnim>
             <HitAnim>PU_LeaderSword3_Hit</HitAnim>
