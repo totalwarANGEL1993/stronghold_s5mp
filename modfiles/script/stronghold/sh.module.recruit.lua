@@ -1010,6 +1010,7 @@ end
 
 function Stronghold.Recruit:RecruitCommandController(_PlayerID)
     if IsPlayer(_PlayerID) then
+        --- @diagnostic disable-next-line: undefined-field
         if math.mod(Logic.GetCurrentTurn(), 5) == 0 then
             while self.Data[_PlayerID].RecruitCommands[1] do
                 local Command = table.remove(self.Data[_PlayerID].RecruitCommands, 1);
