@@ -984,19 +984,23 @@ function Stronghold.Building:OnRallyPointHolderSelected(_GuiPlayerID, _EntityID)
     -- Hide all rally points for viewer
     local ViewerPlayer = (PlayerID == 0 and _GuiPlayerID) or PlayerID;
     if ViewerPlayer == 17 then
-        for i= 1, GetMaxAmountOfPlayer() do
-            for k,v in pairs(self.Data[i].RallyPoint) do
-                if IsExisting(v) then
-                    SVLib.SetInvisibility(v, true);
-                    Logic.SetEntityExplorationRange(v, 0);
+        for i = 1, GetMaxAmountOfPlayer() do
+            if IsPlayer(i) then
+                for _, HolderID in pairs(self.Data[i].RallyPoint) do
+                    if IsExisting(HolderID) then
+                        SVLib.SetInvisibility(HolderID, true);
+                        Logic.SetEntityExplorationRange(HolderID, 0);
+                    end
                 end
             end
         end
     else
-        for k,v in pairs(self.Data[ViewerPlayer].RallyPoint) do
-            if IsExisting(v) then
-                SVLib.SetInvisibility(v, true);
-                Logic.SetEntityExplorationRange(v, 0);
+        if IsPlayer(PlayerID) then
+            for _,HolderID in pairs(self.Data[PlayerID].RallyPoint) do
+                if IsExisting(HolderID) then
+                    SVLib.SetInvisibility(HolderID, true);
+                    Logic.SetEntityExplorationRange(HolderID, 0);
+                end
             end
         end
     end

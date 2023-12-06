@@ -110,7 +110,7 @@ function Stronghold.Rights:CreateButtonHandlers()
             if _Action == Stronghold.Rights.SyncEvents.RankUp then
                 Stronghold.Rights:PromotePlayer(_PlayerID);
                 if _PlayerID == GUI.GetPlayerID() or GUI.GetPlayerID() == 17 then
-                    Stronghold.Rights:OnlineHelpUpdate("OnlineHelpButton", Technologies.T_OnlineHelp);
+                    Stronghold.Rights:OnlineHelpUpdate(_PlayerID, "OnlineHelpButton", Technologies.T_OnlineHelp);
                     GameCallback_GUI_SelectionChanged();
                 end
             end
