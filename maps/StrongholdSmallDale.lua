@@ -37,7 +37,7 @@ SHS5MP_RulesDefinition = {
 
     -- Resources
     -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
-    Resources = {0, 500, 1000, 700, 550, 300, 0},
+    Resources = {[1] = {0, 500, 1000, 700, 550, 300, 0}},
 
     -- Setup heroes allowed
     AllowedHeroes = {
