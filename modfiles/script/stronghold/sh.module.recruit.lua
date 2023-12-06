@@ -172,14 +172,6 @@ function Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
         Costs = CopyTable(Config.Costs[1]);
         Costs = CreateCostTable(unpack(Costs));
 
-        -- Effect Slave Penny
-        if _Type == Entities.PU_Serf then
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SlavePenny) == 1 then
-                local Factor = self.Config.SlavePenny.CostsFactor;
-                Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
-            end
-        end
-
         Costs = Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, Costs);
         if _SoldierAmount and _SoldierAmount > 0 then
             local SoldierCosts = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
@@ -401,10 +393,6 @@ function Stronghold.Recruit:BuySerfTooltip(_PlayerID, _EntityID)
     else
         local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
         local Costs = CreateCostTable(unpack(Config.Costs[1]));
-        if Logic.IsTechnologyResearched(GuiPlayer, Technologies.T_SlavePenny) == 1 then
-            local Factor = Stronghold.Recruit.Config.SlavePenny.CostsFactor;
-            Costs[ResourceType.Gold] = math.floor((Costs[ResourceType.Gold] * Factor) + 0.5);
-        end
         Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buyserf");
         Shortcut = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits1") .. "]";
         CostText = FormatCostString(GuiPlayer, Costs);
