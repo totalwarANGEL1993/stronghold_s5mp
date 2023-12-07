@@ -286,9 +286,8 @@ function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
             if Data.CriminalsCounter < self.Config.Crime.Convert.MaxPerCycle then
                 if Data.LastAttempt + TimeBetween < Logic.GetTime() then
                     local WorkerList = self:GetPotentialCriminalSettlers(_PlayerID);
-                    local WorkerCount = table.getn(WorkerList);
-                    if WorkerCount > 0 then
-                        local Selected = WorkerList[math.random(1, WorkerCount)];
+                    if WorkerList[1] > 0 then
+                        local Selected = WorkerList[math.random(2, WorkerList[1] +1)];
                         self:AddCriminal(_PlayerID, Selected[2], Selected[1]);
                     end
                     self.Data[_PlayerID].CriminalsCounter = Data.CriminalsCounter +1;
@@ -412,19 +411,21 @@ end
 
 -- Returns all workers that can become criminal.
 function Stronghold.Attraction:GetPotentialCriminalSettlers(_PlayerID)
-    local WorkerList = {};
-    for k, v in pairs(Stronghold:GetWorkplacesOfType(_PlayerID, 0, true)) do
-        local Type = Logic.GetEntityType(v);
+    local ResultList = {0};
+    local WorkplaceList = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+    for j= 2, WorkplaceList[1] +1 do
+        local Type = Logic.GetEntityType(WorkplaceList[j]);
         if Type ~= Entities.PB_Foundry1 and Type ~= Entities.PB_Foundry2 then
-            local WorkerOfBuilding = {Logic.GetAttachedWorkersToBuilding(v)};
+            local WorkerOfBuilding = {Logic.GetAttachedWorkersToBuilding(WorkplaceList[j])};
             for i= 2, WorkerOfBuilding[1] +1 do
                 if self:DoesSettlerTurnCriminal(_PlayerID, WorkerOfBuilding[i]) then
-                    table.insert(WorkerList, {WorkerOfBuilding[i], v});
+                    table.insert(ResultList, {WorkerOfBuilding[i], WorkplaceList[j]});
+                    ResultList[1] = ResultList[1] +1;
                 end
             end
         end
     end
-    return WorkerList;
+    return ResultList;
 end
 
 -- Returns how much a settler is watched by "the law".
@@ -516,17 +517,18 @@ end
 function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Update Motivation of workers
-        for k,v in pairs(Stronghold:GetWorkersOfType(_PlayerID, 0)) do
-            local WorkplaceID = Logic.GetSettlersWorkBuilding(v);
+        local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
+        for i= 2, WorkerList[1] +1 do
+            local WorkplaceID = Logic.GetSettlersWorkBuilding(WorkerList[i]);
             if  (WorkplaceID ~= nil and WorkplaceID ~= 0)
             and Logic.IsOvertimeActiveAtBuilding(WorkplaceID) == 0
             and Logic.IsAlarmModeActive(WorkplaceID) ~= true then
-                local OldMoti = Logic.GetSettlersMotivation(v);
+                local OldMoti = Logic.GetSettlersMotivation(WorkerList[i]);
                 local NewMoti = math.floor((OldMoti * 100) + 0.5) + _Amount;
                 NewMoti = math.min(NewMoti, GetMaxReputation(_PlayerID));
                 NewMoti = math.min(NewMoti, GetReputation(_PlayerID));
                 NewMoti = math.max(NewMoti, 20);
-                CEntity.SetMotivation(v, NewMoti / 100);
+                CEntity.SetMotivation(WorkerList[i], NewMoti / 100);
             end
         end
         -- Restore reputation when workers are all gone
@@ -543,15 +545,15 @@ function Stronghold.Attraction:GetVirtualPlayerAttractionLimit(_PlayerID)
     local RawLimit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Village Centers
-        local VC1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true));
-        RawLimit = RawLimit + (VC1 * self.Config.Attraction.VCCivil[1]);
+        local VC1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true);
+        RawLimit = RawLimit + (VC1[1] * self.Config.Attraction.VCCivil[1]);
         local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
         RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCCivil[2]);
         local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
         RawLimit = RawLimit + (VC3 * self.Config.Attraction.VCCivil[3]);
         -- Headquarters
-        local HQ1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true));
-        RawLimit = RawLimit + (HQ1 * self.Config.Attraction.HQCivil[1]);
+        local HQ1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
+        RawLimit = RawLimit + (HQ1[1] * self.Config.Attraction.HQCivil[1]);
         local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
         RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQCivil[2]);
         local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
@@ -705,7 +707,7 @@ function Stronghold.Attraction:GetMillitarySize(_PlayerID)
         local Config = Stronghold.Unit.Config:Get(k, _PlayerID);
         if not Config or Config.IsCivil ~= true then
             local UnitList = Stronghold:GetLeadersOfType(_PlayerID, k);
-            for i= 1, table.getn(UnitList) do
+            for i= 2, UnitList[1] +1 do
                 -- Get unit size
                 local Usage = v;
                 if Logic.IsLeader(UnitList[i]) == 1 then

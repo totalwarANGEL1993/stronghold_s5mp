@@ -742,6 +742,7 @@ function Stronghold:StartTriggers()
             --- @diagnostic disable-next-line: undefined-field
             local PlayerMod = math.mod(PlayerID, 10);
             if TimeMod == PlayerMod then
+                Stronghold:ClearPlayerRecordCache(PlayerID);
                 Stronghold.Attraction:OncePerSecond(PlayerID);
                 Stronghold.Building:OncePerSecond(PlayerID);
                 Stronghold.Economy:OncePerSecond(PlayerID);
@@ -995,6 +996,8 @@ end;
 function Stronghold:InitPlayerEntityRecord()
     for i= 1, GetMaxPlayers() do
         self.Record[i] = {
+            Cache = {},
+            --
             All = {},
             Building = {},
             Fortification = {},
@@ -1008,6 +1011,12 @@ function Stronghold:InitPlayerEntityRecord()
         for k,v in pairs(GetPlayerEntities(i, 0)) do
             self:AddEntityToPlayerRecordOnCreate(v);
         end
+    end
+end
+
+function Stronghold:ClearPlayerRecordCache(_PlayerID)
+    if self.Record[_PlayerID] then
+        self.Record[_PlayerID].Cache = {};
     end
 end
 
@@ -1061,8 +1070,14 @@ end
 
 function Stronghold:GetEntitiesOfType(_PlayerID, _Type, _IsConstructed, _Group)
     _Group = _Group or "All";
-    local List = {};
+    local List = {0};
     if self:IsPlayer(_PlayerID) then
+        -- Use cache if valid
+        local Key = _Group.. "_" .._Type.. "_" .._Group.. "_" ..tostring(_IsConstructed);
+        if self.Record[_PlayerID].Cache[Key] then
+            return self.Record[_PlayerID].Cache[Key];
+        end
+        -- Find entities
         for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
             if IsExisting(ID) then
                 local Type = Logic.GetEntityType(ID);
@@ -1076,27 +1091,37 @@ function Stronghold:GetEntitiesOfType(_PlayerID, _Type, _IsConstructed, _Group)
                             end
                             if Appropiate then
                                 table.insert(List, ID);
+                                List[1] = List[1] + 1;
                             end
                         end
-                    else
+                    elseif Logic.IsSettler(ID) == 1 then
                         if string.find(TypeName, "CU_") or string.find(TypeName, "CV_")
                         or string.find(TypeName, "PU_") or string.find(TypeName, "PV_") then
                             table.insert(List, ID);
+                            List[1] = List[1] + 1;
                         end
                     end
                 end
             end
         end
+        -- Save cache
+        self.Record[_PlayerID].Cache[Key] = List;
     end
     return List;
 end
 
 function Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed, _Group)
     _Group = _Group or "Building";
-    local List = {};
+    local List = {0};
     if self:IsPlayer(_PlayerID) then
+        -- Use cache if valid
+        local Key = _Group.. "_" .._Type.. "_" .._Group.. "_" ..tostring(_IsConstructed);
+        if self.Record[_PlayerID].Cache[Key] then
+            return self.Record[_PlayerID].Cache[Key];
+        end
+        -- Find entities
         for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
-            if IsExisting(ID) then
+            if IsExisting(ID) and Logic.IsBuilding(ID) == 1 then
                 local Type = Logic.GetEntityType(ID);
                 local TypeName = Logic.GetEntityTypeName(Type);
                 if _Type == 0 or Type == _Type then
@@ -1107,11 +1132,14 @@ function Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed, _Group)
                         end
                         if Appropiate then
                             table.insert(List, ID);
+                            List[1] = List[1] + 1;
                         end
                     end
                 end
             end
         end
+        -- Save cache
+        self.Record[_PlayerID].Cache[Key] = List;
     end
     return List;
 end
@@ -1126,20 +1154,29 @@ end
 
 function Stronghold:GetSettlersOfType(_PlayerID, _Type, _Group)
     _Group = _Group or "Settler";
-    local List = {};
+    local List = {0};
     if self:IsPlayer(_PlayerID) then
+        -- Use cache if valid
+        local Key = _Group.. "_" .._Type.. "_" .._Group.. "_nil";
+        if self.Record[_PlayerID].Cache[Key] then
+            return self.Record[_PlayerID].Cache[Key];
+        end
+        -- Find entities
         for ID,_ in pairs(self.Record[_PlayerID][_Group]) do
-            if IsExisting(ID) then
+            if IsExisting(ID) and Logic.IsSettler(ID) == 1 then
                 local Type = Logic.GetEntityType(ID);
                 local TypeName = Logic.GetEntityTypeName(Type);
                 if _Type == 0 or Type == _Type then
                     if string.find(TypeName, "CU_") or string.find(TypeName, "CV_")
                     or string.find(TypeName, "PU_") or string.find(TypeName, "PV_") then
                         table.insert(List, ID);
+                        List[1] = List[1] + 1;
                     end
                 end
             end
         end
+        -- Save cache
+        self.Record[_PlayerID].Cache[Key] = List;
     end
     return List;
 end

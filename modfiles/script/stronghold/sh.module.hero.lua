@@ -109,7 +109,7 @@ end
 function Stronghold.Hero:OnSaveGameLoaded()
     for i= 1, GetMaxPlayers() do
         local Wolves = Stronghold:GetLeadersOfType(i, Entities.CU_Barbarian_Hero_wolf);
-        for j=1, table.getn(Wolves) do
+        for j= 2, Wolves[1] +1 do
             self:ConfigureSummonedEntities(Wolves[j]);
         end
     end
@@ -713,8 +713,9 @@ end
 function Stronghold.Hero:VargWolvesController(_PlayerID)
     if IsPlayer(_PlayerID) then
         local WolvesBatteling = 0;
-        for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, Entities.CU_Barbarian_Hero_wolf)) do
-            if IsFighting(v) then
+        local SummonWolves = Stronghold:GetLeadersOfType(_PlayerID, Entities.CU_Barbarian_Hero_wolf);
+        for i= 2, SummonWolves[1] +1 do
+            if IsFighting(SummonWolves[i]) then
                 WolvesBatteling = WolvesBatteling +1;
             end
         end

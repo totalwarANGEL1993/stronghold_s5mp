@@ -188,7 +188,7 @@ function Stronghold.Building:CheckBuildingTechnologyConditions(_PlayerID)
     and GetRank(_PlayerID) >= GetRankRequired(_PlayerID, PlayerRight.Zitadel)
     and Logic.GetUpgradeLevelForBuilding(GetHeadquarterID(_PlayerID)) < 2 then
         local BuildingAmount = 0;
-        for i= 1, table.getn(WorkplaceList) do
+        for i= 2, WorkplaceList[1] +1 do
             local Type = Logic.GetEntityType(WorkplaceList[i]);
             if self.Config.CastleBuildingUpgradeRequirements[Type] then
                 BuildingAmount = BuildingAmount + 1;
@@ -422,7 +422,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
     elseif _BlessCategory == BlessCategories.Financial then
         local StanimaBonus = 0.5;
         local Workplaces = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
-        for i= 1, table.getn(Workplaces) do
+        for i= 2, Workplaces[1] +1 do
             local Workers = {Logic.GetAttachedWorkersToBuilding(Workplaces[i])};
             if Workers[1] > 0 and Logic.IsConstructionComplete(Workplaces[i]) == 1 then
                 for j= 2, Workers[1] +1 do
@@ -1197,7 +1197,7 @@ end
 function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
     if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_AutoRepair) == 1 then
         local Cannons = Stronghold:GetCannonsOfType(_PlayerID, 0);
-        for i= 1, table.getn(Cannons) do
+        for i= 2, Cannons[1] +1 do
             local Position = GetPosition(Cannons[i]);
             local MaxHealth = Logic.GetEntityMaxHealth(Cannons[i]);
             local Health = Logic.GetEntityHealth(Cannons[i]);

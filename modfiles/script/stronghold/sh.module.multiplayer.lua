@@ -436,24 +436,25 @@ function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
         Camera.ScrollSetBorderFlag(0);
         Camera.ScrollSetSpeed(0);
     end
-    for k,v in pairs(Stronghold:GetLeadersOfType(_PlayerID, 0)) do
-        if Logic.IsBuilding(v) == 1 then
-            local Type = Logic.GetEntityType(v);
+    local LeaderList = Stronghold:GetLeadersOfType(_PlayerID, 0);
+    for i= 2, LeaderList[1] +1 do
+        if Logic.IsBuilding(LeaderList[i]) == 1 then
+            local Type = Logic.GetEntityType(LeaderList[i]);
             local TypeName = Logic.GetEntityTypeName(Type);
             if not string.find(TypeName, "Headquarter") then
-                local ID = ReplaceEntity(v, Entities.XD_ScriptEntity);
+                local ID = ReplaceEntity(LeaderList[i], Entities.XD_ScriptEntity);
                 WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
                 table.insert(self.Data[_PlayerID].ReplacedEntities, {ID, Type, 0});
             end
-        elseif Logic.IsSettler(v) == 1 then
-            local Soldiers = {Logic.GetSoldiersAttachedToLeader(v)};
+        elseif Logic.IsSettler(LeaderList[i]) == 1 then
+            local Soldiers = {Logic.GetSoldiersAttachedToLeader(LeaderList[i])};
             if Soldiers[1] then
                 for i= 1, Soldiers[1] +1 do
                     DestroyEntity(Soldiers[i]);
                 end
             end
-            local Type = Logic.GetEntityType(v);
-            local ID = ReplaceEntity(v, Entities.XD_ScriptEntity);
+            local Type = Logic.GetEntityType(LeaderList[i]);
+            local ID = ReplaceEntity(LeaderList[i], Entities.XD_ScriptEntity);
             WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[_PlayerID].ReplacedEntities, {ID, Type, Soldiers[1] or 0});
         end

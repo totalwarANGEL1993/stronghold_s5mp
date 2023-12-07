@@ -408,20 +408,21 @@ function Stronghold.Rights:GetSettlersOfTypeInSettlement(_PlayerID, _Type)
 end
 
 function Stronghold.Rights:GetBuildingAmountInSettlement(_PlayerID)
-    local WorkplaceAmount = table.getn(Stronghold:GetWorkplacesOfType(_PlayerID, 0, true));
-    return WorkplaceAmount;
+    local WorkplaceAmount = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+    return WorkplaceAmount[1];
 end
 
 function Stronghold.Rights:GetBuildingsOfTypeInSettlement(_PlayerID, _Type)
-    local CurrentAmount = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, _Type, true));
-    return CurrentAmount;
+    local CurrentAmount = Stronghold:GetBuildingsOfType(_PlayerID, _Type, true);
+    return CurrentAmount[1];
 end
 
 function Stronghold.Rights:GetBeautificationAmountInSettlement(_PlayerID)
     local Amount = 0;
     for i= 1, 12 do
         local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-        Amount = Amount + table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true));
+        local BuildingList = Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true);
+        Amount = Amount + BuildingList[1];
     end
     return Amount;
 end
@@ -431,7 +432,7 @@ function Stronghold.Rights:GetAllBeautificationsInSettlement(_PlayerID)
     for i= 1, 12 do
         local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
         local Beautification = Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true);
-        if Beautification and Beautification[1] then
+        if Beautification[1] > 0 then
             Amount = Amount +1;
         end
     end
@@ -450,7 +451,7 @@ function Stronghold.Rights:DoesCathedralOfUpgradeLevelExist(_PlayerID, _Level)
     local Cathedral1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
     local Cathedral2 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
     local Cathedral3 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery3, true);
-    local ID = Cathedral3[1] or Cathedral2[1] or Cathedral1[1] or 0;
+    local ID = Cathedral3[2] or Cathedral2[2] or Cathedral1[2] or 0;
     if ID ~= 0 then
         return Logic.GetUpgradeLevelForBuilding(ID) >= _Level;
     end

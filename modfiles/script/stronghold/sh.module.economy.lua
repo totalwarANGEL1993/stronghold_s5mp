@@ -380,7 +380,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Income = 0;
         local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
-        if table.getn(WorkerList) > 0 then
+        if WorkerList[1] > 0 then
             -- Tax height
             local TaxtHeight = Stronghold.Players[_PlayerID].TaxHeight;
             self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;
@@ -394,16 +394,16 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             -- Care for the settlers
             local Providing = 0;
             local Housing = 0;
-            for k, v in pairs(WorkerList) do
-                local FarmID = Logic.GetSettlersFarm(v);
+            for i= 2, WorkerList[1] +1 do
+                local FarmID = Logic.GetSettlersFarm(WorkerList[i]);
                 if FarmID ~= 0 then
-                    local Bonus = self:CalculateReputationIncreaseTechnologyBonus(_PlayerID, FarmID, v);
+                    local Bonus = self:CalculateReputationIncreaseTechnologyBonus(_PlayerID, FarmID, WorkerList[i]);
                     Providing = Providing + Bonus;
                     Income = Income + Bonus;
                 end
-                local ResidenceID = Logic.GetSettlersResidence(v);
+                local ResidenceID = Logic.GetSettlersResidence(WorkerList[i]);
                 if ResidenceID ~= 0 then
-                    local Bonus = self:CalculateReputationIncreaseTechnologyBonus(_PlayerID, ResidenceID, v);
+                    local Bonus = self:CalculateReputationIncreaseTechnologyBonus(_PlayerID, ResidenceID, WorkerList[i]);
                     Housing = Housing + Bonus;
                     Income = Income + Bonus;
                 end
@@ -415,14 +415,15 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             local Beauty = 0;
             for k, v in pairs(self.Config.Income.Static) do
                 local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, k, true);
-                for i= table.getn(Buildings), 1, -1 do
+                for i= Buildings[1] +1, 2, -1 do
                     if Logic.GetBuildingWorkPlaceLimit(Buildings[i]) > 0 then
                         if Logic.GetBuildingWorkPlaceUsage(Buildings[i]) == 0 then
                             table.remove(Buildings, i);
+                            Buildings[1] = Buildings[1] - 1;
                         end
                     end
                 end
-                local BuildingIncome = (table.getn(Buildings) * v.Reputation);
+                local BuildingIncome = (Buildings[1] * v.Reputation);
                 BuildingIncome = GameCallback_SH_Calculate_StaticReputationIncrease(_PlayerID, k, BuildingIncome);
                 Income = Income + BuildingIncome;
                 Beauty = Beauty + BuildingIncome;
@@ -543,7 +544,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
         local Income = 0;
         if GetID(Stronghold.Players[_PlayerID].LordScriptName) ~= 0 then
             local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
-            if table.getn(WorkerList) > 0 then
+            if WorkerList[1] > 0 then
                 -- Tax height
                 local TaxHight = Stronghold.Players[_PlayerID].TaxHeight;
                 local TaxBonus = self.Config.Income.TaxEffect[TaxHight].Honor;
@@ -553,16 +554,16 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 -- Care for the settlers
                 local Housing = 0;
                 local Providing = 0;
-                for k, v in pairs(WorkerList) do
-                    local FarmID = Logic.GetSettlersFarm(v);
+                for i= 2, WorkerList[1] +1 do
+                    local FarmID = Logic.GetSettlersFarm(WorkerList[i]);
                     if FarmID ~= 0 then
-                        local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, FarmID, v);
+                        local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, FarmID, WorkerList[i]);
                         Providing = Providing + Bonus;
                         Income = Income + Bonus;
                     end
-                    local ResidenceID = Logic.GetSettlersResidence(v);
+                    local ResidenceID = Logic.GetSettlersResidence(WorkerList[i]);
                     if ResidenceID ~= 0 then
-                        local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, ResidenceID, v);
+                        local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, ResidenceID, WorkerList[i]);
                         Housing = Housing + Bonus;
                         Income = Income + Bonus;
                     end
@@ -574,7 +575,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 local Beauty = 0;
                 for k, v in pairs(self.Config.Income.Static) do
                     local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, k, true);
-                    for i= table.getn(Buildings), 1, -1 do
+                    for i= Buildings[1] +1, 2, -1 do
                         local WorkplaceLimit = Logic.GetBuildingWorkPlaceLimit(Buildings[i]);
                         if WorkplaceLimit then
                             if Logic.GetBuildingWorkPlaceUsage(Buildings[i]) < WorkplaceLimit then
@@ -582,7 +583,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                             end
                         end
                     end
-                    local BuildingBonus = (table.getn(Buildings) * v.Honor);
+                    local BuildingBonus = (Buildings[1] * v.Honor);
                     BuildingBonus = GameCallback_SH_Calculate_StaticHonorIncrease(_PlayerID, k, BuildingBonus);
                     Beauty = Beauty + BuildingBonus
                     Income = Income + BuildingBonus;
@@ -640,7 +641,7 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
         local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
         local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
         local PerWorker = self.Config.Income.TaxPerWorker;
-        local Income = (table.getn(WorkerList) * PerWorker) * (TaxHeight -1);
+        local Income = (WorkerList[1] * PerWorker) * (TaxHeight -1);
 
         -- Scale
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Scale) == 1 then
@@ -662,12 +663,21 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
         local Upkeep = 0;
         for k, v in pairs(Stronghold.Unit.Config) do
             if type(k) == "number" then
+                -- Merge military table
+                local Military = {0};
                 local LeaderList = Stronghold:GetLeadersOfType(_PlayerID, k);
+                for i= 2, LeaderList[1] +1 do
+                    table.insert(Military, LeaderList[i]);
+                    Military[1] = Military[1] + 1;
+                end
                 local CannonList = Stronghold:GetCannonsOfType(_PlayerID, k);
-                local Military = CopyTable(LeaderList, CannonList);
+                for i= 2, CannonList[1] +1 do
+                    table.insert(Military, CannonList[i]);
+                    Military[1] = Military[1] + 1;
+                end
                 -- Calculate regular upkeep
                 local TypeUpkeep = 0;
-                for i= 1, table.getn(Military) do
+                for i= 2, Military[1] +1 do
                     local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(Military[i]);
                     local SoldiersCur = Logic.LeaderGetNumberOfSoldiers(Military[i]);
                     local UpkeepLeader = math.ceil((v.Upkeep or 0) / 2);
@@ -787,7 +797,7 @@ function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Add points per working scholar
         local ScholarList = Stronghold:GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
-        for i= 1, table.getn(ScholarList) do
+        for i= 2, ScholarList[1] +1 do
             if Logic.IsSettlerAtWork(ScholarList[i]) == 1 then
                 local BuildingID = Logic.GetSettlersWorkBuilding(ScholarList[i]);
                 if not InterfaceTool_IsBuildingDoingSomething(BuildingID) then
