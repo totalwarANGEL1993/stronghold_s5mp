@@ -30,6 +30,12 @@ Version 0.6.17
   * Bombarde, Große Bombarde, Bronzekanone: 4
   * Eisenkanone, Dschihad, Belagerungskanone: 8
 
+Version 0.5.33
+- Geschwindigkeit der Kanonen wurde angepasst.
+  (Große Bombarde und Dschihad sind so schnell wie ihre Gegenstücke)
+- Neue Version der Armeefunktion wurde integriert.
+- Vertrauschte Icons von Drake und Yuki wurden gefixt.
+
 Version 0.5.30
 - Einige Performance Verbesserungen
 
