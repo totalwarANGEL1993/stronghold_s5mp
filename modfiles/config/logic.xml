@@ -1122,16 +1122,6 @@
 	    <FirstSettler>CU_BanditSoldierBow1</FirstSettler>
 	</SettlerUpgrade>
 
-    <SettlerUpgrade>
-	    <Category>BanditLeaderBow2</Category>
-	    <FirstSettler>CU_BanditLeaderBow2</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>BanditSoldierBow2</Category>
-	    <FirstSettler>CU_BanditSoldierBow2</FirstSettler>
-	</SettlerUpgrade>
-
     <!-- Military rifle -->
 
     <SettlerUpgrade>

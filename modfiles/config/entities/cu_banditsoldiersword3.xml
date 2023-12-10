@@ -110,7 +110,7 @@
             <HitAnim>CU_BanditLeaderSword1_Hit</HitAnim>
 
             <DamageClass>DC_Slash</DamageClass>
-            <DamageAmount>9</DamageAmount>
+            <DamageAmount>7</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>

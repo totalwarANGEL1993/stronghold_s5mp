@@ -1052,9 +1052,7 @@
         <Entity>CB_Turret3</Entity>
         <Entity>CB_Turret3_Cannon</Entity>
 
-        <Entity>CU_BanditLeaderBow2</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
-        <Entity>CU_BanditSoldierBow2</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
         <Entity>CU_Hero13</Entity>

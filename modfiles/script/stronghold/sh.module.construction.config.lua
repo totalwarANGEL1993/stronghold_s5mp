@@ -8,21 +8,25 @@ Stronghold.Construction.Config = {
 
     -- Limit of recruiter buildings
     RecruitBuildingAmounts = {
-        [Entities.PB_Headquarters1] = 2,
-        [Entities.PB_Headquarters2] = 3,
-        [Entities.PB_Headquarters3] = 4,
-        [Entities.PB_VillageCenter1] = 0,
-        [Entities.PB_VillageCenter2] = 1,
-        [Entities.PB_VillageCenter3] = 2,
+        [1] = 1,
+        [2] = 2,
+        [3] = 2,
+        [4] = 2,
+        [5] = 3,
+        [6] = 3,
+        [7] = 3,
+        [8] = 4,
     },
     -- Limit of cannon factories
     SmeltingBuildingAmounts = {
-        [Entities.PB_Headquarters1] = 1,
-        [Entities.PB_Headquarters2] = 2,
-        [Entities.PB_Headquarters3] = 3,
-        [Entities.PB_VillageCenter1] = 0,
-        [Entities.PB_VillageCenter2] = 0,
-        [Entities.PB_VillageCenter3] = 1,
+        [1] = 1,
+        [2] = 1,
+        [3] = 1,
+        [4] = 1,
+        [5] = 2,
+        [6] = 2,
+        [7] = 3,
+        [8] = 3,
     },
 
     -- Check types for construction technology

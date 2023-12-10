@@ -408,15 +408,9 @@ function Stronghold.Construction:InitBuildingLimits()
 end
 
 function Stronghold.Construction:OverwriteCallbacks()
-    Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_BuildingID, _PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
         Overwrite.CallOriginal();
         Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID);
-    end);
-
-    Overwrite.CreateOverwrite("GameCallback_OnBuildingUpgradeComplete", function(_OldID, _NewID)
-        Overwrite.CallOriginal();
-        local PlayerID = Logic.EntityGetPlayer(_NewID);
-        Stronghold.Construction:InitBarracksBuildingLimits(PlayerID);
     end);
 end
 
@@ -432,13 +426,10 @@ function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID)
     if not IsPlayer(_PlayerID) then
         return;
     end
+    local Rank = GetRank(_PlayerID);
 
     -- Set limit of recruiter buildings
-    local RecruiterLimit = 0;
-    for Type, Bonus in pairs(self.Config.RecruitBuildingAmounts) do
-        local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, Type, true);
-        RecruiterLimit = RecruiterLimit + (Bonus * Buildings[1]);
-    end
+    local RecruiterLimit = self.Config.RecruitBuildingAmounts[Rank +1];
     EntityTracker.SetLimitOfType(Entities.PB_Barracks1, RecruiterLimit, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Barracks2, RecruiterLimit, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Archery1, RecruiterLimit, _PlayerID);
@@ -447,11 +438,7 @@ function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID)
     EntityTracker.SetLimitOfType(Entities.PB_Stable2, RecruiterLimit, _PlayerID);
 
     -- Set limit of smelter buildings
-    local SmelterLimit = 0;
-    for Type, Bonus in pairs(self.Config.SmeltingBuildingAmounts) do
-        local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, Type, true);
-        SmelterLimit = SmelterLimit + (Bonus * Buildings[1]);
-    end
+    local SmelterLimit = self.Config.SmeltingBuildingAmounts[Rank +1];
     EntityTracker.SetLimitOfType(Entities.PB_Foundry1, SmelterLimit, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry2, SmelterLimit, _PlayerID);
 end

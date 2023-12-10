@@ -70,7 +70,6 @@ PlayerRight = {
     BerserkWeak = 226,
     BanditSword = 227,
     BanditBow = 228,
-    BanditCrossbow = 229,
     BarbarianStrong = 230,
     BarbarianWeak = 231,
     BlackKnightStrong = 232,
@@ -81,6 +80,8 @@ PlayerRight = {
     Serf = 237,
     Scout = 238,
     Thief = 239,
+    BigBombardCannon = 240,
+    DschihadCannon = 241,
 
     -- Buildings
     BallistaTower = 300,

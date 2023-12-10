@@ -58,7 +58,6 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PU_LeaderSword4] = 1,
     ---
     [Entities.CU_BanditLeaderBow1] = 1,
-    [Entities.CU_BanditLeaderBow2] = 1,
     [Entities.CU_Evil_LeaderSkirmisher1] = 1,
     [Entities.PU_LeaderBow1] = 1,
     [Entities.PU_LeaderBow2] = 1,

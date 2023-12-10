@@ -120,8 +120,8 @@
             <HitAnim>CU_BanditLeaderBow1_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>10</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <DamageAmount>13</DamageAmount>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

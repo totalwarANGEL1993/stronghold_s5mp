@@ -92,7 +92,6 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.ShootingRange,
                 PlayerRight.ArcherMilitia,
-                PlayerRight.BanditBow,
             },
         },
         [PlayerRank.Earl]     = {
@@ -110,16 +109,15 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Garnison,
                 PlayerRight.SpearLandsknecht,
-                PlayerRight.SpearHalberdier,
                 PlayerRight.SwordSquire,
                 PlayerRight.BarbarianWeak,
                 PlayerRight.BlackKnightWeak,
                 ---
                 PlayerRight.ArcherLongbow,
+                PlayerRight.BanditBow,
                 ---
                 PlayerRight.Barn,
                 PlayerRight.CavalryBow,
-                PlayerRight.CavalryCrossbow,
                 ---
                 PlayerRight.Foundry,
                 PlayerRight.BronzeCannon,
@@ -148,15 +146,16 @@ Stronghold.Rights.Config = {
                 PlayerRight.BallistaTower,
                 ---
                 PlayerRight.Bearman,
-                PlayerRight.Skirmisher,
+                PlayerRight.SpearHalberdier,
                 ---
                 PlayerRight.Archery,
                 PlayerRight.ArcherCrossbow,
-                PlayerRight.BanditCrossbow,
+                PlayerRight.Skirmisher,
                 PlayerRight.GunWorkshop,
                 PlayerRight.RifleHandgunner,
                 ---
                 PlayerRight.BombardCannon,
+                PlayerRight.BigBombardCannon,
             },
         },
         [PlayerRank.Count]    = {
@@ -179,10 +178,11 @@ Stronghold.Rights.Config = {
                 PlayerRight.Wall,
                 ---
                 PlayerRight.SwordLong,
-                PlayerRight.SwordGuardist,
                 PlayerRight.BerserkStrong,
                 PlayerRight.BarbarianStrong,
                 PlayerRight.BlackKnightStrong,
+                ---
+                PlayerRight.CavalryCrossbow,
                 PlayerRight.CavalryRanger,
                 ---
                 PlayerRight.Thief,
@@ -209,11 +209,12 @@ Stronghold.Rights.Config = {
                 PlayerRight.StoneMine,
                 PlayerRight.SulfurMine,
                 ---
+                PlayerRight.SwordGuardist,
+                ---
                 PlayerRight.ArcherPavease,
                 ---
                 PlayerRight.Stables,
                 PlayerRight.CavalrySword,
-                PlayerRight.CavalryAxe,
                 ---
                 PlayerRight.CannonFactory,
                 PlayerRight.SiegeCannon,
@@ -238,8 +239,10 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.GunFactory,
                 PlayerRight.RifleMusketman,
+                PlayerRight.CavalryAxe,
                 ---
                 PlayerRight.IronCannon,
+                PlayerRight.DschihadCannon,
             },
         },
     }
