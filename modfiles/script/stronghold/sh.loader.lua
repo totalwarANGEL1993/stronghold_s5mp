@@ -49,9 +49,10 @@ Lib.Require("comfort/IsInTable");
 Lib.Require("comfort/IsValidEntity");
 Lib.Require("comfort/IsValidPosition");
 Lib.Require("comfort/KeyOf");
+Lib.Require("comfort/ShuffleTable");
 
 -- Load modules
-Lib.Require("module/ai/AiArmyManager");
+Lib.Require("module/ai/AiArmy");
 Lib.Require("module/ai/AiArmyRefiller");
 Lib.Require("module/archive/Archive");
 Lib.Require("module/camera/FreeCam");

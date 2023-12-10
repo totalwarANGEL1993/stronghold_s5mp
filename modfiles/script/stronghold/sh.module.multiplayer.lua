@@ -233,20 +233,33 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
     if _Config then
         local Default = self.Config.DefaultSettings;
 
+        if _Config.MapStartFillClay then
+            self.Data.Config.MapStartFillClay = _Config.MapStartFillClay;
+        end
+        if _Config.MapStartFillIron then
+            self.Data.Config.MapStartFillIron = _Config.MapStartFillIron;
+        end
+        if _Config.MapStartFillStone then
+            self.Data.Config.MapStartFillStone = _Config.MapStartFillStone;
+        end
+        if _Config.MapStartFillSulfur then
+            self.Data.Config.MapStartFillSulfur = _Config.MapStartFillSulfur;
+        end
+
         if _Config.Version then
-            self.Config.Version = _Config.Version;
+            self.Data.Config.Version = _Config.Version;
         end
         if _Config.DisableRuleConfiguration then
-            self.Config.DisableRuleConfiguration = _Config.DisableRuleConfiguration == true;
+            self.Data.Config.DisableRuleConfiguration = _Config.DisableRuleConfiguration == true;
         end
         if _Config.DisableDefaultWinCondition then
-            self.Config.DisableDefaultWinCondition = _Config.DisableDefaultWinCondition == true;
+            self.Data.Config.DisableDefaultWinCondition = _Config.DisableDefaultWinCondition == true;
         end
         if _Config.DisableGameStartTimer then
-            self.Config.DisableGameStartTimer = _Config.DisableGameStartTimer == true;
+            self.Data.Config.DisableGameStartTimer = _Config.DisableGameStartTimer == true;
         end
         if _Config.PeaceTimeOpenGates ~= nil then
-            self.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
+            self.Data.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
         end
 
         self.Config.MapStartFillClay = _Config.MapStartFillClay or 4000;
@@ -361,7 +374,7 @@ function Stronghold.Multiplayer:Configure()
     -- Finally setup game
     self:HideRuleSelection();
     if not self:HaveRulesBeenConfigured() then
-        if self.Config.DisableRuleConfiguration and self.Config.DisableGameStartTimer then
+        if self.Data.Config.DisableRuleConfiguration and self.Data.Config.DisableGameStartTimer then
             -- Start the delay
             Stronghold:AddDelayedAction(1, function()
                 local Check = Stronghold.Multiplayer:CheckVersions();
@@ -635,7 +648,7 @@ function Stronghold.Multiplayer:OnVersionsDiffer()
         local Version = self.Data[Players[i]].Versions.Map;
         local Name = self:GetPlayerOnlineName();
         local Color = " @color:0,180,0,255 ";
-        if Version ~= self.Config.Version then
+        if Version ~= self.Data.Config.Version then
             Color = " @color:190,0,0,255 ";
         end
         MapText = MapText ..Name.. " " ..Color.. " (Version: " ..Version.. ") @color:255,255,255,255 @cr ";
@@ -682,7 +695,7 @@ function Stronghold.Multiplayer:BroadcastStrongholdVersion()
                 Stronghold.Multiplayer.NetworkCall,
                 Stronghold.Multiplayer.SyncEvents.BroadcastMapVersion,
                 PlayerID,
-                self.Config.Version
+                self.Data.Config.Version
             );
         end
     end

@@ -23,6 +23,8 @@ Stronghold.AI = {
 };
 
 function Stronghold.AI:Install()
+    self:OverwriteAiTargetConfig();
+    self:OverwriteAiSpeedConfig();
     Job.Second(function()
         Stronghold.AI:ControlAiPlayerHeroes();
     end);
@@ -55,8 +57,8 @@ end
 function DelinquentsCampDestroy(_ID)
     if Stronghold.AI.Data.Delinquents[_ID] then
         local Data = Stronghold.AI.Data.Delinquents[_ID];
-        AiArmyManager.Delete(Data.AttackManagerID);
-        AiArmyManager.Delete(Data.DefendManagerID);
+        AiArmy.Delete(Data.AttackArmyID);
+        AiArmy.Delete(Data.DefendArmyID);
 
         local AttackArmy = AiArmy.Get(Data.AttackArmyID);
         if AttackArmy then
@@ -105,13 +107,13 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
             table.insert(Troops, Troop);
         end
         ID = AiArmyRefiller.CreateSpawner{
-            ScriptName   = _ScriptName,
-            SpawnPoint   = (IsExisting(_ScriptName.. "Spawn") and _ScriptName.. "Spawn") or nil,
-            SpawnAmount  = _Amount,
-            SpawnTimer   = _Time,
-            Sequentially = true,
-            Endlessly    = true,
-            AllowedTypes = Troops,
+            ScriptName    = _ScriptName,
+            SpawnPoint    = (IsExisting(_ScriptName.. "Spawn") and _ScriptName.. "Spawn") or nil,
+            SpawnAmount   = _Amount,
+            SpawnTimer    = _Time,
+            Sequentially  = true,
+            Endlessly     = true,
+            AllowedTypes  = Troops,
         }
         AiArmyRefiller.AddArmy(ID, Data.AttackArmyID);
         AiArmyRefiller.AddArmy(ID, Data.DefendArmyID);
@@ -138,9 +140,20 @@ end
 --- @param _ID integer ID of camp
 --- @param ... string|table List of targets
 function DelinquentsCampAddTarget(_ID, ...)
+    local TargetTable = CopyTable(arg);
+    table.insert(TargetTable, 1, table.getn(TargetTable));
     if Stronghold.AI.Data.Delinquents[_ID] then
         local Data = Stronghold.AI.Data.Delinquents[_ID];
-        AiArmyManager.AddAttackTargetPath(Data.AttackArmyID, unpack(arg));
+        -- Check if target is allready contained
+        for i= Data.AttackTargets[1] +1, 2, -1 do
+            if Data.AttackTargets[i][Data.AttackTargets[i][1]] == TargetTable[TargetTable[1] +1] then
+                return;
+            end
+        end
+        -- Add to targets
+        table.insert(Data.AttackTargets, TargetTable);
+        Data.AttackTargets[1] = Data.AttackTargets[1] + 1;
+        Stronghold.AI.Data.Delinquents[_ID] = Data;
     end
 end
 
@@ -148,9 +161,34 @@ end
 --- @param _ID integer ID of camp
 function DelinquentsCampClearTargets(_ID)
     if Stronghold.AI.Data.Delinquents[_ID] then
+        Stronghold.AI.Data.Delinquents[_ID].AttackTargets = {0};
+    end
+end
+
+--- Adds guard positions to the camp.
+--- @param _ID integer ID of camp
+--- @param _Position string|table List of targets
+function DelinquentsCampAddGuardPositions(_ID, _Position)
+    if Stronghold.AI.Data.Delinquents[_ID] then
         local Data = Stronghold.AI.Data.Delinquents[_ID];
-        AiArmyManager.ClearAttackTargets(Data.AttackArmyID);
-        AiArmyManager.ClearAttackTargets(Data.DefendArmyID);
+        -- Check if target is allready contained
+        for i= Data.DefendTargets[1] +1, 2, -1 do
+            if Data.DefendTargets[i] == _Position then
+                return;
+            end
+        end
+        -- Add to targets
+        table.insert(Data.DefendTargets, _Position);
+        Data.DefendTargets[1] = Data.DefendTargets[1] + 1;
+        Stronghold.AI.Data.Delinquents[_ID] = Data;
+    end
+end
+
+--- Removes all guard positions from the camp.
+--- @param _ID integer ID of camp
+function DelinquentsCampClearGuardPositions(_ID)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        Stronghold.AI.Data.Delinquents[_ID].DefendTargets = {0};
     end
 end
 
@@ -159,8 +197,7 @@ end
 --- @param _Flag boolean Camp does attack
 function DelinquentsCampActivateAttack(_ID, _Flag)
     if Stronghold.AI.Data.Delinquents[_ID] then
-        local Data = Stronghold.AI.Data.Delinquents[_ID];
-        AiArmyManager.ForbidAttacking(Data.AttackManagerID, _Flag == true);
+        Stronghold.AI.Data.Delinquents[_ID].AttackAllowed = _Flag == true;
     end
 end
 
@@ -174,6 +211,12 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
     if type(Data.HomePosition) ~= "table" then
         Data.HomePosition = GetPosition(Data.HomePosition);
     end
+    Data.AttackAllowed = false;
+    Data.AttackTargets = {0};
+    Data.DefendTargets = {0};
+    Data.AttackCommandID = 0;
+    Data.DefendCommandID = 0;
+
     -- Attack army
     local AttackArmyID = AiArmy.New(
         Data.PlayerID,
@@ -185,8 +228,7 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
         Stronghold.Unit:SetFormationOnCreate(_ID);
     end);
     Data.AttackArmyID = AttackArmyID;
-    local AttackManagerID = AiArmyManager.Create(AttackArmyID);
-    Data.AttackManagerID = AttackManagerID;
+
     -- Defend army
     local DefendArmyID = AiArmy.New(
         Data.PlayerID,
@@ -198,180 +240,181 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
         Stronghold.Unit:SetFormationOnCreate(_ID);
     end);
     Data.DefendArmyID = DefendArmyID;
-    local DefendManagerID = AiArmyManager.Create(DefendArmyID);
-    Data.DefendManagerID = DefendManagerID;
 
-    AiArmyManager.ForbidAttacking(DefendManagerID, true);
     self.Data.Delinquents[Data.ID] = Data;
+    Job.Second(function(_ID)
+        return Stronghold.AI:DelinquentsCampController(_ID);
+    end, Data.ID)
     return Data.ID;
 end
 
+function Stronghold.AI:DelinquentsCampController(_ID)
+    -- Check is alive
+    if not DelinquentsCampIsAlive(_ID) then
+        return true;
+    end
+
+    -- Control attacking
+    local AttackArmyID = self.Data.Delinquents[_ID].AttackArmyID or 0;
+    if AttackArmyID > 0 then
+        if AiArmy.IsArmyDoingNothing(AttackArmyID) then
+            if self.Data.Delinquents[_ID].AttackAllowed then
+                local RodeLength = AiArmy.GetRodeLength(AttackArmyID);
+                local Targets = self.Data.Delinquents[_ID].AttackTargets[1];
+                if Targets > 0 then
+                    local Index = math.random(2, Targets +1);
+                    local Target = Targets[Index][Targets[Index][1]];
+                    local Position = GetPosition(Target);
+                    local Enemies = AiArmy.GetEnemiesInCircle(AttackArmyID, Position, RodeLength);
+                    if Enemies[1] then
+                        AiArmy.ClearCommands(AttackArmyID);
+                        AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, Target), false);
+                        AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, Target), false);
+                        AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
+                    end
+                end
+            end
+        end
+    end
+
+    -- Control defending
+    local DefendArmyID = self.Data.Delinquents[_ID].DefendArmyID or 0;
+    if DefendArmyID > 0 then
+        if AiArmy.IsArmyDoingNothing(DefendArmyID) then
+            local HomePosition = AiArmy.GetHomePosition(DefendArmyID);
+            local GuardPos = CopyTable(self.Data.Delinquents[_ID].DefendTargets);
+            local PositionCount = table.remove(GuardPos, 1);
+            if PositionCount > 0 then
+                GuardPos = ShuffleTable(GuardPos);
+                AiArmy.ClearCommands(DefendArmyID);
+                for i= 1, PositionCount + 1 do
+                    AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, GuardPos[i]), false);
+                    AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
+                end
+            else
+                AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, HomePosition), false);
+                AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
+            end
+        end
+    end
+end
+
 -- -------------------------------------------------------------------------- --
--- Army
+-- Army config
 
---- Creates a regiment with refillers.
----
---- #### Regiment configuration:
---- * `PlayerID`   - (Required) Owner of army
---- * `Strength`   - (Required) Max amount of leaders
---- * `Position`   - (Required) Position of army
---- * `RodeLength` - (Required) Radius of action
----
---- #### Refiller configuration:
---- * `ScriptName`   - (Required) Scriptname of spawner (Can be a list for multiple spawner entities)
---- * `SpawnPoint`   - (Optional) Scriptname of position (Can be a list but must then as large as scriptname list)
---- * `SpawnAmount`  - (Optional) Max amount to spawn per cycle
---- * `SpawnTimer`   - (Optional) Time between spawn cycles
---- * `Sequentially` - (Optional) Order of spawns is sequentially
---- * `Endlessly`    - (Optional) Spawns repeat infinite
---- * `AllowedTypes` - (Optional) List of types {Type, Experience}
----
---- @param _Data table Regiment properties
---- @return integer ID ID of regiment
-function CreateRespawningRegiment(_Data)
-    return Stronghold.AI:CreateRespawningRegiment(_Data);
+function Stronghold.AI:OverwriteAiTargetConfig()
+    AiArmyTargetingConfig.Spear = {
+        ["CavalryHeavy"] = 40,
+        ["CavalryLight"] = 30,
+        ["EvilLeader"] = 30,
+        ["Hero"] = 20,
+        ["MilitaryBuilding"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["Sword"] = 0,
+        ["Cannon"] = 0,
+    }
+    AiArmyTargetingConfig.CavalryLight = {
+        [Entities.CU_Barbarian_LeaderClub1] = 40,
+        [Entities.CU_Barbarian_LeaderClub2] = 40,
+
+        ["Cannon"] = 30,
+        ["Spear"] = 20,
+        ["Sword"] = 20,
+        ["Hero"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["CavalryHeavy"] = 0,
+        ["CavalryLight"] = 0,
+        ["Rifle"] = 0,
+    }
+    AiArmyTargetingConfig.Bow = {
+        [Entities.CU_Barbarian_LeaderClub1] = 40,
+        [Entities.CU_Barbarian_LeaderClub2] = 40,
+
+        ["MilitaryBuilding"] = 40,
+        ["Cannon"] = 40,
+        ["CavalryHeavy"] = 30,
+        ["CavalryLight"] = 20,
+        ["Spear"] = 20,
+        ["Hero"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["Rifle"] = 0,
+        ["Sword"] = 0,
+    }
+    AiArmyTargetingConfig.Rifle = {
+        [Entities.CU_Barbarian_LeaderClub1] = 40,
+        [Entities.CU_Barbarian_LeaderClub2] = 40,
+
+        ["Cannon"] = 50,
+        ["EvilLeader"] = 50,
+        ["LongRange"] = 40,
+        ["Spear"] = 30,
+        ["Hero"] = 20,
+        ["CavalryHeavy"] = 10,
+        ["Sword"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["MilitaryBuilding"] = 0,
+    }
+    AiArmyTargetingConfig.Mace = {
+        ["MilitaryBuilding"] = 30,
+        ["CavalryHeavy"] = 30,
+        ["Sword"] = 20,
+        ["DefendableBuilding"] = 10,
+        ["Cannon"] = 10,
+        ["Rifle"] = 0,
+        ["Spear"] = 0,
+    }
+
+    AiArmyTargetingTypeMapping = {
+        [Entities.CU_Barbarian_LeaderClub1] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_Barbarian_LeaderClub2] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_BlackKnight_LeaderMace1] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_BlackKnight_LeaderMace2] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_BanditLeaderSword1] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.CU_BanditLeaderSword2] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.CV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.CV_Cannon2] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon2] = AiArmyTargetingConfig.BuildingCannon,
+        [Entities.PV_Cannon3] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon4] = AiArmyTargetingConfig.BuildingCannon,
+    }
 end
 
---- Creates a normal regiment.
----
---- #### Regiment configuration:
---- * `PlayerID`   - (Required) Owner of army
---- * `Strength`   - (Required) Max amount of leaders
---- * `Position`   - (Required) Position of army
---- * `RodeLength` - (Required) Radius of action
----
---- @param _Data table Regiment properties
---- @return integer ID ID of regiment
-function CreateRegiment(_Data)
-    return Stronghold.AI:CreateRegiment(_Data);
-end
+function Stronghold.AI:OverwriteAiSpeedConfig()
+    AiArmyConstants.BaseSpeed = {
+        ["Bow"] = 360,
+        ["CavalryLight"] = 550,
+        ["CavalryHeavy"] = 520,
+        ["Hero"] = 400,
+        ["Rifle"] = 360,
 
---- Destroys an regiment and removes the troops.
---- @param _ID integer ID of army
-function DestroyRegiment(_ID)
-    if Stronghold.AI.Data.Armies[_ID] then
-        -- Delete spawners
-        if Stronghold.AI.Data.Armies[_ID].Spawners then
-            local Spawners = Stronghold.AI.Data.Armies[_ID].Spawners;
-            for i= 1, table.getn(Spawners) do
-                AiArmyRefiller.DeleteRefiller(Spawners[i].ID);
-            end
-        end
-        -- Delete manager
-        local ManagerID = Stronghold.AI.Data.Armies[_ID].ManagerID;
-        AiArmyManager.Delete(ManagerID);
-        -- Delete army
-        local ArmyID = Stronghold.AI.Data.Armies[_ID].ArmyID;
-        AiArmyData_ArmyIdToArmyInstance[ArmyID]:Abandon(true);
-        for EntityID,_ in pairs(AiArmyData_ArmyIdToArmyInstance[ArmyID].CleanUp) do
-            DestroyEntity(EntityID);
-        end
-        AiArmyData_ArmyIdToArmyInstance[ArmyID] = nil;
-    end
-end
+        [Entities.CU_Barbarian_LeaderClub1] = 400,
+        [Entities.CU_Barbarian_LeaderClub2] = 400,
+        [Entities.CV_Cannon1] = 300,
+        [Entities.CV_Cannon2] = 345,
+        [Entities.PV_Cannon1] = 300,
+        [Entities.PV_Cannon2] = 250,
+        [Entities.PV_Cannon3] = 200,
+        [Entities.PV_Cannon4] = 150,
 
---- Returns the ID of the army.
---- @param _ID integer ID of regiment
---- @return integer ID ID of army
-function GetRegimentArmyID(_ID)
-    if Stronghold.AI.Data.Armies[_ID] then
-        return Stronghold.AI.Data.Armies[_ID].ArmyID;
-    end
-    return 0;
-end
+        ["_Others"] = 360,
+    };
 
---- Returns the ID of the army manager.
---- @param _ID integer ID of regiment
---- @return integer ID ID of army manager
-function GetRegimentManagerID(_ID)
-    if Stronghold.AI.Data.Armies[_ID] then
-        return Stronghold.AI.Data.Armies[_ID].ManagerID;
-    end
-    return 0;
-end
+    AiArmyConstants.SpeedWeighting = {
+        ["CavalryLight"] = 0.4,
+        ["CavalryHeavy"] = 0.4,
 
---- Returns the ID(s) of refiller(s) of the regiment.
---- @param _ID integer ID of regiment
---- @return integer ... Refiller IDs
-function GetRegimentSpawnerID(_ID)
-    if Stronghold.AI.Data.Armies[_ID] then
-        if Stronghold.AI.Data.Armies[_ID].Spawners then
-            local Spawners = {};
-            for i= 1, table.getn(Stronghold.AI.Data.Armies[_ID].Spawners) do
-                table.insert(Spawners, Stronghold.AI.Data.Armies[_ID].Spawners[i]);
-            end
-            return unpack(Spawners);
-        end
-    end
-    return 0;
-end
+        [Entities.CU_Barbarian_LeaderClub1] = 0.9,
+        [Entities.CU_Barbarian_LeaderClub2] = 0.9,
+        [Entities.CV_Cannon1] = 0.6,
+        [Entities.CV_Cannon2] = 0.6,
+        [Entities.PV_Cannon1] = 0.6,
+        [Entities.PV_Cannon2] = 0.5,
+        [Entities.PV_Cannon3] = 0.3,
+        [Entities.PV_Cannon4] = 0.2,
 
-function Stronghold.AI:CreateRegiment(_Data)
-    self.Data.Armies.Sequence = self.Data.Armies.Sequence + 1;
-    local ID = self.Data.Armies.Sequence;
-
-    local Data = CopyTable(_Data);
-    assert(Data.PlayerID and Data.PlayerID > 0 and Data.PlayerID <= GetMaxAmountOfPlayer());
-    assert(Data.Strength and Data.Strength > 0);
-    assert(Data.Position and IsValidPosition(Data.Position));
-    assert(Data.RodeLength and Data.RodeLength > 0);
-
-    -- Create army
-    local ArmyID = AiArmy.New(Data.PlayerID, Data.Strength, Data.Position, Data.RodeLength);
-    AiArmy.SetFormationController(ArmyID, function (_ID)
-        Stronghold.Unit:SetFormationOnCreate(_ID);
-    end);
-    Data.ArmyID = ArmyID;
-    -- Create manager
-    local ManagerID = AiArmyManager.Create(ArmyID);
-    Data.ManagerID = ManagerID;
-
-    self.Data.Armies[ID] = Data;
-    return ID;
-end
-
-function Stronghold.AI:CreateRespawningRegiment(_Data)
-    local ID = self:CreateArmy(_Data);
-    local Data = self.Data.Armies[ID];
-
-    assert(_Data.ScriptName);
-    assert(type(_Data.AllowedTypes) == "table");
-    if type(_Data.ScriptName) ~= "table" then
-        _Data.ScriptName = {_Data.ScriptName};
-    end
-    if _Data.SpawnPoint and type(_Data.SpawnPoint) ~= "table" then
-        _Data.SpawnPoint = {_Data.SpawnPoint};
-    end
-    assert(table.getn(_Data.ScriptName) == table.getn(_Data.SpawnPoint));
-
-    Data.Spawners = {};
-    for i= 1, table.getn(_Data.ScriptName) do
-        Data.Spawners[i].ScriptName = _Data.ScriptName[i];
-        if _Data.SpawnPoint then
-            Data.Spawners[i].SpawnPoint = _Data.SpawnPoint[i];
-        end
-        Data.Spawners[i].SpawnAmount = _Data.SpawnAmount;
-        Data.Spawners[i].SpawnTimer = _Data.SpawnTimer;
-        Data.Spawners[i].Sequentially = _Data.Sequentially;
-        Data.Spawners[i].Endlessly = _Data.Endlessly;
-        Data.Spawners[i].AllowedTypes = _Data.AllowedTypes;
-
-        local RefillerID = AiArmyRefiller.CreateSpawner(Data.Spawners[i]);
-        Data.Spawners[i].ID = RefillerID;
-    end
-
-    self.Data.Armies[ID] = Data;
-    return ID;
-end
-
-function Stronghold.AI:CreateInvadingRegiment(_Data)
-    local ID = self:CreateArmy(_Data);
-    local Data = self.Data.Armies[ID];
-
-    -- TODO
-
-    self.Data.Armies[ID] = Data;
-    return ID;
+        ["_Others"] = 1.0
+    };
 end
 
 -- -------------------------------------------------------------------------- --
