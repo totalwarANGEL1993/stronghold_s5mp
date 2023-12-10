@@ -653,19 +653,19 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
             local HeadquarterLevel = Logic.GetUpgradeLevelForBuilding(HeadquarterID);
             Limit = Limit + self.Config.Attraction.HQMilitary[HeadquarterLevel +1];
             -- Barracks
-            local BB1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true));
+            -- local BB1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true);
+            -- Limit = Limit + (BB1[1] * self.Config.Attraction.BBMilitary[1]);
             local BB2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Barracks2);
-            Limit = Limit + (BB1 * self.Config.Attraction.BBMilitary[1]);
             Limit = Limit + (BB2 * self.Config.Attraction.BBMilitary[2]);
             -- Archery
-            local AR1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Archery1, true));
+            -- local AR1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Archery1, true);
+            -- Limit = Limit + (AR1[1] * self.Config.Attraction.BBMilitary[1]);
             local AR2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Archery2);
-            Limit = Limit + (AR1 * self.Config.Attraction.BBMilitary[1]);
             Limit = Limit + (AR2 * self.Config.Attraction.BBMilitary[2]);
             -- Stables
-            local ST1 = table.getn(Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Stable1, true));
+            -- local ST1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Stable1, true);
+            -- Limit = Limit + (ST1[1] * self.Config.Attraction.BBMilitary[1]);
             local ST2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Stable2);
-            Limit = Limit + (ST1 * self.Config.Attraction.BBMilitary[1]);
             Limit = Limit + (ST2 * self.Config.Attraction.BBMilitary[2]);
 
             -- External

@@ -5,8 +5,8 @@
 Stronghold.Attraction.Config.Attraction = {
     -- Civil attration limit
     -- THIS MUST BE IN SYNC WITH ENTITY DEFINITION XML!
-    HQCivil = {[1] = 50, [2] = 75, [3] = 100},
-    VCCivil = {[1] = 35, [2] = 50, [3] = 65},
+    HQCivil = {[1] = 50, [2] = 65, [3] = 80},
+    VCCivil = {[1] = 25, [2] = 40, [3] = 55},
     -- Military attraction limit
     -- This is freely changeable in Lua
     HQMilitary = {[1] = 75, [2] = 100, [3] = 125},
