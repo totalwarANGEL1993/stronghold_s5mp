@@ -168,7 +168,7 @@ function SetupCampsWS0()
     for j= 1, 2 do
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "Pos",
-            RodeLength = 4500,
+            RodeLength = 2500,
             Strength = 7,
         };
 
@@ -193,7 +193,7 @@ function SetupCampsWS10()
     for j= 1, 2 do
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "Pos",
-            RodeLength = 4500,
+            RodeLength = 2500,
             Strength = 7,
         };
 
@@ -218,7 +218,7 @@ function SetupCampsWS20()
     for j= 1, 2 do
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "Pos",
-            RodeLength = 4500,
+            RodeLength = 2500,
             Strength = 7,
         };
 
@@ -245,7 +245,7 @@ function SetupCampsWS30()
 
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "Pos",
-            RodeLength = 4500,
+            RodeLength = 2500,
             Strength = 7,
         };
 
@@ -272,7 +272,7 @@ function SetupCampsWS40()
 
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "Pos",
-            RodeLength = 4500,
+            RodeLength = 2500,
             Strength = 7,
         };
 

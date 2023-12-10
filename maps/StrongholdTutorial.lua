@@ -77,7 +77,6 @@ SHS5MP_RulesDefinition = {
         AddPeriodicSummer(360);
         AddPeriodicRain(90);
 
-        Lib.Require("module/ai/AiArmyManager");
         Lib.Require("module/cinematic/BriefingSystem");
         Lib.Require("module/cinematic/BriefingSystem");
         Lib.Require("module/io/NonPlayerCharacter");
@@ -715,10 +714,11 @@ end
 -- The final boss is implemented using the cerberus army. Most of the troofs
 -- defent - it is a tutorial after all - and one normal army attacks.
 function CreatePlayer2()
+    CreatePlayer2Spawner();
     CreatePlayer2Armies();
 end
 
-function CreatePlayer2Armies()
+function CreatePlayer2Spawner()
     gvP2HQSpawner       = AiArmyRefiller.CreateSpawner {
         ScriptName      = "HQ2",
         SpawnPoint      = "HQ2Spawn",
@@ -770,43 +770,30 @@ function CreatePlayer2Armies()
             {Entities.PV_Cannon1, 0},
         }
     };
+end
 
-    ---
-
+function CreatePlayer2Armies()
     local ArmyID = AiArmy.New(2, 8, GetPosition("P2OuterPos"), 3000);
+    gvP2Army1 = ArmyID;
     AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
     AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2StableSpawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2FoundrySpawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2HQSpawner, ArmyID);
-
-    gvP2Army1 = AiArmyManager.Create(ArmyID);
-    AiArmyManager.AddAttackTargetPath(gvP2Army1, "P2OuterPos", "P2AttackPath1", "PlayerHome");
-
+    Job.Second(ControllPlayer2Attacker, ArmyID);
 
     for i= 2, 7 do
         ArmyID = AiArmy.New(2, 3, GetPosition("P2DefPos1"), 5000);
+        _G["gvP2Army"..i] = ArmyID;
         AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
         AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2StableSpawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2FoundrySpawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2HQSpawner, ArmyID);
-
-        _G["gvP2Army"..i] = AiArmyManager.Create(ArmyID);
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos1");
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos2");
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos3");
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos4");
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos5");
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos6");
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos7");
-        AiArmyManager.AddGuardPosition(_G["gvP2Army"..i], "P2DefPos8");
+        Job.Second(ControllPlayer2Defender, ArmyID);
     end
-    --- @diagnostic disable-next-line: undefined-global
-    AiArmyManager.Synchronize(gvP2Army2, gvP2Army3, gvP2Army4, gvP2Army5, gvP2Army6, gvP2Army7);
-
 
     SetHostile(1, 2);
     MakeInvulnerable("Scorillo");
@@ -818,9 +805,31 @@ function CreatePlayer2Armies()
     end);
 end
 
--- Overwrite formation selection
-function CustomTroopFomrationController(_ID)
-    Stronghold.Unit:SetFormationOnCreate(_ID);
+function ControllPlayer2Attacker(_ArmyID)
+    if not IsExisting("HQ2") then
+        return true;
+    end
+    if AiArmy.IsArmyDoingNothing(_ArmyID) then
+        AiArmy.ClearCommands(_ArmyID);
+        AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "P2OuterPos"), false);
+        AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "P2AttackPath1"), false);
+        AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "PlayerHome"), false);
+        AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle), false);
+        AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Fallback), false);
+    end
+end
+
+function ControllPlayer2Defender(_ArmyID)
+    if not IsExisting("HQ2") then
+        return true;
+    end
+    if AiArmy.IsArmyDoingNothing(_ArmyID) then
+        local Positions = {"P2DefPos1","P2DefPos2","P2DefPos3"};
+        for _, Position in ipairs(ShuffleTable(Positions)) do
+            AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, Position), false);
+            AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
+        end
+    end
 end
 
 -- The splitter group is implementet as standard bandit camp. They have the
@@ -834,7 +843,7 @@ function CreatePlayer3()
     };
     DelinquentsCampAddSpawner(CampID, "HQ3", 2*60, 1, Entities.PU_LeaderBow1);
     DelinquentsCampAddSpawner(CampID, "P3Tent1", 2*60, 1, Entities.PU_LeaderPoleArm1);
-    DelinquentsCampAddSpawner(CampID, "P3Tent2", 2*60, 1, Entities.PU_LeaderPoleArm1);
+    DelinquentsCampAddSpawner(CampID, "P3Tent2", 2*60, 1, Entities.PU_LeaderBow1);
     DelinquentsCampAddSpawner(CampID, "P3Tent3", 2*60, 1, Entities.PU_LeaderPoleArm1);
     DelinquentsCampAddTarget(CampID, "PlayerHome");
     DelinquentsCampActivateAttack(CampID, false);
@@ -850,6 +859,11 @@ function CreatePlayer3()
             return true;
         end
     end);
+end
+
+-- Overwrite formation selection
+function CustomTroopFomrationController(_ID)
+    Stronghold.Unit:SetFormationOnCreate(_ID);
 end
 
 -- ########################################################################## --

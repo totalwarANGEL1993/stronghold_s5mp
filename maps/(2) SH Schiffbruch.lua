@@ -73,17 +73,21 @@ SHS5MP_RulesDefinition = {
         AddPeriodicSummer(360);
         AddPeriodicRain(90);
         LocalMusic.UseSet = HIGHLANDMUSIC;
+
+        Lib.Require("comfort/StartCountdown");
     end,
 
     -- Called after game start timer is over
     OnGameStart = function()
         SetHostile(1, 7);
         SetHostile(2, 7);
-        CreatePassiveBanditCamps();
+        CreateBanditCamps();
 
         for i= 1, 4 do
             CreateWoodPile("WoodPile" ..i, 1200);
         end
+
+        StartCountdown(15 * 60, MakeBanditCampsAttack, false);
     end,
 
     -- Called after peacetime is over
@@ -97,13 +101,15 @@ SHS5MP_RulesDefinition = {
 
 -- -------------------------------------------------------------------------- --
 
-function CreatePassiveBanditCamps()
+function CreateBanditCamps()
     for _, Index in pairs{1, 3} do
         Treasure.RandomChest("VCCamp" ..Index.. "Chest1", 1000, 2000);
         local CampID = DelinquentsCampCreate {
             HomePosition = "VCCamp" ..Index.. "Center",
             Strength = 3,
         };
+        _G["gvBanditCamp" ..Index] = CampID;
+
         for j= 1, 3 do
             DelinquentsCampAddSpawner(
                 CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
@@ -121,8 +127,10 @@ function CreatePassiveBanditCamps()
 
         local CampID = DelinquentsCampCreate {
             HomePosition = "VCCamp" ..Index.. "Center",
-            Strength = 12,
+            Strength = 9,
         };
+        _G["gvBanditCamp" ..Index] = CampID;
+
         for j= 1, 5 do
             DelinquentsCampAddSpawner(
                 CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
@@ -136,6 +144,16 @@ function CreatePassiveBanditCamps()
                 Entities.PV_Cannon1
             );
         end
+
+        DelinquentsCampAddTarget(CampID, "VCCamp" ..Index.. "Pos1");
+        DelinquentsCampAddTarget(CampID, "VCCamp" ..Index.. "Pos2");
+        DelinquentsCampAddTarget(CampID, "VCCamp" ..Index.. "Pos3");
+        DelinquentsCampActivateAttack(CampID, false);
     end
+end
+
+function MakeBanditCampsAttack()
+    DelinquentsCampActivateAttack(gvBanditCamp2, true);
+    DelinquentsCampActivateAttack(gvBanditCamp4, true);
 end
 

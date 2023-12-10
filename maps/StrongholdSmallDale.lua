@@ -23,11 +23,11 @@ SHS5MP_RulesDefinition = {
 
     -- Fill resource piles with resources
     -- (value of resources or 0 to not change)
-    MapStartFillClay = 4000,
-    MapStartFillStone = 4000,
-    MapStartFillIron = 4000,
-    MapStartFillSulfur = 4000,
-    MapStartFillWood = 4000,
+    MapStartFillClay = 400,
+    MapStartFillStone = 400,
+    MapStartFillIron = 400,
+    MapStartFillSulfur = 400,
+    MapStartFillWood = 400,
 
     -- Rank
     Rank = {
@@ -78,9 +78,6 @@ SHS5MP_RulesDefinition = {
         AddPeriodicRain(90);
 
         Lib.Require("comfort/StartCountdown");
-        Lib.Require("module/ai/AiArmy");
-        Lib.Require("module/ai/AiArmyManager");
-        Lib.Require("module/ai/AiArmyRefiller");
         Lib.Require("module/cinematic/BriefingSystem");
         Lib.Require("module/trigger/Job");
 
@@ -220,7 +217,7 @@ function BriefingExposition()
     Briefing.Finished = function()
         local QuestTitle = XGUIEng.GetStringTableText("map_sh_smalldale/Quest_1_Title");
         local QuestText  = XGUIEng.GetStringTableText("map_sh_smalldale/Quest_1_Text");
-        Logic.AddQuest(PlayerID, 1, MAINQUEST_OPEN, QuestTitle, QuestText, 1);
+        Logic.AddQuest(1, 1, MAINQUEST_OPEN, QuestTitle, QuestText, 1);
 
         StartAiPlayerAggressiveTimer();
         CreateAiPlayer2();
@@ -254,11 +251,7 @@ gv_Difficulty = {
         RespawnTime = 180,
         Armies = {},
         Spawners = {},
-        Types = {
-            {Entities.PU_LeaderPoleArm1, 0},
-            {Entities.PU_LeaderSword1, 0},
-            {Entities.PU_LeaderBow1, 0},
-        }
+        Types = {}
     },
     Player5 = {
         ArmySize = 3,
@@ -267,10 +260,7 @@ gv_Difficulty = {
         RespawnTime = 180,
         Armies = {},
         Spawners = {},
-        Types = {
-            {Entities.PU_LeaderSword1, 0},
-            {Entities.PU_LeaderCavalry1, 0},
-        }
+        Types = {}
     }
 }
 
@@ -286,6 +276,22 @@ function SetEasyDifficulty()
         {Entities.PU_LeaderPoleArm1, 0},
         {Entities.PU_LeaderSword1, 0},
         {Entities.PU_LeaderBow1, 0},
+        {Entities.PV_Cannon2, 3},
+        {Entities.PU_LeaderPoleArm1, 0},
+        {Entities.PU_LeaderBow1, 0},
+        {Entities.PU_LeaderPoleArm1, 0},
+        {Entities.PU_LeaderSword1, 0},
+        {Entities.PU_LeaderBow1, 0},
+        {Entities.PU_LeaderPoleArm1, 0},
+    };
+    gv_Difficulty.Player2.Attackers = {
+        {Entities.PU_LeaderSword1, 0},
+        {Entities.PU_LeaderBow1, 0},
+        {Entities.PV_Cannon2, 3},
+    };
+    gv_Difficulty.Player2.Defenders = {
+        {Entities.PU_LeaderPoleArm1, 0},
+        {Entities.PU_LeaderBow1, 0},
     };
 
     gv_Difficulty.Player5.ArmySize = 4;
@@ -295,7 +301,24 @@ function SetEasyDifficulty()
     gv_Difficulty.Player5.Types = {
         {Entities.PU_LeaderSword1, 0},
         {Entities.PU_LeaderCavalry1, 0},
+        {Entities.PU_LeaderSword1, 0},
+        {Entities.PU_LeaderCavalry1, 0},
+        {Entities.PU_LeaderBow1, 0},
+        {Entities.PV_Cannon2, 3},
+        {Entities.PU_LeaderCavalry1, 0},
+        {Entities.PU_LeaderSword1, 0},
+        {Entities.PU_LeaderCavalry1, 0},
+        {Entities.PU_LeaderSword1, 0},
     }
+    gv_Difficulty.Player5.Attackers = {
+        {Entities.PU_LeaderSword1, 0},
+        {Entities.PU_LeaderCavalry1, 0},
+        {Entities.PV_Cannon2, 3},
+    };
+    gv_Difficulty.Player5.Defenders = {
+        {Entities.PU_LeaderSword1, 0},
+        {Entities.PU_LeaderBow1, 0},
+    };
 end
 
 function SetNormalDifficulty()
@@ -308,7 +331,23 @@ function SetNormalDifficulty()
     gv_Difficulty.Player2.RespawnTime = 135;
     gv_Difficulty.Player2.Types = {
         {Entities.PU_LeaderPoleArm2, 1},
+        {Entities.PU_LeaderBow2, 1},
         {Entities.PU_LeaderSword2, 1},
+        {Entities.PV_Cannon1, 1},
+        {Entities.PU_LeaderSword2, 1},
+        {Entities.PU_LeaderBow2, 1},
+        {Entities.PU_LeaderPoleArm2, 1},
+        {Entities.PV_Cannon2, 3},
+        {Entities.PU_LeaderBow2, 1},
+        {Entities.PU_LeaderPoleArm2, 1},
+    };
+    gv_Difficulty.Player2.Attackers = {
+        {Entities.PU_LeaderSword2, 1},
+        {Entities.PU_LeaderBow2, 1},
+        {Entities.PV_Cannon2, 3},
+    };
+    gv_Difficulty.Player2.Defenders = {
+        {Entities.PU_LeaderPoleArm2, 1},
         {Entities.PU_LeaderBow2, 1},
         {Entities.PV_Cannon1, 1},
     };
@@ -319,10 +358,26 @@ function SetNormalDifficulty()
     gv_Difficulty.Player5.RespawnTime = 135;
     gv_Difficulty.Player5.Types = {
         {Entities.PU_LeaderSword2, 1},
+        {Entities.PV_Cannon1, 1},
+        {Entities.PU_LeaderSword2, 1},
+        {Entities.PU_LeaderBow2, 1},
+        {Entities.PU_LeaderHeavyCavalry1, 1},
+        {Entities.PU_LeaderBow2, 1},
+        {Entities.PU_LeaderCavalry1, 1},
+        {Entities.PV_Cannon2, 3},
         {Entities.PU_LeaderHeavyCavalry1, 1},
         {Entities.PU_LeaderCavalry1, 1},
-        {Entities.PV_Cannon1, 1},
     }
+    gv_Difficulty.Player5.Attackers = {
+        {Entities.PU_LeaderHeavyCavalry1, 1},
+        {Entities.PU_LeaderCavalry1, 1},
+        {Entities.PV_Cannon2, 3},
+    };
+    gv_Difficulty.Player5.Defenders = {
+        {Entities.PU_LeaderSword2, 1},
+        {Entities.PU_LeaderBow2, 1},
+        {Entities.PV_Cannon1, 1},
+    };
 end
 
 function SetHardDifficulty()
@@ -330,26 +385,60 @@ function SetHardDifficulty()
     gv_Difficulty.PassiveTime = 35*60;
 
     gv_Difficulty.Player2.ArmySize = 6;
-    gv_Difficulty.Player2.ArmyAmount = 7;
+    gv_Difficulty.Player2.ArmyAmount = 8;
     gv_Difficulty.Player2.RespawnAmount = 3;
     gv_Difficulty.Player2.RespawnTime = 90;
     gv_Difficulty.Player2.Types = {
         {Entities.PU_LeaderPoleArm3, 2},
         {Entities.PU_LeaderSword3, 2},
         {Entities.PU_LeaderBow3, 2},
+        {Entities.PU_LeaderPoleArm3, 2},
+        {Entities.PV_Cannon4, 3},
+        {Entities.PU_LeaderSword3, 2},
+        {Entities.CV_Cannon1, 2},
+        {Entities.PU_LeaderBow3, 2},
+        {Entities.PU_LeaderPoleArm3, 2},
+        {Entities.PU_LeaderSword3, 2},
+    };
+    gv_Difficulty.Player2.Attackers = {
+        {Entities.PU_LeaderSword3, 1},
+        {Entities.PU_LeaderBow3, 1},
+        {Entities.CV_Cannon1, 2},
+        {Entities.PV_Cannon4, 3},
+    };
+    gv_Difficulty.Player2.Defenders = {
+        {Entities.PU_LeaderPoleArm3, 1},
+        {Entities.PU_LeaderBow3, 2},
         {Entities.CV_Cannon1, 2},
     };
 
     gv_Difficulty.Player5.ArmySize = 6;
-    gv_Difficulty.Player5.ArmyAmount = 7;
+    gv_Difficulty.Player5.ArmyAmount = 8;
     gv_Difficulty.Player5.RespawnAmount = 3;
     gv_Difficulty.Player5.RespawnTime = 90;
     gv_Difficulty.Player5.Types = {
         {Entities.PU_LeaderSword3, 2},
-        {Entities.PU_LeaderHeavyCavalry1, 2},
         {Entities.PU_LeaderCavalry2, 2},
         {Entities.CV_Cannon1, 2},
+        {Entities.PU_LeaderSword3, 2},
+        {Entities.PU_LeaderBow3, 2},
+        {Entities.PU_LeaderHeavyCavalry1, 2},
+        {Entities.PU_LeaderCavalry2, 2},
+        {Entities.PV_Cannon4, 3},
+        {Entities.PU_LeaderSword3, 2},
+        {Entities.PU_LeaderHeavyCavalry1, 2},
     }
+    gv_Difficulty.Player5.Attackers = {
+        {Entities.PU_LeaderHeavyCavalry1, 1},
+        {Entities.PU_LeaderCavalry2, 1},
+        {Entities.CV_Cannon1, 2},
+        {Entities.PV_Cannon4, 3},
+    };
+    gv_Difficulty.Player5.Defenders = {
+        {Entities.PU_LeaderSword3, 1},
+        {Entities.PU_LeaderBow3, 2},
+        {Entities.CV_Cannon1, 2},
+    };
 end
 
 function SetManiacDifficulty()
@@ -362,9 +451,27 @@ function SetManiacDifficulty()
     gv_Difficulty.Player2.RespawnTime = 45;
     gv_Difficulty.Player2.Types = {
         {Entities.PU_LeaderPoleArm4, 3},
+        {Entities.CV_Cannon2, 3},
+        {Entities.PU_LeaderSword4, 3},
+        {Entities.PU_LeaderBow4, 3},
+        {Entities.PU_LeaderPoleArm4, 3},
+        {Entities.PU_LeaderSword4, 3},
+        {Entities.PV_Cannon4, 3},
         {Entities.PU_LeaderSword4, 3},
         {Entities.PU_LeaderBow4, 3},
         {Entities.CV_Cannon2, 3},
+        {Entities.PU_LeaderBow4, 3},
+    };
+    gv_Difficulty.Player2.Attackers = {
+        {Entities.PU_LeaderSword4, 1},
+        {Entities.PU_LeaderBow4, 1},
+        {Entities.CV_Cannon2, 2},
+        {Entities.PV_Cannon4, 3},
+    };
+    gv_Difficulty.Player2.Defenders = {
+        {Entities.PU_LeaderPoleArm4, 1},
+        {Entities.PU_LeaderBow4, 2},
+        {Entities.CV_Cannon2, 2},
     };
 
     gv_Difficulty.Player5.ArmySize = 8;
@@ -373,10 +480,31 @@ function SetManiacDifficulty()
     gv_Difficulty.Player5.RespawnTime = 45;
     gv_Difficulty.Player5.Types = {
         {Entities.PU_LeaderSword4, 3},
+        {Entities.CV_Cannon2, 3},
+        {Entities.PU_LeaderBow4, 3},
+        {Entities.PU_LeaderCavalry2, 3},
+        {Entities.PU_LeaderHeavyCavalry2, 3},
+        {Entities.PV_Cannon4, 3},
+        {Entities.PU_LeaderHeavyCavalry2, 3},
+        {Entities.PU_LeaderSword4, 3},
+        {Entities.PU_LeaderBow4, 3},
+        {Entities.CV_Cannon2, 3},
         {Entities.PU_LeaderHeavyCavalry2, 3},
         {Entities.PU_LeaderCavalry2, 3},
-        {Entities.CV_Cannon2, 3},
+        {Entities.PV_Cannon4, 3},
+        {Entities.PU_LeaderCavalry2, 3},
     }
+    gv_Difficulty.Player5.Attackers = {
+        {Entities.PU_LeaderHeavyCavalry2, 1},
+        {Entities.PU_LeaderCavalry2, 1},
+        {Entities.CV_Cannon2, 2},
+        {Entities.PV_Cannon4, 3},
+    };
+    gv_Difficulty.Player5.Defenders = {
+        {Entities.PU_LeaderSword4, 1},
+        {Entities.PU_LeaderBow4, 2},
+        {Entities.CV_Cannon2, 2},
+    };
 end
 
 -- ########################################################################## --
@@ -385,14 +513,8 @@ end
 
 function StartAiPlayerAggressiveTimer()
     function MakeAiAggressive()
-        for i= 1, table.getn(gv_Difficulty.Player2.Armies) do
-            local ManagerID = gv_Difficulty.Player2.Armies[i];
-            AiArmyManager.ForbidAttacking(ManagerID, false);
-        end
-        for i= 1, table.getn(gv_Difficulty.Player5.Armies) do
-            local ManagerID = gv_Difficulty.Player5.Armies[i];
-            AiArmyManager.ForbidAttacking(ManagerID, false);
-        end
+        gv_Player2Attack = true;
+        gv_Player3Attack = true;
 
         Message("@color:209,52,52,255 Eure Feinde machen ihren Zug!");
         Sound.PlayQueuedFeedbackSound(Sounds.OnKlick_Select_kerberos, 100);
@@ -400,9 +522,15 @@ function StartAiPlayerAggressiveTimer()
     StartCountdown(gv_Difficulty.PassiveTime, MakeAiAggressive, true);
 end
 
+-- Overwrite formation selection
+function CustomTroopFomrationController(_ID)
+    Stronghold.Unit:SetFormationOnCreate(_ID);
+end
+
+-- ### Player 2 ---
+
 function CreateAiPlayer2()
     SetupAiPlayer(2, 0);
-    local HomePosition = GetPosition("DoorP2");
     local SpawnerID;
 
     -- HQ spawner
@@ -411,7 +539,9 @@ function CreateAiPlayer2()
         SpawnPoint = "DoorP2",
         SpawnAmount = gv_Difficulty.Player2.RespawnAmount,
         SpawnTimer = gv_Difficulty.Player2.RespawnTime,
-        AllowedTypes = gv_Difficulty.Player2.Types
+        AllowedTypes = gv_Difficulty.Player2.Types,
+        Sequentially = true,
+        Endlessly = true,
     }
     table.insert(gv_Difficulty.Player2.Spawners, SpawnerID);
 
@@ -421,7 +551,9 @@ function CreateAiPlayer2()
         SpawnPoint = "P2Barracks1Spawn",
         SpawnAmount = gv_Difficulty.Player2.RespawnAmount,
         SpawnTimer = gv_Difficulty.Player2.RespawnTime,
-        AllowedTypes = gv_Difficulty.Player2.Types
+        AllowedTypes = gv_Difficulty.Player2.Types,
+        Sequentially = true,
+        Endlessly = true,
     }
     table.insert(gv_Difficulty.Player2.Spawners, SpawnerID);
 
@@ -431,7 +563,9 @@ function CreateAiPlayer2()
         SpawnPoint = "P2Archery1Spawn",
         SpawnAmount = gv_Difficulty.Player2.RespawnAmount,
         SpawnTimer = gv_Difficulty.Player2.RespawnTime,
-        AllowedTypes = gv_Difficulty.Player2.Types
+        AllowedTypes = gv_Difficulty.Player2.Types,
+        Sequentially = true,
+        Endlessly = true,
     }
     table.insert(gv_Difficulty.Player2.Spawners, SpawnerID);
 
@@ -442,59 +576,92 @@ function CreateAiPlayer2()
                 ScriptName = "P2Tent" ..i,
                 SpawnAmount = gv_Difficulty.Player2.RespawnAmount,
                 SpawnTimer = gv_Difficulty.Player2.RespawnTime,
-                AllowedTypes = gv_Difficulty.Player2.Types
+                AllowedTypes = gv_Difficulty.Player2.Types,
+                Sequentially = true,
+                Endlessly = true,
             }
             table.insert(gv_Difficulty.Player2.Spawners, SpawnerID);
         end
     end
 
     -- create armies
+    local ArmyHome = {"P2DefPos1","P2DefPos2","P2DefPos3"};
     for i= 1, gv_Difficulty.Player2.ArmyAmount do
+        local HomePosition = GetPosition(ArmyHome[math.mod(i, 3) +1]);
         local ArmyID = AiArmy.New(2, gv_Difficulty.Player2.ArmySize, HomePosition, 3000);
+        table.insert(gv_Difficulty.Player2.Armies, ArmyID);
         AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
-        local ManagerID = AiArmyManager.Create(ArmyID);
-
-        AiArmyManager.AddAttackTarget(ManagerID, "AttackPos1");
-        AiArmyManager.AddAttackTarget(ManagerID, "AttackPos2");
-        AiArmyManager.AddAttackTarget(ManagerID, "AttackPos3");
-
-        AiArmyManager.AddGuardPosition(ManagerID, "P2DefPos1");
-        AiArmyManager.AddGuardPosition(ManagerID, "P2DefPos2");
-        AiArmyManager.AddGuardPosition(ManagerID, "P2DefPos3");
-        AiArmyManager.AddGuardPosition(ManagerID, "P2DefPos4");
-
         for j= 1, table.getn(gv_Difficulty.Player2.Spawners) do
             AiArmyRefiller.AddArmy(gv_Difficulty.Player2.Spawners[j], ArmyID);
         end
-
-        AiArmyManager.ForbidAttacking(ManagerID, true);
-        table.insert(gv_Difficulty.Player2.Armies, ManagerID);
+        --- @diagnostic disable-next-line: undefined-field
+        if math.mod(ArmyID, 2) == 0 then
+            AiArmy.SetAllowedTypes(ArmyID, gv_Difficulty.Player2.Defenders);
+            Job.Second(Job_ControlDefendingArmyPlayer2, ArmyID);
+        else
+            AiArmy.SetAllowedTypes(ArmyID, gv_Difficulty.Player2.Attackers);
+            Job.Second(Job_ControlAttackingArmyPlayer2, ArmyID);
+        end
     end
-    AiArmyManager.Synchronize(unpack(gv_Difficulty.Player2.Armies));
 
     -- Remove resources
-    Job.Destroy(function()
-        local ID = Event.GetEntityID();
-        if Logic.GetEntityName(ID) == "P2Mine1" then
-            DestroyEntity("P2Pit1");
-        end
-        if Logic.GetEntityName(ID) == "P2Mine2" then
-            DestroyEntity("P2Pit2");
-        end
-        if Logic.GetEntityName(ID) == "P2Mine3" then
-            DestroyEntity("P2Pit3");
-        end
-        if Logic.GetEntityName(ID) == "P2Village1" then
-            DestroyEntity("P2VillageSite1");
-        end
-    end);
+    Job.Destroy(Job_DestroyRemnantsPlayer2);
 
     SetHostile(1,2);
 end
 
+function Job_ControlAttackingArmyPlayer2(_ArmyID)
+    if not IsExisting("HQ2") then
+        return true;
+    end
+    if gv_Player2Attack then
+        if AiArmy.IsArmyDoingNothing(_ArmyID) then
+            local RodeLength = AiArmy.GetRodeLength(_ArmyID);
+            local Positions = {"LordP1","AttackPos1","AttackPos2","AttackPos3"};
+            Positions = ShuffleTable(Positions);
+            local Enemies = AiArmy.GetEnemiesInCircle(_ArmyID, Positions[1], RodeLength);
+            if Enemies[1] then
+                AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, Positions[1]), false);
+                AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle), false);
+                AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Fallback), false);
+            end
+        end
+    end
+end
+
+function Job_ControlDefendingArmyPlayer2(_ArmyID)
+    if not IsExisting("HQ2") then
+        return true;
+    end
+    if AiArmy.IsArmyDoingNothing(_ArmyID) then
+        local Positions = {"P2DefPos1","P2DefPos2","P2DefPos3","P2DefPos4"};
+        for _, Position in ipairs(ShuffleTable(Positions)) do
+            AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, Position), false);
+            AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
+        end
+    end
+end
+
+function Job_DestroyRemnantsPlayer2()
+    local ID = Event.GetEntityID();
+    if Logic.GetEntityName(ID) == "P2Mine1" then
+        DestroyEntity("P2Pit1");
+    end
+    if Logic.GetEntityName(ID) == "P2Mine2" then
+        DestroyEntity("P2Pit2");
+    end
+    if Logic.GetEntityName(ID) == "P2Mine3" then
+        DestroyEntity("P2Pit3");
+    end
+    if Logic.GetEntityName(ID) == "P2Village1" then
+        DestroyEntity("P2VillageSite1");
+    end
+end
+
+-- ### Player 5 ---
+
 function CreateAiPlayer5()
     SetupAiPlayer(5, 0);
-    local HomePosition = GetPosition("P5DefPos4");
     local SpawnerID;
 
     -- HQ spawner
@@ -503,7 +670,9 @@ function CreateAiPlayer5()
         SpawnPoint = "DoorP5",
         SpawnAmount = gv_Difficulty.Player5.RespawnAmount,
         SpawnTimer = gv_Difficulty.Player5.RespawnTime,
-        AllowedTypes = gv_Difficulty.Player5.Types
+        AllowedTypes = gv_Difficulty.Player5.Types,
+        Sequentially = true,
+        Endlessly = true,
     }
     table.insert(gv_Difficulty.Player5.Spawners, SpawnerID);
 
@@ -513,7 +682,9 @@ function CreateAiPlayer5()
         SpawnPoint = "P5Stable1Spawn",
         SpawnAmount = gv_Difficulty.Player5.RespawnAmount,
         SpawnTimer = gv_Difficulty.Player5.RespawnTime,
-        AllowedTypes = gv_Difficulty.Player5.Types
+        AllowedTypes = gv_Difficulty.Player5.Types,
+        Sequentially = true,
+        Endlessly = true,
     }
     table.insert(gv_Difficulty.Player5.Spawners, SpawnerID);
 
@@ -524,55 +695,82 @@ function CreateAiPlayer5()
                 ScriptName = "P5Tent" ..i,
                 SpawnAmount = gv_Difficulty.Player5.RespawnAmount,
                 SpawnTimer = gv_Difficulty.Player5.RespawnTime,
-                AllowedTypes = gv_Difficulty.Player5.Types
+                AllowedTypes = gv_Difficulty.Player5.Types,
+                Sequentially = true,
+                Endlessly = true,
             }
             table.insert(gv_Difficulty.Player5.Spawners, SpawnerID);
         end
     end
 
     -- create armies
+    local ArmyHome = {"P5DefPos1","P5DefPos2","P5DefPos3"};
     for i= 1, gv_Difficulty.Player5.ArmyAmount do
+        local HomePosition = GetPosition(ArmyHome[math.mod(i, 3) +1]);
         local ArmyID = AiArmy.New(5, gv_Difficulty.Player5.ArmySize, HomePosition, 3000);
+        table.insert(gv_Difficulty.Player5.Armies, ArmyID);
         AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
-        local ManagerID = AiArmyManager.Create(ArmyID);
-
-        AiArmyManager.AddAttackTarget(ManagerID, "AttackPos1");
-        AiArmyManager.AddAttackTarget(ManagerID, "AttackPos2");
-        AiArmyManager.AddAttackTarget(ManagerID, "AttackPos3");
-
-        AiArmyManager.AddGuardPosition(ManagerID, "P5DefPos1");
-        AiArmyManager.AddGuardPosition(ManagerID, "P5DefPos2");
-        AiArmyManager.AddGuardPosition(ManagerID, "P5DefPos3");
-        AiArmyManager.AddGuardPosition(ManagerID, "P5DefPos4");
-
         for j= 1, table.getn(gv_Difficulty.Player5.Spawners) do
             AiArmyRefiller.AddArmy(gv_Difficulty.Player5.Spawners[j], ArmyID);
         end
-
-        AiArmyManager.ForbidAttacking(ManagerID, true);
-        table.insert(gv_Difficulty.Player5.Armies, ManagerID);
+        --- @diagnostic disable-next-line: undefined-field
+        if math.mod(ArmyID, 2) == 0 then
+            AiArmy.SetAllowedTypes(ArmyID, gv_Difficulty.Player5.Defenders);
+            Job.Second(Job_ControlDefendingArmyPlayer5, ArmyID);
+        else
+            AiArmy.SetAllowedTypes(ArmyID, gv_Difficulty.Player5.Attackers);
+            Job.Second(Job_ControlAttackingArmyPlayer5, ArmyID);
+        end
     end
-    AiArmyManager.Synchronize(unpack(gv_Difficulty.Player5.Armies));
 
     -- Remove resources
-    Job.Destroy(function()
-        local ID = Event.GetEntityID();
-        if Logic.GetEntityName(ID) == "P5Mine1" then
-            DestroyEntity("P5Pit1");
-        end
-        if Logic.GetEntityName(ID) == "P5Mine2" then
-            DestroyEntity("P5Pit2");
-        end
-        if Logic.GetEntityName(ID) == "P5Village1" then
-            DestroyEntity("P5VillageSite1");
-        end
-    end);
+    Job.Destroy(Job_DestroyRemnantsPlayer5);
 
     SetHostile(1,5);
 end
 
--- Overwrite formation selection
-function CustomTroopFomrationController(_ID)
-    Stronghold.Unit:SetFormationOnCreate(_ID);
+function Job_DestroyRemnantsPlayer5()
+    local ID = Event.GetEntityID();
+    if Logic.GetEntityName(ID) == "P5Mine1" then
+        DestroyEntity("P5Pit1");
+    end
+    if Logic.GetEntityName(ID) == "P5Mine2" then
+        DestroyEntity("P5Pit2");
+    end
+    if Logic.GetEntityName(ID) == "P5Village1" then
+        DestroyEntity("P5VillageSite1");
+    end
+end
+
+function Job_ControlAttackingArmyPlayer5(_ArmyID)
+    if not IsExisting("HQ5") then
+        return true;
+    end
+    if gv_Player2Attack then
+        if AiArmy.IsArmyDoingNothing(_ArmyID) then
+            local RodeLength = AiArmy.GetRodeLength(_ArmyID);
+            local Positions = {"LordP1","AttackPos1","AttackPos2","AttackPos3"};
+            Positions = ShuffleTable(Positions);
+            local Enemies = AiArmy.GetEnemiesInCircle(_ArmyID, Positions[1], RodeLength);
+            if Enemies[1] then
+                AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, Positions[1]), false);
+                AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle), false);
+                AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Fallback), false);
+            end
+        end
+    end
+end
+
+function Job_ControlDefendingArmyPlayer5(_ArmyID)
+    if not IsExisting("HQ5") then
+        return true;
+    end
+    if AiArmy.IsArmyDoingNothing(_ArmyID) then
+        local Positions = {"P5DefPos1","P5DefPos2","P5DefPos3","P5DefPos4"};
+        for _, Position in ipairs(ShuffleTable(Positions)) do
+            AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, Position), false);
+            AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
+        end
+    end
 end
 
