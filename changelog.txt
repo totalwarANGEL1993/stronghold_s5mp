@@ -1,13 +1,16 @@
-Version 0.6.16
+Version 0.6.17
 - Es gibt nun ein 0,3 Sekunden Delay beim Rekrutieren von Einheiten
 - Es werden nun immer die belegten Plätze angezeigt
 - Schaden von einigen Einheiten wurde überarbeitet
 - Maßnahmen laden sich nun viel schneller auf
+- Alle Adligen haben alle Standardtruppen und zusätzlich Spezialeinheiten
+  (Einige Adlige können bestimmte Standardeineiten nicht anheuern)
 - Dario beschleunigt Maßnahmen nur noch um 50%
 - Pilgrims Bombe hat mehr Wums
 - Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
 - Salim steigert Wissensgewinn Gelehrter um 20%
 - Salims Falle ist geschwächt
+- Aris Waldläufer wurden entfernt
 - Helias hat nun ebenfalls Erecs Kavallerie als Spezialeinheiten
 - Mary erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
 - Mary heißt jetzt nur noch "Marie"
@@ -26,6 +29,18 @@ Version 0.6.16
 - Benötigte Plätze für Kanonen überarbeitet
   * Bombarde, Große Bombarde, Bronzekanone: 4
   * Eisenkanone, Dschihad, Belagerungskanone: 8
+
+Version 0.5.30
+- Einige Performance Verbesserungen
+
+Version 0.5.29
+- Auswahl des Adligen ist während der Pause nicht mehr möglich.
+- Ein Bereich um die Burg ist für Gebäudebau geblockt. Dadurch können Verbrecher
+  nicht mehr stecken bleiben.
+- Update für Beliebtheit und Ehre wurde auf HiRes beschleunigt. Es sollte nun
+  nicht mehr vorkommen, Bonus in "letzter Sekunde zu verlieren".
+- Der Tooltip für die Wettermaschine legt sich nicht mehr über andere.
+- Kleinere Textkorrekturen
 
 Version 0.5.28
 - Der Konfigurationsfehler beim Limit einigen Gebäudetypen wurde behoben.
