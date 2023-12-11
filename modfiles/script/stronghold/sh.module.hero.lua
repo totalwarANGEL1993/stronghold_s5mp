@@ -2,14 +2,6 @@
 --- Hero Script
 ---
 --- This script implements all processes around the hero.
----
---- Managed by the script:
---- - Selection of hero
---- - Special units
---- - Summons
---- - Activated abilities
---- - Passive abilities
---- - Selection menus
 --- 
 
 Stronghold = Stronghold or {};
@@ -27,22 +19,23 @@ Stronghold.Hero = {
 
 --- Creates an hero for the player.
 --- 
---- This is supposed to be used when the player has no choice.
---- @param _PlayerID number ID of player
---- @param _Type number Entity type
+--- This is supposed to be used when the player has no choice or starts without
+--- a headquarter!
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Hero type or 0 to take any existing
 --- @param _Position any Spawn position
 function PlayerCreateNoble(_PlayerID, _Type, _Position)
     Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position);
 end
 
 --- Activates the hero selection for the player.
---- @param _PlayerID number ID of player
+--- @param _PlayerID integer ID of player
 function PlayerActivateNobleSelection(_PlayerID)
     Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, true);
 end
 
 --- Deactivates the hero selection for the player.
---- @param _PlayerID number ID of player
+--- @param _PlayerID integer ID of player
 function PlayerDeactivateNobleSelection(_PlayerID)
     Stronghold.Hero:SetHeroSelectionForPlayerEnabled(_PlayerID, false);
 end
@@ -51,29 +44,29 @@ end
 ---
 --- If the hero is downed then this function returns false.
 ---
---- @param _PlayerID number ID of player
---- @param _Type number Entity type
+--- @param _PlayerID integer ID of player
+--- @param _Type integer|string Entity type or name
 --- @return boolean HasHero Player has hero of type
 function PlayerHasLordOfType(_PlayerID, _Type)
     return Stronghold.Hero:HasValidLordOfType(_PlayerID, _Type);
 end
 
 --- Changes the name of the hero in the selection screen.
---- @param _Type number Entity type
+--- @param _Type integer Entity type
 --- @param _Text any New name (string or table)
 function SetHeroSelectionName(_Type, _Text)
     Stronghold.Hero:SetHeroName(_Type, _Text)
 end
 
 --- Changes the biography of the hero in the selection screen.
---- @param _Type number Entity type
+--- @param _Type integer Entity type
 --- @param _Text any New biography (string or table)
 function SetHeroSelectionBiography(_Type, _Text)
     Stronghold.Hero:SetHeroBiography(_Type, _Text)
 end
 
 --- Changes the effect description of the hero in the selection screen.
---- @param _Type number Entity type
+--- @param _Type integer Entity type
 --- @param _Text any New effect description (string or table)
 function SetHeroSelectionDescription(_Type, _Text)
     Stronghold.Hero:SetHeroDescription(_Type, _Text)
@@ -120,6 +113,7 @@ function Stronghold.Hero:SetEntityConvertable(_EntityID, _Flag)
 end
 
 function Stronghold.Hero:SetHeroName(_Type, _Text)
+    -- TODO: Use string key overwrite
     local Text = _Text;
     if type(Text) ~= "table" then
         Text = {de = _Text, en = _Text};
@@ -448,7 +442,7 @@ function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
     if IsPlayer(_PlayerID) then
         local ID = 0;
         local HeroList = self:GetHeroes(_PlayerID);
-        if table.getn(HeroList) > 0 then
+        if _Type == 0 and table.getn(HeroList) > 0 then
             ID = HeroList[1];
         else
             local Position = _Position;
@@ -632,15 +626,13 @@ function Stronghold.Hero:AttackMemoryController(_PlayerID)
             if Stronghold.Players[_PlayerID].AttackMemory[k][1] <= 0 then
                 Stronghold.Players[_PlayerID].AttackMemory[k] = nil;
             end
-
-            -- Teleport to HQ
-            if Logic.IsHero(k) == 1 then
-                if Logic.GetEntityHealth(k) == 0 then
+            -- Teleport hero to HQ
+            if Logic.IsHero(k) == 1 and Logic.GetEntityHealth(k) == 0 then
+                local CastleID = GetHeadquarterID(_PlayerID);
+                if CastleID ~= 0 and Logic.IsBuilding(CastleID) == 1 then
                     Stronghold.Players[_PlayerID].AttackMemory[k] = nil;
-                    -- Send message
                     local Text = XGUIEng.GetStringTableText("sh_text/Player_NobleDefeated");
                     Message(Text);
-                    -- Place hero
                     local x,y,z = Logic.EntityGetPos(k);
                     Logic.CreateEffect(GGL_Effects.FXDieHero, x, y, _PlayerID);
                     local ID = SetPosition(k, Stronghold.Players[_PlayerID].DoorPos);
@@ -650,7 +642,7 @@ function Stronghold.Hero:AttackMemoryController(_PlayerID)
                     Logic.HurtEntity(ID, Logic.GetEntityHealth(ID));
                 end
             end
-
+            -- Remove invalid
             if not IsExisting(k) then
                 Stronghold.Players[_PlayerID].AttackMemory[k] = nil;
             end

@@ -544,13 +544,6 @@ function Stronghold.Attraction:GetVirtualPlayerAttractionLimit(_PlayerID)
     local Limit = 0;
     local RawLimit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        -- Village Centers
-        local VC1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true);
-        RawLimit = RawLimit + (VC1[1] * self.Config.Attraction.VCCivil[1]);
-        local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
-        RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCCivil[2]);
-        local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
-        RawLimit = RawLimit + (VC3 * self.Config.Attraction.VCCivil[3]);
         -- Headquarters
         local HQ1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
         RawLimit = RawLimit + (HQ1[1] * self.Config.Attraction.HQCivil[1]);
@@ -558,8 +551,18 @@ function Stronghold.Attraction:GetVirtualPlayerAttractionLimit(_PlayerID)
         RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQCivil[2]);
         local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
         RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQCivil[3]);
+        if RawLimit == 0 and not Stronghold.Players[_PlayerID].HQCreated then
+            Limit = Limit + 35;
+        end
+        -- Village Centers
+        local VC1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true);
+        RawLimit = RawLimit + (VC1[1] * self.Config.Attraction.VCCivil[1]);
+        local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
+        RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCCivil[2]);
+        local VC3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter3);
+        RawLimit = RawLimit + (VC3 * self.Config.Attraction.VCCivil[3]);
         -- External
-        Limit = GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, RawLimit);
+        Limit = GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, Limit + RawLimit);
         -- Virtual settlers
         Limit = Limit + self.Data[_PlayerID].VirtualSettlers;
     end
@@ -606,7 +609,8 @@ end
 function Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if IsEntityValid(Stronghold:GetPlayerHero(_PlayerID)) then
+        if Stronghold.Config.DefeatModes.LastManStanding
+        or IsEntityValid(GetNobleID(_PlayerID)) then
             local RawLimit = self.Config.Attraction.SlaveLimit;
             -- Rank
             local Rank = GetRank(_PlayerID);
@@ -647,11 +651,19 @@ end
 function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if IsEntityValid(Stronghold:GetPlayerHero(_PlayerID)) then
+        if Stronghold.Config.DefeatModes.LastManStanding
+        or IsEntityValid(GetNobleID(_PlayerID)) then
             -- Headquarters
-            local HeadquarterID = GetHeadquarterID(_PlayerID);
-            local HeadquarterLevel = Logic.GetUpgradeLevelForBuilding(HeadquarterID);
-            Limit = Limit + self.Config.Attraction.HQMilitary[HeadquarterLevel +1];
+            local HQ1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
+            Limit = Limit + (HQ1[1] * self.Config.Attraction.HQMilitary[1]);
+            local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
+            Limit = Limit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
+            local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
+            Limit = Limit + (HQ3 * self.Config.Attraction.HQMilitary[3]);
+            if Limit == 0 and not Stronghold.Players[_PlayerID].HQCreated then
+                Limit = Limit + (1 * self.Config.Attraction.HQMilitary[1]);
+            end
+
             -- Barracks
             -- local BB1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true);
             -- Limit = Limit + (BB1[1] * self.Config.Attraction.BBMilitary[1]);

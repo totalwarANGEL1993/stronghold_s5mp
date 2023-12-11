@@ -1,16 +1,7 @@
 ---
 --- Main Script
 ---
---- This script implements everything reguarding the player.
----
---- Managed by the script:
---- - Players honor
---- - Players reputation
---- - Players payday
---- - Defeat condition
---- - Shared UI stuff
---- - automatic archive loading
---- - trade
+--- This script manages all components of the stronghold mod.
 ---
 --- Defined game callbacks:
 --- - <number> GameCallback_SH_Calculate_Payday(_PlayerID, _Amount)
@@ -40,8 +31,11 @@
 --- - <number> GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damage)
 ---   Calculates the damage of an attack
 ---
---- - GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _IsAI)
+--- - GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _CastleID, _IsAI)
 ---   Called after the player is initialized.
+---
+--- - GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, _CastleID)
+---   Called after the player has received their headquarter.
 ---
 
 Stronghold = {
@@ -114,6 +108,8 @@ end
 -- API
 
 --- Starts the Stronghold script.
+---
+--- This must be called before calling anything else!
 function SetupStronghold()
     Stronghold:Init();
 end
@@ -141,7 +137,12 @@ function SetupPlayer(_PlayerID, _Serfs)
     end
 end
 
---- Creates a new AI player.
+--- Creates a new player and configures them as AI player.
+---
+--- A player configured as AI ignores honor and reputation, will not have any
+--- criminals and basically can cheat as they want.
+---
+--- A AI player can not be initialized without a headquarter!
 --- @param _PlayerID number  ID of player
 --- @param _Serfs?   number  Amount of serfs
 --- @param _HeroType? number Type of hero
@@ -159,22 +160,21 @@ function DestructPlayer(_PlayerID)
     end
 end
 
---- Returns if a player is a player.
+--- Returns if a player is a human player.
 --- @param _PlayerID number ID of player
 --- @return boolean IsPlayer Is human player
 function IsPlayer(_PlayerID)
     return Stronghold:IsPlayer(_PlayerID);
 end
 
---- Returns if a player is a AI player.
+--- Returns if a player is an AI player.
 --- @param _PlayerID number ID of player
 --- @return boolean IsPlayer Is AI player
 function IsAIPlayer(_PlayerID)
     return Stronghold:IsAIPlayer(_PlayerID);
 end
 
---- Returns if a player is a player and is initalized.
---- (A player is initalized when the headquarters is placed.)
+--- Returns if a player has been initialized.
 --- @param _PlayerID number ID of player
 --- @return boolean IsInitalized Is initalized player
 function IsPlayerInitalized(_PlayerID)
@@ -221,6 +221,13 @@ end
 --- @return number ID ID of Headquarters
 function GetHeadquarterID(_PlayerID)
     return Stronghold:GetPlayerHeadquarter(_PlayerID);
+end
+
+--- Returns the ID of the players hero.
+--- @param _PlayerID number ID of player
+--- @return number ID ID of hero
+function GetNobleID(_PlayerID)
+    return Stronghold:GetPlayerHero(_PlayerID);
 end
 
 --- Alters the purchase price of the resource.
@@ -336,7 +343,10 @@ function GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damag
     return _Damage;
 end
 
-function GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _IsAI)
+function GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _CastleID, _IsAI)
+end
+
+function GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, _CastleID)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -458,6 +468,7 @@ function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
         LordScriptName = LordName,
         HQScriptName = HQName,
         DoorPos = nil;
+        CampPos = nil;
 
         TaxHeight = 3,
         ReputationLimit = 200,
@@ -477,15 +488,6 @@ function Stronghold:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
     end, _PlayerID, _Serfs, _HeroType);
 end
 
-function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType)
-    local HQID = self:GetPlayerHeadquarter(_PlayerID);
-    if Logic.IsBuilding(HQID) == 1 and Logic.IsConstructionComplete(HQID) == 1 then
-        self:InitalizePlayer(_PlayerID, _Serfs, _HeroType);
-        return true;
-    end
-    return false;
-end
-
 function Stronghold:GetPlayer(_PlayerID)
     return self.Players[_PlayerID];
 end
@@ -502,6 +504,13 @@ end
 function Stronghold:IsPlayerInitalized(_PlayerID)
     if self:IsPlayer(_PlayerID) then
         return self:GetPlayer(_PlayerID).IsInitalized == true;
+    end
+    return false;
+end
+
+function Stronghold:IsPlayerHQCreated(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        return self.Players[_PlayerID].HQCreated == true;
     end
     return false;
 end
@@ -532,16 +541,87 @@ function Stronghold:GetLocalPlayerID()
     return PlayerID1;
 end
 
-function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
-    local HQName = "HQ" .._PlayerID;
+function Stronghold:InitalizePlayerWithoutHeadquarters(_PlayerID, _StartPosition, _HeroType, _SerfAmount)
+    assert(
+        Logic.PlayerGetIsHumanFlag(_PlayerID) == 1,
+        "Only human players can be initalized without a headquarter!"
+    );
+
+    -- Set rank
+    SetRank(_PlayerID, self.Config.Base.InitialRank);
+    -- Create serfs
+    if _StartPosition and _SerfAmount then
+        self:InitalizePlayersSerfs(_PlayerID, _SerfAmount, _StartPosition);
+    end
+    -- Create hero
+    if _StartPosition and _HeroType then
+        PlayerCreateNoble(_PlayerID, _HeroType, _StartPosition);
+    end
+    Logic.PlayerSetGameStateToPlaying(_PlayerID);
+
+    Job.Second(function(_PlayerID)
+        return Stronghold:WaitForPlayersHeadquarterConstructed(_PlayerID);
+    end, _PlayerID);
+
+    -- Save player initialized
+    self.Players[_PlayerID].IsInitalized = true;
+    GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, 0, self:IsAIPlayer(_PlayerID));
+end
+
+function Stronghold:InitalizePlayerWithHeadquarters(_PlayerID, _Serfs, _HeroType)
+    local CastleID = GetID("HQ" .._PlayerID);
+
+    self:InitalizePlayersHeadquarter(_PlayerID);
+    self:InitalizePlayersSerfs(_PlayerID, _Serfs);
+
+    -- Set rank
+    SetRank(_PlayerID, self.Config.Base.InitialRank);
+
+    Logic.PlayerSetGameStateToPlaying(_PlayerID);
+    self:InitalizeAiPlayer(_PlayerID, _HeroType);
+
+    -- Save player initialized
+    self.Players[_PlayerID].IsInitalized = true;
+    GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, CastleID, self:IsAIPlayer(_PlayerID));
+end
+
+function Stronghold:InitalizeAiPlayer(_PlayerID, _HeroType)
+    if self:IsAIPlayer(_PlayerID) then
+        local Position = self.Players[_PlayerID].DoorPos;
+        local Type = _HeroType or Entities.CU_Hero13;
+        PlayerCreateNoble(_PlayerID, Type, Position);
+        local HeroID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
+        Logic.RotateEntity(HeroID, 180);
+        Logic.PlayerSetIsHumanFlag(_PlayerID, 0);
+    end
+end
+
+function Stronghold:InitalizePlayersHeadquarter(_PlayerID)
+    local HQName = self.Players[_PlayerID].HQScriptName;
     local DoorPosName = "DoorP" .._PlayerID;
     local CampName = "CampP" .._PlayerID;
 
-    -- Replace headquarters
-    local HQID = GetID(self.Players[_PlayerID].HQScriptName);
-    HQID = ReplaceEntity(HQID, Logic.GetEntityType(HQID));
-    WriteEntityCreatedToLog(_PlayerID, HQID, Logic.GetEntityType(HQID));
-    local Orientation = Logic.GetEntityOrientation(HQID);
+    -- Get headquarters
+    local CastleID = GetID(self.Players[_PlayerID].HQScriptName);
+    if CastleID == 0 then
+        local _, HQ1ID = Logic.GetPlayerEntities(_PlayerID, Entities.PB_Headquarters1, 1);
+        CastleID = (HQ1ID ~= nil and HQ1ID ~= 0 and HQ1ID) or CastleID;
+        local _, HQ2ID = Logic.GetPlayerEntities(_PlayerID, Entities.PB_Headquarters2, 1);
+        CastleID = (HQ2ID ~= nil and HQ2ID ~= 0 and HQ2ID) or CastleID;
+        local _, HQ3ID = Logic.GetPlayerEntities(_PlayerID, Entities.PB_Headquarters3, 1);
+        CastleID = (HQ3ID ~= nil and HQ3ID ~= 0 and HQ3ID) or CastleID;
+    end
+    local Orientation = Logic.GetEntityOrientation(CastleID);
+    assert(CastleID ~= 0);
+    Logic.SetEntityName(CastleID, HQName);
+
+    -- Fix castle upgrade message
+    if Logic.GetUpgradeLevelForBuilding(CastleID) < 1 then
+        Logic.SetTechnologyState(_PlayerID, Technologies.UP1_Headquarter, 1);
+    end
+    if Logic.GetUpgradeLevelForBuilding(CastleID) < 2 then
+        Logic.SetTechnologyState(_PlayerID, Technologies.UP2_Headquarter, 1);
+    end
 
     -- Create door pos
     local ID, DoorPos;
@@ -567,12 +647,30 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, _PlayerID);
     WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
     local CampPos = GetCirclePosition(ID, 400, 160);
+    self.Players[_PlayerID].CampPos = CampPos;
     DestroyEntity(ID);
+    -- Create camp
     ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, CampPos.X, CampPos.Y, 0, 0);
     WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
     Logic.SetModelAndAnimSet(ID, Models.XD_LargeCampFire);
     SVLib.SetInvisibility(ID, false);
     Logic.SetEntityName(ID, CampName);
+
+    -- Create turrets
+    self.Building:CreateTurretsForBuilding(CastleID);
+
+    -- Register
+    self.Players[_PlayerID].HQCreated = true;
+
+    Job.Second(function(_PlayerID)
+        return Stronghold:WaitForPlayersHeadquarterDestroyed(_PlayerID);
+    end, _PlayerID);
+    GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, CastleID)
+end
+
+function Stronghold:InitalizePlayersSerfs(_PlayerID, _Serfs, _CampPos)
+    local CampName = "CampP" .._PlayerID;
+    local CampPos = _CampPos or self.Players[_PlayerID].CampPos;
 
     -- Create serfs
     local SerfCount = _Serfs or self.Config.Base.StartingSerfs;
@@ -582,35 +680,131 @@ function Stronghold:InitalizePlayer(_PlayerID, _Serfs, _HeroType)
         WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         LookAt(ID, CampName);
     end
-
-    -- Fix castle upgrade message
-    if Logic.GetUpgradeLevelForBuilding(HQID) < 1 then
-        Logic.SetTechnologyState(_PlayerID, Technologies.UP1_Headquarter, 1);
-    end
-    if Logic.GetUpgradeLevelForBuilding(HQID) < 2 then
-        Logic.SetTechnologyState(_PlayerID, Technologies.UP2_Headquarter, 1);
-    end
-    -- Create turrets
-    self.Building:CreateTurretsForBuilding(HQID);
-    -- Set rank
-    SetRank(_PlayerID, self.Config.Base.InitialRank);
-
-    -- Save player initialized
-    self.Players[_PlayerID].IsInitalized = true;
-
-    Logic.PlayerSetGameStateToPlaying(_PlayerID);
-    self:InitalizeAiPlayer(_PlayerID, _HeroType);
-    GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, self:IsAIPlayer(_PlayerID));
 end
 
-function Stronghold:InitalizeAiPlayer(_PlayerID, _HeroType)
-    if self:IsAIPlayer(_PlayerID) then
-        local Position = self.Players[_PlayerID].DoorPos;
-        local Type = _HeroType or Entities.CU_Hero13;
-        PlayerCreateNoble(_PlayerID, Type, Position);
-        local HeroID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
-        Logic.RotateEntity(HeroID, 180);
+-- This job is waiting to initalize a player.
+--
+-- To initialize a player, one of 3 conditions must be fulfilled:
+-- * Player has a fully constructed headquarter
+-- * Player as a specific hero
+-- * Player has any hero
+function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType)
+    local CastleID = self:GetPlayerHeadquarter(_PlayerID);
+    -- Initalize by headquarters
+    if (Logic.IsBuilding(CastleID) == 1 and Logic.IsConstructionComplete(CastleID) == 1) then
+        self:InitalizePlayerWithHeadquarters(_PlayerID, _Serfs, _HeroType);
+        return true;
     end
+    -- Initalize with specific hero
+    if _HeroType and Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, _HeroType) == 1 then
+        self:InitalizePlayerWithoutHeadquarters(_PlayerID, _Serfs, _HeroType);
+        return true;
+    end
+    -- Initalize with any hero
+    local HeroList = {};
+    Logic.GetHeroes(_PlayerID, HeroList);
+    if HeroList[1] then
+        local HeroType = Logic.GetEntityType(HeroList[1]);
+        self:InitalizePlayerWithoutHeadquarters(_PlayerID, _Serfs, HeroType);
+        return true;
+    end
+    return false;
+end
+
+-- This job is waiting for a headquarter to be fully constructed. If a player
+-- starts out with only a hero then the first fully constructed headquarter
+-- is set as the players castle.
+-- If the headquarter is destroyed later and the hero is still alive, they will
+-- gradually loose health until they die or a headquarter is build.
+function Stronghold:WaitForPlayersHeadquarterConstructed(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        if self.Config.DefeatModes.Annihilation then
+            return true;
+        end
+        if self.Players[_PlayerID].IsDefeated then
+            return true;
+        end
+        local CastleID = GetID(self.Players[_PlayerID].HQScriptName);
+        if CastleID == 0 then
+            local _, HQ1ID = Logic.GetPlayerEntities(_PlayerID, Entities.PB_Headquarters1, 1);
+            CastleID = (HQ1ID ~= nil and HQ1ID ~= 0 and HQ1ID) or CastleID;
+            local _, HQ2ID = Logic.GetPlayerEntities(_PlayerID, Entities.PB_Headquarters2, 1);
+            CastleID = (HQ2ID ~= nil and HQ2ID ~= 0 and HQ2ID) or CastleID;
+            local _, HQ3ID = Logic.GetPlayerEntities(_PlayerID, Entities.PB_Headquarters3, 1);
+            CastleID = (HQ3ID ~= nil and HQ3ID ~= 0 and HQ3ID) or CastleID;
+        end
+        if  CastleID ~= 0 and Logic.IsBuilding(CastleID) == 1
+        and Logic.IsConstructionComplete(CastleID) == 1 then
+            self:InitalizePlayersHeadquarter(_PlayerID);
+
+            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+            local PlayerName = UserTool_GetPlayerName(_PlayerID);
+            local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+            Message(string.format(
+                XGUIEng.GetStringTableText("sh_text/Player_CastleBuild"),
+                PlayerColor,
+                PlayerName
+            ));
+            return true;
+        end
+    end
+    return false;
+end
+
+function Stronghold:WaitForPlayerHeroSlowlyDies(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        if self.Config.DefeatModes.Annihilation then
+            return true;
+        end
+        if self.Config.DefeatModes.LastManStanding then
+            return true;
+        end
+        if self.Players[_PlayerID].IsDefeated then
+            return true;
+        end
+        if GetID(self.Players[_PlayerID].HQScriptName) ~= 0 then
+            return true;
+        end
+        if self:IsPlayerHQCreated(_PlayerID) then
+            local HeroID = self:GetPlayerHero(_PlayerID);
+            local HeroHealth = Logic.GetEntityHealth(HeroID);
+            if IsExisting(HeroID) then
+                Logic.HurtEntity(HeroID, math.min(HeroHealth, 2));
+            end
+        end
+    end
+    return false;
+end
+
+-- This job is waiting for the headquarter being destroyed to clean up stuff
+-- that is left behind.
+function Stronghold:WaitForPlayersHeadquarterDestroyed(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        if not IsExisting(self:GetPlayerHeadquarter(_PlayerID)) then
+            -- Rebuild castle job
+            Job.Turn(function(_PlayerID)
+                return Stronghold:WaitForPlayersHeadquarterConstructed(_PlayerID);
+            end, _PlayerID);
+            -- Sudden Death job
+            Job.Turn(function(_PlayerID)
+                return Stronghold:WaitForPlayerHeroSlowlyDies(_PlayerID);
+            end, _PlayerID);
+
+            DestroyEntity("DoorP" .._PlayerID);
+            DestroyEntity("CampP" .._PlayerID);
+
+            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+            local PlayerName = UserTool_GetPlayerName(_PlayerID);
+            local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+            Message(string.format(
+                XGUIEng.GetStringTableText("sh_text/Player_CastleLost"),
+                PlayerColor,
+                PlayerName
+            ));
+            return true;
+        end
+    end
+    return false;
 end
 
 function Stronghold:UnlockAllTechnologies()
@@ -860,24 +1054,24 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
     if not self:IsPlayer(_PlayerID) then
         return;
     end
-
-    -- Check lord
-    local HeroAtCastle = false;
     local HeroName = self.Players[_PlayerID].LordScriptName;
     local CastleName = self.Players[_PlayerID].HQScriptName;
-    local MaxDistance = self.Config.Base.MaxHeroDistance;
-    if IsEntityValid(HeroName) and GetDistance(HeroName, CastleName) <= MaxDistance then
-        HeroAtCastle = true;
-    end
 
-    local HQID = self:GetPlayerHeadquarter(_PlayerID);
-    if HeroAtCastle then
-        self.Players[_PlayerID].VulnerabilityInfoShown = false;
-        if IsExisting(HQID) then
-            MakeInvulnerable(CastleName);
+    local PlayerIsDefeated = false;
+    if self.Config.DefeatModes.Annihilation then
+        local MaxDistance = self.Config.Base.MaxHeroDistance;
+        local HeroAtCastle = false;
+        if IsEntityValid(HeroName) and GetDistance(HeroName, CastleName) <= MaxDistance then
+            HeroAtCastle = true;
         end
-        if not self.Players[_PlayerID].InvulnerabilityInfoShown then
-            if not self:IsAIPlayer(_PlayerID) then
+
+        local HQID = self:GetPlayerHeadquarter(_PlayerID);
+        if HeroAtCastle then
+            self.Players[_PlayerID].VulnerabilityInfoShown = false;
+            if IsExisting(HQID) then
+                MakeInvulnerable(CastleName);
+            end
+            if not self.Players[_PlayerID].InvulnerabilityInfoShown then
                 self.Players[_PlayerID].InvulnerabilityInfoShown = true;
                 Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
@@ -888,14 +1082,12 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                     PlayerName
                 ));
             end
-        end
-    else
-        self.Players[_PlayerID].InvulnerabilityInfoShown = false;
-        if IsExisting(CastleName) then
-            MakeVulnerable(CastleName);
-        end
-        if not self.Players[_PlayerID].VulnerabilityInfoShown then
-            if not self:IsAIPlayer(_PlayerID) then
+        else
+            self.Players[_PlayerID].InvulnerabilityInfoShown = false;
+            if IsExisting(CastleName) then
+                MakeVulnerable(CastleName);
+            end
+            if not self.Players[_PlayerID].VulnerabilityInfoShown then
                 self.Players[_PlayerID].VulnerabilityInfoShown = true;
                 Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
                 local PlayerName = UserTool_GetPlayerName(_PlayerID);
@@ -907,10 +1099,27 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
                 ));
             end
         end
+
+        if  not IsExisting("HQ" .._PlayerID)
+        and Logic.PlayerGetGameState(_PlayerID) == 1 then
+            PlayerIsDefeated = true;
+        end
+    elseif self.Config.DefeatModes.LastManStanding then
+        if  Logic.GetNumberOfAttractedSoldiers(_PlayerID) == 0
+        and not IsEntityValid(HeroName)
+        and not IsExisting("HQ" .._PlayerID) then
+            PlayerIsDefeated = true;
+        end
+    else
+        if  not IsExisting("HQ" .._PlayerID)
+        and not IsEntityValid(HeroName)
+        and Logic.PlayerGetGameState(_PlayerID) == 1 then
+            PlayerIsDefeated = true;
+        end
     end
 
-    -- Check HQ
-    if not IsExisting(HQID) and Logic.PlayerGetGameState(_PlayerID) == 1 then
+    if PlayerIsDefeated then
+        self.Players[_PlayerID].IsDefeated = true;
         self:ForcedSelfDesctruct(_PlayerID);
 
         local PlayerName = UserTool_GetPlayerName(_PlayerID);
@@ -927,55 +1136,57 @@ end
 function Stronghold:ForcedSelfDesctruct(_PlayerID)
     Logic.PlayerSetGameStateToLost(_PlayerID);
 
-    local destroy_later = {
+    local DestroyLaterTypes = {
         [Entities.PB_Headquarters1] = true;
         [Entities.PB_Headquarters2] = true;
         [Entities.PB_Headquarters3] = true;
         [Entities.PB_Market1] = true;
         [Entities.PB_Market2] = true;
-
-        [Entities.PB_ClayMine1] = true;
-        [Entities.PB_ClayMine2] = true;
-        [Entities.PB_ClayMine3] = true;
-
-        [Entities.PB_IronMine1] = true;
-        [Entities.PB_IronMine2] = true;
-        [Entities.PB_IronMine3] = true;
-
-        [Entities.PB_StoneMine1] = true;
-        [Entities.PB_StoneMine2] = true;
-        [Entities.PB_StoneMine3] = true;
-
-        [Entities.PB_SulfurMine1] = true;
-        [Entities.PB_SulfurMine2] = true;
-        [Entities.PB_SulfurMine3] = true;
-
         [Entities.PB_Outpost1] = true;
         [Entities.PB_Outpost2] = true;
         [Entities.PB_Outpost3] = true;
+        [Entities.PB_ClayMine1] = true;
+        [Entities.PB_ClayMine2] = true;
+        [Entities.PB_ClayMine3] = true;
+        [Entities.PB_IronMine1] = true;
+        [Entities.PB_IronMine2] = true;
+        [Entities.PB_IronMine3] = true;
+        [Entities.PB_StoneMine1] = true;
+        [Entities.PB_StoneMine2] = true;
+        [Entities.PB_StoneMine3] = true;
+        [Entities.PB_SulfurMine1] = true;
+        [Entities.PB_SulfurMine2] = true;
+        [Entities.PB_SulfurMine3] = true;
+    };
+
+    local DestroyNeverTypes = {
+        [Entities.CU_Barbarian_Hero] = true;
+        [Entities.CU_BlackKnight] = true;
+        [Entities.CU_Evil_Queen] = true;
+        [Entities.CU_Mary_de_Mortfichet] = true;
+        [Entities.CU_Hero13] = true;
+        [Entities.PU_Hero1] = true;
+        [Entities.PU_Hero1a] = true;
+        [Entities.PU_Hero1b] = true;
+        [Entities.PU_Hero1c] = true;
+        [Entities.PU_Hero2] = true;
+        [Entities.PU_Hero3] = true;
+        [Entities.PU_Hero4] = true;
+        [Entities.PU_Hero5] = true;
+        [Entities.PU_Hero6] = true;
+        [Entities.PU_Hero10] = true;
+        [Entities.PU_Hero11] = true;
     };
 
     -- Singleplayer
-    if not Network_Handler_Diplomacy_Self_Destruct_Helper then
-        for k,v in pairs(Entities) do
-            if not destroy_later[v] then
-                self:ForcedSelfDesctructHelper(_PlayerID, v);
-            end;
+    for _, Type in pairs(Entities) do
+        if not DestroyLaterTypes[Type] and not DestroyNeverTypes[Type] then
+            self:ForcedSelfDesctructHelper(_PlayerID, Type);
         end;
-        for k,v in pairs(destroy_later) do
-            self:ForcedSelfDesctructHelper(_PlayerID, k);
-        end;
-    -- Multiplayer
-    else
-        for k,v in pairs(Entities) do
-            if not destroy_later[v] then
-                Network_Handler_Diplomacy_Self_Destruct_Helper(_PlayerID, v);
-            end;
-        end;
-        for k,v in pairs(destroy_later) do
-            Network_Handler_Diplomacy_Self_Destruct_Helper(_PlayerID, k);
-        end;
-    end
+    end;
+    for Type, _ in pairs(DestroyLaterTypes) do
+        self:ForcedSelfDesctructHelper(_PlayerID, Type);
+    end;
 end
 
 function Stronghold:ForcedSelfDesctructHelper(_PlayerID, _Type)

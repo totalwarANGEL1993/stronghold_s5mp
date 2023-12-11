@@ -1164,7 +1164,11 @@ function GUIUpdate_SHMP_TimerText()
 end
 
 function GUIUpdate_SHMP_ShowRules(_Widget)
-    local Visible = Stronghold.Multiplayer:HaveRulesBeenConfigured();
-    XGUIEng.ShowWidget(_Widget, (Visible and 1) or 0);
+    local Visible = 0;
+    if  Stronghold.Multiplayer:HaveRulesBeenConfigured()
+    and XNetwork.Manager_DoesExist() == 1 then
+        Visible = 1;
+    end
+    XGUIEng.ShowWidget(_Widget, Visible);
 end
 

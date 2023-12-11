@@ -12,6 +12,12 @@ Stronghold.Config = {
         StartingSerfs = 9,
     },
 
+    DefeatModes = {
+        SuddenDeath = false,
+        LastManStanding = false,
+        Annihilation = true,
+    },
+
     Logging = {
         SyncCall = "SyncCall received ::: Module: %s, Type: %d, Player: %d, Parameter: %s",
         EntityCreated = "Entity created ::: Player: %d, ID: %d, Type: %s",
