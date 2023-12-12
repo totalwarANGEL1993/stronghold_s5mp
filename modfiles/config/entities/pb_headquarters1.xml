@@ -14,6 +14,8 @@
         <KegEffectFactor>0.1</KegEffectFactor>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
+        <BuildOn>XD_HeadquarterSite</BuildOn>
+        <HideBase>true</HideBase>
 
 
         <ModifyArmor>
