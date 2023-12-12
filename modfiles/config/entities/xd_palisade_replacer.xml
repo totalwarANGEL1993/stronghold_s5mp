@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>PB_PalisadeDistorted</Model>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CGLEEntity</Class>
+        <AccessCategory>AccessCategoryStatic</AccessCategory>
+		<DoNotExecute>True</DoNotExecute>
+        <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
+		<Exploration>0</Exploration>
+		<NeedsPlayer>false</NeedsPlayer>
+		<ForceNoPlayer>false</ForceNoPlayer>
+		<Visible>true</Visible>
+	</Logic>
+</root>

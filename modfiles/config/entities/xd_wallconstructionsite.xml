@@ -2,7 +2,7 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>ED::CDisplayStaticEntity</Class>
-        <Model>XD_RuinFragment6</Model>
+        <Model>ZXBox100</Model>
     </Display>
     <Logic classname="GGL::CResourceDoodadProperties">
         <Class>GGL::CResourceDoodad</Class>

@@ -35,6 +35,11 @@ function Stronghold.Construction:Install()
     self:InitBarracksBuildingLimits(-1);
     self:StartCheckTowerDistanceCallback();
     self:InitLightBricks();
+    self:SetWallConstructionSiteModel();
+
+    Job.Second(function()
+        Stronghold.Construction:IterateWallReplacer();
+    end);
 end
 
 function Stronghold.Construction:OnSaveGameLoaded()
@@ -55,6 +60,35 @@ function Stronghold.Construction:OnEntityDestroyed(_EntityID)
     -- Reset military building limit
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     self:InitBarracksBuildingLimits(PlayerID);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Wall
+
+function Stronghold.Construction:SetWallConstructionSiteModel()
+    local Iterator = CEntityIterator.OfTypeFilter(Entities.XD_WallConstructionSite);
+    for EntityID in CEntityIterator.Iterator(Iterator) do
+        Logic.SetModelAndAnimSet(EntityID, Models.XD_RuinFragment6);
+    end
+end
+
+function Stronghold.Construction:IterateWallReplacer()
+    for Replacer, Replacement in pairs(self.Config.WallReplacerMap) do
+        local Iterator = CEntityIterator.OfTypeFilter(Replacer);
+        for EntityID in CEntityIterator.Iterator(Iterator) do
+            local PlayerID = Logic.EntityGetPlayer(EntityID);
+            if IsPlayer(PlayerID) then
+                local TypeName = Logic.GetEntityTypeName(Replacement);
+                local Orientation = Logic.GetEntityOrientation(EntityID);
+                local SiteOrientation = Orientation + ((string.find(TypeName, "Gate") and 45) or 0);
+                local x,y,z = Logic.EntityGetPos(EntityID);
+                local SiteID = Logic.CreateEntity(Entities.XD_WallConstructionSite, x, y, SiteOrientation, PlayerID);
+                Logic.SetModelAndAnimSet(SiteID, Models.XD_RuinFragment6);
+                local WallID = Logic.CreateEntity(Replacement, x, y, Orientation, PlayerID);
+                DestroyEntity(EntityID);
+            end
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --

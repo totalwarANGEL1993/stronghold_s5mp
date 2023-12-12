@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XS_Ambient</Model>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CAmbientSoundEntity</Class>
+        <AccessCategory>AccessCategoryStatic</AccessCategory>
+        <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
+		<DoNotExecute>True</DoNotExecute>
+		<Exploration>0</Exploration>
+		<Visible>false</Visible>
+		<NeedsPlayer>true</NeedsPlayer>
+		<ForceNoPlayer>false</ForceNoPlayer>
+	</Logic>
+</root>

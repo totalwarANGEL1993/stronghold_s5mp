@@ -214,5 +214,15 @@ Stronghold.Construction.Config = {
         [Technologies.UP2_Sulfurmine]       = PlayerRight.SulfurMine,
         [Technologies.UP1_Palisade]         = PlayerRight.Wall,
     },
+
+    -- Replacement types
+    WallReplacerMap = {
+        [Entities.XD_Palisade_Replacer]     = Entities.PB_PalisadeDistorted,
+        [Entities.XD_PalisadeGate_Replacer] = Entities.PB_PalisadeStraightGate,
+        [Entities.XD_DarkWall_Replacer]     = Entities.PB_DarkWallDistorted,
+        [Entities.XD_DarkWallGate_Replacer] = Entities.PB_DarkWallStraightGate,
+        [Entities.XD_Wall_Replacer]         = Entities.PB_WallDistorted,
+        [Entities.XD_WallGate_Replacer]     = Entities.PB_WallStraightGate,
+    },
 }
 

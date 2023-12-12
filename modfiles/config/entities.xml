@@ -1042,6 +1042,7 @@
 
 <!--Stronghold-->
 
+        <!-- Buildings -->
         <Entity>CB_Prison_Tower1</Entity>
         <Entity>CB_SignalFire_Base</Entity>
         <Entity>CB_SignalFire_Fire</Entity>
@@ -1051,7 +1052,10 @@
         <Entity>CB_Turret2_Ballista</Entity>
         <Entity>CB_Turret3</Entity>
         <Entity>CB_Turret3_Cannon</Entity>
+        <Entity>PB_DarkTower1_ArrowLauncher</Entity>
+        <Entity>PB_Tower1_ArrowLauncher</Entity>
 
+        <!-- Units -->
         <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
@@ -1060,12 +1064,10 @@
         <Entity>CU_RangerLeaderCavalry1</Entity>
         <Entity>CU_RangerSoldierCavalry1</Entity>
         <!-- <Entity>CU_Dragonboat</Entity> -->
-
         <Entity>CV_Cannon1</Entity>
         <Entity>CV_Cannon2</Entity>
 
-        <Entity>PB_DarkTower1_ArrowLauncher</Entity>
-        <Entity>PB_Tower1_ArrowLauncher</Entity>
+        <!-- Walls -->
         <Entity>PB_DarkWallCorner</Entity>
         <Entity>PB_DarkWallDistorted</Entity>
         <Entity>PB_DarkWallStraight</Entity>
@@ -1082,7 +1084,7 @@
         <Entity>PB_WallStraightGate_Closed</Entity>
         <Entity>PB_WallStraightGate</Entity>
 
-        <Entity>XD_Bomb2</Entity>
+        <!-- Landscape objects -->
         <Entity>XD_BushDesert01</Entity>
         <Entity>XD_BushDesert02</Entity>
         <Entity>XD_BushDesert03</Entity>
@@ -1115,6 +1117,18 @@
         <Entity>XD_WreckedBoat1</Entity>
         <Entity>XD_WreckedBoat2</Entity>
 
+        <!-- Construction sites -->
         <Entity>XD_HeadquarterSite</Entity>
         <Entity>XD_WallConstructionSite</Entity>
+        
+        <!-- Wall replacers -->
+        <Entity>XD_DarkWall_Replacer</Entity>
+        <Entity>XD_DarkWallGate_Replacer</Entity>
+        <Entity>XD_Palisade_Replacer</Entity>
+        <Entity>XD_PalisadeGate_Replacer</Entity>
+        <Entity>XD_Wall_Replacer</Entity>
+        <Entity>XD_WallGate_Replacer</Entity>
+
+        <!-- Misc -->
+        <Entity>XD_Bomb2</Entity>
 </root>
