@@ -4675,7 +4675,7 @@
     <X>3.756916e+004</X>
     <Y>1.268000e+004</Y>
    </Position>
-   <Orientation>9.176054e+001</Orientation>
+   <Orientation>9.176053e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -4870,7 +4870,7 @@
     <X>1.975993e+004</X>
     <Y>3.493914e+004</Y>
    </Position>
-   <Orientation>9.393595e+001</Orientation>
+   <Orientation>9.393594e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -5635,7 +5635,7 @@
     <X>1.488000e+004</X>
     <Y>3.452000e+004</Y>
    </Position>
-   <Orientation>4.663838e+001</Orientation>
+   <Orientation>4.663837e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -12730,7 +12730,7 @@
     <X>2.184007e+004</X>
     <Y>6.660863e+003</Y>
    </Position>
-   <Orientation>9.393595e+001</Orientation>
+   <Orientation>9.393594e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -47005,7 +47005,7 @@
     <X>5.897237e+003</X>
     <Y>3.139204e+004</Y>
    </Position>
-   <Orientation>9.391398e+001</Orientation>
+   <Orientation>9.391397e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -50455,7 +50455,7 @@
     <X>1.732515e+004</X>
     <Y>3.090146e+004</Y>
    </Position>
-   <Orientation>9.541912e+001</Orientation>
+   <Orientation>9.541911e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -64645,7 +64645,7 @@
     <X>2.427485e+004</X>
     <Y>1.069854e+004</Y>
    </Position>
-   <Orientation>9.541912e+001</Orientation>
+   <Orientation>9.541911e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -83410,7 +83410,7 @@
     <X>2.302301e+004</X>
     <Y>1.241929e+004</Y>
    </Position>
-   <Orientation>9.456216e+001</Orientation>
+   <Orientation>9.456215e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -89845,7 +89845,7 @@
     <X>3.996120e+004</X>
     <Y>1.382000e+004</Y>
    </Position>
-   <Orientation>8.535537e+001</Orientation>
+   <Orientation>8.535536e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -95935,7 +95935,7 @@
     <X>3.412220e+004</X>
     <Y>6.624542e+003</Y>
    </Position>
-   <Orientation>7.499971e+001</Orientation>
+   <Orientation>7.499972e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -102745,7 +102745,7 @@
     <X>2.621241e+004</X>
     <Y>3.008739e+004</Y>
    </Position>
-   <Orientation>6.745808e+001</Orientation>
+   <Orientation>6.745807e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -106695,6 +106695,36 @@
    <PlayerID>8</PlayerID>
    <Health>-1</Health>
    <Name>VCCamp3Center</Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_HeadquarterSite</Type>
+   <Position>
+    <X>6.100000e+003</X>
+    <Y>3.430000e+004</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_HeadquarterSite</Type>
+   <Position>
+    <X>3.640000e+004</X>
+    <Y>7.300000e+003</Y>
+   </Position>
+   <Orientation>0.000000e+000</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>1.000000e+000</Scale>
