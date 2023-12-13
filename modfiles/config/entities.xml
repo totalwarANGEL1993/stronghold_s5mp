@@ -1054,6 +1054,7 @@
         <Entity>CB_Turret3_Cannon</Entity>
         <Entity>PB_DarkTower1_ArrowLauncher</Entity>
         <Entity>PB_Tower1_ArrowLauncher</Entity>
+        <Entity>PB_MercenaryCamp1</Entity>
 
         <!-- Units -->
         <Entity>CU_BanditLeaderSword3</Entity>

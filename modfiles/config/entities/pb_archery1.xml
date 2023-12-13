@@ -1,34 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Archery1</Model>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <UpgradeSite>ZB_UpgradeSiteArchery1</UpgradeSite>
-      <Category>MilitaryBuilding</Category>
-      <Category>SerfConversionBuilding</Category>
-		  <MaxHealth>1500</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>4</ArmorAmount>
-		 <!-- Armor -->
-		<ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-		
-		<!-- Exploration-->
-		<ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Archery1</Model>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <UpgradeSite>ZB_UpgradeSiteArchery1</UpgradeSite>
+        <MaxHealth>1500</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>4</ArmorAmount>
+        <Exploration>30</Exploration>
+        <Category>MilitaryBuilding</Category>
+        <Category>SerfConversionBuilding</Category>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
         </ModifyExploration>
-		  <Exploration>30</Exploration>        
-		  <Upgrade>
-	    	<Category>Archery</Category> 
-			  <Type>PB_Archery2</Type> 
-			  <Time>40.0</Time>  
+        
+
+        <Upgrade>
+            <Category>Archery</Category>
+            <Type>PB_Archery2</Type>
+            <Time>40.0</Time>
             <Cost>
                 <Clay>200</Clay>
                 <Wood>0</Wood>
@@ -37,9 +39,9 @@
                 <Iron/>
                 <Sulfur/>
             </Cost>
-		  </Upgrade>		
+        </Upgrade>
         <ConstructionInfo>
-         	<Time>90</Time>
+            <Time>90</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>200</Wood>
@@ -89,22 +91,22 @@
                     <Y>900</Y>
                 </Position>
                 <Orientation>290</Orientation>
-            </BuilderSlot>        
+            </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteArchery1</ConstructionSite>
         </ConstructionInfo>
         <ApproachPos>
             <X>-670</X>
             <Y>600</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>-600</X>
             <Y>600</Y>
         </DoorPos>
-    	
-    	
-    	
-    	<Blocked1>
+
+
+
+        <Blocked1>
             <X>-600</X>
             <Y>800</Y>
         </Blocked1>
@@ -120,37 +122,37 @@
             <X>800</X>
             <Y>-800</Y>
         </TerrainPos2>
-        
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>38</NumDamageEffects>
-			  <NumDestroyEffects>36</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CBarrackBehaviorProperties">
-			  <Class>GGL::CBarrackBehavior</Class>
-			  <LeaveTaskList>TL_LEAVE_ARCHERY</LeaveTaskList>
-			  <TrainingTime>20</TrainingTime>
-			  <TrainingTaskList>TL_TRAIN1_ARCHERY1</TrainingTaskList>
-			  <TrainingTaskList>TL_TRAIN2_ARCHERY1</TrainingTaskList>
-			  <TrainingTaskList>TL_TRAIN3_ARCHERY1</TrainingTaskList>
-		</Logic>
-	</Behavior>
+
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>38</NumDamageEffects>
+            <NumDestroyEffects>36</NumDestroyEffects>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="GGL::CBarrackBehaviorProperties">
+            <Class>GGL::CBarrackBehavior</Class>
+            <LeaveTaskList>TL_LEAVE_ARCHERY</LeaveTaskList>
+            <TrainingTime>20</TrainingTime>
+            <TrainingTaskList>TL_TRAIN1_ARCHERY1</TrainingTaskList>
+            <TrainingTaskList>TL_TRAIN2_ARCHERY1</TrainingTaskList>
+            <TrainingTaskList>TL_TRAIN3_ARCHERY1</TrainingTaskList>
+        </Logic>
+    </Behavior>
 
 
 

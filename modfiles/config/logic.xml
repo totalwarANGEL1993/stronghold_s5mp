@@ -1222,4 +1222,9 @@
 	    <Category>BlackKnightBodyguard</Category>
 	    <FirstSettler>CU_BlackKnight_Bodyguard</FirstSettler>
 	</SettlerUpgrade>
+	
+	<BuildingUpgrade>
+    	<Category>Mercenary</Category>
+    	<FirstBuilding>PB_MercenaryCamp1</FirstBuilding>
+	</BuildingUpgrade>
 </root>

@@ -81,6 +81,7 @@
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifySpeed>
     </Logic>
+    
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
@@ -91,6 +92,7 @@
             <Class>ED::CDisplayBehaviorAnimation</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
@@ -103,11 +105,13 @@
             <Class>ED::CDisplayBehaviorMovement</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CBehaviorWalkCommand</Class>
         </Logic>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
@@ -165,8 +169,6 @@
         </Logic>
     </Behavior>
 
-
-
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CLeaderEvadeBehavior</Class>
@@ -180,25 +182,10 @@
         </Logic>
     </Behavior>
 
-
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
             <EntityType>XD_DroppedBow</EntityType>
         </Logic>
     </Behavior>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </root>
