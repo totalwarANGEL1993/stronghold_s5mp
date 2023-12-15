@@ -69,6 +69,11 @@
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>
 
+        <ApproachPos>
+            <X>-300</X>
+            <Y>0</Y>
+        </ApproachPos>
+        <ApproachR>0</ApproachR>
         <BlockingArea>
             <Blocked1>
                 <X>100</X>
@@ -89,11 +94,6 @@
                 <Y>-210</Y>
             </Blocked2>
         </BlockingArea>
-        <ApproachPos>
-            <X>50</X>
-            <Y>0</Y>
-        </ApproachPos>
-        <ApproachR>0</ApproachR>
         <TerrainPos1>
             <X>-140</X>
             <Y>-450</Y>

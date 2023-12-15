@@ -70,8 +70,8 @@
         </ConstructionInfo>
 
         <ApproachPos>
-            <X>100</X>
-            <Y>0</Y>
+            <X>-300</X>
+            <Y>-300</Y>
         </ApproachPos>
         <ApproachR>0</ApproachR>
         <TerrainPos1>
