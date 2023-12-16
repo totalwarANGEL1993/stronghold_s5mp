@@ -19,6 +19,10 @@ Stronghold.Construction = {
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
+--- Calculates the minimum distance between towers.
+--- @param _PlayerID integer ID of player
+--- @param _CurrentAmount integer Distance
+--- @return integer Distance Distance
 function GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, _CurrentAmount)
     return Stronghold.Construction.Config.TowerDistance;
 end

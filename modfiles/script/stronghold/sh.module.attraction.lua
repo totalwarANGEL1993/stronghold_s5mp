@@ -6,37 +6,6 @@
 --- Attraction limit is split in two. The player has a civil and a military
 --- limit. Civil units are all workers and military is the rest.
 ---
---- Defined game callbacks:
---- - <number> GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
----   Allows to overwrite the max usage of civil population limit.
----
---- - <number> GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
----   Allows to overwrite the current overall usage of civil population.
----
---- - <number> GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
----   Allows to overwrite the max usage of military places.
----
---- - <number> GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
----   Allows to overwrite the current overall usage of military places.
----
---- - <number> GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, _Amount)
----   Allows to overwrite the max usage of serf places.
----
---- - <number> GameCallback_SH_Calculate_SlaveAttrationUsage(_PlayerID, _Amount)
----   Allows to overwrite the current overall usage of serf places.
----
---- - <number> GameCallback_SH_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Places)
----   Allows to overwrite the places a unit is occupying.
---- 
---- - <number> GameCallback_SH_Calculate_CrimeRate(_PlayerID, _Rate)
----   Allows to overwrite the crime rate.
----
---- - <number> GameCallback_SH_Logic_CriminalAppeared(_PlayerID, _EntityID, _BuildingID)
----   Allows to overwrite the crime chance.
----
---- - <number> GameCallback_SH_Logic_CriminalCatched(_PlayerID, _OldEntityID, _BuildingID)
----   Allows to overwrite the crime chance.
----
 
 Stronghold = Stronghold or {};
 
@@ -49,58 +18,103 @@ Stronghold.Attraction = {
 -- -------------------------------------------------------------------------- --
 -- API
 
+--- Returns the current crime rate of the player.
+--- @param _PlayerID integer ID of player
+--- @return number Rate Crime rate
 function GetCrimeRate(_PlayerID)
     return Stronghold.Attraction:CalculateCrimeRate(_PlayerID);
 end
 
+--- Returns the amount of criminals the player has.
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Amount of criminals
 function CountCriminals(_PlayerID)
     return Stronghold.Attraction:CountCriminals(_PlayerID);
 end
 
+--- Converts a worker to a criminal.
+--- @param _PlayerID integer ID of player
+--- @param _BuildingID integer Workplace of worker
+--- @param _WorkerID integer ID of worker
 function ConvertToCriminal(_PlayerID, _BuildingID, _WorkerID)
     Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID);
 end
 
+--- Removes a criminal from the map.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of criminal
 function RehabilitateCriminal(_PlayerID, _EntityID)
     Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID);
 end
 
+--- Returns a list of criminals originating from the building.
+--- @param _BuildingID integer ID of building
+--- @return table Criminals List of criminals
 function GetCriminalsOfBuilding(_BuildingID)
     return Stronghold.Attraction:GetCriminalsOfBuilding(_BuildingID);
 end
 
-function GetMilitaryAttractionLimit(_PlayerID)
-    return Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID);
-end
-
-function GetMilitaryAttractionUsage(_PlayerID)
-    return Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID);
-end
-
+--- Returns if the player can fit another unit.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer amount of units
+--- @return boolean CanFit Player can fit another unit
 function HasPlayerSpaceForUnits(_PlayerID, _Amount)
     return Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount);
 end
 
-function GetSlaveAttractionLimit(_PlayerID)
-    return Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID);
-end
-
-function GetSlaveAttractionUsage(_PlayerID)
-    return Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID);
-end
-
+--- Returns if the player can fit another slave.
+--- @param _PlayerID integer ID of player
+--- @return boolean CanFit Player can fit another slave
 function HasPlayerSpaceForSlave(_PlayerID)
     return Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID);
 end
 
+--- Returns the amount of places a unit is occupying.
+--- @param _Type integer Type of unit
+--- @param _Amount integer amount of units
+--- @return integer Amount Places used
 function GetMilitaryPlacesUsedByUnit(_Type, _Amount)
     return Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type, _Amount);
 end
 
+--- Returns the current military attraction limit of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Limit Max military space
+function GetMilitaryAttractionLimit(_PlayerID)
+    return Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID);
+end
+
+--- Returns the current amount of used military space of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Usage Used military space
+function GetMilitaryAttractionUsage(_PlayerID)
+    return Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID);
+end
+
+--- Returns the current limit of slaves of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Limit Max slave space
+function GetSlaveAttractionLimit(_PlayerID)
+    return Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID);
+end
+
+--- Returns the current amount of slaves owned by the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Usage Used slave space
+function GetSlaveAttractionUsage(_PlayerID)
+    return Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID);
+end
+
+--- Returns the current civil attraction limit of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Limit Max civil space
 function GetCivilAttractionLimit(_PlayerID)
     return Logic.GetPlayerAttractionLimit(_PlayerID);
 end
 
+--- Returns the current amount of used civil space of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Usage Used civil space
 function GetCivilAttractionUsage(_PlayerID)
     return Logic.GetPlayerAttractionUsage(_PlayerID);
 end
@@ -108,46 +122,88 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
+--- Calculates the limit of military units a player can own.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Current limit
+--- @return integer Altered Altered limit
 function GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates the limit of workers a player can own.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Current limit
+--- @return integer Altered Altered limit
 function GameCallback_SH_Calculate_CivilAttrationLimit(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates the limit of slaves a player can own.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Current limit
+--- @return integer Altered Altered limit
 function GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how many military units a player currently owns.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Current usage
+--- @return integer Altered Altered usage
 function GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how many workers a player currently owns.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Current usage
+--- @return integer Altered Altered usage
 function GameCallback_SH_Calculate_CivilAttrationUsage(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how many slaves a player currently owns.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Current usage
+--- @return integer Altered Altered usage
 function GameCallback_SH_Calculate_SlaveAttrationUsage(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how much space a unit is occupying.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of unit
+--- @param _Type integer Type of unit
+--- @param _Usage integer Current amount of places
+--- @return integer Places Amount of places
 function GameCallback_SH_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Usage)
     return _Usage;
 end
 
+--- Calculates the crime rate of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Rate number Current crime rate
+--- @return number Altered Alterec crime rate
 function GameCallback_SH_Calculate_CrimeRate(_PlayerID, _Rate)
     return _Rate;
 end
 
+--- Triggers after a worker has turned into a criminal.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of thief
+--- @param _BuildingID integer ID of building
 function GameCallback_SH_Logic_CriminalAppeared(_PlayerID, _EntityID, _BuildingID)
 end
 
-function GameCallback_SH_Logic_CriminalCatched(_PlayerID, _OldEntityID, _BuildingID)
+--- Triggers before a criminal is deleted because he has been catched.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of thief
+--- @param _BuildingID integer ID of building
+function GameCallback_SH_Logic_CriminalCatched(_PlayerID, _EntityID, _BuildingID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Internal
+-- Main
 
 function Stronghold.Attraction:Install()
     for i= 1, GetMaxPlayers() do
@@ -370,15 +426,15 @@ function Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID)
         for i= table.getn(self.Data[_PlayerID].Criminals), 1, -1 do
             local Data = self.Data[_PlayerID].Criminals[i];
             if Data[1] == _EntityID then
-                -- Delete thief
-                table.remove(self.Data[_PlayerID].Criminals, i);
-                DestroyEntity(_EntityID);
                 -- Show message
                 if GuiPlayer == _PlayerID and GuiPlayer ~= 17 then
                     Message(XGUIEng.GetStringTableText("sh_text/Player_CriminalResocialized"));
                 end
                 -- Invoke callback
                 GameCallback_SH_Logic_CriminalCatched(_PlayerID, Data[1], Data[2]);
+                -- Delete thief
+                table.remove(self.Data[_PlayerID].Criminals, i);
+                DestroyEntity(_EntityID);
                 break;
             end
         end

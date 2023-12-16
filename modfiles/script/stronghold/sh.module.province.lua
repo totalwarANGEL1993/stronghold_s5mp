@@ -2,19 +2,6 @@
 --- Province Script
 ---
 --- Provinces are special locations a player can claim to get their benefits.
----
---- Defined game callbacks:
---- - GameCallback_SH_Logic_OnProvinceClaimed(_PlayerID, _ProvinceID, _BuildingID)
----   A player claimed a province.
---- 
---- - GameCallback_SH_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
----   A player has upgraded a province.
---- 
---- - GameCallback_SH_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
----   A player controlled a province at the payday.
---- 
---- - GameCallback_SH_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
----   A player lost a province.
 --- 
 
 Stronghold = Stronghold or {};
@@ -32,6 +19,12 @@ Stronghold.Province = {
 -- API
 
 -- Creates a province that is granting honor when claimed.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _AmountOfHonor integer Amount of honor
+--- @param _UpgradeFactor number Upgrade bonus factor
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
 function CreateHonorProvince(_Name, _Position, _AmountOfHonor, _UpgradeFactor, ...)
     local ID = Stronghold.Province:CreateProvince {
         Type        = ProvinceType.Honor,
@@ -46,7 +39,13 @@ function CreateHonorProvince(_Name, _Position, _AmountOfHonor, _UpgradeFactor, .
     return ID;
 end
 
--- Creates a province that is granting reputation when claimed.
+--- Creates a province that is granting reputation when claimed.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _AmountOfReputation integer Amount of reputation
+--- @param _UpgradeFactor number Upgrade bonus factor
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
 function CreateReputationProvince(_Name, _Position, _AmountOfReputation, _UpgradeFactor, ...)
     local ID = Stronghold.Province:CreateProvince {
         Type        = ProvinceType.Reputation,
@@ -61,7 +60,13 @@ function CreateReputationProvince(_Name, _Position, _AmountOfReputation, _Upgrad
     return ID;
 end
 
--- Creates a province that is granting additional military space when claimed.
+--- Creates a province that is granting additional military space when claimed.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _AmountOfUnits integer Amount of bonus units
+--- @param _UpgradeFactor number Upgrade bonus factor
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
 function CreateMilitaryProvince(_Name, _Position, _AmountOfUnits, _UpgradeFactor, ...)
     local ID = Stronghold.Province:CreateProvince {
         Type        = ProvinceType.Military,
@@ -76,7 +81,14 @@ function CreateMilitaryProvince(_Name, _Position, _AmountOfUnits, _UpgradeFactor
     return ID;
 end
 
--- Creates a province that is producing resources when claimed.
+--- Creates a province that is producing resources when claimed.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _ResourceType integer Type of resource
+--- @param _Amount integer Amount of resource
+--- @param _UpgradeFactor number Upgrade bonus factor
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
 function CreateResourceProvince(_Name, _Position, _ResourceType, _Amount, _UpgradeFactor, ...)
     local ID = Stronghold.Province:CreateProvince {
         Type        = ProvinceType.Resource,
@@ -92,12 +104,18 @@ function CreateResourceProvince(_Name, _Position, _ResourceType, _Amount, _Upgra
     return ID;
 end
 
--- Creates a province that is doing nothing.
-function CreateCustomProvince(_Name, _Position, ...)
+--- Creates a province that is doing nothing.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _Parameters table List of Parameters
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
+function CreateCustomProvince(_Name, _Position, _Parameters, ...)
     local ID = Stronghold.Province:CreateProvince {
         Type        = ProvinceType.Custom,
         DisplayName = (type(_Name) == "table" and _Name[GetLanguage()]) or _Name,
         Position    = GetPosition(_Position),
+        Arguments   = CopyTable(_Parameters),
     };
     for i= 1, table.getn(arg) do
         Stronghold.Province:AddExplorerEntity(ID, arg[i]);
@@ -105,7 +123,8 @@ function CreateCustomProvince(_Name, _Position, ...)
     return ID;
 end
 
--- Changes the neutral player.
+--- Changes the neutral player.
+--- @param _PlayerID integer ID of player
 function SetProvincesNeutralPlayerID(_PlayerID)
     Stronghold.Province:SetNeutralPlayerID(_PlayerID);
 end
@@ -113,15 +132,29 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
+--- Triggered after a province is claimed.
+--- @param _PlayerID integer ID of player
+--- @param _ProvinceID integer ID of province
+--- @param _BuildingID integer ID of outpost
 function GameCallback_SH_Logic_OnProvinceClaimed(_PlayerID, _ProvinceID, _BuildingID)
 end
 
+--- Triggered after the province output has benn upgraded.
+--- @param _PlayerID integer ID of player
+--- @param _ProvinceID integer ID of province
+--- @param _BuildingID integer ID of outpost
 function GameCallback_SH_Logic_OnProvinceUpgraded(_PlayerID, _ProvinceID, _BuildingID)
 end
 
+--- Triggered on the province owners payday.
+--- @param _PlayerID integer ID of player
+--- @param _ProvinceID integer ID of province
 function GameCallback_SH_Logic_OnProvincePayday(_PlayerID, _ProvinceID)
 end
 
+--- Triggered after a player lost a province.
+--- @param _PlayerID integer ID of player
+--- @param _ProvinceID integer ID of province
 function GameCallback_SH_Logic_OnProvinceLost(_PlayerID, _ProvinceID)
 end
 
@@ -147,7 +180,7 @@ function Stronghold.Province:OerwriteGameCallbacks()
         return Amount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorIncreaseSpecial", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorIncreaseExternal", function(_PlayerID)
         local Amount = Overwrite.CallOriginal();
         Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Honor, _PlayerID);
         return Amount;

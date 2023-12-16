@@ -1,68 +1,8 @@
-
-
 ---
 --- Economy Script
 ---
 --- This script implements all calculations reguarding tax, payment, honor
 --- and reputation and privides calculation callbacks for external changes.
----
---- Defined game callbacks:
---- - <number> GameCallback_SH_Calculate_ReputationMax(_PlayerID, _Amount)
----   Allows to overwrite the max reputation.
----
---- - <number> GameCallback_SH_Calculate_ReputationIncrease(_PlayerID, _CurrentAmount)
----   Allows to overwrite the reputation income.
----
---- - <number> GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
----   Allows to overwrite the reputation income from settlers.
----
---- - <number> GameCallback_SH_Calculate_StaticReputationIncrease(_PlayerID, _Type, _CurrentAmount)
----   Allows to overwrite the reputation income from buildings.
----
---- - <number> GameCallback_SH_Calculate_ReputationIncreaseExternal(_PlayerID)
----   Allows to overwrite the external income.
----   
---- - <number> GameCallback_SH_Calculate_ReputationDecrease(_PlayerID, _CurrentAmount)
----   Allows to overwrite the reputation malus.
----   
---- - <number> GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID)
----   Allows to overwrite the external reputation malus.
----   
---- - <number> GameCallback_SH_Calculate_HonorIncrease(_PlayerID, _CurrentAmount)
----   Allows to overwrite the honor income.
----
---- - <number> GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
----   Allows to overwrite the honor income from settlers.
----
---- - <number> GameCallback_SH_Calculate_StaticHonorIncrease(_PlayerID, _Type, _CurrentAmount)
----   Allows to overwrite the honor income from buildings.
----   
---- - <number> GameCallback_SH_Calculate_HonorIncreaseSpecial(_PlayerID)
----   Allows to overwrite the external honor income.
----   
---- - <number> GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, _CurrentAmount)
----   Allows to overwrite the total money income.
----   
---- - <number> GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, _CurrentAmount)
----   Allows to overwrite the total upkeep.
----   
---- - <number> GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _CurrentAmount)
----   Allows to overwite the upkeep of a unit type.
----
---- - <number> GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _CurrentAmount)
----   Allows to overwrite the Measure points income.
---- 
---- - <number> GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
----   Allows to overwrite the Knowledge points income.
----   
---- - <number>, <number> GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
----   Calculates how much resources are mined.
---- 
---- - <number>, <number> GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, _Amount, _Remaining)
----   Calculates how much resources are excracted by serfs.
---- 
---- - <number> GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
----   Calculates how much resources are refined.
 ---
 
 Stronghold = Stronghold or {};
@@ -77,44 +17,65 @@ Stronghold.Economy = {
 -- API
 
 --- Gives Measure points to the player.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Measure points
 function AddPlayerMeasure(_PlayerID, _Amount)
     Stronghold.Economy:AddPlayerMeasurePoints(_PlayerID, _Amount)
 end
 
 --- Returns the Measure points of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Measure points
 function GetPlayerMeasure(_PlayerID)
     return Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID);
 end
 
 --- Returns the max Measure points of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Max measure points
 function GetPlayerMaxMeasurePoints(_PlayerID)
     return Stronghold.Economy:GetPlayerMeasurePointsPointsLimit(_PlayerID);
 end
 
 --- Gives knowledge to the player.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Knowledge points
 function AddKnowledge(_PlayerID, _Amount)
     Stronghold.Economy:AddPlayerKnowledge(_PlayerID, _Amount)
 end
 
 -- Returns the knowledge of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Knowledge points
 function GetKnowledge(_PlayerID)
     return Stronghold.Economy:GetPlayerKnowledge(_PlayerID);
 end
 
 --- Returns the max knowledge points of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Max knowledge points
 function GetPlayerMaxKnowledgePoints(_PlayerID)
     return Stronghold.Economy:GetPlayerKnowledgePointsLimit(_PlayerID);
 end
 
 --- Returns the tax penalty for the player.
-function GetPlayerTaxPenalty(_PlayerID, _TaxtHeight)
-    return Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxtHeight);
+--- @param _PlayerID integer ID of player
+--- @param _TaxHeight integer Tax height
+--- @return integer Penalty Reputation penalty
+function GetPlayerTaxPenalty(_PlayerID, _TaxHeight)
+    return Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxHeight);
 end
 
+--- Returns the current honor income of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Income Honor income
 function GetHonorIncome(_PlayerID)
     return Stronghold.Economy:GetHonorIncome(_PlayerID);
 end
 
+--- Returns the current reputation income of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Income Reputation income
 function GetReputationIncome(_PlayerID)
     return Stronghold.Economy:GetReputationIncome(_PlayerID);
 end
@@ -122,78 +83,170 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
+--- Calculates the maximum reputation of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Current maximum
+--- @return integer Limit Maximum reputation
 function GameCallback_SH_Calculate_ReputationMax(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how much reputation a player looses at the payday.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount of reputation
+--- @return integer Reputation Amount of reputation
 function GameCallback_SH_Calculate_ReputationDecrease(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calulates how much reputation the player looses by external causes.
+--- @param _PlayerID integer ID of player
+--- @return integer Reputation Amount of reputation
 function GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID)
     return 0;
 end
 
+--- Calculates how much reputation a player gains at the payday.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount of reputation
+--- @return integer Reputation Amount of reputation
 function GameCallback_SH_Calculate_ReputationIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how much reputation is gained by static causes at the payday.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Type of entity
+--- @param _Amount integer Amount of reputation
+--- @return integer Reputation Amount of reputation
 function GameCallback_SH_Calculate_StaticReputationIncrease(_PlayerID, _Type, _Amount)
     return _Amount;
 end
 
+--- Calculates how much reputation is gained by dynamic causes at the payday.
+--- @param _PlayerID integer ID of player
+--- @param _BuildingID integer ID of building
+--- @param _WorkerID integer ID of worker
+--- @param _Amount integer Amount of reputation
+--- @return integer Reputation Amount of reputation
 function GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
     return _Amount;
 end
 
+--- Calulates how much reputation is gained by external causes.
+--- @param _PlayerID integer ID of player
+--- @return integer Reputation Amount of reputation
 function GameCallback_SH_Calculate_ReputationIncreaseExternal(_PlayerID)
     return 0;
 end
 
+--- Calculates how much honor a player gains at the payday.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount of honor
+--- @return integer Honor Amount of honor
 function GameCallback_SH_Calculate_HonorIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how much honor is gained by static causes at the payday.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Type of entity
+--- @param _Amount integer Amount of honor
+--- @return integer Honor Amount of honor
 function GameCallback_SH_Calculate_StaticHonorIncrease(_PlayerID, _Type, _Amount)
     return _Amount;
 end
 
+--- Calculates how much honor is gained by dynamic causes at the payday.
+--- @param _PlayerID integer ID of player
+--- @param _BuildingID integer ID of building
+--- @param _WorkerID integer ID of worker
+--- @param _Amount integer Amount of honor
+--- @return integer Honor Amount of honor
 function GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
     return _Amount;
 end
 
-function GameCallback_SH_Calculate_HonorIncreaseSpecial(_PlayerID)
+--- Calulates how much honor is gained by external causes.
+--- @param _PlayerID integer ID of player
+--- @return integer Honor Amount of honor
+function GameCallback_SH_Calculate_HonorIncreaseExternal(_PlayerID)
     return 0;
 end
 
+--- Calculates how much tax money the player earns on the payday.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Income
+--- @return integer Income Income
 function GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how much upkeep a player must pay on the payday.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Upkeep
+--- @return integer Upkeep Upkeep
 function GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how much upkeep the player has to pay for the unit type.
+--- @param _PlayerID integer ID of player
+--- @param _UnitType integer Type of entity
+--- @param _Amount integer Upkeep
+--- @return integer Upkeep Upkeep
 function GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, _UnitType, _Amount)
     return _Amount;
 end
 
-function GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _Amount)
-    return _Amount;
-end
-
+--- Calculates how many resources are mined by the building.
+--- @param _PlayerID integer ID of player
+--- @param _BuildingID integer ID of building
+--- @param _SourceID integer ID of resource entity
+--- @param _ResourceType integer Type of resource
+--- @param _Amount integer Amount of resource
+--- @param _Remaining integer Remaining resources
+--- @return integer Amount Amount of resource
+--- @return integer Remaining Remaining resources
 function GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
     return _Amount, _Remaining;
 end
 
+--- Calculates how many resources are extracted by the serf.
+--- @param _PlayerID integer ID of player
+--- @param _SerfID integer ID of serf
+--- @param _SourceID integer ID of resource entity
+--- @param _ResourceType integer Type of resource
+--- @param _Amount integer Amount of resource
+--- @param _Remaining integer Remaining resources
+--- @return integer Amount Amount of resource
+--- @return integer Remaining Remaining resources
 function GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, _Amount, _Remaining)
     return _Amount, _Remaining;
 end
 
+--- Calculates how many resources are refined by the building.
+--- @param _PlayerID integer ID of player
+--- @param _BuildingID integer ID of building
+--- @param _ResourceType integer Type of resource
+--- @param _Amount integer Amount of resource
+--- @return integer Amount Amount of resource
 function GameCallback_SH_Calculate_ResourceRefined(_PlayerID, _BuildingID, _ResourceType, _Amount)
     return _Amount;
 end
 
+--- Calculates how many influence the player gains.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount of influence
+--- @return integer Amount Amount of influence
+function GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _Amount)
+    return _Amount;
+end
+
+--- Calculates how much knowledge a player gains.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount of knowledge
+--- @return integer Amount Amount of knowledge
 function GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
     return _Amount;
 end
@@ -517,14 +570,14 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
     end
 end
 
-function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxtHeight)
+function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxHeight)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local Penalty = 0;
-        if _TaxtHeight > 1 then
+        if _TaxHeight > 1 then
             local Rank = GetRank(_PlayerID);
             local WorkerEffect = self.Config.Income.TaxEffect.WorkerFactor;
-            local TaxEffect = self.Config.Income.TaxEffect[_TaxtHeight].Reputation * -1;
+            local TaxEffect = self.Config.Income.TaxEffect[_TaxHeight].Reputation * -1;
             WorkerEffect = WorkerEffect + ((WorkerEffect/10) * Rank);
             Penalty = TaxEffect * (1 + (WorkerCount * WorkerEffect));
             for i= 1, Rank do
@@ -591,7 +644,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 self.Data[_PlayerID].HonorDetails.Buildings = Beauty;
 
                 -- External calculations
-                local Special = GameCallback_SH_Calculate_HonorIncreaseSpecial(_PlayerID);
+                local Special = GameCallback_SH_Calculate_HonorIncreaseExternal(_PlayerID);
                 local HonorOneshot = self.Data[_PlayerID].IncomeHonorSingle;
                 self.Data[_PlayerID].HonorDetails.OtherBonus = Special + HonorOneshot;
             else

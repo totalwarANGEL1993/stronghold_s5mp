@@ -4,6 +4,40 @@
 
 Stronghold = Stronghold or {};
 
+-- -------------------------------------------------------------------------- --
+-- API
+
+--- Checks if a building can produce the unit.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of building
+--- @param _EntityType integer Type of unit
+--- @param _Verbose boolean Feedback sounds for owner
+--- @return boolean CanProduce Building can produce units
+function CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType, _Verbose)
+    return Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType, _Verbose);
+end
+
+--- Returns the cost of the leader and additional soldiers.
+--- @param _PlayerID integer Id of player
+--- @param _Type integer Type of leader
+--- @param _Soldiers integer Amount of soldiers
+--- @return table Costs Costs of leader (with soldiers)
+function GetLeaderCosts(_PlayerID, _Type, _Soldiers)
+    return Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _Soldiers);
+end
+
+--- Returns the costs of the soldiers for the leader type.
+--- @param _PlayerID integer Id of player
+--- @param _Type integer Type of leader
+--- @param _Amount integer Amount of soldiers
+--- @return table Costs Costs of soldiers
+function GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amount)
+    return Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amount);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Main
+
 Stronghold.Recruit = Stronghold.Recruit or {
     SyncEvents = {},
     Data = {},
@@ -249,9 +283,9 @@ function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _Entity
     else
         local TypeName = Logic.GetEntityTypeName(_EntityType);
         local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
-        local AutoFillActive = Stronghold.Recruit.Data[_PlayerID].AutoFill[_EntityID] == true;
+        local AutoFillActive = self.Data[_PlayerID].AutoFill[_EntityID] == true;
         local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
-        local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, Soldiers);
+        local Costs = self:GetLeaderCosts(_PlayerID, _EntityType, Soldiers);
         CostsText = FormatCostString(_PlayerID, Costs);
         local NeededPlaces = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
         CostsText = CostsText .. XGUIEng.GetStringTableText("InGameMessages/GUI_NamePlaces") .. ": " .. NeededPlaces;
@@ -312,7 +346,7 @@ function Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _Entity
     end
     -- Check costs
     -- TODO: Check if this applies for serfs
-    local Costs = Stronghold.Recruit:GetLeaderCosts(_PlayerID, _EntityType, 0);
+    local Costs = self:GetLeaderCosts(_PlayerID, _EntityType, 0);
     if _Verbose and GUI.GetPlayerID() == _PlayerID then
         if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
             return false;

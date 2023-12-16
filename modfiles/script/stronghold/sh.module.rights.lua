@@ -4,13 +4,6 @@
 --- This script implements a promotion system with duties and rights much like
 --- in Settlers 6. Some conditions must be fulfilled to climb up the ladder to
 --- a higher rank.
----
---- Defined game callbacks:
---- - GameCallback_SH_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
----   Called after a player has been promoted.
---- 
---- - GameCallback_SH_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
----   Called after a player reached the highest rank.
 --- 
 
 Stronghold = Stronghold or {};
@@ -26,44 +19,68 @@ Stronghold.Rights = {
 -- API
 
 --- Returns the rank of the player.
+--- @param _PlayerID integer ID of player
+--- @return integer Rank Current rank
 function GetRank(_PlayerID)
     return Stronghold.Rights:GetPlayerRank(_PlayerID);
 end
 
--- Locks an rank and all ranks after it.
+--- Locks an rank and all ranks after it.
+--- @param _PlayerID integer ID of player
+--- @param _Rank integer Rank to lock
 function LockRank(_PlayerID, _Rank)
     Stronghold.Rights:LockPlayerRank(_PlayerID, _Rank);
 end
 
 --- Sets the rank of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Rank integer Rank to set
 function SetRank(_PlayerID, _Rank)
     Stronghold.Rights:SetPlayerRank(_PlayerID, _Rank);
 end
 
 --- Returns the name of the rank invoking the gender of the players hero.
+--- @param _Rank integer ID of Rank
+--- @param _PlayerID integer ID of player
+--- @return string Name Name of rank
 function GetRankName(_Rank, _PlayerID)
     return Stronghold.Rights:GetPlayerRankName(_Rank, _PlayerID)
 end
 
+--- Returns the rank required for the right.
+--- @param _PlayerID integer ID of player
+--- @param _Right integer ID of right
+--- @return integer Rank Rank required
 function GetRankRequired(_PlayerID, _Right)
     return Stronghold.Rights:GetRankRequiredForRight(_PlayerID, _Right);
 end
 
 --- Changes rights and duties for the player.
+--- @param _PlayerID integer ID of player
+--- @param _Data table Rights and duties
 function SetRightsAndDuties(_PlayerID, _Data)
-    return Stronghold.Rights:ChangeRightsAndDutiesForPlayer(_PlayerID, _Data);
+    Stronghold.Rights:ChangeRightsAndDutiesForPlayer(_PlayerID, _Data);
 end
 
--- Checks if a player has a right unlocked.
+--- Checks if a player has a right unlocked.
+--- @param _PlayerID integer ID of player
+--- @param _Right integer ID of right
+--- @return boolean Unlocked Right is unlocked
 function HasRight(_PlayerID, _Right)
     return Stronghold.Rights:HasPlayerRight(_PlayerID, _Right);
 end
 
+--- Checks if the right is unlockable by the player.
+--- @param _PlayerID integer ID of player
+--- @param _Right integer ID of right
+--- @return boolean Unlockable Right can be unlocked
 function IsRightUnlockable(_PlayerID, _Right)
     return Stronghold.Rights:IsRightUnlockable(_PlayerID, _Right);
 end
 
 --- Returns the gender of the entity type.
+--- @param _Type integer Type of entity
+--- @return integer Gender Gender of entity
 function GetGender(_Type)
     return Stronghold.Rights:GetHeroGender(_Type);
 end
@@ -71,9 +88,16 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
+--- Triggered after a player has been promoted.
+--- @param _PlayerID integer ID of player
+--- @param _OldRank integer Previous rank
+--- @param _NewRank integer New rank
 function GameCallback_SH_Logic_PlayerPromoted(_PlayerID, _OldRank, _NewRank)
 end
 
+--- Triggered after a player reached the highest rank.
+--- @param _PlayerID integer ID of player
+--- @param _Rank integer Rank
 function GameCallback_SH_Logic_PlayerReachedHighestRank(_PlayerID, _Rank)
 end
 

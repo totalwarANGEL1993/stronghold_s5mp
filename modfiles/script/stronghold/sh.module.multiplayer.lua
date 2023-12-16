@@ -2,19 +2,6 @@
 --- Multiplayer Script
 ---
 --- Implements a rudimentary rule system to configure a multiplayer match.
----
---- Defined game callbacks:
---- - GameCallback_SH_Logic_OnMapStart()
----   Called when the map is loaded.
----   
---- - GameCallback_SH_Logic_OnGameStart()
----   Called when game is started.
----   
---- - GameCallback_SH_Logic_OnPeaceTimeOver()
----   Called when peacetime is over.
----   
---- - GameCallback_SH_Logic_SaveLoaded()
----   Called when a save is loaded
 --- 
 
 Stronghold = Stronghold or {};
@@ -119,15 +106,19 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
+--- Triggered when the map is loaded
 function GameCallback_SH_Logic_OnMapStart()
 end
 
+--- Triggered after the game started.
 function GameCallback_SH_Logic_OnGameStart()
 end
 
+--- Triggered after the peacetime ends.
 function GameCallback_SH_Logic_OnPeaceTimeOver()
 end
 
+--- Triggerd when a save has been loaded.
 function GameCallback_SH_Logic_SaveLoaded()
 end
 
