@@ -1,34 +1,35 @@
 Version 0.6.17
-- Es gibt nun ein 0,3 Sekunden Delay beim Rekrutieren von Einheiten
-- Es werden nun immer die belegten Plätze angezeigt
 - Schaden von einigen Einheiten wurde überarbeitet
 - Maßnahmen laden sich nun viel schneller auf
 - Alle Adligen haben alle Standardtruppen und zusätzlich Spezialeinheiten
   (Einige Adlige können bestimmte Standardeineiten nicht anheuern)
 - Dario beschleunigt Maßnahmen nur noch um 50%
-- Pilgrims Bombe hat mehr Wums
 - Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
 - Salim steigert Wissensgewinn Gelehrter um 20%
 - Salims Falle ist geschwächt
 - Aris Waldläufer wurden entfernt
-- Helias hat nun ebenfalls Erecs Kavallerie als Spezialeinheiten
-- Mary erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
-- Mary heißt jetzt nur noch "Marie"
+- Helias' hat nun ebenfalls Erecs Kavallerie als Spezialeinheiten
+- Helias' Templer wurden entfernt
+- Marie erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
 - Bevölkerungslimit wurde überarbeitet
-  * Haupthaus: 125, 175, 225
-  * Dorfzentrum: 45, 90, 135
+  * Haupthaus: 50, 65, 80
+  * Dorfzentrum: 25, 40, 55
 - Rekrutenlimit wurde überarbeitet
-  * Haupthaus: 78, 130, 195
-  * Ausgebaute Rekrutierungsgebäude: 26
-- Anzahl an Rekrutierungsgebäude hängt von Burg und Dorfzentrum ab
-  * Burgstufe: 6, 9, 12
-  * Dorfzentrum: 2, 4, 6
-- Anzahl an Kanonengießereien hängt von Burg und Dorfzentrum ab
-  * Burgstufe: 2, 4, 6
-  * Dorfzentrum: 1, 2, 3
+  * Haupthaus: 75, 100, 125
+  * Ausgebaute Rekrutierungsgebäude: 15
+- Anzahl an Rekrutierungsgebäude hängt vom erreichten Rang ab
+- Anzahl an Kanonengießereien hängt vom erreichten Rang ab
 - Benötigte Plätze für Kanonen überarbeitet
   * Bombarde, Große Bombarde, Bronzekanone: 4
   * Eisenkanone, Dschihad, Belagerungskanone: 8
+  
+Version 0.5.34
+- Palisaden und Mauern sind nun von außen mit Nahkämpfern Angreifbar, egal
+  welche Drehung sie haben.
+  (Zuvor waren sie nur bei bestimmter Drehung erreichbar.)
+- Das Spiel wird weiterhin Wegfindungsprobleme haben. Nahkämpfer müssen direkt
+  vor das Mauerteil gestellt werden, bevor der Angriffsbefehl gegeben wird.
+- Aris Bogenschützen wurden ein wenig geschwächt.
 
 Version 0.5.33
 - Geschwindigkeit der Kanonen wurde angepasst.
