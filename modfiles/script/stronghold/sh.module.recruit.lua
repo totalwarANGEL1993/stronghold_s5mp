@@ -345,8 +345,11 @@ function Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _Entity
         return false;
     end
     -- Check costs
-    -- TODO: Check if this applies for serfs
     local Costs = self:GetLeaderCosts(_PlayerID, _EntityType, 0);
+    -- HACK: Mercenary camp
+    if Logic.GetEntityType(_EntityID) == Entities.PB_MercenaryCamp1 then
+        Costs = GetMercenaryUnitCosts(_PlayerID, _EntityType, 0);
+    end
     if _Verbose and GUI.GetPlayerID() == _PlayerID then
         if HasPlayerEnoughResourcesFeedback(_PlayerID, Costs) == 0 then
             return false;

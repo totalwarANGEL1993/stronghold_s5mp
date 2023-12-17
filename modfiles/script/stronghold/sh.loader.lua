@@ -118,6 +118,8 @@ Script.Load(gvStrongholdPath.. "sh.module.recruit.config.lua");
 Script.Load(gvStrongholdPath.. "sh.module.statistic.lua");
 Script.Load(gvStrongholdPath.. "sh.module.unit.lua");
 Script.Load(gvStrongholdPath.. "sh.module.unit.config.lua");
+Script.Load(gvStrongholdPath.. "sh.module.mercenary.lua");
+Script.Load(gvStrongholdPath.. "sh.module.mercenary.config.lua");
 ---
 Script.Load(gvStrongholdPath.. "sh.module.multiplayer.lua");
 Script.Load(gvStrongholdPath.. "sh.module.multiplayer.config.lua");

@@ -386,6 +386,7 @@ function Stronghold:Init()
     self.Statistic:Install();
     self.Multiplayer:Install();
     self.AI:Install();
+    self.Mercenary:Install();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
@@ -433,6 +434,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Statistic:OnSaveGameLoaded();
     self.Multiplayer:OnSaveGameLoaded();
     self.AI:OnSaveGameLoaded();
+    self.Mercenary:OnSaveGameLoaded();
 
     self:SetupPaydayForAllPlayers();
     self:ConfigurePaydayForAllPlayers();
@@ -925,6 +927,7 @@ function Stronghold:StartTriggers()
         for PlayerID = 1, Players do
             Stronghold.Attraction:OnEveryTurn(PlayerID);
             Stronghold.Economy:OncePerTurn(PlayerID);
+            Stronghold.Mercenary:OnEveryTurn(PlayerID);
             Stronghold.Rights:OnEveryTurn(PlayerID);
             Stronghold.Recruit:OnEveryTurn(PlayerID);
         end
@@ -941,6 +944,7 @@ function Stronghold:StartTriggers()
                 Stronghold.Building:OncePerSecond(PlayerID);
                 Stronghold.Economy:OncePerSecond(PlayerID);
                 Stronghold.Hero:OncePerSecond(PlayerID);
+                Stronghold.Mercenary:OncePerSecond(PlayerID);
                 Stronghold.Unit:OncePerSecond(PlayerID);
             end
         end
@@ -1580,6 +1584,8 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
 
         self.Hero:OnSelectLeader(EntityID);
         self.Hero:OnSelectHero(EntityID);
+
+        self.Mercenary:OnMercenaryCampSelected(EntityID);
 
         self.Recruit:OnBarracksSelected(EntityID);
         self.Recruit:OnArcherySelected(EntityID);

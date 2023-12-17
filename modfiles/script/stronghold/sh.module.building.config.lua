@@ -223,13 +223,34 @@ Stronghold.Building.Config.StoneWallTypes = {
 }
 
 Stronghold.Building.Config.RecuitIndexRecuitShortcut = {
-    [1] = "A",
-    [2] = "S",
-    [3] = "D",
-    [4] = "F",
-    [5] = "G",
-    [6] = "H",
-    [7] = "J",
-    [8] = "K",
+    [1]  = "A",
+    [2]  = "S",
+    [3]  = "D",
+    [4]  = "F",
+    [5]  = "G",
+    [6]  = "H",
+    [7]  = "J",
+    [8]  = "K",
+    [9]  = "L",
+    [10] = "Y",
+    [11] = "X",
+    [12] = "C",
+    [13] = "V",
+    [14] = "B",
+    [15] = "N",
+    [16] = "M",
+    [17] = "Q",
+    [18] = "W",
+    [19] = "E",
+    [20] = "R",
+    [21] = "T",
+    [23] = "Z",
+    [24] = "U",
+    [25] = "I",
+    [26] = "O",
+    [27] = "P",
+    [28] = "Ä", -- Might not work with english keyboards...
+    [29] = "Ö", -- Might not work with english keyboards...
+    [30] = "Ä", -- Might not work with english keyboards...
 }
 

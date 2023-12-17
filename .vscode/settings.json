@@ -264,6 +264,7 @@
         "dev/good_old_stronghold",
     ],
     "Lua.workspace.library": [
+        "modfiles/script",
         "cerberus"
     ]
 }

@@ -474,6 +474,7 @@ function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID)
     EntityTracker.SetLimitOfType(Entities.PB_Archery2, RecruiterLimit, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Stable1, RecruiterLimit, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Stable2, RecruiterLimit, _PlayerID);
+    EntityTracker.SetLimitOfType(Entities.PB_MercenaryCamp1, RecruiterLimit, _PlayerID);
 
     -- Set limit of smelter buildings
     local SmelterLimit = self.Config.SmeltingBuildingAmounts[Rank +1];

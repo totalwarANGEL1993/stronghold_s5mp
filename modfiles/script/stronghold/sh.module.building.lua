@@ -1219,7 +1219,7 @@ end
 
 function Stronghold.Building:InitalizeBuyUnitKeybindings()
     Stronghold_KeyBindings_BuyUnit = function(_Key, _PlayerID, _EntityID)
-        if gvInterfaceCinematicFlag == 1 then
+        if _PlayerID == 17 or gvInterfaceCinematicFlag == 1 then
             return;
         end
         Sound.PlayGUISound(Sounds.klick_rnd_1, 0);
@@ -1228,23 +1228,20 @@ function Stronghold.Building:InitalizeBuyUnitKeybindings()
         Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _EntityID);
         Stronghold.Building:ExecuteBuyUnitKeybindForFoundry(_Key, _PlayerID, _EntityID);
         Stronghold.Building:ExecuteBuyUnitKeybindForTavern(_Key, _PlayerID, _EntityID);
+        Stronghold.Building:ExecuteBuyUnitKeybindForMercenary(_Key, _PlayerID, _EntityID);
     end
 
-    Input.KeyBindDown(Keys.A, "Stronghold_KeyBindings_BuyUnit(1, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    Input.KeyBindDown(Keys.S, "Stronghold_KeyBindings_BuyUnit(2, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    Input.KeyBindDown(Keys.D, "Stronghold_KeyBindings_BuyUnit(3, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    Input.KeyBindDown(Keys.F, "Stronghold_KeyBindings_BuyUnit(4, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    Input.KeyBindDown(Keys.G, "Stronghold_KeyBindings_BuyUnit(5, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    Input.KeyBindDown(Keys.H, "Stronghold_KeyBindings_BuyUnit(6, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    Input.KeyBindDown(Keys.J, "Stronghold_KeyBindings_BuyUnit(7, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
-    Input.KeyBindDown(Keys.K, "Stronghold_KeyBindings_BuyUnit(8, GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
+    for Index, Key in ipairs(self.Config.RecuitIndexRecuitShortcut) do
+        Input.KeyBindDown(Keys[Key], "Stronghold_KeyBindings_BuyUnit(" ..Index.. ", GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
+    end
 end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForBarracks(_Key, _PlayerID, _EntityID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
-        if Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2 then
-            if Logic.IsConstructionComplete(_EntityID) == 1 then
+        if _Key <= 8 and (Type == Entities.PB_Barracks1 or Type == Entities.PB_Barracks2) then
+            if  Logic.IsConstructionComplete(_EntityID) == 1
+            and not IsBuildingBeingUpgraded(_EntityID) then
                 GUIAction_BuyMeleeUnit(_Key);
             end
         end
@@ -1254,8 +1251,9 @@ end
 function Stronghold.Building:ExecuteBuyUnitKeybindForArchery(_Key, _PlayerID, _EntityID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
-        if Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2 then
-            if Logic.IsConstructionComplete(_EntityID) == 1 then
+        if _Key <= 8 and (Type == Entities.PB_Archery1 or Type == Entities.PB_Archery2) then
+            if  Logic.IsConstructionComplete(_EntityID) == 1
+            and not IsBuildingBeingUpgraded(_EntityID) then
                 GUIAction_BuyRangedUnit(_Key);
             end
         end
@@ -1265,8 +1263,9 @@ end
 function Stronghold.Building:ExecuteBuyUnitKeybindForStable(_Key, _PlayerID, _EntityID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
-        if Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2 then
-            if Logic.IsConstructionComplete(_EntityID) == 1 then
+        if _Key <= 8 and (Type == Entities.PB_Stable1 or Type == Entities.PB_Stable2) then
+            if  Logic.IsConstructionComplete(_EntityID) == 1
+            and not IsBuildingBeingUpgraded(_EntityID) then
                 GUIAction_BuyCavalryUnit(_Key);
             end
         end
@@ -1276,8 +1275,9 @@ end
 function Stronghold.Building:ExecuteBuyUnitKeybindForFoundry(_Key, _PlayerID, _EntityID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
-        if Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2 then
-            if Logic.IsConstructionComplete(_EntityID) == 1 then
+        if _Key <= 8 and (Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2) then
+            if  Logic.IsConstructionComplete(_EntityID) == 1
+            and not IsBuildingBeingUpgraded(_EntityID) then
                 GUIAction_BuyCannonUnit(_Key);
             end
         end
@@ -1288,11 +1288,16 @@ function Stronghold.Building:ExecuteBuyUnitKeybindForTavern(_Key, _PlayerID, _En
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Type = Logic.GetEntityType(_EntityID);
         if _Key <= 2 and (Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2) then
-            if Logic.IsConstructionComplete(_EntityID) == 1 then
+            if  Logic.IsConstructionComplete(_EntityID) == 1
+            and not IsBuildingBeingUpgraded(_EntityID) then
                 GUIAction_BuyTavernUnit(_Key);
             end
         end
     end
+end
+
+function Stronghold.Building:ExecuteBuyUnitKeybindForMercenary(_Key, _PlayerID, _EntityID)
+    Stronghold.Mercenary:ExecuteBuyUnitKeybindForMercenary(_Key, _PlayerID, _EntityID);
 end
 
 -- -------------------------------------------------------------------------- --

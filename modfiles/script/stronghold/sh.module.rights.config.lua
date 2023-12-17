@@ -68,6 +68,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.Chapel,
                 PlayerRight.ArchitectShop,
                 PlayerRight.Bridge,
+                PlayerRight.SpearLancer,
                 ---
                 PlayerRight.Palisade,
             },
@@ -88,7 +89,6 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.SwordMilitia,
                 PlayerRight.BerserkWeak,
-                PlayerRight.SpearLancer,
                 ---
                 PlayerRight.ShootingRange,
                 PlayerRight.ArcherMilitia,
