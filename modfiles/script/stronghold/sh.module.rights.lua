@@ -36,7 +36,26 @@ end
 --- @param _PlayerID integer ID of player
 --- @param _Rank integer Rank to set
 function SetRank(_PlayerID, _Rank)
-    Stronghold.Rights:SetPlayerRank(_PlayerID, _Rank);
+    local CurrentRank = GetRank(_PlayerID);
+    for i= 1, _Rank - CurrentRank do
+        Stronghold.Rights:PromotePlayer(_PlayerID, true, false);
+    end
+end
+
+--- Promotes the player to the next rank. The requirements must be fulfulled
+--- and costs will be subtracted.
+--- @param _PlayerID integer ID of player
+--- @param _NoFeedback boolean Do not informplayer
+function PromotePlayer(_PlayerID, _NoFeedback)
+    Stronghold.Rights:PromotePlayer(_PlayerID, false, not _NoFeedback);
+end
+
+--- Enforces the players promotion to the next rank. The requirements are
+--- ignored and costs will not be substracted.
+--- @param _PlayerID integer ID of player
+--- @param _NoFeedback boolean Do not informplayer
+function ForcePromotePlayer(_PlayerID, _NoFeedback)
+    Stronghold.Rights:PromotePlayer(_PlayerID, true, not _NoFeedback);
 end
 
 --- Returns the name of the rank invoking the gender of the players hero.
@@ -132,7 +151,7 @@ function Stronghold.Rights:CreateButtonHandlers()
             WriteSyncCallToLog("Rights", _Action, _PlayerID, unpack(arg));
 
             if _Action == Stronghold.Rights.SyncEvents.RankUp then
-                Stronghold.Rights:PromotePlayer(_PlayerID);
+                Stronghold.Rights:PromotePlayer(_PlayerID, false, true);
                 if _PlayerID == GUI.GetPlayerID() or GUI.GetPlayerID() == 17 then
                     Stronghold.Rights:OnlineHelpUpdate(_PlayerID, "OnlineHelpButton", Technologies.T_OnlineHelp);
                     GameCallback_GUI_SelectionChanged();
@@ -601,24 +620,28 @@ function Stronghold.Rights:OnlineHelpUpdate(_PlayerID, _Button, _Technology)
     return false;
 end
 
-function Stronghold.Rights:PromotePlayer(_PlayerID)
-    if self:CanPlayerBePromoted(_PlayerID) then
-        -- Pay costs
+function Stronghold.Rights:PromotePlayer(_PlayerID, _IgnoreDuties, _Verbose)
+    if self:CanPlayerBePromoted(_PlayerID, _IgnoreDuties) then
         local CurrentRank = GetRank(_PlayerID);
-        local Costs = CreateCostTable(unpack(self.Data[_PlayerID].Titles[CurrentRank +1].Costs));
-        SetRank(_PlayerID, CurrentRank +1);
-        RemoveResourcesFromPlayer(_PlayerID, Costs);
-        -- Info message
-        local MsgText = string.format(
-            XGUIEng.GetStringTableText("sh_rights/PromoteSelf"),
-            GetRankName(CurrentRank +1, _PlayerID)
-        );
-        if GUI.GetPlayerID() == _PlayerID then
-            Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
-        else
-            MsgText = XGUIEng.GetStringTableText("sh_rights/PromoteOther");
+        self:SetPlayerRank(_PlayerID, CurrentRank +1);
+        -- Pay costs
+        if not _IgnoreDuties then
+            local Costs = CreateCostTable(unpack(self.Data[_PlayerID].Titles[CurrentRank +1].Costs));
+            RemoveResourcesFromPlayer(_PlayerID, Costs);
         end
-        Message(MsgText);
+        -- Info message
+        if _Verbose then
+            local MsgText = string.format(
+                XGUIEng.GetStringTableText("sh_rights/PromoteSelf"),
+                GetRankName(CurrentRank +1, _PlayerID)
+            );
+            if GUI.GetPlayerID() == _PlayerID then
+                Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
+            else
+                MsgText = XGUIEng.GetStringTableText("sh_rights/PromoteOther");
+            end
+            Message(MsgText);
+        end
         -- Callbacks
         GameCallback_SH_Logic_PlayerPromoted(_PlayerID, CurrentRank, CurrentRank +1);
         if CurrentRank + 1 >= self:GetPlayerMaxRank(_PlayerID) then
@@ -627,12 +650,12 @@ function Stronghold.Rights:PromotePlayer(_PlayerID)
     end
 end
 
-function Stronghold.Rights:CanPlayerBePromoted(_PlayerID)
+function Stronghold.Rights:CanPlayerBePromoted(_PlayerID, _IgnoreDuties)
     if IsPlayer(_PlayerID) then
-        if IsExisting(Stronghold.Players[_PlayerID].LordScriptName) then
+        if _IgnoreDuties or IsExisting(Stronghold.Players[_PlayerID].LordScriptName) then
             local CurrentRank = GetRank(_PlayerID);
             if CurrentRank < self.Data[_PlayerID].MaxRank and CurrentRank < self.Data[_PlayerID].LockRank then
-                return self:ArePromotionRequirementsFulfilled(_PlayerID, CurrentRank +1);
+                return _IgnoreDuties or self:ArePromotionRequirementsFulfilled(_PlayerID, CurrentRank +1);
             end
         end
     end
