@@ -192,8 +192,12 @@ function Stronghold.Mercenary:BuyMercenaryUnitUpdate(_WidgetID, _Index, _PlayerI
     local Contingent = self.Data[_PlayerID].Contingent[EntityType];
 
     -- Button
-    local DisabledFlag = 0;
-    if Contingent.Amount < 1 or not HasRight(_PlayerID, UnitConfig.Right) then
+    local DisabledFlag = 1;
+    if  Stronghold.Recruit:IsUnitAllowed(_EntityID, EntityType)
+    and Stronghold.Recruit:HasSufficientRank(_EntityID, EntityType) then
+        DisabledFlag = 0;
+    end
+    if Contingent.Amount < 1 then
         DisabledFlag = 1;
     end
     XGUIEng.TransferMaterials(UnitConfig.Button, _WidgetID);
@@ -355,10 +359,11 @@ function Stronghold.Mercenary:RefillMercenaryOffers(_PlayerID)
             for Type, Data in pairs(self.Data[_PlayerID].Contingent) do
                 local Config = self.Config:Get(Type);
                 assert(Config ~= nil);
-                local MaxAmount = Config.MaxAmount;
-                local MaxAmountBonus = math.floor((MercenaryCamps[1] -1) * self.Config.QuantityFactor);
-                self.Data[_PlayerID].Contingent[Type].MaxAmount = MaxAmount + MaxAmountBonus;
-                if Data.Amount < MaxAmount + MaxAmountBonus then
+                local MaxAmountBase = Config.MaxAmount;
+                local MaxAmountBonus = (MercenaryCamps[1] -1) * self.Config.QuantityFactor;
+                local MaxAmount = math.floor(MaxAmountBase + MaxAmountBonus);
+                self.Data[_PlayerID].Contingent[Type].MaxAmount = MaxAmount;
+                if Data.Amount < MaxAmount then
                     self.Data[_PlayerID].Contingent[Type].RefillTimer = Data.RefillTimer + 1;
                     if Data.RefillTimer >= Config.RefillTime then
                         self.Data[_PlayerID].Contingent[Type].Amount = Data.Amount + 1;
