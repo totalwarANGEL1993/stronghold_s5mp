@@ -13,9 +13,9 @@ Stronghold.Config = {
     },
 
     DefeatModes = {
-        SuddenDeath = false,
+        SuddenDeath = true,
         LastManStanding = false,
-        Annihilation = true,
+        Annihilation = false,
     },
 
     Logging = {

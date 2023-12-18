@@ -215,6 +215,12 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
         end
     end
 
+    -- HACK: Hide unused buttons
+    if _Button == "Build_Tower" then
+        XGUIEng.ShowWidget(_Button, 0);
+        return;
+    end
+
     -- Get right and technology
     local Disable = false;
     local CheckList = Stronghold.Construction.Config.TypesToCheckForConstruction[Technology];
