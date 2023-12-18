@@ -1,8 +1,10 @@
-Version 0.6.17
+Version 0.6.19
 - Schaden von einigen Einheiten wurde überarbeitet
 - Maßnahmen laden sich nun viel schneller auf
+- Das Leibeigenenmenü wurde überarbeitet und besteht nun aus 3 Tabs
 - Alle Adligen haben alle Standardtruppen und zusätzlich Spezialeinheiten
   (Einige Adlige können bestimmte Standardeineiten nicht anheuern)
+- Adlige können Fremde Spezialeinheiten als Söldner zu höreren Preisen anheuern
 - Dario beschleunigt Maßnahmen nur noch um 50%
 - Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
 - Salim steigert Wissensgewinn Gelehrter um 20%
