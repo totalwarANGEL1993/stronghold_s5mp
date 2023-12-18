@@ -1498,6 +1498,7 @@ function Stronghold.Building:OnWallSelected(_EntityID)
     XGUIEng.ShowWidget("ClosePalisadeGate", 0);
     XGUIEng.ShowWidget("OpenWallGate", 0);
     XGUIEng.ShowWidget("CloseWallGate", 0);
+    XGUIEng.ShowWidget("TurnToPalisadeGate", 0);
     XGUIEng.ShowWidget("TurnToGate", 0);
     XGUIEng.ShowWidget("TurnToWall", 0);
 
@@ -1509,34 +1510,30 @@ function Stronghold.Building:OnWallSelected(_EntityID)
         if self.Config.WoddenWallTypes[Type] then
             XGUIEng.ShowWidget("Upgrade_Palisade", 1);
             if self.Config.ClosedGateType[Type] then
-                XGUIEng.ShowWidget("ConvertToWall", 1);
                 XGUIEng.ShowWidget("OpenPalisadeGate", 1);
                 XGUIEng.ShowWidget("ClosePalisadeGate", 1);
-                XGUIEng.ShowWidget("TurnToWall", 1);
+                XGUIEng.ShowWidget("TurnToWall", 0);
             end
             if self.Config.OpenGateType[Type] then
-                XGUIEng.ShowWidget("ConvertToWall", 1);
                 XGUIEng.ShowWidget("OpenPalisadeGate", 1);
                 XGUIEng.ShowWidget("ClosePalisadeGate", 1);
-                XGUIEng.ShowWidget("TurnToWall", 1);
+                XGUIEng.ShowWidget("TurnToWall", 0);
             end
             if self.Config.WallSegmentType[Type] then
                 XGUIEng.ShowWidget("ConvertToGate", 1);
-                XGUIEng.ShowWidget("TurnToGate", 1);
+                XGUIEng.ShowWidget("TurnToPalisadeGate", 1);
             end
         end
         if self.Config.StoneWallTypes[Type] then
             if self.Config.ClosedGateType[Type] then
-                XGUIEng.ShowWidget("ConvertToWall", 1);
                 XGUIEng.ShowWidget("OpenWallGate", 1);
                 XGUIEng.ShowWidget("CloseWallGate", 1);
-                XGUIEng.ShowWidget("TurnToWall", 1);
+                XGUIEng.ShowWidget("TurnToWall", 0);
             end
             if self.Config.OpenGateType[Type] then
-                XGUIEng.ShowWidget("ConvertToWall", 1);
                 XGUIEng.ShowWidget("OpenWallGate", 1);
                 XGUIEng.ShowWidget("CloseWallGate", 1);
-                XGUIEng.ShowWidget("TurnToWall", 1);
+                XGUIEng.ShowWidget("TurnToWall", 0);
             end
             if self.Config.WallSegmentType[Type] then
                 XGUIEng.ShowWidget("ConvertToGate", 1);
