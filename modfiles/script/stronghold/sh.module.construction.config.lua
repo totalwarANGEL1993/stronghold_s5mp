@@ -29,6 +29,17 @@ Stronghold.Construction.Config = {
         [8] = 3,
     },
 
+    TowerCategoriesToCheck = {
+        [UpgradeCategories.DarkBallistaTower] = true,
+        [UpgradeCategories.DarkCannonTower] = true,
+        [UpgradeCategories.DarkWatchTower] = true,
+        [UpgradeCategories.DarkTower] = true,
+        [UpgradeCategories.Tower] = true,
+        [UpgradeCategories.BallistaTower] = true,
+        [UpgradeCategories.CannonTower] = true,
+        [UpgradeCategories.WatchTower] = true,
+    },
+
     -- Check types for construction technology
     TypesToCheckForConstruction = {
         [Technologies.B_Beautification01]       = {Entities.PB_Beautification01},
