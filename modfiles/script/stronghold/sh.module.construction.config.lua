@@ -29,7 +29,7 @@ Stronghold.Construction.Config = {
         [8] = 3,
     },
 
-    TowerCategoriesToCheck = {
+    TowerPlacementDistanceCheck = {
         [UpgradeCategories.DarkBallistaTower] = true,
         [UpgradeCategories.DarkCannonTower] = true,
         [UpgradeCategories.DarkWatchTower] = true,

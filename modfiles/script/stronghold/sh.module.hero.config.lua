@@ -122,3 +122,12 @@ Stronghold.Hero.Config.Hero = {
     }
 }
 
+-- Configure dark replacements
+Stronghold.Hero.Config.DarkBuildingReplacements = {
+    [UpgradeCategories.BallistaTower] = UpgradeCategories.DarkBallistaTower,
+    [UpgradeCategories.CannonTower] = UpgradeCategories.DarkCannonTower,
+    [UpgradeCategories.Tower] = UpgradeCategories.DarkTower,
+    [UpgradeCategories.Wall] = UpgradeCategories.DarkWall,
+    [UpgradeCategories.WatchTower] = UpgradeCategories.DarkWatchTower,
+};
+

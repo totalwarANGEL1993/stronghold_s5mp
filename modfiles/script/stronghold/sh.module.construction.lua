@@ -49,17 +49,6 @@ end
 function Stronghold.Construction:OnSaveGameLoaded()
 end
 
-function Stronghold.Construction:OnEntityCreated(_EntityID)
-    -- Reset rotation
-    if GUI.GetPlayerID() == Logic.EntityGetPlayer(_EntityID) then
-        if Logic.IsBuilding(_EntityID) == 1 then
-            if Logic.IsConstructionComplete(_EntityID) == 0 then
-                CPlaceBuilding.SetRotation(0);
-            end
-        end
-    end
-end
-
 function Stronghold.Construction:OnEntityDestroyed(_EntityID)
     -- Reset military building limit
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
@@ -400,7 +389,7 @@ function Stronghold.Construction:StartCheckTowerDistanceCallback()
             local Allowed = true;
             if IsPlayer(PlayerID) then
                 local UpCat = Logic.GetUpgradeCategoryByBuildingType(_Type);
-                if Allowed and Stronghold.Construction.Config.TowerCategoriesToCheck[UpCat] then
+                if Allowed and Stronghold.Construction.Config.TowerPlacementDistanceCheck[UpCat] then
                     local AreaSize = Stronghold.Construction.Config.TowerDistance;
                     AreaSize = GameCallback_SH_Calculate_MinimalTowerDistance(PlayerID, AreaSize);
                     if Stronghold.Construction:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
@@ -457,6 +446,11 @@ function Stronghold.Construction:InitBuildingLimits()
 end
 
 function Stronghold.Construction:OverwriteCallbacks()
+    Overwrite.CreateOverwrite("GUIAction_PlaceBuilding", function(_UpgradeCategory)
+        CPlaceBuilding.SetRotation(0);
+        Overwrite.CallOriginal();
+    end);
+
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
         Overwrite.CallOriginal();
         Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID);

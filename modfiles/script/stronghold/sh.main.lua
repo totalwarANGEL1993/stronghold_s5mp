@@ -956,7 +956,6 @@ function Stronghold:StartTriggers()
         Stronghold:OnSelectionMenuChanged(EntityID);
         Stronghold.Attraction:OnEntityCreated(EntityID);
         Stronghold.Building:OnEntityCreated(EntityID);
-        Stronghold.Construction:OnEntityCreated(EntityID);
         Stronghold.Economy:OnEntityCreated(EntityID);
         Stronghold.Hero:OnEntityCreated(EntityID);
         Stronghold.Unit:OnEntityCreated(EntityID);

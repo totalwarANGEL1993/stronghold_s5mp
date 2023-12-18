@@ -761,25 +761,19 @@ end
 -- Tower
 
 function Stronghold.Hero:OverrideGuiPlaceBuilding()
-    GUIAction_PlaceBuilding_Orig_SH_Hero = GUIAction_PlaceBuilding;
-    GUIAction_PlaceBuilding = function(_UpgradeCategory)
+    Overwrite.CreateOverwrite("GUIAction_PlaceBuilding", function(_UpgradeCategory)
         local PlayerID = GUI.GetPlayerID();
-        -- Kerberos and Kala are building dark towers
-        if PlayerID ~= 17 and _UpgradeCategory == UpgradeCategories.Tower then
+        -- Evil building replacer
+        local Replacement = Stronghold.Hero.Config.DarkBuildingReplacements[_UpgradeCategory];
+        if PlayerID ~= 17 and Replacement then
             if Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_BlackKnight)
             or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Evil_Queen) then
-                return GUIAction_PlaceBuilding_Orig_SH_Hero(UpgradeCategories.DarkTower);
+                GUIAction_PlaceBuilding(Replacement);
+                return;
             end
         end
-        -- Kerberos and Kala are building dark walls
-        if PlayerID ~= 17 and _UpgradeCategory == UpgradeCategories.Wall then
-            if Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_BlackKnight)
-            or Stronghold.Hero:HasValidLordOfType(PlayerID, Entities.CU_Evil_Queen) then
-                return GUIAction_PlaceBuilding_Orig_SH_Hero(UpgradeCategories.DarkWall);
-            end
-        end
-        GUIAction_PlaceBuilding_Orig_SH_Hero(_UpgradeCategory);
-    end
+        Overwrite.CallOriginal();
+    end);
 end
 
 -- -------------------------------------------------------------------------- --

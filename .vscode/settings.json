@@ -253,7 +253,8 @@
         "IsEntitySelected",
         "AiArmyManager",
         "CSendEvent",
-        "MAINQUEST_CLOSED"
+        "MAINQUEST_CLOSED",
+        "GUIAction_PlaceBuilding"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
