@@ -58,6 +58,7 @@ function Stronghold.Building:Install()
             Turrets = {},
 
             HeadquarterLastWidgetID = 0,
+            SerfLastWidgetID = 0,
         };
     end
 
@@ -176,18 +177,23 @@ function Stronghold.Building:InitalizeSerfBuildingTabs()
 	gvGUI_WidgetID.SerfBeautificationMenu  = XGUIEng.GetWidgetID("SerfBeautificationMenu");
 	gvGUI_WidgetID.SerfMilitaryMenu        = XGUIEng.GetWidgetID("SerfMilitaryMenu");
 
+    gvStronghold_LastSelectedSerfMenu = gvGUI_WidgetID.SerfConstructionMenu;
+
     GUIAction_ToggleSerfMenu = function( _Menu, _status)
         XGUIEng.ShowAllSubWidgets(gvGUI_WidgetID.SerfMenus, 0);
         XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "BuildingMenuGroup");
         if _Menu == gvGUI_WidgetID.SerfConstructionMenu then
             XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
             XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+            gvStronghold_LastSelectedSerfMenu = gvGUI_WidgetID.SerfConstructionMenu;
         elseif _Menu == gvGUI_WidgetID.SerfMilitaryMenu then
             XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
             XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+            gvStronghold_LastSelectedSerfMenu = gvGUI_WidgetID.SerfMilitaryMenu;
         else
             XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
             XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+            gvStronghold_LastSelectedSerfMenu = gvGUI_WidgetID.SerfBeautificationMenu;
         end
         XGUIEng.ShowWidget(_Menu, _status);
         XGUIEng.DoManualButtonUpdate(gvGUI_WidgetID.InGame);
@@ -285,11 +291,7 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
         XGUIEng.ShowWidget("BuildingTabs", 1);
         GUIUpdate_BuySerf();
-
-        local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID;
-        if LastWidgetID == 0 then
-            LastWidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
-        end
+        local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID or 0;
         self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, LastWidgetID);
     end
 end
@@ -375,6 +377,10 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     XGUIEng.ShowWidget("HQ_BackToWork", 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
     XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
+    end
     GUIUpdate_PlaceRallyPoint();
 end
 
@@ -656,6 +662,10 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_DraconicPunishment");
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_DecorativeSkull");
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_TjostingArmor");
+
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
+    end
 end
 
 -- Sub menu
@@ -664,11 +674,16 @@ function Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(_PlayerID, 
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
-    if _WidgetID == gvGUI_WidgetID.ToBuildingCommandMenu then
-        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
+
+    local WidgetID = _WidgetID;
+    local SelectedChanged = gvStronghold_LastSelectedEntity ~= _EntityID;
+    if SelectedChanged then
+        WidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
+    end
+
+    if WidgetID == gvGUI_WidgetID.ToBuildingCommandMenu then
         self:HeadquartersShowNormalControls(_PlayerID, _EntityID, _WidgetID);
-    elseif _WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu then
-        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
+    elseif WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu then
         self:HeadquartersShowMonasteryControls(_PlayerID, _EntityID, _WidgetID);
     end
     return true;
@@ -1339,9 +1354,26 @@ function Stronghold.Building:OnSelectSerf(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local EntityType = Logic.GetEntityType(_EntityID);
     if PlayerID == GuiPlayer and EntityType == Entities.PU_Serf then
-        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 0);
-        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
-        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+        if gvStronghold_LastSelectedEntity ~= _EntityID then
+            gvStronghold_LastSelectedSerfMenu = gvGUI_WidgetID.SerfConstructionMenu;
+        end
+
+        XGUIEng.ShowAllSubWidgets(gvGUI_WidgetID.SerfMenus, 0);
+        XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "BuildingMenuGroup");
+        if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfConstructionMenu then
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+        end
+        if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfMilitaryMenu then
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
+        end
+        if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfBeautificationMenu then
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+        end
+        XGUIEng.ShowWidget(gvStronghold_LastSelectedSerfMenu, 1);
+        XGUIEng.DoManualButtonUpdate(gvGUI_WidgetID.InGame);
     end
 end
 

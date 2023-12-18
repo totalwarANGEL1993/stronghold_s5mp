@@ -1574,7 +1574,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         EntityID = SelectedID;
     end
 
-    if SelectedID then
+    if EntityID then
         self.Building:OnHeadquarterSelected(EntityID);
         self.Building:OnMonasterySelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
@@ -1592,6 +1592,8 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Recruit:OnStableSelected(EntityID);
         self.Recruit:OnFoundrySelected(EntityID);
         self.Recruit:OnTavernSelected(EntityID);
+
+        gvStronghold_LastSelectedEntity = EntityID;
     end
 end
 
