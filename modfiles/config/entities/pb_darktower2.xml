@@ -29,7 +29,7 @@
         </ModifyExploration>   
 		
         <Upgrade>
-            <Category>DarkTower</Category>
+            <Category>DarkBallistaTower</Category>
             <Time>15.0</Time>
             <Cost>
                 <Clay>0</Clay>

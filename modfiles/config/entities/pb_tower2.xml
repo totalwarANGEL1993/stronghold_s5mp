@@ -29,20 +29,29 @@
         </ModifyExploration>
 
         <Upgrade>
-            <Category>Tower</Category>
-            <Time>15.0</Time>
+            <Category>BallistaTower</Category>
+            <Time>20.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood/>
-                <Stone>300</Stone>
+                <Stone>250</Stone>
                 <Gold/>
-                <Iron>0</Iron>
-                <Sulfur>300</Sulfur>
+                <Iron>50</Iron>
+                <Sulfur>250</Sulfur>
             </Cost>
             <Type>PB_Tower3</Type>
         </Upgrade>
         <Exploration>30</Exploration>
         <ConstructionInfo>
+            <Time>90</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>250</Wood>
+                <Stone>250</Stone>
+                <Gold>0</Gold>
+                <Iron>100</Iron>
+                <Sulfur>0</Sulfur>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>100</X>

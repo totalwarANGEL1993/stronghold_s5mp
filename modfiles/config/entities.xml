@@ -1120,6 +1120,7 @@
 
         <!-- Construction sites -->
         <Entity>XD_HeadquarterSite</Entity>
+        <Entity>XD_OutpostSite</Entity>
         <Entity>XD_WallConstructionSite</Entity>
         
         <!-- Wall replacers -->

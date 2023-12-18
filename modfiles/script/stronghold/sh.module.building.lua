@@ -67,6 +67,7 @@ function Stronghold.Building:Install()
     self:OverrideSellBuildingAction();
     self:OverrideShiftRightClick();
     self:OverwriteWeatherTowerButtons();
+    self:InitalizeSerfBuildingTabs();
     self:InitalizeBuyUnitKeybindings();
 end
 
@@ -161,6 +162,36 @@ function Stronghold.Building:OnEntityDestroyed(_EntityID)
     self:OnRallyPointHolderDestroyed(PlayerID, _EntityID);
     -- Wall destroyed
     self:OnWallOrPalisadeDestroyed(_EntityID);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Serf menu
+
+function Stronghold.Building:InitalizeSerfBuildingTabs()
+	gvGUI_WidgetID.SerfMenus               = XGUIEng.GetWidgetID("Commands_Serf");
+    gvGUI_WidgetID.ToSerfConstructionMenu  = XGUIEng.GetWidgetID( "SerfToConstructionMenu");
+    gvGUI_WidgetID.ToSerfMilitaryMenu      = XGUIEng.GetWidgetID("SerfToMilitaryMenu");
+	gvGUI_WidgetID.ToSerfBeatificationMenu = XGUIEng.GetWidgetID("SerfToBeautificationMenu");
+    gvGUI_WidgetID.SerfConstructionMenu    = XGUIEng.GetWidgetID("SerfConstructionMenu");
+	gvGUI_WidgetID.SerfBeautificationMenu  = XGUIEng.GetWidgetID("SerfBeautificationMenu");
+	gvGUI_WidgetID.SerfMilitaryMenu        = XGUIEng.GetWidgetID("SerfMilitaryMenu");
+
+    GUIAction_ToggleSerfMenu = function( _Menu, _status)
+        XGUIEng.ShowAllSubWidgets(gvGUI_WidgetID.SerfMenus, 0);
+        XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "BuildingMenuGroup");
+        if _Menu == gvGUI_WidgetID.SerfConstructionMenu then
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+        elseif _Menu == gvGUI_WidgetID.SerfMilitaryMenu then
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+        else
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
+            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+        end
+        XGUIEng.ShowWidget(_Menu, _status);
+        XGUIEng.DoManualButtonUpdate(gvGUI_WidgetID.InGame);
+    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -1298,6 +1329,20 @@ end
 
 function Stronghold.Building:ExecuteBuyUnitKeybindForMercenary(_Key, _PlayerID, _EntityID)
     Stronghold.Mercenary:ExecuteBuyUnitKeybindForMercenary(_Key, _PlayerID, _EntityID);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Serf
+
+function Stronghold.Building:OnSelectSerf(_EntityID)
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local EntityType = Logic.GetEntityType(_EntityID);
+    if PlayerID == GuiPlayer and EntityType == Entities.PU_Serf then
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 0);
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+    end
 end
 
 -- -------------------------------------------------------------------------- --

@@ -952,7 +952,8 @@ function Stronghold.Recruit:UnitRecruiterController(_EntityID)
         -- Add training leader
         if Logic.IsLeader(_EntityID) == 1 then
             local Experience = Stronghold.Hero:ApplyExperiencePassiveAbility(PlayerID, _EntityID, 0);
-            if Experience > 0 then
+            local CurrentExperience = CEntity.GetLeaderExperience(_EntityID);
+            if Experience > 0 and Experience > CurrentExperience then
                 CEntity.SetLeaderExperience(_EntityID, Experience);
             end
             self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;

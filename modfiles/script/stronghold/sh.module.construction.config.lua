@@ -44,11 +44,16 @@ Stronghold.Construction.Config = {
         [Technologies.B_Beautification11]       = {Entities.PB_Beautification11},
         [Technologies.B_Beautification12]       = {Entities.PB_Beautification12},
 
+        [Technologies.B_Headquarter]            = {Entities.PB_Headquarters1, Entities.PB_Headquarters2, Entities.PB_Headquarters3,},
+        [Technologies.B_Outpost]                = {Entities.PB_Outpost1, Entities.PB_Outpost2, Entities.PB_Outpost3,},
         [Technologies.B_Archery]                = {Entities.PB_Archery1, Entities.PB_Archery2,},
         [Technologies.B_Barracks]               = {Entities.PB_Barracks1, Entities.PB_Barracks2,},
         [Technologies.B_Foundry]                = {Entities.PB_Foundry1, Entities.PB_Foundry2,},
         [Technologies.B_Stables]                = {Entities.PB_Stable1, Entities.PB_Stable2,},
-        [Technologies.B_Tower]                  = {Entities.PB_Tower1, Entities.PB_Tower2, Entities.PB_Tower3,},
+        [Technologies.B_Tower]                  = {Entities.PB_Tower1},
+        [Technologies.B_BallistaTower]          = {Entities.PB_Tower2},
+        [Technologies.B_CannonTower]            = {Entities.PB_Tower3},
+        [Technologies.B_Mercenary]              = {Entities.PB_MercenaryCamp1},
 
         [Technologies.B_Alchemist]              = {Entities.PB_Alchemist1, Entities.PB_Alchemist2,},
         [Technologies.B_Bank]                   = {Entities.PB_Bank1, Entities.PB_Bank2,},
@@ -70,7 +75,9 @@ Stronghold.Construction.Config = {
 
         -- Those are here so that it just work's...
         [Technologies.B_Palisade]               = {Entities.PB_PalisadeDistorted,},
-        [Technologies.B_TowerDark]              = {Entities.PB_DarkTower1, Entities.PB_DarkTower2, Entities.PB_DarkTower3,},
+        [Technologies.B_TowerDark]              = {Entities.PB_DarkTower1},
+        [Technologies.B_BallistaTowerDark]      = {Entities.PB_DarkTower2},
+        [Technologies.B_CannonTowerDark]        = {Entities.PB_DarkTower3},
         [Technologies.B_Wall]                   = {Entities.PB_WallDistorted,},
         [Technologies.B_WallDark]               = {Entities.PB_DarkWallDistorted,},
     },
@@ -98,9 +105,10 @@ Stronghold.Construction.Config = {
         [Technologies.UP1_Stonemine]            = {Entities.PB_StoneMine1, Entities.PB_StoneMine2, Entities.PB_StoneMine3,},
         [Technologies.UP1_Sulfurmine]           = {Entities.PB_SulfurMine1, Entities.PB_SulfurMine2, Entities.PB_SulfurMine3,},
         [Technologies.UP1_Tavern]               = {Entities.PB_Tavern1, Entities.PB_Tavern2,},
-        [Technologies.UP1_Tower]                = {Entities.PB_Tower1, Entities.PB_Tower2, Entities.PB_Tower3},
+        [Technologies.UP1_Tower]                = {Entities.PB_Tower2, Entities.PB_Tower3},
         [Technologies.UP1_University]           = {Entities.PB_University1, Entities.PB_University2,},
         [Technologies.UP1_Village]              = {Entities.PB_VillageCenter1, Entities.PB_VillageCenter2, Entities.PB_VillageCenter3,},
+        [Technologies.UP1_Outpost]              = {Entities.PB_Outpost1, Entities.PB_Outpost2, Entities.PB_Outpost3,},
 
         [Technologies.UP2_Blacksmith]           = {Entities.PB_Blacksmith1, Entities.PB_Blacksmith2, Entities.PB_Blacksmith3,},
         [Technologies.UP2_Claymine]             = {Entities.PB_ClayMine1, Entities.PB_ClayMine2, Entities.PB_ClayMine3,},
@@ -111,12 +119,13 @@ Stronghold.Construction.Config = {
         [Technologies.UP2_Residence]            = {Entities.PB_Residence1, Entities.PB_Residence2, Entities.PB_Residence3,},
         [Technologies.UP2_Stonemine]            = {Entities.PB_StoneMine1, Entities.PB_StoneMine2, Entities.PB_StoneMine3,},
         [Technologies.UP2_Sulfurmine]           = {Entities.PB_SulfurMine1, Entities.PB_SulfurMine2, Entities.PB_SulfurMine3,},
-        [Technologies.UP2_Tower]                = {Entities.PB_Tower1, Entities.PB_Tower2, Entities.PB_Tower3,},
+        [Technologies.UP2_Tower]                = {Entities.PB_Tower2, Entities.PB_Tower3,},
         [Technologies.UP2_Village]              = {Entities.PB_VillageCenter1, Entities.PB_VillageCenter2, Entities.PB_VillageCenter3,},
+        [Technologies.UP2_Outpost]              = {Entities.PB_Outpost1, Entities.PB_Outpost2, Entities.PB_Outpost3,},
 
         -- Those are here so that it just work's...
-        [Technologies.UP1_TowerDark]            = {Entities.PB_DarkTower1, Entities.PB_DarkTower2, Entities.PB_DarkTower3},
-        [Technologies.UP2_TowerDark]            = {Entities.PB_DarkTower1, Entities.PB_DarkTower2, Entities.PB_DarkTower3,},
+        [Technologies.UP1_TowerDark]            = {Entities.PB_DarkTower2, Entities.PB_DarkTower3},
+        [Technologies.UP2_TowerDark]            = {Entities.PB_DarkTower2, Entities.PB_DarkTower3,},
         [Technologies.UP1_Palisade]             = {Entities.PB_WallDistorted,},
         [Technologies.UP1_PalisadeDark]         = {Entities.PB_DarkWallDistorted,},
     },
@@ -124,6 +133,8 @@ Stronghold.Construction.Config = {
     -- Technology hack for Kerberos/Kala
     TechnologyAlternateHack = {
         [Technologies.B_Tower]                  = Technologies.B_TowerDark,
+        [Technologies.B_BallistaTower]          = Technologies.B_BallistaTowerDark,
+        [Technologies.B_CannonTower]            = Technologies.B_CannonTowerDark,
         [Technologies.B_Wall]                   = Technologies.B_WallDark,
         [Technologies.UP1_Palisade]             = Technologies.UP1_PalisadeDark,
         [Technologies.UP1_Tower]                = Technologies.UP1_TowerDark,
@@ -161,6 +172,11 @@ Stronghold.Construction.Config = {
         [Technologies.B_Sulfurmine]             = PlayerRight.SulfurPit,
         [Technologies.B_Palisade]               = PlayerRight.Palisade,
         [Technologies.B_Wall]                   = PlayerRight.Wall,
+        [Technologies.B_BallistaTower]          = PlayerRight.BallistaTower,
+        [Technologies.B_CannonTower]            = PlayerRight.CannonTower,
+        [Technologies.B_Mercenary]              = PlayerRight.MercenaryCamp,
+        [Technologies.B_Headquarter]            = PlayerRight.Keep,
+        [Technologies.B_Outpost]                = PlayerRight.Outpost,
         [Technologies.B_Beautification01]       = PlayerRight.Beautification1,
         [Technologies.B_Beautification02]       = PlayerRight.Beautification2,
         [Technologies.B_Beautification03]       = PlayerRight.Beautification3,
@@ -213,6 +229,8 @@ Stronghold.Construction.Config = {
         [Technologies.UP1_Sulfurmine]       = PlayerRight.SulfurGallery,
         [Technologies.UP2_Sulfurmine]       = PlayerRight.SulfurMine,
         [Technologies.UP1_Palisade]         = PlayerRight.Wall,
+        [Technologies.UP1_Outpost]          = PlayerRight.Fort,
+        [Technologies.UP2_Outpost]          = PlayerRight.Bastille,
     },
 
     -- Replacement types

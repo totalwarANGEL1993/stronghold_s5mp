@@ -9,22 +9,15 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <UpgradeSite>ZB_UpgradeSite4</UpgradeSite>
         <MaxHealth>2500</MaxHealth>
         <KegEffectFactor>0.1</KegEffectFactor>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
+        <Exploration>50</Exploration>
+        <NumberOfAttractableSettlers>50</NumberOfAttractableSettlers>
         <BuildOn>XD_HeadquarterSite</BuildOn>
         <HideBase>true</HideBase>
-
-
-        <ModifyArmor>
-            <Technology>T_Masonry</Technology>
-        </ModifyArmor>
-        <ModifyExploration>
-            <Technology>T_TownGuard</Technology>
-        </ModifyExploration>
-
+        <CanBeSold>false</CanBeSold>
 
         <Category>Headquarters</Category>
         <Category>DefendableBuilding</Category>
@@ -37,9 +30,19 @@
         <Category>WoodSupplier</Category>
         <Category>ThiefRefuge</Category>
 
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
         <Upgrade>
             <Time>90.0</Time>
             <Cost>
+                <Silver>0</Silver>
                 <Gold>250</Gold>
                 <Wood/>
                 <Stone>250</Stone>
@@ -50,15 +53,15 @@
             <Type>PB_Headquarters2</Type>
             <Category>Headquarters</Category>
         </Upgrade>
-        <CanBeSold>false</CanBeSold>
-        <NumberOfAttractableSettlers>50</NumberOfAttractableSettlers>
-        <Exploration>50</Exploration>
+        <UpgradeSite>ZB_UpgradeSite4</UpgradeSite>
+
         <ConstructionInfo>
-            <Time>110</Time>
+            <Time>150</Time>
             <Cost>
-                <Clay>500</Clay>
-                <Wood>500</Wood>
-                <Stone>1000</Stone>
+                <Silver>0</Silver>
+                <Clay>200</Clay>
+                <Wood>200</Wood>
+                <Stone>500</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -105,7 +108,6 @@
                 </Position>
                 <Orientation>0</Orientation>
             </BuilderSlot>
-
             <BuilderSlot>
                 <Position>
                     <X>-700</X>
@@ -122,6 +124,7 @@
             </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSite1</ConstructionSite>
         </ConstructionInfo>
+
         <LeavePos>
             <X>-700</X>
             <Y>-100</Y>
@@ -152,6 +155,7 @@
             <Y>-700</Y>
         </TerrainPos2>
     </Logic>
+
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>EGL::GLEBehaviorMultiSubAnims</Class>
@@ -160,6 +164,7 @@
             <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
         </Display>
     </Behavior>
+    
     <Behavior>
         <Logic classname="GGL::CKeepBehaviorProperties">
             <Class>GGL::CKeepBehavior</Class>

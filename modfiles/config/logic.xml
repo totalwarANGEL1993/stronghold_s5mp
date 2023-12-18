@@ -1227,4 +1227,34 @@
     	<Category>Mercenary</Category>
     	<FirstBuilding>PB_MercenaryCamp1</FirstBuilding>
 	</BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>WatchTower</Category>
+        <FirstBuilding>PB_Tower1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DarkWatchTower</Category>
+        <FirstBuilding>PB_DarkTower1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>BallistaTower</Category>
+        <FirstBuilding>PB_Tower2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DarkBallistaTower</Category>
+        <FirstBuilding>PB_DarkTower2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>CannonTower</Category>
+        <FirstBuilding>PB_Tower3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DarkCannonTower</Category>
+        <FirstBuilding>PB_DarkTower3</FirstBuilding>
+    </BuildingUpgrade>
 </root>

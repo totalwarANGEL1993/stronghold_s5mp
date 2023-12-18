@@ -69,6 +69,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.ArchitectShop,
                 PlayerRight.Bridge,
                 PlayerRight.SpearLancer,
+                PlayerRight.MercenaryCamp,
                 ---
                 PlayerRight.Palisade,
             },

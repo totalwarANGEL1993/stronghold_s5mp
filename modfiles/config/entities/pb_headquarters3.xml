@@ -13,18 +13,11 @@
         <KegEffectFactor>0.1</KegEffectFactor>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>8</ArmorAmount>
+        <Exploration>50</Exploration>
+        <NumberOfAttractableSettlers>80</NumberOfAttractableSettlers>
         <BuildOn>XD_HeadquarterSite</BuildOn>
         <HideBase>true</HideBase>
-
-
-        <ModifyArmor>
-            <Technology>T_Masonry</Technology>
-        </ModifyArmor>
-
-        <ModifyExploration>
-            <Technology>T_TownGuard</Technology>
-        </ModifyExploration>
-
+        <CanBeSold>false</CanBeSold>
 
         <Category>Headquarters</Category>
         <Category>DefendableBuilding</Category>
@@ -36,14 +29,23 @@
         <Category>GoldSupplier</Category>
         <Category>WoodSupplier</Category>
         <Category>ThiefRefuge</Category>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
         <Upgrade>
             <Category>Headquarters</Category>
         </Upgrade>
-        <CanBeSold>false</CanBeSold>
-        <NumberOfAttractableSettlers>80</NumberOfAttractableSettlers>
-        <Exploration>50</Exploration>
-        <ConstructionInfo>
+        <UpgradeSite>ZB_UpgradeSite4</UpgradeSite>
 
+        <ConstructionInfo>
             <BuilderSlot>
                 <Position>
                     <X>400</X>
@@ -86,7 +88,6 @@
                 </Position>
                 <Orientation>0</Orientation>
             </BuilderSlot>
-
             <BuilderSlot>
                 <Position>
                     <X>-700</X>

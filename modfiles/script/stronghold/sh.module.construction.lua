@@ -423,6 +423,11 @@ end
 -- Setup the building limit for some building types.
 -- (The tracker only handles the tracking and not the UI!)
 function Stronghold.Construction:InitBuildingLimits()
+    -- Keep
+    EntityTracker.SetLimitOfType(Entities.PB_Headquarters1, 1);
+    EntityTracker.SetLimitOfType(Entities.PB_Headquarters2, 1);
+    EntityTracker.SetLimitOfType(Entities.PB_Headquarters3, 1);
+
     -- Beautifications
     EntityTracker.SetLimitOfType(Entities.PB_Beautification04, 6);
     EntityTracker.SetLimitOfType(Entities.PB_Beautification06, 6);
@@ -449,6 +454,23 @@ function Stronghold.Construction:OverwriteCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
         Overwrite.CallOriginal();
         Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID);
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_GUI_OnConstructionButtonsUpdated", function(_PlayerID)
+        Overwrite.CallOriginal();
+        if GUI.GetPlayerID() == _PlayerID or _PlayerID == 17 then
+            GUIUpdate_BuildingButtons("Build_Mercenary", Technologies.B_Mercenary);
+            GUIUpdate_BuildingButtons("Build_BallistaTower", Technologies.B_BallistaTower);
+            GUIUpdate_BuildingButtons("Build_CannonTower", Technologies.B_CannonTower);
+        end
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_GUI_OnUpgradeButtonsUpdated", function(_PlayerID)
+        Overwrite.CallOriginal();
+        if GUI.GetPlayerID() == _PlayerID or _PlayerID == 17 then
+            GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
+            GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP2_Outpost);
+        end
     end);
 end
 
