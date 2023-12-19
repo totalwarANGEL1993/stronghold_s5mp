@@ -1043,6 +1043,7 @@
 <!--Stronghold-->
 
         <!-- Buildings -->
+        <Entity>CB_Grange</Entity>
         <Entity>CB_Prison_Tower1</Entity>
         <Entity>CB_SignalFire_Base</Entity>
         <Entity>CB_SignalFire_Fire</Entity>
