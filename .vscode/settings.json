@@ -254,7 +254,8 @@
         "AiArmyManager",
         "CSendEvent",
         "MAINQUEST_CLOSED",
-        "GUIAction_PlaceBuilding"
+        "GUIAction_PlaceBuilding",
+        "EUROPEMUSIC"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey></NameKey>
+ <DescKey></DescKey>
+ <Name>(1) @color:200,70,40 SH @color:255,255,255 Stronghold Testmap</Name>
+ <Desc>A simple testmap for the stronghold mod.</Desc>
+ <SizeX>321</SizeX>
+ <SizeY>321</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>1</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>f2324dc5-36f0-46f4-950d-96330e10dc08</Data>
+ </GUID>
+</root>
