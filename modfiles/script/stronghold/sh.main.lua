@@ -560,18 +560,19 @@ function Stronghold:InitalizePlayerWithoutHeadquarters(_PlayerID, _StartPosition
 
     -- Set rank
     SetRank(_PlayerID, self.Config.Base.InitialRank);
-    -- Create serfs
-    if _StartPosition then
-        self:InitalizePlayersSerfs(_PlayerID, _SerfAmount, _StartPosition);
-    end
-    -- Create hero
+    -- Create hero and serfs
     if _StartPosition and _HeroType then
+        -- Hero
         local _, HeroID = Logic.GetPlayerEntities(_PlayerID, _HeroType, 1);
         if IsExisting(HeroID) then
             PlayerSetupNoble(_PlayerID, HeroID, _HeroType);
         else
             PlayerCreateNoble(_PlayerID, _HeroType, _StartPosition);
         end
+        Camera.ScrollSetLookAt(_StartPosition.X, _StartPosition.Y);
+        -- Serfs
+        local NobleID = self:GetPlayerHero(_PlayerID);
+        self:InitalizePlayersSerfs(_PlayerID, _SerfAmount, _StartPosition, NobleID);
     end
     Logic.PlayerSetGameStateToPlaying(_PlayerID);
 
@@ -684,8 +685,8 @@ function Stronghold:InitalizePlayersHeadquarter(_PlayerID)
     GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, CastleID)
 end
 
-function Stronghold:InitalizePlayersSerfs(_PlayerID, _Serfs, _CampPos)
-    local CampName = "CampP" .._PlayerID;
+function Stronghold:InitalizePlayersSerfs(_PlayerID, _Serfs, _CampPos, _LookAt)
+    local CampName = _LookAt or ("CampP" .._PlayerID);
     local CampPos = _CampPos or self.Players[_PlayerID].CampPos;
 
     -- Create serfs

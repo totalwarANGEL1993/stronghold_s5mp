@@ -5,10 +5,5 @@
 		<Clay>100</Clay>
 	</ResourceCosts>
 	<Conditions>
-		
-		<TecCondition>
-			<TecType>GT_Construction</TecType>
-			<TecCategoryType></TecCategoryType>
-		</TecCondition>		
 	</Conditions>
 </root>

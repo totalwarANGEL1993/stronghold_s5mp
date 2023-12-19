@@ -44,6 +44,7 @@ Stronghold.Rights.Config = {
                 -- DO NOT MOVE THIS!!! --
 
                 PlayerRight.Keep,
+                PlayerRight.Outpost,
                 PlayerRight.Serf,
                 ---
                 PlayerRight.Beautification4,
@@ -81,6 +82,7 @@ Stronghold.Rights.Config = {
             },
             Rights = {
                 PlayerRight.Fortress,
+                PlayerRight.Fort,
                 PlayerRight.Cottage,
                 PlayerRight.Mill,
                 PlayerRight.Brickmaker,
@@ -202,6 +204,7 @@ Stronghold.Rights.Config = {
             },
             Rights = {
                 PlayerRight.Zitadel,
+                PlayerRight.Bastille,
                 ---
                 PlayerRight.Laboratory,
                 PlayerRight.FinishingSmithy,

@@ -719,23 +719,13 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
             if Limit == 0 and not Stronghold.Players[_PlayerID].HQCreated then
                 Limit = Limit + (1 * self.Config.Attraction.HQMilitary[1]);
             end
-
-            -- Barracks
-            -- local BB1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Barracks1, true);
-            -- Limit = Limit + (BB1[1] * self.Config.Attraction.BBMilitary[1]);
-            local BB2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Barracks2);
-            Limit = Limit + (BB2 * self.Config.Attraction.BBMilitary[2]);
-            -- Archery
-            -- local AR1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Archery1, true);
-            -- Limit = Limit + (AR1[1] * self.Config.Attraction.BBMilitary[1]);
-            local AR2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Archery2);
-            Limit = Limit + (AR2 * self.Config.Attraction.BBMilitary[2]);
-            -- Stables
-            -- local ST1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Stable1, true);
-            -- Limit = Limit + (ST1[1] * self.Config.Attraction.BBMilitary[1]);
-            local ST2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Stable2);
-            Limit = Limit + (ST2 * self.Config.Attraction.BBMilitary[2]);
-
+            -- Outpost
+            local OP1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Outpost1, true);
+            Limit = Limit + (OP1[1] * self.Config.Attraction.OPMilitary[1]);
+            local OP2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Outpost2);
+            Limit = Limit + (OP2 * self.Config.Attraction.OPMilitary[2]);
+            local OP3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Outpost3);
+            Limit = Limit + (OP3 * self.Config.Attraction.OPMilitary[3]);
             -- External
             Limit = GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, Limit);
         end

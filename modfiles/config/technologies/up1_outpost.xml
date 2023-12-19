@@ -5,10 +5,14 @@
 		<Clay>100</Clay>
 	</ResourceCosts>
 	<Conditions>
-		
-		<TecCondition>
-			<TecType>GT_Construction</TecType>
-			<TecCategoryType></TecCategoryType>
-		</TecCondition>		
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Headquarters2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Headquarters3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
 	</Conditions>
 </root>

@@ -5,10 +5,30 @@
 		<Clay>100</Clay>
 	</ResourceCosts>
 	<Conditions>
-		
-		<TecCondition>
-			<TecType>GT_Construction</TecType>
-			<TecCategoryType></TecCategoryType>
-		</TecCondition>		
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Archery1</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Archery2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Barracks1</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Barracks2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Stable1</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Stable2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
 	</Conditions>
 </root>

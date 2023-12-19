@@ -293,6 +293,25 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
         GUIUpdate_BuySerf();
         local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID or 0;
         self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, LastWidgetID);
+        -- Upgrade buttons
+        XGUIEng.ShowWidget("Upgrade_Headquarter1", 0);
+        XGUIEng.ShowWidget("Upgrade_Headquarter2", 0);
+        XGUIEng.ShowWidget("Upgrade_Outpost1", 0);
+        XGUIEng.ShowWidget("Upgrade_Outpost2", 0);
+        local Type = Logic.GetEntityType(_EntityID);
+        if Logic.IsConstructionComplete(_EntityID) == 1 then
+            if Type == Entities.PB_Headquarters1 then
+                XGUIEng.ShowWidget("Upgrade_Headquarter1", 1);
+            elseif Type == Entities.PB_Headquarters2 then
+                XGUIEng.ShowWidget("Upgrade_Headquarter2", 1);
+            elseif Type == Entities.PB_Outpost1 then
+                XGUIEng.ShowWidget("Upgrade_Outpost1", 1);
+            elseif Type == Entities.PB_Outpost2 then
+                XGUIEng.ShowWidget("Upgrade_Outpost2", 1);
+            end
+        end
+        GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
+        GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP1_Outpos2);
     end
 end
 
@@ -1212,7 +1231,9 @@ function Stronghold.Building:CanBuildingHaveRallyPoint(_Building)
     or Type == Entities.PB_Foundry1 or Type == Entities.PB_Foundry2
     or Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2
     or Type == Entities.PB_Headquarters1 or Type == Entities.PB_Headquarters2
-    or Type == Entities.PB_Headquarters3 then
+    or Type == Entities.PB_Headquarters3
+    or Type == Entities.PB_Outpost1 or Type == Entities.PB_Outpost2
+    or Type == Entities.PB_Outpost3 then
         return true;
     end
     return false;

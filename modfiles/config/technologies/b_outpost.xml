@@ -1,0 +1,19 @@
+<root>
+    <TecCategoryType>TC_Building</TecCategoryType>
+
+    <Conditions>
+        <RequiredEntityConditions>1</RequiredEntityConditions>
+        <EntityCondition>
+            <EntityType>PB_Headquarters1</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Headquarters2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+        <EntityCondition>
+            <EntityType>PB_Headquarters3</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
+    </Conditions>
+</root>
