@@ -9,18 +9,19 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <MaxHealth>2500</MaxHealth>
+        <MaxHealth>4100</MaxHealth>
         <KegEffectFactor>0.3</KegEffectFactor>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>7</ArmorAmount>
+        <ArmorAmount>5</ArmorAmount>
         <Exploration>50</Exploration>
         <NumberOfAttractableSettlers>0</NumberOfAttractableSettlers>
-        <BuildOn>XD_OutpostSite</BuildOn>
+        <BuildOn>XD_KeepConstructionSite</BuildOn>
         <HideBase>true</HideBase>
         <CanBeSold>true</CanBeSold>
 
         <Category>Headquarters</Category>
         <Category>DefendableBuilding</Category>
+        <Category>SerfConversionBuilding</Category>
         <Category>IronSupplier</Category>
         <Category>ClaySupplier</Category>
         <Category>StoneSupplier</Category>

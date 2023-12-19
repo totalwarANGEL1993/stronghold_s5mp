@@ -15,7 +15,7 @@
         <ArmorAmount>6</ArmorAmount>
         <Exploration>50</Exploration>
         <NumberOfAttractableSettlers>50</NumberOfAttractableSettlers>
-        <BuildOn>XD_HeadquarterSite</BuildOn>
+        <BuildOn>XD_KeepConstructionSite</BuildOn>
         <HideBase>true</HideBase>
         <CanBeSold>false</CanBeSold>
 

@@ -106700,7 +106700,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_HeadquarterSite</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>6.100000e+003</X>
     <Y>3.430000e+004</Y>
@@ -106715,7 +106715,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_HeadquarterSite</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>3.640000e+004</X>
     <Y>7.300000e+003</Y>

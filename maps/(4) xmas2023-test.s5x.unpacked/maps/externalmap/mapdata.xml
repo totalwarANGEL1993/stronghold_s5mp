@@ -695,7 +695,7 @@
    <Scale>0.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_HeadquarterSite</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>5.700000e+003</X>
     <Y>2.100000e+004</Y>
@@ -710,7 +710,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_HeadquarterSite</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>2.000000e+004</X>
     <Y>2.080000e+004</Y>
@@ -725,7 +725,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_HeadquarterSite</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>2.010000e+004</X>
     <Y>4.700000e+003</Y>
@@ -740,7 +740,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_HeadquarterSite</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>5.700000e+003</X>
     <Y>5.100000e+003</Y>

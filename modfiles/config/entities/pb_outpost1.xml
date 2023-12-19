@@ -9,13 +9,13 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <MaxHealth>1500</MaxHealth>
+        <MaxHealth>2500</MaxHealth>
         <KegEffectFactor>0.3</KegEffectFactor>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <Exploration>50</Exploration>
         <NumberOfAttractableSettlers>0</NumberOfAttractableSettlers>
-        <BuildOn>XD_OutpostSite</BuildOn>
+        <BuildOn>XD_KeepConstructionSite</BuildOn>
         <HideBase>true</HideBase>
         <CanBeSold>true</CanBeSold>
 
@@ -45,8 +45,8 @@
                 <Silver>100</Silver>
                 <Gold>0</Gold>
                 <Wood/>
-                <Stone>300</Stone>
-                <Clay>300</Clay>
+                <Stone>100</Stone>
+                <Clay>500</Clay>
                 <Iron/>
                 <Sulfur/>
             </Cost>
@@ -58,10 +58,10 @@
         <ConstructionInfo>
             <Time>90</Time>
             <Cost>
-                <Silver>50</Silver>
-                <Clay>150</Clay>
+                <Silver>100</Silver>
+                <Clay>350</Clay>
                 <Wood>150</Wood>
-                <Stone>200</Stone>
+                <Stone>0</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>

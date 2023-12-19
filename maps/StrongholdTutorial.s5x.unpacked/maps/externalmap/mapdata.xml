@@ -140720,7 +140720,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_HeadquarterSite</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>9.700000e+003</X>
     <Y>1.980000e+004</Y>
