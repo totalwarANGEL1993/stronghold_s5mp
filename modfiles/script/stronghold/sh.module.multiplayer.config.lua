@@ -20,6 +20,9 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
     -- (PTGate1, PTGate2, ...)
     PeaceTimeOpenGates = true,
 
+    -- Serfs
+    StartingSerfs = 9,
+
     -- Fill resource piles with resources
     -- (value of resources or 0 to not change)
     MapStartFillClay = 4000,

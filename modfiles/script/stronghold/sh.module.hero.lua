@@ -28,6 +28,10 @@ function PlayerCreateNoble(_PlayerID, _Type, _Position)
     Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position);
 end
 
+function PlayerSetupNoble(_PlayerID, _HeroID, _Type)
+    Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _HeroID, _Type, true);
+end
+
 --- Activates the hero selection for the player.
 --- @param _PlayerID integer ID of player
 function PlayerActivateNobleSelection(_PlayerID)

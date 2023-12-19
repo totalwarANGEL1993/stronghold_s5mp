@@ -91,7 +91,8 @@ GameCallback_OnGameStart = GameCallback_OnGameStart or function()
     SetupStronghold();
     local Players = Syncer.GetActivePlayers();
     for i= 1, table.getn(Players) do
-        SetupPlayer(Players[i]);
+        local Serfs = SHS5MP_RulesDefinition.SerfAmount;
+        SetupPlayer(Players[i], Serfs);
     end
     if SHS5MP_RulesDefinition.DisableRuleConfiguration then
         SetupStrongholdMultiplayerConfig(SHS5MP_RulesDefinition);
@@ -143,9 +144,9 @@ end
 --- criminals and basically can cheat as they want.
 ---
 --- A AI player can not be initialized without a headquarter!
---- @param _PlayerID number  ID of player
---- @param _Serfs?   number  Amount of serfs
---- @param _HeroType? number Type of hero
+--- @param _PlayerID integer ID of player
+--- @param _Serfs? integer Amount of serfs
+--- @param _HeroType? integer Type of hero
 function SetupAiPlayer(_PlayerID, _Serfs, _HeroType)
     if not IsPlayer(_PlayerID) then
         Stronghold:AddPlayer(_PlayerID, true, _Serfs, _HeroType);
@@ -153,107 +154,115 @@ function SetupAiPlayer(_PlayerID, _Serfs, _HeroType)
 end
 
 --- Destroys a player and deletes all entities belonging to them.
---- @param _PlayerID number  ID of player
+--- @param _PlayerID integer ID of player
 function DestructPlayer(_PlayerID)
     if IsPlayer(_PlayerID) then
         Stronghold:ForcedSelfDesctruct(_PlayerID);
     end
 end
 
+--- Sets a player as defeated and deletes all entities.
+--- @param _PlayerID integer ID of player
+function DefeatPlayer(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        Stronghold:DefeatPlayer(_PlayerID);
+    end
+end
+
 --- Returns if a player is a human player.
---- @param _PlayerID number ID of player
+--- @param _PlayerID integer ID of player
 --- @return boolean IsPlayer Is human player
 function IsPlayer(_PlayerID)
     return Stronghold:IsPlayer(_PlayerID);
 end
 
 --- Returns if a player is an AI player.
---- @param _PlayerID number ID of player
+--- @param _PlayerID integer ID of player
 --- @return boolean IsPlayer Is AI player
 function IsAIPlayer(_PlayerID)
     return Stronghold:IsAIPlayer(_PlayerID);
 end
 
 --- Returns if a player has been initialized.
---- @param _PlayerID number ID of player
+--- @param _PlayerID integer ID of player
 --- @return boolean IsInitalized Is initalized player
 function IsPlayerInitalized(_PlayerID)
     return Stronghold:IsPlayerInitalized(_PlayerID);
 end
 
 --- Gives reputation to the player.
---- @param _PlayerID number ID of player
---- @param _Amount   number Amount of Reputation
+--- @param _PlayerID integer ID of player
+--- @param _Amount   integer Amount of Reputation
 function AddReputation(_PlayerID, _Amount)
     Stronghold:AddPlayerReputation(_PlayerID, _Amount)
 end
 
 --- Returns the reputation of the player.
---- @param _PlayerID number ID of player
---- @return number Amount Amount of reputation
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Amount of reputation
 function GetReputation(_PlayerID)
     return Stronghold:GetPlayerReputation(_PlayerID);
 end
 
 --- Returns the max reputation of the player.
---- @param _PlayerID number ID of player
---- @return number Amount Limit of reputation
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Limit of reputation
 function GetMaxReputation(_PlayerID)
     return Stronghold:GetPlayerReputationLimit(_PlayerID);
 end
 
 --- Adds honor to the player.
---- @param _PlayerID number ID of player
---- @param _Amount   number Amount of Honor
+--- @param _PlayerID integer ID of player
+--- @param _Amount   integer Amount of Honor
 function AddHonor(_PlayerID, _Amount)
     Stronghold:AddPlayerHonor(_PlayerID, _Amount);
 end
 
 --- Returns the amount of honor of the player.
---- @param _PlayerID number ID of player
---- @return number Amount Amount of honor
+--- @param _PlayerID integer ID of player
+--- @return integer Amount Amount of honor
 function GetHonor(_PlayerID)
     return Stronghold:GetPlayerHonor(_PlayerID);
 end
 
 --- Returns the ID of the players headquarter.
---- @param _PlayerID number ID of player
---- @return number ID ID of Headquarters
+--- @param _PlayerID integer ID of player
+--- @return integer ID ID of Headquarters
 function GetHeadquarterID(_PlayerID)
     return Stronghold:GetPlayerHeadquarter(_PlayerID);
 end
 
 --- Returns the ID of the players hero.
---- @param _PlayerID number ID of player
---- @return number ID ID of hero
+--- @param _PlayerID integer ID of player
+--- @return integer ID ID of hero
 function GetNobleID(_PlayerID)
     return Stronghold:GetPlayerHero(_PlayerID);
 end
 
 --- Alters the purchase price of the resource.
---- @param _PlayerID number ID of player
---- @param _Resource number Resource type
+--- @param _PlayerID integer ID of player
+--- @param _Resource integer Resource type
 --- @param _Price    number Price factor
 function SetPurchasePrice(_PlayerID, _Resource, _Price)
     Stronghold:ManipulateGoodPurchasePrice(_PlayerID, _Resource, _Price);
 end
 
 --- Alters the selling price of the resource.
---- @param _PlayerID number ID of player
---- @param _Resource number Resource type
+--- @param _PlayerID integer ID of player
+--- @param _Resource integer Resource type
 --- @param _Price    number Price factor
 function SetSellingPrice(_PlayerID, _Resource, _Price)
     Stronghold:ManipulateGoodSellPrice(_PlayerID, _Resource, _Price);
 end
 
 --- Returns the max amount of usable player IDs.
---- @return number Amount Amount of player IDs
+--- @return integer Amount Amount of player IDs
 function GetMaxPlayers()
     return Stronghold:GetMaxAmountOfPlayersPossible();
 end
 
 --- Returns the max amount of human usable player IDs.
---- @return number Amount Amount of human players
+--- @return integer Amount Amount of human players
 function GetMaxHumanPlayers()
     return Stronghold:GetMaxAmountOfHumanPlayersPossible();
 end
@@ -545,19 +554,24 @@ end
 
 function Stronghold:InitalizePlayerWithoutHeadquarters(_PlayerID, _StartPosition, _HeroType, _SerfAmount)
     assert(
-        Logic.PlayerGetIsHumanFlag(_PlayerID) == 1,
+        not IsAIPlayer(_PlayerID),
         "Only human players can be initalized without a headquarter!"
     );
 
     -- Set rank
     SetRank(_PlayerID, self.Config.Base.InitialRank);
     -- Create serfs
-    if _StartPosition and _SerfAmount then
+    if _StartPosition then
         self:InitalizePlayersSerfs(_PlayerID, _SerfAmount, _StartPosition);
     end
     -- Create hero
     if _StartPosition and _HeroType then
-        PlayerCreateNoble(_PlayerID, _HeroType, _StartPosition);
+        local _, HeroID = Logic.GetPlayerEntities(_PlayerID, _HeroType, 1);
+        if IsExisting(HeroID) then
+            PlayerSetupNoble(_PlayerID, HeroID, _HeroType);
+        else
+            PlayerCreateNoble(_PlayerID, _HeroType, _StartPosition);
+        end
     end
     Logic.PlayerSetGameStateToPlaying(_PlayerID);
 
@@ -699,7 +713,9 @@ function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType)
     end
     -- Initalize with specific hero
     if _HeroType and Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, _HeroType) == 1 then
-        self:InitalizePlayerWithoutHeadquarters(_PlayerID, _Serfs, _HeroType);
+        local _, HeroID = Logic.GetPlayerEntities(_PlayerID, _HeroType, 1);
+        local Position = GetPosition(HeroID);
+        self:InitalizePlayerWithoutHeadquarters(_PlayerID, Position, _HeroType, _Serfs);
         return true;
     end
     -- Initalize with any hero
@@ -707,7 +723,8 @@ function Stronghold:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType)
     Logic.GetHeroes(_PlayerID, HeroList);
     if HeroList[1] then
         local HeroType = Logic.GetEntityType(HeroList[1]);
-        self:InitalizePlayerWithoutHeadquarters(_PlayerID, _Serfs, HeroType);
+        local Position = GetPosition(HeroList[1]);
+        self:InitalizePlayerWithoutHeadquarters(_PlayerID, Position, HeroType, _Serfs);
         return true;
     end
     return false;
@@ -1057,6 +1074,9 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
     if not self:IsPlayer(_PlayerID) then
         return;
     end
+    if not IsDefaultVictoryConditionActive() then
+        return;
+    end
     local HeroName = self.Players[_PlayerID].LordScriptName;
     local CastleName = self.Players[_PlayerID].HQScriptName;
 
@@ -1122,17 +1142,21 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
     end
 
     if PlayerIsDefeated then
-        self.Players[_PlayerID].IsDefeated = true;
-        self:ForcedSelfDesctruct(_PlayerID);
-
-        local PlayerName = UserTool_GetPlayerName(_PlayerID);
-        local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-        Message(string.format(
-            XGUIEng.GetStringTableText("sh_text/Player_IsDead"),
-            PlayerColor,
-            PlayerName
-        ));
+        self:DefeatPlayer(_PlayerID);
     end
+end
+
+function Stronghold:DefeatPlayer(_PlayerID)
+    self.Players[_PlayerID].IsDefeated = true;
+    self:ForcedSelfDesctruct(_PlayerID);
+
+    local PlayerName = UserTool_GetPlayerName(_PlayerID);
+    local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+    Message(string.format(
+        XGUIEng.GetStringTableText("sh_text/Player_IsDead"),
+        PlayerColor,
+        PlayerName
+    ));
 end
 
 -- Deletes all player entities safely.

@@ -103,6 +103,10 @@ function IsHeroAllowedAsNoble(_Type)
     return false;
 end
 
+function IsDefaultVictoryConditionActive()
+    return not Stronghold.Multiplayer.Data.Config.DisableDefaultWinCondition;
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
@@ -787,9 +791,9 @@ function Stronghold.Multiplayer:OnGameModeSet()
     end
 
     -- Start default victory condition?
-    if not self.Data.Config.DisableDefaultWinCondition then
-        Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, nil, "VC_Deathmatch", 1);
-    end
+    -- if not self.Data.Config.DisableDefaultWinCondition then
+    --     Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, nil, "VC_Deathmatch", 1);
+    -- end
 
     -- Start peacetime?
     local PeaceTime = self.Data.Config.PeaceTime or 0;
