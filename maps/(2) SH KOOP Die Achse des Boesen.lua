@@ -11,9 +11,6 @@ SHS5MP_RulesDefinition = {
     DisableDefaultWinCondition = false,
     -- Disable rule configuration?
     DisableRuleConfiguration = true;
-    -- Disable game start timer?
-    -- (Requires rule config to be disabled!)
-    DisableGameStartTimer = true;
 
     -- Peacetime in minutes
     PeaceTime = 30,
@@ -37,7 +34,7 @@ SHS5MP_RulesDefinition = {
 
     -- Resources
     -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
-    Resources = {0, 1000, 1200, 1500, 550, 0, 0},
+    Resources = {[1] = {0, 1000, 1200, 1500, 550, 0, 0}},
 
     -- Setup heroes allowed
     AllowedHeroes = {

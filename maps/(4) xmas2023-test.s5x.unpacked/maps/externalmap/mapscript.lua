@@ -25,7 +25,7 @@ function OnMapStart()
     for i= 1, 4 do
         SetupAiPlayer(i);
     end
-    SetupStrongholdMultiplayerConfig();
+    ShowStrongholdConfiguration();
     StartTestStuff();
 end
 

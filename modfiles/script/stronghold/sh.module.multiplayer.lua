@@ -19,10 +19,10 @@ Stronghold.Multiplayer = {
 --- Takes a configuration and immediately confirms it.
 --- @param _Config? table Overwrite configuration
 function SetupStrongholdMultiplayerConfig(_Config)
+    Stronghold.Multiplayer:ConfigureReset();
     if _Config then
         Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
     end
-    Stronghold.Multiplayer:ConfigureReset();
     Stronghold.Multiplayer:Configure();
 end
 
@@ -240,14 +240,11 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         if _Config.Version then
             self.Data.Config.Version = _Config.Version;
         end
-        if _Config.DisableRuleConfiguration then
+        if _Config.DisableRuleConfiguration ~= nil then
             self.Data.Config.DisableRuleConfiguration = _Config.DisableRuleConfiguration == true;
         end
-        if _Config.DisableDefaultWinCondition then
+        if _Config.DisableDefaultWinCondition ~= nil then
             self.Data.Config.DisableDefaultWinCondition = _Config.DisableDefaultWinCondition == true;
-        end
-        if _Config.DisableGameStartTimer then
-            self.Data.Config.DisableGameStartTimer = _Config.DisableGameStartTimer == true;
         end
         if _Config.PeaceTimeOpenGates ~= nil then
             self.Data.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
@@ -365,7 +362,7 @@ function Stronghold.Multiplayer:Configure()
     -- Finally setup game
     self:HideRuleSelection();
     if not self:HaveRulesBeenConfigured() then
-        if self.Data.Config.DisableRuleConfiguration and self.Data.Config.DisableGameStartTimer then
+        if self.Data.Config.DisableRuleConfiguration then
             -- Start the delay
             Stronghold:AddDelayedAction(1, function()
                 local Check = Stronghold.Multiplayer:CheckVersions();
