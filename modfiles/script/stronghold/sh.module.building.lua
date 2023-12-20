@@ -685,6 +685,7 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
     if IsPlayer(_PlayerID) then
         self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
     end
+    GUIUpdate_PlaceRallyPoint();
 end
 
 -- Sub menu
@@ -1261,6 +1262,7 @@ function Stronghold.Building:SetIgnoreRallyPointSelectionCancel(_PlayerID)
             and IsPlayer(_PlayerID) then
                 self.Data[_PlayerID].RallyPoint.IgnoreCancel = true;
             end
+            GUIUpdate_PlaceRallyPoint();
         end
     end
 end

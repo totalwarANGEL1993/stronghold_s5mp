@@ -88,19 +88,31 @@ Stronghold.Building.Config.WeatherChange = {
 
 Stronghold.Building.Config.Turrets = {
     [Entities.PB_Headquarters1] = {
-        {Entities.CB_Turret1, 600, -50},
-        {Entities.CB_Turret1, 675, 230},
-        {Entities.CB_Turret1, 600, 135},
+        {Entities.CB_Turret1, 200, 0},
+        {Entities.CB_Turret1, 300, 230},
+        {Entities.CB_Turret1, 300, 135},
     },
     [Entities.PB_Headquarters2] = {
-        {Entities.CB_Turret2, 600, -50},
-        {Entities.CB_Turret2, 675, 230},
-        {Entities.CB_Turret2, 600, 135},
+        {Entities.CB_Turret2, 200, 0},
+        {Entities.CB_Turret2, 300, 230},
+        {Entities.CB_Turret2, 300, 135},
     },
     [Entities.PB_Headquarters3] = {
-        {Entities.CB_Turret3, 600, -50},
-        {Entities.CB_Turret3, 675, 230},
-        {Entities.CB_Turret3, 600, 135},
+        {Entities.CB_Turret3, 200, 0},
+        {Entities.CB_Turret3, 300, 230},
+        {Entities.CB_Turret3, 300, 135},
+    },
+    [Entities.PB_Outpost1] = {
+        {Entities.CB_Turret1, 0, 0},
+    },
+    [Entities.PB_Outpost2] = {
+        {Entities.CB_Turret1, 300, 225},
+        {Entities.CB_Turret1, 300, 45},
+    },
+    [Entities.PB_Outpost3] = {
+        {Entities.CB_Turret1, 200, 0},
+        {Entities.CB_Turret1, 300, 230},
+        {Entities.CB_Turret1, 300, 135},
     },
 }
 

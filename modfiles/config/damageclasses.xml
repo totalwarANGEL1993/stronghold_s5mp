@@ -119,7 +119,7 @@
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
-    <!-- Siege cannons, bombs -->
+    <!-- Troop cannons, bombs -->
     <DamageClass id="DC_TroopCannon">
         <Logic classname="GGL::CDamageClassProps">
             <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
@@ -131,16 +131,16 @@
             <ArmorClassFurFactor>1.5</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
-    <!-- Troop cannons -->
+    <!-- Siege cannons -->
     <DamageClass id="DC_SiegeCannon">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>0.05</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>0.05</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>0.05</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>0.05</ArmorClassIronFactor>
+            <ArmorClassNoneFactor>0.1</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>0.1</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>0.1</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>0.1</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.05</ArmorClassHeroFactor>            
-            <ArmorClassFurFactor>0.05</ArmorClassFurFactor>
+            <ArmorClassHeroFactor>0.1</ArmorClassHeroFactor>            
+            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- All Riflemen -->
