@@ -3638,6 +3638,39 @@
         <OcclusionReceiver>True</OcclusionReceiver>
     </Model>
 
+    <Model id="CU_Templar_LeaderCavalry1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_Templar_SoldierCavalry1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_Templar_LeaderHeavyCavalry1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_Template_SoldierHeavyCavalry1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_Templar_LeaderPoleArm1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_Templar_SoldierPoleArm1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
     <Model id="CV_Cannon1">
         <SelectionRadius>165</SelectionRadius>
         <Effect>SimpleUnitPlayerColorSpecular</Effect>

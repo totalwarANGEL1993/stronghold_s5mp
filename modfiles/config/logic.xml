@@ -1070,6 +1070,16 @@
 	    <FirstSettler>PU_SoldierPoleArm4</FirstSettler>
 	</SettlerUpgrade>
 
+    <SettlerUpgrade>
+	    <Category>TemplarLeaderPoleArm1</Category>
+	    <FirstSettler>CU_Templar_LeaderPoleArm1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>TemplarSoldierPoleArm1</Category>
+	    <FirstSettler>CU_Templar_SoldierPoleArm1</FirstSettler>
+	</SettlerUpgrade>
+
     <!-- Military bow -->
 
     <SettlerUpgrade>
@@ -1187,13 +1197,33 @@
 	</SettlerUpgrade>
 
     <SettlerUpgrade>
-	    <Category>RangerLeaderCavalry1</Category>
-	    <FirstSettler>CU_RangerLeaderCavalry1</FirstSettler>
+	    <Category>BanditLeaderCavalry1</Category>
+	    <FirstSettler>CU_BanditLeaderCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
-	    <Category>RangerSoldierCavalry1</Category>
-	    <FirstSettler>CU_RangerSoldierCavalry1</FirstSettler>
+	    <Category>BanditSoldierCavalry1</Category>
+	    <FirstSettler>CU_BanditSoldierCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>TemplarLeaderCavalry1</Category>
+	    <FirstSettler>CU_Templar_LeaderCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>TemplarSoldierCavalry1</Category>
+	    <FirstSettler>CU_Templar_SoldierCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>TemplarLeaderHeavyCavalry1</Category>
+	    <FirstSettler>CU_Templar_LeaderHeavyCavalry1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>TemplarSoldierHeavyCavalry1</Category>
+	    <FirstSettler>CU_Templar_SoldierHeavyCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
     <!-- Other -->

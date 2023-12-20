@@ -378,6 +378,48 @@ Stronghold.Unit.Config = {
         ProviderBuilding  = {},
     },
 
+    -- Crusader --
+
+    [Entities.CU_CrusaderLeaderCavalry1]            = {
+        Button            = "Buy_LeaderCavalryLight",
+        Costs             = {
+            [1] = {12, 180, 0, 20, 0, 40, 0},
+            [2] = {0, 95, 0, 20, 0, 15, 0},
+        },
+        Right             = PlayerRight.CavalryCrusader,
+        IsCivil           = false,
+        Upkeep            = 55,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
+        ProviderBuilding  = {Entities.PB_Sawmill2},
+    },
+    [Entities.CU_TemplarLeaderCavalry1]       = {
+        Button            = "Buy_LeaderCavalryHeavy",
+        Costs             = {
+            [1] = {26, 250, 0, 0, 0, 100, 0},
+            [2] = {0, 65, 0, 0, 0, 34, 0},
+        },
+        Right             = PlayerRight.CavalryTemplar,
+        IsCivil           = false,
+        Upkeep            = 85,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Stable2},
+        ProviderBuilding  = {Entities.PB_Blacksmith3},
+    },
+    [Entities.CU_TemplarLeaderPoleArm1]            = {
+        Button            = "Buy_LeaderSpear",
+        Costs             = {
+            [1] = {10, 110, 0, 80, 0, 20, 0},
+            [2] = {0, 40, 0, 44, 0, 6, 0},
+        },
+        Right             = PlayerRight.SpearLandsknecht,
+        IsCivil           = false,
+        Upkeep            = 40,
+        Soldiers          = 6,
+        RecruiterBuilding = {Entities.PB_Barracks2},
+        ProviderBuilding  = {Entities.PB_Sawmill1, Entities.PB_Sawmill2},
+    },
+
     -- Huscarls --
 
     [Entities.CU_BanditLeaderSword2]        = {
@@ -435,7 +477,7 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Archery1, Entities.PB_Archery2},
         ProviderBuilding  = {},
     },
-    [Entities.CU_RangerLeaderCavalry1]            = {
+    [Entities.CU_BanditLeaderCavalry1]            = {
         Button            = "Buy_LeaderCavalryLight",
         Costs             = {
             [1] = {18, 200, 0, 20, 0, 50, 0},

@@ -121,6 +121,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Barn,
                 PlayerRight.CavalryBow,
+                PlayerRight.CavalryCrusader,
                 ---
                 PlayerRight.Foundry,
                 PlayerRight.BronzeCannon,
@@ -219,6 +220,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Stables,
                 PlayerRight.CavalrySword,
+                PlayerRight.CavalryTemplar,
                 ---
                 PlayerRight.CannonFactory,
                 PlayerRight.SiegeCannon,

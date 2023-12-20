@@ -1063,8 +1063,14 @@
         <Entity>CU_BlackKnight_Bodyguard</Entity>
         <Entity>CU_Hero13</Entity>
         <Entity>CU_Hero13_Summon</Entity>
-        <Entity>CU_RangerLeaderCavalry1</Entity>
-        <Entity>CU_RangerSoldierCavalry1</Entity>
+        <Entity>CU_BanditLeaderCavalry1</Entity>
+        <Entity>CU_BanditSoldierCavalry1</Entity>
+        <Entity>CU_Templar_LeaderCavalry1</Entity>
+        <Entity>CU_Templar_SoldierCavalry1</Entity>
+        <Entity>CU_Templar_LeaderHeavyCavalry1</Entity>
+        <Entity>CU_Templar_SoldierHeavyCavalry1</Entity>
+        <Entity>CU_Templar_LeaderPoleArm1</Entity>
+        <Entity>CU_Templar_SoldierPoleArm1</Entity>
         <!-- <Entity>CU_Dragonboat</Entity> -->
         <Entity>CV_Cannon1</Entity>
         <Entity>CV_Cannon2</Entity>

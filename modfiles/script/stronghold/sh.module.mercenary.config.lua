@@ -162,7 +162,7 @@ Stronghold.Mercenary.Config = {
             RefillTime = 90,
             MaxAmount  = 4,
         },
-        [Entities.CU_RangerLeaderCavalry1]      = {
+        [Entities.CU_BanditLeaderCavalry1]      = {
             Button     = "Buy_LeaderCavalryLight",
             RefillTime = 150,
             MaxAmount  = 2,

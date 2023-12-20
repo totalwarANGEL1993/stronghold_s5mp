@@ -40,7 +40,7 @@
         <ExperiencePoints>55</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Category>LeaderCavalry1</Category>
+            <Category>BanditLeaderCavalry1</Category>
         </Upgrade>
 
 
@@ -103,7 +103,7 @@
             <BarrackUpgradeCategory>Stable</BarrackUpgradeCategory>
             <HomeRadius>2000</HomeRadius>
 
-            <SoldierType>CU_RangerSoldierCavalry1</SoldierType>
+            <SoldierType>CU_BanditSoldierCavalry1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_BOW</BattleTaskList>
 

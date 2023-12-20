@@ -2,26 +2,24 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>PU_LeaderSword3</Model>
+        <Model>CU_Templar_LeaderCavalry1</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>PU_LeaderSword3_Walk</Anim>
-        <Anim>PU_LeaderSword3_Run1</Anim>
-        <Anim>PU_LeaderSword3_Idle1</Anim>
-        <Anim>PU_LeaderSword3_Idle2</Anim>
-        <Anim>PU_LeaderSword3_Idle3</Anim>
-        <Anim>PU_LeaderSword3_Idle4</Anim>
-        <Anim>PU_LeaderSword3_Idle5</Anim>
-        <Anim>PU_LeaderSword3_Idle6</Anim>
-        <Anim>PU_LeaderSword3_IdleAttack1</Anim>
-        <Anim>PU_LeaderSword3_Attack1</Anim>
-        <Anim>PU_LeaderSword3_Attack2</Anim>
-        <Anim>PU_LeaderSword3_Finish</Anim>
-        <Anim>PU_LeaderSword3_Hit</Anim>
-        <Anim>PU_LeaderSword3_Dying1</Anim>
+        <Anim>PU_LeaderCavalry2_Run1</Anim>
+        <Anim>PU_LeaderCavalry2_Idle1</Anim>
+        <Anim>PU_LeaderCavalry2_Idle2</Anim>
+        <Anim>PU_LeaderCavalry2_Idle3</Anim>
+        <Anim>PU_LeaderCavalry2_Idle4</Anim>
+        <Anim>PU_LeaderCavalry2_Idle5</Anim>
+        <Anim>PU_LeaderCavalry2_Idle6</Anim>
+        <Anim>PU_LeaderCavalry2_Attack1</Anim>
+        <Anim>PU_LeaderCavalry2_Dying1</Anim>
+        <Anim>PU_LeaderCavalry2_Walk</Anim>
+        <Anim>PU_LeaderCavalry2_Hit</Anim>
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
+        <MaxHealth>250</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -30,48 +28,52 @@
         </Cost>
         <Category>Military</Category>
         <Category>Leader</Category>
-        <Category>Sword</Category>
-        <Category>Melee</Category>
+        <Category>CavalryLight</Category>
+        <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>400</MaxHealth>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>6</ArmorAmount>
-        <DodgeChance>5</DodgeChance>
+        <Exploration>28</Exploration>
+        <ArmorClass>ArmorClassIron</ArmorClass>
+        <ArmorAmount>3</ArmorAmount>
+        <DodgeChance>30</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>45</ExperiencePoints>
+        <ExperiencePoints>55</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Category>LeaderSword3</Category>
+            <Category>TemplarLeaderCavalry1</Category>
         </Upgrade>
 
 
         <ModifyArmor>
-            <Technology>T_LeatherMailArmor</Technology>
+            <Technology>T_SoftArcherArmor</Technology>
         </ModifyArmor>
         <ModifyArmor>
-            <Technology>T_ChainMailArmor</Technology>
+            <Technology>T_PaddedArcherArmor</Technology>
         </ModifyArmor>
         <ModifyArmor>
-            <Technology>T_PlateMailArmor</Technology>
+            <Technology>T_LeatherArcherArmor</Technology>
         </ModifyArmor>
 
+        <ModifyExploration>
+            <Technology>T_Fletching</Technology>
+        </ModifyExploration>
+
+        <ModifyMaxRange>
+            <Technology>T_Fletching</Technology>
+        </ModifyMaxRange>
+
         <ModifyDamage>
-            <Technology>T_MasterOfSmithery</Technology>
-        </ModifyDamage>
-        <ModifyDamage>
-            <Technology>T_IronCasting</Technology>
+            <Technology>T_BodkinArrow</Technology>
         </ModifyDamage>
 
         <ModifySpeed>
-            <Technology>T_BetterTrainingBarracks</Technology>
+            <Technology>T_Shoeing</Technology>
         </ModifySpeed>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PU_LeaderSword3_Idle1</SuspensionAnimation>
-            <AnimSet>SET_LEADERSWORD3</AnimSet>
+            <SuspensionAnimation>PU_LeaderCavalry2_Idle1</SuspensionAnimation>
+            <AnimSet>SET_LEADERCAVALRY2</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -80,10 +82,10 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>360</Speed>
+            <Speed>550</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
-            <MoveIdleAnim>PU_LeaderSword3_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>PU_LeaderCavalry2_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -97,31 +99,33 @@
     <Behavior>
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
-            <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
-            <HomeRadius>2000</HomeRadius>
+            <BarrackUpgradeCategory>Stable</BarrackUpgradeCategory>
+            <HomeRadius>3000</HomeRadius>
+            <SoldierType>CU_Templar_SoldierCavalry1</SoldierType>
 
-            <SoldierType>PU_SoldierSword3</SoldierType>
+            <BattleTaskList>TL_BATTLE_CROSSBOW</BattleTaskList>
 
-            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <NormalAttackAnim1>PU_LeaderCavalry2_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_LeaderCavalry2_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>PU_LeaderCavalry2_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_LeaderCavalry2_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_LeaderCavalry2_Idle1</MissAttackAnim>
+            <BattleIdleAnim>PU_LeaderCavalry2_Idle1</BattleIdleAnim>
+            <BattleWalkAnim>PU_LeaderCavalry2_Run1</BattleWalkAnim>
+            <HitAnim>PU_LeaderCavalry2_Hit</HitAnim>
 
-            <NormalAttackAnim1>PU_LeaderSword3_Finish</NormalAttackAnim1>
-            <NormalAttackAnim2>PU_LeaderSword3_Attack2</NormalAttackAnim2>
-            <CounterAttackAnim>PU_LeaderSword3_Finish</CounterAttackAnim>
-            <FinishingMoveAnim>PU_LeaderSword3_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>PU_LeaderSword3_IdleAttack1</MissAttackAnim>
-            <BattleIdleAnim>PU_LeaderSword3_IdleAttack1</BattleIdleAnim>
-            <BattleWalkAnim>PU_LeaderSword3_Run1</BattleWalkAnim>
-            <HitAnim>PU_LeaderSword3_Hit</HitAnim>
+            <DamageClass>DC_Arrow</DamageClass>
+            <DamageAmount>22</DamageAmount>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
-            <DamageClass>DC_Slash</DamageClass>
-            <DamageAmount>28</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <MissChance>4</MissChance>
 
-            <MaxRange>300</MaxRange>
+            <ProjectileEffectID>FXCrossBowCavalryArrow</ProjectileEffectID>
+            <MaxRange>2800</MaxRange>
             <MinRange>0.0f</MinRange>
-            <AutoAttackRange>2000</AutoAttackRange>
+            <AutoAttackRange>2800</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
@@ -136,7 +140,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>3</Limit>
+                <Limit>6</Limit>
             </Attachment>
         </Logic>
     </Behavior>
@@ -147,7 +151,6 @@
             <DyingTaskList>TL_DIE</DyingTaskList>
         </Logic>
     </Behavior>
-
 
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
@@ -165,7 +168,17 @@
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
-            <EntityType>XD_DroppedSwordShield</EntityType>
+            <EntityType>XD_DroppedBow</EntityType>
         </Logic>
     </Behavior>
+
+
+
+
+
+
+
+
+
+
 </root>
