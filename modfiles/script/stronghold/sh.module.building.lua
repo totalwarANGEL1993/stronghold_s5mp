@@ -311,7 +311,7 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
             end
         end
         GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
-        GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP1_Outpos2);
+        GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP2_Outpost);
     end
 end
 
@@ -357,7 +357,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
             EffectText = EffectText.. Operator ..ReputationEffect.. " " ..Unit.. " ";
         end
         if Effects.Honor ~= 0 then
-            local Unit = XGUIEng.GetStringTableText("sh_names/Honor");
+            local Unit = XGUIEng.GetStringTableText("sh_names/Silver");
             local Operator = (Effects.Honor >= 0 and "+") or "";
             EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit;
         end
@@ -564,7 +564,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             EffectText = EffectText .. Operator .. math.floor((Reputation * Factor) + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor ~= 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Honor");
+            local Name = XGUIEng.GetStringTableText("sh_names/Silver");
             local Operator = (Effects.Honor >= 0 and "+") or "";
             local Honor = Effects.Honor;
             local Factor = 1.0;
@@ -871,7 +871,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             EffectText = EffectText.. "+" ..math.floor(Reputation + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor > 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Honor");
+            local Name = XGUIEng.GetStringTableText("sh_names/Silver");
             local Honor = Effects.Honor;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;

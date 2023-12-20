@@ -7,11 +7,15 @@ ProvinceType = {
     Honor = 1,
     -- Province produces reputation
     Reputation = 2,
-    -- Province grants additional military capacity
-    Military = 3,
     -- Province produces resources
-    Resource = 4,
-    -- Province produces resources
-    Custom = 5,
+    Resource = 3,
+    -- Province increases delt damage
+    Encourage = 4,
+    -- Province reduces taken damage
+    Protective = 5,
+    -- Province increases serf amount
+    Slave = 6,
+    -- Province has custom behavior
+    Custom = 100,
 }
 

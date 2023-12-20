@@ -60,27 +60,6 @@ function CreateReputationProvince(_Name, _Position, _AmountOfReputation, _Upgrad
     return ID;
 end
 
---- Creates a province that is granting additional military space when claimed.
---- @param _Name string|table Name of province
---- @param _Position string Position of center
---- @param _AmountOfUnits integer Amount of bonus units
---- @param _UpgradeFactor number Upgrade bonus factor
---- @param ... integer|string Buildings of povince
---- @return integer ID ID of province
-function CreateMilitaryProvince(_Name, _Position, _AmountOfUnits, _UpgradeFactor, ...)
-    local ID = Stronghold.Province:CreateProvince {
-        Type        = ProvinceType.Military,
-        DisplayName = (type(_Name) == "table" and _Name[GetLanguage()]) or _Name,
-        Position    = GetPosition(_Position),
-        Amount      = _AmountOfUnits,
-        Upgrade     = _UpgradeFactor,
-    };
-    for i= 1, table.getn(arg) do
-        Stronghold.Province:AddExplorerEntity(ID, arg[i]);
-    end
-    return ID;
-end
-
 --- Creates a province that is producing resources when claimed.
 --- @param _Name string|table Name of province
 --- @param _Position string Position of center
@@ -104,6 +83,69 @@ function CreateResourceProvince(_Name, _Position, _ResourceType, _Amount, _Upgra
     return ID;
 end
 
+--- Creates a province that increases damage of all units.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _Amount number Damage bonus factor
+--- @param _UpgradeFactor number Upgrade bonus factor
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
+function CreateEncouragingProvince(_Name, _Position, _Amount, _UpgradeFactor, ...)
+    local ID = Stronghold.Province:CreateProvince {
+        Type        = ProvinceType.Encourage,
+        DisplayName = (type(_Name) == "table" and _Name[GetLanguage()]) or _Name,
+        Position    = GetPosition(_Position),
+        Amount      = _Amount,
+        Upgrade     = _UpgradeFactor,
+    };
+    for i= 1, table.getn(arg) do
+        Stronghold.Province:AddExplorerEntity(ID, arg[i]);
+    end
+    return ID;
+end
+
+--- Creates a province that decreases damage taken from attacks.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _Amount number Damage reduction factor
+--- @param _UpgradeFactor number Upgrade bonus factor
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
+function CreateProtectingProvince(_Name, _Position, _Amount, _UpgradeFactor, ...)
+    local ID = Stronghold.Province:CreateProvince {
+        Type        = ProvinceType.Protective,
+        DisplayName = (type(_Name) == "table" and _Name[GetLanguage()]) or _Name,
+        Position    = GetPosition(_Position),
+        Amount      = _Amount,
+        Upgrade     = _UpgradeFactor,
+    };
+    for i= 1, table.getn(arg) do
+        Stronghold.Province:AddExplorerEntity(ID, arg[i]);
+    end
+    return ID;
+end
+
+--- Creates a province that increases the slave limit.
+--- @param _Name string|table Name of province
+--- @param _Position string Position of center
+--- @param _Amount number Amount of serfs
+--- @param _UpgradeFactor number Upgrade bonus factor
+--- @param ... integer|string Buildings of povince
+--- @return integer ID ID of province
+function CreateSlaveProvince(_Name, _Position, _Amount, _UpgradeFactor, ...)
+    local ID = Stronghold.Province:CreateProvince {
+        Type        = ProvinceType.Slave,
+        DisplayName = (type(_Name) == "table" and _Name[GetLanguage()]) or _Name,
+        Position    = GetPosition(_Position),
+        Amount      = _Amount,
+        Upgrade     = _UpgradeFactor,
+    };
+    for i= 1, table.getn(arg) do
+        Stronghold.Province:AddExplorerEntity(ID, arg[i]);
+    end
+    return ID;
+end
+
 --- Creates a province that is doing nothing.
 --- @param _Name string|table Name of province
 --- @param _Position string Position of center
@@ -115,7 +157,7 @@ function CreateCustomProvince(_Name, _Position, _Parameters, ...)
         Type        = ProvinceType.Custom,
         DisplayName = (type(_Name) == "table" and _Name[GetLanguage()]) or _Name,
         Position    = GetPosition(_Position),
-        Arguments   = CopyTable(_Parameters),
+        Parameters  = CopyTable(_Parameters),
     };
     for i= 1, table.getn(arg) do
         Stronghold.Province:AddExplorerEntity(ID, arg[i]);
@@ -198,9 +240,21 @@ function Stronghold.Province:OerwriteGameCallbacks()
         return Amount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_BattleDamage", function(_AttackerID, _AttackedID, _Damage)
+        local Damage = Overwrite.CallOriginal();
+        Damage = Stronghold.Province:OnDamageInflicted(_AttackerID, _AttackedID, Damage);
+        return math.max(math.floor(Damage), 1);
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_SlaveAttrationLimit", function(_PlayerID, _Amount)
+        local Amount = Overwrite.CallOriginal();
+        Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Slave, _PlayerID);
+        return math.max(math.floor(Amount), 1);
+    end);
+
     Overwrite.CreateOverwrite("GameCallback_PlaceBuildingAdditionalCheck", function(_Type, _x, _y, _rotation, _isBuildOn)
         local Allowed = Overwrite.CallOriginal();
-        Allowed = Allowed and Stronghold.Province:CheckOutpostAllowed(_Type, _x, _y, _rotation, _isBuildOn);
+        Allowed = Allowed and Stronghold.Province:CheckFortificationAllowed(_Type, _x, _y, _rotation, _isBuildOn);
         return Allowed;
     end);
 end
@@ -234,7 +288,7 @@ function Stronghold.Province:ClaimProvince(_ID, _PlayerID, _BuildingID)
     if self.Data.Provinces[_ID] then
         -- Save owner
         self.Data.Provinces[_ID].Owner = _PlayerID;
-        self.Data.Provinces[_ID].Village = CreateNameForEntity(_BuildingID);
+        self.Data.Provinces[_ID].Outpost = CreateNameForEntity(_BuildingID);
         -- Create exploration entities
         for i= table.getn(self.Data.Provinces[_ID].Explorers), 1, -1 do
             local Explorer = self.Data.Provinces[_ID].Explorers[i];
@@ -293,7 +347,7 @@ function Stronghold.Province:LooseProvince(_ID, _PlayerID)
     if self.Data.Provinces[_ID] then
         -- Delete owner
         self.Data.Provinces[_ID].Owner = self.Config.NeutralPlayerID;
-        self.Data.Provinces[_ID].Village = nil;
+        self.Data.Provinces[_ID].Outpost = nil;
         -- Delete exploration Entities
         for i= table.getn(self.Data.Provinces[_ID].Explorers.Entities), 1, -1 do
             DestroyEntity(self.Data.Provinces[_ID].Explorers.Entities[i]);
@@ -313,9 +367,9 @@ function Stronghold.Province:GetSumOfProvincesRevenue(_Type, _PlayerID)
     local Revenue = 0;
     if _Type ~= ProvinceType.Resource and _Type ~= ProvinceType.Custom then
         for k,v in pairs(self.Data.Provinces) do
-            if v.Type == _Type and v.Owner == _PlayerID and IsExisting(v.Village) then
-                local VillageID = GetID(v.Village);
-                local Level = Logic.GetUpgradeLevelForBuilding(VillageID);
+            if v.Type == _Type and v.Owner == _PlayerID and IsExisting(v.Outpost) then
+                local OutpostID = GetID(v.Outpost);
+                local Level = Logic.GetUpgradeLevelForBuilding(OutpostID);
                 Revenue = Revenue + v.Amount;
                 for i= 1, Level do
                     Revenue = Revenue + math.floor((v.Amount * v.Upgrade) + 0.5);
@@ -330,9 +384,9 @@ function Stronghold.Province:GetProvinceRevenue(_ID, _PlayerID)
     local Revenue = 0;
     if self.Data.Provinces[_ID] then
         local Data = self.Data.Provinces[_ID];
-        if Data.Owner == _PlayerID and IsExisting(Data.Village) then
-            local VillageID = GetID(Data.Village);
-            local Level = Logic.GetUpgradeLevelForBuilding(VillageID);
+        if Data.Owner == _PlayerID and IsExisting(Data.Outpost) then
+            local OutpostID = GetID(Data.Outpost);
+            local Level = Logic.GetUpgradeLevelForBuilding(OutpostID);
             Revenue = Data.Amount;
             for i= 1, Level do
                 Revenue = Revenue + math.floor((Data.Amount * Data.Upgrade) + 0.5);
@@ -350,19 +404,25 @@ function Stronghold.Province:CreateProvinceEffectMessage(_ID, _PlayerID, _Buildi
 
         if self.Data.Provinces[_ID].Type == ProvinceType.Honor then
             Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Bonus");
-            local ResourceName = XGUIEng.GetStringTableText("sh_names/Honor");
+            local ResourceName = XGUIEng.GetStringTableText("sh_names/Silver");
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Reputation then
             Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Bonus");
             local ResourceName = XGUIEng.GetStringTableText("sh_names/Reputation");
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
-        elseif self.Data.Provinces[_ID].Type == ProvinceType.Military then
-            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Military");
-            Text = "" ..self:GetProvinceRevenue(_ID, _PlayerID);
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Resource then
             Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Resource");
             local ResourceName = GetResourceName(self.Data.Provinces[_ID].Resource);
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
+        elseif self.Data.Provinces[_ID].Type == ProvinceType.Encourage then
+            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Encourage");
+            Text = "" ..math.floor(self:GetProvinceRevenue(_ID, _PlayerID) * 100);
+        elseif self.Data.Provinces[_ID].Type == ProvinceType.Protective then
+            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Protective");
+            Text = "" ..math.floor(self:GetProvinceRevenue(_ID, _PlayerID) * 100);
+        elseif self.Data.Provinces[_ID].Type == ProvinceType.Slave then
+            Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Slave");
+            Text = "" ..self:GetProvinceRevenue(_ID, _PlayerID);
         end
         if Template then
             Msg = string.format(Template, Text);
@@ -374,11 +434,11 @@ end
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Province:ControlProvince()
-    for k,v in pairs(self.Data.Provinces) do
-        if v.Owner ~= self.Config.NeutralPlayerID and v.Village ~= nil then
-            if IsPlayer(v.Owner) then
-                if not IsExisting(v.Village) then
-                    self:LooseProvince(k, v.Owner);
+    for ID, Data in pairs(self.Data.Provinces) do
+        if Data.Owner ~= self.Config.NeutralPlayerID and Data.Outpost ~= nil then
+            if IsPlayer(Data.Owner) then
+                if not IsExisting(Data.Outpost) then
+                    self:LooseProvince(ID, Data.Owner);
                 end
             end
         end
@@ -388,21 +448,36 @@ end
 function Stronghold.Province:OnPayday(_PlayerID, _Amount)
     local TaxAmount = _Amount;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        for k,v in pairs(self.Data.Provinces) do
-            if v and v.Owner == _PlayerID then
-                if v.Type == ProvinceType.Resource then
-                    local Amount = Stronghold.Province:GetProvinceRevenue(k, v.Owner);
-                    Logic.AddToPlayersGlobalResource(v.Owner, v.Resource, Amount);
-                    WriteResourcesGainedToLog(v.Owner, v.Resource, Amount);
+        for ID, Data in pairs(self.Data.Provinces) do
+            if Data and Data.Owner == _PlayerID then
+                if Data.Type == ProvinceType.Resource then
+                    local Amount = Stronghold.Province:GetProvinceRevenue(ID, Data.Owner);
+                    Logic.AddToPlayersGlobalResource(Data.Owner, Data.Resource, Amount);
+                    WriteResourcesGainedToLog(Data.Owner, Data.Resource, Amount);
                 end
-                GameCallback_SH_Logic_OnProvincePayday(v.Owner, k);
+                GameCallback_SH_Logic_OnProvincePayday(Data.Owner, ID);
             end
         end
     end
     return TaxAmount;
 end
 
-function Stronghold.Province:CheckOutpostAllowed(_Type, _x, _y, _rotation, _isBuildOn)
+function Stronghold.Province:OnDamageInflicted(_AttackerID, _AttackedID, _Damage)
+    local AttackerPlayerID = Logic.EntityGetPlayer(_AttackerID);
+    local AttackedPlayerID = Logic.EntityGetPlayer(_AttackedID);
+    local Damage = _Damage;
+
+    -- Increase damage
+    local DamageBonus = self:GetSumOfProvincesRevenue(ProvinceType.Encourage, AttackerPlayerID);
+    Damage = Damage * math.min(1 + DamageBonus, 3);
+    -- Decrease damage
+    local DamageMalus = self:GetSumOfProvincesRevenue(ProvinceType.Protective, AttackedPlayerID);
+    Damage = Damage * (1 - DamageMalus);
+
+    return Damage;
+end
+
+function Stronghold.Province:CheckFortificationAllowed(_Type, _x, _y, _rotation, _isBuildOn)
     local PlayerID = GUI.GetPlayerID()
     if IsPlayer(PlayerID) then
         if Logic.IsEntityTypeInCategory(_Type, EntityCategories.Headquarters) == 1 then
@@ -416,10 +491,14 @@ function Stronghold.Province:OnBuildingConstructed(_BuildingID, _PlayerID)
     if IsPlayer(_PlayerID) then
         if Logic.IsEntityInCategory(_BuildingID, EntityCategories.Headquarters) == 1 then
             local Position = GetPosition(_BuildingID);
-            for k,v in pairs(self.Data.Provinces) do
-                if v.Owner == self.Config.NeutralPlayerID then
-                    if GetDistance(Position, v.Position) <= 100 then
-                        self:ClaimProvince(k, _PlayerID, _BuildingID);
+            local EntityType = Logic.GetEntityType(_BuildingID);
+            local TypeName = Logic.GetEntityTypeName(EntityType);
+            if string.find(TypeName, "PB_Outpost") then
+                for ID, Data in pairs(self.Data.Provinces) do
+                    if Data.Owner == self.Config.NeutralPlayerID then
+                        if GetDistance(Position, Data.Position) <= 100 then
+                            self:ClaimProvince(ID, _PlayerID, _BuildingID);
+                        end
                     end
                 end
             end
@@ -431,9 +510,13 @@ function Stronghold.Province:OnBuildingUpgraded(_BuildingID, _PlayerID)
     if IsPlayer(_PlayerID) then
         if Logic.IsEntityInCategory(_BuildingID, EntityCategories.Headquarters) == 1 then
             local ScriptName = CreateNameForEntity(_BuildingID);
-            for k,v in pairs(self.Data.Provinces) do
-                if v.Owner ~= self.Config.NeutralPlayerID and v.Village == ScriptName then
-                    self:UpgradeProvince(k, _PlayerID, _BuildingID);
+            local EntityType = Logic.GetEntityType(_BuildingID);
+            local TypeName = Logic.GetEntityTypeName(EntityType);
+            if string.find(TypeName, "PB_Outpost") then
+                for ID, Data in pairs(self.Data.Provinces) do
+                    if Data.Owner ~= self.Config.NeutralPlayerID and Data.Outpost == ScriptName then
+                        self:UpgradeProvince(ID, _PlayerID, _BuildingID);
+                    end
                 end
             end
         end

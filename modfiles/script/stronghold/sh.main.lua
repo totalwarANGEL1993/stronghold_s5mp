@@ -380,7 +380,6 @@ function Stronghold:Init()
     Camera.ZoomSetFactorMax(2.0);
     GUI.SetTaxLevel(0);
     GUI.ClearSelection();
-    ResourceType.Honor = ResourceType.Silver;
 
     self.Utils:OverwriteInterfaceTools();
     self.Rights:Install();
@@ -428,7 +427,6 @@ function Stronghold:OnSaveGameLoaded()
 
     Camera.ZoomSetFactorMax(2.0);
     GUI.ClearSelection();
-    ResourceType.Honor = ResourceType.Silver;
 
     -- Call save game stuff
     self.Rights:OnSaveGameLoaded();

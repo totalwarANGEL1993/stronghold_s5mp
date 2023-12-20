@@ -101,7 +101,7 @@ function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
                 EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..ReputationText .. " ";
             end
             if Effects.Honor > 0 then
-                local HonorText = XGUIEng.GetStringTableText("sh_names/Honor");
+                local HonorText = XGUIEng.GetStringTableText("sh_names/Silver");
                 EffectText = EffectText.. "+" ..Effects.Honor.. " " ..HonorText;
             end
             if EffectText ~= "" then

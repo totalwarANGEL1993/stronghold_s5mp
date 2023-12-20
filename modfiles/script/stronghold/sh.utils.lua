@@ -130,6 +130,24 @@ function Stronghold.Utils:OverwriteInterfaceTools()
         local PlayerID = GUI.GetPlayerID();
         return FormatCostString(PlayerID, _Costs);
     end
+
+    GetResourceName = function(_ResourceType)
+        local GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameMoney");
+        if _ResourceType == ResourceType.Silver then
+            GoodName = XGUIEng.GetStringTableText("sh_names/Silver");
+        elseif _ResourceType == ResourceType.Clay or _ResourceType == ResourceType.ClayRaw then
+            GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameClay");
+        elseif _ResourceType == ResourceType.Wood or _ResourceType == ResourceType.WoodRaw then
+            GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameWood");
+        elseif _ResourceType == ResourceType.Stone or _ResourceType == ResourceType.StoneRaw then
+            GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameStone");
+        elseif _ResourceType == ResourceType.Iron or _ResourceType == ResourceType.IronRaw then
+            GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameIron");
+        elseif _ResourceType == ResourceType.Sulfur or _ResourceType == ResourceType.SulfurRaw then
+            GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameSulfur");
+        end
+        return GoodName;
+    end
 end
 
 function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
@@ -150,12 +168,12 @@ function HasPlayerEnoughResourcesFeedback(_PlayerID, _Costs)
     local SulfurRaw = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.SulfurRaw);
     local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
 
-    if _Costs[ResourceType.Honor] ~= nil
-	and _Costs[ResourceType.Honor] ~= 0
-    and _Costs[ResourceType.Honor] - Honor > 0 then
+    if _Costs[ResourceType.Silver] ~= nil
+	and _Costs[ResourceType.Silver] ~= 0
+    and _Costs[ResourceType.Silver] - Honor > 0 then
         MsgString = string.format(
             XGUIEng.GetStringTableText("sh_text/GUI_NotEnoughHonor"),
-            _Costs[ResourceType.Honor] - Honor
+            _Costs[ResourceType.Silver] - Honor
         );
 		GUI.AddNote(MsgString);
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_INFO_NotEnough, 100);
@@ -259,15 +277,15 @@ function FormatCostString(_PlayerID, _Costs)
     local SulfurRaw = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.SulfurRaw);
     local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
 
-	if _Costs[ResourceType.Honor] ~= nil
-    and _Costs[ResourceType.Honor] ~= 0 then
-		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Honor") .. ": ";
-		if Honor >= _Costs[ResourceType.Honor] then
+	if _Costs[ResourceType.Silver] ~= nil
+    and _Costs[ResourceType.Silver] ~= 0 then
+		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Silver") .. ": ";
+		if Honor >= _Costs[ResourceType.Silver] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
 			CostString = CostString .. " @color:220,64,16,255 ";
 		end
-		CostString = CostString .. _Costs[ResourceType.Honor] .. " @color:255,255,255,255 @cr ";
+		CostString = CostString .. _Costs[ResourceType.Silver] .. " @color:255,255,255,255 @cr ";
 	end
 
 	if  _Costs[ResourceType.Knowledge] ~= nil
@@ -355,9 +373,9 @@ end
 
 function MergeCostTable(_Costs1, _Costs2)
     local Costs = {};
-    Costs[ResourceType.Honor] = _Costs1[ResourceType.Honor];
-    if _Costs2[ResourceType.Honor] ~= nil and _Costs2[ResourceType.Honor] > 0 then
-        Costs[ResourceType.Honor] = (_Costs1[ResourceType.Honor] or 0) + _Costs2[ResourceType.Honor];
+    Costs[ResourceType.Silver] = _Costs1[ResourceType.Silver];
+    if _Costs2[ResourceType.Silver] ~= nil and _Costs2[ResourceType.Silver] > 0 then
+        Costs[ResourceType.Silver] = (_Costs1[ResourceType.Silver] or 0) + _Costs2[ResourceType.Silver];
     end
     Costs[ResourceType.Knowledge] = _Costs1[ResourceType.Knowledge];
     if _Costs2[ResourceType.Knowledge] ~= nil and _Costs2[ResourceType.Knowledge] > 0 then
@@ -393,7 +411,7 @@ end
 function CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur, _Knowledge)
     local Costs = {};
     if _Honor ~= nil and _Honor > 0 then
-        Costs[ResourceType.Honor] = _Honor;
+        Costs[ResourceType.Silver] = _Honor;
     end
     if _Knowledge ~= nil and _Knowledge > 0 then
         Costs[ResourceType.Knowledge] = _Knowledge;
@@ -436,7 +454,7 @@ function HasEnoughResources(_PlayerID, _Costs)
         local SulfurRaw = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.SulfurRaw);
         local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
 
-        if _Costs[ResourceType.Honor] ~= nil and Honor < _Costs[ResourceType.Honor] then
+        if _Costs[ResourceType.Silver] ~= nil and Honor < _Costs[ResourceType.Silver] then
             return false;
         end
         if _Costs[ResourceType.Knowledge] ~= nil and Knowledge < _Costs[ResourceType.Knowledge] then
@@ -467,10 +485,10 @@ end
 function AddResourcesToPlayer(_PlayerID, _Resources)
     if Stronghold:GetPlayer(_PlayerID) then
         -- Add honor (silver)
-        if _Resources[ResourceType.Honor] ~= nil then
-            local Amount = _Resources[ResourceType.Honor];
+        if _Resources[ResourceType.Silver] ~= nil then
+            local Amount = _Resources[ResourceType.Silver];
             AddHonor(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, ResourceType.Honor, Amount);
+            WriteResourcesGainedToLog(_PlayerID, ResourceType.Silver, Amount);
         end
         -- Add knowledge
         if _Resources[ResourceType.Knowledge] ~= nil then
@@ -565,11 +583,11 @@ function RemoveResourcesFromPlayer(_PlayerID, _Costs)
         local Sulfur    = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Sulfur);
 
         -- Honor (silver) cost
-        if  _Costs[ResourceType.Honor] ~= nil and _Costs[ResourceType.Honor] > 0
-        and Honor >= _Costs[ResourceType.Honor] then
-            local Amount = _Costs[ResourceType.Honor] * (-1);
+        if  _Costs[ResourceType.Silver] ~= nil and _Costs[ResourceType.Silver] > 0
+        and Honor >= _Costs[ResourceType.Silver] then
+            local Amount = _Costs[ResourceType.Silver] * (-1);
             AddHonor(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, ResourceType.Honor, Amount);
+            WriteResourcesGainedToLog(_PlayerID, ResourceType.Silver, Amount);
         end
         -- Knowledge cost
         if  _Costs[ResourceType.Knowledge] ~= nil and _Costs[ResourceType.Knowledge] > 0

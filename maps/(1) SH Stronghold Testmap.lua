@@ -75,6 +75,9 @@ SHS5MP_RulesDefinition = {
 
     -- Called after game start timer is over
     OnGameStart = function()
+        CreateProvince1();
+        CreateProvince2();
+        CreateProvince3();
     end,
 
     -- Called after peacetime is over
@@ -85,4 +88,35 @@ SHS5MP_RulesDefinition = {
     OnSaveLoaded = function()
     end,
 }
+
+-- -------------------------------------------------------------------------- --
+-- Provinces
+
+function CreateProvince1()
+    CreateEncouragingProvince(
+        "Oasis de Lune",
+        "Province1Pos",
+        0.10,
+        0.5
+    );
+end
+
+function CreateProvince2()
+    CreateSlaveProvince(
+        "Oasis de Sene",
+        "Province2Pos",
+        4,
+        0.5
+    );
+end
+
+function CreateProvince3()
+    CreateResourceProvince(
+        "la Source de Mystere",
+        "Province3Pos",
+        ResourceType.IronRaw,
+        200,
+        0.5
+    );
+end
 
