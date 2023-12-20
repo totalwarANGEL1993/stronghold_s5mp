@@ -5060,14 +5060,14 @@
    <Scale>3.000000e+001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_ScriptEntity</Type>
+   <Type>XD_KeepConstructionSite</Type>
    <Position>
     <X>7.200000e+003</X>
-    <Y>8.000000e+003</Y>
+    <Y>7.900000e+003</Y>
    </Position>
-   <Orientation>0.000000e+000</Orientation>
+   <Orientation>9.000000e+001</Orientation>
    <Flags>0</Flags>
-   <PlayerID>8</PlayerID>
+   <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name>VillagePos</Name>
    <ScriptCommandLine></ScriptCommandLine>
@@ -24866,21 +24866,6 @@
     <Y>8.178048e+003</Y>
    </Position>
    <Orientation>3.143174e+002</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
-   <Health>-1</Health>
-   <Name></Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_VillageCenter</Type>
-   <Position>
-    <X>7.300000e+003</X>
-    <Y>8.000000e+003</Y>
-   </Position>
-   <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -109233,21 +109218,6 @@
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>1.000000e+000</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_GreeneryVertical1</Type>
-   <Position>
-    <X>6.470735e+003</X>
-    <Y>8.238153e+003</Y>
-   </Position>
-   <Orientation>2.417066e+001</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
-   <Health>-1</Health>
-   <Name></Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>1.065474e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_GreeneryBush4</Type>

@@ -164,7 +164,7 @@ end
 function SetupCampsWS0()
     for j= 1, 2 do
         local CampID = DelinquentsCampCreate {
-            HomePosition = "Province" ..j.. "Pos",
+            HomePosition = "Province" ..j.. "DefPos",
             RodeLength = 2500,
             Strength = 7,
         };
@@ -189,7 +189,7 @@ end
 function SetupCampsWS10()
     for j= 1, 2 do
         local CampID = DelinquentsCampCreate {
-            HomePosition = "Province" ..j.. "Pos",
+            HomePosition = "Province" ..j.. "DefPos",
             RodeLength = 2500,
             Strength = 7,
         };

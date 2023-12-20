@@ -637,9 +637,9 @@ function Tutorial_StartPart3()
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainProvince_2",
         Condition   = function(_Data)
-            return Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_VillageCenter1) > 0 or
-                   Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_VillageCenter2) > 0 or
-                   Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_VillageCenter3) > 0;
+            return Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_Outpost1) > 0 or
+                   Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_Outpost2) > 0 or
+                   Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PB_Outpost3) > 0;
         end
     }
 
