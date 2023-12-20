@@ -8,9 +8,9 @@
 <string id="ExplainInterface_6">TOM SIMPKINS: {scarlet}Honor{white} represents your popularity among the nobility. It is necessary to train troops, raise the noble to a higher rank and many other things. Magnificent buildings, ornamental buildings and various measures are honorable to you.</string>
 <string id="ExplainInterface_7">TOM SIMPKINS: {scarlet}Popularity{white} indicates your popularity among the people. If the popularity falls, you will soon be alone in the castle! Supply, tax, crime control and effects of some special buildings influence popularity.</string>
 <string id="ExplainInterface_8">TOM SIMPKINS: {scarlet}Knowledge{white} allows the exploration of technologies. It is generated in your educational institutions. Your scholars work tirelessly to give you one advantage.</string>
-<string id="ExplainInterface_9">TOM SIMPKINS: If you have achieved enough honor and met the conditions for promotion, you can raise your noble {scarlet} to a higher rank {white} here.</string>
+<string id="ExplainInterface_9">TOM SIMPKINS: If you have achieved enough honor and meet the conditions for promotion, you can raise your noble {scarlet} to a higher rank {white} here.</string>
 <string id="ExplainInterface_10">TOM SIMPKINS: Be sure to provide for your people {scarlet}{white} or they will quickly become dissatisfied. The costs of house and farm are reduced in this game mode. {scarlet}Expansion{white} allows you to gain popularity and honor more quickly.</string>
-<string id="ExplainInterface_11">TOM SIMPKINS: This meter shows how many people live under your rule. All of your taxable workers and also lousy criminals are part of your population. {scarlet}Expand the castle or occupy villages,{white} to be able to accommodate more people.</string>
+<string id="ExplainInterface_11">TOM SIMPKINS: This meter shows how many people live under your rule. All of your taxable workers and also lousy criminals are part of your population. {scarlet}Expand the castle or build outposts,{white} to be able to accommodate more people.</string>
 <string id="ExplainInterface_12">TOM SIMPKINS: Servants are unfree and do not count as population or military, but are the property of your noble. The number of servants you can own {scarlet} increases with each additional title your noble achieves.</string>
 <string id="ExplainInterface_13">TOM SIMPKINS: Here you can see how strong your army is and how big it can still become. All agents, soldiers and cannons count as military. {scarlet} Expand the castle or build recruitment buildings,{white} to increase your army strength.</string>
 <string id="ExplainInterface_14">TOM SIMPKINS: The payday clock shows you how long you have to wait until the next money. {scarlet} Payday is every 90 seconds in this game mode.</string>
@@ -67,7 +67,7 @@
 <string id="ExplainRecruit_3">TOM SIMPKINS: Recruit 3 squads of soldiers!</string>
 <string id="ExplainRecruit_4">TOM SIMPKINS: You'll need your new troops soon. {scarlet}The highwaymen have taken notice of us and are planning an attack on your castle! {white}The opportunity to apply what you have learned!</string>
 
-<string id="ExplainProvince_1">TOM SIMPKINS: Look, a province! Some village centers grant you sovereignty over land. {scarlet}They produce popularity, honor or resources for payday, grant more space for the military {white}, or give other mission-dependent bonuses.</string>
+<string id="ExplainProvince_1">TOM SIMPKINS: Look, a province! Build an outpost to gain sovereignty over land. {scarlet}Provinces increase your army size and grant additional effects. {white}Secure them as quickly as possible.</string>
 <string id="ExplainProvince_2">TOM SIMPKINS: Capture the province to see what bonus it has in store for you!</string>
 
 <string id="TutorialEnd_1">TOM SIMPKINS: Congratulations, Your Honor! You have successfully mastered the introduction to {scarlet}Stronghold {white}. You can now end the game or complete the mission.</string>
