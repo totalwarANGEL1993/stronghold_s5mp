@@ -11,7 +11,7 @@
         <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
 		<Exploration>0</Exploration>
 		<NeedsPlayer>false</NeedsPlayer>
-		<ForceNoPlayer>true</ForceNoPlayer>
+		<ForceNoPlayer>false</ForceNoPlayer>
 		<Visible>false</Visible>
 	</Logic>
 </root>

@@ -978,7 +978,12 @@ function Stronghold.Building:OnUnitCreated(_EntityID)
         if Logic.IsSettler(_EntityID) == 1 then
             local BuildingID;
             if Logic.IsEntityInCategory(_EntityID, EntityCategories.Serf) == 1 then
-                BuildingID = GetHeadquarterID(PlayerID);
+                local x,y,z = Logic.EntityGetPos(_EntityID);
+                local _,Outpost1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Outpost1, x, y, 800, 1);
+                local _,Outpost2ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Outpost2, x, y, 800, 1);
+                local _,Outpost3ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Outpost3, x, y, 800, 1);
+                local CastleID = GetHeadquarterID(PlayerID);
+                BuildingID = Outpost1ID or Outpost2ID or Outpost3ID or CastleID or 0;
             elseif Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 1 then
                 local x,y,z = Logic.EntityGetPos(_EntityID);
                 local _,Foundry1ID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Foundry1, x, y, 800, 1);
@@ -1042,7 +1047,8 @@ function Stronghold.Building:OnRallyPointHolderSelected(_GuiPlayerID, _EntityID)
     -- (Only for the player)
     if IsPlayer(PlayerID) then
         if Logic.IsConstructionComplete(_EntityID) == 0
-        or not self:CanBuildingHaveRallyPoint(_EntityID) then
+        or not self:CanBuildingHaveRallyPoint(_EntityID)
+        or not IsExisting(_EntityID) then
             self:CancelRallyPointSelection(PlayerID);
         end
     end
@@ -1050,9 +1056,9 @@ function Stronghold.Building:OnRallyPointHolderSelected(_GuiPlayerID, _EntityID)
     -- Hide all rally points for viewer
     local ViewerPlayer = (PlayerID == 0 and _GuiPlayerID) or PlayerID;
     if ViewerPlayer == 17 then
-        for i = 1, GetMaxAmountOfPlayer() do
-            if IsPlayer(i) then
-                for _, HolderID in pairs(self.Data[i].RallyPoint) do
+        for CurrentPlayerID = 1, GetMaxAmountOfPlayer() do
+            if IsPlayer(CurrentPlayerID) then
+                for _, HolderID in pairs(self.Data[CurrentPlayerID].RallyPoint) do
                     if IsExisting(HolderID) then
                         SVLib.SetInvisibility(HolderID, true);
                         Logic.SetEntityExplorationRange(HolderID, 0);
@@ -1061,8 +1067,8 @@ function Stronghold.Building:OnRallyPointHolderSelected(_GuiPlayerID, _EntityID)
             end
         end
     else
-        if IsPlayer(PlayerID) then
-            for _,HolderID in pairs(self.Data[PlayerID].RallyPoint) do
+        if IsPlayer(ViewerPlayer) then
+            for _,HolderID in pairs(self.Data[ViewerPlayer].RallyPoint) do
                 if IsExisting(HolderID) then
                     SVLib.SetInvisibility(HolderID, true);
                     Logic.SetEntityExplorationRange(HolderID, 0);

@@ -76,12 +76,19 @@ end
 
 function GetTreeAtPositionWithIterator(_X, _Y, _Range, _Amount)
     local List = {};
+    local LowestDistance = Logic.WorldGetSize();
     for ID in CEntityIterator.Iterator(CEntityIterator.InRangeFilter(_X, _Y, _Range)) do
         if table.getn(List) >= _Amount then
             break;
         end
         if IsTree(ID) then
-            table.insert(List, ID);
+            local CurrentDistance = GetDistance(ID, {X= _X, Y= _Y});
+            if CurrentDistance < LowestDistance then
+                LowestDistance = CurrentDistance;
+                table.insert(List, 1, ID);
+            else
+                table.insert(List, ID);
+            end
         end
     end
     return List;
