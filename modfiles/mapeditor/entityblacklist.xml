@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <EntityName>XD_Explore10</EntityName>
+    <EntityName>XD_CoordinateEntity</EntityName>
+    <!-- <EntityName>XD_BuildBlockScriptEntity</EntityName> -->
+    <EntityName>PU_Hero2_Cannon1</EntityName>
+    <EntityName>PU_Hero2_Foundation1</EntityName>
+    <EntityName>PU_Hero3_Trap</EntityName>
+    <EntityName>PU_Hero3_TrapCannon</EntityName>
+    <EntityName>PU_Hero5_Outlaw</EntityName>
+    <EntityName>PB_Bridge1</EntityName>
+    <EntityName>PB_Bridge2</EntityName>
+    <EntityName>PB_Bridge3</EntityName>
+    <EntityName>PB_Bridge4</EntityName>
+    <EntityName>PB_GenericBridge</EntityName>
+    <EntityName>PB_GenericMine</EntityName>
+    <!-- <EntityName>PB_Outpost1</EntityName> -->
+    <!-- <EntityName>PB_Outpost2</EntityName> -->
+    <!-- <EntityName>PB_Outpost3</EntityName> -->
+    <EntityName>PB_Weathermachine</EntityName>
+    <EntityName>PB_Weathermachine_Activated</EntityName>
+    <!-- <EntityName>CB_Mint1</EntityName> -->
+    <EntityName>CB_TechTrader</EntityName>
+    <EntityName>CU_AfraidAlchemist</EntityName>
+    <!-- <EntityName>CU_AfraidMasterBuilder</EntityName> -->
+    <!-- <EntityName>CU_AfraidMiner</EntityName> -->
+    <!-- <EntityName>CU_AfraidSawmillworker</EntityName> -->
+    <!-- <EntityName>CU_AfraidSerf</EntityName> -->
+    <!-- <EntityName>CU_AfraidSmith</EntityName> -->
+    <!-- <EntityName>CU_AfraidStonecutter</EntityName> -->
+    <EntityName>CU_Barbarian_Hero_wolf</EntityName>
+    <EntityName>CU_GCBlackKnight</EntityName>
+    <EntityName>CU_GCScholar</EntityName>
+    <!-- <EntityName>XD_BlendingFog</EntityName> -->
+    <EntityName>XD_Bomb1</EntityName>
+    <EntityName>XD_Bomb2</EntityName>
+    <EntityName>XD_Bridge1</EntityName>
+    <EntityName>XD_Bridge2</EntityName>
+    <EntityName>XD_Bridge3</EntityName>
+    <EntityName>XD_Bridge4</EntityName>
+    <EntityName>XD_Camp_Internal</EntityName>
+    <!-- <EntityName>XD_ChestClose</EntityName> -->
+    <!-- <EntityName>XD_ChestOpen</EntityName> -->
+    <!-- <EntityName>XD_ChestOrb</EntityName> -->
+    <EntityName>XD_ClayPit1</EntityName>
+    <EntityName>XD_ClosedClayPit1</EntityName>
+    <EntityName>XD_ClosedIronPit1</EntityName>
+    <EntityName>XD_ClosedStonePit1</EntityName>
+    <EntityName>XD_ClosedSulfurPit1</EntityName>
+    <!-- <EntityName>XD_GCPodium</EntityName> -->
+    <EntityName>XD_IndoorsArcade1Edge1</EntityName>
+    <EntityName>XD_IndoorsArcade1Edge2</EntityName>
+    <EntityName>XD_IndoorsArcade1Edge3</EntityName>
+    <EntityName>XD_IndoorsArcade1Edge4</EntityName>
+    <EntityName>XD_IndoorsArcade1L</EntityName>
+    <EntityName>XD_IndoorsArcade1R</EntityName>
+    <EntityName>XD_IndoorsArcade2Edge1</EntityName>
+    <EntityName>XD_IndoorsArcade2Edge2</EntityName>
+    <EntityName>XD_IndoorsArcade2Edge3</EntityName>
+    <EntityName>XD_IndoorsArcade2Edge4</EntityName>
+    <EntityName>XD_IndoorsArcade2L</EntityName>
+    <EntityName>XD_IndoorsArcade2R</EntityName>
+    <EntityName>XD_IndoorsCandlestick</EntityName>
+    <EntityName>XD_IndoorsTable1</EntityName>
+    <EntityName>XD_IndoorsTorchL</EntityName>
+    <EntityName>XD_IndoorsTorchR</EntityName>
+    <EntityName>XD_IndoorsWallBanner1L</EntityName>
+    <EntityName>XD_IndoorsWallBanner1R</EntityName>
+    <EntityName>XD_IndoorsWallDecoration1L</EntityName>
+    <EntityName>XD_IndoorsWallDecoration1R</EntityName>
+    <EntityName>XD_IndoorsWallDoorClosedL</EntityName>
+    <EntityName>XD_IndoorsWallDoorClosedR</EntityName>
+    <EntityName>XD_IndoorsWallDoorOpenL</EntityName>
+    <EntityName>XD_IndoorsWallDoorOpenR</EntityName>
+    <EntityName>XD_IndoorsWallGirderL</EntityName>
+    <EntityName>XD_IndoorsWallGirderR</EntityName>
+    <EntityName>XD_IndoorsWallL</EntityName>
+    <EntityName>XD_IndoorsWallR</EntityName>
+    <EntityName>XD_IndoorsWallWindowL</EntityName>
+    <EntityName>XD_IndoorsWallWindowR</EntityName>
+    <EntityName>XD_IronPit1</EntityName>
+    <EntityName>XD_Leaves</EntityName>
+    <EntityName>XD_NeutralBridge1</EntityName>
+    <EntityName>XD_NeutralBridge2</EntityName>
+    <EntityName>XD_NeutralBridge3</EntityName>
+    <EntityName>XD_NeutralBridge4</EntityName>
+    <EntityName>XD_ResourceTree</EntityName>
+    <EntityName>XD_ScoutTorch</EntityName>
+    <!-- <EntityName>XD_Sparkles</EntityName> -->
+    <EntityName>XD_StandardLarge</EntityName>
+    <!-- <EntityName>XD_Stone_BlockPath</EntityName> -->
+    <EntityName>XD_StonePit1</EntityName>
+    <EntityName>XD_SulfurPit1</EntityName>
+</root>

@@ -14,6 +14,7 @@ cp -r modfiles/config var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/script var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/text var/stronghold_s5mp/archive.bba.unpacked
 cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
+cp -r modfiles/mapeditor var/stronghold_s5mp/archive.bba.unpacked
 
 # fill archives
 mkdir -p var/stronghold_s5mp/textureslow.bba.unpacked/graphics
@@ -33,6 +34,7 @@ cp -r modfiles/config var/stronghold_s5mp/system.bba.unpacked
 cp -r modfiles/script var/stronghold_s5mp/system.bba.unpacked
 cp -r modfiles/text var/stronghold_s5mp/system.bba.unpacked
 cp -r modfiles/menu var/stronghold_s5mp/system.bba.unpacked
+cp -r modfiles/mapeditor var/stronghold_s5mp/system.bba.unpacked
 
 # lokalisation
 mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/es

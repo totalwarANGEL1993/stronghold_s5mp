@@ -1,11 +1,2 @@
-o Einheiten die ausgebildet wurden bestehen nur aus Hauptmännern, Soldaten müssen händisch nachrekrutiert werden
-o Händische Nachrekrutierung nur bei Einzelselektierung möglich
-o Ari´s Fähigkeit killt kaum Einheiten statt viele, wie in Fähigkeitenbeschreibung; evtl. Cooldown hoch und AOE-Schaden/Schaden anheben
-o EMS-Features wie Massenentlassung und Gebäude-Abriss über Backspace (bei Player 1 ging das)
-o Generierung von Wissen ein kleinen wenig anheben. Im Early-Game ist das echt sehr schleppend, auch mit 3 Unis und Tech
-
-- Einheiten haben kein Auto-Attack
-- Mauergerüste auch beim Gegner bebaubar (gewollt?)
-- Mauern haben Hotkey X, dieser ist aber für die Taverne reserviert
-- gibt es ein Limit für Mauer-Baustellen und wenn ja, warum?
-- Einheiten und Leibeigene kommen verzögert raus (Spielfluss etwas komisch)
+- Außenposten nutzen Sammelpunkt des Haupthauses
+- Sammelpunkte verschwinden nicht nach Deselect
