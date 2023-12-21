@@ -127,11 +127,11 @@ function CreateBanditCamps()
 
         local CampID = DelinquentsCampCreate {
             HomePosition = "VCCamp" ..Index.. "Center",
-            Strength = 9,
+            Strength = 10,
         };
         _G["gvBanditCamp" ..Index] = CampID;
 
-        for j= 1, 5 do
+        for j= 1, 6 do
             DelinquentsCampAddSpawner(
                 CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
                 Entities.CU_BanditLeaderSword2,
@@ -153,7 +153,9 @@ function CreateBanditCamps()
 end
 
 function MakeBanditCampsAttack()
+    --- @diagnostic disable-next-line: undefined-global
     DelinquentsCampActivateAttack(gvBanditCamp2, true);
+    --- @diagnostic disable-next-line: undefined-global
     DelinquentsCampActivateAttack(gvBanditCamp4, true);
 end
 

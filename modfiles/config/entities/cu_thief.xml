@@ -38,6 +38,7 @@
         <AttractionSlots>0</AttractionSlots>
         <Category>Thief</Category>
         <Category>Melee</Category>
+        <Category>Wall</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>18</Exploration>
         <ArmorClass>ArmorClassHero</ArmorClass>

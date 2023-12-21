@@ -58,9 +58,10 @@
 <string id="ExplainManage_7">TOM SIMPKINS: Versucht, die Abzüge auf die Beliebtheit am Zahltag auszugleichen und lockt insgesamt 15 Arbeiter (keine Knechte) an!</string>
 <string id="ExplainManage_8">TOM SIMPKINS: Die neuen Arbeiter spülen frisches Gold in Eurer Stadtsäckel. Fianzen, die Ihr bitter benötigen werdet, um Truppen auszuheben. Aber als herkömmlicher Adliger könnt Ihr nur Eure Knechte bewaffnen und Speerträger rekrutieren.</string>
 <string id="ExplainManage_9">TOM SIMPKINS: Erhebt Euren Adligen in den Rang eines Kastellan!</string>
-<string id="ExplainManage_10">TOM SIMPKINS: Jeder Rang bringt neue Rechte und Pflichten mit sich. as Volk wird ebenfalls immer schwieriger zufrieden zu stellen. Sobald Ihr das Fürstentum erreicht, {scarlet} müsst Ihr Euch um die Strafverfolgung kümmern!</string>
+<string id="ExplainManage_10">TOM SIMPKINS: Jeder Rang bringt neue Rechte und Pflichten mit sich. as Volk wird ebenfalls immer schwieriger zufrieden zu stellen. {scarlet}Bald müsst Ihr Euch um die Strafverfolgung und Schädlingsbekämpfung kümmern!</string>
 <string id="ExplainManage_11">TOM SIMPKINS: Arbeiter werden {scarlet}das Gesetz brechen. {white}Verbrecher nicht zu fangen, {scarlet}ruiniert schnell Euer Ansehen! {white}Versucht sie schnell zu fangen. {scarlet} Lasst dazu bewaffnete Knechte Wache schieben oder baut Aussichtstürme!</string>
 <string id="ExplainManage_12">TOM SIMPKINS: Auch der Adlige kann Verbrecher fangen. {scarlet}Dazu müsst ihr den Adligen entsenden, diese kriminellen Elemente zu jagen.</string>
+<string id="ExplainManage_13">TOM SIMPKINS: Um Ratten zu beseitigen, {scarlet}müsst Ihr Eure Aussichtstürme zu Falknerturmen ausbauen.{white} Ein Falke ist in der Lage, ein großes Gebiet um den Turm sauber zu halten.</string>
 
 <string id="ExplainRecruit_1">TOM SIMPKINS: Soldaten werden in Barracken und ähnlichen Gebäuden angeworben. Errichtet eine Kaserne!</string>
 <string id="ExplainRecruit_2">TOM SIMPKINS: Wundervoll! Durch die Kaserne seid Ihrnun in der Position, Eure ersten Truppen auszurüsten. Sie sind schwach aber billig und können in Massen in die Schlacht geworfen werden.</string>

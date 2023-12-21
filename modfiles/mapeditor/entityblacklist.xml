@@ -46,6 +46,7 @@
     <EntityName>XD_ClosedClayPit1</EntityName>
     <EntityName>XD_ClosedIronPit1</EntityName>
     <EntityName>XD_ClosedStonePit1</EntityName>
+    <EntityName>XD_ClosedStonePit2</EntityName>
     <EntityName>XD_ClosedSulfurPit1</EntityName>
     <!-- <EntityName>XD_GCPodium</EntityName> -->
     <EntityName>XD_IndoorsArcade1Edge1</EntityName>
@@ -90,5 +91,6 @@
     <EntityName>XD_StandardLarge</EntityName>
     <!-- <EntityName>XD_Stone_BlockPath</EntityName> -->
     <EntityName>XD_StonePit1</EntityName>
+    <EntityName>XD_StonePit2</EntityName>
     <EntityName>XD_SulfurPit1</EntityName>
 </root>

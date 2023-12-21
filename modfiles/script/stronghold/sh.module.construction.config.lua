@@ -134,9 +134,12 @@ Stronghold.Construction.Config = {
         [Technologies.UP2_Village]              = {Entities.PB_VillageCenter1, Entities.PB_VillageCenter2, Entities.PB_VillageCenter3,},
         [Technologies.UP2_Outpost]              = {Entities.PB_Outpost1, Entities.PB_Outpost2, Entities.PB_Outpost3,},
 
+        [Technologies.UP3_Tower]                = {Entities.PB_Tower1, Entities.PB_Tower4,},
+
         -- Those are here so that it just work's...
         [Technologies.UP1_TowerDark]            = {Entities.PB_DarkTower2, Entities.PB_DarkTower3},
         [Technologies.UP2_TowerDark]            = {Entities.PB_DarkTower2, Entities.PB_DarkTower3,},
+        [Technologies.UP3_TowerDark]            = {Entities.PB_DarkTower1, Entities.PB_DarkTower4,},
         [Technologies.UP1_Palisade]             = {Entities.PB_WallDistorted,},
         [Technologies.UP1_PalisadeDark]         = {Entities.PB_DarkWallDistorted,},
     },
@@ -206,6 +209,7 @@ Stronghold.Construction.Config = {
     RightsToCheckForUpgrade = {
         [Technologies.UP1_Tower]            = PlayerRight.BallistaTower,
         [Technologies.UP2_Tower]            = PlayerRight.CannonTower,
+        [Technologies.UP3_Tower]            = PlayerRight.FalconryTower,
         [Technologies.UP1_Market]           = PlayerRight.Market,
         [Technologies.UP1_Tavern]           = PlayerRight.Inn,
         [Technologies.UP1_University]       = PlayerRight.University,

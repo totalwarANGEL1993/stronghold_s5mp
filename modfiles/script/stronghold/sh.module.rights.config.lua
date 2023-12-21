@@ -180,6 +180,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.Estate,
                 ---
                 PlayerRight.Wall,
+                PlayerRight.FalconryTower,
                 ---
                 PlayerRight.SwordLong,
                 PlayerRight.BerserkStrong,

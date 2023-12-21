@@ -818,6 +818,9 @@ function Stronghold.Multiplayer:OnGameModeSet()
         for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone1)) do
             Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillStone);
         end
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone2)) do
+            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillStone);
+        end
     end
     -- Fill iron
     if self.Data.Config.MapStartFillIron and self.Data.Config.MapStartFillIron > 0 then

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>XA_Hawk</Model>
+        <Anim>XA_Hawk_Fly</Anim>
+        <DrawPlayerColor>False</DrawPlayerColor>
+    </Display>
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+		<AccessCategory>AccessCategorySettler</AccessCategory>	
+        <MaxHealth>50</MaxHealth>
+		<NeedsPlayer>true</NeedsPlayer>
+		<ForceNoPlayer>false</ForceNoPlayer>
+        <AttractionSlots>0</AttractionSlots>
+        <Hat/>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+		<Exploration>10</Exploration>
+        <IdleTaskList>TL_HAWK_IDLE</IdleTaskList>
+        <ExperiencePoints>5</ExperiencePoints>
+        <Fearless>true</Fearless>
+    </Logic>
+
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>XA_Hawk_Fly</SuspensionAnimation>
+            <AnimSet>SET_HAWK</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+		<Logic classname="EGL::CMovementBehaviorProps">
+			<Class>GGL::CSettlerMovement</Class>
+			<Speed>320</Speed>
+			<RotationSpeed>15</RotationSpeed>
+		<MoveTaskList>TL_HAWK_IDLE</MoveTaskList> 
+		<MoveIdleAnim>XA_Hawk_Fly</MoveIdleAnim>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorMovement</Class>
+		</Display>
+	</Behavior>
+
+	<Behavior>
+		<Logic classname="EGL::CGLEBehaviorProps">
+			<Class>GGL::CBehaviorWalkCommand</Class>
+		</Logic>
+	</Behavior>
+
+    <Behavior>
+		<Logic classname="GGL::CGLBehaviorPropsDying">
+			<Class>GGL::CGLBehaviorDying</Class>
+			<DyingTaskList>TL_DIE</DyingTaskList>
+		</Logic>
+	</Behavior>
+</root>

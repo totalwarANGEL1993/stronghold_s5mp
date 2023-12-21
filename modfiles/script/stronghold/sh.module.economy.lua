@@ -391,6 +391,9 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         if self.Data[_PlayerID].ReputationDetails.Criminals > 0 then
             ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.Criminals;
         end
+        if self.Data[_PlayerID].ReputationDetails.Rats > 0 then
+            ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.Rats;
+        end
         if self.Data[_PlayerID].ReputationDetails.OtherMalus > 0 then
             ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.OtherMalus;
         end
@@ -552,8 +555,10 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             -- External calculations
             local Special = GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID);
             local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
+            local Rats = Stronghold.Attraction:GetPlayerRats(_PlayerID);
             self.Data[_PlayerID].ReputationDetails.Criminals = Criminals;
-            self.Data[_PlayerID].ReputationDetails.OtherMalus = Special - Criminals;
+            self.Data[_PlayerID].ReputationDetails.Rats = Rats;
+            self.Data[_PlayerID].ReputationDetails.OtherMalus = Special - Criminals - Rats;
             local ReputationOneshot = self.Data[_PlayerID].IncomeReputationSingle;
             if ReputationOneshot < 0 then
                 Special = Special + ((-1) * ReputationOneshot);
@@ -565,6 +570,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             self.Data[_PlayerID].ReputationDetails.Hunger = 0;
             self.Data[_PlayerID].ReputationDetails.Homelessness = 0;
             self.Data[_PlayerID].ReputationDetails.Criminals = 0;
+            self.Data[_PlayerID].ReputationDetails.Rats = 0;
             self.Data[_PlayerID].ReputationDetails.OtherMalus = 0;
         end
     end
@@ -1416,6 +1422,7 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
     local phu  = self.Data[_PlayerID].ReputationDetails.Hunger;
     local pob  = self.Data[_PlayerID].ReputationDetails.OtherBonus;
     local pcr  = (-1) * self.Data[_PlayerID].ReputationDetails.Criminals;
+    local prt  = (-1) * self.Data[_PlayerID].ReputationDetails.Rats;
     local pop  = self.Data[_PlayerID].ReputationDetails.OtherMalus;
 
     local Language = GetLanguage();
@@ -1432,6 +1439,7 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
         ((irep < 0 and "{scarlet}") or "{green}") ..irep,
         ((ptb-ptp < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", ptb-ptp),
         ((pcr < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pcr),
+        ((prt < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", prt),
         ((pbb < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pbb),
         ((ppr-phu < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", ppr-phu),
         ((pho-phs < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pho-phs),

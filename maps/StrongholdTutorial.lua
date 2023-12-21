@@ -586,6 +586,9 @@ function Tutorial_AddProvisionSection()
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_12",
     }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/ExplainManage_13",
+    }
 end
 
 function Tutorial_AddExplainBarracks()

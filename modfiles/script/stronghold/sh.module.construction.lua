@@ -406,10 +406,12 @@ function Stronghold.Construction:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, _Are
     local DarkTower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower1, _X, _Y, _AreaSize, 1)};
     local DarkTower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower2, _X, _Y, _AreaSize, 1)};
     local DarkTower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower3, _X, _Y, _AreaSize, 1)};
+    local DarkTower4 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower4, _X, _Y, _AreaSize, 1)};
     local Tower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, _X, _Y, _AreaSize, 1)};
     local Tower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower2, _X, _Y, _AreaSize, 1)};
     local Tower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower3, _X, _Y, _AreaSize, 1)};
-    return Tower1[1] + Tower2[1] + Tower3[1] + DarkTower1[1] + DarkTower2[1] + DarkTower3[1] > 0;
+    local Tower4 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower4, _X, _Y, _AreaSize, 1)};
+    return Tower1[1] + Tower2[1] + Tower3[1] + Tower4[1] + DarkTower1[1] + DarkTower2[1] + DarkTower3[1] + DarkTower4[1] > 0;
 end
 
 -- -------------------------------------------------------------------------- --

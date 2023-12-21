@@ -260,10 +260,10 @@ function Stronghold.AI:DelinquentsCampController(_ID)
         if AiArmy.IsArmyDoingNothing(AttackArmyID) then
             if self.Data.Delinquents[_ID].AttackAllowed then
                 local RodeLength = AiArmy.GetRodeLength(AttackArmyID);
-                local Targets = self.Data.Delinquents[_ID].AttackTargets[1];
-                if Targets > 0 then
-                    local Index = math.random(2, Targets +1);
-                    local Target = Targets[Index][Targets[Index][1]];
+                local Targets = self.Data.Delinquents[_ID].AttackTargets;
+                if Targets[1] > 0 then
+                    local Index = math.random(2, Targets[1] +1);
+                    local Target = Targets[Index];
                     local Position = GetPosition(Target);
                     local Enemies = AiArmy.GetEnemiesInCircle(AttackArmyID, Position, RodeLength);
                     if Enemies[1] then
@@ -273,6 +273,10 @@ function Stronghold.AI:DelinquentsCampController(_ID)
                         AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
                     end
                 end
+            else
+                local HomePosition = AiArmy.GetHomePosition(AttackArmyID);
+                AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, HomePosition), false);
+                AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 30, HomePosition), false);
             end
         end
     end
@@ -289,11 +293,11 @@ function Stronghold.AI:DelinquentsCampController(_ID)
                 AiArmy.ClearCommands(DefendArmyID);
                 for i= 1, PositionCount + 1 do
                     AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, GuardPos[i]), false);
-                    AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
+                    AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60, GuardPos[i]), false);
                 end
             else
                 AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, HomePosition), false);
-                AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
+                AiArmy.PushCommand(DefendArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60, HomePosition), false);
             end
         end
     end

@@ -1076,6 +1076,7 @@
         <Entity>CV_Cannon2</Entity>
 
         <!-- Walls -->
+        <Entity>PB_DarkTower4</Entity>
         <Entity>PB_DarkWallCorner</Entity>
         <Entity>PB_DarkWallDistorted</Entity>
         <Entity>PB_DarkWallStraight</Entity>
@@ -1086,6 +1087,7 @@
         <Entity>PB_PalisadeStraight</Entity>
         <Entity>PB_PalisadeStraightGate_Closed</Entity>
         <Entity>PB_PalisadeStraightGate</Entity>
+        <Entity>PB_Tower4</Entity>
         <Entity>PB_WallCorner</Entity>
         <Entity>PB_WallDistorted</Entity>
         <Entity>PB_WallStraight</Entity>
@@ -1125,6 +1127,9 @@
         <Entity>XD_WreckedBoat1</Entity>
         <Entity>XD_WreckedBoat2</Entity>
 
+        <!-- Pits -->
+		<Entity>XD_ClosedStonePit2</Entity>
+
         <!-- Construction sites -->
         <Entity>XD_KeepConstructionSite</Entity>
         <Entity>XD_WallConstructionSite</Entity>
@@ -1138,5 +1143,6 @@
         <Entity>XD_WallGate_Replacer</Entity>
 
         <!-- Misc -->
+        <Entity>CU_Hawk</Entity>
         <Entity>XD_Bomb2</Entity>
 </root>

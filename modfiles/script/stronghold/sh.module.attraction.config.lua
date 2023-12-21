@@ -5,19 +5,26 @@
 Stronghold.Attraction.Config.Attraction = {
     -- Civil attration limit
     -- THIS MUST BE IN SYNC WITH ENTITY DEFINITION XML!
-    HQCivil = {[1] = 50, [2] = 65, [3] = 80},
-    VCCivil = {[1] = 25, [2] = 40, [3] = 55},
+    HQCivil = {[1] = 50, [2] = 75, [3] = 100},
+    VCCivil = {[1] = 35, [2] = 50, [3] = 65},
     -- Military attraction limit
     -- This is freely changeable in Lua
     HQMilitary = {[1] = 75, [2] = 100, [3] = 125},
     OPMilitary = {[1] = 40, [2] = 65, [3] = 90},
     -- Serf attraction limit
-    SlaveLimit = 24,
-    RankSlaveBonus = 8,
+    SlaveLimit = 30,
+    RankSlaveBonus = 6,
+}
+
+Stronghold.Attraction.Config.Rats = {
+    BaseDirtRate = 0.03,
+    UpgradeDirtRade = 0.01,
+    DisposalRate = 0.1,
+    HawkArea = 5000,
 }
 
 Stronghold.Attraction.Config.Crime = {
-    Unveil = {
+    Obfuscation = {
         Points = 120,
         SerfArea = 3000,
         TowerArea = 5000,
@@ -48,7 +55,7 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.CU_BlackKnight_LeaderMace1] = 1,
     [Entities.CU_BlackKnight_LeaderMace2] = 1,
     [Entities.CU_Evil_LeaderBearman1] = 1,
-    [Entities.CU_TemplarLeaderPoleArm1] = 1,
+    [Entities.CU_Templar_LeaderPoleArm1] = 1,
     [Entities.PU_LeaderPoleArm1] = 1,
     [Entities.PU_LeaderPoleArm2] = 1,
     [Entities.PU_LeaderPoleArm3] = 1,
@@ -67,8 +74,8 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PU_LeaderRifle1] = 2,
     [Entities.PU_LeaderRifle2] = 2,
     ---
-    [Entities.CU_CrusaderLeaderCavalry1] = 1,
-    [Entities.CU_TemplarLeaderCavalry1] = 2,
+    [Entities.CU_Templar_LeaderCavalry1] = 1,
+    [Entities.CU_Templar_LeaderHeavyCavalry1] = 2,
     [Entities.CU_BanditLeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry1] = 2,
     [Entities.PU_LeaderCavalry2] = 2,

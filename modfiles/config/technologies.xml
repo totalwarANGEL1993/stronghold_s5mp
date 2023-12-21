@@ -366,6 +366,8 @@
     <Technology>UP1_TowerDark</Technology>
     <Technology>UP2_Outpost</Technology>
     <Technology>UP2_TowerDark</Technology>
+    <Technology>UP3_Tower</Technology>
+    <Technology>UP3_TowerDark</Technology>
 
     <!-- Resources -->
     <Technology>T_PickAxeClay</Technology>

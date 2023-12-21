@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>GD::CDisplaySettler</Class>
+		<Model>XA_Deer</Model>
+		<Anim>XA_Deer_Walk</Anim>
+		<Anim>XA_Deer_Wait</Anim>
+		<Anim>XA_Deer_Idle1</Anim>
+		<Anim>XA_Deer_Idle2</Anim>
+		<Anim>XA_Deer_Idle3</Anim>
+		<Anim>XA_Deer_Idle4</Anim>
+		<Anim>XA_Deer_Idle5</Anim>
+		<Anim>XA_Deer_Idle6</Anim>
+		<Anim>XA_Deer_Idle7</Anim>
+		<Anim>XA_Deer_Idle8</Anim>
+	</Display>
+	<Logic classname="GGL::CGLAnimalProps">
+		<Class>GGL::CAnimal</Class>
+		<AccessCategory>AccessCategoryAnimal</AccessCategory>
+		<DefaultTaskList>TL_DEER_IDLE</DefaultTaskList> <!-- Data checker should check that this is not hunt -->
+		<TerritoryRadius>10000</TerritoryRadius>
+		<WanderRangeMin>4000</WanderRangeMin>
+		<WanderRangeMax>8000</WanderRangeMax>		
+		<NeedsPlayer>false</NeedsPlayer>
+		<MaxHealth>20</MaxHealth>
+		<ShyRange>1000</ShyRange>
+		<FleeTaskList>TL_ANIMAL_FLEE</FleeTaskList>
+	</Logic>
+	<Behavior>
+		<Logic classname="GGL::CGLAnimationBehaviorExProps">
+			<Class>GGL::CGLBehaviorAnimationEx</Class>
+		<!-- animation to be used when entity is suspended -->
+			<SuspensionAnimation>XA_Deer_Wait</SuspensionAnimation>
+			<AnimSet>SET_DEER</AnimSet>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorAnimation</Class>
+		</Display>
+	</Behavior>
+	<Behavior>
+		<Logic classname="EGL::CMovementBehaviorProps">
+			<Class>GGL::CBehaviorAnimalMovement</Class>
+			<Speed>150</Speed>
+			<RotationSpeed>20</RotationSpeed>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorMovement</Class>
+		</Display>
+	</Behavior>		
+</root>

@@ -580,7 +580,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.PU_Hero5 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BanditLeaderSword1;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[5] = UpgradeCategories.BanditLeaderBow1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.BanditLeaderBow1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[2] = UpgradeCategories.RangerLeaderCavalry1;
     elseif _Type == Entities.PU_Hero6 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.LeaderCavalry2;

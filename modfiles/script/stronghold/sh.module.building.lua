@@ -917,9 +917,19 @@ end
 
 function Stronghold.Building:OnTowerSelected(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
-    if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.DarkTower then
+    XGUIEng.ShowWidget("Upgrade_Tower2", 0);
+    XGUIEng.ShowWidget("Upgrade_Tower3", 0);
+    if Type == Entities.PB_DarkTower1 or Type == Entities.PB_Tower1 then
         XGUIEng.ShowWidget("Tower", 1);
-        InterfaceTool_UpdateUpgradeButtons(Type, UpgradeCategories.DarkTower, "Upgrade_Tower");
+        XGUIEng.ShowWidget("Commands_Tower", 1);
+        XGUIEng.ShowWidget("Upgrade_Tower3", 1);
+        GUIUpdate_UpgradeButtons("Upgrade_Tower3", Technologies.UP3_Tower);
+    end
+    if Type == Entities.PB_DarkTower2 or Type == Entities.PB_Tower2 then
+        XGUIEng.ShowWidget("Tower", 1);
+        XGUIEng.ShowWidget("Commands_Tower", 1);
+        XGUIEng.ShowWidget("Upgrade_Tower2", 1);
+        GUIUpdate_UpgradeButtons("Upgrade_Tower2", Technologies.UP2_Tower);
     end
 end
 

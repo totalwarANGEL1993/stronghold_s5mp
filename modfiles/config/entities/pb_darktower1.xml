@@ -9,7 +9,6 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
         <MaxHealth>900</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>5</ArmorAmount>
@@ -27,7 +26,19 @@
 
         <Upgrade>
             <Category>DarkWatchTower</Category>
+            <Time>20.0</Time>  
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>300</Wood>
+                <Stone>0</Stone>
+                <Gold>100</Gold>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
+            <Type>PB_DarkTower4</Type>
         </Upgrade>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
+
         <Exploration>45</Exploration>
         <ConstructionInfo>
             <Time>80</Time>

@@ -10,7 +10,9 @@
 Stronghold = Stronghold or {};
 
 Stronghold.Attraction = {
-    Data = {},
+    Data = {
+        HawkHabitats = {}
+    },
     Config = {},
     Text = {},
 };
@@ -212,6 +214,7 @@ function Stronghold.Attraction:Install()
             VirtualSettlers = 0,
             CriminalsCounter = 0,
             Criminals = {},
+            RatData = {},
         };
     end
 
@@ -229,14 +232,22 @@ function Stronghold.Attraction:OnEntityCreated(_EntityID)
         local MaxStamina = CEntity.GetMaxStamina(_EntityID);
         SetEntityStamina(_EntityID, MaxStamina * 0.1);
     end
+    -- Hawk creation
+    self:OnHawkHabitatCreated(_EntityID);
 end
 
 function Stronghold.Attraction:OnEntityDestroyed(_EntityID)
+    -- Hawk removal
+    self:OnHawkHabitatDestroyed(_EntityID);
 end
 
 function Stronghold.Attraction:OncePerSecond(_PlayerID)
+    -- Hawks
+    self:ManageHawks();
     -- Criminals
     self:ManageCriminalsOfPlayer(_PlayerID);
+    -- Rats
+    self:ManageRatsOfPlayer(_PlayerID);
 end
 
 function Stronghold.Attraction:OnEveryTurn(_PlayerID)
@@ -282,6 +293,107 @@ function Stronghold.Attraction:InitLogicOverride()
             Usage = math.max(Usage - Stronghold.Attraction.Data[_PlayerID].VirtualSettlers, 0);
         end
         return Usage;
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Rats
+
+function Stronghold.Attraction:DoRatsAppear(_PlayerID)
+    return GetRank(_PlayerID) >= PlayerRank.Count;
+end
+
+function Stronghold.Attraction:GetPlayerRats(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        local Rats = 0;
+        for EntityID, Data in pairs(self.Data[_PlayerID].RatData) do
+            Rats = Rats + Data[1];
+        end
+        return math.floor(Rats);
+    end
+    return 0;
+end
+
+function Stronghold.Attraction:ManageRatsOfPlayer(_PlayerID)
+    if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local BaseRate = self.Config.Rats.BaseDirtRate;
+        local UpgradeRate = self.Config.Rats.UpgradeDirtRade;
+        local CleanRate = self.Config.Rats.DisposalRate;
+
+        if self:DoRatsAppear(_PlayerID) then
+            local Buildings = self:GetBuildingsInfestableWithRats(_PlayerID);
+            for i= 2, Buildings[1] do
+                local Data = self.Data[_PlayerID].RatData[Buildings[i]];
+                local Level = Logic.GetUpgradeLevelForBuilding(Buildings[i]);
+                local WorkerMax = Logic.GetBuildingWorkPlaceLimit(Buildings[i]);
+                local Worker = Logic.GetBuildingWorkPlaceUsage(Buildings[i]);
+                local Dirt = math.min(Data[1] + (Worker/WorkerMax) * (BaseRate + (Level * UpgradeRate)), 1);
+
+                local HawkArea = self.Config.Rats.HawkArea;
+                local x,y,z = Logic.EntityGetPos(Buildings[i]);
+                local Tower1 = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower4, x, y, HawkArea, 16);
+                local Tower2 = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower4, x, y, HawkArea, 16);
+                Dirt = math.max(Dirt - (CleanRate * (Tower1 + Tower2)), 0);
+
+                self.Data[_PlayerID].RatData[Buildings[i]][1] = Dirt;
+            end
+        end
+
+        if math.mod(Logic.GetTime(), 60) == 0 then
+            if self:GetPlayerRats(_PlayerID) >= 1 and GUI.GetPlayerID() == _PlayerID then
+                Message(XGUIEng.GetStringTableText("sh_text/Player_RatsSpreadDisease"));
+            end
+        end
+    end
+end
+
+function Stronghold.Attraction:GetBuildingsInfestableWithRats(_PlayerID)
+    local Buildings = {};
+    if IsPlayer(_PlayerID) then
+        Buildings = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+        for i= 2, Buildings[1] do
+            if not self.Data[_PlayerID].RatData[Buildings[i]] then
+                self.Data[_PlayerID].RatData[Buildings[i]] = {0};
+            end
+        end
+    end
+    return Buildings;
+end
+
+function Stronghold.Attraction:ManageHawks()
+    for EntityID, Data in pairs(self.Data.HawkHabitats) do
+        local HawkID = Data[1];
+        local Position = Data[Data[2]];
+        if IsExisting(HawkID) then
+            if GetDistance(HawkID, Position) <= 100 then
+                Data[2] = (Data[2] + 1 > 7 and 3) or Data[2] + 1;
+                self.Data.HawkHabitats[EntityID][2] = Data[2];
+            else
+                Logic.MoveEntity(HawkID, Position.X, Position.Y);
+            end
+        end
+    end
+end
+
+function Stronghold.Attraction:OnHawkHabitatCreated(_EntityID)
+    local EntityType = Logic.GetEntityType(_EntityID);
+    if EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
+        local Positions = {};
+        for Angle = 0, 288, 72 do
+            local Position = GetCirclePosition(_EntityID, 250, Angle);
+            table.insert(Positions, Position)
+        end
+        local ID = Logic.CreateEntity(Entities.CU_Hawk, Positions[1].X, Positions[1].Y, 0, 0);
+        MakeInvulnerable(ID);
+        self.Data.HawkHabitats[_EntityID] = {ID, 3, unpack(Positions)};
+    end
+end
+
+function Stronghold.Attraction:OnHawkHabitatDestroyed(_EntityID)
+    if self.Data.HawkHabitats[_EntityID] then
+        local ID = self.Data.HawkHabitats[_EntityID][1];
+        DestroyEntity(ID);
+        self.Data.HawkHabitats[_EntityID] = nil;
     end
 end
 
@@ -353,20 +465,21 @@ function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
         end
 
         -- Catch criminals
-        -- Criminals will be cathed if they are exposed long enough. If their
-        -- camouflage is blown they will be caught.
+        -- Criminals will be cathed if they are exposed long enough.
         for i= table.getn(self.Data[_PlayerID].Criminals), 1, -1 do
             local Data = self.Data[_PlayerID].Criminals[i];
             if not IsExisting(Data[1]) or not IsExisting(Data[2]) then
                 self:RemoveCriminal(_PlayerID, Data[1]);
             else
-                local MaxVeil = self.Config.Crime.Unveil.Points;
+                local MaxObfuscation = self.Config.Crime.Obfuscation.Points;
+                local ExpositionValue = 0;
                 local Exposition = self:GetSettlersExposition(_PlayerID, Data[1]);
                 if Exposition == 0 then
-                    self.Data[_PlayerID].Criminals[i][5] = math.min(Data[5] + 1, MaxVeil);
+                    ExpositionValue = math.min(Data[5] + 1, MaxObfuscation);
                 else
-                    self.Data[_PlayerID].Criminals[i][5] = math.max(Data[5] - Exposition, 0);
+                    ExpositionValue = math.max(Data[5] - Exposition, 0);
                 end
+                self.Data[_PlayerID].Criminals[i][5] = ExpositionValue
                 if Data[5] <= 0 then
                     self:RemoveCriminal(_PlayerID, Data[1]);
                 end
@@ -388,10 +501,23 @@ function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
             local Task = Logic.GetCurrentTaskList(Data[1]);
             if  Data[4] and Logic.IsEntityMoving(Data[1]) == false
             and not IsFighting(Data[1]) then
-                Logic.GroupAttackMove(Data[1], Data[4].X, Data[4].Y);
+                Logic.MoveSettler(Data[1], Data[4].X, Data[4].Y);
             end
         end
     end
+end
+
+function Stronghold.Attraction:GetCriminalDestinations(_PlayerID)
+    local Buildings = {};
+    if IsPlayer(_PlayerID) then
+        Buildings = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+        local CastleID = GetHeadquarterID(_PlayerID);
+        if CastleID ~= 0 then
+            table.insert(Buildings, CastleID);
+            Buildings[1] = Buildings[1] + 1;
+        end
+    end
+    return Buildings;
 end
 
 -- Replaces the worker with a criminal and calls the callback.
@@ -406,7 +532,7 @@ function Stronghold.Attraction:AddCriminal(_PlayerID, _BuildingID, _WorkerID)
         x,y,z = Logic.EntityGetPos(ID);
         Logic.SetEntitySelectableFlag(ID, 0);
         Logic.MoveSettler(ID, x, y);
-        local Points = self.Config.Crime.Unveil.Points;
+        local Points = self.Config.Crime.Obfuscation.Points;
         table.insert(self.Data[_PlayerID].Criminals, {ID, _BuildingID, {X= x, Y= y}, nil, Points});
 
         -- Show message
@@ -442,7 +568,7 @@ function Stronghold.Attraction:RemoveCriminal(_PlayerID, _EntityID)
 end
 
 function Stronghold.Attraction:DoCriminalsAppear(_PlayerID)
-    return GetRank(_PlayerID) >= 3;
+    return GetRank(_PlayerID) >= PlayerRank.Earl;
 end
 
 -- Decides if a worker turns criminal.
@@ -492,25 +618,29 @@ function Stronghold.Attraction:GetSettlersExposition(_PlayerID, _CriminalID)
     if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local x,y,z = Logic.EntityGetPos(_CriminalID);
         -- Check militia
-        local _, MilitiaID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PU_BattleSerf, x, y, self.Config.Crime.Unveil.SerfArea, 1);
+        local _, MilitiaID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PU_BattleSerf, x, y, self.Config.Crime.Obfuscation.SerfArea, 1);
         if MilitiaID then
-            Exposition = Exposition + (1 * self.Config.Crime.Unveil.SerfRate);
+            Exposition = Exposition + (1 * self.Config.Crime.Obfuscation.SerfRate);
         end
         -- Check watchtowers
-        local _, DarkTowerID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower1, x, y, self.Config.Crime.Unveil.TowerArea, 1);
-        local _, TowerID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, x, y, self.Config.Crime.Unveil.TowerArea, 1);
-        if (DarkTowerID and Logic.IsConstructionComplete(DarkTowerID) == 1)
-        or (TowerID and Logic.IsConstructionComplete(TowerID) == 1) then
-            Exposition = Exposition + (1 * self.Config.Crime.Unveil.TowerRate);
+        local _, DarkTower1ID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower1, x, y, self.Config.Crime.Obfuscation.TowerArea, 1);
+        local _, DarkTower4ID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower4, x, y, self.Config.Crime.Obfuscation.TowerArea, 1);
+        local _, Tower1ID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, x, y, self.Config.Crime.Obfuscation.TowerArea, 1);
+        local _, Tower4ID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower4, x, y, self.Config.Crime.Obfuscation.TowerArea, 1);
+        if (DarkTower1ID and Logic.IsConstructionComplete(DarkTower1ID) == 1)
+        or (DarkTower4ID and Logic.IsConstructionComplete(DarkTower4ID) == 1)
+        or (Tower1ID and Logic.IsConstructionComplete(Tower1ID) == 1)
+        or (Tower4ID and Logic.IsConstructionComplete(Tower4ID) == 1) then
+            Exposition = Exposition + (1 * self.Config.Crime.Obfuscation.TowerRate);
         end
         -- Check hero
         local HeroID = Stronghold:GetPlayerHero(_PlayerID);
-        if Logic.CheckEntitiesDistance(_CriminalID, HeroID, self.Config.Crime.Unveil.HeroArea) == 1 then
-            Exposition = Exposition + (1 * self.Config.Crime.Unveil.HeroRate);
+        if Logic.CheckEntitiesDistance(_CriminalID, HeroID, self.Config.Crime.Obfuscation.HeroArea) == 1 then
+            Exposition = Exposition + (1 * self.Config.Crime.Obfuscation.HeroRate);
         end
         -- Check town guard
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_ReportingOffice) == 1 then
-            Exposition = Exposition * self.Config.Crime.Unveil.TownGuardFactor;
+            Exposition = Exposition * self.Config.Crime.Obfuscation.TownGuardFactor;
         end
     end
     return Exposition;
