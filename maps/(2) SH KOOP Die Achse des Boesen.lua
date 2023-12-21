@@ -154,6 +154,17 @@ function SetupAiPlayerMary()
 
     SetupAiPlayerMarySpawner();
     SetupAiPlayerMaryArmies();
+
+    SVLib.SetInvisibility(GetID("HQ4Ruin"), true);
+    StartSimpleJob("CheckMaryHeadquarterExisting");
+end
+
+function CheckMaryHeadquarterExisting()
+    if not IsExisting("HQ4") then
+        SVLib.SetInvisibility(GetID("HQ4Ruin"), false);
+        gvMary.IsDefeated = true;
+        return true;
+    end
 end
 
 function SetupAiPlayerMarySpawner()
@@ -225,6 +236,7 @@ end
 
 gvVarg = {
     PlayerID = 4,
+    IsDefeated = false,
     SpawnTimer = 180,
     SpawnFactor = 1.0,
     Experience = 0,
@@ -240,6 +252,17 @@ function SetupAiPlayerVarg()
 
     SetupAiPlayerVargSpawner();
     SetupAiPlayerVargArmies();
+
+    SVLib.SetInvisibility(GetID("HQ5Ruin"), true);
+    StartSimpleJob("CheckVargHeadquarterExisting");
+end
+
+function CheckVargHeadquarterExisting()
+    if not IsExisting("HQ5") then
+        SVLib.SetInvisibility(GetID("HQ5Ruin"), false);
+        gvVarg.IsDefeated = true;
+        return true;
+    end
 end
 
 function SetupAiPlayerVargSpawner()
