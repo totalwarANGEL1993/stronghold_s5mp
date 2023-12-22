@@ -289,9 +289,13 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
         return;
     end
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
+        XGUIEng.ShowWidget("RallyPoint", 1);
+        XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
         XGUIEng.ShowWidget("BuildingTabs", 1);
         GUIUpdate_BuySerf();
-        local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID or 0;
+        GUIUpdate_PlaceRallyPoint();
+        local DefaultWitgedID = gvGUI_WidgetID.ToBuildingCommandMenu;
+        local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID or DefaultWitgedID;
         self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, LastWidgetID);
         -- Upgrade buttons
         XGUIEng.ShowWidget("Upgrade_Headquarter1", 0);
@@ -395,7 +399,6 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     XGUIEng.ShowWidget("HQ_CallMilitia", 1);
     XGUIEng.ShowWidget("HQ_BackToWork", 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
-    XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
 
     if IsPlayer(_PlayerID) then
         self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
