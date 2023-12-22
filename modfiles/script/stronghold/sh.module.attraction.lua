@@ -401,6 +401,7 @@ function Stronghold.Attraction:OnHawkHabitatCreated(_EntityID)
             table.insert(Positions, Position)
         end
         local ID = Logic.CreateEntity(Entities.XA_Hawk, Positions[1].X, Positions[1].Y, 0, 0);
+        Logic.SetEntityScriptingValue(ID, 72, 4);
         Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
         Logic.SetEntitySelectableFlag(ID, 0);
         MakeInvulnerable(ID);

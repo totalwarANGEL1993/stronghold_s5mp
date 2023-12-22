@@ -109,6 +109,8 @@ Script.Load(gvStronghold_Path.. "sh.module.construction.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.economy.lua");
 Script.Load(gvStronghold_Path.. "sh.module.economy.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.economy.text.lua");
+Script.Load(gvStronghold_Path.. "sh.module.trade.lua");
+Script.Load(gvStronghold_Path.. "sh.module.trade.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.hero.lua");
 Script.Load(gvStronghold_Path.. "sh.module.hero.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.province.lua");

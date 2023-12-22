@@ -205,22 +205,6 @@ function GetNobleID(_PlayerID)
     return Stronghold:GetPlayerHero(_PlayerID);
 end
 
---- Alters the purchase price of the resource.
---- @param _PlayerID integer ID of player
---- @param _Resource integer Resource type
---- @param _Price    number Price factor
-function SetPurchasePrice(_PlayerID, _Resource, _Price)
-    Stronghold:ManipulateGoodPurchasePrice(_PlayerID, _Resource, _Price);
-end
-
---- Alters the selling price of the resource.
---- @param _PlayerID integer ID of player
---- @param _Resource integer Resource type
---- @param _Price    number Price factor
-function SetSellingPrice(_PlayerID, _Resource, _Price)
-    Stronghold:ManipulateGoodSellPrice(_PlayerID, _Resource, _Price);
-end
-
 --- Returns the max amount of usable player IDs.
 --- @return integer Amount Amount of player IDs
 function GetMaxPlayers()
@@ -373,48 +357,6 @@ end
 function GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount)
 end
 
---- Triggered when resources are traded.
---- @param _PlayerID integer ID of player
---- @param _EntityID integer ID of building
---- @param _BuyType integer Resource type to buy
---- @param _BuyAmount integer Amount of purchased resource
---- @param _SellType integer Resource type to sell
---- @param _SellAmount integer Amount of sold resource
-function GameCallback_SH_GoodsTraded(_PlayerID, _EntityID, _BuyType, _BuyAmount, _SellType, _SellAmount)
-end
-
---- Triggered when the price for purchasing resources is calculated.
---- @param _PlayerID integer ID of player
---- @param _Resource integer Resource type
---- @return number Factor Min factor
-function GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
-    return Stronghold.Config.Trade[_Resource][1] or 0.75;
-end
-
---- Triggered when the price for purchasing resources is calculated.
---- @param _PlayerID integer ID of player
---- @param _Resource integer Resource type
---- @return number Factor Max factor
-function GameCallback_SH_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource)
-    return Stronghold.Config.Trade[_Resource][2] or 1.25;
-end
-
---- Triggered when the price for selling resources is calculated.
---- @param _PlayerID integer ID of player
---- @param _Resource integer Resource type
---- @return number Factor Min factor
-function GameCallback_SH_Calculate_SellMinPriceFactor(_PlayerID, _Resource)
-    return Stronghold.Config.Trade[_Resource][3] or 0.75;
-end
-
---- Triggered when the price for selling resources is calculated.
---- @param _PlayerID integer ID of player
---- @param _Resource integer Resource type
---- @return number Factor Max factor
-function GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
-    return Stronghold.Config.Trade[_Resource][4] or 1.25;
-end
-
 --- Triggered when battle damage is calculated.
 --- @param _AttackerID integer ID of attacker
 --- @param _AttackedID integer ID of attacked
@@ -465,6 +407,7 @@ function Stronghold:Init()
     self.Utils:OverwriteInterfaceTools();
     self.Rights:Install();
     self.Economy:Install();
+    self.Trade:Install();
     self.Construction:Install();
     self.Building:Install();
     self.Recruit:Install();
@@ -515,6 +458,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Building:OnSaveGameLoaded();
     self.Recruit:OnSaveGameLoaded();
     self.Economy:OnSaveGameLoaded();
+    self.Trade:OnSaveGameLoaded();
     self.Hero:OnSaveGameLoaded();
     self.Unit:OnSaveGameLoaded();
     self.Attraction:OnSaveGameLoaded();
@@ -1068,19 +1012,7 @@ function Stronghold:StartTriggers()
     end);
 
     Job.Trade(function()
-        local BuyType = Event.GetBuyResource();
-        local BuyAmount = Event.GetBuyAmount();
-        local SellType = Event.GetSellResource();
-        local SellAmount = Event.GetSellAmount();
-        local EntityID = Event.GetEntityID();
-        local PlayerID = Logic.EntityGetPlayer(EntityID);
-
-        local PurchasePrice = Logic.GetCurrentPrice(PlayerID, BuyType);
-        Stronghold:ManipulateGoodPurchasePrice(PlayerID, BuyType, PurchasePrice);
-        local SellPrice = Logic.GetCurrentPrice(PlayerID, SellType);
-        Stronghold:ManipulateGoodSellPrice(PlayerID, SellType, SellPrice);
-
-        GameCallback_SH_GoodsTraded(PlayerID, EntityID, BuyType, BuyAmount, SellType, SellAmount);
+        Stronghold.Trade:OnGoodsTraded();
     end);
 
     Job.Hurt(function()
@@ -1130,18 +1062,6 @@ function Stronghold:OnEntityHurtEntity()
             CEntity.HurtTrigger.SetDamage(math.ceil(Damage));
         end
     end
-end
-
-function Stronghold:ManipulateGoodPurchasePrice(_PlayerID, _Resource, _Price)
-    local MinBuyCap = GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource);
-    local MaxBuyCap = GameCallback_SH_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource);
-    Logic.SetCurrentPrice(_PlayerID, _Resource, math.max(math.min(_Price, MaxBuyCap), MinBuyCap));
-end
-
-function Stronghold:ManipulateGoodSellPrice(_PlayerID, _Resource, _Price)
-    local MinSellCap = GameCallback_SH_Calculate_SellMinPriceFactor(_PlayerID, _Resource);
-    local MaxSellCap = GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource);
-    Logic.SetCurrentPrice(_PlayerID, _Resource, math.max(math.min(_Price, MaxSellCap), MinSellCap));
 end
 
 -- -------------------------------------------------------------------------- --
@@ -1288,7 +1208,6 @@ function Stronghold:ForcedSelfDesctruct(_PlayerID)
         [Entities.PU_Hero11] = true;
     };
 
-    -- Singleplayer
     for _, Type in pairs(Entities) do
         if not DestroyLaterTypes[Type] and not DestroyNeverTypes[Type] then
             self:ForcedSelfDesctructHelper(_PlayerID, Type);
