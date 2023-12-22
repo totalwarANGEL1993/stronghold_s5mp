@@ -3,40 +3,6 @@
 ---
 --- This script manages all components of the stronghold mod.
 ---
---- Defined game callbacks:
---- - <number> GameCallback_SH_Calculate_Payday(_PlayerID, _Amount)
----   Called after the payday is done.
---- 
---- - GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount)
----   Called after a player gained honor.
---- 
---- - GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount)
----   Called after a player gained reputation.
---- 
---- - GameCallback_SH_GoodsTraded(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount)
----   Called after a trade has concluded.
---- 
---- - <number> GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
----   Calculates the minimum of the purchase price factor of the resource.
---- 
---- - <number> GameCallback_SH_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource)
----   Calculates the maximum of the purchase price factor of the resource.
---- 
---- - <number> GameCallback_SH_Calculate_SellMinPriceFactor(_PlayerID, _Resource)
----   Calculates the minimum of the sell price factor of the resource.
---- 
---- - <number> GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
----   Calculates the maximum of the sell price factor of the resource.
---- 
---- - <number> GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damage)
----   Calculates the damage of an attack
----
---- - GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _CastleID, _IsAI)
----   Called after the player is initialized.
----
---- - GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, _CastleID)
----   Called after the player has received their headquarter.
----
 
 Stronghold = {
     Version = "0.6.16",
@@ -267,6 +233,74 @@ function GetMaxHumanPlayers()
     return Stronghold:GetMaxAmountOfHumanPlayersPossible();
 end
 
+--- Returns all entities of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @param _IsConstructed boolean Only fully constructed
+--- @return table List List of results
+function GetEntitiesOfType(_PlayerID, _Type, _IsConstructed)
+    return Stronghold:GetEntitiesOfType(_PlayerID, _Type, _IsConstructed);
+end
+
+--- Returns all buildings of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @param _IsConstructed boolean Only fully constructed
+--- @return table List List of results
+function GetBuildingsOfType(_PlayerID, _Type, _IsConstructed)
+    return Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed, nil);
+end
+
+--- Returns all walls of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @param _IsConstructed boolean Only fully constructed
+--- @return table List List of results
+function GetFortificationOfType(_PlayerID, _Type, _IsConstructed)
+    return Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Fortification");
+end
+
+--- Returns all workplaces of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @param _IsConstructed boolean Only fully constructed
+--- @return table List List of results
+function GetWorkplacesOfType(_PlayerID, _Type, _IsConstructed)
+    return Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Workplace");
+end
+
+--- Returns all settlers of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @return table List List of results
+function GetSettlersOfType(_PlayerID, _Type)
+    return Stronghold:GetSettlersOfType(_PlayerID, _Type);
+end
+
+--- Returns all leaders of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @return table List List of results
+function GetLeadersOfType(_PlayerID, _Type)
+    return Stronghold:GetSettlersOfType(_PlayerID, _Type, "Leader");
+end
+
+--- Returns all siege engines of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @return table List List of results
+function GetCannonsOfType(_PlayerID, _Type)
+    return Stronghold:GetSettlersOfType(_PlayerID, _Type, "Cannon");
+end
+
+--- Returns all workers of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @return table List List of results
+function GetWorkersOfType(_PlayerID, _Type)
+    return Stronghold:GetSettlersOfType(_PlayerID, _Type, "Worker");
+end
+
 --- Writes a log entry into the server log.
 --- @param _Msg string Text of log message
 --- @param ... any Optional text parameters
@@ -319,42 +353,89 @@ end
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
+--- Triggered when the income of a player is calculated.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount
+--- @return integer Income Amount of money
 function GameCallback_SH_Calculate_Payday(_PlayerID, _Amount)
-    return _Amount
+    return _Amount;
 end
 
+--- Triggered when a player gains honor.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount
 function GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount)
 end
 
+--- Triggered when a player gains reputation.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount
 function GameCallback_SH_Logic_ReputationGained(_PlayerID, _Amount)
 end
 
+--- Triggered when resources are traded.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of building
+--- @param _BuyType integer Resource type to buy
+--- @param _BuyAmount integer Amount of purchased resource
+--- @param _SellType integer Resource type to sell
+--- @param _SellAmount integer Amount of sold resource
 function GameCallback_SH_GoodsTraded(_PlayerID, _EntityID, _BuyType, _BuyAmount, _SellType, _SellAmount)
 end
 
+--- Triggered when the price for purchasing resources is calculated.
+--- @param _PlayerID integer ID of player
+--- @param _Resource integer Resource type
+--- @return number Factor Min factor
 function GameCallback_SH_Calculate_PurchaseMinPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][1] or 0.75;
 end
 
+--- Triggered when the price for purchasing resources is calculated.
+--- @param _PlayerID integer ID of player
+--- @param _Resource integer Resource type
+--- @return number Factor Max factor
 function GameCallback_SH_Calculate_PurchaseMaxPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][2] or 1.25;
 end
 
+--- Triggered when the price for selling resources is calculated.
+--- @param _PlayerID integer ID of player
+--- @param _Resource integer Resource type
+--- @return number Factor Min factor
 function GameCallback_SH_Calculate_SellMinPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][3] or 0.75;
 end
 
+--- Triggered when the price for selling resources is calculated.
+--- @param _PlayerID integer ID of player
+--- @param _Resource integer Resource type
+--- @return number Factor Max factor
 function GameCallback_SH_Calculate_SellMaxPriceFactor(_PlayerID, _Resource)
     return Stronghold.Config.Trade[_Resource][4] or 1.25;
 end
 
+--- Triggered when battle damage is calculated.
+--- @param _AttackerID integer ID of attacker
+--- @param _AttackedID integer ID of attacked
+--- @param _Damage integer Damage before calculation
+--- @return integer Damage Altered battle damage
 function GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, _Damage)
     return _Damage;
 end
 
+--- Triggered when a player is initialized.
+---
+--- The ID of the castle will be 0 if the player starts without a castle.
+--- @param _PlayerID integer ID of player
+--- @param _CastleID integer ID of headquarters
+--- @param _IsAI boolean Player is AI
 function GameCallback_SH_Logic_OnPlayerInitialized(_PlayerID, _CastleID, _IsAI)
 end
 
+--- Triggered when a player gets their headquarter.
+--- @param _PlayerID integer ID of player
+--- @param _CastleID integer ID of headquarters
 function GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, _CastleID)
 end
 
@@ -680,7 +761,7 @@ function Stronghold:InitalizePlayersHeadquarter(_PlayerID)
     Job.Second(function(_PlayerID)
         return Stronghold:WaitForPlayersHeadquarterDestroyed(_PlayerID);
     end, _PlayerID);
-    GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, CastleID)
+    GameCallback_SH_Logic_OnHeadquarterReceived(_PlayerID, CastleID);
 end
 
 function Stronghold:InitalizePlayersSerfs(_PlayerID, _Serfs, _CampPos, _LookAt)
