@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>XA_Hawk</Model>
+        <Anim>XA_Hawk_Fly</Anim>
+        <DrawPlayerColor>False</DrawPlayerColor>
+    </Display>
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Convertible>false</Convertible>
+        <Hat/>
+        <Cost>
+            <Gold>0</Gold>
+        </Cost>
+        <Category>Wall</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>50</MaxHealth>
+        <Exploration>0</Exploration>
+        <ArmorClass>ArmorClassFur</ArmorClass>
+        <ArmorAmount>100</ArmorAmount>
+        <DodgeChance>100</DodgeChance>
+        <IdleTaskList>TL_HAWK_IDLE</IdleTaskList>
+        <ExperiencePoints>5</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Fearless>true</Fearless>
+        <Upgrade>
+            <Category>Hawk</Category>
+        </Upgrade>
+    </Logic>
+
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>XA_Hawk_Fly</SuspensionAnimation>
+            <AnimSet>SET_HAWK</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CLeaderMovement</Class>
+            <Speed>400</Speed>
+            <RotationSpeed>50</RotationSpeed>
+            <MoveTaskList>TL_HAWK_IDLE</MoveTaskList>
+            <MoveIdleAnim>XA_Hawk_Fly</MoveIdleAnim>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBehaviorWalkCommand</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLeaderBehaviorProps">
+            <Class>GGL::CLeaderBehavior</Class>
+            <BarrackUpgradeCategory>Archery</BarrackUpgradeCategory>
+            <HomeRadius>2000</HomeRadius>
+
+            <SoldierType>PU_SoldierBow4</SoldierType>
+
+            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+
+            <NormalAttackAnim1>PU_SoldierBow4_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_SoldierBow4_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>PU_SoldierBow4_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_SoldierBow4_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_SoldierBow4_Attack1</MissAttackAnim>
+            <BattleIdleAnim>PU_SoldierBow4_IdleAttack1</BattleIdleAnim>
+            <BattleWalkAnim>PU_SoldierBow4_Run1</BattleWalkAnim>
+            <HitAnim>PU_SoldierBow4_Hit</HitAnim>
+
+            <DamageClass>DC_Bow</DamageClass>
+            <DamageAmount>1</DamageAmount>
+            <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
+
+            <BattleWaitUntil>2000</BattleWaitUntil>
+
+            <MissChance>0</MissChance>
+
+            <ProjectileEffectID>FXArrow</ProjectileEffectID>
+            <MaxRange>0</MaxRange>
+            <MinRange>0</MinRange>
+            <AutoAttackRange>0</AutoAttackRange>
+
+            <HealingPoints>2</HealingPoints>
+            <HealingSeconds>10</HealingSeconds>
+
+            <UpkeepCost>0</UpkeepCost>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
+            <Attachment>
+                <Type>ATTACHMENT_LEADER_SOLDIER</Type>
+                <Limit>0</Limit>
+            </Attachment>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CLeaderEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>400</BasePriority>
+        </Logic>
+    </Behavior>
+</root>

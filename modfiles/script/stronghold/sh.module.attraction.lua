@@ -365,7 +365,7 @@ function Stronghold.Attraction:ManageHawks()
         local HawkID = Data[1];
         local Position = Data[Data[2]];
         if IsExisting(HawkID) then
-            if GetDistance(HawkID, Position) <= 100 then
+            if GetDistance(HawkID, Position) <= 200 then
                 Data[2] = (Data[2] + 1 > 7 and 3) or Data[2] + 1;
                 self.Data.HawkHabitats[EntityID][2] = Data[2];
             else
@@ -380,10 +380,12 @@ function Stronghold.Attraction:OnHawkHabitatCreated(_EntityID)
     if EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
         local Positions = {};
         for Angle = 0, 288, 72 do
-            local Position = GetCirclePosition(_EntityID, 250, Angle);
+            local Position = GetCirclePosition(_EntityID, 600, Angle);
             table.insert(Positions, Position)
         end
-        local ID = Logic.CreateEntity(Entities.CU_Hawk, Positions[1].X, Positions[1].Y, 0, 0);
+        local ID = Logic.CreateEntity(Entities.XA_Hawk, Positions[1].X, Positions[1].Y, 0, 0);
+        Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
+        Logic.SetEntitySelectableFlag(ID, 0);
         MakeInvulnerable(ID);
         self.Data.HawkHabitats[_EntityID] = {ID, 3, unpack(Positions)};
     end

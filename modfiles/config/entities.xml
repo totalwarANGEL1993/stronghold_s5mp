@@ -1143,6 +1143,6 @@
         <Entity>XD_WallGate_Replacer</Entity>
 
         <!-- Misc -->
-        <Entity>CU_Hawk</Entity>
+        <Entity>XA_Hawk</Entity>
         <Entity>XD_Bomb2</Entity>
 </root>

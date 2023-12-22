@@ -1226,6 +1226,11 @@
 	    <FirstSettler>CU_Templar_SoldierHeavyCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
+	<SettlerUpgrade>
+	    <Category>Hawk</Category>
+	    <FirstSettler>XA_Hawk</FirstSettler>
+	</SettlerUpgrade>
+
     <!-- Other -->
 
     <BuildingUpgrade>
