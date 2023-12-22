@@ -3701,6 +3701,54 @@
         <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
     </Model>
 
+    <Model id="XD_Ammunition_Iron1">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XD_Ammunition_Iron2">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XD_Ammunition_Iron3">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XD_Ammunition_Iron4">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XD_Ammunition_Stone1">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XD_Ammunition_Stone2">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XD_Ammunition_Stone3">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XD_Ammunition_Stone4">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
     <Model id="XD_BushDesert02">
         <CastShadow>True</CastShadow>
         <ShareShadowRaster>True</ShareShadowRaster>
@@ -3805,24 +3853,76 @@
         <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
     </Model>
 
-    <Model id="XD_Dragonboat">
-        <CastShadow>False</CastShadow>
-        <OrnamentalItem>True</OrnamentalItem>
-        <OrnamentalItemEffect>OrnamentalItemStatic</OrnamentalItemEffect>
-        <TerrainLightColorPortion>1</TerrainLightColorPortion>
-        <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+    <Model id="XD_Cog">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>False</UseAlphaBlending>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <Effect>DoodadMovementWaterLily</Effect>
     </Model>
 
+    <Model id="XD_CogWreckage">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+    </Model>
+
+    <Model id="XD_Dragonboat01">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>False</UseAlphaBlending>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <Effect>DoodadMovementWaterLily</Effect>
+    </Model>
+    
     <Model id="XD_Dragonboat02">
-        <Effect>SettlerPlayerColorSpecular</Effect>
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>False</UseAlphaBlending>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <Effect>DoodadMovementWaterLily</Effect>
     </Model>
 
-    <Model id="XD_Kogge_Wreck">
-        <CastShadow>False</CastShadow>
-        <OrnamentalItem>True</OrnamentalItem>
-        <OrnamentalItemEffect>OrnamentalItemStatic</OrnamentalItemEffect>
-        <TerrainLightColorPortion>1</TerrainLightColorPortion>
-        <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+    <Model id="DX_DragonboatConstruction">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+    </Model>
+
+    <Model id="XD_DragonboatWreckage">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+    </Model>
+
+    <Model id="XD_ExecutionerPlace">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+    </Model>
+
+    <Model id="XD_HarbourCrane">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+    </Model>
+
+    <Model id="XD_Pole1">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+    </Model>
+
+    <Model id="XD_Pole2">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
+    </Model>
+
+    <Model id="XD_Pole3">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
     </Model>
 
     <Model id="XD_Palm1">
@@ -3857,12 +3957,36 @@
         <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
     </Model>
 
-    <Model id="XD_SmallBoat">
-        <CastShadow>False</CastShadow>
-        <OrnamentalItem>True</OrnamentalItem>
-        <OrnamentalItemEffect>OrnamentalItemStatic</OrnamentalItemEffect>
-        <TerrainLightColorPortion>1</TerrainLightColorPortion>
-        <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
+    <Model id="XD_SmallBoat1">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>False</UseAlphaBlending>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <Effect>DoodadMovementWaterLily</Effect>
+    </Model>
+
+    <Model id="XD_SmallBoat2">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>False</UseAlphaBlending>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <Effect>DoodadMovementWaterLily</Effect>
+    </Model>
+
+    <Model id="XD_SmallBoat3">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>False</UseAlphaBlending>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <Effect>DoodadMovementWaterLily</Effect>
+    </Model>
+
+    <Model id="XD_SmallBoat4">
+        <CastShadow>True</CastShadow>
+        <ShareShadowRaster>True</ShareShadowRaster>
+        <UseAlphaBlending>False</UseAlphaBlending>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <Effect>DoodadMovementWaterLily</Effect>
     </Model>
 
     <Model id="XD_Umbrella1">

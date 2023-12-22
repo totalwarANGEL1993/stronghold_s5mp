@@ -1071,7 +1071,8 @@
         <Entity>CU_Templar_SoldierHeavyCavalry1</Entity>
         <Entity>CU_Templar_LeaderPoleArm1</Entity>
         <Entity>CU_Templar_SoldierPoleArm1</Entity>
-        <!-- <Entity>CU_Dragonboat</Entity> -->
+        <!-- <Entity>CU_Dragonboat1</Entity>
+        <Entity>CU_Dragonboat2</Entity> -->
         <Entity>CV_Cannon1</Entity>
         <Entity>CV_Cannon2</Entity>
 
@@ -1095,6 +1096,14 @@
         <Entity>PB_WallStraightGate</Entity>
 
         <!-- Landscape objects -->
+        <Entity>XD_AmmunitionIron1</Entity>
+        <Entity>XD_AmmunitionIron2</Entity>
+        <Entity>XD_AmmunitionIron3</Entity>
+        <Entity>XD_AmmunitionIron4</Entity>
+        <Entity>XD_AmmunitionStone1</Entity>
+        <Entity>XD_AmmunitionStone2</Entity>
+        <Entity>XD_AmmunitionStone3</Entity>
+        <Entity>XD_AmmunitionStone4</Entity>
         <Entity>XD_BushDesert01</Entity>
         <Entity>XD_BushDesert02</Entity>
         <Entity>XD_BushDesert03</Entity>
@@ -1109,14 +1118,26 @@
         <Entity>XD_Cactus1</Entity>
         <Entity>XD_Cactus2</Entity>
         <Entity>XD_Cactus3</Entity>
+        <Entity>XD_Cog</Entity>
+        <Entity>XD_CogWreckage</Entity>
         <Entity>XD_CaveEntry2</Entity>
-        <Entity>XD_Dragonboat</Entity>
-        <Entity>XD_KoggeWreck</Entity>
+        <Entity>XD_Dragonboat1</Entity>
+        <Entity>XD_Dragonboat2</Entity>
+        <Entity>XD_DragonboatConstructionSite</Entity>
+        <Entity>XD_DragonboatWreckage</Entity>
+        <Entity>XD_ExecutionerPlace</Entity>
+        <Entity>XD_HarborCrane</Entity>
         <Entity>XD_Palm1</Entity>
         <Entity>XD_Palm2</Entity>
         <Entity>XD_Palm3</Entity>
         <Entity>XD_Palm4</Entity>
-        <Entity>XD_SmallBoat</Entity>
+        <Entity>XD_Pole1</Entity>
+        <Entity>XD_Pole2</Entity>
+        <Entity>XD_Pole3</Entity>
+        <Entity>XD_SmallBoat1</Entity>
+        <Entity>XD_SmallBoat2</Entity>
+        <Entity>XD_SmallBoat3</Entity>
+        <Entity>XD_SmallBoat4</Entity>
         <Entity>XD_Stone_BlockPath2</Entity>
         <Entity>XD_Stone2</Entity>
         <Entity>XD_StonePit2</Entity>

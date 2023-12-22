@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_DragonboatWreckage</Model>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CGLEEntity</Class>
+  		<AccessCategory>AccessCategoryStatic</AccessCategory> 
+		<DoNotExecute>True</DoNotExecute>
+        <Blocked1>
+            <X>-700</X>
+            <Y>-200</Y>
+        </Blocked1>
+        <Blocked2>
+            <X>900</X>
+            <Y>200</Y>
+        </Blocked2>
+	</Logic>
+</root>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>PB_ExecutionerPlace</Model>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CGLEEntity</Class>
+  		<AccessCategory>AccessCategoryStatic</AccessCategory> 
+		<DoNotExecute>True</DoNotExecute>
+        <Blocked1>
+            <X>-400</X>
+            <Y>-400</Y>
+        </Blocked1>
+        <Blocked2>
+            <X>400</X>
+            <Y>400</Y>
+        </Blocked2>
+	</Logic>
+</root>
