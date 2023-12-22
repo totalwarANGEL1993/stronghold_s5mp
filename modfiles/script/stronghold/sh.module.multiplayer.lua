@@ -368,7 +368,7 @@ function Stronghold.Multiplayer:Configure()
     if not self:HaveRulesBeenConfigured() then
         if self.Data.Config.DisableRuleConfiguration then
             -- Start the delay
-            Stronghold:AddDelayedAction(1, function()
+            Delay.Turn(1, function()
                 local Check = Stronghold.Multiplayer:CheckVersions();
                 if Check == 0 then
                     Stronghold.Multiplayer:ResumePlayers();
@@ -384,7 +384,7 @@ function Stronghold.Multiplayer:Configure()
             self.Data.RulesConfirmedTime = Logic.GetTime();
             self:ShowRuleTimer();
             -- Start the delay
-            Stronghold:AddDelayedAction(Turns, function()
+            Delay.Turn(Turns, function()
                 local Check = Stronghold.Multiplayer:CheckVersions();
                 if Check == 0 then
                     Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
@@ -737,7 +737,7 @@ end
 
 function Stronghold.Multiplayer:OnGameStart()
     -- Do it delayed by 1 turn just to be sure all went trought.
-    Stronghold:AddDelayedAction(1, function()
+    Delay.Turn(1, function()
         GameCallback_SH_Logic_OnMapStart();
     end);
 end

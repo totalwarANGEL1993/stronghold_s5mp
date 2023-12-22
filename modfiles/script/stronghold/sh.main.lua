@@ -919,32 +919,6 @@ function Stronghold:WriteToLog(_Msg, ...)
 end
 
 -- -------------------------------------------------------------------------- --
--- Turn Delay
-
--- Delays an action by the amount of turns.
--- (Sometimes actions must be delayed a turn to work properly.)
-function Stronghold:AddDelayedAction(_Delay, _Function, ...)
-    table.insert(self.Shared.DelayedAction, {
-        StartTime = Logic.GetTimeMs(),
-        Delay     = _Delay,
-        Action    = _Function,
-        Parameter = arg
-    });
-end
-
-function Stronghold:DelayedActionController()
-    for i= table.getn(self.Shared.DelayedAction), 1, -1 do
-        local Data = self.Shared.DelayedAction[i];
-        if Logic.GetTimeMs() >= Data.StartTime + (Data.Delay * 100) then
-            table.remove(self.Shared.DelayedAction, i);
-            if Data.Action then
-                Data.Action(unpack(Data.Parameter));
-            end
-        end
-    end
-end
-
--- -------------------------------------------------------------------------- --
 -- Trigger
 
 function Stronghold:StartTriggers()
@@ -958,7 +932,6 @@ function Stronghold:StartTriggers()
     end);
 
     Job.Turn(function()
-        Stronghold:DelayedActionController();
         -- Send versions to all other players
         -- (Multiplayer only)
         Stronghold.Multiplayer:BroadcastStrongholdVersion();
@@ -1502,7 +1475,7 @@ function Stronghold:OnPlayerPayday(_PlayerID)
         end
 
         -- Motivation
-        self:AddDelayedAction(1, function()
+        Delay.Turn(1, function()
             Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, ReputationIncome);
         end);
 
