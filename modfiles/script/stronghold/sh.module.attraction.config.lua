@@ -17,9 +17,9 @@ Stronghold.Attraction.Config.Attraction = {
 }
 
 Stronghold.Attraction.Config.Rats = {
-    BaseDirtRate = 0.03,
-    UpgradeDirtRade = 0.01,
-    DisposalRate = 0.1,
+    BaseDirtRate = 0.015,
+    UpgradeDirtRade = 0.005,
+    DisposalRate = 0.05,
     HawkArea = 5000,
 }
 

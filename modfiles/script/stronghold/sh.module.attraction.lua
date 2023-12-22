@@ -218,6 +218,8 @@ function Stronghold.Attraction:Install()
         };
     end
 
+    GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.XA_Hawk] = true;
+
     self:InitCriminalsEffects();
     self:InitLogicOverride();
 end

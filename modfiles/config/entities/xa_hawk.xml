@@ -1,32 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root>
+    <!-- This hawk must be a leader for technical reasons. As an animal it 
+         would be deleted as son as it is on blocking and as a normal settler
+         it would need farm and residence. -->
+
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
         <Model>XA_Hawk</Model>
         <Anim>XA_Hawk_Fly</Anim>
         <DrawPlayerColor>False</DrawPlayerColor>
     </Display>
+
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <NeedsPlayer>true</NeedsPlayer>
-        <ForceNoPlayer>false</ForceNoPlayer>
-        <Convertible>false</Convertible>
         <Hat/>
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <!-- This is used to prevent units to automatically attack. -->
         <Category>Wall</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>50</MaxHealth>
         <Exploration>0</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>100</ArmorAmount>
-        <DodgeChance>100</DodgeChance>
+        <ArmorAmount>0</ArmorAmount>
+        <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_HAWK_IDLE</IdleTaskList>
-        <ExperiencePoints>5</ExperiencePoints>
+        <ExperiencePoints>0</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Fearless>true</Fearless>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Convertible>false</Convertible>
         <Upgrade>
             <Category>Hawk</Category>
         </Upgrade>
@@ -85,13 +91,12 @@
             <DamageAmount>1</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
 
+            <!-- The hawk shall not attach anyone! -->
             <BattleWaitUntil>2000</BattleWaitUntil>
-
-            <MissChance>0</MissChance>
-
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
             <MaxRange>0</MaxRange>
             <MinRange>0</MinRange>
+            <MissChance>100</MissChance>
             <AutoAttackRange>0</AutoAttackRange>
 
             <HealingPoints>2</HealingPoints>

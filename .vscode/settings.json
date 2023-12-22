@@ -255,7 +255,8 @@
         "CSendEvent",
         "MAINQUEST_CLOSED",
         "GUIAction_PlaceBuilding",
-        "EUROPEMUSIC"
+        "EUROPEMUSIC",
+        "GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
