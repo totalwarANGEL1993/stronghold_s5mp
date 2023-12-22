@@ -859,7 +859,7 @@ function Stronghold:GetMaxAmountOfPlayersPossible()
 end
 
 function Stronghold:SetMaxAmountOfPlayersPossible(_Max)
-    assert(_Max < 16);
+    assert(_Max <= 16);
     self.Config.Base.MaxPossiblePlayers = _Max;
 end
 
@@ -868,7 +868,7 @@ function Stronghold:GetMaxAmountOfHumanPlayersPossible()
 end
 
 function Stronghold:SetMaxAmountOfHumanPlayersPossible(_Max)
-    assert(_Max < 14);
+    assert(_Max <= 14 and self.Config.Base.MaxPossiblePlayers - _Max >= 2);
     self.Config.Base.MaxHumanPlayers = _Max;
 end
 
@@ -1127,7 +1127,10 @@ function Stronghold:PlayerDefeatCondition(_PlayerID)
             PlayerIsDefeated = true;
         end
     elseif self.Config.DefeatModes.LastManStanding then
-        if  Logic.GetNumberOfAttractedSoldiers(_PlayerID) == 0
+        local SoldierAmount = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
+        -- Hawks must be explicitly excluded
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.XA_Hawk);
+        if  SoldierAmount == 0
         and not IsEntityValid(HeroName)
         and not IsExisting("HQ" .._PlayerID) then
             PlayerIsDefeated = true;

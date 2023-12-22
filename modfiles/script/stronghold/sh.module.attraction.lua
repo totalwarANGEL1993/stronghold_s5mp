@@ -216,12 +216,14 @@ function Stronghold.Attraction:Install()
             Criminals = {},
             RatData = {},
         };
+        -- For each player seperatly to better distribute the computing load
+        self.Data.HawkHabitats[i] = {};
     end
 
     GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.XA_Hawk] = true;
 
-    self:InitCriminalsEffects();
     self:InitLogicOverride();
+    self:OnPayday();
 end
 
 function Stronghold.Attraction:OnSaveGameLoaded()
@@ -245,7 +247,7 @@ end
 
 function Stronghold.Attraction:OncePerSecond(_PlayerID)
     -- Hawks
-    self:ManageHawks();
+    self:ManageHawks(_PlayerID);
     -- Criminals
     self:ManageCriminalsOfPlayer(_PlayerID);
     -- Rats
@@ -260,6 +262,16 @@ function Stronghold.Attraction:OnEveryTurn(_PlayerID)
         local Limit, RawLimit = self:GetVirtualPlayerAttractionLimit(_PlayerID);
         CLogic.SetAttractionLimitOffset(_PlayerID, math.max(math.ceil(Limit - RawLimit), 0));
     end
+end
+
+function Stronghold.Attraction:OnPayday()
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
+        local Amount = Overwrite.CallOriginal();
+        Stronghold.Attraction:OnRatPlagueOnPayday(_PlayerID);
+        Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
+        Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID);
+        return Amount;
+    end);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -340,12 +352,6 @@ function Stronghold.Attraction:ManageRatsOfPlayer(_PlayerID)
                 self.Data[_PlayerID].RatData[Buildings[i]][1] = Dirt;
             end
         end
-
-        if math.mod(Logic.GetTime(), 60) == 0 then
-            if self:GetPlayerRats(_PlayerID) >= 1 and GUI.GetPlayerID() == _PlayerID then
-                Message(XGUIEng.GetStringTableText("sh_text/Player_RatsSpreadDisease"));
-            end
-        end
     end
 end
 
@@ -362,14 +368,14 @@ function Stronghold.Attraction:GetBuildingsInfestableWithRats(_PlayerID)
     return Buildings;
 end
 
-function Stronghold.Attraction:ManageHawks()
-    for EntityID, Data in pairs(self.Data.HawkHabitats) do
+function Stronghold.Attraction:ManageHawks(_PlayerID)
+    for EntityID, Data in pairs(self.Data.HawkHabitats[_PlayerID]) do
         local HawkID = Data[1];
         local Position = Data[Data[2]];
         if IsExisting(HawkID) then
-            if GetDistance(HawkID, Position) <= 200 then
+            if GetDistance(HawkID, Position) <= 500 then
                 Data[2] = (Data[2] + 1 > 7 and 3) or Data[2] + 1;
-                self.Data.HawkHabitats[EntityID][2] = Data[2];
+                self.Data.HawkHabitats[_PlayerID][EntityID][2] = Data[2];
             else
                 Logic.MoveEntity(HawkID, Position.X, Position.Y);
             end
@@ -377,7 +383,16 @@ function Stronghold.Attraction:ManageHawks()
     end
 end
 
+function Stronghold.Attraction:OnRatPlagueOnPayday(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        if self:GetPlayerRats(_PlayerID) >= 1 and GUI.GetPlayerID() == _PlayerID then
+            Message(XGUIEng.GetStringTableText("sh_text/Player_RatsSpreadDisease"));
+        end
+    end
+end
+
 function Stronghold.Attraction:OnHawkHabitatCreated(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local EntityType = Logic.GetEntityType(_EntityID);
     if EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
         local Positions = {};
@@ -389,33 +404,22 @@ function Stronghold.Attraction:OnHawkHabitatCreated(_EntityID)
         Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
         Logic.SetEntitySelectableFlag(ID, 0);
         MakeInvulnerable(ID);
-        self.Data.HawkHabitats[_EntityID] = {ID, 3, unpack(Positions)};
+        self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
     end
 end
 
 function Stronghold.Attraction:OnHawkHabitatDestroyed(_EntityID)
-    if self.Data.HawkHabitats[_EntityID] then
-        local ID = self.Data.HawkHabitats[_EntityID][1];
-        DestroyEntity(ID);
-        self.Data.HawkHabitats[_EntityID] = nil;
+    for PlayerID,_ in pairs(self.Data.HawkHabitats) do
+        if self.Data.HawkHabitats[PlayerID][_EntityID] then
+            local ID = self.Data.HawkHabitats[PlayerID][_EntityID][1];
+            DestroyEntity(ID);
+            self.Data.HawkHabitats[PlayerID][_EntityID] = nil;
+        end
     end
 end
 
 -- -------------------------------------------------------------------------- --
 -- Criminals
-
--- Criminals steal resources. The losses are discovered on payday (because I am
--- very lazy and do not want to programm an extra job for it). Each criminal
--- will also have effect on the reputation.
-function Stronghold.Attraction:InitCriminalsEffects()
-    -- Criminals steal goods at the payday.
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
-        local Amount = Overwrite.CallOriginal();
-        Stronghold.Attraction:StealGoodsOnPayday(_PlayerID);
-        Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID);
-        return Amount;
-    end);
-end
 
 function Stronghold.Attraction:ResetThievesCycleCounter(_PlayerID)
     if IsPlayer(_PlayerID) then

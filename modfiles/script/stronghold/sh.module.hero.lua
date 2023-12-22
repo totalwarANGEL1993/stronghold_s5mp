@@ -388,9 +388,10 @@ function Stronghold.Hero:ConfigureBuyHero()
 
     Overwrite.CreateOverwrite("GameCallback_GUI_BuyHero_GetHeadline", function(_PlayerID)
         if IsPlayer(_PlayerID) then
+            local SelectionText = XGUIEng.GetStringTableText("sh_text/Player_ChooseNobleMsg")
+            local SelectionTextDone = XGUIEng.GetStringTableText("sh_text/Player_ChooseNobleDone")
             local LordID = GetID(Stronghold.Players[_PlayerID].LordScriptName);
-            local Caption = (LordID ~= 0 and "Alea Iacta Est!") or "Wählt Euren Adligen!";
-            return Caption;
+            return (LordID ~= 0 and SelectionTextDone) or SelectionText;
         end
         return Overwrite.CallOriginal();
     end);
