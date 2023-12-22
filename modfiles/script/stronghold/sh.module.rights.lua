@@ -126,9 +126,9 @@ end
 function Stronghold.Rights:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
-            MaxRank = Stronghold.Config.Base.MaxRank,
-            LockRank = Stronghold.Config.Base.MaxRank +1,
-            Rank = Stronghold.Config.Base.InitialRank,
+            MaxRank = Stronghold.Player.Config.Base.MaxRank,
+            LockRank = Stronghold.Player.Config.Base.MaxRank +1,
+            Rank = Stronghold.Player.Config.Base.InitialRank,
 
             Titles = CopyTable(self.Config.Titles);
             Rights = {},
@@ -209,7 +209,7 @@ function Stronghold.Rights:GetPlayerRankName(_Rank, _PlayerID)
     if _PlayerID ~= 17 then
         CurrentRank = _Rank;
         if IsPlayer(_PlayerID) then
-            local LordID = Stronghold:GetPlayerHero(_PlayerID);
+            local LordID = GetNobleID(_PlayerID);
             if LordID ~= 0 then
                 Gender = GetGender(Logic.GetEntityType(LordID)) or 1;
             end
@@ -456,12 +456,12 @@ function Stronghold.Rights:GetSettlersOfTypeInSettlement(_PlayerID, _Type)
 end
 
 function Stronghold.Rights:GetBuildingAmountInSettlement(_PlayerID)
-    local WorkplaceAmount = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+    local WorkplaceAmount = GetWorkplacesOfType(_PlayerID, 0, true);
     return WorkplaceAmount[1];
 end
 
 function Stronghold.Rights:GetBuildingsOfTypeInSettlement(_PlayerID, _Type)
-    local CurrentAmount = Stronghold:GetBuildingsOfType(_PlayerID, _Type, true);
+    local CurrentAmount = GetBuildingsOfType(_PlayerID, _Type, true);
     return CurrentAmount[1];
 end
 
@@ -469,7 +469,7 @@ function Stronghold.Rights:GetBeautificationAmountInSettlement(_PlayerID)
     local Amount = 0;
     for i= 1, 12 do
         local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-        local BuildingList = Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true);
+        local BuildingList = GetBuildingsOfType(_PlayerID, Entities[Type], true);
         Amount = Amount + BuildingList[1];
     end
     return Amount;
@@ -479,7 +479,7 @@ function Stronghold.Rights:GetAllBeautificationsInSettlement(_PlayerID)
     local Amount = 0;
     for i= 1, 12 do
         local Type = "PB_Beautification" .. ((i < 10 and "0"..i) or i);
-        local Beautification = Stronghold:GetBuildingsOfType(_PlayerID, Entities[Type], true);
+        local Beautification = GetBuildingsOfType(_PlayerID, Entities[Type], true);
         if Beautification[1] > 0 then
             Amount = Amount +1;
         end
@@ -496,9 +496,9 @@ function Stronghold.Rights:DoesHeadquarterOfUpgradeLevelExist(_PlayerID, _Level)
 end
 
 function Stronghold.Rights:DoesCathedralOfUpgradeLevelExist(_PlayerID, _Level)
-    local Cathedral1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
-    local Cathedral2 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
-    local Cathedral3 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Monastery3, true);
+    local Cathedral1 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
+    local Cathedral2 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
+    local Cathedral3 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery3, true);
     local ID = Cathedral3[2] or Cathedral2[2] or Cathedral1[2] or 0;
     if ID ~= 0 then
         return Logic.GetUpgradeLevelForBuilding(ID) >= _Level;
@@ -564,7 +564,7 @@ function Stronghold.Rights:OnlineHelpAction()
     else
         if GUI.GetPlayerID() == PlayerID then
             Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
-            if not IsExisting(Stronghold.Players[PlayerID].LordScriptName) then
+            if not IsExisting(GetID(PlayerID)) then
                 Message(XGUIEng.GetStringTableText("sh_rights/PromoteHero"));
             else
                 Message(XGUIEng.GetStringTableText("sh_rights/PromoteLocked"));
@@ -657,7 +657,7 @@ end
 
 function Stronghold.Rights:CanPlayerBePromoted(_PlayerID, _IgnoreDuties)
     if IsPlayer(_PlayerID) then
-        if _IgnoreDuties or IsExisting(Stronghold.Players[_PlayerID].LordScriptName) then
+        if _IgnoreDuties or IsExisting(GetNobleID(_PlayerID)) then
             local CurrentRank = GetRank(_PlayerID);
             if CurrentRank < self.Data[_PlayerID].MaxRank and CurrentRank < self.Data[_PlayerID].LockRank then
                 return _IgnoreDuties or self:ArePromotionRequirementsFulfilled(_PlayerID, CurrentRank +1);

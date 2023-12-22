@@ -431,10 +431,10 @@ function Stronghold.AI:ControlAiPlayerHeroes()
                 self.Data.Heroes[PlayerID] = {State = 1}
             end
 
-            local HeroID = Stronghold:GetPlayerHero(PlayerID);
+            local HeroID = GetNobleID(PlayerID);
             local Type = Logic.GetEntityType(HeroID);
             if IsEntityValid(HeroID) then
-                local DoorPos = Stronghold.Players[PlayerID].DoorPos;
+                local DoorPos = GetHeadquarterEntrance(PlayerID);
                 local OuterMaxDistance = 6000;
                 local InnerMaxDistance = 4000;
                 local PeaceDistance = 500;

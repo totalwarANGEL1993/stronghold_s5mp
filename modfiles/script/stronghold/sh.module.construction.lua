@@ -195,7 +195,7 @@ end
 -- infamos "BB-Logic".... To avoid boilerplate we outsource the changes.
 function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Button, _Technology)
     -- Kerberos/Kala hack
-    local HeroID = Stronghold:GetPlayerHero(_PlayerID);
+    local HeroID = GetNobleID(_PlayerID);
     local HeroType = Logic.GetEntityType(HeroID);
     local Technology = _Technology;
     if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
@@ -267,7 +267,7 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
     local IsForbidden = false;
 
     -- Kerberos/Kala hack
-    local HeroID = Stronghold:GetPlayerHero(PlayerID);
+    local HeroID = GetNobleID(PlayerID);
     local HeroType = Logic.GetEntityType(HeroID);
     local Technology = _Technology;
     if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
@@ -319,7 +319,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
     local EntityID = GUI.GetSelectedEntity();
     local UpgradeLevel = Logic.GetUpgradeLevelForBuilding(EntityID);
     -- Kerberos/Kala hack
-    local HeroID = Stronghold:GetPlayerHero(PlayerID);
+    local HeroID = GetNobleID(PlayerID);
     local HeroType = Logic.GetEntityType(HeroID);
     local Technology = _Technology;
     if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then

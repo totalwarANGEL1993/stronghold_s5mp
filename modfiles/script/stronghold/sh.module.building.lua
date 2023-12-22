@@ -205,12 +205,12 @@ end
 
 function Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, _Level)
     if IsPlayer(_PlayerID) then
-        Stronghold.Players[_PlayerID].TaxHeight = math.min(math.max(_Level +1, 0), 5);
+        SetTaxHeight(_PlayerID, math.min(math.max(_Level +1, 1), 5));
     end
 end
 
 function Stronghold.Building:CheckBuildingTechnologyConditions(_PlayerID)
-    local WorkplaceList = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+    local WorkplaceList = GetWorkplacesOfType(_PlayerID, 0, true);
 
     -- Upgrade keep
     if  Logic.GetTechnologyState(_PlayerID, Technologies.UP1_Headquarter) == 1
@@ -250,7 +250,7 @@ function Stronghold.Building:OverrideHeadquarterButtons()
         if PlayerID == 17 then
             return;
         end
-        local TaxLevel = Stronghold.Players[PlayerID].TaxHeight -1;
+        local TaxLevel = GetTaxHeight(PlayerID) -1;
         XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
         XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
     end);
@@ -478,7 +478,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
 
     elseif _BlessCategory == BlessCategories.Financial then
         local StanimaBonus = 0.5;
-        local Workplaces = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+        local Workplaces = GetWorkplacesOfType(_PlayerID, 0, true);
         for i= 2, Workplaces[1] +1 do
             local Workers = {Logic.GetAttachedWorkersToBuilding(Workplaces[i])};
             if Workers[1] > 0 and Logic.IsConstructionComplete(Workplaces[i]) == 1 then
@@ -1282,7 +1282,7 @@ end
 
 function Stronghold.Building:FoundryCannonAutoRepair(_PlayerID)
     if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_AutoRepair) == 1 then
-        local Cannons = Stronghold:GetCannonsOfType(_PlayerID, 0);
+        local Cannons = GetCannonsOfType(_PlayerID, 0);
         for i= 2, Cannons[1] +1 do
             local Position = GetPosition(Cannons[i]);
             local MaxHealth = Logic.GetEntityMaxHealth(Cannons[i]);
@@ -1961,7 +1961,7 @@ end
 
 function Stronghold.Building:GetBarracksDoorPosition(_BarracksID)
     local PlayerID = Logic.EntityGetPlayer(_BarracksID);
-    local Position = Stronghold.Players[PlayerID].DoorPos;
+    local Position = GetHeadquarterEntrance(PlayerID);
 
     local BarracksType = Logic.GetEntityType(_BarracksID);
     if BarracksType == Entities.PB_Barracks1 or BarracksType == Entities.PB_Barracks2 then

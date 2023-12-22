@@ -354,7 +354,7 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local MaxReputation = self.Config.Income.MaxReputation;
         MaxReputation = GameCallback_SH_Calculate_ReputationMax(_PlayerID, MaxReputation);
-        Stronghold:SetPlayerReputationLimit(_PlayerID, MaxReputation);
+        Stronghold.Player:SetPlayerReputationLimit(_PlayerID, MaxReputation);
 
         -- Calculate reputation bonus
         local ReputationPlus = 0;
@@ -435,10 +435,10 @@ end
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Income = 0;
-        local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
+        local WorkerList = GetWorkersOfType(_PlayerID, 0);
         if WorkerList[1] > 0 then
             -- Tax height
-            local TaxtHeight = Stronghold.Players[_PlayerID].TaxHeight;
+            local TaxtHeight = GetTaxHeight(_PlayerID);
             self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;
             if TaxtHeight == 1 then
                 local TaxEffect = self.Config.Income.TaxEffect;
@@ -470,7 +470,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             -- Building bonuses
             local Beauty = 0;
             for k, v in pairs(self.Config.Income.Static) do
-                local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, k, true);
+                local Buildings = GetBuildingsOfType(_PlayerID, k, true);
                 for i= Buildings[1] +1, 2, -1 do
                     if Logic.GetBuildingWorkPlaceLimit(Buildings[i]) > 0 then
                         if Logic.GetBuildingWorkPlaceUsage(Buildings[i]) == 0 then
@@ -538,7 +538,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             -- Tax height
             local TaxPenalty = self:CalculateReputationTaxPenaltyAmount(
                 _PlayerID,
-                Stronghold.Players[_PlayerID].TaxHeight
+                GetTaxHeight(_PlayerID)
             );
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = TaxPenalty;
             Decrease = TaxPenalty;
@@ -601,11 +601,11 @@ end
 function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Income = 0;
-        if GetID(Stronghold.Players[_PlayerID].LordScriptName) ~= 0 then
-            local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
+        if GetNobleID(_PlayerID) ~= 0 then
+            local WorkerList = GetWorkersOfType(_PlayerID, 0);
             if WorkerList[1] > 0 then
                 -- Tax height
-                local TaxHight = Stronghold.Players[_PlayerID].TaxHeight;
+                local TaxHight = GetTaxHeight(_PlayerID);
                 local TaxBonus = self.Config.Income.TaxEffect[TaxHight].Honor;
                 self.Data[_PlayerID].HonorDetails.TaxBonus = TaxBonus;
                 Income = Income + TaxBonus;
@@ -633,7 +633,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 -- Buildings bonuses
                 local Beauty = 0;
                 for k, v in pairs(self.Config.Income.Static) do
-                    local Buildings = Stronghold:GetBuildingsOfType(_PlayerID, k, true);
+                    local Buildings = GetBuildingsOfType(_PlayerID, k, true);
                     for i= Buildings[1] +1, 2, -1 do
                         local WorkplaceLimit = Logic.GetBuildingWorkPlaceLimit(Buildings[i]);
                         if WorkplaceLimit then
@@ -697,8 +697,8 @@ end
 -- If scale is researched, then taxes are increased by 5%.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
-        local TaxHeight = Stronghold.Players[_PlayerID].TaxHeight;
+        local WorkerList = GetWorkersOfType(_PlayerID, 0);
+        local TaxHeight = GetTaxHeight(_PlayerID);
         local PerWorker = self.Config.Income.TaxPerWorker;
         local Income = (WorkerList[1] * PerWorker) * (TaxHeight -1);
 
@@ -724,12 +724,12 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
             if type(k) == "number" then
                 -- Merge military table
                 local Military = {0};
-                local LeaderList = Stronghold:GetLeadersOfType(_PlayerID, k);
+                local LeaderList = GetLeadersOfType(_PlayerID, k);
                 for i= 2, LeaderList[1] +1 do
                     table.insert(Military, LeaderList[i]);
                     Military[1] = Military[1] + 1;
                 end
-                local CannonList = Stronghold:GetCannonsOfType(_PlayerID, k);
+                local CannonList = GetCannonsOfType(_PlayerID, k);
                 for i= 2, CannonList[1] +1 do
                     table.insert(Military, CannonList[i]);
                     Military[1] = Military[1] + 1;
@@ -855,7 +855,7 @@ end
 function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Add points per working scholar
-        local ScholarList = Stronghold:GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
+        local ScholarList = GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
         for i= 2, ScholarList[1] +1 do
             if Logic.IsSettlerAtWork(ScholarList[i]) == 1 then
                 local BuildingID = Logic.GetSettlersWorkBuilding(ScholarList[i]);
@@ -894,7 +894,7 @@ function Stronghold.Economy:SetSettlersMotivation(_EntityID)
         -- appears and the reputation is below 25 it must be set to 50. This
         -- is a safety mesure to avoid timing problems.)
         if GetReputation(PlayerID) <= 25 then
-            Stronghold:SetPlayerReputation(PlayerID, 50);
+            Stronghold.Player:SetPlayerReputation(PlayerID, 50);
             return;
         end
         -- Set motivation of settler

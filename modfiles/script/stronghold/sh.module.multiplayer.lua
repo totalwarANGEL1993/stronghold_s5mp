@@ -441,7 +441,7 @@ function Stronghold.Multiplayer:SuspendPlayer(_PlayerID)
         Camera.ScrollSetBorderFlag(0);
         Camera.ScrollSetSpeed(0);
     end
-    local LeaderList = Stronghold:GetLeadersOfType(_PlayerID, 0);
+    local LeaderList = GetLeadersOfType(_PlayerID, 0);
     for i= 2, LeaderList[1] +1 do
         if Logic.IsBuilding(LeaderList[i]) == 1 then
             local Type = Logic.GetEntityType(LeaderList[i]);

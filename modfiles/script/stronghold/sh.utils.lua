@@ -438,7 +438,7 @@ function CreateCostTable(_Honor, _Gold, _Clay, _Wood, _Stone, _Iron, _Sulfur, _K
 end
 
 function HasEnoughResources(_PlayerID, _Costs)
-    if Stronghold:GetPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         local Honor     = GetHonor(_PlayerID);
         local Knowledge = GetKnowledge(_PlayerID);
         local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);
@@ -483,7 +483,7 @@ function HasEnoughResources(_PlayerID, _Costs)
 end
 
 function AddResourcesToPlayer(_PlayerID, _Resources)
-    if Stronghold:GetPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         -- Add honor (silver)
         if _Resources[ResourceType.Silver] ~= nil then
             local Amount = _Resources[ResourceType.Silver];
@@ -566,7 +566,7 @@ function AddResourcesToPlayer(_PlayerID, _Resources)
 end
 
 function RemoveResourcesFromPlayer(_PlayerID, _Costs)
-    if Stronghold:GetPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         local Honor     = GetHonor(_PlayerID);
         local Knowledge = GetKnowledge(_PlayerID);
         local GoldRaw   = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw);

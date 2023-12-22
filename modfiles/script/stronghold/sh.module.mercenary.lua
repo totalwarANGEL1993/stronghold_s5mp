@@ -354,7 +354,7 @@ end
 
 function Stronghold.Mercenary:RefillMercenaryOffers(_PlayerID)
     if IsPlayer(_PlayerID) then
-        local MercenaryCamps = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_MercenaryCamp1, true);
+        local MercenaryCamps = GetBuildingsOfType(_PlayerID, Entities.PB_MercenaryCamp1, true);
         if MercenaryCamps[1] > 0 then
             for Type, Data in pairs(self.Data[_PlayerID].Contingent) do
                 local Config = self.Config:Get(Type);

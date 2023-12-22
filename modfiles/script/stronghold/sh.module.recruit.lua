@@ -143,7 +143,7 @@ function Stronghold.Recruit:HasSufficientRecruiterBuilding(_BuildingID, _Type)
         end
         for i= 1, Providers do
             local BuildingType = Config.RecruiterBuilding[i];
-            local Buildings = Stronghold:GetBuildingsOfType(PlayerID, BuildingType, true);
+            local Buildings = GetBuildingsOfType(PlayerID, BuildingType, true);
             if Buildings[1] > 0 then
                 return true;
             end
@@ -162,7 +162,7 @@ function Stronghold.Recruit:HasSufficientProviderBuilding(_BuildingID, _Type)
         end
         for i= 1, Providers do
             local BuildingType = Config.ProviderBuilding[i];
-            local Buildings = Stronghold:GetBuildingsOfType(PlayerID, BuildingType, true);
+            local Buildings = GetBuildingsOfType(PlayerID, BuildingType, true);
             if Buildings[1] > 0 then
                 return true;
             end

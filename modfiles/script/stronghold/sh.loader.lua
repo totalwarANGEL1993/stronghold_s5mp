@@ -101,6 +101,8 @@ Script.Load(gvStronghold_Path.. "sh.module.rights.lua");
 Script.Load(gvStronghold_Path.. "sh.module.rights.constants.lua");
 Script.Load(gvStronghold_Path.. "sh.module.rights.config.lua");
 ---
+Script.Load(gvStronghold_Path.. "sh.module.player.lua");
+Script.Load(gvStronghold_Path.. "sh.module.player.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.attraction.lua");
 Script.Load(gvStronghold_Path.. "sh.module.attraction.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.building.lua");

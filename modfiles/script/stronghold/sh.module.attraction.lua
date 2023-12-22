@@ -358,7 +358,7 @@ end
 function Stronghold.Attraction:GetBuildingsInfestableWithRats(_PlayerID)
     local Buildings = {};
     if IsPlayer(_PlayerID) then
-        Buildings = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+        Buildings = GetWorkplacesOfType(_PlayerID, 0, true);
         for i= 2, Buildings[1] do
             if not self.Data[_PlayerID].RatData[Buildings[i]] then
                 self.Data[_PlayerID].RatData[Buildings[i]] = {0};
@@ -500,10 +500,10 @@ function Stronghold.Attraction:ManageCriminalsOfPlayer(_PlayerID)
         -- They might get seen what will rise their exposition.
         for i= table.getn(self.Data[_PlayerID].Criminals), 1, -1 do
             local Data = self.Data[_PlayerID].Criminals[i];
-            self.Data[_PlayerID].Criminals[i][4] = Data[4] or Stronghold.Players[_PlayerID].DoorPos;
+            self.Data[_PlayerID].Criminals[i][4] = Data[4] or GetHeadquarterEntrance(_PlayerID);
             if GetDistance(Data[1], Data[4]) <= 100 then
                 self.Data[_PlayerID].Criminals[i][4] = nil;
-                if GetDistance(Data[1], Stronghold.Players[_PlayerID].DoorPos) <= 100 then
+                if GetDistance(Data[1], GetHeadquarterEntrance(_PlayerID)) <= 100 then
                     self.Data[_PlayerID].Criminals[i][4] = Data[3];
                 end
             end
@@ -519,7 +519,7 @@ end
 function Stronghold.Attraction:GetCriminalDestinations(_PlayerID)
     local Buildings = {};
     if IsPlayer(_PlayerID) then
-        Buildings = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+        Buildings = GetWorkplacesOfType(_PlayerID, 0, true);
         local CastleID = GetHeadquarterID(_PlayerID);
         if CastleID ~= 0 then
             table.insert(Buildings, CastleID);
@@ -603,7 +603,7 @@ end
 -- Returns all workers that can become criminal.
 function Stronghold.Attraction:GetPotentialCriminalSettlers(_PlayerID)
     local ResultList = {0};
-    local WorkplaceList = Stronghold:GetWorkplacesOfType(_PlayerID, 0, true);
+    local WorkplaceList = GetWorkplacesOfType(_PlayerID, 0, true);
     for j= 2, WorkplaceList[1] +1 do
         local Type = Logic.GetEntityType(WorkplaceList[j]);
         if Type ~= Entities.PB_Foundry1 and Type ~= Entities.PB_Foundry2 then
@@ -643,7 +643,7 @@ function Stronghold.Attraction:GetSettlersExposition(_PlayerID, _CriminalID)
             Exposition = Exposition + (1 * self.Config.Crime.Obfuscation.TowerRate);
         end
         -- Check hero
-        local HeroID = Stronghold:GetPlayerHero(_PlayerID);
+        local HeroID = GetNobleID(_PlayerID);
         if Logic.CheckEntitiesDistance(_CriminalID, HeroID, self.Config.Crime.Obfuscation.HeroArea) == 1 then
             Exposition = Exposition + (1 * self.Config.Crime.Obfuscation.HeroRate);
         end
@@ -712,7 +712,7 @@ end
 function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Update Motivation of workers
-        local WorkerList = Stronghold:GetWorkersOfType(_PlayerID, 0);
+        local WorkerList = GetWorkersOfType(_PlayerID, 0);
         for i= 2, WorkerList[1] +1 do
             local WorkplaceID = Logic.GetSettlersWorkBuilding(WorkerList[i]);
             if  (WorkplaceID ~= nil and WorkplaceID ~= 0)
@@ -729,7 +729,7 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
         -- Restore reputation when workers are all gone
         -- (Must be done so that they don't leave immedaitly when they return.)
         if GetReputation(_PlayerID) <= 25 and Logic.GetNumberOfAttractedWorker(_PlayerID) == 0 then
-            Stronghold:SetPlayerReputation(_PlayerID, 50);
+            Stronghold.Player:SetPlayerReputation(_PlayerID, 50);
             return;
         end
     end
@@ -740,17 +740,17 @@ function Stronghold.Attraction:GetVirtualPlayerAttractionLimit(_PlayerID)
     local RawLimit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Headquarters
-        local HQ1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
+        local HQ1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
         RawLimit = RawLimit + (HQ1[1] * self.Config.Attraction.HQCivil[1]);
         local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
         RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQCivil[2]);
         local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
         RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQCivil[3]);
-        if RawLimit == 0 and not Stronghold.Players[_PlayerID].HQCreated then
+        if RawLimit == 0 and GetHeadquarterID(_PlayerID) == 0 then
             Limit = Limit + 35;
         end
         -- Village Centers
-        local VC1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true);
+        local VC1 = GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true);
         RawLimit = RawLimit + (VC1[1] * self.Config.Attraction.VCCivil[1]);
         local VC2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_VillageCenter2);
         RawLimit = RawLimit + (VC2 * self.Config.Attraction.VCCivil[2]);
@@ -804,7 +804,7 @@ end
 function Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if Stronghold.Config.DefeatModes.LastManStanding
+        if Stronghold.Player.Config.DefeatModes.LastManStanding
         or IsEntityValid(GetNobleID(_PlayerID)) then
             local RawLimit = self.Config.Attraction.SlaveLimit;
             -- Rank
@@ -846,20 +846,20 @@ end
 function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if Stronghold.Config.DefeatModes.LastManStanding
+        if Stronghold.Player.Config.DefeatModes.LastManStanding
         or IsEntityValid(GetNobleID(_PlayerID)) then
             -- Headquarters
-            local HQ1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
+            local HQ1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
             Limit = Limit + (HQ1[1] * self.Config.Attraction.HQMilitary[1]);
             local HQ2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters2);
             Limit = Limit + (HQ2 * self.Config.Attraction.HQMilitary[2]);
             local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
             Limit = Limit + (HQ3 * self.Config.Attraction.HQMilitary[3]);
-            if Limit == 0 and not Stronghold.Players[_PlayerID].HQCreated then
+            if Limit == 0 and GetHeadquarterID(_PlayerID) == 0 then
                 Limit = Limit + (1 * self.Config.Attraction.HQMilitary[1]);
             end
             -- Outpost
-            local OP1 = Stronghold:GetBuildingsOfType(_PlayerID, Entities.PB_Outpost1, true);
+            local OP1 = GetBuildingsOfType(_PlayerID, Entities.PB_Outpost1, true);
             Limit = Limit + (OP1[1] * self.Config.Attraction.OPMilitary[1]);
             local OP2 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Outpost2);
             Limit = Limit + (OP2 * self.Config.Attraction.OPMilitary[2]);
@@ -903,7 +903,7 @@ function Stronghold.Attraction:GetMillitarySize(_PlayerID)
     for k,v in pairs(self.Config.UsedSpace) do
         local Config = Stronghold.Unit.Config:Get(k, _PlayerID);
         if not Config or Config.IsCivil ~= true then
-            local UnitList = Stronghold:GetLeadersOfType(_PlayerID, k);
+            local UnitList = GetLeadersOfType(_PlayerID, k);
             for i= 2, UnitList[1] +1 do
                 -- Get unit size
                 local Usage = v;
