@@ -9,6 +9,7 @@ Stronghold = Stronghold or {};
 Stronghold.Building = Stronghold.Building or {
     SyncEvents = {},
     Data = {
+        Turrets = {},
         LastWeatherChange = 0,
     },
     Config = {},
@@ -55,7 +56,6 @@ function Stronghold.Building:Install()
             RallyPoint = {},
             UnitMover = {},
             Corners = {},
-            Turrets = {},
 
             HeadquarterLastWidgetID = 0,
             SerfLastWidgetID = 0,
@@ -68,6 +68,7 @@ function Stronghold.Building:Install()
     self:OverrideSellBuildingAction();
     self:OverrideShiftRightClick();
     self:OverwriteWeatherTowerButtons();
+    self:InitalizeTurretsForExistingBuildings();
     self:InitalizeSerfBuildingTabs();
     self:InitalizeBuyUnitKeybindings();
 end
@@ -138,16 +139,13 @@ function Stronghold.Building:OncePerSecond(_PlayerID)
     self:FoundryCannonAutoRepair(_PlayerID);
     -- Castle upgrade
     self:CheckBuildingTechnologyConditions(_PlayerID);
+    -- Control rally points
+    self:UnitToRallyPointController(_PlayerID);
 end
 
 function Stronghold.Building:OnEverySecond()
-    local Players = GetMaxPlayers();
-    for PlayerID = 1, Players do
-        -- Control rally points
-        self:UnitToRallyPointController(PlayerID);
-        -- Control turrets
-        self:CleanupTurretsOfBuilding(PlayerID);
-    end
+    -- Control turrets
+    self:UpdateTurretsOfBuilding();
 end
 
 function Stronghold.Building:OnEntityCreated(_EntityID)
@@ -1788,40 +1786,46 @@ end
 -- -------------------------------------------------------------------------- --
 -- Turrets
 
+function Stronghold.Building:InitalizeTurretsForExistingBuildings()
+    for PlayerID = 1, GetMaxPlayers() do
+        local Buildings = GetBuildingsOfType(PlayerID, 0, true);
+        for i= 2, Buildings[1] +1 do
+            self:CreateTurretsForBuilding(Buildings[i]);
+        end
+    end
+end
+
 function Stronghold.Building:CreateTurretsForBuilding(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local Type = Logic.GetEntityType(_EntityID);
-    if IsPlayer(PlayerID) and self.Config.Turrets[Type] then
-        if not self.Data[PlayerID].Turrets[_EntityID] then
-            self.Data[PlayerID].Turrets[_EntityID] = {};
+    if self.Config.Turrets[Type] then
+        if not self.Data.Turrets[_EntityID] then
+            self.Data.Turrets[_EntityID] = {};
             for k,v in pairs(self.Config.Turrets[Type]) do
                 local Position = GetCirclePosition(_EntityID, v[2], v[3]);
                 local TurretID = Logic.CreateEntity(v[1], Position.X, Position.Y, 0, PlayerID);
                 WriteEntityCreatedToLog(PlayerID, TurretID, Logic.GetEntityType(TurretID));
                 SVLib.SetInvisibility(TurretID, true);
                 MakeInvulnerable(TurretID);
-                table.insert(self.Data[PlayerID].Turrets[_EntityID], TurretID);
+                table.insert(self.Data.Turrets[_EntityID], TurretID);
             end
         end
     end
 end
 
 function Stronghold.Building:DestroyTurretsOfBuilding(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if IsPlayer(PlayerID) and self.Data[PlayerID].Turrets[_EntityID] then
-        for i= table.getn(self.Data[PlayerID].Turrets[_EntityID]), 1, -1 do
-            DestroyEntity(self.Data[PlayerID].Turrets[_EntityID][i]);
+    if self.Data.Turrets[_EntityID] then
+        for i= table.getn(self.Data.Turrets[_EntityID]), 1, -1 do
+            DestroyEntity(self.Data.Turrets[_EntityID][i]);
         end
     end
 end
 
-function Stronghold.Building:CleanupTurretsOfBuilding(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        for k,v in pairs(self.Data[_PlayerID].Turrets) do
-            if not IsExisting(k) then
-                for j= table.getn(v), 1, -1 do
-                    DestroyEntity(v[j]);
-                end
+function Stronghold.Building:UpdateTurretsOfBuilding()
+    for Building, TurretList in pairs(self.Data.Turrets) do
+        if not IsExisting(Building) then
+            for j= table.getn(TurretList), 1, -1 do
+                DestroyEntity(TurretList[j]);
             end
         end
     end

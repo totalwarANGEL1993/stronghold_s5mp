@@ -580,6 +580,19 @@ function Stronghold.Attraction:DoCriminalsAppear(_PlayerID)
     return GetRank(_PlayerID) >= PlayerRank.Earl;
 end
 
+function Stronghold.Attraction:CalculateCrimeRate(_PlayerID)
+    local CrimeRate = 0;
+    if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        CrimeRate = self.Config.Crime.Convert.Rate;
+        local Places = GetBuildingsOfType(_PlayerID, Entities.PB_ExecutionerPlace1, true);
+        if Places[1] > 0 then
+            CrimeRate = CrimeRate * self.Config.Crime.Convert.Executioner;
+        end
+        CrimeRate = GameCallback_SH_Calculate_CrimeRate(_PlayerID, CrimeRate);
+    end
+    return CrimeRate;
+end
+
 -- Decides if a worker turns criminal.
 -- Becoming criminal is chance based and directly tied to the individual
 -- happyness of the settler. The presence or absence of "the law" also
@@ -588,7 +601,7 @@ end
 function Stronghold.Attraction:DoesSettlerTurnCriminal(_PlayerID, _WorkerID)
     if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Motivation = Logic.GetSettlersMotivation(_WorkerID);
-        local CrimeRate = GameCallback_SH_Calculate_CrimeRate(_PlayerID, self.Config.Crime.Convert.Rate);
+        local CrimeRate = self:CalculateCrimeRate(_PlayerID);
         local Exposition = self:GetSettlersExposition(_PlayerID, _WorkerID);
         -- Oppurtunity makes the thief...
         if Exposition > 0 then

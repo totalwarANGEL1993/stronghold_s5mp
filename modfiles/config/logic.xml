@@ -1302,4 +1302,9 @@
         <Category>DarkCannonTower</Category>
         <FirstBuilding>PB_DarkTower3</FirstBuilding>
     </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>ExecutionerPlace</Category>
+        <FirstBuilding>PB_ExecutionerPlace1</FirstBuilding>
+    </BuildingUpgrade>
 </root>

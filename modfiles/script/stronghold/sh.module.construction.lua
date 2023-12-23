@@ -445,6 +445,7 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_Monastery3, 1);
     EntityTracker.SetLimitOfType(Entities.PB_Market2, 3);
     EntityTracker.SetLimitOfType(Entities.PB_PowerPlant1, 1);
+    EntityTracker.SetLimitOfType(Entities.PB_ExecutionerPlace1, 1);
 end
 
 function Stronghold.Construction:OverwriteCallbacks()

@@ -1,0 +1,9 @@
+<root>
+	<TecCategoryType>TC_Building</TecCategoryType>
+	<TimeToResearch>3</TimeToResearch>
+	<ResourceCosts>
+		<Clay>100</Clay>
+	</ResourceCosts>
+	<Conditions>
+	</Conditions>
+</root>

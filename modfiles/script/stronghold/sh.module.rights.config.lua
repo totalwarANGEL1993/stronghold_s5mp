@@ -170,6 +170,7 @@ Stronghold.Rights.Config = {
             },
             Rights = {
                 PlayerRight.University,
+                PlayerRight.ExecutionerPlace,
                 PlayerRight.TownCenter,
                 PlayerRight.Cathedral,
                 PlayerRight.Brickworks,

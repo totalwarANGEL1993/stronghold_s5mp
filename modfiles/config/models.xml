@@ -3679,6 +3679,10 @@
         <SelectionTexture>Selection_Building</SelectionTexture>
     </Model>
 
+    <Model id="PB_ExecutionerPlace">
+        <SelectionTexture>Selection_Building</SelectionTexture>
+    </Model>
+
     <Model id="PV_Cannon5">
         <SelectionRadius>165</SelectionRadius>
         <Effect>SimpleUnitPlayerColorSpecular</Effect>
@@ -3904,12 +3908,6 @@
     </Model>
 
     <Model id="XD_DragonboatWreckage">
-        <CastShadow>True</CastShadow>
-        <ShareShadowRaster>True</ShareShadowRaster>
-        <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
-    </Model>
-
-    <Model id="XD_ExecutionerPlace">
         <CastShadow>True</CastShadow>
         <ShareShadowRaster>True</ShareShadowRaster>
         <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>

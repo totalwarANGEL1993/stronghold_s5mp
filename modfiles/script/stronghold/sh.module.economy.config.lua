@@ -120,28 +120,30 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.30,},
     },
     Static = {
-        [Entities.PB_Beautification04] = {Honor = 1, Reputation = 1,},
-        [Entities.PB_Beautification06] = {Honor = 1, Reputation = 1,},
-        [Entities.PB_Beautification09] = {Honor = 1, Reputation = 1,},
+        [Entities.PB_Beautification04]  = {Honor = 1, Reputation = 1,},
+        [Entities.PB_Beautification06]  = {Honor = 1, Reputation = 1,},
+        [Entities.PB_Beautification09]  = {Honor = 1, Reputation = 1,},
         ---
-        [Entities.PB_Beautification01] = {Honor = 2, Reputation = 1,},
-        [Entities.PB_Beautification02] = {Honor = 2, Reputation = 1,},
-        [Entities.PB_Beautification12] = {Honor = 2, Reputation = 1,},
+        [Entities.PB_Beautification01]  = {Honor = 2, Reputation = 1,},
+        [Entities.PB_Beautification02]  = {Honor = 2, Reputation = 1,},
+        [Entities.PB_Beautification12]  = {Honor = 2, Reputation = 1,},
         ---
-        [Entities.PB_Beautification05] = {Honor = 3, Reputation = 1,},
-        [Entities.PB_Beautification07] = {Honor = 3, Reputation = 1,},
-        [Entities.PB_Beautification08] = {Honor = 3, Reputation = 1,},
+        [Entities.PB_Beautification05]  = {Honor = 3, Reputation = 1,},
+        [Entities.PB_Beautification07]  = {Honor = 3, Reputation = 1,},
+        [Entities.PB_Beautification08]  = {Honor = 3, Reputation = 1,},
         ---
-        [Entities.PB_Beautification03] = {Honor = 6, Reputation = 1,},
-        [Entities.PB_Beautification10] = {Honor = 6, Reputation = 1,},
-        [Entities.PB_Beautification11] = {Honor = 6, Reputation = 1,},
+        [Entities.PB_Beautification03]  = {Honor = 6, Reputation = 1,},
+        [Entities.PB_Beautification10]  = {Honor = 6, Reputation = 1,},
+        [Entities.PB_Beautification11]  = {Honor = 6, Reputation = 1,},
         ---
-        [Entities.PB_Headquarters2]    = {Honor =  6, Reputation = 0,},
-        [Entities.PB_Headquarters3]    = {Honor = 12, Reputation = 0,},
+        [Entities.PB_Headquarters2]     = {Honor =  6, Reputation = 0,},
+        [Entities.PB_Headquarters3]     = {Honor = 12, Reputation = 0,},
         ---
-        [Entities.PB_Monastery1]       = {Honor = 0, Reputation = 6,},
-        [Entities.PB_Monastery2]       = {Honor = 0, Reputation = 9,},
-        [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 12,},
+        [Entities.PB_Monastery1]        = {Honor = 0, Reputation = 6,},
+        [Entities.PB_Monastery2]        = {Honor = 0, Reputation = 9,},
+        [Entities.PB_Monastery3]        = {Honor = 0, Reputation = 12,},
+        ---
+        [Entities.PB_ExecutionerPlace1] = {Honor = 10, Reputation = 0,},
     },
 }
 

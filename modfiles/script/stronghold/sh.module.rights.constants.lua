@@ -156,6 +156,7 @@ PlayerRight = {
     Fort = 365,
     Bastille = 366,
     FalconryTower = 367,
+    ExecutionerPlace = 368,
 
     -- Beautifications
     Beautification1 = 500,
