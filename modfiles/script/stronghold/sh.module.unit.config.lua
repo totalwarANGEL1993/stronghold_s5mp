@@ -256,7 +256,7 @@ Stronghold.Unit.Config = {
 
     -- Cannons --
 
-    [Entities.CV_Cannon1]                   = {
+    [Entities.PV_Cannon7]                   = {
         Button            = "Buy_Cannon1",
         Costs             = {
             [1] = {19, 350, 0, 65, 0, 125, 250},
@@ -269,7 +269,7 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Foundry1, Entities.PB_Foundry2},
         ProviderBuilding  = {},
     },
-    [Entities.CV_Cannon2]                   = {
+    [Entities.PV_Cannon8]                   = {
         Button            = "Buy_Cannon3",
         Costs             = {
             [1] = {38, 700, 0, 130, 0, 300, 500},
@@ -282,7 +282,7 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Foundry2},
         ProviderBuilding  = {},
     },
-    [Entities.CV_Cannon3]                   = {
+    [Entities.CV_Cannon1]                   = {
         Button            = "Buy_Cannon4",
         Costs             = {
             [1] = {50, 1000, 0, 250, 0, 500, 800},
@@ -295,7 +295,7 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Foundry2},
         ProviderBuilding  = {},
     },
-    [Entities.CV_Cannon4]                   = {
+    [Entities.CV_Cannon2]                   = {
         Button            = "Buy_Cannon4",
         Costs             = {
             [1] = {50, 1000, 0, 250, 0, 600, 500},

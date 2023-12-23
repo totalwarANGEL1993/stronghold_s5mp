@@ -19,12 +19,12 @@ Stronghold.Hero.Config.Hero3 = {
     CannonTypes = {
         Entities.CV_Cannon1,
         Entities.CV_Cannon2,
-        Entities.CV_Cannon3,
-        Entities.CV_Cannon4,
         Entities.PV_Cannon1,
         Entities.PV_Cannon2,
         Entities.PV_Cannon3,
-        Entities.PV_Cannon4
+        Entities.PV_Cannon4,
+        Entities.PV_Cannon7,
+        Entities.PV_Cannon8,
     },
 }
 -- Hero 4 properties

@@ -1291,12 +1291,12 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
         Upkeep = Upkeep +
             (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon4] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon2] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon4] or 0);
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon4] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon7] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon8] or 0);
     elseif _Key == "MenuTop/Find_lightcavalry" then
         Upkeep = Upkeep +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry1] or 0) +

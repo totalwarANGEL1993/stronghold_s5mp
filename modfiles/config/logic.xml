@@ -882,22 +882,22 @@
 
 	<SettlerUpgrade>
 	    <Category>Cannon5</Category>
-	    <FirstSettler>CV_Cannon1</FirstSettler>
+	    <FirstSettler>PV_Cannon7</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
 	    <Category>Cannon6</Category>
-	    <FirstSettler>CV_Cannon2</FirstSettler>
+	    <FirstSettler>PV_Cannon8</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
 	    <Category>Cannon7</Category>
-	    <FirstSettler>CV_Cannon3</FirstSettler>
+	    <FirstSettler>CV_Cannon1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
 	    <Category>Cannon8</Category>
-	    <FirstSettler>CV_Cannon4</FirstSettler>
+	    <FirstSettler>CV_Cannon2</FirstSettler>
 	</SettlerUpgrade>
 
     <!-- Military Sword -->

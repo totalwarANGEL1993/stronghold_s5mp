@@ -62,6 +62,14 @@
 
 
 
+    <Task classname="EGL::CTaskArgsParticleEffectIndexAndType" classid="0xf92b2027">
+        <TaskType>TASK_SPAWN_PARTICLE_EFFECT</TaskType>
+        <EffectType>FXCannonFire</EffectType>
+        <EffectIndex>0</EffectIndex>
+    </Task>
+
+
+    
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_FIRE_PROJECTILE</TaskType>
     </Task>
@@ -70,14 +78,9 @@
         <SoundID>Military\SO_Cannon_rnd_1</SoundID>
         <Volume>100</Volume>
     </Task>
-    <Task classname="EGL::CTaskArgsParticleEffectIndexAndType" classid="0xf92b2027">
-        <TaskType>TASK_SPAWN_PARTICLE_EFFECT</TaskType>
-        <EffectType>FXCannonFire</EffectType>
-        <EffectIndex>0</EffectIndex>
-    </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>200</Thousandths>
+        <Thousandths>100</Thousandths>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
@@ -88,14 +91,9 @@
         <SoundID>Military\SO_Cannon_rnd_1</SoundID>
         <Volume>100</Volume>
     </Task>
-    <Task classname="EGL::CTaskArgsParticleEffectIndexAndType" classid="0xf92b2027">
-        <TaskType>TASK_SPAWN_PARTICLE_EFFECT</TaskType>
-        <EffectType>FXCannonFire</EffectType>
-        <EffectIndex>0</EffectIndex>
-    </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>200</Thousandths>
+        <Thousandths>100</Thousandths>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
@@ -106,14 +104,9 @@
         <SoundID>Military\SO_Cannon_rnd_1</SoundID>
         <Volume>100</Volume>
     </Task>
-    <Task classname="EGL::CTaskArgsParticleEffectIndexAndType" classid="0xf92b2027">
-        <TaskType>TASK_SPAWN_PARTICLE_EFFECT</TaskType>
-        <EffectType>FXCannonFire</EffectType>
-        <EffectIndex>0</EffectIndex>
-    </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>200</Thousandths>
+        <Thousandths>100</Thousandths>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
@@ -124,14 +117,9 @@
         <SoundID>Military\SO_Cannon_rnd_1</SoundID>
         <Volume>100</Volume>
     </Task>
-    <Task classname="EGL::CTaskArgsParticleEffectIndexAndType" classid="0xf92b2027">
-        <TaskType>TASK_SPAWN_PARTICLE_EFFECT</TaskType>
-        <EffectType>FXCannonFire</EffectType>
-        <EffectIndex>0</EffectIndex>
-    </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>200</Thousandths>
+        <Thousandths>100</Thousandths>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
@@ -142,14 +130,9 @@
         <SoundID>Military\SO_Cannon_rnd_1</SoundID>
         <Volume>100</Volume>
     </Task>
-    <Task classname="EGL::CTaskArgsParticleEffectIndexAndType" classid="0xf92b2027">
-        <TaskType>TASK_SPAWN_PARTICLE_EFFECT</TaskType>
-        <EffectType>FXCannonFire</EffectType>
-        <EffectIndex>0</EffectIndex>
-    </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>200</Thousandths>
+        <Thousandths>100</Thousandths>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
@@ -160,14 +143,9 @@
         <SoundID>Military\SO_Cannon_rnd_1</SoundID>
         <Volume>100</Volume>
     </Task>
-    <Task classname="EGL::CTaskArgsParticleEffectIndexAndType" classid="0xf92b2027">
-        <TaskType>TASK_SPAWN_PARTICLE_EFFECT</TaskType>
-        <EffectType>FXCannonFire</EffectType>
-        <EffectIndex>0</EffectIndex>
-    </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>200</Thousandths>
+        <Thousandths>100</Thousandths>
     </Task>
 
 

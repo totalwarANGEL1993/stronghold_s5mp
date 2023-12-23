@@ -98,21 +98,11 @@ Stronghold.Mercenary.Config = {
             MaxAmount  = 3,
         },
         [Entities.CV_Cannon1]                   = {
-            Button     = "Buy_Cannon1",
-            RefillTime = 120,
-            MaxAmount  = 3,
+            Button     = "Buy_Cannon3",
+            RefillTime = 180,
+            MaxAmount  = 1,
         },
         [Entities.CV_Cannon2]                   = {
-            Button     = "Buy_Cannon3",
-            RefillTime = 180,
-            MaxAmount  = 1,
-        },
-        [Entities.CV_Cannon3]                   = {
-            Button     = "Buy_Cannon3",
-            RefillTime = 180,
-            MaxAmount  = 1,
-        },
-        [Entities.CV_Cannon4]                   = {
             Button     = "Buy_Cannon3",
             RefillTime = 180,
             MaxAmount  = 1,
@@ -134,6 +124,16 @@ Stronghold.Mercenary.Config = {
         },
         [Entities.PV_Cannon4]                   = {
             Button     = "Buy_Cannon4",
+            RefillTime = 180,
+            MaxAmount  = 1,
+        },
+        [Entities.PV_Cannon7]                   = {
+            Button     = "Buy_Cannon1",
+            RefillTime = 120,
+            MaxAmount  = 3,
+        },
+        [Entities.PV_Cannon8]                   = {
+            Button     = "Buy_Cannon3",
             RefillTime = 180,
             MaxAmount  = 1,
         },

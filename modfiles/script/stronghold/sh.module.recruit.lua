@@ -959,10 +959,10 @@ function Stronghold.Recruit:UnitRecruiterController(_EntityID)
             self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
         end
         -- Scale units
-        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon1 then
+        if Logic.GetEntityType(_EntityID) == Entities.PV_Cannon7 then
             SVLib.SetEntitySize(_EntityID, 1.35);
         end
-        if Logic.GetEntityType(_EntityID) == Entities.CV_Cannon2 then
+        if Logic.GetEntityType(_EntityID) == Entities.PV_Cannon8 then
             SVLib.SetEntitySize(_EntityID, 0.65);
         end
     end

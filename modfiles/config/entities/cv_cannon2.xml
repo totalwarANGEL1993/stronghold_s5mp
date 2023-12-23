@@ -2,12 +2,12 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>CV_Cannon2</Model>
+        <Model>PV_Cannon5</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>PV_Cannon4_Drive</Anim>
-        <Anim>PV_Cannon4_Shoot</Anim>
-        <Anim>PV_Cannon4_Destroyed</Anim>
-        <Anim>PV_Cannon4_Idle</Anim>
+        <Anim>PV_Cannon5_Drive</Anim>
+        <Anim>PV_Cannon5_Shoot</Anim>
+        <Anim>PV_Cannon5_Destroyed</Anim>
+        <Anim>PV_Cannon5_Idle</Anim>
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
@@ -22,8 +22,8 @@
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>400</MaxHealth>
-        <Exploration>26</Exploration>
+        <MaxHealth>300</MaxHealth>
+        <Exploration>20</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>5</ArmorAmount>
         <DodgeChance>0</DodgeChance>
@@ -31,7 +31,7 @@
         <ExperiencePoints>100</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Category>Cannon6</Category>
+            <Category>Cannon8</Category>
         </Upgrade>
 
 
@@ -53,8 +53,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PV_Cannon4_Drive</SuspensionAnimation>
-            <AnimSet>SET_CANNON4</AnimSet>
+            <SuspensionAnimation>PV_Cannon5_Drive</SuspensionAnimation>
+            <AnimSet>SET_CANNON5</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimationNoBlending</Class>
@@ -63,7 +63,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>345</Speed>
+            <Speed>300</Speed>
             <RotationSpeed>10</RotationSpeed>
             <MoveTaskList>TL_VEHICLE_DRIVE</MoveTaskList>
         </Logic>
@@ -80,31 +80,30 @@
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Foundry</BarrackUpgradeCategory>
-
             <HomeRadius>3000</HomeRadius>
 
-            <BattleTaskList>TL_BATTLE_VEHICLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_GATLING</BattleTaskList>
 
-            <NormalAttackAnim1>PV_Cannon4_Shoot</NormalAttackAnim1>
-            <NormalAttackAnim2>PV_Cannon4_Shoot</NormalAttackAnim2>
-            <CounterAttackAnim>PV_Cannon4_Shoot</CounterAttackAnim>
-            <FinishingMoveAnim>PV_Cannon4_Shoot</FinishingMoveAnim>
-            <MissAttackAnim>PV_Cannon4_Shoot</MissAttackAnim>
-            <BattleIdleAnim>PV_Cannon4_Idle</BattleIdleAnim>
-            <BattleWalkAnim>PV_Cannon4_Drive</BattleWalkAnim>
+            <NormalAttackAnim1>PV_Cannon5_Shoot</NormalAttackAnim1>
+            <NormalAttackAnim2>PV_Cannon5_Shoot</NormalAttackAnim2>
+            <CounterAttackAnim>PV_Cannon5_Shoot</CounterAttackAnim>
+            <FinishingMoveAnim>PV_Cannon5_Shoot</FinishingMoveAnim>
+            <MissAttackAnim>PV_Cannon5_Shoot</MissAttackAnim>
+            <BattleIdleAnim>PV_Cannon5_Idle</BattleIdleAnim>
+            <BattleWalkAnim>PV_Cannon5_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>45</DamageAmount>
+            <DamageAmount>40</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>600</DamageRange>
+            <DamageRange>300</DamageRange>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>4000</BattleWaitUntil>
 
-            <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
-            <MaxRange>2600</MaxRange>
+            <ProjectileEffectID>FXCannonBallGatling</ProjectileEffectID>
+            <MaxRange>2200</MaxRange>
             <MinRange>1500</MinRange>
 
-            <AutoAttackRange>2600</AutoAttackRange>
+            <AutoAttackRange>2000</AutoAttackRange>
 
             <UpkeepCost>20</UpkeepCost>
 

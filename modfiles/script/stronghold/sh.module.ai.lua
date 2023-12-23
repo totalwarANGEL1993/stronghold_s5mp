@@ -377,12 +377,12 @@ function Stronghold.AI:OverwriteAiTargetConfig()
         [Entities.CU_BanditLeaderSword2] = AiArmyTargetingConfig.CavalryHeavy,
         [Entities.CV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
         [Entities.CV_Cannon2] = AiArmyTargetingConfig.TroopCannon,
-        [Entities.CV_Cannon3] = AiArmyTargetingConfig.TroopCannon,
-        [Entities.CV_Cannon4] = AiArmyTargetingConfig.TroopCannon,
         [Entities.PV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
         [Entities.PV_Cannon2] = AiArmyTargetingConfig.BuildingCannon,
         [Entities.PV_Cannon3] = AiArmyTargetingConfig.TroopCannon,
         [Entities.PV_Cannon4] = AiArmyTargetingConfig.BuildingCannon,
+        [Entities.PV_Cannon7] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon8] = AiArmyTargetingConfig.TroopCannon,
     }
 end
 
@@ -396,10 +396,10 @@ function Stronghold.AI:OverwriteAiSpeedConfig()
 
         [Entities.CU_Barbarian_LeaderClub1] = 400,
         [Entities.CU_Barbarian_LeaderClub2] = 400,
-        [Entities.CV_Cannon1] = 300,
+        [Entities.PV_Cannon7] = 300,
+        [Entities.PV_Cannon8] = 345,
+        [Entities.CV_Cannon1] = 345,
         [Entities.CV_Cannon2] = 345,
-        [Entities.CV_Cannon3] = 345,
-        [Entities.CV_Cannon4] = 345,
         [Entities.PV_Cannon1] = 300,
         [Entities.PV_Cannon2] = 250,
         [Entities.PV_Cannon3] = 200,
@@ -414,10 +414,10 @@ function Stronghold.AI:OverwriteAiSpeedConfig()
 
         [Entities.CU_Barbarian_LeaderClub1] = 0.9,
         [Entities.CU_Barbarian_LeaderClub2] = 0.9,
+        [Entities.PV_Cannon7] = 0.6,
+        [Entities.PV_Cannon8] = 0.6,
         [Entities.CV_Cannon1] = 0.6,
         [Entities.CV_Cannon2] = 0.6,
-        [Entities.CV_Cannon3] = 0.6,
-        [Entities.CV_Cannon4] = 0.6,
         [Entities.PV_Cannon1] = 0.6,
         [Entities.PV_Cannon2] = 0.5,
         [Entities.PV_Cannon3] = 0.3,

@@ -165,7 +165,7 @@
         <Logic classname="GGL::CFoundryBehaviorProperties">
             <Class>GGL::CFoundryBehavior</Class>
             <CannonInfo>
-                <Cannon>CV_Cannon1</Cannon>
+                <Cannon>PV_Cannon7</Cannon>
                 <TaskList>TL_SMELTER_WORK1</TaskList>
             </CannonInfo>
             <CannonInfo>
@@ -176,10 +176,10 @@
                 <Cannon>PV_Cannon2</Cannon>
                 <TaskList>TL_SMELTER_WORK2</TaskList>
             </CannonInfo>
-			  <CannonInfo>
-			      <Cannon>CV_Cannon4</Cannon>
-			      <TaskList>TL_SMELTER_WORK2</TaskList>
-			  </CannonInfo>
+            <CannonInfo>
+                <Cannon>CV_Cannon2</Cannon>
+                <TaskList>TL_SMELTER_WORK2</TaskList>
+            </CannonInfo>
         </Logic>
     </Behavior>
 </root>
