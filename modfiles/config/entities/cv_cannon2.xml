@@ -93,15 +93,15 @@
             <BattleWalkAnim>PV_Cannon5_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>40</DamageAmount>
+            <DamageAmount>50</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>300</DamageRange>
+            <DamageRange>225</DamageRange>
 
-            <BattleWaitUntil>4000</BattleWaitUntil>
+            <BattleWaitUntil>3500</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBallGatling</ProjectileEffectID>
-            <MaxRange>2200</MaxRange>
-            <MinRange>1500</MinRange>
+            <MaxRange>2000</MaxRange>
+            <MinRange>800</MinRange>
 
             <AutoAttackRange>2000</AutoAttackRange>
 

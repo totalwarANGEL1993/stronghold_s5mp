@@ -92,12 +92,12 @@
             <BattleIdleAnim>PV_Cannon4_Idle</BattleIdleAnim>
             <BattleWalkAnim>PV_Cannon4_Drive</BattleWalkAnim>
 
-            <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>225</DamageAmount>
+            <DamageClass>DC_Artillery</DamageClass>
+            <DamageAmount>350</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>800</DamageRange>
+            <DamageRange>1000</DamageRange>
 
-            <BattleWaitUntil>10000</BattleWaitUntil>
+            <BattleWaitUntil>12000</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBallArtillery</ProjectileEffectID>
             <MaxRange>6800</MaxRange>

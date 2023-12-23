@@ -104,7 +104,7 @@
             <ProjectileOffsetRight/>
             <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
             <MaxRange>2200</MaxRange>
-            <MinRange>1000.0f</MinRange>
+            <MinRange>1000</MinRange>
             <AutoAttackRange>2200</AutoAttackRange>
 
             <UpkeepCost>20</UpkeepCost>

@@ -143,6 +143,18 @@
             <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
+    <!-- Artillery -->
+    <DamageClass id="DC_Artillery">
+        <Logic classname="GGL::CDamageClassProps">
+            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
+            <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
+            <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>            
+            <ArmorClassFurFactor>1.5</ArmorClassFurFactor>
+        </Logic>
+    </DamageClass>
     <!-- All Riflemen -->
     <DamageClass id="DC_Bullet">
         <Logic classname="GGL::CDamageClassProps">

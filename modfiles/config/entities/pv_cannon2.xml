@@ -102,7 +102,7 @@
             <ProjectileOffsetFront>90</ProjectileOffsetFront>
             <ProjectileEffectID>FXCannonBall</ProjectileEffectID>
             <MaxRange>2800</MaxRange>
-            <MinRange>1000.0f</MinRange>
+            <MinRange>1000</MinRange>
 
             <AutoAttackRange>2800</AutoAttackRange>
 
