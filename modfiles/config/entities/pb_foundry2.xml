@@ -166,6 +166,14 @@
 			      <TaskList>TL_SMELTER_WORK6</TaskList>
 			  </CannonInfo>
 			  <CannonInfo>
+			      <Cannon>CV_Cannon3</Cannon>
+			      <TaskList>TL_SMELTER_WORK6</TaskList>
+			  </CannonInfo>
+			  <CannonInfo>
+			      <Cannon>CV_Cannon4</Cannon>
+			      <TaskList>TL_SMELTER_WORK5</TaskList>
+			  </CannonInfo>
+			  <CannonInfo>
 			      <Cannon>PV_Cannon1</Cannon>
 			      <TaskList>TL_SMELTER_WORK3</TaskList>
 			  </CannonInfo>

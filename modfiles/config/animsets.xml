@@ -159,6 +159,7 @@
 
 
 	<!-- Stronghold -->
+	<AnimSet>SET_CANNON5</AnimSet>
 	<AnimSet>SET_CU_HERO13</AnimSet>
 	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>
 </root>

@@ -282,6 +282,32 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Foundry2},
         ProviderBuilding  = {},
     },
+    [Entities.CV_Cannon3]                   = {
+        Button            = "Buy_Cannon4",
+        Costs             = {
+            [1] = {50, 1000, 0, 250, 0, 500, 800},
+            [2] = {0, 0, 0, 0, 0, 0, 0},
+        },
+        Right             = PlayerRight.AtilleryCannon,
+        IsCivil           = false,
+        Upkeep            = 200,
+        Soldiers          = 0,
+        RecruiterBuilding = {Entities.PB_Foundry2},
+        ProviderBuilding  = {},
+    },
+    [Entities.CV_Cannon4]                   = {
+        Button            = "Buy_Cannon4",
+        Costs             = {
+            [1] = {50, 1000, 0, 250, 0, 600, 500},
+            [2] = {0, 0, 0, 0, 0, 0, 0},
+        },
+        Right             = PlayerRight.GatlingCannon,
+        IsCivil           = false,
+        Upkeep            = 200,
+        Soldiers          = 0,
+        RecruiterBuilding = {Entities.PB_Foundry2},
+        ProviderBuilding  = {},
+    },
     [Entities.PV_Cannon1]                   = {
         Button            = "Buy_Cannon1",
         Costs             = {

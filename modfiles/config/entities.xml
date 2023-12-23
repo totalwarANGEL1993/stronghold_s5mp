@@ -1071,10 +1071,10 @@
         <Entity>CU_Templar_SoldierHeavyCavalry1</Entity>
         <Entity>CU_Templar_LeaderPoleArm1</Entity>
         <Entity>CU_Templar_SoldierPoleArm1</Entity>
-        <!-- <Entity>CU_Dragonboat1</Entity>
-        <Entity>CU_Dragonboat2</Entity> -->
         <Entity>CV_Cannon1</Entity>
         <Entity>CV_Cannon2</Entity>
+        <Entity>CV_Cannon3</Entity>
+        <Entity>CV_Cannon4</Entity>
 
         <!-- Walls -->
         <Entity>PB_DarkTower4</Entity>

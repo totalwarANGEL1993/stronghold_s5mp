@@ -890,6 +890,16 @@
 	    <FirstSettler>CV_Cannon2</FirstSettler>
 	</SettlerUpgrade>
 
+	<SettlerUpgrade>
+	    <Category>Cannon7</Category>
+	    <FirstSettler>CV_Cannon3</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>Cannon8</Category>
+	    <FirstSettler>CV_Cannon4</FirstSettler>
+	</SettlerUpgrade>
+
     <!-- Military Sword -->
 
     <SettlerUpgrade>

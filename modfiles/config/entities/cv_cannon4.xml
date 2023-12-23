@@ -2,13 +2,12 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>PV_Cannon3</Model>
+        <Model>CV_Cannon5</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>PV_Cannon3_Drive</Anim>
-        <Anim>PV_Cannon3_Shoot</Anim>
-        <Anim>PV_Cannon3_Destroyed</Anim>
-        <Anim>PV_Cannon3_Idle</Anim>
-
+        <Anim>PV_Cannon5_Drive</Anim>
+        <Anim>PV_Cannon5_Shoot</Anim>
+        <Anim>PV_Cannon5_Destroyed</Anim>
+        <Anim>PV_Cannon5_Idle</Anim>
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
@@ -23,16 +22,16 @@
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>350</MaxHealth>
-        <Exploration>26</Exploration>
+        <MaxHealth>300</MaxHealth>
+        <Exploration>20</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
+        <ArmorAmount>5</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
-        <ExperiencePoints>80</ExperiencePoints>
+        <ExperiencePoints>100</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Category>Cannon3</Category>
+            <Category>Cannon8</Category>
         </Upgrade>
 
 
@@ -46,7 +45,7 @@
         <ModifyMaxRange>
             <Technology>T_EnhancedGunPowder</Technology>
         </ModifyMaxRange>
-        
+    
         <ModifyDamage>
             <Technology>T_BlisteringCannonballs</Technology>
         </ModifyDamage>
@@ -54,8 +53,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PV_Cannon2_Drive</SuspensionAnimation>
-            <AnimSet>SET_CANNON3</AnimSet>
+            <SuspensionAnimation>PV_Cannon5_Drive</SuspensionAnimation>
+            <AnimSet>SET_CANNON5</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimationNoBlending</Class>
@@ -64,7 +63,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>200</Speed>
+            <Speed>300</Speed>
             <RotationSpeed>10</RotationSpeed>
             <MoveTaskList>TL_VEHICLE_DRIVE</MoveTaskList>
         </Logic>
@@ -83,28 +82,28 @@
             <BarrackUpgradeCategory>Foundry</BarrackUpgradeCategory>
             <HomeRadius>3000</HomeRadius>
 
-            <BattleTaskList>TL_BATTLE_VEHICLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_GATLING</BattleTaskList>
 
-            <NormalAttackAnim1>PV_Cannon3_Shoot</NormalAttackAnim1>
-            <NormalAttackAnim2>PV_Cannon3_Shoot</NormalAttackAnim2>
-            <CounterAttackAnim>PV_Cannon3_Shoot</CounterAttackAnim>
-            <FinishingMoveAnim>PV_Cannon3_Shoot</FinishingMoveAnim>
-            <MissAttackAnim>PV_Cannon3_Shoot</MissAttackAnim>
-            <BattleIdleAnim>PV_Cannon3_Idle</BattleIdleAnim>
-            <BattleWalkAnim>PV_Cannon3_Drive</BattleWalkAnim>
+            <NormalAttackAnim1>PV_Cannon5_Shoot</NormalAttackAnim1>
+            <NormalAttackAnim2>PV_Cannon5_Shoot</NormalAttackAnim2>
+            <CounterAttackAnim>PV_Cannon5_Shoot</CounterAttackAnim>
+            <FinishingMoveAnim>PV_Cannon5_Shoot</FinishingMoveAnim>
+            <MissAttackAnim>PV_Cannon5_Shoot</MissAttackAnim>
+            <BattleIdleAnim>PV_Cannon5_Idle</BattleIdleAnim>
+            <BattleWalkAnim>PV_Cannon5_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>45</DamageAmount>
+            <DamageAmount>40</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>500</DamageRange>
+            <DamageRange>300</DamageRange>
 
-            <BattleWaitUntil>2500</BattleWaitUntil>
+            <BattleWaitUntil>4000</BattleWaitUntil>
 
-            <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
-            <MaxRange>2600</MaxRange>
+            <ProjectileEffectID>FXCannonBallGatling</ProjectileEffectID>
+            <MaxRange>2200</MaxRange>
             <MinRange>1500</MinRange>
-            <AutoAttackRange>2600</AutoAttackRange>
 
+            <AutoAttackRange>2000</AutoAttackRange>
 
             <UpkeepCost>20</UpkeepCost>
 
@@ -112,6 +111,7 @@
             <HealingSeconds>0</HealingSeconds>
         </Logic>
     </Behavior>
+
 
     <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">

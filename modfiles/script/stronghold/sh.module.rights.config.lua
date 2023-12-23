@@ -250,6 +250,8 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.IronCannon,
                 PlayerRight.DschihadCannon,
+                PlayerRight.AtilleryCannon,
+                PlayerRight.GatlingCannon,
             },
         },
     }

@@ -3693,6 +3693,20 @@
         <SelectionTexture>Selection_Building</SelectionTexture>
     </Model>
 
+    <Model id="PV_Cannon5">
+        <SelectionRadius>165</SelectionRadius>
+        <Effect>SimpleUnitPlayerColorSpecular</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="PV_Cannon6">
+        <SelectionRadius>165</SelectionRadius>
+        <Effect>SimpleUnitPlayerColorSpecular</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
     <Model id="XD_BushDesert01">
         <CastShadow>True</CastShadow>
         <ShareShadowRaster>True</ShareShadowRaster>

@@ -740,7 +740,10 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
                     local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(Military[i]);
                     local SoldiersCur = Logic.LeaderGetNumberOfSoldiers(Military[i]);
                     local UpkeepLeader = math.ceil((v.Upkeep or 0) / 2);
-                    local UpkeepSoldier = math.floor(((v.Upkeep or 0) / 2) * ((SoldiersCur +1) / (SoldiersMax +1)));
+                    local UpkeepSoldier = 0;
+                    if SoldiersMax > 0 then
+                        UpkeepSoldier = math.floor(((v.Upkeep or 0) / 2) * ((SoldiersCur +1) / (SoldiersMax +1)));
+                    end
                     TypeUpkeep = TypeUpkeep + (UpkeepLeader + UpkeepSoldier);
                 end
                 -- External calculations
@@ -1286,6 +1289,10 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow4] or 0);
     elseif _Key == "MenuTop/Find_cannon" then
         Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon3] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon4] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon2] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon3] or 0) +

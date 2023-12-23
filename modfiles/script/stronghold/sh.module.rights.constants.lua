@@ -84,6 +84,8 @@ PlayerRight = {
     Thief = 239,
     BigBombardCannon = 240,
     DschihadCannon = 241,
+    AtilleryCannon = 242,
+    GatlingCannon = 243,
 
     -- Buildings
     BallistaTower = 300,

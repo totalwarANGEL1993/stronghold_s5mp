@@ -31,6 +31,8 @@
     <EntityName>CU_Barbarian_Hero_wolf</EntityName>
     <EntityName>CU_GCBlackKnight</EntityName>
     <EntityName>CU_GCScholar</EntityName>
+    <!-- <EntityName>CV_Cannon3</EntityName> -->
+    <!-- <EntityName>CV_Cannon4</EntityName> -->
     <!-- <EntityName>XD_BlendingFog</EntityName> -->
     <EntityName>XA_Hawk</EntityName>
     <EntityName>XD_Bomb1</EntityName>

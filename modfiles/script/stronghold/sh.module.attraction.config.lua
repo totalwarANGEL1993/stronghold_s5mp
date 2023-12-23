@@ -88,6 +88,8 @@ Stronghold.Attraction.Config.UsedSpace = {
     [Entities.PV_Cannon4] = 8,
     [Entities.CV_Cannon1] = 4,
     [Entities.CV_Cannon2] = 8,
+    [Entities.CV_Cannon3] = 8,
+    [Entities.CV_Cannon4] = 8,
     ---
     [Entities.PU_Scout] = 1,
     [Entities.PU_Thief] = 5,

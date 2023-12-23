@@ -29,7 +29,7 @@
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
         <ExperiencePoints>100</ExperiencePoints>
-        <AttractionSlots>8</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>Cannon4</Category>
         </Upgrade>
@@ -108,8 +108,8 @@
 
             <UpkeepCost>20</UpkeepCost>
 
-            <HealingPoints>2</HealingPoints>
-            <HealingSeconds>5</HealingSeconds>
+            <HealingPoints>0</HealingPoints>
+            <HealingSeconds>0</HealingSeconds>
         </Logic>
     </Behavior>
 

@@ -712,4 +712,42 @@
 			<Model>XD_CannonBall</Model>
 		</Display>
     </Effect>
+    
+    <Effect id="FXCannonBallArtillery">
+        <Logic classname="GGL::CCannonBallEffectProps">
+            <Class>GGL::CCannonBallEffect</Class>
+            <Global>false</Global>
+            <Duration>0</Duration>
+            <Speed>600.0</Speed>
+            <Radius>0</Radius>
+            <Damage>0</Damage>
+            <GravityFactor>400.0f</GravityFactor>
+            <HeightOffsetStart>320.0</HeightOffsetStart>
+            <HeightOffsetTarget>0.0</HeightOffsetTarget>
+            <ImpactEffectID>FXExplosionPilgrim</ImpactEffectID>
+        </Logic>  
+		<Display classname="ED::CFlyingEffectProps">
+			<Class>ED::CFlyingEffect</Class>
+			<Model>XD_CannonBall</Model>
+		</Display>
+    </Effect>
+
+    <Effect id="FXCannonBallGatling">
+        <Logic classname="GGL::CCannonBallEffectProps">
+            <Class>GGL::CCannonBallEffect</Class>
+            <Global>false</Global>
+            <Duration>0</Duration>
+            <Speed>2500.0</Speed>
+            <Radius>0</Radius>
+            <Damage>0</Damage>
+            <GravityFactor>1200.0f</GravityFactor>
+            <HeightOffsetStart>190.0</HeightOffsetStart>
+            <HeightOffsetTarget>0.0</HeightOffsetTarget>
+            <ImpactEffectID>FXExplosionShrapnel</ImpactEffectID>
+        </Logic>  
+		<Display classname="ED::CFlyingEffectProps">
+			<Class>ED::CFlyingEffect</Class>
+			<Model>XD_BulletBig</Model>
+		</Display>
+    </Effect>
 </root>
