@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey>MapDescription/Peaceful_Land_name</NameKey>
+ <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
+ <Name>(3) @color:200,70,40 SH @color:255,255,255 Die große Dürre</Name>
+ <Desc>@color:200,70,40 von totalwarANGEL @cr @cr @color:255,255,255 Die Hitze überkommt diese südlichen Lande und wird schon bald sämtliche Feuchtigkeit verdunsten. Drei Burgherren konkurieren um die spärlichen Resourcen und vor allem um eins: Wasser. @cr @cr @color:235,235,0 Hinweis: Je nach eingestellter Friedenszeit wird das Wasser verdunsten, sodass sich an ihrem Ende die Spieler erreichen können! @color:255,255,255 @cr @cr Konstelation: @cr P1 vs P2 vs P3</Desc>
+ <SizeX>449</SizeX>
+ <SizeY>449</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>3</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>895ab30d-5fed-45a5-b3e2-42a4b3ff49dd</Data>
+ </GUID>
+</root>

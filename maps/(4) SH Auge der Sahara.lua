@@ -73,8 +73,10 @@ SHS5MP_RulesDefinition = {
 
     -- Called after game start timer is over
     OnGameStart = function()
-        ForbidTechnology(Technologies.B_Palisade, 1);
-        ForbidTechnology(Technologies.B_Wall, 1);
+        for i= 1, 4 do
+            ForbidTechnology(Technologies.B_Palisade, i);
+            ForbidTechnology(Technologies.B_Wall, i);
+        end
         SetupProvinces();
         SetupCamps();
     end,

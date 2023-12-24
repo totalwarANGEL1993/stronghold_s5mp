@@ -30,8 +30,8 @@ end
 --- @param _Config? table Overwrite default configuration
 function ShowStrongholdConfiguration(_Config)
     if not Stronghold.Multiplayer:HaveRulesBeenConfigured() then
-        Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
         Stronghold.Multiplayer:ConfigureReset();
+        Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
         Stronghold.Multiplayer:SuspendPlayers();
     end
     Stronghold.Multiplayer:ShowRuleSelection();
@@ -45,9 +45,15 @@ end
 --- * 3: 30 minutes
 --- * 4: 45 minutes
 --- * 5: 60 minutes
---- @return number Selected Selected peacetime
+--- @return integer Selected Selected peacetime
 function GetSelectedPeacetime()
     return Stronghold.Multiplayer.Data.Config.PeacetimeSelected;
+end
+
+--- Returns the peacetime in seconds.
+--- @return integer Peacetime Peacetime
+function GetPeacetimeInSeconds()
+    return Stronghold.Multiplayer.Data.Config.PeaceTime * 60;
 end
 
 --- Returns the resources selected.
@@ -240,6 +246,9 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         if _Config.MapStartFillSulfur then
             self.Data.Config.MapStartFillSulfur = _Config.MapStartFillSulfur;
         end
+        if _Config.MapStartFillWood then
+            self.Data.Config.MapStartFillWood = _Config.MapStartFillWood;
+        end
 
         if _Config.Version then
             self.Data.Config.Version = _Config.Version;
@@ -253,12 +262,6 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         if _Config.PeaceTimeOpenGates ~= nil then
             self.Data.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
         end
-
-        self.Config.MapStartFillClay = _Config.MapStartFillClay or 4000;
-        self.Config.MapStartFillStone = _Config.MapStartFillStone or 4000;
-        self.Config.MapStartFillIron = _Config.MapStartFillIron or 4000;
-        self.Config.MapStartFillSulfur = _Config.MapStartFillSulfur or 4000;
-        self.Config.MapStartFillWood = _Config.MapStartFillWood or 4000;
 
         self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime or Default.PeaceTime;
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;

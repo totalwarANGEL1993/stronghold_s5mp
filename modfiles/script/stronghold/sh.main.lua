@@ -389,6 +389,7 @@ function Stronghold:StartTriggers()
                 Stronghold:ClearPlayerRecordCache(PlayerID);
                 Stronghold.Player:OncePerSecond(PlayerID);
                 Stronghold.Attraction:OncePerSecond(PlayerID);
+                Stronghold.Hero:OnEveryTurn(PlayerID);
                 Stronghold.Building:OncePerSecond(PlayerID);
                 Stronghold.Economy:OncePerSecond(PlayerID);
                 Stronghold.Hero:OncePerSecond(PlayerID);
