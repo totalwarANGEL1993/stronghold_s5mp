@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Brickworks1</Model>
-		  <Anim>PB_Brickworks1_stove_601</Anim>
-		  <Anim>PB_Brickworks1_table_602</Anim>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <Category>Workplace</Category>
-		  <Category>DefendableBuilding</Category>  
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <UpgradeSite>ZB_UpgradeSiteMint1</UpgradeSite>
-		  <MaxHealth>1200</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>3</ArmorAmount>    
-		  
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Brickworks1</Model>
+        <Anim>PB_Brickworks1_stove_601</Anim>
+        <Anim>PB_Brickworks1_table_602</Anim>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <Category>Workplace</Category>
+        <Category>DefendableBuilding</Category>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <MaxHealth>1200</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>3</ArmorAmount>
+        <Exploration>30</Exploration>
 
-		<!-- Armor -->
-		<ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-				
-		<!-- Exploration-->
-		<ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
 
         <Worker>PU_BrickMaker</Worker>
         <MaxWorkers>4</MaxWorkers>
         <InitialMaxWorkers>4</InitialMaxWorkers>
-		  <WorkTaskList>
-		    <Start>TL_BRICKMAKER_WORK_START</Start> 
-		    <Work>TL_BRICKMAKER_WORK</Work> 
-		</WorkTaskList>
-		  <WorkTaskList>
-		    <Start>TL_BRICKMAKER_WORK1_START</Start> 
-		    <Work>TL_BRICKMAKER_WORK1</Work> 
-		</WorkTaskList>
-		  <WorkTaskList>
-		    <Start>TL_BRICKMAKER_WORK_INSIDE_START</Start> 
-		    <Work>TL_BRICKMAKER_WORK_INSIDE</Work> 
-		</WorkTaskList>
-		  <Upgrade>
+        <WorkTaskList>
+            <Start>TL_BRICKMAKER_WORK_START</Start>
+            <Work>TL_BRICKMAKER_WORK</Work>
+        </WorkTaskList>
+        <WorkTaskList>
+            <Start>TL_BRICKMAKER_WORK1_START</Start>
+            <Work>TL_BRICKMAKER_WORK1</Work>
+        </WorkTaskList>
+        <WorkTaskList>
+            <Start>TL_BRICKMAKER_WORK_INSIDE_START</Start>
+            <Work>TL_BRICKMAKER_WORK_INSIDE</Work>
+        </WorkTaskList>
+
+        <Upgrade>
             <Category>Brickworks</Category>
-            <Time>40.0</Time>  
+            <Time>40.0</Time>
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>200</Wood>
+                <Clay>0</Clay>
+                <Wood>300</Wood>
                 <Stone>200</Stone>
                 <Gold/>
                 <Iron/>
@@ -58,16 +57,17 @@
             </Cost>
             <Type>PB_Brickworks2</Type>
         </Upgrade>
-		  <Exploration>30</Exploration>      
+        <UpgradeSite>ZB_UpgradeSiteMint1</UpgradeSite>
+
         <ConstructionInfo>
-        	<Time>110</Time>
+            <Time>110</Time>
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>150</Wood>
-				    <Stone>100</Stone>
-				    <Gold/>
-				    <Iron/>
-				    <Sulfur/>
+                <Clay>0</Clay>
+                <Wood>200</Wood>
+                <Stone>150</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>
@@ -89,25 +89,25 @@
                     <Y>-300</Y>
                 </Position>
                 <Orientation>0</Orientation>
-            </BuilderSlot>            
-            
+            </BuilderSlot>
+
             <BuilderSlot>
                 <Position>
                     <X>-600</X>
                     <Y>300</Y>
                 </Position>
                 <Orientation>0</Orientation>
-            </BuilderSlot>         
+            </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteMint1</ConstructionSite>
         </ConstructionInfo>
-         <ApproachPos>
+        <ApproachPos>
             <X>-600</X>
             <Y>0</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>200</X>
-            <Y>100</Y>			
+            <Y>100</Y>
         </DoorPos>
         <Blocked1>
             <X>-500</X>
@@ -124,16 +124,16 @@
         <TerrainPos2>
             <X>350</X>
             <Y>-650</Y>
-        </TerrainPos2>        
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
+        </TerrainPos2>
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
     <Behavior>
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
@@ -142,37 +142,37 @@
             <SupplierCategory>ClaySupplier</SupplierCategory>
         </Logic>
     </Behavior>
-    
-    
 
-<!--AnSu: I will test if it is better to have all buildings as defender buildings-->
+
+
+    <!--AnSu: I will test if it is better to have all buildings as defender buildings-->
     <Behavior>
-		  <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
-			  <Class>GGL::CLimitedAttachmentBehavior</Class>           
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_DEFENDER_BUILDING</Type>
                 <Limit>10</Limit>
             </Attachment>
-		</Logic>		 
-	</Behavior>
-    
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>14</NumDamageEffects>
-			  <NumDestroyEffects>20</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	
-	<Behavior>
-	    <Logic classname="GGL::CDefendableBuildingBehaviorProps">
-	        <Class>GGL::CDefendableBuildingBehavior</Class>
-	    </Logic>
-	</Behavior>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>14</NumDamageEffects>
+            <NumDestroyEffects>20</NumDestroyEffects>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CDefendableBuildingBehaviorProps">
+            <Class>GGL::CDefendableBuildingBehavior</Class>
+        </Logic>
+    </Behavior>
 
 
 

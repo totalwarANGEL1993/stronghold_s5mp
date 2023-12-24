@@ -18,28 +18,28 @@
         <InitialMaxWorkers>0</InitialMaxWorkers>
 
 
-        <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
 
+
         <Upgrade>
             <Category>Weathermachine</Category>
         </Upgrade>
+
         <ConstructionInfo>
             <Time>40</Time>
             <Cost>
-                <Clay>0</Clay>
+                <Clay>500</Clay>
                 <Wood>500</Wood>
                 <Stone>0</Stone>
                 <Gold/>
                 <Iron/>
-                <Sulfur>500</Sulfur>
+                <Sulfur></Sulfur>
             </Cost>
             <BuilderSlot>
                 <Position>
@@ -71,6 +71,7 @@
             </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>
+        
         <ApproachPos>
             <X>-0</X>
             <Y>300</Y>

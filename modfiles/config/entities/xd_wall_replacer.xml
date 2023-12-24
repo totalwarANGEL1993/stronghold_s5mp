@@ -2,16 +2,14 @@
 <root>
 	<Display classname="ED::CDisplayEntityProps">
 		<Class>ED::CDisplayStaticEntity</Class>
-		<Model>PB_WallDistorted</Model>
+		<Model>XD_WallDistorted</Model>
+		<RenderInFoW>true</RenderInFoW>
 	</Display>
 	<Logic classname="EGL::CGLEEntityProps">
 		<Class>EGL::CGLEEntity</Class>
         <AccessCategory>AccessCategoryStatic</AccessCategory>
 		<DoNotExecute>True</DoNotExecute>
         <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
-		<Exploration>0</Exploration>
-		<NeedsPlayer>false</NeedsPlayer>
-		<ForceNoPlayer>false</ForceNoPlayer>
-		<Visible>true</Visible>
+        <SnapTolerance>30.0f</SnapTolerance>
 	</Logic>
 </root>
