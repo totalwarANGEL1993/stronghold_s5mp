@@ -56,7 +56,7 @@
             <ArmorClassIronFactor>2.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>2.0</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>1.5</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Halberdiers -->
@@ -68,7 +68,7 @@
             <ArmorClassIronFactor>1.9</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>2.0</ArmorClassFurFactor>        
+            <ArmorClassFurFactor>1.5</ArmorClassFurFactor>        
         </Logic>
     </DamageClass>
     <!-- Any swordman on foot -->
@@ -189,6 +189,18 @@
             <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>        
+        </Logic>
+    </DamageClass>
+    <!-- Beast -->
+    <DamageClass id="DC_Beast">
+        <Logic classname="GGL::CDamageClassProps">
+            <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
+            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
+            <ArmorClassHeroFactor>1.0</ArmorClassHeroFactor>
+            <ArmorClassFurFactor>0.25</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
 </root>

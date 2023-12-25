@@ -80,7 +80,7 @@
             <HomeRadius>1500</HomeRadius>
             <SoldierType>PU_SoldierSword1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_DOG</BattleTaskList>
 
             <NormalAttackAnim1>XA_Wolf_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>XA_Wolf_Attack1</NormalAttackAnim2>
@@ -91,9 +91,9 @@
             <BattleWalkAnim>XA_Wolf_Run</BattleWalkAnim>
             <HitAnim>XA_Wolf_IdleAttack1</HitAnim>
 
-            <DamageClass>DC_Strike</DamageClass>
+            <DamageClass>DC_Beast</DamageClass>
             <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

@@ -63,10 +63,9 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>3000</HomeRadius>
-
             <SoldierType>PU_SoldierSword1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_WOLF</BattleTaskList>
 
             <NormalAttackAnim1>XA_Wolf_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>XA_Wolf_Attack1</NormalAttackAnim2>

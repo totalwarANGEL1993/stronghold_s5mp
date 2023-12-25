@@ -16,6 +16,7 @@ function OnMapStart()
 	CMod.PushArchive("stronghold_s5mp\\textureslow.bba");
 	CMod.PushArchive("stronghold_s5mp\\texturesmed.bba");
 	CMod.PushArchive("stronghold_s5mp\\textures.bba");
+    CMod.PushArchive("stronghold_s5mp\\sounds.bba");
 	CMod.PushArchive("stronghold_s5mp\\system.bba");
     print("Stronghold mod loaded!");
 end;

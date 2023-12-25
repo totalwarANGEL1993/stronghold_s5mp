@@ -421,5 +421,8 @@
 
     <TaskList>TL_BATTLE_GATLING</TaskList>
     <TaskList>TL_BEAR_IDLE</TaskList>
+    <TaskList>TL_BATTLE_BEAR</TaskList>
+    <TaskList>TL_BATTLE_DOG</TaskList>
+    <TaskList>TL_BATTLE_WOLF</TaskList>
     <TaskList>TL_CU_HERO13_SUMMON</TaskList>
 </root>

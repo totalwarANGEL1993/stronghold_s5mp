@@ -24,9 +24,7 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
-        <Category>Military</Category>
-        <Category>CavalryLight</Category>
-        <Category>Melee</Category>
+        <Category>Wall</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
@@ -83,7 +81,7 @@
             <HomeRadius>1500</HomeRadius>
             <SoldierType>PU_SoldierSword1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_BEAR</BattleTaskList>
 
             <NormalAttackAnim1>XA_Bear_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>XA_Bear_Attack2</NormalAttackAnim2>
@@ -94,9 +92,9 @@
             <BattleWalkAnim>XA_Bear_Run1</BattleWalkAnim>
             <HitAnim>XA_Bear_Attack1</HitAnim>
 
-            <DamageClass>DC_Strike</DamageClass>
+            <DamageClass>DC_Beast</DamageClass>
             <DamageAmount>50</DamageAmount>
-            <MaxRandomDamageBonus>12</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>9</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

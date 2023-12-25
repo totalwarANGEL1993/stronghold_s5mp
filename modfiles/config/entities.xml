@@ -1062,13 +1062,13 @@
         <!-- Units -->
         <Entity>CU_AggressiveBear</Entity>
         <Entity>CU_AggressiveBear_Cage</Entity>
+        <Entity>CU_AggressiveBear_Deco</Entity>
         <Entity>CU_AggressiveDog</Entity>
         <Entity>CU_AggressiveDog_Cage</Entity>
-        <Entity>CU_BearIdle</Entity>
+        <Entity>CU_AggressiveDog_Deco</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
-        <Entity>CU_DogIdle</Entity>
         <Entity>CU_Hero13</Entity>
         <Entity>CU_Hero13_Summon</Entity>
         <Entity>CU_BanditLeaderCavalry1</Entity>
