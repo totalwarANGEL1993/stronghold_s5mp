@@ -234,6 +234,24 @@ Stronghold.Building.Config.StoneWallTypes = {
     [Entities.PB_WallStraight]                  = true,
 }
 
+Stronghold.BuiXDing.Config.NeutralWallType = {
+    [Entities.XD_DarkWallCorner]                = true,
+    [Entities.XD_DarkWallStraightGate_Closed]   = true,
+    [Entities.XD_DarkWallStraightGate]          = true,
+    [Entities.XD_DarkWallDistorted]             = true,
+    [Entities.XD_DarkWallStraight]              = true,
+    -- [Entities.XD_PalisadeCorner]                = true,
+    -- [Entities.XD_PalisadeStraightGate_Closed]   = true,
+    -- [Entities.XD_PalisadeStraightGate]          = true,
+    -- [Entities.XD_PalisadeDistorted]             = true,
+    -- [Entities.XD_PalisadeStraight]              = true,
+    [Entities.XD_WallCorner]                    = true,
+    [Entities.XD_WallStraightGate_Closed]       = true,
+    [Entities.XD_WallStraightGate]              = true,
+    [Entities.XD_WallDistorted]                 = true,
+    [Entities.XD_WallStraight]                  = true,
+}
+
 Stronghold.Building.Config.RecuitIndexRecuitShortcut = {
     [1]  = "A",
     [2]  = "S",

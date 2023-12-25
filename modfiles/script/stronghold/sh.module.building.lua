@@ -68,6 +68,7 @@ function Stronghold.Building:Install()
     self:InitalizeTurretsForExistingBuildings();
     self:InitalizeSerfBuildingTabs();
     self:InitalizeBuyUnitKeybindings();
+    self:MakeNeutralWallsInvincible();
 end
 
 function Stronghold.Building:OnSaveGameLoaded()
@@ -1624,8 +1625,29 @@ end
 
 function Stronghold.Building:OnWallOrPalisadeCreated(_EntityID)
     local SegmentType = Logic.GetEntityType(_EntityID);
+    if self.Config.NeutralWallType[SegmentType] then
+        self:MakeNeutralWallInvincible(_EntityID);
+    end
     if self.Config.LegalWallType[SegmentType] then
         self:CreateWallCornerForSegment(_EntityID);
+    end
+end
+
+function Stronghold.Building:MakeNeutralWallsInvincible()
+    for Type,_ in pairs(self.Config.NeutralWallType) do
+        local OfPlayer = CEntityIterator.OfPlayerFilter(0);
+        local OfType = CEntityIterator.OfTypeFilter(Type);
+        for EntityID in CEntityIterator.Iterator(OfPlayer, OfType) do
+            self:MakeNeutralWallInvincible(EntityID);
+        end
+    end
+end
+
+function Stronghold.Building:MakeNeutralWallInvincible(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local EntityType = Logic.GetEntityType(_EntityID);
+    if PlayerID == 0 or self.Config.NeutralWallType[EntityType] then
+        MakeInvulnerable(_EntityID);
     end
 end
 
