@@ -1060,6 +1060,8 @@
         <Entity>PB_ExecutionerPlace1</Entity>
 
         <!-- Units -->
+        <Entity>CU_AggressiveDog</Entity>
+        <Entity>CU_AggressiveDog_Cage</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
