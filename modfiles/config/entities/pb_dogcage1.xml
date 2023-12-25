@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>XD_Cage</Model>
+    </Display>
+
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <MaxHealth>800</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>4</ArmorAmount>
+        <Category>Wall</Category>
+        <Exploration>10</Exploration>
+        <IsWall>True</IsWall>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+        <Upgrade>
+            <Category>DogCage</Category>
+        </Upgrade>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
+
+        <ConstructionInfo>
+            <Time>15</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>100</Wood>
+                <Stone>0</Stone>
+                <Gold>200</Gold>
+                <Iron>100</Iron>
+                <Sulfur/>
+            </Cost>
+            <BuilderSlot>
+                <Position>
+                    <X>-300</X>
+                    <Y>0</Y>
+                </Position>
+                <Orientation>0</Orientation>
+            </BuilderSlot>
+            <BuilderSlot>
+                <Position>
+                    <X>0</X>
+                    <Y>-400</Y>
+                </Position>
+                <Orientation>90</Orientation>
+            </BuilderSlot>
+            <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
+        </ConstructionInfo>
+
+        <ApproachPos>
+            <X>0</X>
+            <Y>-400</Y>
+        </ApproachPos>
+        <ApproachR>0</ApproachR>
+        <DoorPos>
+            <X>-50</X>
+            <Y>-250</Y>
+        </DoorPos>
+        <Blocked1>
+            <X>-200</X>
+            <Y>300</Y>
+        </Blocked1>
+        <Blocked2>
+            <X>200</X>
+            <Y>-300</Y>
+        </Blocked2>
+        <TerrainPos1>
+            <X>-300</X>
+            <Y>400</Y>
+        </TerrainPos1>
+        <TerrainPos2>
+            <X>300</X>
+            <Y>-400</Y>
+        </TerrainPos2>
+    </Logic>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>DefaultBend</Banner>
+            <NumDamageEffects>0</NumDamageEffects>
+            <NumDestroyEffects>0</NumDestroyEffects>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+        </Logic>
+    </Behavior>
+</root>

@@ -1043,6 +1043,7 @@
 <!--Stronghold-->
 
         <!-- Buildings -->
+        <Entity>CB_Cage1</Entity>
         <Entity>CB_Grange</Entity>
         <Entity>CB_Prison_Tower1</Entity>
         <Entity>CB_SignalFire_Base</Entity>
@@ -1079,12 +1080,14 @@
         <Entity>PV_Cannon8</Entity>
 
         <!-- Walls -->
+        <Entity>PB_BearCage1</Entity>
         <Entity>PB_DarkTower4</Entity>
         <Entity>PB_DarkWallCorner</Entity>
         <Entity>PB_DarkWallDistorted</Entity>
         <Entity>PB_DarkWallStraight</Entity>
         <Entity>PB_DarkWallStraightGate_Closed</Entity>
         <Entity>PB_DarkWallStraightGate</Entity>
+        <Entity>PB_DogCage1</Entity>
         <Entity>PB_PalisadeCorner</Entity>
         <Entity>PB_PalisadeDistorted</Entity>
         <Entity>PB_PalisadeStraight</Entity>
@@ -1120,6 +1123,7 @@
         <Entity>XD_Cactus1</Entity>
         <Entity>XD_Cactus2</Entity>
         <Entity>XD_Cactus3</Entity>
+        <Entity>XD_Cage</Entity>
         <Entity>XD_Cog</Entity>
         <Entity>XD_CogWreckage</Entity>
         <Entity>XD_CaveEntry2</Entity>

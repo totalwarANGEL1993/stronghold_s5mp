@@ -1307,4 +1307,14 @@
         <Category>ExecutionerPlace</Category>
         <FirstBuilding>PB_ExecutionerPlace1</FirstBuilding>
     </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>BearCage</Category>
+        <FirstBuilding>PB_BearCage1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DogCage</Category>
+        <FirstBuilding>PB_DogCage1</FirstBuilding>
+    </BuildingUpgrade>
 </root>

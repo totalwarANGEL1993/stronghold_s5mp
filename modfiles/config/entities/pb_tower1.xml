@@ -13,6 +13,7 @@
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <Category>MilitaryBuilding</Category>
+        <Exploration>45</Exploration>
 
 
         <ModifyArmor>
@@ -40,7 +41,6 @@
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
 
 
-        <Exploration>45</Exploration>
         <ConstructionInfo>
             <Time>60</Time>
             <Cost>
@@ -81,6 +81,7 @@
             </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>
+    
         <ApproachPos>
             <X>-100</X>
             <Y>200</Y>
