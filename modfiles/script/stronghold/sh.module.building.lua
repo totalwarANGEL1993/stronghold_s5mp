@@ -67,6 +67,7 @@ function Stronghold.Building:Install()
     self:OverrideShiftRightClick();
     self:OverwriteWeatherTowerButtons();
     self:InitalizeTurretsForExistingBuildings();
+    self:InitalizeTrapsCurrentlyExisting();
     self:InitalizeSerfBuildingTabs();
     self:InitalizeBuyUnitKeybindings();
     self:MakeNeutralWallsInvincible();
@@ -1638,6 +1639,15 @@ end
 
 -- -------------------------------------------------------------------------- --
 -- Traps Logic
+
+function Stronghold.Building:InitalizeTrapsCurrentlyExisting()
+    for PlayerID = 1, GetMaxPlayers() do
+        local Buildings = GetBuildingsOfType(PlayerID, 0, true);
+        for i= 2, Buildings[1] +1 do
+            self:OnTrapConstructed(Buildings[i]);
+        end
+    end
+end
 
 function Stronghold.Building:OnTrapTriggered(_PlayerID, _TrapID)
     local PlayerID = Logic.EntityGetPlayer(_TrapID);

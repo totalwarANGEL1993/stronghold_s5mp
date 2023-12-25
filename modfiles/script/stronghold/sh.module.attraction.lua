@@ -226,6 +226,7 @@ function Stronghold.Attraction:Install()
     GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.XA_Hawk] = true;
 
     self:InitLogicOverride();
+    self:InitalizeHawksForExistingTowers();
     self:OnPayday();
 end
 
@@ -315,6 +316,15 @@ end
 
 -- -------------------------------------------------------------------------- --
 -- Rats
+
+function Stronghold.Attraction:InitalizeHawksForExistingTowers()
+    for PlayerID = 1, GetMaxPlayers() do
+        local Buildings = GetBuildingsOfType(PlayerID, 0, true);
+        for i= 2, Buildings[1] +1 do
+            self:OnHawkHabitatCreated(Buildings[i]);
+        end
+    end
+end
 
 function Stronghold.Attraction:DoRatsAppear(_PlayerID)
     return GetRank(_PlayerID) >= PlayerRank.Count;
