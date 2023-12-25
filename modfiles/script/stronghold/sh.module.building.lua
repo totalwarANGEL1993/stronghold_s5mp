@@ -56,9 +56,6 @@ function Stronghold.Building:Install()
             RallyPoint = {},
             UnitMover = {},
             Corners = {},
-
-            HeadquarterLastWidgetID = 0,
-            SerfLastWidgetID = 0,
         };
     end
 
@@ -239,6 +236,8 @@ end
 -- Regular Headquarters
 
 function Stronghold.Building:OverrideHeadquarterButtons()
+    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
+
     Overwrite.CreateOverwrite("GUIAction_SetTaxes", function(_Level)
         Stronghold.Building:AdjustTax(_Level);
     end);
@@ -263,7 +262,7 @@ end
 
 function Stronghold.Building:GetLastSelectedHeadquarterTab(_PlayerID)
     if IsPlayer(_PlayerID) then
-        return self.Data[_PlayerID].HeadquarterLastWidgetID;
+        return gvStronghold_LastSelectedHQMenu or gvGUI_WidgetID.ToBuildingCommandMenu;
     end
     return 0;
 end
@@ -287,14 +286,15 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
         return;
     end
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
+        local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID));
+        local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil)
+        XGUIEng.ShowWidget("BuildingTabs", (IsOutpost and 0) or 1);
         XGUIEng.ShowWidget("RallyPoint", 1);
         XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
-        XGUIEng.ShowWidget("BuildingTabs", 1);
         GUIUpdate_BuySerf();
         GUIUpdate_PlaceRallyPoint();
-        local DefaultWitgedID = gvGUI_WidgetID.ToBuildingCommandMenu;
-        local LastWidgetID = self.Data[PlayerID].HeadquarterLastWidgetID or DefaultWitgedID;
-        self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, LastWidgetID);
+        local WidgetID = gvStronghold_LastSelectedHQMenu;
+        self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, WidgetID);
         -- Upgrade buttons
         XGUIEng.ShowWidget("Upgrade_Headquarter1", 0);
         XGUIEng.ShowWidget("Upgrade_Headquarter2", 0);
@@ -314,6 +314,11 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
         end
         GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
         GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP2_Outpost);
+        if IsOutpost then
+            GUIUpdate_GlobalTechnologiesButtons("Research_Tracking", Technologies.T_Tracking, Entities.PB_Outpost1);
+        end
+    else
+        gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
     end
 end
 
@@ -398,9 +403,7 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     XGUIEng.ShowWidget("HQ_BackToWork", 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
 
-    if IsPlayer(_PlayerID) then
-        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
-    end
+    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
     GUIUpdate_PlaceRallyPoint();
 end
 
@@ -683,9 +686,7 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_DecorativeSkull");
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_TjostingArmor");
 
-    if IsPlayer(_PlayerID) then
-        self.Data[_PlayerID].HeadquarterLastWidgetID = _WidgetID;
-    end
+    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingSettlersMenu;
     GUIUpdate_PlaceRallyPoint();
 end
 
@@ -697,8 +698,11 @@ function Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(_PlayerID, 
     end
 
     local WidgetID = _WidgetID;
-    local SelectedChanged = gvStronghold_LastSelectedEntity ~= _EntityID;
-    if SelectedChanged then
+    if not WidgetID then
+        WidgetID = gvStronghold_LastSelectedHQMenu;
+    end
+    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID));
+    if TypeName and string.find(TypeName, "PB_Outpost") then
         WidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
     end
 
