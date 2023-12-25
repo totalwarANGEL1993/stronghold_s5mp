@@ -10,6 +10,7 @@ Stronghold.Building = Stronghold.Building or {
     SyncEvents = {},
     Data = {
         Turrets = {},
+        Traps = {},
         LastWeatherChange = 0,
     },
     Config = {},
@@ -94,6 +95,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         TurnToGate = 9,
         TurnToWall = 10,
         ChangeWeather = 11,
+        TriggerTrap = 12,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -128,6 +130,9 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
                 local State = Logic.GetWeatherState();
                 Stronghold.Building:OnWeatherStateChanged(_PlayerID, State, arg[1]);
             end
+            if _Action == Stronghold.Building.SyncEvents.TriggerTrap then
+                Stronghold.Building:OnTrapTriggered(_PlayerID, arg[1]);
+            end
         end
     );
 end
@@ -144,6 +149,8 @@ end
 function Stronghold.Building:OnEverySecond()
     -- Control turrets
     self:UpdateTurretsOfBuilding();
+    -- Traps
+    self:TrapController();
 end
 
 function Stronghold.Building:OnEntityCreated(_EntityID)
@@ -159,6 +166,15 @@ function Stronghold.Building:OnEntityDestroyed(_EntityID)
     self:OnRallyPointHolderDestroyed(PlayerID, _EntityID);
     -- Wall destroyed
     self:OnWallOrPalisadeDestroyed(_EntityID);
+end
+
+function Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID)
+    -- Turrets
+    self:CreateTurretsForBuilding(_EntityID);
+    -- Rally point
+    self:SetIgnoreRallyPointSelectionCancel(_PlayerID);
+    -- Trap
+    self:OnTrapConstructed(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
@@ -1618,6 +1634,184 @@ function Stronghold.Building:OnWallSelected(_EntityID)
             end
         end
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Traps Logic
+
+function Stronghold.Building:OnTrapTriggered(_PlayerID, _TrapID)
+    local PlayerID = Logic.EntityGetPlayer(_TrapID);
+    if PlayerID ~= _PlayerID then
+        return;
+    end
+    local EntityType = Logic.GetEntityType(_TrapID);
+    if EntityType == Entities.PB_BearCage1 then
+        self:OnBearTrapTriggered(_PlayerID, _TrapID);
+    elseif EntityType == Entities.PB_DogCage1 then
+        self:OnDogTrapTriggered(_PlayerID, _TrapID);
+    end
+end
+
+function Stronghold.Building:OnTrapConstructed(_TrapID)
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(_TrapID);
+    local EntityType = Logic.GetEntityType(_TrapID);
+
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        SVLib.SetInvisibility(_TrapID, true);
+    end
+
+    local Attachment = 0;
+    -- Create deco bear
+    if EntityType == Entities.PB_BearCage1 then
+        local x,y,z = Logic.EntityGetPos(_TrapID);
+        local Rotation = Logic.GetEntityOrientation(_TrapID) - 90;
+        local AnimalID = Logic.CreateEntity(Entities.CU_AggressiveBear_Deco, x, y, Rotation, PlayerID);
+        Logic.SetEntitySelectableFlag(AnimalID, 0);
+        Logic.SettlerStand(AnimalID);
+        SVLib.SetEntitySize(AnimalID, 0.85);
+        Attachment = AnimalID;
+    -- Create deco dog
+    elseif EntityType == Entities.PB_DogCage1 then
+        local x,y,z = Logic.EntityGetPos(_TrapID);
+        local Rotation = Logic.GetEntityOrientation(_TrapID) - 90;
+        local AnimalID = Logic.CreateEntity(Entities.CU_AggressiveDog_Deco, x, y, Rotation, PlayerID);
+        Logic.SetEntitySelectableFlag(AnimalID, 0);
+        Logic.SettlerStand(AnimalID);
+        Attachment = AnimalID;
+    end
+    if Attachment ~= 0 and GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        SVLib.SetInvisibility(Attachment, true);
+    end
+
+    self.Data.Traps[_TrapID] = {PlayerID, EntityType, Attachment};
+end
+
+function Stronghold.Building:OnBearTrapTriggered(_PlayerID, _TrapID)
+    if IsExisting(_TrapID) then
+        local x,y,z = Logic.EntityGetPos(_TrapID);
+        DestroyEntity(self.Data.Traps[_TrapID][3]);
+        SetHealth(_TrapID, 0);
+        local ID = AI.Entity_CreateFormation(_PlayerID, Entities.CU_AggressiveBear_Cage, nil, 0, x, y, 0, 0, 0, 0);
+        Logic.SetEntitySelectableFlag(ID, 0);
+        Job.Second(function(_AnimalID, _X, _Y)
+            return Stronghold.Building:TrapAggressiveAnimalController(_AnimalID, _X, _Y);
+        end, ID, x, y);
+    end
+end
+
+function Stronghold.Building:OnDogTrapTriggered(_PlayerID, _TrapID)
+    if IsExisting(_TrapID) then
+        local x,y,z = Logic.EntityGetPos(_TrapID);
+        DestroyEntity(self.Data.Traps[_TrapID][3]);
+        SetHealth(_TrapID, 0);
+        for i= 1, 3 do
+            local ID = AI.Entity_CreateFormation(_PlayerID, Entities.CU_AggressiveDog_Cage, nil, 0, x, y, 0, 0, 0, 0);
+            Logic.SetEntitySelectableFlag(ID, 0);
+            Job.Second(function(_AnimalID, _X, _Y)
+                return Stronghold.Building:TrapAggressiveAnimalController(_AnimalID, _X, _Y);
+            end, ID, x, y);
+        end
+    end
+end
+
+-- Controls the traps.
+-- Some traps have an attached entity. If it is destroyed, the trap will be
+-- destroyed. If the trap is destroyed, the attachment is destroyed.
+function Stronghold.Building:TrapController()
+    for TrapID, Data in pairs(self.Data.Traps) do
+        if not IsExisting(TrapID) then
+            DestroyEntity(Data[3]);
+            self.Data.Traps[TrapID] = nil;
+        else
+            if Data[3] ~= 0 and not IsExisting(Data[3]) then
+                SetHealth(TrapID, 0);
+            end
+        end
+    end
+end
+
+-- Controls spawned animals.
+-- Animals will attack close enemies. If they stray to far from the spawn
+-- position, they will return to it.
+function Stronghold.Building:TrapAggressiveAnimalController(_EntityID, _X, _Y)
+    if not IsValidEntity(_EntityID) then
+        return true;
+    end
+
+    local MaxDistance = (IsFighting(_EntityID) and 5000) or 1000;
+    if GetDistance(_EntityID, {X= _X, Y= _Y}) > MaxDistance then
+        Logic.MoveSettler(_EntityID, _X, _Y);
+        return false;
+    end
+
+    MaxDistance = 5000;
+    if not IsFighting(_EntityID) and not Logic.IsEntityMoving(_EntityID) then
+        local PlayerID = Logic.EntityGetPlayer(_EntityID);
+        local Enemies = GetEnemiesInArea(PlayerID, {X= _X, Y= _Y}, MaxDistance);
+        if Enemies[1] then
+            local x,y,z = Logic.EntityGetPos(Enemies[1]);
+            Logic.GroupAttackMove(_EntityID, x, y);
+        end
+    end
+    return false;
+end
+
+-- -------------------------------------------------------------------------- --
+-- Traps GUI
+
+function Stronghold.Building:OnTrapSelected(_EntityID)
+    if Logic.IsConstructionComplete(_EntityID) == 0 then
+        XGUIEng.ShowWidget("Trap", 0);
+        return;
+    end
+
+    local TrapType = Logic.GetEntityType(_EntityID);
+    if TrapType == Entities.PB_BearCage1 then
+        XGUIEng.ShowWidget("Trap", 1);
+        XGUIEng.ShowWidget("Commands_Trap", 1);
+        XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
+        XGUIEng.ShowWidget("TriggerTrap", 1);
+        XGUIEng.ShowWidget("Research_BearTraining", 1);
+    elseif TrapType == Entities.PB_DogCage1 then
+        XGUIEng.ShowWidget("Trap", 1);
+        XGUIEng.ShowWidget("Commands_Trap", 1);
+        XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
+        XGUIEng.ShowWidget("TriggerTrap", 1);
+        XGUIEng.ShowWidget("Research_DogTraining", 1);
+    else
+        XGUIEng.ShowWidget("Trap", 0);
+    end
+end
+
+function GUIAction_TriggerTrap()
+    local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if PlayerID ~= GUI.GetPlayerID() then
+        return;
+    end
+    GUI.ClearSelection();
+    Syncer.InvokeEvent(
+        Stronghold.Building.NetworkCall,
+        Stronghold.Building.SyncEvents.TriggerTrap,
+        EntityID
+    );
+end
+
+function GUITooltip_TriggerTrap()
+    local ShortCut = XGUIEng.GetStringTableText("keybindings/ReserachTechnologies4");
+    local ShortCutDesc = XGUIEng.GetStringTableText("MenuGeneric/Key_name");
+    local ShortCutToolTip = ShortCutDesc .. ": [" .. ShortCut .. "]";
+    local Text = XGUIEng.GetStringTableText("sh_menutrap/triggertrap_normal");
+    if XGUIEng.IsButtonDisabled("TriggerTrap") == 1 then
+        Text = XGUIEng.GetStringTableText("sh_menutrap/triggertrap_disabled");
+    end
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+end
+
+function GUIUpdate_TriggerTrap()
 end
 
 -- -------------------------------------------------------------------------- --

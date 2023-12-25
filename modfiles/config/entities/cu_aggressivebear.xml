@@ -39,6 +39,15 @@
         <Upgrade>
             <Category>Bear</Category>
         </Upgrade>
+
+
+        <ModifyArmor>
+            <Technology>T_BearTraining</Technology>
+        </ModifyArmor>
+
+        <ModifyDamage>
+            <Technology>T_BearTraining</Technology>
+        </ModifyDamage>
     </Logic>
 
     <Behavior>

@@ -23,6 +23,8 @@
     <EntityName>CB_TechTrader</EntityName>
     <EntityName>CU_AggressiveBear_Cage</EntityName>
     <EntityName>CU_AggressiveDog_Cage</EntityName>
+    <EntityName>CU_BearIdle</EntityName>
+    <EntityName>CU_DogIdle</EntityName>
     <!-- <EntityName>CU_AfraidAlchemist</EntityName> -->
     <!-- <EntityName>CU_AfraidMasterBuilder</EntityName> -->
     <!-- <EntityName>CU_AfraidMiner</EntityName> -->

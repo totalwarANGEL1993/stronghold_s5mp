@@ -86,6 +86,8 @@ PlayerRight = {
     DschihadCannon = 241,
     AtilleryCannon = 242,
     GatlingCannon = 243,
+    DogCage = 244,
+    BearCage = 245,
 
     -- Buildings
     BallistaTower = 300,

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<root>
+    <TecCategoryType>TC_Technologies</TecCategoryType>
+    <TimeToResearch>45</TimeToResearch>
+    <ResourceCosts>
+        <Knowledge>4</Knowledge>
+        <Gold>1000</Gold>
+        <Clay/>
+        <Wood/>
+        <Stone/>
+        <Iron>0</Iron>
+        <Sulfur/>
+    </ResourceCosts>
+    <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <DamageModifier>
+        <Value>1.15</Value>
+        <Operation>*</Operation>
+    </DamageModifier>
+    <ArmorModifier>
+        <Value>1</Value>
+        <Operation>+</Operation>
+    </ArmorModifier>
+
+    <Conditions>
+    </Conditions>
+</root>

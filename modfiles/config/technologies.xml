@@ -351,6 +351,8 @@
 <!-- Stronghold -->
 
     <!-- Buildings -->
+    <Technology>B_BearCage</Technology>
+    <Technology>B_DogCage</Technology>
     <Technology>B_Mercenary</Technology>
     <Technology>B_BallistaTower</Technology>
     <Technology>B_CannonTower</Technology>
@@ -402,6 +404,10 @@
     <Technology>T_PublicRecovery</Technology>
     <Technology>T_ReportingOffice</Technology>
     <Technology>T_Vigilante</Technology>
+
+    <!-- Traps -->
+    <Technology>T_BearTraining</Technology>
+    <Technology>T_DogTraining</Technology>
 
     <!-- Toggle free camera -->
     <Technology>T_FreeCamera</Technology>

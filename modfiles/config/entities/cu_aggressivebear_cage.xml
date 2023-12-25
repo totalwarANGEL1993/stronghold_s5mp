@@ -35,6 +35,15 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+
+
+        <ModifyArmor>
+            <Technology>T_BearTraining</Technology>
+        </ModifyArmor>
+
+        <ModifyDamage>
+            <Technology>T_BearTraining</Technology>
+        </ModifyDamage>
     </Logic>
 
     <Behavior>

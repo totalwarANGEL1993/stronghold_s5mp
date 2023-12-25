@@ -36,6 +36,11 @@
         <Upgrade>
             <Category>Dog</Category>
         </Upgrade>
+
+
+        <ModifyArmor>
+            <Technology>T_DogTraining</Technology>
+        </ModifyArmor>
     </Logic>
 
     <Behavior>

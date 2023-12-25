@@ -32,6 +32,11 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>10</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+
+
+        <ModifyArmor>
+            <Technology>T_DogTraining</Technology>
+        </ModifyArmor>
     </Logic>
 
     <Behavior>

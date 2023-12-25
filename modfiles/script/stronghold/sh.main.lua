@@ -718,6 +718,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnMonasterySelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
+        self.Building:OnTrapSelected(EntityID);
         self.Building:OnWallSelected(EntityID);
 
         self.Hero:OnSelectLeader(EntityID);
@@ -747,8 +748,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_EntityID, _PlayerID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_EntityID);
-        Stronghold.Building:SetIgnoreRallyPointSelectionCancel(_PlayerID);
-        Stronghold.Building:CreateTurretsForBuilding(_EntityID);
+        Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
     end);
 

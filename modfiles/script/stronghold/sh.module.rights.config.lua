@@ -71,6 +71,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.Bridge,
                 PlayerRight.SpearLancer,
                 PlayerRight.MercenaryCamp,
+                PlayerRight.DogCage,
                 ---
                 PlayerRight.Palisade,
             },
@@ -182,6 +183,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Wall,
                 PlayerRight.FalconryTower,
+                PlayerRight.BearCage,
                 ---
                 PlayerRight.SwordLong,
                 PlayerRight.BerserkStrong,
