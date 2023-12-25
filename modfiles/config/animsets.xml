@@ -159,8 +159,11 @@
 
 
 	<!-- Stronghold -->
-	<AnimSet>SET_AGGRESSIVE_BEAR</AnimSet>
 	<AnimSet>SET_BEAR</AnimSet>
+	<AnimSet>SET_CARNIVORE_LEADERBEAR</AnimSet>
+	<AnimSet>SET_CARNIVORE_SOLDIERBEAR</AnimSet>
+	<AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
+	<AnimSet>SET_CARNIVORE_SOLDIERWOLF</AnimSet>
 	<AnimSet>SET_CANNON5</AnimSet>
 	<AnimSet>SET_CU_HERO13</AnimSet>
 	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>

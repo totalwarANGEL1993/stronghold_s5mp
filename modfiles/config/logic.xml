@@ -1237,8 +1237,33 @@
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
-	    <Category>Hawk</Category>
-	    <FirstSettler>XA_Hawk</FirstSettler>
+	    <Category>CarnivoreLeaderBear</Category>
+	    <FirstSettler>CU_Carnivore_LeaderBear1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>CarnivoreLeaderDog</Category>
+	    <FirstSettler>CU_Carnivore_LeaderDog1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>CarnivoreLeaderWolf</Category>
+	    <FirstSettler>CU_Carnivore_LeaderWolf1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>CarnivoreSoldierBear</Category>
+	    <FirstSettler>CU_Carnivore_SoldierBear1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>CarnivoreSoldierDog</Category>
+	    <FirstSettler>CU_Carnivore_SoldierDog1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>CarnivoreSoldierWolf</Category>
+	    <FirstSettler>CU_Carnivore_SoldierWolf1</FirstSettler>
 	</SettlerUpgrade>
 
     <!-- Other -->
@@ -1319,12 +1344,7 @@
     </BuildingUpgrade>
 
 	<SettlerUpgrade>
-	    <Category>Bear</Category>
-	    <FirstSettler>CU_AggressiveBear</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>Dog</Category>
-	    <FirstSettler>CU_AggressiveDog</FirstSettler>
+	    <Category>Hawk</Category>
+	    <FirstSettler>XA_Hawk</FirstSettler>
 	</SettlerUpgrade>
 </root>

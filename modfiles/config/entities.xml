@@ -1060,12 +1060,14 @@
         <Entity>PB_ExecutionerPlace1</Entity>
 
         <!-- Units -->
-        <Entity>CU_AggressiveBear</Entity>
-        <Entity>CU_AggressiveBear_Cage</Entity>
-        <Entity>CU_AggressiveBear_Deco</Entity>
-        <Entity>CU_AggressiveDog</Entity>
-        <Entity>CU_AggressiveDog_Cage</Entity>
-        <Entity>CU_AggressiveDog_Deco</Entity>
+        <Entity>CU_Carnivore_CageBear</Entity>
+        <Entity>CU_Carnivore_CageDog</Entity>
+        <Entity>CU_Carnivore_LeaderBear1</Entity>
+        <Entity>CU_Carnivore_SoldierBear1</Entity>
+        <Entity>CU_Carnivore_LeaderDog1</Entity>
+        <Entity>CU_Carnivore_SoldierDog1</Entity>
+        <Entity>CU_Carnivore_LeaderWolf1</Entity>
+        <Entity>CU_Carnivore_SoldierWolf1</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>

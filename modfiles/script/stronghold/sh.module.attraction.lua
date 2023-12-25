@@ -220,6 +220,9 @@ function Stronghold.Attraction:Install()
         self.Data.HawkHabitats[i] = {};
     end
 
+    GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.CU_Carnivore_SoldierBear1] = true;
+    GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.CU_Carnivore_SoldierDog1] = true;
+    GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.CU_Carnivore_SoldierWolf1] = true;
     GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.XA_Hawk] = true;
 
     self:InitLogicOverride();

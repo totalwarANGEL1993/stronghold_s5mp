@@ -178,6 +178,4 @@
             <EntityType>XD_DroppedShield</EntityType>
         </Logic>
     </Behavior>
-
-
 </root>

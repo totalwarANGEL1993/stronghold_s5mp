@@ -2,53 +2,55 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Bear</Model>
-        <Anim>XA_Bear_Run1</Anim>
-        <Anim>XA_Bear_Walk1</Anim>
-        <Anim>XA_Bear_Eat1</Anim>
-        <Anim>XA_Bear_Attack1</Anim>
-        <Anim>XA_Bear_Attack2</Anim>
-        <Anim>XA_Bear_Attack3</Anim>
-        <Anim>XA_Bear_Dying1</Anim>
-        <Anim>XA_Bear_Idle1</Anim>
-        <Anim>XA_Bear_Idle2</Anim>
+        <Model>XA_AggressiveDog</Model>
+        <Anim>XA_Wolf_Run</Anim>
+        <Anim>XA_Wolf_Wait</Anim>
+        <Anim>XA_Wolf_Attack1</Anim>
+        <Anim>XA_Wolf_Dying1</Anim>
+        <Anim>XA_Wolf_IdleAttack1</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>1000</MaxHealth>
+        <MaxHealth>400</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
             <Gold>0</Gold>
         </Cost>
-        <Category>Wall</Category>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>CavalryLight</Category>
+        <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
+        <ArmorAmount>1</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>CarnivoreLeaderDog</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
-            <Technology>T_BearTraining</Technology>
+            <Technology>T_DogTraining</Technology>
         </ModifyArmor>
 
         <ModifyDamage>
-            <Technology>T_BearTraining</Technology>
+            <Technology>T_DogTraining</Technology>
         </ModifyDamage>
     </Logic>
 
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Bear_Idle1</SuspensionAnimation>
-            <AnimSet>SET_AGGRESSIVE_BEAR</AnimSet>
+            <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
+            <AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -61,7 +63,7 @@
             <Speed>600</Speed>
             <RotationSpeed>50</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Bear_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>XA_Wolf_Wait</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -79,22 +81,22 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>1500</HomeRadius>
-            <SoldierType>PU_SoldierSword1</SoldierType>
+            <SoldierType>CU_Carnivore_SoldierDog1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_BEAR</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_DOG</BattleTaskList>
 
-            <NormalAttackAnim1>XA_Bear_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>XA_Bear_Attack2</NormalAttackAnim2>
-            <CounterAttackAnim>XA_Bear_Attack3</CounterAttackAnim>
-            <FinishingMoveAnim>XA_Bear_Attack3</FinishingMoveAnim>
-            <MissAttackAnim>XA_Bear_Attack1</MissAttackAnim>
-            <BattleIdleAnim>XA_Bear_Attack1</BattleIdleAnim>
-            <BattleWalkAnim>XA_Bear_Run1</BattleWalkAnim>
-            <HitAnim>XA_Bear_Attack1</HitAnim>
+            <NormalAttackAnim1>XA_Wolf_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>XA_Wolf_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>XA_Wolf_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>XA_Wolf_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>XA_Wolf_Attack1</MissAttackAnim>
+            <BattleIdleAnim>XA_Wolf_Attack1</BattleIdleAnim>
+            <BattleWalkAnim>XA_Wolf_Run</BattleWalkAnim>
+            <HitAnim>XA_Wolf_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>50</DamageAmount>
-            <MaxRandomDamageBonus>9</MaxRandomDamageBonus>
+            <DamageAmount>32</DamageAmount>
+            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 
@@ -106,6 +108,16 @@
             <HealingSeconds>3</HealingSeconds>
 
             <UpkeepCost>0</UpkeepCost>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
+            <Attachment>
+                <Type>ATTACHMENT_LEADER_SOLDIER</Type>
+                <Limit>0</Limit>
+            </Attachment>
         </Logic>
     </Behavior>
 

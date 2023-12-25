@@ -2,7 +2,7 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_AggressiveDog</Model>
+        <Model>XA_Wolf</Model>
         <Anim>XA_Wolf_Run</Anim>
         <Anim>XA_Wolf_Wait</Anim>
         <Anim>XA_Wolf_Attack1</Anim>
@@ -13,34 +13,44 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>400</MaxHealth>
+        <MaxHealth>500</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
             <Gold>0</Gold>
         </Cost>
-        <Category>Wall</Category>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>CavalryLight</Category>
+        <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
+        <ArmorAmount>2</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
+        <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
+        <Upgrade>
+            <Category>CarnivoreLeaderWolf</Category>
+        </Upgrade>
 
 
         <ModifyArmor>
             <Technology>T_DogTraining</Technology>
         </ModifyArmor>
+
+        <ModifyDamage>
+            <Technology>T_DogTraining</Technology>
+        </ModifyDamage>
     </Logic>
 
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
-            <AnimSet>SET_CU_BABARIAN_HERO_WOLF</AnimSet>
+            <AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -50,8 +60,8 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>360</Speed>
-            <RotationSpeed>30</RotationSpeed>
+            <Speed>600</Speed>
+            <RotationSpeed>50</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Wolf_Wait</MoveIdleAnim>
         </Logic>
@@ -71,26 +81,26 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>1500</HomeRadius>
-            <SoldierType>PU_SoldierSword1</SoldierType>
+            <SoldierType>CU_Carnivore_SoldierWolf1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_DOG</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_BEAR</BattleTaskList>
 
             <NormalAttackAnim1>XA_Wolf_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>XA_Wolf_Attack1</NormalAttackAnim2>
             <CounterAttackAnim>XA_Wolf_Attack1</CounterAttackAnim>
             <FinishingMoveAnim>XA_Wolf_Attack1</FinishingMoveAnim>
             <MissAttackAnim>XA_Wolf_Attack1</MissAttackAnim>
-            <BattleIdleAnim>XA_Wolf_IdleAttack1</BattleIdleAnim>
+            <BattleIdleAnim>XA_Wolf_Attack1</BattleIdleAnim>
             <BattleWalkAnim>XA_Wolf_Run</BattleWalkAnim>
-            <HitAnim>XA_Wolf_IdleAttack1</HitAnim>
+            <HitAnim>XA_Wolf_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <DamageAmount>18</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>2500</BattleWaitUntil>
 
-            <MaxRange>200</MaxRange>
+            <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>
             <AutoAttackRange>3000</AutoAttackRange>
 
@@ -98,6 +108,16 @@
             <HealingSeconds>3</HealingSeconds>
 
             <UpkeepCost>0</UpkeepCost>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
+            <Attachment>
+                <Type>ATTACHMENT_LEADER_SOLDIER</Type>
+                <Limit>3</Limit>
+            </Attachment>
         </Logic>
     </Behavior>
 
@@ -118,13 +138,6 @@
         <Logic classname="GGL::CEvadeExecutionBehaviorProps">
             <Class>GGL::CEvadeExecutionBehavior</Class>
             <BasePriority>400</BasePriority>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CLimitedLifespanBehaviorProps">
-            <Class>GGL::CLimitedLifespanBehavior</Class>
-            <LifespanSeconds>180</LifespanSeconds>
         </Logic>
     </Behavior>
 </root>

@@ -21,10 +21,8 @@
     <EntityName>PB_Weathermachine_Activated</EntityName>
     <!-- <EntityName>CB_Mint1</EntityName> -->
     <EntityName>CB_TechTrader</EntityName>
-    <EntityName>CU_AggressiveBear_Cage</EntityName>
-    <EntityName>CU_AggressiveBear_Deco</EntityName>
-    <EntityName>CU_AggressiveDog_Cage</EntityName>
-    <EntityName>CU_AggressiveDog_Deco</EntityName>
+    <EntityName>CU_Carnivore_CageBear</EntityName>
+    <EntityName>CU_Carnivore_CageDog</EntityName>
     <!-- <EntityName>CU_AfraidAlchemist</EntityName> -->
     <!-- <EntityName>CU_AfraidMasterBuilder</EntityName> -->
     <!-- <EntityName>CU_AfraidMiner</EntityName> -->
