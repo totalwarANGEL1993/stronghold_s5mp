@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>XA_Bear</Model>
+        <Anim>XA_Bear_Run</Anim>
+        <Anim>XA_Bear_Idle1</Anim>
+        <Anim>XA_Bear_Idle2</Anim>
+    </Display>
+    <Logic classname="GGL::CGLAnimalProps">
+        <Class>GGL::CAnimal</Class>
+        <AccessCategory>AccessCategoryAnimal</AccessCategory>
+        <DefaultTaskList>TL_BEAR_IDLE</DefaultTaskList>
+        <TerritoryRadius>10000</TerritoryRadius>
+        <WanderRangeMin>4000</WanderRangeMin>
+        <WanderRangeMax>8000</WanderRangeMax>
+        <NeedsPlayer>false</NeedsPlayer>
+        <MaxHealth>20</MaxHealth>
+        <ShyRange>1000</ShyRange>
+        <FleeTaskList>TL_ANIMAL_FLEE</FleeTaskList>
+    </Logic>
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>XA_Bear_Wait</SuspensionAnimation>
+            <AnimSet>SET_BEAR</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CBehaviorAnimalMovement</Class>
+            <Speed>500</Speed>
+            <RotationSpeed>20</RotationSpeed>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+</root>

@@ -1060,6 +1060,8 @@
         <Entity>PB_ExecutionerPlace1</Entity>
 
         <!-- Units -->
+        <Entity>CU_AggressiveBear</Entity>
+        <Entity>CU_AggressiveBear_Cage</Entity>
         <Entity>CU_AggressiveDog</Entity>
         <Entity>CU_AggressiveDog_Cage</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
@@ -1173,5 +1175,6 @@
 
         <!-- Misc -->
         <Entity>XA_Hawk</Entity>
+        <Entity>XA_Bear</Entity>
         <Entity>XD_Bomb2</Entity>
 </root>

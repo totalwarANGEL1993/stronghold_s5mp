@@ -13,7 +13,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>200</MaxHealth>
+        <MaxHealth>400</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -22,16 +22,16 @@
         </Cost>
 
         <Category>Military</Category>
-        <Category>Leader</Category>
         <Category>CavalryLight</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>0</ArmorAmount>
+        <Exploration>30</Exploration>
+        <ArmorClass>ArmorClassFur</ArmorClass>
+        <ArmorAmount>1</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>10</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
     </Logic>
 
     <Behavior>
@@ -69,7 +69,6 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>1500</HomeRadius>
-
             <SoldierType>PU_SoldierSword1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
@@ -91,7 +90,7 @@
 
             <MaxRange>200</MaxRange>
             <MinRange>0</MinRange>
-            <AutoAttackRange>2000</AutoAttackRange>
+            <AutoAttackRange>3000</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>

@@ -234,7 +234,7 @@ Stronghold.Building.Config.StoneWallTypes = {
     [Entities.PB_WallStraight]                  = true,
 }
 
-Stronghold.BuiXDing.Config.NeutralWallType = {
+Stronghold.Building.Config.NeutralWallType = {
     [Entities.XD_DarkWallCorner]                = true,
     [Entities.XD_DarkWallStraightGate_Closed]   = true,
     [Entities.XD_DarkWallStraightGate]          = true,
