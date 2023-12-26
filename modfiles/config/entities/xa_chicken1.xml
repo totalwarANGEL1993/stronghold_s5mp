@@ -2,13 +2,11 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Cow1</Model>
+        <Model>XA_Chicken1</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>XA_Cow_Dying</Anim>
-        <Anim>XA_Cow_Idle1</Anim>
-        <Anim>XA_Cow_Idle2</Anim>
-        <Anim>XA_Cow_Run</Anim>
-        <Anim>XA_Cow_Walk</Anim>
+        <Anim>XA_Chicken_Idle1</Anim>
+        <Anim>XA_Chicken_Idle2</Anim>
+        <Anim>XA_Chicken_Walk</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
@@ -30,8 +28,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Cow_Idle1</SuspensionAnimation>
-            <AnimSet>SET_COW</AnimSet>
+            <SuspensionAnimation>XA_Chicken_Idle1</SuspensionAnimation>
+            <AnimSet>SET_CHICKEN</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -43,7 +41,7 @@
             <Speed>250</Speed>
             <RotationSpeed>25</RotationSpeed>
             <MoveTaskList>TL_NPC_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Cow_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>XA_Chicken_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>

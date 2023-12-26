@@ -23,6 +23,8 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>10</Exploration>
         <IdleTaskList>TL_NPC_IDLE</IdleTaskList>
+        <!-- This is used to prevent units to automatically attack. -->
+        <Category>Wall</Category>
     </Logic>
 
     <Behavior>

@@ -1190,6 +1190,9 @@
         <Entity>CU_Carnivore_SoldierWolf1</Entity>
 
         <!-- Passive animals -->
+        <Entity>XA_Chicken1</Entity>
+        <Entity>XA_Chicken2</Entity>
+        <Entity>XA_Chicken3</Entity>
         <Entity>XA_Cow1</Entity>
         <Entity>XA_Cow2</Entity>
         <Entity>XA_Cow3</Entity>
