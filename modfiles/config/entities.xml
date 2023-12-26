@@ -1192,8 +1192,12 @@
         <Entity>XD_Wall_Replacer</Entity>
         <Entity>XD_WallGate_Replacer</Entity>
 
-        <!-- Misc -->
+        <!-- Animals -->
         <Entity>XA_Hawk</Entity>
+		<Entity>XA_Elephant1</Entity>
+		<Entity>XA_Elephant2</Entity>
+
+        <!-- Misc -->
         <Entity>XA_Bear</Entity>
         <Entity>XD_Bomb2</Entity>
 </root>

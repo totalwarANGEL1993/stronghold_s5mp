@@ -166,6 +166,8 @@
 	<AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
 	<AnimSet>SET_CARNIVORE_SOLDIERWOLF</AnimSet>
 	<AnimSet>SET_CANNON5</AnimSet>
+	<AnimSet>SET_ELEPHANT1</AnimSet>
+	<AnimSet>SET_ELEPHANT2</AnimSet>
 	<AnimSet>SET_CU_HERO13</AnimSet>
 	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>
 </root>
