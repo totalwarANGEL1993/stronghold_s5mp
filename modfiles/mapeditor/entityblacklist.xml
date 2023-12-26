@@ -39,6 +39,8 @@
     <!-- <EntityName>CV_Cannon2</EntityName> -->
     <!-- <EntityName>XD_BlendingFog</EntityName> -->
     <EntityName>XA_Hawk</EntityName>
+    <EntityName>XA_Deer</EntityName>
+    <EntityName>XA_Doe</EntityName>
     <EntityName>XD_Bomb1</EntityName>
     <EntityName>XD_Bomb2</EntityName>
     <EntityName>XD_Bridge1</EntityName>

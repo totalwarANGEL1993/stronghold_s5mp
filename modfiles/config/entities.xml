@@ -1060,18 +1060,13 @@
         <Entity>PB_ExecutionerPlace1</Entity>
 
         <!-- Units -->
+        <Entity>CU_BanditLeaderCavalry1</Entity>
+        <Entity>CU_BanditSoldierCavalry1</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
-        <Entity>CU_Cow1</Entity>
-        <Entity>CU_Cow2</Entity>
-        <Entity>CU_Cow3</Entity>
-        <Entity>CU_Dromedary</Entity>
         <Entity>CU_Hero13</Entity>
         <Entity>CU_Hero13_Summon</Entity>
-        <Entity>CU_BanditLeaderCavalry1</Entity>
-        <Entity>CU_BanditSoldierCavalry1</Entity>
-        <Entity>CU_Sheep1</Entity>
         <Entity>CU_Templar_LeaderCavalry1</Entity>
         <Entity>CU_Templar_SoldierCavalry1</Entity>
         <Entity>CU_Templar_LeaderHeavyCavalry1</Entity>
@@ -1132,13 +1127,6 @@
         <Entity>XD_Cog</Entity>
         <Entity>XD_CogWreckage</Entity>
         <Entity>XD_CaveEntry2</Entity>
-        <Entity>XD_DeadCow</Entity>
-        <Entity>XD_DeadCow2</Entity>
-        <Entity>XD_DeadCow3</Entity>
-        <Entity>XD_DeadDromedary</Entity>
-        <Entity>XD_DeadSheep</Entity>
-        <Entity>XD_DeadSheep2</Entity>
-        <Entity>XD_DeadSheep3</Entity>
         <Entity>XD_Dragonboat1</Entity>
         <Entity>XD_Dragonboat2</Entity>
         <Entity>XD_DragonboatConstructionSite</Entity>
@@ -1199,12 +1187,34 @@
         <Entity>XA_Cow2</Entity>
         <Entity>XA_Cow3</Entity>
         <Entity>XA_Dromedary</Entity>
+        <Entity>XA_RedDeer</Entity>
+        <Entity>XA_RedDoe</Entity>
 		<Entity>XA_Sheep1</Entity>
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>
         <Entity>XA_Hawk</Entity>
 		<Entity>XA_Elephant1</Entity>
 		<Entity>XA_Elephant2</Entity>
+
+        <!-- Cadaver -->
+        <Entity>XD_DeadCow1</Entity>
+        <Entity>XD_DeadCow2</Entity>
+        <Entity>XD_DeadCow3</Entity>
+        <Entity>XD_DeadDromedary</Entity>
+        <Entity>XD_DeadRedDeer</Entity>
+        <Entity>XD_DeadRedDoe</Entity>
+        <Entity>XD_DeadSheep1</Entity>
+        <Entity>XD_DeadSheep2</Entity>
+        <Entity>XD_DeadSheep3</Entity>
+
+        <!-- Cadaver spawner -->
+        <Entity>CU_Cow1</Entity>
+        <Entity>CU_Cow2</Entity>
+        <Entity>CU_Cow3</Entity>
+        <Entity>CU_Dromedary</Entity>
+        <Entity>CU_RedDeer</Entity>
+        <Entity>CU_RedDoe</Entity>
+        <Entity>CU_Sheep1</Entity>
 
         <!-- Misc -->
         <Entity>XD_Bomb2</Entity>
