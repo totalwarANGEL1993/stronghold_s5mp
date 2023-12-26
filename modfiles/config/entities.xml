@@ -1196,6 +1196,7 @@
         <Entity>XA_Hawk</Entity>
 		<Entity>XA_Elephant1</Entity>
 		<Entity>XA_Elephant2</Entity>
+		<Entity>XA_Zebra</Entity>
 
         <!-- Cadaver -->
         <Entity>XD_DeadCow1</Entity>
@@ -1208,6 +1209,7 @@
         <Entity>XD_DeadSheep1</Entity>
         <Entity>XD_DeadSheep2</Entity>
         <Entity>XD_DeadSheep3</Entity>
+        <Entity>XD_DeadZebra</Entity>
 
         <!-- Cadaver spawner -->
         <Entity>CU_Cow1</Entity>
@@ -1218,6 +1220,7 @@
         <Entity>CU_RedDeer</Entity>
         <Entity>CU_RedDoe</Entity>
         <Entity>CU_Sheep1</Entity>
+        <Entity>CU_Zebra</Entity>
 
         <!-- Misc -->
         <Entity>XD_Bomb2</Entity>

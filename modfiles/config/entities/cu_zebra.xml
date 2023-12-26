@@ -1,19 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <root>
+    <!-- This version of the animal leaves a corpse behind. -->
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Wolf</Model>
-        <Anim>XA_Wolf_Run</Anim>
-        <Anim>XA_Wolf_Wait</Anim>
-        <Anim>XA_Wolf_Attack1</Anim>
-        <Anim>XA_Wolf_Dying1</Anim>
-        <Anim>XA_Wolf_IdleAttack1</Anim>
+        <Model>XA_Zebra</Model>
+        <DrawPlayerColor>True</DrawPlayerColor>
+        <Anim>XA_Zebra_Dying</Anim>
+        <Anim>XA_Zebra_Idle1</Anim>
+        <Anim>XA_Zebra_Idle2</Anim>
+        <Anim>XA_Zebra_Run</Anim>
+        <Anim>XA_Zebra_Walk</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth> 10 </MaxHealth>
+        <MaxHealth>1</MaxHealth>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>
@@ -22,28 +24,25 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>10</Exploration>
         <IdleTaskList>TL_NPC_IDLE</IdleTaskList>
-        <!-- This is used to prevent units to automatically attack. -->
-        <Category>Wall</Category>
     </Logic>
 
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
+            <SuspensionAnimation>XA_Zebra_Idle1</SuspensionAnimation>
+            <AnimSet>SET_ZEBRA</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
         </Display>
     </Behavior>
-
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSettlerMovement</Class>
-            <Speed>500</Speed>
-            <RotationSpeed>30</RotationSpeed>
+            <Speed>250</Speed>
+            <RotationSpeed>25</RotationSpeed>
             <MoveTaskList>TL_NPC_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Wolf_Wait</MoveIdleAnim>
+            <MoveIdleAnim>XA_Zebra_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -57,15 +56,16 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="EGL::CGLEBehaviorProps">
-            <Class>GGL::CBehaviorWalkCommand</Class>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
         </Logic>
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CGLBehaviorPropsDying">
-            <Class>GGL::CGLBehaviorDying</Class>
-            <DyingTaskList>TL_DIE</DyingTaskList>
+        <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
+            <Class>GGL::CReplaceableEntityBehavior</Class>
+            <EntityType>XD_DeadZebra</EntityType>
         </Logic>
     </Behavior>
 </root>
