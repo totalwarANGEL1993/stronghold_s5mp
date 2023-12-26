@@ -1666,6 +1666,9 @@ function Stronghold.Building:OnTrapConstructed(_TrapID)
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(_TrapID);
     local EntityType = Logic.GetEntityType(_TrapID);
+    if not self.Config.TrapTypes[EntityType] then
+        return;
+    end
 
     if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
         SVLib.SetInvisibility(_TrapID, true);

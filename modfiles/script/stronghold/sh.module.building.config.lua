@@ -116,6 +116,7 @@ Stronghold.Building.Config.Turrets = {
     },
 }
 
+-- Dictionary of building types for fortress upgrade
 Stronghold.Building.Config.CastleBuildingUpgradeRequirements = {
     [Entities.PB_Alchemist1]                = true,
     [Entities.PB_Alchemist2]                = true,
@@ -134,6 +135,7 @@ Stronghold.Building.Config.CastleBuildingUpgradeRequirements = {
     [Entities.PB_Sawmill2]                  = true,
 }
 
+-- Dictionary for mapping corners to wally
 Stronghold.Building.Config.CornerForSegment = {
     [Entities.PB_DarkWallStraightGate_Closed]   = Entities.PB_DarkWallCorner,
     [Entities.PB_DarkWallStraightGate]          = Entities.PB_DarkWallCorner,
@@ -149,18 +151,21 @@ Stronghold.Building.Config.CornerForSegment = {
     [Entities.PB_WallStraight]                  = Entities.PB_WallCorner,
 }
 
+-- Dictionary to map open gates to closed gates
 Stronghold.Building.Config.OpenToClosedGate = {
     [Entities.PB_DarkWallStraightGate]          = Entities.PB_DarkWallStraightGate_Closed,
     [Entities.PB_PalisadeStraightGate]          = Entities.PB_PalisadeStraightGate_Closed,
     [Entities.PB_WallStraightGate]              = Entities.PB_WallStraightGate_Closed,
 }
 
+-- Dictionary to map closed gates to open gates
 Stronghold.Building.Config.ClosedToOpenGate = {
     [Entities.PB_DarkWallStraightGate_Closed]   = Entities.PB_DarkWallStraightGate,
     [Entities.PB_PalisadeStraightGate_Closed]   = Entities.PB_PalisadeStraightGate,
     [Entities.PB_WallStraightGate_Closed]       = Entities.PB_WallStraightGate,
 }
 
+-- Dictionary to map gate types to wall types
 Stronghold.Building.Config.GateToWall = {
     [Entities.PB_DarkWallStraightGate_Closed]   = Entities.PB_DarkWallDistorted,
     [Entities.PB_PalisadeStraightGate_Closed]   = Entities.PB_PalisadeDistorted,
@@ -170,12 +175,14 @@ Stronghold.Building.Config.GateToWall = {
     [Entities.PB_WallStraightGate]              = Entities.PB_WallDistorted,
 }
 
+-- Dictionary to map wall types to gate types
 Stronghold.Building.Config.WallToGate = {
     [Entities.PB_DarkWallDistorted]             = Entities.PB_DarkWallStraightGate_Closed,
     [Entities.PB_PalisadeDistorted]             = Entities.PB_PalisadeStraightGate_Closed,
     [Entities.PB_WallDistorted]                 = Entities.PB_WallStraightGate_Closed,
 }
 
+-- Dictionary to map wall types to dark counterparts
 Stronghold.Building.Config.WallToDarkWall = {
     [Entities.PB_WallStraightGate_Closed]       = Entities.PB_DarkWallStraightGate_Closed,
     [Entities.PB_WallStraightGate]              = Entities.PB_DarkWallStraightGate,
@@ -183,6 +190,7 @@ Stronghold.Building.Config.WallToDarkWall = {
     [Entities.PB_WallStraight]                  = Entities.PB_DarkWallStraight,
 }
 
+-- Dictionary of types considered a wall
 Stronghold.Building.Config.LegalWallType = {
     [Entities.PB_DarkWallStraightGate_Closed]   = true,
     [Entities.PB_DarkWallStraightGate]          = true,
@@ -198,24 +206,28 @@ Stronghold.Building.Config.LegalWallType = {
     [Entities.PB_WallStraight]                  = true,
 }
 
+-- Dictionary of opened gate types
 Stronghold.Building.Config.OpenGateType = {
     [Entities.PB_DarkWallStraightGate]          = true,
     [Entities.PB_PalisadeStraightGate]          = true,
     [Entities.PB_WallStraightGate]              = true,
 }
 
+-- Dictionary of closed gate types
 Stronghold.Building.Config.ClosedGateType = {
     [Entities.PB_DarkWallStraightGate_Closed]   = true,
     [Entities.PB_PalisadeStraightGate_Closed]   = true,
     [Entities.PB_WallStraightGate_Closed]       = true,
 }
 
+-- Dictionary of wall segment types
 Stronghold.Building.Config.WallSegmentType = {
     [Entities.PB_DarkWallDistorted]             = true,
     [Entities.PB_PalisadeDistorted]             = true,
     [Entities.PB_WallDistorted]                 = true,
 }
 
+-- Dictionary of wodden wall types
 Stronghold.Building.Config.WoddenWallTypes = {
     [Entities.PB_PalisadeStraightGate_Closed]   = true,
     [Entities.PB_PalisadeStraightGate]          = true,
@@ -223,6 +235,7 @@ Stronghold.Building.Config.WoddenWallTypes = {
     [Entities.PB_PalisadeStraight]              = true,
 }
 
+-- Dictionary of stone wall types
 Stronghold.Building.Config.StoneWallTypes = {
     [Entities.PB_DarkWallStraightGate_Closed]   = true,
     [Entities.PB_DarkWallStraightGate]          = true,
@@ -234,6 +247,7 @@ Stronghold.Building.Config.StoneWallTypes = {
     [Entities.PB_WallStraight]                  = true,
 }
 
+-- Dictionary of neutral wall types
 Stronghold.Building.Config.NeutralWallType = {
     [Entities.XD_DarkWallCorner]                = true,
     [Entities.XD_DarkWallStraightGate_Closed]   = true,
@@ -250,6 +264,12 @@ Stronghold.Building.Config.NeutralWallType = {
     [Entities.XD_WallStraightGate]              = true,
     [Entities.XD_WallDistorted]                 = true,
     [Entities.XD_WallStraight]                  = true,
+}
+
+-- Dictionary of trap types
+Stronghold.Building.Config.TrapTypes = {
+    [Entities.PB_BearCage1] = true,
+    [Entities.PB_DogCage1]  = true,
 }
 
 Stronghold.Building.Config.RecuitIndexRecuitShortcut = {

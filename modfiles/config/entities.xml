@@ -1068,6 +1068,12 @@
         <Entity>CU_Carnivore_SoldierDog1</Entity>
         <Entity>CU_Carnivore_LeaderWolf1</Entity>
         <Entity>CU_Carnivore_SoldierWolf1</Entity>
+        <Entity>CU_Cow</Entity>
+        <Entity>CU_Cow_DropCorpse</Entity>
+        <Entity>CU_Cow2</Entity>
+        <Entity>CU_Cow2_DropCorpse</Entity>
+        <Entity>CU_Cow3</Entity>
+        <Entity>CU_Cow3_DropCorpse</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
@@ -1075,6 +1081,9 @@
         <Entity>CU_Hero13_Summon</Entity>
         <Entity>CU_BanditLeaderCavalry1</Entity>
         <Entity>CU_BanditSoldierCavalry1</Entity>
+		<Entity>CU_Sheep_DropCorpse</Entity>
+		<Entity>CU_Sheep2_DropCorpse</Entity>
+		<Entity>CU_Sheep3_DropCorpse</Entity>
         <Entity>CU_Templar_LeaderCavalry1</Entity>
         <Entity>CU_Templar_SoldierCavalry1</Entity>
         <Entity>CU_Templar_LeaderHeavyCavalry1</Entity>
@@ -1135,6 +1144,12 @@
         <Entity>XD_Cog</Entity>
         <Entity>XD_CogWreckage</Entity>
         <Entity>XD_CaveEntry2</Entity>
+        <Entity>XD_DeadCow</Entity>
+        <Entity>XD_DeadCow2</Entity>
+        <Entity>XD_DeadCow3</Entity>
+        <Entity>XD_DeadSheep</Entity>
+        <Entity>XD_DeadSheep2</Entity>
+        <Entity>XD_DeadSheep3</Entity>
         <Entity>XD_Dragonboat1</Entity>
         <Entity>XD_Dragonboat2</Entity>
         <Entity>XD_DragonboatConstructionSite</Entity>
