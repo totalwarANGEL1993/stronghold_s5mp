@@ -256,7 +256,9 @@
         "MAINQUEST_CLOSED",
         "GUIAction_PlaceBuilding",
         "EUROPEMUSIC",
-        "GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes"
+        "GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes",
+        "ROBBERS_COLOR",
+        "NPC_COLOR"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

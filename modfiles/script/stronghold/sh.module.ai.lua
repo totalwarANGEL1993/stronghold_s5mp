@@ -23,14 +23,24 @@ Stronghold.AI = {
 };
 
 function Stronghold.AI:Install()
+    Display.SetPlayerColorMapping(GetVagabondPlayerID(), GetVagabondPlayerColor());
+    Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
+    for PlayerID = 1, GetMaxHumanPlayers() do
+        SetHostile(PlayerID, GetVagabondPlayerID());
+        SetNeutral(PlayerID, GetNeutralPlayerID());
+    end
+
     self:OverwriteAiTargetConfig();
     self:OverwriteAiSpeedConfig();
+
     Job.Second(function()
         Stronghold.AI:ControlAiPlayerHeroes();
     end);
 end
 
 function Stronghold.AI:OnSaveGameLoaded()
+    Display.SetPlayerColorMapping(GetVagabondPlayerID(), GetVagabondPlayerColor());
+    Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
 end
 
 -- -------------------------------------------------------------------------- --
@@ -304,6 +314,63 @@ function Stronghold.AI:DelinquentsCampController(_ID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Player config
+
+--- Returns the player ID reserved for the vagabond player.
+--- @return integer PlayerID ID of enemy player
+function GetVagabondPlayerID()
+    return Stronghold.AI.Config.VagabondPlayerID;
+end
+
+--- Returns the player color of the bandit player.
+--- @return integer ColorID ID of color
+function GetVagabondPlayerColor()
+    return Stronghold.AI.Config.VagabondPlayerColor;
+end
+
+--- Changes the bandit player. The passive player must be Max Human Player + 1.
+--- @param _PlayerID integer ID of player
+function SetVagabondPlayerID(_PlayerID)
+    local MaxHumanPlayers = GetMaxHumanPlayers();
+    assert(_PlayerID == MaxHumanPlayers +1, "Enemy player must be " ..(MaxHumanPlayers +1).. "!");
+    Stronghold.AI.Config.VagabondPlayerID = _PlayerID;
+end
+
+--- Changes the bandit player color.
+--- @param _ColorID integer ID of color
+function SetVagabondPlayerColor(_ColorID)
+    Stronghold.AI.Config.VagabondPlayerColor = _ColorID;
+    Display.SetPlayerColorMapping(GetVagabondPlayerID(), _ColorID);
+end
+
+--- Returns the player ID reserved for the passive player.
+--- @return integer PlayerID ID of neutral player
+function GetNeutralPlayerID()
+    return Stronghold.AI.Config.NeutralPlayerID;
+end
+
+--- Returns the neutral player color.
+--- @return integer ColorID ID of color
+function GetNeutralPlayerColor()
+    return Stronghold.AI.Config.NeutralPlayerColor;
+end
+
+--- Changes the passive player. The passive player must be Max Human Player + 2.
+--- @param _PlayerID integer ID of player
+function SetNeutralPlayerID(_PlayerID)
+    local MaxHumanPlayers = GetMaxHumanPlayers();
+    assert(_PlayerID == MaxHumanPlayers +2, "Neutral player must be " ..(MaxHumanPlayers +2).. "!");
+    Stronghold.AI.Config.NeutralPlayerID = _PlayerID;
+end
+
+--- Changes the neutral player color.
+--- @param _ColorID integer ID of color
+function SetNeutralPlayerColor(_ColorID)
+    Stronghold.AI.Config.NeutralPlayerColor = _ColorID;
+    Display.SetPlayerColorMapping(GetNeutralPlayerColor(), _ColorID);
+end
+
+-- -------------------------------------------------------------------------- --
 -- Army config
 
 function Stronghold.AI:OverwriteAiTargetConfig()
@@ -389,21 +456,21 @@ end
 function Stronghold.AI:OverwriteAiSpeedConfig()
     AiArmyConstants.BaseSpeed = {
         ["Bow"] = 360,
-        ["CavalryLight"] = 550,
+        ["CavalryLight"] = 570,
         ["CavalryHeavy"] = 520,
         ["Hero"] = 400,
         ["Rifle"] = 360,
 
         [Entities.CU_Barbarian_LeaderClub1] = 400,
         [Entities.CU_Barbarian_LeaderClub2] = 400,
-        [Entities.PV_Cannon7] = 300,
-        [Entities.PV_Cannon8] = 345,
         [Entities.CV_Cannon1] = 345,
         [Entities.CV_Cannon2] = 345,
         [Entities.PV_Cannon1] = 300,
         [Entities.PV_Cannon2] = 250,
         [Entities.PV_Cannon3] = 200,
         [Entities.PV_Cannon4] = 150,
+        [Entities.PV_Cannon7] = 300,
+        [Entities.PV_Cannon8] = 345,
 
         ["_Others"] = 360,
     };
@@ -414,14 +481,14 @@ function Stronghold.AI:OverwriteAiSpeedConfig()
 
         [Entities.CU_Barbarian_LeaderClub1] = 0.9,
         [Entities.CU_Barbarian_LeaderClub2] = 0.9,
-        [Entities.PV_Cannon7] = 0.6,
-        [Entities.PV_Cannon8] = 0.6,
         [Entities.CV_Cannon1] = 0.6,
         [Entities.CV_Cannon2] = 0.6,
         [Entities.PV_Cannon1] = 0.6,
         [Entities.PV_Cannon2] = 0.5,
         [Entities.PV_Cannon3] = 0.3,
         [Entities.PV_Cannon4] = 0.2,
+        [Entities.PV_Cannon7] = 0.6,
+        [Entities.PV_Cannon8] = 0.6,
 
         ["_Others"] = 1.0
     };
@@ -569,22 +636,27 @@ end
 -- Hero 3
 
 function Stronghold.AI:ControlHero3DefendCastle(_PlayerID, _HeroID)
-    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
-    if table.getn(FarEnemyList) > 0 then
-        -- Place "trap" near random enemy
-        --- @diagnostic disable-next-line: undefined-field
-        if math.mod(math.floor(Logic.GetTime()), 90) == 0 then
-            local Selected = math.random(1, table.getn(FarEnemyList));
-            local EnemyID = FarEnemyList[Selected];
-            local x,y,z = Logic.EntityGetPos(EnemyID);
-            local ID = Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
-            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-            SVLib.SetInvisibility(ID, true);
-        end
-        -- Attack enemies
-        if not IsFighting(_HeroID) then
-            local EnemyPos = GetPosition(FarEnemyList[1]);
-            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_HeroID, Abilities.AbilityBuildCannon);
+    local CurrentCharge = Logic.HeroGetAbilityChargeSeconds(_HeroID, Abilities.AbilityBuildCannon);
+    if CurrentCharge >= RechargeTime then
+        local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+        if table.getn(FarEnemyList) > 0 then
+            -- Place "trap" near random enemy
+            --- @diagnostic disable-next-line: undefined-field
+            if math.mod(math.floor(Logic.GetTime()), 90) == 0 then
+                local Selected = math.random(1, table.getn(FarEnemyList));
+                local EnemyID = FarEnemyList[Selected];
+                local x,y,z = Logic.EntityGetPos(EnemyID);
+                local ID = Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
+                WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
+                Logic.HeroSetAbilityChargeSeconds(_HeroID, Abilities.AbilityBuildCannon, 0);
+                SVLib.SetInvisibility(ID, true);
+            end
+            -- Attack enemies
+            if not IsFighting(_HeroID) then
+                local EnemyPos = GetPosition(FarEnemyList[1]);
+                Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+            end
         end
     end
 end

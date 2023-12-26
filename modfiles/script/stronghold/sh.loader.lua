@@ -131,4 +131,5 @@ Script.Load(gvStronghold_Path.. "sh.module.multiplayer.lua");
 Script.Load(gvStronghold_Path.. "sh.module.multiplayer.config.lua");
 ---
 Script.Load(gvStronghold_Path.. "sh.module.ai.lua");
+Script.Load(gvStronghold_Path.. "sh.module.ai.config.lua");
 
