@@ -1060,30 +1060,17 @@
         <Entity>PB_ExecutionerPlace1</Entity>
 
         <!-- Units -->
-        <Entity>CU_Carnivore_CageBear</Entity>
-        <Entity>CU_Carnivore_CageDog</Entity>
-        <Entity>CU_Carnivore_LeaderBear1</Entity>
-        <Entity>CU_Carnivore_SoldierBear1</Entity>
-        <Entity>CU_Carnivore_LeaderDog1</Entity>
-        <Entity>CU_Carnivore_SoldierDog1</Entity>
-        <Entity>CU_Carnivore_LeaderWolf1</Entity>
-        <Entity>CU_Carnivore_SoldierWolf1</Entity>
-        <Entity>CU_Cow</Entity>
-        <Entity>CU_Cow_DropCorpse</Entity>
-        <Entity>CU_Cow2</Entity>
-        <Entity>CU_Cow2_DropCorpse</Entity>
-        <Entity>CU_Cow3</Entity>
-        <Entity>CU_Cow3_DropCorpse</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>
         <Entity>CU_BanditSoldierSword3</Entity>
         <Entity>CU_BlackKnight_Bodyguard</Entity>
+        <Entity>CU_Cow1</Entity>
+        <Entity>CU_Cow2</Entity>
+        <Entity>CU_Cow3</Entity>
         <Entity>CU_Hero13</Entity>
         <Entity>CU_Hero13_Summon</Entity>
         <Entity>CU_BanditLeaderCavalry1</Entity>
         <Entity>CU_BanditSoldierCavalry1</Entity>
-		<Entity>CU_Sheep_DropCorpse</Entity>
-		<Entity>CU_Sheep2_DropCorpse</Entity>
-		<Entity>CU_Sheep3_DropCorpse</Entity>
+        <Entity>CU_Sheep1</Entity>
         <Entity>CU_Templar_LeaderCavalry1</Entity>
         <Entity>CU_Templar_SoldierCavalry1</Entity>
         <Entity>CU_Templar_LeaderHeavyCavalry1</Entity>
@@ -1192,12 +1179,27 @@
         <Entity>XD_Wall_Replacer</Entity>
         <Entity>XD_WallGate_Replacer</Entity>
 
-        <!-- Animals -->
+        <!-- Aggressive animals -->
+        <Entity>CU_Carnivore_CageBear</Entity>
+        <Entity>CU_Carnivore_CageDog</Entity>
+        <Entity>CU_Carnivore_LeaderBear1</Entity>
+        <Entity>CU_Carnivore_SoldierBear1</Entity>
+        <Entity>CU_Carnivore_LeaderDog1</Entity>
+        <Entity>CU_Carnivore_SoldierDog1</Entity>
+        <Entity>CU_Carnivore_LeaderWolf1</Entity>
+        <Entity>CU_Carnivore_SoldierWolf1</Entity>
+
+        <!-- Passive animals -->
+        <Entity>XA_Cow1</Entity>
+        <Entity>XA_Cow2</Entity>
+        <Entity>XA_Cow3</Entity>
+		<Entity>XA_Sheep1</Entity>
+		<Entity>XA_Sheep2</Entity>
+		<Entity>XA_Sheep3</Entity>
         <Entity>XA_Hawk</Entity>
 		<Entity>XA_Elephant1</Entity>
 		<Entity>XA_Elephant2</Entity>
 
         <!-- Misc -->
-        <Entity>XA_Bear</Entity>
         <Entity>XD_Bomb2</Entity>
 </root>

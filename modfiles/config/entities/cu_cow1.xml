@@ -3,7 +3,7 @@
     <!-- This version of the animal leaves a corpse behind. -->
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Cow2</Model>
+        <Model>XA_Cow1</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
         <Anim>XA_Cow_Dying</Anim>
         <Anim>XA_Cow_Idle1</Anim>
@@ -65,7 +65,7 @@
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
-            <EntityType>XD_DeadCow2</EntityType>
+            <EntityType>XD_DeadCow</EntityType>
         </Logic>
     </Behavior>
 </root>
