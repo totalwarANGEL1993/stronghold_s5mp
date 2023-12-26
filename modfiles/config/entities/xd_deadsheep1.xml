@@ -8,7 +8,7 @@
 	<Logic classname="EGL::CGLEEntityProps">
 		<Class>EGL::CGLEEntity</Class>
 		<AccessCategory>AccessCategoryStatic</AccessCategory> 
-        <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
+        <DeleteWhenBuiltOn>True</DeleteWhenBuiltOn>
 		<DoNotExecute>True</DoNotExecute>
         <SnapTolerance>30.0f</SnapTolerance>
 	</Logic>

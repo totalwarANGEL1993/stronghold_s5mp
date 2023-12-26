@@ -61,7 +61,7 @@
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
-            <EntityType>XD_DeadSheep</EntityType>
+            <EntityType>XD_DeadSheep1</EntityType>
         </Logic>
     </Behavior>
 </root>

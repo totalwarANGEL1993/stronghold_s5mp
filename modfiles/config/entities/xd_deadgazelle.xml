@@ -2,7 +2,7 @@
 <root>
 	<Display classname="ED::CDisplayEntityProps">
 		<Class>ED::CDisplayStaticEntity</Class>
-		<Model>XD_Sheep2_Dead</Model>
+		<Model>XD_Gazelle_Dead</Model>
 		<RenderInFoW>False</RenderInFoW>
 	</Display>
 	<Logic classname="EGL::CGLEEntityProps">
