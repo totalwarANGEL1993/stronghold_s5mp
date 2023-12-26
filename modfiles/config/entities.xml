@@ -1066,6 +1066,7 @@
         <Entity>CU_Cow1</Entity>
         <Entity>CU_Cow2</Entity>
         <Entity>CU_Cow3</Entity>
+        <Entity>CU_Dromedary</Entity>
         <Entity>CU_Hero13</Entity>
         <Entity>CU_Hero13_Summon</Entity>
         <Entity>CU_BanditLeaderCavalry1</Entity>
@@ -1134,6 +1135,7 @@
         <Entity>XD_DeadCow</Entity>
         <Entity>XD_DeadCow2</Entity>
         <Entity>XD_DeadCow3</Entity>
+        <Entity>XD_DeadDromedary</Entity>
         <Entity>XD_DeadSheep</Entity>
         <Entity>XD_DeadSheep2</Entity>
         <Entity>XD_DeadSheep3</Entity>
@@ -1196,6 +1198,7 @@
         <Entity>XA_Cow1</Entity>
         <Entity>XA_Cow2</Entity>
         <Entity>XA_Cow3</Entity>
+        <Entity>XA_Dromedary</Entity>
 		<Entity>XA_Sheep1</Entity>
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>
