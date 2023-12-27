@@ -174,5 +174,8 @@
 	<AnimSet>SET_REDDEER</AnimSet>
  	<AnimSet>SET_RABBIT</AnimSet>
  	<AnimSet>SET_HAWK</AnimSet>
+	<AnimSet>SET_WILDBOAR1</AnimSet>
+	<AnimSet>SET_WILDBOAR2</AnimSet>
+	<AnimSet>SET_WILDBOAR3</AnimSet>
 	<AnimSet>SET_ZEBRA</AnimSet>
 </root>

@@ -1202,6 +1202,9 @@
 		<Entity>XA_SheepDog</Entity>
 		<Entity>XA_Tiger</Entity>
 		<Entity>XA_Wolf</Entity>
+		<Entity>XA_WildBoar1</Entity>
+		<Entity>XA_WildBoar2</Entity>
+		<Entity>XA_WildBoar3</Entity>
 		<Entity>XA_Zebra</Entity>
 
         <!-- Cadaver -->
@@ -1216,6 +1219,9 @@
         <Entity>XD_Cadaver_Sheep1</Entity>
         <Entity>XD_Cadaver_Sheep2</Entity>
         <Entity>XD_Cadaver_Sheep3</Entity>
+		<Entity>XD_Cadaver_WildBoar1</Entity>
+		<Entity>XD_Cadaver_WildBoar2</Entity>
+		<Entity>XD_Cadaver_WildBoar3</Entity>
         <Entity>XD_Cadaver_Zebra</Entity>
 
         <!-- Cadaver spawner -->
@@ -1230,6 +1236,9 @@
         <Entity>CU_Herbivore_Sheep1</Entity>
 		<Entity>CU_Herbivore_Sheep2</Entity>
 		<Entity>CU_Herbivore_Sheep3</Entity>
+        <Entity>CU_Herbivore_WildBoar1</Entity>
+		<Entity>CU_Herbivore_WildBoar2</Entity>
+		<Entity>CU_Herbivore_WildBoar3</Entity>
         <Entity>CU_Herbivore_Zebra</Entity>
 
         <!-- Misc -->

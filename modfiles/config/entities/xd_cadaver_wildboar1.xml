@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_WildBoar1_Dead</Model>
+		<RenderInFoW>False</RenderInFoW>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CGLEEntity</Class>
+		<AccessCategory>AccessCategoryStatic</AccessCategory> 
+        <DeleteWhenBuiltOn>True</DeleteWhenBuiltOn>
+		<DoNotExecute>True</DoNotExecute>
+        <SnapTolerance>30.0f</SnapTolerance>
+	</Logic>
+</root>
