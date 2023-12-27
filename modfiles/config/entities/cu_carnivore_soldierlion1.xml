@@ -17,7 +17,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>900</MaxHealth>
+        <MaxHealth>300</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -64,7 +64,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>700</Speed>
+            <Speed>500</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Lion2_Idle1</MoveIdleAnim>

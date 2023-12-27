@@ -2,16 +2,16 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Lion2</Model>
-        <Anim>XA_Lion2_Run</Anim>
-        <Anim>XA_Lion2_Walk</Anim>
-        <Anim>XA_Lion2_Eat</Anim>
-        <Anim>XA_Lion2_Attack1</Anim>
-        <Anim>XA_Lion2_Attack2</Anim>
-        <Anim>XA_Lion2_Attack3</Anim>
-        <Anim>XA_Lion2_Dying</Anim>
-        <Anim>XA_Lion2_Idle1</Anim>
-        <Anim>XA_Lion2_Idle2</Anim>
+        <Model>XA_Bear</Model>
+        <Anim>XA_Bear_Run1</Anim>
+        <Anim>XA_Bear_Walk1</Anim>
+        <Anim>XA_Bear_Eat1</Anim>
+        <Anim>XA_Bear_Attack1</Anim>
+        <Anim>XA_Bear_Attack2</Anim>
+        <Anim>XA_Bear_Attack3</Anim>
+        <Anim>XA_Bear_Dying1</Anim>
+        <Anim>XA_Bear_Idle1</Anim>
+        <Anim>XA_Bear_Idle2</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
@@ -33,8 +33,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Lion2_Idle1</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_SOLDIERLION</AnimSet>
+            <SuspensionAnimation>XA_Bear_Idle1</SuspensionAnimation>
+            <AnimSet>SET_CARNIVORE_LEADERLION</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -47,7 +47,7 @@
             <Speed>500</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_NPC_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Lion2_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>XA_Bear_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>

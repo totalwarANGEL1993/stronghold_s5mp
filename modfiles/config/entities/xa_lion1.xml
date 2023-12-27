@@ -44,7 +44,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSettlerMovement</Class>
-            <Speed>700</Speed>
+            <Speed>500</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_NPC_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Lion1_Idle1</MoveIdleAnim>

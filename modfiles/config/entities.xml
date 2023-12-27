@@ -1178,10 +1178,13 @@
         <Entity>CU_Carnivore_SoldierDog1</Entity>
         <Entity>CU_Carnivore_LeaderLion1</Entity>
         <Entity>CU_Carnivore_SoldierLion1</Entity>
+        <Entity>CU_Carnivore_LeaderTiger1</Entity>
+        <Entity>CU_Carnivore_SoldierTiger1</Entity>
         <Entity>CU_Carnivore_LeaderWolf1</Entity>
         <Entity>CU_Carnivore_SoldierWolf1</Entity>
 
         <!-- Passive animals -->
+        <Entity>XA_Bear</Entity>
         <Entity>XA_Chicken1</Entity>
         <Entity>XA_Chicken2</Entity>
         <Entity>XA_Chicken3</Entity>
@@ -1200,6 +1203,7 @@
 		<Entity>XA_Elephant2</Entity>
 		<Entity>XA_Lion1</Entity>
 		<Entity>XA_Lion2</Entity>
+		<Entity>XA_Tiger</Entity>
 		<Entity>XA_Zebra</Entity>
 
         <!-- Cadaver -->

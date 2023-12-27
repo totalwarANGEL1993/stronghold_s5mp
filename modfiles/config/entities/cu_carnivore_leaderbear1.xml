@@ -64,7 +64,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>600</Speed>
+            <Speed>500</Speed>
             <RotationSpeed>50</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Bear_Idle1</MoveIdleAnim>

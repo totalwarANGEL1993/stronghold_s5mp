@@ -17,7 +17,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>1000</MaxHealth>
+        <MaxHealth>400</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -64,7 +64,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>700</Speed>
+            <Speed>500</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Lion1_Idle1</MoveIdleAnim>
@@ -120,7 +120,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>5</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>

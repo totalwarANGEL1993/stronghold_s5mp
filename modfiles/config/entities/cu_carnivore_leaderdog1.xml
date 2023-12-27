@@ -13,7 +13,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>400</MaxHealth>
+        <MaxHealth>300</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -95,7 +95,7 @@
             <HitAnim>XA_Wolf_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>16</DamageAmount>
+            <DamageAmount>10</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
@@ -116,7 +116,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>3</Limit>
+                <Limit>5</Limit>
             </Attachment>
         </Logic>
     </Behavior>
