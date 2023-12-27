@@ -2,7 +2,7 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Tiger</Model>
+        <Model>XA_Lion1</Model>
         <Anim>XA_Lion1_Run</Anim>
         <Anim>XA_Lion1_Walk</Anim>
         <Anim>XA_Lion1_Eat</Anim>
@@ -17,7 +17,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>800</MaxHealth>
+        <MaxHealth>400</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -36,9 +36,6 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>CarnivoreLeaderTiger</Category>
-        </Upgrade>
 
 
         <ModifyArmor>
@@ -54,7 +51,7 @@
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>XA_Lion1_Idle1</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_LEADERTIGER</AnimSet>
+            <AnimSet>SET_CARNIVORE_LION2</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -64,7 +61,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>500</Speed>
+            <Speed>600</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Lion1_Idle1</MoveIdleAnim>
@@ -85,7 +82,7 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>1500</HomeRadius>
-            <SoldierType>CU_Carnivore_SoldierTiger1</SoldierType>
+            <SoldierType>PU_SoldierSword1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_LION</BattleTaskList>
 
@@ -99,8 +96,8 @@
             <HitAnim>XA_Lion1_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>38</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <DamageAmount>24</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 

@@ -12,7 +12,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth> 10 </MaxHealth>
+        <MaxHealth>500</MaxHealth>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>

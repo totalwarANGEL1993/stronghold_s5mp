@@ -3,13 +3,13 @@
     <!-- This version of the animal leaves a corpse behind. -->
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_RedDeer</Model>
+        <Model>XA_Gazelle</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>XA_RedDeer_Dying</Anim>
-        <Anim>XA_RedDeer_Idle1</Anim>
-        <Anim>XA_RedDeer_Idle2</Anim>
-        <Anim>XA_RedDeer_Run</Anim>
-        <Anim>XA_RedDeer_Walk</Anim>
+        <Anim>XA_Gazelle_Dying</Anim>
+        <Anim>XA_Gazelle_Idle1</Anim>
+        <Anim>XA_Gazelle_Idle2</Anim>
+        <Anim>XA_Gazelle_Run</Anim>
+        <Anim>XA_Gazelle_Walk</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
@@ -29,8 +29,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_RedDeer_Idle1</SuspensionAnimation>
-            <AnimSet>SET_REDDEER</AnimSet>
+            <SuspensionAnimation>XA_Gazelle_Idle1</SuspensionAnimation>
+            <AnimSet>SET_GAZELLE</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -42,7 +42,7 @@
             <Speed>250</Speed>
             <RotationSpeed>25</RotationSpeed>
             <MoveTaskList>TL_NPC_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_RedDeer_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>XA_Gazelle_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -65,7 +65,7 @@
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
-            <EntityType>XD_DeadRedDeer</EntityType>
+            <EntityType>XD_Cadaver_Gazelle</EntityType>
         </Logic>
     </Behavior>
 </root>

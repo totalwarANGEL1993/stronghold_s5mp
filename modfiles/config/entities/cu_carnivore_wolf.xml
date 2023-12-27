@@ -32,9 +32,6 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>CarnivoreLeaderWolf</Category>
-        </Upgrade>
 
 
         <ModifyArmor>
@@ -50,7 +47,7 @@
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
+            <AnimSet>SET_CARNIVORE_WOLF</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -81,7 +78,7 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>1500</HomeRadius>
-            <SoldierType>CU_Carnivore_SoldierWolf1</SoldierType>
+            <SoldierType>PU_SoldierSword1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_BEAR</BattleTaskList>
 
@@ -116,7 +113,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>3</Limit>
+                <Limit>0</Limit>
             </Attachment>
         </Logic>
     </Behavior>

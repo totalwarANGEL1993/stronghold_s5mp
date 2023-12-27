@@ -1236,46 +1236,6 @@
 	    <FirstSettler>CU_Templar_SoldierHeavyCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
-	<SettlerUpgrade>
-	    <Category>CarnivoreLeaderBear</Category>
-	    <FirstSettler>CU_Carnivore_LeaderBear1</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>CarnivoreLeaderDog</Category>
-	    <FirstSettler>CU_Carnivore_LeaderDog1</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>CarnivoreLeaderLion</Category>
-	    <FirstSettler>CU_Carnivore_LeaderLion1</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>CarnivoreLeaderWolf</Category>
-	    <FirstSettler>CU_Carnivore_LeaderWolf1</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>CarnivoreSoldierBear</Category>
-	    <FirstSettler>CU_Carnivore_SoldierBear1</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>CarnivoreSoldierDog</Category>
-	    <FirstSettler>CU_Carnivore_SoldierDog1</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>CarnivoreSoldierLion</Category>
-	    <FirstSettler>CU_Carnivore_SoldierLion1</FirstSettler>
-	</SettlerUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>CarnivoreSoldierWolf</Category>
-	    <FirstSettler>CU_Carnivore_SoldierWolf1</FirstSettler>
-	</SettlerUpgrade>
-
     <!-- Other -->
 
     <BuildingUpgrade>
@@ -1352,9 +1312,4 @@
         <Category>DogCage</Category>
         <FirstBuilding>PB_DogCage1</FirstBuilding>
     </BuildingUpgrade>
-
-	<SettlerUpgrade>
-	    <Category>Hawk</Category>
-	    <FirstSettler>XA_Hawk</FirstSettler>
-	</SettlerUpgrade>
 </root>

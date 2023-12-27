@@ -8,6 +8,10 @@
     <EntityName>PU_Hero3_Trap</EntityName>
     <EntityName>PU_Hero3_TrapCannon</EntityName>
     <EntityName>PU_Hero5_Outlaw</EntityName>
+    <EntityName>PU_Bear_Deco</EntityName>
+    <EntityName>PU_Dog_Deco</EntityName>
+    <EntityName>PU_Bear_Cage</EntityName>
+    <EntityName>PU_Dog_Cage</EntityName>
     <EntityName>PB_Bridge1</EntityName>
     <EntityName>PB_Bridge2</EntityName>
     <EntityName>PB_Bridge3</EntityName>
@@ -21,8 +25,6 @@
     <EntityName>PB_Weathermachine_Activated</EntityName>
     <!-- <EntityName>CB_Mint1</EntityName> -->
     <EntityName>CB_TechTrader</EntityName>
-    <EntityName>CU_Carnivore_CageBear</EntityName>
-    <EntityName>CU_Carnivore_CageDog</EntityName>
     <!-- <EntityName>CU_AfraidAlchemist</EntityName> -->
     <!-- <EntityName>CU_AfraidMasterBuilder</EntityName> -->
     <!-- <EntityName>CU_AfraidMiner</EntityName> -->
@@ -35,6 +37,8 @@
     <EntityName>CU_GCScholar</EntityName>
     <EntityName>CV_Cannon_TEST</EntityName>
     <EntityName>CU_Sheep</EntityName>
+    <EntityName>CU_Sheep2</EntityName>
+    <EntityName>CU_Sheep3</EntityName>
     <!-- <EntityName>CV_Cannon1</EntityName> -->
     <!-- <EntityName>CV_Cannon2</EntityName> -->
     <!-- <EntityName>XD_BlendingFog</EntityName> -->

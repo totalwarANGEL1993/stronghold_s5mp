@@ -1073,6 +1073,10 @@
         <Entity>CV_Cannon_TEST</Entity>
         <Entity>CV_Cannon1</Entity>
         <Entity>CV_Cannon2</Entity>
+        <Entity>PU_Bear_Cage</Entity>
+        <Entity>PU_Dog_Cage</Entity>
+        <Entity>PU_Bear_Deco</Entity>
+        <Entity>PU_Dog_Deco</Entity>
         <Entity>PV_Cannon7</Entity>
         <Entity>PV_Cannon8</Entity>
 
@@ -1167,18 +1171,12 @@
         <Entity>XD_WallGate_Replacer</Entity>
 
         <!-- Aggressive animals -->
-        <Entity>CU_Carnivore_CageBear</Entity>
-        <Entity>CU_Carnivore_CageDog</Entity>
-        <Entity>CU_Carnivore_LeaderBear1</Entity>
-        <Entity>CU_Carnivore_SoldierBear1</Entity>
-        <Entity>CU_Carnivore_LeaderDog1</Entity>
-        <Entity>CU_Carnivore_SoldierDog1</Entity>
-        <Entity>CU_Carnivore_LeaderLion1</Entity>
-        <Entity>CU_Carnivore_SoldierLion1</Entity>
-        <Entity>CU_Carnivore_LeaderTiger1</Entity>
-        <Entity>CU_Carnivore_SoldierTiger1</Entity>
-        <Entity>CU_Carnivore_LeaderWolf1</Entity>
-        <Entity>CU_Carnivore_SoldierWolf1</Entity>
+        <Entity>CU_Carnivore_Bear</Entity>
+        <Entity>CU_Carnivore_Dog</Entity>
+        <Entity>CU_Carnivore_Lion1</Entity>
+        <Entity>CU_Carnivore_Lion2</Entity>
+        <Entity>CU_Carnivore_Tiger</Entity>
+        <Entity>CU_Carnivore_Wolf</Entity>
 
         <!-- Passive animals -->
         <Entity>XA_Bear</Entity>
@@ -1189,48 +1187,50 @@
         <Entity>XA_Cow2</Entity>
         <Entity>XA_Cow3</Entity>
         <Entity>XA_Dromedary</Entity>
+		<Entity>XA_Elephant1</Entity>
+		<Entity>XA_Elephant2</Entity>
         <Entity>XA_Gazelle</Entity>
+        <Entity>XA_Hawk</Entity>
+		<Entity>XA_Lion1</Entity>
+		<Entity>XA_Lion2</Entity>
+		<Entity>XA_Rabbit</Entity>
         <Entity>XA_RedDeer</Entity>
         <Entity>XA_RedDoe</Entity>
-		<Entity>XA_Rabbit</Entity>
 		<Entity>XA_Sheep1</Entity>
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>
-        <Entity>XA_Hawk</Entity>
-		<Entity>XA_Elephant1</Entity>
-		<Entity>XA_Elephant2</Entity>
-		<Entity>XA_Lion1</Entity>
-		<Entity>XA_Lion2</Entity>
 		<Entity>XA_SheepDog</Entity>
 		<Entity>XA_Tiger</Entity>
-		<Entity>XA_Zebra</Entity>
 		<Entity>XA_Wolf</Entity>
+		<Entity>XA_Zebra</Entity>
 
         <!-- Cadaver -->
-        <Entity>XD_DeadCow1</Entity>
-        <Entity>XD_DeadCow2</Entity>
-        <Entity>XD_DeadCow3</Entity>
-        <Entity>XD_DeadDromedary</Entity>
-        <Entity>XD_DeadGazelle</Entity>
-        <Entity>XD_DeadRedDeer</Entity>
-        <Entity>XD_DeadRedDoe</Entity>
-        <Entity>XD_DeadRabbit</Entity>
-        <Entity>XD_DeadSheep1</Entity>
-        <Entity>XD_DeadSheep2</Entity>
-        <Entity>XD_DeadSheep3</Entity>
-        <Entity>XD_DeadZebra</Entity>
+        <Entity>XD_Cadaver_Cow1</Entity>
+        <Entity>XD_Cadaver_Cow2</Entity>
+        <Entity>XD_Cadaver_Cow3</Entity>
+        <Entity>XD_Cadaver_Dromedary</Entity>
+        <Entity>XD_Cadaver_Gazelle</Entity>
+        <Entity>XD_Cadaver_Rabbit</Entity>
+        <Entity>XD_Cadaver_RedDeer</Entity>
+        <Entity>XD_Cadaver_RedDoe</Entity>
+        <Entity>XD_Cadaver_Sheep1</Entity>
+        <Entity>XD_Cadaver_Sheep2</Entity>
+        <Entity>XD_Cadaver_Sheep3</Entity>
+        <Entity>XD_Cadaver_Zebra</Entity>
 
         <!-- Cadaver spawner -->
-        <Entity>CU_Cow1</Entity>
-        <Entity>CU_Cow2</Entity>
-        <Entity>CU_Cow3</Entity>
-        <Entity>CU_Dromedary</Entity>
-        <Entity>CU_Gazelle</Entity>
-        <Entity>CU_Rabbit</Entity>
-        <Entity>CU_RedDeer</Entity>
-        <Entity>CU_RedDoe</Entity>
-        <Entity>CU_Sheep1</Entity>
-        <Entity>CU_Zebra</Entity>
+        <Entity>CU_Herbivore_Cow1</Entity>
+        <Entity>CU_Herbivore_Cow2</Entity>
+        <Entity>CU_Herbivore_Cow3</Entity>
+        <Entity>CU_Herbivore_Dromedary</Entity>
+        <Entity>CU_Herbivore_Gazelle</Entity>
+        <Entity>CU_Herbivore_Rabbit</Entity>
+        <Entity>CU_Herbivore_RedDeer</Entity>
+        <Entity>CU_Herbivore_RedDoe</Entity>
+        <Entity>CU_Herbivore_Sheep1</Entity>
+		<Entity>CU_Herbivore_Sheep2</Entity>
+		<Entity>CU_Herbivore_Sheep3</Entity>
+        <Entity>CU_Herbivore_Zebra</Entity>
 
         <!-- Misc -->
         <Entity>XD_Bomb2</Entity>

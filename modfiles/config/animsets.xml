@@ -119,7 +119,8 @@
   	
 	<!-- animals -->
  	<AnimSet>SET_DEER</AnimSet>
- 	
+ 	<AnimSet>SET_HAWK</AnimSet>
+	<AnimSet>SET_WOLF</AnimSet>
  	
  	<!-- AddOn 1 -->
 	<AnimSet>SET_LEADERRIFLE1</AnimSet>
@@ -156,27 +157,22 @@
 
 
 	<!-- Stronghold -->
-	<AnimSet>SET_BEAR</AnimSet>
+	<AnimSet>SET_CU_HERO13</AnimSet>
+	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>
+	<AnimSet>SET_CARNIVORE_BEAR</AnimSet>
+	<AnimSet>SET_CARNIVORE_WOLF</AnimSet>
+	<AnimSet>SET_CARNIVORE_LION1</AnimSet>
+	<AnimSet>SET_CARNIVORE_LION2</AnimSet>
+	<AnimSet>SET_CARNIVORE_TIGER</AnimSet>
 	<AnimSet>SET_CHICKEN</AnimSet>
 	<AnimSet>SET_COW</AnimSet>
-	<AnimSet>SET_CARNIVORE_LEADERBEAR</AnimSet>
-	<AnimSet>SET_CARNIVORE_SOLDIERBEAR</AnimSet>
-	<AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
-	<AnimSet>SET_CARNIVORE_SOLDIERWOLF</AnimSet>
-	<AnimSet>SET_CARNIVORE_LEADERLION</AnimSet>
-	<AnimSet>SET_CARNIVORE_SOLDIERLION</AnimSet>
-	<AnimSet>SET_CARNIVORE_LEADERTIGER</AnimSet>
-	<AnimSet>SET_CARNIVORE_SOLDIERTIGER</AnimSet>
 	<AnimSet>SET_CANNON5</AnimSet>
 	<AnimSet>SET_DROMEDARY</AnimSet>
 	<AnimSet>SET_ELEPHANT1</AnimSet>
 	<AnimSet>SET_ELEPHANT2</AnimSet>
- 	<AnimSet>SET_HAWK</AnimSet>
 	<AnimSet>SET_GAZELLE</AnimSet>
 	<AnimSet>SET_REDDEER</AnimSet>
  	<AnimSet>SET_RABBIT</AnimSet>
-	<AnimSet>SET_CU_HERO13</AnimSet>
-	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>
-	<AnimSet>SET_WOLF</AnimSet>
+ 	<AnimSet>SET_HAWK</AnimSet>
 	<AnimSet>SET_ZEBRA</AnimSet>
 </root>

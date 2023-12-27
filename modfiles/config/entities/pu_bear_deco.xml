@@ -2,18 +2,22 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Wolf</Model>
-        <Anim>XA_Wolf_Run</Anim>
-        <Anim>XA_Wolf_Wait</Anim>
-        <Anim>XA_Wolf_Attack1</Anim>
-        <Anim>XA_Wolf_Dying1</Anim>
-        <Anim>XA_Wolf_IdleAttack1</Anim>
+        <Model>XA_Bear</Model>
+        <Anim>XA_Bear_Run1</Anim>
+        <Anim>XA_Bear_Walk1</Anim>
+        <Anim>XA_Bear_Eat1</Anim>
+        <Anim>XA_Bear_Attack1</Anim>
+        <Anim>XA_Bear_Attack2</Anim>
+        <Anim>XA_Bear_Attack3</Anim>
+        <Anim>XA_Bear_Dying1</Anim>
+        <Anim>XA_Bear_Idle1</Anim>
+        <Anim>XA_Bear_Idle2</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>200</MaxHealth>
+        <MaxHealth>900</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -26,31 +30,31 @@
         <Category>Melee</Category>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>25</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
-            <Category>CarnivoreSoldierWolf</Category>
+            <Category>CarnivoreSoldierBear</Category>
         </Upgrade>
 
 
         <ModifyArmor>
-            <Technology>T_DogTraining</Technology>
+            <Technology>T_BearTraining</Technology>
         </ModifyArmor>
 
         <ModifyDamage>
-            <Technology>T_DogTraining</Technology>
+            <Technology>T_BearTraining</Technology>
         </ModifyDamage>
     </Logic>
 
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_SOLDIERWOLF</AnimSet>
+            <SuspensionAnimation>XA_Bear_Idle1</SuspensionAnimation>
+            <AnimSet>SET_CARNIVORE_BEAR</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -61,9 +65,9 @@
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
             <Speed>500</Speed>
-            <RotationSpeed>30</RotationSpeed>
+            <RotationSpeed>50</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Wolf_Wait</MoveIdleAnim>
+            <MoveIdleAnim>XA_Bear_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -80,19 +84,19 @@
         <Logic classname="GGL::CSoldierBehaviorProps">
             <Class>GGL::CSoldierBehavior</Class>
 
-            <BattleTaskList>TL_BATTLE_WOLF</BattleTaskList>
-            <NormalAttackAnim1>XA_Wolf_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>XA_Wolf_Attack1</NormalAttackAnim2>
-            <CounterAttackAnim>XA_Wolf_Attack1</CounterAttackAnim>
-            <FinishingMoveAnim>XA_Wolf_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>XA_Wolf_Attack1</MissAttackAnim>
-            <BattleIdleAnim>XA_Wolf_Attack1</BattleIdleAnim>
-            <BattleWalkAnim>XA_Wolf_Run</BattleWalkAnim>
-            <HitAnim>XA_Wolf_Attack1</HitAnim>
+            <BattleTaskList>TL_BATTLE_BEAR</BattleTaskList>
+            <NormalAttackAnim1>XA_Bear_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>XA_Bear_Attack2</NormalAttackAnim2>
+            <CounterAttackAnim>XA_Bear_Attack3</CounterAttackAnim>
+            <FinishingMoveAnim>XA_Bear_Attack3</FinishingMoveAnim>
+            <MissAttackAnim>XA_Bear_Attack1</MissAttackAnim>
+            <BattleIdleAnim>XA_Bear_Attack1</BattleIdleAnim>
+            <BattleWalkAnim>XA_Bear_Run1</BattleWalkAnim>
+            <HitAnim>XA_Bear_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>12</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageAmount>50</DamageAmount>
+            <MaxRandomDamageBonus>9</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 
@@ -105,27 +109,27 @@
         <Logic classname="GGL::CFormationBehaviorProperties">
             <Class>GGL::CFormationBehavior</Class>
             <IdleAnim>
-                <AnimID>XA_Wolf_Wait</AnimID>
+                <AnimID>XA_Bear_Idle1</AnimID>
                 <Frequency>99</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>XA_Wolf_Wait</AnimID>
+                <AnimID>XA_Bear_Idle2</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>XA_Wolf_Wait</AnimID>
+                <AnimID>XA_Bear_Idle1</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>XA_Wolf_Wait</AnimID>
+                <AnimID>XA_Bear_Idle2</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>XA_Wolf_Wait</AnimID>
+                <AnimID>XA_Bear_Idle1</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>XA_Wolf_Wait</AnimID>
+                <AnimID>XA_Bear_Idle2</AnimID>
                 <Frequency>2</Frequency>
             </IdleAnim>
         </Logic>

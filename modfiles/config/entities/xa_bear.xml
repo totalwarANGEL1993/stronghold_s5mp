@@ -17,7 +17,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>10</MaxHealth>
+        <MaxHealth>500</MaxHealth>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>
@@ -34,7 +34,7 @@
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>XA_Bear_Idle1</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_LEADERLION</AnimSet>
+            <AnimSet>SET_CARNIVORE_BEAR</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -44,7 +44,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CSettlerMovement</Class>
-            <Speed>500</Speed>
+            <Speed>600</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_NPC_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Bear_Idle1</MoveIdleAnim>

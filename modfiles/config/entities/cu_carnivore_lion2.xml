@@ -2,12 +2,16 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_AggressiveDog</Model>
-        <Anim>XA_Wolf_Run</Anim>
-        <Anim>XA_Wolf_Wait</Anim>
-        <Anim>XA_Wolf_Attack1</Anim>
-        <Anim>XA_Wolf_Dying1</Anim>
-        <Anim>XA_Wolf_IdleAttack1</Anim>
+        <Model>XA_Lion2</Model>
+        <Anim>XA_Lion2_Run</Anim>
+        <Anim>XA_Lion2_Walk</Anim>
+        <Anim>XA_Lion2_Eat</Anim>
+        <Anim>XA_Lion2_Attack1</Anim>
+        <Anim>XA_Lion2_Attack2</Anim>
+        <Anim>XA_Lion2_Attack3</Anim>
+        <Anim>XA_Lion2_Dying</Anim>
+        <Anim>XA_Lion2_Idle1</Anim>
+        <Anim>XA_Lion2_Idle2</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
@@ -27,14 +31,11 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>CarnivoreLeaderDog</Category>
-        </Upgrade>
 
 
         <ModifyArmor>
@@ -49,8 +50,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_LEADERWOLF</AnimSet>
+            <SuspensionAnimation>XA_Lion2_Idle1</SuspensionAnimation>
+            <AnimSet>SET_CARNIVORE_LION2</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -61,9 +62,9 @@
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
             <Speed>600</Speed>
-            <RotationSpeed>50</RotationSpeed>
+            <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Wolf_Wait</MoveIdleAnim>
+            <MoveIdleAnim>XA_Lion2_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -81,22 +82,22 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>1500</HomeRadius>
-            <SoldierType>CU_Carnivore_SoldierDog1</SoldierType>
+            <SoldierType>PU_SoldierSword1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_DOG</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_LION</BattleTaskList>
 
-            <NormalAttackAnim1>XA_Wolf_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>XA_Wolf_Attack1</NormalAttackAnim2>
-            <CounterAttackAnim>XA_Wolf_Attack1</CounterAttackAnim>
-            <FinishingMoveAnim>XA_Wolf_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>XA_Wolf_Attack1</MissAttackAnim>
-            <BattleIdleAnim>XA_Wolf_Attack1</BattleIdleAnim>
-            <BattleWalkAnim>XA_Wolf_Run</BattleWalkAnim>
-            <HitAnim>XA_Wolf_Attack1</HitAnim>
+            <NormalAttackAnim1>XA_Lion2_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>XA_Lion2_Attack2</NormalAttackAnim2>
+            <CounterAttackAnim>XA_Lion2_Attack3</CounterAttackAnim>
+            <FinishingMoveAnim>XA_Lion2_Attack3</FinishingMoveAnim>
+            <MissAttackAnim>XA_Lion2_Attack1</MissAttackAnim>
+            <BattleIdleAnim>XA_Lion2_Attack1</BattleIdleAnim>
+            <BattleWalkAnim>XA_Lion2_Run</BattleWalkAnim>
+            <HitAnim>XA_Lion2_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>32</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <DamageAmount>24</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 
@@ -138,13 +139,6 @@
         <Logic classname="GGL::CEvadeExecutionBehaviorProps">
             <Class>GGL::CEvadeExecutionBehavior</Class>
             <BasePriority>400</BasePriority>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CLimitedLifespanBehaviorProps">
-            <Class>GGL::CLimitedLifespanBehavior</Class>
-            <LifespanSeconds>180</LifespanSeconds>
         </Logic>
     </Behavior>
 </root>

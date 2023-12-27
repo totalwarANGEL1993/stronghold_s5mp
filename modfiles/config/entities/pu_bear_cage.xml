@@ -17,28 +17,22 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>900</MaxHealth>
+        <MaxHealth>1000</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
             <Gold>0</Gold>
         </Cost>
-        <Category>Military</Category>
-        <Category>Soldier</Category>
-        <Category>CavalryLight</Category>
-        <Category>Melee</Category>
+        <Category>Wall</Category>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>25</ExperiencePoints>
+        <ExperiencePoints>50</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>CarnivoreSoldierBear</Category>
-        </Upgrade>
 
 
         <ModifyArmor>
@@ -54,7 +48,7 @@
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>XA_Bear_Idle1</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_SOLDIERBEAR</AnimSet>
+            <AnimSet>SET_CARNIVORE_BEAR</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -64,9 +58,9 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>500</Speed>
+            <Speed>600</Speed>
             <RotationSpeed>50</RotationSpeed>
-            <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
+            <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Bear_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
@@ -81,10 +75,14 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CSoldierBehaviorProps">
-            <Class>GGL::CSoldierBehavior</Class>
+        <Logic classname="GGL::CLeaderBehaviorProps">
+            <Class>GGL::CLeaderBehavior</Class>
+            <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
+            <HomeRadius>1500</HomeRadius>
+            <SoldierType>PU_SoldierSword1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_BEAR</BattleTaskList>
+
             <NormalAttackAnim1>XA_Bear_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>XA_Bear_Attack2</NormalAttackAnim2>
             <CounterAttackAnim>XA_Bear_Attack3</CounterAttackAnim>
@@ -95,43 +93,29 @@
             <HitAnim>XA_Bear_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>50</DamageAmount>
-            <MaxRandomDamageBonus>9</MaxRandomDamageBonus>
+            <DamageAmount>100</DamageAmount>
+            <MaxRandomDamageBonus>18</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
 
             <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>
+            <AutoAttackRange>3000</AutoAttackRange>
+
+            <HealingPoints>5</HealingPoints>
+            <HealingSeconds>3</HealingSeconds>
+
+            <UpkeepCost>0</UpkeepCost>
         </Logic>
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CFormationBehaviorProperties">
-            <Class>GGL::CFormationBehavior</Class>
-            <IdleAnim>
-                <AnimID>XA_Bear_Idle1</AnimID>
-                <Frequency>99</Frequency>
-            </IdleAnim>
-            <IdleAnim>
-                <AnimID>XA_Bear_Idle2</AnimID>
-                <Frequency>2</Frequency>
-            </IdleAnim>
-            <IdleAnim>
-                <AnimID>XA_Bear_Idle1</AnimID>
-                <Frequency>2</Frequency>
-            </IdleAnim>
-            <IdleAnim>
-                <AnimID>XA_Bear_Idle2</AnimID>
-                <Frequency>2</Frequency>
-            </IdleAnim>
-            <IdleAnim>
-                <AnimID>XA_Bear_Idle1</AnimID>
-                <Frequency>2</Frequency>
-            </IdleAnim>
-            <IdleAnim>
-                <AnimID>XA_Bear_Idle2</AnimID>
-                <Frequency>2</Frequency>
-            </IdleAnim>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
+            <Attachment>
+                <Type>ATTACHMENT_LEADER_SOLDIER</Type>
+                <Limit>0</Limit>
+            </Attachment>
         </Logic>
     </Behavior>
 
@@ -144,15 +128,21 @@
 
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
-            <Class>GGL::CSoldierEvadeBehavior</Class>
+            <Class>GGL::CLeaderEvadeBehavior</Class>
         </Logic>
     </Behavior>
 
     <Behavior>
         <Logic classname="GGL::CEvadeExecutionBehaviorProps">
             <Class>GGL::CEvadeExecutionBehavior</Class>
-            <BasePriority>300</BasePriority>
-            <ShouldEvade>false</ShouldEvade>
+            <BasePriority>400</BasePriority>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLimitedLifespanBehaviorProps">
+            <Class>GGL::CLimitedLifespanBehavior</Class>
+            <LifespanSeconds>180</LifespanSeconds>
         </Logic>
     </Behavior>
 </root>

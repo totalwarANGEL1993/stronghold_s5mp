@@ -19,7 +19,7 @@
             <Gold>0</Gold>
         </Cost>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>50</MaxHealth>
+        <MaxHealth>500</MaxHealth>
         <Exploration>0</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>0</ArmorAmount>
@@ -33,9 +33,6 @@
         <Convertible>false</Convertible>
         <!-- This is used to prevent units to automatically attack. -->
         <Category>Wall</Category>
-        <Upgrade>
-            <Category>Hawk</Category>
-        </Upgrade>
     </Logic>
 
     <Behavior>

@@ -1679,7 +1679,7 @@ function Stronghold.Building:OnTrapConstructed(_TrapID)
     if EntityType == Entities.PB_BearCage1 then
         local x,y,z = Logic.EntityGetPos(_TrapID);
         local Rotation = Logic.GetEntityOrientation(_TrapID) - 90;
-        local AnimalID = Logic.CreateEntity(Entities.CU_Carnivore_SoldierBear1, x, y, Rotation, PlayerID);
+        local AnimalID = Logic.CreateEntity(Entities.PU_Bear_Deco, x, y, Rotation, PlayerID);
         Logic.SetTaskList(AnimalID, TaskLists.TL_NPC_IDLE);
         MakeInvulnerable(AnimalID);
         SVLib.SetEntitySize(AnimalID, 0.85);
@@ -1688,7 +1688,7 @@ function Stronghold.Building:OnTrapConstructed(_TrapID)
     elseif EntityType == Entities.PB_DogCage1 then
         local x,y,z = Logic.EntityGetPos(_TrapID);
         local Rotation = Logic.GetEntityOrientation(_TrapID) - 90;
-        local AnimalID = Logic.CreateEntity(Entities.CU_Carnivore_SoldierDog1, x, y, Rotation, PlayerID);
+        local AnimalID = Logic.CreateEntity(Entities.PU_Dog_Deco, x, y, Rotation, PlayerID);
         Logic.SetTaskList(AnimalID, TaskLists.TL_NPC_IDLE);
         MakeInvulnerable(AnimalID);
         Attachment = AnimalID;
@@ -1705,7 +1705,7 @@ function Stronghold.Building:OnBearTrapTriggered(_PlayerID, _TrapID)
         local x,y,z = Logic.EntityGetPos(_TrapID);
         DestroyEntity(self.Data.Traps[_TrapID][3]);
         SetHealth(_TrapID, 0);
-        local ID = AI.Entity_CreateFormation(_PlayerID, Entities.CU_Carnivore_CageBear, nil, 0, x, y, 0, 0, 0, 0);
+        local ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Bear_Cage, nil, 0, x, y, 0, 0, 0, 0);
         Logic.SetEntitySelectableFlag(ID, 0);
         Job.Second(function(_AnimalID, _X, _Y)
             return Stronghold.Building:TrapAggressiveAnimalController(_AnimalID, _X, _Y);
@@ -1719,7 +1719,7 @@ function Stronghold.Building:OnDogTrapTriggered(_PlayerID, _TrapID)
         DestroyEntity(self.Data.Traps[_TrapID][3]);
         SetHealth(_TrapID, 0);
         for i= 1, 3 do
-            local ID = AI.Entity_CreateFormation(_PlayerID, Entities.CU_Carnivore_CageDog, nil, 0, x, y, 0, 0, 0, 0);
+            local ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Dog_Cage, nil, 0, x, y, 0, 0, 0, 0);
             Logic.SetEntitySelectableFlag(ID, 0);
             Job.Second(function(_AnimalID, _X, _Y)
                 return Stronghold.Building:TrapAggressiveAnimalController(_AnimalID, _X, _Y);
