@@ -1179,6 +1179,7 @@
         <Entity>CU_Carnivore_Wolf1</Entity>
         <Entity>CU_Carnivore_Wolf2</Entity>
         <Entity>CU_Carnivore_Wolf3</Entity>
+        <Entity>CU_Carnivore_Wolf4</Entity>
 
         <!-- Passive animals -->
         <Entity>XA_Bear</Entity>
@@ -1211,6 +1212,7 @@
 		<Entity>XA_Wolf1</Entity>
 		<Entity>XA_Wolf2</Entity>
 		<Entity>XA_Wolf3</Entity>
+		<Entity>XA_Wolf4</Entity>
 		<Entity>XA_WildBoar1</Entity>
 		<Entity>XA_WildBoar2</Entity>
 		<Entity>XA_WildBoar3</Entity>

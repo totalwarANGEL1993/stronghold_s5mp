@@ -2,7 +2,7 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Wolf3</Model>
+        <Model>XA_Wolf4</Model>
         <Anim>XA_Wolf1_Run</Anim>
         <Anim>XA_Wolf1_Walk</Anim>
         <Anim>XA_Wolf1_Eat</Anim>

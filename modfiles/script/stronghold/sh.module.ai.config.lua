@@ -42,6 +42,7 @@ Stronghold.AI.Config = {
         [Entities.XA_Wolf1] = true,
         [Entities.XA_Wolf2] = true,
         [Entities.XA_Wolf3] = true,
+        [Entities.XA_Wolf4] = true,
         [Entities.XA_WildBoar1] = true,
         [Entities.XA_WildBoar2] = true,
         [Entities.XA_WildBoar3] = true,

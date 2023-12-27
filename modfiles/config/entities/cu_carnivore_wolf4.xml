@@ -2,7 +2,7 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Wolf3</Model>
+        <Model>XA_Wolf4</Model>
         <Anim>XA_Wolf1_Run</Anim>
         <Anim>XA_Wolf1_Walk</Anim>
         <Anim>XA_Wolf1_Eat</Anim>
@@ -13,10 +13,11 @@
         <Anim>XA_Wolf1_Idle1</Anim>
         <Anim>XA_Wolf1_Idle2</Anim>
     </Display>
+
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>400</MaxHealth>
+        <MaxHealth>300</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -28,13 +29,24 @@
         <Category>CavalryLight</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassHero</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>30</DodgeChance>
+        <Exploration>30</Exploration>
+        <ArmorClass>ArmorClassFur</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
+        <ExperiencePoints>50</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+
+
+        <ModifyArmor>
+            <Technology>T_DogTraining</Technology>
+        </ModifyArmor>
+
+        <ModifyDamage>
+            <Technology>T_DogTraining</Technology>
+        </ModifyDamage>
     </Logic>
+
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
@@ -45,11 +57,12 @@
             <Class>ED::CDisplayBehaviorAnimation</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>470</Speed>
-            <RotationSpeed>30</RotationSpeed>
+            <Speed>600</Speed>
+            <RotationSpeed>50</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Wolf1_Idle1</MoveIdleAnim>
         </Logic>
@@ -57,16 +70,18 @@
             <Class>ED::CDisplayBehaviorMovement</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CBehaviorWalkCommand</Class>
         </Logic>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
-            <HomeRadius>3000</HomeRadius>
+            <HomeRadius>1500</HomeRadius>
             <SoldierType>PU_SoldierSword1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_WOLF</BattleTaskList>
@@ -77,25 +92,35 @@
             <FinishingMoveAnim>XA_Wolf1_Attack3</FinishingMoveAnim>
             <MissAttackAnim>XA_Wolf1_Attack2</MissAttackAnim>
             <BattleIdleAnim>XA_Wolf1_Attack3</BattleIdleAnim>
-            <BattleWalkAnim>XA_Wolf1_Run</BattleWalkAnim>
+            <BattleWalkAnim>XA_Wolf1_Walk</BattleWalkAnim>
             <HitAnim>XA_Wolf1_Attack1</HitAnim>
 
-            <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>15</DamageAmount>
-            <MaxRandomDamageBonus>9</MaxRandomDamageBonus>
+            <DamageClass>DC_Beast</DamageClass>
+            <DamageAmount>18</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>1500</BattleWaitUntil>
+            <BattleWaitUntil>2500</BattleWaitUntil>
 
-            <MaxRange>150</MaxRange>
-            <MinRange>0.0f</MinRange>
-            <AutoAttackRange>2000</AutoAttackRange>
+            <MaxRange>300</MaxRange>
+            <MinRange>0</MinRange>
+            <AutoAttackRange>3000</AutoAttackRange>
 
-            <HealingPoints>2</HealingPoints>
-            <HealingSeconds>1</HealingSeconds>
+            <HealingPoints>5</HealingPoints>
+            <HealingSeconds>3</HealingSeconds>
+
+            <UpkeepCost>0</UpkeepCost>
         </Logic>
     </Behavior>
 
-
+    <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
+            <Attachment>
+                <Type>ATTACHMENT_LEADER_SOLDIER</Type>
+                <Limit>0</Limit>
+            </Attachment>
+        </Logic>
+    </Behavior>
 
     <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
@@ -116,19 +141,4 @@
             <BasePriority>400</BasePriority>
         </Logic>
     </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CSummonedBehaviorProps">
-            <Class>GGL::CSummonedBehavior</Class>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CLimitedLifespanBehaviorProps">
-            <Class>GGL::CLimitedLifespanBehavior</Class>
-            <LifespanSeconds>180</LifespanSeconds>
-        </Logic>
-    </Behavior>
-
-
 </root>
