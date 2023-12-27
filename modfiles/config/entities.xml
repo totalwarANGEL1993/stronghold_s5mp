@@ -309,9 +309,6 @@
 		   ANIMALS
 	************************************************
 -->
-		<Entity>XA_Rabbit</Entity>
-		<Entity>XA_Wolf</Entity>
-		<Entity>XA_SheepDog</Entity>
 		<Entity>XA_Deer</Entity>
 		<Entity>XA_Doe</Entity>
 <!--
@@ -1195,6 +1192,7 @@
         <Entity>XA_Gazelle</Entity>
         <Entity>XA_RedDeer</Entity>
         <Entity>XA_RedDoe</Entity>
+		<Entity>XA_Rabbit</Entity>
 		<Entity>XA_Sheep1</Entity>
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>
@@ -1203,8 +1201,10 @@
 		<Entity>XA_Elephant2</Entity>
 		<Entity>XA_Lion1</Entity>
 		<Entity>XA_Lion2</Entity>
+		<Entity>XA_SheepDog</Entity>
 		<Entity>XA_Tiger</Entity>
 		<Entity>XA_Zebra</Entity>
+		<Entity>XA_Wolf</Entity>
 
         <!-- Cadaver -->
         <Entity>XD_DeadCow1</Entity>
@@ -1214,6 +1214,7 @@
         <Entity>XD_DeadGazelle</Entity>
         <Entity>XD_DeadRedDeer</Entity>
         <Entity>XD_DeadRedDoe</Entity>
+        <Entity>XD_DeadRabbit</Entity>
         <Entity>XD_DeadSheep1</Entity>
         <Entity>XD_DeadSheep2</Entity>
         <Entity>XD_DeadSheep3</Entity>
@@ -1225,6 +1226,7 @@
         <Entity>CU_Cow3</Entity>
         <Entity>CU_Dromedary</Entity>
         <Entity>CU_Gazelle</Entity>
+        <Entity>CU_Rabbit</Entity>
         <Entity>CU_RedDeer</Entity>
         <Entity>CU_RedDoe</Entity>
         <Entity>CU_Sheep1</Entity>

@@ -118,9 +118,6 @@
   	<AnimSet>SET_CU_BABARIAN_HERO_WOLF</AnimSet>
   	
 	<!-- animals -->
- 	<AnimSet>SET_HAWK</AnimSet>
- 	<AnimSet>SET_RABBIT</AnimSet>
-	<AnimSet>SET_WOLF</AnimSet>
  	<AnimSet>SET_DEER</AnimSet>
  	
  	
@@ -174,9 +171,12 @@
 	<AnimSet>SET_DROMEDARY</AnimSet>
 	<AnimSet>SET_ELEPHANT1</AnimSet>
 	<AnimSet>SET_ELEPHANT2</AnimSet>
+ 	<AnimSet>SET_HAWK</AnimSet>
 	<AnimSet>SET_GAZELLE</AnimSet>
 	<AnimSet>SET_REDDEER</AnimSet>
+ 	<AnimSet>SET_RABBIT</AnimSet>
 	<AnimSet>SET_CU_HERO13</AnimSet>
 	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>
+	<AnimSet>SET_WOLF</AnimSet>
 	<AnimSet>SET_ZEBRA</AnimSet>
 </root>
