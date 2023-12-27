@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>XA_Lion2</Model>
+        <Anim>XA_Lion2_Run</Anim>
+        <Anim>XA_Lion2_Walk</Anim>
+        <Anim>XA_Lion2_Eat</Anim>
+        <Anim>XA_Lion2_Attack1</Anim>
+        <Anim>XA_Lion2_Attack2</Anim>
+        <Anim>XA_Lion2_Attack3</Anim>
+        <Anim>XA_Lion2_Dying</Anim>
+        <Anim>XA_Lion2_Idle1</Anim>
+        <Anim>XA_Lion2_Idle2</Anim>
+    </Display>
+
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
+        <MaxHealth>10</MaxHealth>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>1</ArmorAmount>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Hat></Hat>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>10</Exploration>
+        <IdleTaskList>TL_NPC_IDLE</IdleTaskList>
+        <!-- This is used to prevent units to automatically attack. -->
+        <Category>Wall</Category>
+    </Logic>
+
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>XA_Lion2_Idle1</SuspensionAnimation>
+            <AnimSet>SET_CARNIVORE_SOLDIERLION</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CSettlerMovement</Class>
+            <Speed>700</Speed>
+            <RotationSpeed>30</RotationSpeed>
+            <MoveTaskList>TL_NPC_WALK</MoveTaskList>
+            <MoveIdleAnim>XA_Lion2_Idle1</MoveIdleAnim>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBehaviorWalkCommand</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBehaviorWalkCommand</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
+</root>

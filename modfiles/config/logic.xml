@@ -1247,6 +1247,11 @@
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
+	    <Category>CarnivoreLeaderLion</Category>
+	    <FirstSettler>CU_Carnivore_LeaderLion1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
 	    <Category>CarnivoreLeaderWolf</Category>
 	    <FirstSettler>CU_Carnivore_LeaderWolf1</FirstSettler>
 	</SettlerUpgrade>
@@ -1259,6 +1264,11 @@
 	<SettlerUpgrade>
 	    <Category>CarnivoreSoldierDog</Category>
 	    <FirstSettler>CU_Carnivore_SoldierDog1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>CarnivoreSoldierLion</Category>
+	    <FirstSettler>CU_Carnivore_SoldierLion1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>

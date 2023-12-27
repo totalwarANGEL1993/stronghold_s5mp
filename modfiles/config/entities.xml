@@ -1176,6 +1176,8 @@
         <Entity>CU_Carnivore_SoldierBear1</Entity>
         <Entity>CU_Carnivore_LeaderDog1</Entity>
         <Entity>CU_Carnivore_SoldierDog1</Entity>
+        <Entity>CU_Carnivore_LeaderLion1</Entity>
+        <Entity>CU_Carnivore_SoldierLion1</Entity>
         <Entity>CU_Carnivore_LeaderWolf1</Entity>
         <Entity>CU_Carnivore_SoldierWolf1</Entity>
 
@@ -1196,6 +1198,8 @@
         <Entity>XA_Hawk</Entity>
 		<Entity>XA_Elephant1</Entity>
 		<Entity>XA_Elephant2</Entity>
+		<Entity>XA_Lion1</Entity>
+		<Entity>XA_Lion2</Entity>
 		<Entity>XA_Zebra</Entity>
 
         <!-- Cadaver -->
