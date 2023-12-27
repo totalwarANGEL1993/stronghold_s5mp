@@ -1191,6 +1191,9 @@
         <Entity>XA_Dromedary</Entity>
 		<Entity>XA_Elephant1</Entity>
 		<Entity>XA_Elephant2</Entity>
+		<Entity>XA_Frog1</Entity>
+		<Entity>XA_Frog2</Entity>
+		<Entity>XA_Frog3</Entity>
         <Entity>XA_Gazelle</Entity>
         <Entity>XA_Hawk</Entity>
 		<Entity>XA_Lion1</Entity>
@@ -1199,6 +1202,7 @@
         <Entity>XA_RedDeer</Entity>
         <Entity>XA_RedDoe</Entity>
 		<Entity>XA_Reindeer</Entity>
+		<Entity>XA_Scorpion</Entity>
 		<Entity>XA_Sheep1</Entity>
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>

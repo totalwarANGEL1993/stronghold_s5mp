@@ -171,11 +171,13 @@
 	<AnimSet>SET_DROMEDARY</AnimSet>
 	<AnimSet>SET_ELEPHANT1</AnimSet>
 	<AnimSet>SET_ELEPHANT2</AnimSet>
+ 	<AnimSet>SET_FROG</AnimSet>
 	<AnimSet>SET_GAZELLE</AnimSet>
 	<AnimSet>SET_REDDEER</AnimSet>
  	<AnimSet>SET_RABBIT</AnimSet>
  	<AnimSet>SET_REINDEER</AnimSet>
  	<AnimSet>SET_HAWK</AnimSet>
+ 	<AnimSet>SET_SCORPION</AnimSet>
 	<AnimSet>SET_WILDBOAR1</AnimSet>
 	<AnimSet>SET_WILDBOAR2</AnimSet>
 	<AnimSet>SET_WILDBOAR3</AnimSet>
