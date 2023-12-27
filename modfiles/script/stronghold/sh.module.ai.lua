@@ -374,6 +374,10 @@ end
 -- Army config
 
 function Stronghold.AI:OverwriteAiTargetConfig()
+    for Type,_ in pairs(self.Config.AttackTargetBlacklist) do
+        GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Type] = true;
+    end
+
     AiArmyTargetingConfig.Spear = {
         ["CavalryHeavy"] = 40,
         ["CavalryLight"] = 30,

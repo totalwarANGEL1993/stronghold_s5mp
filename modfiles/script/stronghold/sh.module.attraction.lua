@@ -220,10 +220,6 @@ function Stronghold.Attraction:Install()
         self.Data.HawkHabitats[i] = {};
     end
 
-    GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.PU_Bear_Deco] = true;
-    GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.PU_Dog_Deco] = true;
-    GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Entities.XA_Hawk] = true;
-
     self:InitLogicOverride();
     self:InitalizeHawksForExistingTowers();
     self:OnPayday();
