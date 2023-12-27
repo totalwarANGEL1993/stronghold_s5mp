@@ -2,12 +2,16 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Wolf</Model>
-        <Anim>XA_Wolf_Run</Anim>
-        <Anim>XA_Wolf_Wait</Anim>
-        <Anim>XA_Wolf_Attack1</Anim>
-        <Anim>XA_Wolf_Dying1</Anim>
-        <Anim>XA_Wolf_IdleAttack1</Anim>
+        <Model>XA_Wolf2</Model>
+        <Anim>XA_Wolf1_Run</Anim>
+        <Anim>XA_Wolf1_Walk</Anim>
+        <Anim>XA_Wolf1_Eat</Anim>
+        <Anim>XA_Wolf1_Attack1</Anim>
+        <Anim>XA_Wolf1_Attack2</Anim>
+        <Anim>XA_Wolf1_Attack3</Anim>
+        <Anim>XA_Wolf1_Dying</Anim>
+        <Anim>XA_Wolf1_Idle1</Anim>
+        <Anim>XA_Wolf1_Idle2</Anim>
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
@@ -34,8 +38,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
-            <AnimSet>SET_CU_BABARIAN_HERO_WOLF</AnimSet>
+            <SuspensionAnimation>XA_Wolf1_Idle1</SuspensionAnimation>
+            <AnimSet>SET_CARNIVORE_WOLF</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -47,7 +51,7 @@
             <Speed>470</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Wolf_Wait</MoveIdleAnim>
+            <MoveIdleAnim>XA_Wolf1_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -67,14 +71,14 @@
 
             <BattleTaskList>TL_BATTLE_WOLF</BattleTaskList>
 
-            <NormalAttackAnim1>XA_Wolf_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>XA_Wolf_Attack1</NormalAttackAnim2>
-            <CounterAttackAnim>XA_Wolf_Attack1</CounterAttackAnim>
-            <FinishingMoveAnim>XA_Wolf_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>XA_Wolf_Attack1</MissAttackAnim>
-            <BattleIdleAnim>XA_Wolf_IdleAttack1</BattleIdleAnim>
-            <BattleWalkAnim>XA_Wolf_Run</BattleWalkAnim>
-            <HitAnim>XA_Wolf_IdleAttack1</HitAnim>
+            <NormalAttackAnim1>XA_Wolf1_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>XA_Wolf1_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>XA_Wolf1_Attack2</CounterAttackAnim>
+            <FinishingMoveAnim>XA_Wolf1_Attack3</FinishingMoveAnim>
+            <MissAttackAnim>XA_Wolf1_Attack2</MissAttackAnim>
+            <BattleIdleAnim>XA_Wolf1_Attack3</BattleIdleAnim>
+            <BattleWalkAnim>XA_Wolf1_Run</BattleWalkAnim>
+            <HitAnim>XA_Wolf1_Attack1</HitAnim>
 
             <DamageClass>DC_Hero</DamageClass>
             <DamageAmount>15</DamageAmount>

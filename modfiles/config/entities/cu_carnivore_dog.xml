@@ -47,7 +47,7 @@
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
-            <AnimSet>SET_CARNIVORE_WOLF</AnimSet>
+            <AnimSet>SET_CARNIVORE_DOG</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>

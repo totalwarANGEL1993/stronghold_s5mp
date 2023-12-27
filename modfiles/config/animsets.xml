@@ -160,10 +160,11 @@
 	<AnimSet>SET_CU_HERO13</AnimSet>
 	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>
 	<AnimSet>SET_CARNIVORE_BEAR</AnimSet>
-	<AnimSet>SET_CARNIVORE_WOLF</AnimSet>
+	<AnimSet>SET_CARNIVORE_DOG</AnimSet>
 	<AnimSet>SET_CARNIVORE_LION1</AnimSet>
 	<AnimSet>SET_CARNIVORE_LION2</AnimSet>
 	<AnimSet>SET_CARNIVORE_TIGER</AnimSet>
+	<AnimSet>SET_CARNIVORE_WOLF</AnimSet>
 	<AnimSet>SET_CHICKEN</AnimSet>
 	<AnimSet>SET_COW</AnimSet>
 	<AnimSet>SET_CANNON5</AnimSet>

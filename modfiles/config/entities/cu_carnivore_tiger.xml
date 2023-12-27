@@ -92,7 +92,7 @@
             <FinishingMoveAnim>XA_Lion1_Attack3</FinishingMoveAnim>
             <MissAttackAnim>XA_Lion1_Attack1</MissAttackAnim>
             <BattleIdleAnim>XA_Lion1_Attack1</BattleIdleAnim>
-            <BattleWalkAnim>XA_Lion1_Run</BattleWalkAnim>
+            <BattleWalkAnim>XA_Lion1_Walk</BattleWalkAnim>
             <HitAnim>XA_Lion1_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>

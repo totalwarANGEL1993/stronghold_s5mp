@@ -3,6 +3,11 @@
 		<Name>Walk</Name>
 		<Animation>XA_Bear_Run1</Animation>
     </Category>
+
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Eat</Name>
+		<Animation>XA_Bear_Eat1</Animation>
+    </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle</Name>

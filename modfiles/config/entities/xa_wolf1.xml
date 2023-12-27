@@ -2,12 +2,16 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>XA_Wolf</Model>
-        <Anim>XA_Wolf_Run</Anim>
-        <Anim>XA_Wolf_Wait</Anim>
-        <Anim>XA_Wolf_Attack1</Anim>
-        <Anim>XA_Wolf_Dying1</Anim>
-        <Anim>XA_Wolf_IdleAttack1</Anim>
+        <Model>XA_Wolf1</Model>
+        <Anim>XA_Wolf1_Run</Anim>
+        <Anim>XA_Wolf1_Walk</Anim>
+        <Anim>XA_Wolf1_Eat</Anim>
+        <Anim>XA_Wolf1_Attack1</Anim>
+        <Anim>XA_Wolf1_Attack2</Anim>
+        <Anim>XA_Wolf1_Attack3</Anim>
+        <Anim>XA_Wolf1_Dying</Anim>
+        <Anim>XA_Wolf1_Idle1</Anim>
+        <Anim>XA_Wolf1_Idle2</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
@@ -29,7 +33,7 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Wolf_Wait</SuspensionAnimation>
+            <SuspensionAnimation>XA_Wolf1_Idle1</SuspensionAnimation>
             <AnimSet>SET_CARNIVORE_WOLF</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
@@ -43,7 +47,7 @@
             <Speed>600</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_NPC_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Wolf_Wait</MoveIdleAnim>
+            <MoveIdleAnim>XA_Wolf1_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>

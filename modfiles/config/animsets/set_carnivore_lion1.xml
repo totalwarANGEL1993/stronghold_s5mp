@@ -5,6 +5,11 @@
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Eat</Name>
+		<Animation>XA_Lion1_Eat</Animation>
+    </Category>
+    
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle</Name>
 		<Animation>XA_Lion1_Idle1</Animation>
     </Category>

@@ -5,11 +5,6 @@
     </Category>
 
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
-		<Name>Run</Name>
-		<Animation>XA_Dromedary_Run</Animation>
-    </Category>
-
-    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle</Name>
 		<Animation>XA_Dromedary_Idle1</Animation>
     </Category>
