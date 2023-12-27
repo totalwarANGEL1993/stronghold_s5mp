@@ -1198,6 +1198,7 @@
 		<Entity>XA_Rabbit</Entity>
         <Entity>XA_RedDeer</Entity>
         <Entity>XA_RedDoe</Entity>
+		<Entity>XA_Reindeer</Entity>
 		<Entity>XA_Sheep1</Entity>
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>
@@ -1220,6 +1221,7 @@
         <Entity>XD_Cadaver_Rabbit</Entity>
         <Entity>XD_Cadaver_RedDeer</Entity>
         <Entity>XD_Cadaver_RedDoe</Entity>
+		<Entity>XD_Cadaver_Reindeer</Entity>
         <Entity>XD_Cadaver_Sheep1</Entity>
         <Entity>XD_Cadaver_Sheep2</Entity>
         <Entity>XD_Cadaver_Sheep3</Entity>
@@ -1237,6 +1239,7 @@
         <Entity>CU_Herbivore_Rabbit</Entity>
         <Entity>CU_Herbivore_RedDeer</Entity>
         <Entity>CU_Herbivore_RedDoe</Entity>
+        <Entity>CU_Herbivore_Reindeer</Entity>
         <Entity>CU_Herbivore_Sheep1</Entity>
 		<Entity>CU_Herbivore_Sheep2</Entity>
 		<Entity>CU_Herbivore_Sheep3</Entity>

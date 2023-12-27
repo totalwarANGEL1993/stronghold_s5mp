@@ -31,7 +31,7 @@
        
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Die</Name>
-		<Animation>XA_WildBoar3_Run</Animation>
+		<Animation>XA_WildBoar3_Dying</Animation>
     </Category>
    
 </AnimSet>
