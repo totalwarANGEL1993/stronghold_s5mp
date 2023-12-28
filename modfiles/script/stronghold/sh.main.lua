@@ -387,6 +387,7 @@ function Stronghold:StartTriggers()
             local PlayerMod = math.mod(PlayerID, 10);
             if TimeMod == PlayerMod then
                 Stronghold:ClearPlayerRecordCache(PlayerID);
+                Stronghold.AI:OncePerSecond(PlayerID);
                 Stronghold.Player:OncePerSecond(PlayerID);
                 Stronghold.Attraction:OncePerSecond(PlayerID);
                 Stronghold.Hero:OnEveryTurn(PlayerID);
