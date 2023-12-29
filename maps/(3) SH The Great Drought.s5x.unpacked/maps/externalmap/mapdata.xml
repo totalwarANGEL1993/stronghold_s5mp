@@ -127040,7 +127040,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>2.719870e+004</X>
     <Y>4.335661e+004</Y>
@@ -127055,7 +127055,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>2.724261e+004</X>
     <Y>4.319935e+004</Y>
@@ -127070,7 +127070,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>2.709140e+004</X>
     <Y>4.321687e+004</Y>
@@ -127085,7 +127085,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>4.295466e+003</X>
     <Y>1.337881e+004</Y>
@@ -127100,7 +127100,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>4.355858e+003</X>
     <Y>1.328125e+004</Y>
@@ -127115,7 +127115,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>4.283147e+003</X>
     <Y>1.327397e+004</Y>
@@ -127130,7 +127130,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>4.114765e+004</X>
     <Y>1.260210e+004</Y>
@@ -127145,7 +127145,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>4.126749e+004</X>
     <Y>1.252088e+004</Y>
@@ -127160,7 +127160,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Scorpion</Type>
+   <Type>XA_Scorpion1</Type>
    <Position>
     <X>4.121557e+004</X>
     <Y>1.239146e+004</Y>
