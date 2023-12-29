@@ -65,7 +65,7 @@
     <Behavior>
         <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
             <Class>GGL::CReplaceableEntityBehavior</Class>
-            <EntityType>XD_Cadaver_Reindeer</EntityType>
+            <EntityType>XD_Cadaver_Reindeer3</EntityType>
         </Logic>
     </Behavior>
 </root>
