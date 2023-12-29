@@ -360,7 +360,7 @@
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
-   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,8000);</ScriptCommandLine>
+   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,4000);</ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>0.000000e+000</Scale>
   </Entity>
@@ -8835,7 +8835,7 @@
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
-   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,8000);</ScriptCommandLine>
+   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,4000);</ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>0.000000e+000</Scale>
   </Entity>
@@ -24690,7 +24690,7 @@
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
-   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,8000);</ScriptCommandLine>
+   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,4000);</ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>0.000000e+000</Scale>
   </Entity>
@@ -29010,7 +29010,7 @@
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
-   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,8000);</ScriptCommandLine>
+   <ScriptCommandLine>Logic.SetResourceDoodadGoodAmount(__LOGIC_CREATE_CURRENT_ENTITY_ID,4000);</ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>0.000000e+000</Scale>
   </Entity>
@@ -38092,8 +38092,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>PB_Tower2</Type>
    <Position>
-    <X>2.770000e+004</X>
-    <Y>3.420000e+004</Y>
+    <X>2.780000e+004</X>
+    <Y>3.440000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -72800,12 +72800,12 @@
    <Scale>9.536546e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Wreckage</Type>
+   <Type>XD_CogWreckage</Type>
    <Position>
-    <X>1.090442e+004</X>
-    <Y>3.698825e+004</Y>
+    <X>1.065378e+004</X>
+    <Y>3.764257e+004</Y>
    </Position>
-   <Orientation>2.167605e+002</Orientation>
+   <Orientation>1.432394e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -106625,12 +106625,12 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Wreckage</Type>
+   <Type>XD_CogWreckage</Type>
    <Position>
-    <X>3.091814e+004</X>
-    <Y>4.230000e+003</Y>
+    <X>3.105310e+004</X>
+    <Y>3.567382e+003</Y>
    </Position>
-   <Orientation>4.487322e+001</Orientation>
+   <Orientation>2.024366e+002</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -107120,10 +107120,10 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Rabbit</Type>
+   <Type>XA_Rabbit3</Type>
    <Position>
-    <X>1.496083e+004</X>
-    <Y>3.705895e+004</Y>
+    <X>1.488733e+004</X>
+    <Y>3.711793e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -107135,10 +107135,10 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Rabbit</Type>
+   <Type>XA_Rabbit3</Type>
    <Position>
-    <X>1.501324e+004</X>
-    <Y>3.692963e+004</Y>
+    <X>1.496835e+004</X>
+    <Y>3.700461e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -107150,7 +107150,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Rabbit</Type>
+   <Type>XA_Rabbit1</Type>
    <Position>
     <X>1.510104e+004</X>
     <Y>3.707985e+004</Y>
@@ -107165,10 +107165,10 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Rabbit</Type>
+   <Type>XA_Rabbit3</Type>
    <Position>
-    <X>2.647036e+004</X>
-    <Y>4.474414e+003</Y>
+    <X>2.649028e+004</X>
+    <Y>4.416148e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -107180,7 +107180,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Rabbit</Type>
+   <Type>XA_Rabbit1</Type>
    <Position>
     <X>2.639084e+004</X>
     <Y>4.544471e+003</Y>
@@ -107195,10 +107195,10 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Rabbit</Type>
+   <Type>XA_Rabbit3</Type>
    <Position>
-    <X>2.652839e+004</X>
-    <Y>4.516714e+003</Y>
+    <X>2.647527e+004</X>
+    <Y>4.504598e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -107293,6 +107293,36 @@
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
    <PlayerID>1</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Cliff1</Type>
+   <Position>
+    <X>1.049000e+004</X>
+    <Y>3.651000e+004</Y>
+   </Position>
+   <Orientation>2.597324e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_Cliff1</Type>
+   <Position>
+    <X>3.129000e+004</X>
+    <Y>4.710000e+003</Y>
+   </Position>
+   <Orientation>1.308169e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
