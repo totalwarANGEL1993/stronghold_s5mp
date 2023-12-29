@@ -40,6 +40,7 @@ Lib.Require("comfort/GetHealth");
 Lib.Require("comfort/GetMaxAmountOfPlayer");
 Lib.Require("comfort/GetGeometricCenter");
 Lib.Require("comfort/GetPlayerEntities");
+Lib.Require("comfort/GetPositionsBetween");
 Lib.Require("comfort/GetLanguage");
 Lib.Require("comfort/GetResourceName");
 Lib.Require("comfort/GetSeparatedTooltipText");

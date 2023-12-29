@@ -4048,4 +4048,15 @@
         <TerrainLightColorPortion>1</TerrainLightColorPortion>
         <TerrainVertexColorPortion>1</TerrainVertexColorPortion>
     </Model>
+
+    <Model id="ZXBox100">
+        <CastShadow>True</CastShadow>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+    </Model>
+
+    <Model id="XS_Ambient">
+        <CastShadow>True</CastShadow>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+    </Model>
+        
 </root>

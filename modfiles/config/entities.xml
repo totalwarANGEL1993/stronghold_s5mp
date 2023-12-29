@@ -1125,11 +1125,8 @@
         <Entity>XD_Cactus2</Entity>
         <Entity>XD_Cactus3</Entity>
         <Entity>XD_Cage</Entity>
-        <Entity>XD_Cog</Entity>
         <Entity>XD_CogWreckage</Entity>
         <Entity>XD_CaveEntry2</Entity>
-        <Entity>XD_Dragonboat1</Entity>
-        <Entity>XD_Dragonboat2</Entity>
         <Entity>XD_DragonboatConstructionSite</Entity>
         <Entity>XD_DragonboatWreckage</Entity>
         <Entity>XD_ExecutionerPlace</Entity>
@@ -1141,10 +1138,6 @@
         <Entity>XD_Pole1</Entity>
         <Entity>XD_Pole2</Entity>
         <Entity>XD_Pole3</Entity>
-        <Entity>XD_SmallBoat1</Entity>
-        <Entity>XD_SmallBoat2</Entity>
-        <Entity>XD_SmallBoat3</Entity>
-        <Entity>XD_SmallBoat4</Entity>
         <Entity>XD_Stone_BlockPath2</Entity>
         <Entity>XD_Stone2</Entity>
         <Entity>XD_StonePit2</Entity>
@@ -1154,6 +1147,15 @@
         <Entity>XD_Wreckage</Entity>
         <Entity>XD_WreckedBoat1</Entity>
         <Entity>XD_WreckedBoat2</Entity>
+
+        <!-- Ships -->
+        <Entity>XD_Cog</Entity>
+        <Entity>XD_Dragonboat1</Entity>
+        <Entity>XD_Dragonboat2</Entity>
+        <Entity>XD_SmallBoat1</Entity>
+        <Entity>XD_SmallBoat2</Entity>
+        <Entity>XD_SmallBoat3</Entity>
+        <Entity>XD_SmallBoat4</Entity>
 
         <!-- Pits -->
 		<Entity>XD_ClosedStonePit2</Entity>

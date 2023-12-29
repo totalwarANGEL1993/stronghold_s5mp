@@ -402,16 +402,18 @@ end
 function Stronghold.Attraction:OnHawkHabitatCreated(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local EntityType = Logic.GetEntityType(_EntityID);
-    if EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
-        local Positions = {};
-        for Angle = 0, 288, 72 do
-            local Position = GetCirclePosition(_EntityID, 500, Angle);
-            table.insert(Positions, Position)
+    if PlayerID ~= 0 then
+        if EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
+            local Positions = {};
+            for Angle = 0, 288, 72 do
+                local Position = GetCirclePosition(_EntityID, 500, Angle);
+                table.insert(Positions, Position)
+            end
+            local ID = Logic.CreateEntity(Entities.XA_Hawk, Positions[1].X, Positions[1].Y, 0, PlayerID);
+            Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
+            MakeInvulnerable(ID);
+            self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
         end
-        local ID = Logic.CreateEntity(Entities.XA_Hawk, Positions[1].X, Positions[1].Y, 0, PlayerID);
-        Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
-        MakeInvulnerable(ID);
-        self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
     end
 end
 

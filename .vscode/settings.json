@@ -258,7 +258,9 @@
         "EUROPEMUSIC",
         "GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes",
         "ROBBERS_COLOR",
-        "NPC_COLOR"
+        "NPC_COLOR",
+        "GetPositionsBetween",
+        "CalculateOptimalNumPoints"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

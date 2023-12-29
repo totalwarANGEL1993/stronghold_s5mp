@@ -31,6 +31,7 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Convertible>false</Convertible>
+		<CanDrown>false</CanDrown>
         <!-- This is used to prevent units to automatically attack. -->
         <Category>Wall</Category>
     </Logic>
