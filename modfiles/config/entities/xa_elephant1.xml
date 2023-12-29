@@ -3,7 +3,6 @@
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
         <Model>XA_Elephant1</Model>
-        <DrawPlayerColor>True</DrawPlayerColor>
         <Anim>XA_Elephant1_Idle1</Anim>
         <Anim>XA_Elephant1_Idle2</Anim>
         <Anim>XA_Elephant1_Idle3</Anim>
@@ -11,55 +10,38 @@
         <Anim>XA_Elephant1_Walk</Anim>
     </Display>
 
-    <Logic classname="GGL::CGLSettlerProps">
-        <Class>GGL::CSettler</Class>
-        <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>500</MaxHealth>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
-        <NeedsPlayer>true</NeedsPlayer>
-        <ForceNoPlayer>false</ForceNoPlayer>
-        <Hat></Hat>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>10</Exploration>
-        <IdleTaskList>TL_NPC_IDLE</IdleTaskList>
-        <!-- This is used to prevent units to automatically attack. -->
-        <Category>Wall</Category>
-    </Logic>
+    <Logic classname="GGL::CGLAnimalProps">
+		<Class>GGL::CAnimal</Class>
+		<AccessCategory>AccessCategoryAnimal</AccessCategory>
+		<DefaultTaskList>TL_ANIMAL_ELEPHANT1_IDLE</DefaultTaskList>
+		<TerritoryRadius>8000</TerritoryRadius>
+		<WanderRangeMin>3000</WanderRangeMin>
+		<WanderRangeMax>6000</WanderRangeMax>	
+		<NeedsPlayer>false</NeedsPlayer>
+		<MaxHealth>20</MaxHealth>
+		<ShyRange>1000</ShyRange>
+		<FleeTaskList>TL_ANIMAL_FLEE</FleeTaskList>
+	</Logic>
 
     <Behavior>
-        <Logic classname="GGL::CGLAnimationBehaviorExProps">
-            <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>XA_Elephant1_Idle1</SuspensionAnimation>
-            <AnimSet>SET_ELEPHANT1</AnimSet>
-        </Logic>
-        <Display classname="ED::CBehaviorProps">
-            <Class>ED::CDisplayBehaviorAnimation</Class>
-        </Display>
-    </Behavior>
-    <Behavior>
-        <Logic classname="EGL::CMovementBehaviorProps">
-            <Class>GGL::CSettlerMovement</Class>
-            <Speed>250</Speed>
-            <RotationSpeed>25</RotationSpeed>
-            <MoveTaskList>TL_NPC_WALK</MoveTaskList>
-            <MoveIdleAnim>XA_Elephant1_Idle1</MoveIdleAnim>
-        </Logic>
-        <Display classname="ED::CBehaviorProps">
-            <Class>ED::CDisplayBehaviorMovement</Class>
-        </Display>
-    </Behavior>
+		<Logic classname="EGL::CMovementBehaviorProps">
+			<Class>GGL::CBehaviorAnimalMovement</Class>
+			<Speed>350</Speed>
+			<RotationSpeed>30</RotationSpeed>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorMovement</Class>
+		</Display>
+	</Behavior>
 
     <Behavior>
-        <Logic classname="EGL::CGLEBehaviorProps">
-            <Class>GGL::CBehaviorWalkCommand</Class>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CGLBehaviorPropsDying">
-            <Class>GGL::CGLBehaviorDying</Class>
-            <DyingTaskList>TL_DIE</DyingTaskList>
-        </Logic>
-    </Behavior>
+		<Logic classname="GGL::CGLAnimationBehaviorExProps">
+			<Class>GGL::CGLBehaviorAnimationEx</Class>
+			<SuspensionAnimation>XA_Elephant1_Idle1</SuspensionAnimation>
+			<AnimSet>SET_ELEPHANT1</AnimSet>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorAnimation</Class>
+		</Display>
+	</Behavior>
 </root>

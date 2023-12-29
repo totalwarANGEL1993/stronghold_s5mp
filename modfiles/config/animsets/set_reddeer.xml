@@ -1,6 +1,11 @@
 <AnimSet>
 	<Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Walk</Name>
+		<Animation>XA_RedDeer_Walk</Animation>
+    </Category>
+
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Run</Name>
 		<Animation>XA_RedDeer_Run</Animation>
     </Category>
 

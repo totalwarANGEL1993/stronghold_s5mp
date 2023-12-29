@@ -419,6 +419,27 @@
 
 <!-- Stronghold -->
 
+    <TaskList>TL_ANIMAL_BEAR_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_CHICKEN_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_COW_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_DROMEDARY_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_ELEPHANT1_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_ELEPHANT2_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_FROG_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_GAZELLE_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_LION1_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_LION2_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_RABBIT_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_REDDEER_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_REINDEER_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_SCORPION_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_SHEEP_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_SHEEPDOG_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_WILDBOAR1_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_WILDBOAR2_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_WILDBOAR3_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_WOLF_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_ZEBRA_IDLE</TaskList>
     <TaskList>TL_BATTLE_GATLING</TaskList>
     <TaskList>TL_BEAR_IDLE</TaskList>
     <TaskList>TL_BATTLE_BEAR</TaskList>

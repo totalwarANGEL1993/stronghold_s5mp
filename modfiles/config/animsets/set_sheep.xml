@@ -5,6 +5,11 @@
     </Category>
 
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Run</Name>
+		<Animation>XA_Sheep_Walk</Animation>
+    </Category>
+
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle</Name>
 		<Animation>XA_Sheep_Idle1</Animation>
     </Category>

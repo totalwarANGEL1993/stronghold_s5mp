@@ -4,6 +4,11 @@
 		<Animation>XA_Elephant2_Walk</Animation>
     </Category>
 
+	<Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Run</Name>
+		<Animation>XA_Elephant2_Run</Animation>
+    </Category>
+
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle</Name>
 		<Animation>XA_Elephant2_Idle1</Animation>

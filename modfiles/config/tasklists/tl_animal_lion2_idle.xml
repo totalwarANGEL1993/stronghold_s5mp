@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CTasksList>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+		<TaskType>TASK_SET_ANIM</TaskType>
+		<AnimID>XA_Lion2_Idle1</AnimID>
+		<PlayBackwards>false</PlayBackwards>
+	</Task> 
+
+	<Task classname="EGL::CTaskArgsRandomWaitForAnim" classid="0xeaa8fc97">
+	    <TaskType>TASK_RANDOM_WAIT_FOR_ANIM</TaskType> 
+	    <LowerBound>0</LowerBound>
+	    <UpperBound>5</UpperBound>
+	</Task>
+	
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+		<TaskType>TASK_SET_ANIM</TaskType>
+		<AnimID>XA_Lion2_Idle2</AnimID>
+		<PlayBackwards>false</PlayBackwards>
+	</Task> 
+
+	<Task classname="EGL::CTaskArgsRandomWaitForAnim" classid="0xeaa8fc97">
+	    <TaskType>TASK_RANDOM_WAIT_FOR_ANIM</TaskType> 
+	    <LowerBound>0</LowerBound>
+	    <UpperBound>10</UpperBound>
+	</Task>
+	
+	<Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+		<TaskType>TASK_SET_ANIM</TaskType>
+		<Category>Walk</Category>
+		<PlayBackwards>false</PlayBackwards>
+	</Task> 
+
+	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+		 <TaskType>TASK_WANDER</TaskType>
+	</Task>
+</CTasksList>
+

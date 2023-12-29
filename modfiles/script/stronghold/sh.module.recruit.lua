@@ -971,6 +971,9 @@ end
 function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
     if IsPlayer(_PlayerID) then
         -- Update training leaders
+        local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
+        local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
+        local MilitarySpace = MiitaryLimit - MiitaryUsage;
         for LeaderID,_ in pairs(self.Data[_PlayerID].TrainingLeaders) do
             local BarracksID = Logic.LeaderGetBarrack(LeaderID);
             if BarracksID == 0 then
@@ -991,9 +994,6 @@ function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
                                 local EntityType = Logic.GetEntityType(LeaderID);
                                 local Places = GetMilitaryPlacesUsedByUnit(EntityType, 1);
                                 local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, EntityType, 1);
-                                local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
-                                local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
-                                local MilitarySpace = MiitaryLimit - MiitaryUsage;
                                 for i= 1, SoldierAmount do
                                     if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
                                         self:PaySoldiers(_PlayerID, EntityType, 1);

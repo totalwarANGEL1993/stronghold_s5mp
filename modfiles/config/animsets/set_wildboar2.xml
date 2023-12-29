@@ -4,6 +4,11 @@
 		<Animation>XA_WildBoar2_Walk</Animation>
     </Category>
 
+	<Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Run</Name>
+		<Animation>XA_WildBoar2_Run</Animation>
+    </Category>
+
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle</Name>
 		<Animation>XA_WildBoar2_Idle1</Animation>
@@ -16,7 +21,7 @@
        
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle2</Name>
-		<Animation>XA_WildBoar2_Idle3</Animation>
+		<Animation>XA_WildBoar2_Idle1</Animation>
     </Category>
 
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
@@ -26,7 +31,7 @@
        
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle4</Name>
-		<Animation>XA_WildBoar2_Idle3</Animation>
+		<Animation>XA_WildBoar2_Idle2</Animation>
     </Category>       
        
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">

@@ -25,7 +25,7 @@ function Stronghold.AI:Install()
 
     self:OverwriteAiTargetConfig();
     self:OverwriteAiSpeedConfig();
-    self:InitAnimals();
+    self:InitMigratoryAnimals();
 
     Job.Second(function()
         Stronghold.AI:ControlAiPlayerHeroes();
@@ -37,11 +37,9 @@ function Stronghold.AI:OnSaveGameLoaded()
     Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
 end
 
-function Stronghold.AI:OncePerSecond(_PlayerID)
+function Stronghold.AI:OncePerTurn(_PlayerID)
     -- Control animals
-    if GetNeutralPlayerID() == _PlayerID then
-        self:ControlMigratoryAnimal();
-    end
+    self:ControlMigratoryAnimal();
 end
 
 -- -------------------------------------------------------------------------- --
@@ -93,7 +91,7 @@ function SetNeutralPlayerID(_PlayerID)
     assert(_PlayerID == MaxHumanPlayers +2, "Neutral player must be " ..(MaxHumanPlayers +2).. "!");
     Stronghold.AI.Config.NeutralPlayerID = _PlayerID;
     if Logic.GetTime() > 0 then
-        Stronghold.AI:InitAnimals();
+        -- Stronghold.AI:InitAnimals();
     end
 end
 

@@ -30,7 +30,7 @@
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>XA_Rabbit_Idle1</SuspensionAnimation>
-            <AnimSet>SET_RABBIT</AnimSet>
+            <AnimSet>SET_RABBIT2</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
