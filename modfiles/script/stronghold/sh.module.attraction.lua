@@ -925,7 +925,7 @@ function Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local MilitaryLimit = self:GetPlayerMilitaryAttractionLimit(_PlayerID);
         local MilitaryUsage = self:GetPlayerMilitaryAttractionUsage(_PlayerID);
-        return MilitaryLimit - MilitaryUsage > _Amount;
+        return MilitaryLimit - MilitaryUsage >= _Amount;
     end
     return true;
 end

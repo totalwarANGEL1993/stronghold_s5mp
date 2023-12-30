@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey>MapDescription/Peaceful_Land_name</NameKey>
+ <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
+ <Name>(5) @color:200,70,40 SH @color:255,255,255 Im stillen Winkel</Name>
+ <Desc>@color:200,70,40 von totalwarANGEL @cr @cr @color:255,255,255 In dieser idyllischen Gegend gibt es nichts, das Euch am Aufbau Euer Burg hintert. Na ja, außer vielleicht die vier anderen Burgherren... @cr @cr Konstelation: @cr P1 vs P2 vs P3 sv P4 vs P5</Desc>
+ <SizeX>769</SizeX>
+ <SizeY>769</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>3</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>91f195c6-aabd-463c-8521-0ba17a32e253</Data>
+ </GUID>
+</root>
