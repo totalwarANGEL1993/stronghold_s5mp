@@ -727,6 +727,17 @@ GameCallback_GetPlayerAttractionUsageForSpawningWorker = function(_PlayerID, _Am
 end
 
 GameCallback_BuyEntityAttractionLimitCheck = function(_PlayerID, _CanSpawn)
+    -- TODO: Let soldier costs be handeled by logic?
+    local BuyEvent = CEntity.GetEventData(1);
+    if BuyEvent.event == CEntity.Events.BUY_SOLDIER then
+        local LeaderType = Logic.GetEntityType(BuyEvent.leaderID);
+        local Places = GetMilitaryPlacesUsedByUnit(LeaderType, 1);
+        if not HasPlayerSpaceForUnits(_PlayerID, Places) then
+            local Costs = GetSoldierCostsByLeaderType(_PlayerID, LeaderType, 1);
+            AddResourcesToPlayer(_PlayerID, Costs);
+            return false;
+        end
+    end
     return true;
 end
 
