@@ -159,6 +159,7 @@
 
 	<!-- Stronghold -->
 	<AnimSet>SET_BEAR</AnimSet>
+	<AnimSet>SET_BUTTERFLY</AnimSet>
 	<AnimSet>SET_CU_HERO13</AnimSet>
 	<AnimSet>SET_CU_HERO13_SUMMON</AnimSet>
 	<AnimSet>SET_CARNIVORE_BEAR</AnimSet>

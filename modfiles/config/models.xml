@@ -3719,6 +3719,42 @@
         <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
     </Model>
 
+    <Model id="XA_Butterfly1">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XA_Butterfly2">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XA_Butterfly3">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XA_Butterfly4">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XA_Butterfly5">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
+    <Model id="XA_Butterfly6">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
     <Model id="XA_Seagull">
         <Effect>SkinnedObjectAlpha</Effect>
         <CastShadow>True</CastShadow>

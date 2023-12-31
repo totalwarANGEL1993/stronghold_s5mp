@@ -1185,6 +1185,12 @@
 
         <!-- Passive animals -->
         <Entity>XA_Bear</Entity>
+        <Entity>XA_Butterfly1</Entity>
+        <Entity>XA_Butterfly2</Entity>
+        <Entity>XA_Butterfly3</Entity>
+        <Entity>XA_Butterfly4</Entity>
+        <Entity>XA_Butterfly5</Entity>
+        <Entity>XA_Butterfly6</Entity>
         <Entity>XA_Chicken1</Entity>
         <Entity>XA_Chicken2</Entity>
         <Entity>XA_Chicken3</Entity>

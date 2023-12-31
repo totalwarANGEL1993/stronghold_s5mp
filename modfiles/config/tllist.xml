@@ -420,6 +420,7 @@
 <!-- Stronghold -->
 
     <TaskList>TL_ANIMAL_BEAR_IDLE</TaskList>
+    <TaskList>TL_ANIMAL_BUTTERFLY_IDLE</TaskList>
     <TaskList>TL_ANIMAL_CHICKEN_IDLE</TaskList>
     <TaskList>TL_ANIMAL_COW_IDLE</TaskList>
     <TaskList>TL_ANIMAL_DROMEDARY_IDLE</TaskList>

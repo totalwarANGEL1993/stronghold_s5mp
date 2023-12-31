@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>XA_Butterfly2</Model>
+        <Anim>XA_Butterfly_Fly</Anim>
+        <Anim>XA_Butterfly_Idle1</Anim>
+        <Anim>XA_Butterfly_Idle2</Anim>
+    </Display>
+
+    <Logic classname="GGL::CGLAnimalProps">
+		<Class>GGL::CAnimal</Class>
+		<AccessCategory>AccessCategoryAnimal</AccessCategory>
+		<DefaultTaskList>TL_ANIMAL_BUTTERFLY_IDLE</DefaultTaskList>
+		<TerritoryRadius>0</TerritoryRadius>
+		<WanderRangeMin>0</WanderRangeMin>
+		<WanderRangeMax>0</WanderRangeMax>	
+		<NeedsPlayer>false</NeedsPlayer>
+		<MaxHealth>20</MaxHealth>
+		<ShyRange>0</ShyRange>
+		<FleeTaskList>TL_ANIMAL_FLEE</FleeTaskList>
+	</Logic>
+
+    <Behavior>
+		<Logic classname="EGL::CMovementBehaviorProps">
+			<Class>GGL::CBehaviorAnimalMovement</Class>
+			<Speed>150</Speed>
+			<RotationSpeed>30</RotationSpeed>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorMovement</Class>
+		</Display>
+	</Behavior>
+
+    <Behavior>
+		<Logic classname="GGL::CGLAnimationBehaviorExProps">
+			<Class>GGL::CGLBehaviorAnimationEx</Class>
+			<SuspensionAnimation>XA_Butterfly_Idle1</SuspensionAnimation>
+			<AnimSet>SET_BUTTERFLY</AnimSet>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorAnimation</Class>
+		</Display>
+	</Behavior>
+</root>
