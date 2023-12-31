@@ -2,7 +2,7 @@
 <CTasksList>
     <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
 		<TaskType>TASK_SET_ANIM</TaskType>
-		<AnimID>XA_Wolf_Idle1</AnimID>
+		<AnimID>XA_Wolf1_Idle1</AnimID>
 		<PlayBackwards>false</PlayBackwards>
 	</Task> 
 
@@ -14,7 +14,7 @@
 	
     <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
 		<TaskType>TASK_SET_ANIM</TaskType>
-		<AnimID>XA_Wolf_Idle2</AnimID>
+		<AnimID>XA_Wolf1_Idle2</AnimID>
 		<PlayBackwards>false</PlayBackwards>
 	</Task> 
 
