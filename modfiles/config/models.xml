@@ -3719,6 +3719,13 @@
         <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
     </Model>
 
+    <Model id="XA_Seagull">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
     <Model id="XD_Ammunition_Iron1">
         <CastShadow>True</CastShadow>
         <ShareShadowRaster>True</ShareShadowRaster>
@@ -3901,7 +3908,7 @@
         <Effect>DoodadMovementWaterLily</Effect>
     </Model>
 
-    <Model id="DX_DragonboatConstruction">
+    <Model id="XD_DragonboatConstruction">
         <CastShadow>True</CastShadow>
         <ShareShadowRaster>True</ShareShadowRaster>
         <AlphaBlendHighQualityOnly>True</AlphaBlendHighQualityOnly>
