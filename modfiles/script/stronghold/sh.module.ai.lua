@@ -90,9 +90,6 @@ function SetNeutralPlayerID(_PlayerID)
     local MaxHumanPlayers = GetMaxHumanPlayers();
     assert(_PlayerID == MaxHumanPlayers +2, "Neutral player must be " ..(MaxHumanPlayers +2).. "!");
     Stronghold.AI.Config.NeutralPlayerID = _PlayerID;
-    if Logic.GetTime() > 0 then
-        -- Stronghold.AI:InitAnimals();
-    end
 end
 
 --- Changes the neutral player color.

@@ -150,7 +150,7 @@ function GetMaxPlayers()
     return Stronghold.Player:GetMaxAmountOfPlayersPossible();
 end
 
-function GetSetPlayers(_Max)
+function SetMaxPlayers(_Max)
     Stronghold.Player:SetMaxAmountOfPlayersPossible(_Max);
 end
 

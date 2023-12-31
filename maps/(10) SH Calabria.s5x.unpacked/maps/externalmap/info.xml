@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey>Volcano</NameKey>
+ <DescKey>Volcano</DescKey>
+ <Name>(10) @color:200,70,40 SH @color:255,255,255 Calabria</Name>
+ <Desc>@color:200,70,40 von RobbiTheFox @cr @cr @color:255,255,255 Kalabrien (italienisch Calabria; kalabresisch Calàbbria) ist die südlichste Region des italienischen Festlandes. Zehn Burgherren kämpfen um dieses Land. @cr @cr Konstellation P1, P2, P3, P4, P5 (rechts) vs P6, P7, P8, P9, P10 (links)</Desc>
+ <SizeX>769</SizeX>
+ <SizeY>769</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>10</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>bcbb4df1-fc2c-49b1-b1a3-148528f0c50d</Data>
+ </GUID>
+</root>
