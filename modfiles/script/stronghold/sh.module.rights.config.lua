@@ -110,6 +110,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.MasonHut,
                 PlayerRight.Tavern,
                 PlayerRight.Scout,
+                PlayerRight.Traphole,
                 ---
                 PlayerRight.Garnison,
                 PlayerRight.SpearLandsknecht,

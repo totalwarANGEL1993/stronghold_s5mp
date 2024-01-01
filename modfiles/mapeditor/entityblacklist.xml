@@ -23,6 +23,7 @@
     <!-- <EntityName>PB_Outpost3</EntityName> -->
     <EntityName>PB_Weathermachine</EntityName>
     <EntityName>PB_Weathermachine_Activated</EntityName>
+    <EntityName>PB_Traphole1_Deco</EntityName>
     <!-- <EntityName>CB_Mint1</EntityName> -->
     <EntityName>CB_TechTrader</EntityName>
     <!-- <EntityName>CU_AfraidAlchemist</EntityName> -->
@@ -70,6 +71,7 @@
     <EntityName>CU_Zebra1_CorpsDropper</EntityName>
     <EntityName>XD_Bomb1</EntityName>
     <EntityName>XD_Bomb2</EntityName>
+    <EntityName>XD_Bomb3</EntityName>
     <EntityName>XD_Bridge1</EntityName>
     <EntityName>XD_Bridge2</EntityName>
     <EntityName>XD_Bridge3</EntityName>

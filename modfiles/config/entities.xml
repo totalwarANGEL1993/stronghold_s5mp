@@ -1101,6 +1101,8 @@
         <Entity>PB_WallStraight</Entity>
         <Entity>PB_WallStraightGate_Closed</Entity>
         <Entity>PB_WallStraightGate</Entity>
+        <Entity>PB_Traphole1</Entity>
+        <Entity>PB_Traphole1_Deco</Entity>
 
         <!-- Landscape objects -->
         <Entity>XD_AmmunitionIron1</Entity>
@@ -1142,6 +1144,8 @@
         <Entity>XD_Stone_BlockPath2</Entity>
         <Entity>XD_Stone2</Entity>
         <Entity>XD_StonePit2</Entity>
+        <Entity>XD_Traphole_Activated</Entity>
+        <Entity>XD_Traphole_Hidden</Entity>
         <Entity>XD_Umbrella1</Entity>
         <Entity>XD_Umbrella2</Entity>
         <Entity>XD_Umbrella3</Entity>
@@ -1301,4 +1305,5 @@
 
         <!-- Misc -->
         <Entity>XD_Bomb2</Entity>
+        <Entity>XD_Bomb3</Entity>
 </root>

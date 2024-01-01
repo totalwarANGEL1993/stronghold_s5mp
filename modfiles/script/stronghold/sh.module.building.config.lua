@@ -270,6 +270,7 @@ Stronghold.Building.Config.NeutralWallType = {
 Stronghold.Building.Config.TrapTypes = {
     [Entities.PB_BearCage1] = true,
     [Entities.PB_DogCage1]  = true,
+    [Entities.PB_Traphole1] = true,
 }
 
 Stronghold.Building.Config.RecuitIndexRecuitShortcut = {

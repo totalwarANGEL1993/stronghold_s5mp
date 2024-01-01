@@ -1312,4 +1312,9 @@
         <Category>DogCage</Category>
         <FirstBuilding>PB_DogCage1</FirstBuilding>
     </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Traphole</Category>
+        <FirstBuilding>PB_Traphole1</FirstBuilding>
+    </BuildingUpgrade>
 </root>

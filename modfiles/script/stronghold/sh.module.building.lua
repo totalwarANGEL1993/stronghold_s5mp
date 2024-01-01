@@ -10,7 +10,9 @@ Stronghold.Building = Stronghold.Building or {
     SyncEvents = {},
     Data = {
         Turrets = {},
+        TrapDecoIDToTrapID = {},
         Traps = {},
+        TrapRemains = {},
         LastWeatherChange = 0,
     },
     Config = {},
@@ -1659,6 +1661,8 @@ function Stronghold.Building:OnTrapTriggered(_PlayerID, _TrapID)
         self:OnBearTrapTriggered(_PlayerID, _TrapID);
     elseif EntityType == Entities.PB_DogCage1 then
         self:OnDogTrapTriggered(_PlayerID, _TrapID);
+    elseif EntityType == Entities.PB_Traphole1 then
+        self:OnPoleTrapTriggered(_PlayerID, _TrapID);
     end
 end
 
@@ -1674,7 +1678,7 @@ function Stronghold.Building:OnTrapConstructed(_TrapID)
         SVLib.SetInvisibility(_TrapID, true);
     end
 
-    local Attachment = 0;
+    local Attachment = {0};
     -- Create deco bear
     if EntityType == Entities.PB_BearCage1 then
         local x,y,z = Logic.EntityGetPos(_TrapID);
@@ -1683,7 +1687,7 @@ function Stronghold.Building:OnTrapConstructed(_TrapID)
         Logic.SetTaskList(AnimalID, TaskLists.TL_NPC_IDLE);
         MakeInvulnerable(AnimalID);
         SVLib.SetEntitySize(AnimalID, 0.85);
-        Attachment = AnimalID;
+        Attachment = {1, AnimalID};
     -- Create deco dog
     elseif EntityType == Entities.PB_DogCage1 then
         local x,y,z = Logic.EntityGetPos(_TrapID);
@@ -1691,10 +1695,21 @@ function Stronghold.Building:OnTrapConstructed(_TrapID)
         local AnimalID = Logic.CreateEntity(Entities.PU_Dog_Deco, x, y, Rotation, PlayerID);
         Logic.SetTaskList(AnimalID, TaskLists.TL_NPC_IDLE);
         MakeInvulnerable(AnimalID);
-        Attachment = AnimalID;
+        Attachment = {1, AnimalID};
+    -- Create deco poles
+    elseif EntityType == Entities.PB_Traphole1 then
+        for Angle = 45, 360, 45 do
+            local Position = GetCirclePosition(_TrapID, 230, Angle);
+            local DecoID = Logic.CreateEntity(Entities.PB_Traphole1_Deco, Position.X, Position.Y, 0, PlayerID);
+            self.Data.TrapDecoIDToTrapID[DecoID] = _TrapID;
+            table.insert(Attachment, DecoID);
+            Attachment[1] = Attachment[1] + 1;
+        end
     end
-    if Attachment ~= 0 and GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
-        SVLib.SetInvisibility(Attachment, true);
+    if Attachment[1] ~= 0 and GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        for i= 2, Attachment[1] +1 do
+            SVLib.SetInvisibility(Attachment, true);
+        end
     end
 
     self.Data.Traps[_TrapID] = {PlayerID, EntityType, Attachment};
@@ -1703,7 +1718,9 @@ end
 function Stronghold.Building:OnBearTrapTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local x,y,z = Logic.EntityGetPos(_TrapID);
-        DestroyEntity(self.Data.Traps[_TrapID][3]);
+        for i= 2, self.Data.Traps[_TrapID][3][1] +1 do
+            DestroyEntity(self.Data.Traps[_TrapID][3][i]);
+        end
         SetHealth(_TrapID, 0);
         local ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Bear_Cage, nil, 0, x, y, 0, 0, 0, 0);
         Logic.SetEntitySelectableFlag(ID, 0);
@@ -1716,7 +1733,9 @@ end
 function Stronghold.Building:OnDogTrapTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local x,y,z = Logic.EntityGetPos(_TrapID);
-        DestroyEntity(self.Data.Traps[_TrapID][3]);
+        for i= 2, self.Data.Traps[_TrapID][3][1] +1 do
+            DestroyEntity(self.Data.Traps[_TrapID][3][i]);
+        end
         SetHealth(_TrapID, 0);
         for i= 1, 3 do
             local ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Dog_Cage, nil, 0, x, y, 0, 0, 0, 0);
@@ -1728,14 +1747,46 @@ function Stronghold.Building:OnDogTrapTriggered(_PlayerID, _TrapID)
     end
 end
 
+function Stronghold.Building:OnPoleTrapTriggered(_PlayerID, _TrapID)
+    if IsExisting(_TrapID) then
+        local x,y,z = Logic.EntityGetPos(_TrapID);
+        for i= 2, self.Data.Traps[_TrapID][3][1] +1 do
+            local ID = ReplaceEntity(self.Data.Traps[_TrapID][3][i], Entities.XD_Traphole_Activated);
+            self.Data.TrapRemains[ID] = {5};
+        end
+        Sound.Play2DSound(Sounds.Military_SO_Bearman_rnd_1, 0, 127);
+        local DamageDealerID = Logic.CreateEntity(Entities.XD_Traphole_Activated, x, y, 0, _PlayerID);
+        self.Data.TrapRemains[DamageDealerID] = {5};
+        SetHealth(_TrapID, 0);
+        -- Does crash for some reason...
+        -- CEntity.DealDamageInArea(DamageDealerID, x, y, EffectArea, Damage);
+        -- Workaround:
+        Logic.CreateEntity(Entities.XD_Bomb3, x, y, 0, _PlayerID);
+    end
+end
+
 -- Controls the traps.
 -- Some traps have an attached entity. If it is destroyed, the trap will be
 -- destroyed. If the trap is destroyed, the attachment is destroyed.
 function Stronghold.Building:TrapController()
+    -- Traps
     for TrapID, Data in pairs(self.Data.Traps) do
         if not IsExisting(TrapID) then
-            DestroyEntity(Data[3]);
+            for i= 2, Data[3][1] +1 do
+                self.Data.TrapDecoIDToTrapID[Data[3][i]] = nil;
+                DestroyEntity(Data[3][i]);
+            end
             self.Data.Traps[TrapID] = nil;
+        end
+    end
+    -- Remains
+    for RemainID, Data in pairs(self.Data.TrapRemains) do
+        if IsExisting(RemainID) then
+            self.Data.TrapRemains[RemainID][1] = math.max(Data[1] - 1, 0);
+            if Data[1] <= 0 then
+                self.Data.TrapDecoIDToTrapID[RemainID] = nil;
+                DestroyEntity(RemainID);
+            end
         end
     end
 end
@@ -1770,6 +1821,12 @@ end
 -- Traps GUI
 
 function Stronghold.Building:OnTrapSelected(_EntityID)
+    -- Workaround for selection because I am unable to change the model.
+    if self.Data.TrapDecoIDToTrapID[_EntityID] then
+        GUI.ClearSelection();
+        GUI.SelectEntity(self.Data.TrapDecoIDToTrapID[_EntityID]);
+        return;
+    end
     if Logic.IsConstructionComplete(_EntityID) == 0 then
         XGUIEng.ShowWidget("Trap", 0);
         return;
@@ -1788,6 +1845,11 @@ function Stronghold.Building:OnTrapSelected(_EntityID)
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
         XGUIEng.ShowWidget("TriggerTrap", 1);
         XGUIEng.ShowWidget("Research_DogTraining", 1);
+    elseif TrapType == Entities.PB_Traphole1 then
+        XGUIEng.ShowWidget("Trap", 1);
+        XGUIEng.ShowWidget("Commands_Trap", 1);
+        XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
+        XGUIEng.ShowWidget("TriggerTrap", 1);
     else
         XGUIEng.ShowWidget("Trap", 0);
     end

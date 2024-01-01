@@ -3683,6 +3683,11 @@
         <SelectionTexture>Selection_Building</SelectionTexture>
     </Model>
 
+    <Model id="XD_Traphole1">
+        <SelectionTexture>Selection_Building</SelectionTexture>
+        <SelectionRadius>500</SelectionRadius>
+    </Model>
+
     <Model id="PV_Cannon5">
         <SelectionRadius>165</SelectionRadius>
         <Effect>SimpleUnitPlayerColorSpecular</Effect>

@@ -88,6 +88,7 @@ PlayerRight = {
     GatlingCannon = 243,
     DogCage = 244,
     BearCage = 245,
+    Traphole = 246,
 
     -- Buildings
     BallistaTower = 300,

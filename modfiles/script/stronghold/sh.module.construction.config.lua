@@ -67,6 +67,7 @@ Stronghold.Construction.Config = {
         [Technologies.B_Mercenary]              = {Entities.PB_MercenaryCamp1},
         [Technologies.B_BearCage]               = {Entities.PB_BearCage1},
         [Technologies.B_DogCage]                = {Entities.PB_DogCage1},
+        [Technologies.B_Traphole]               = {Entities.PB_Traphole1},
 
         [Technologies.B_Alchemist]              = {Entities.PB_Alchemist1, Entities.PB_Alchemist2,},
         [Technologies.B_Bank]                   = {Entities.PB_Bank1, Entities.PB_Bank2,},
@@ -196,6 +197,7 @@ Stronghold.Construction.Config = {
         [Technologies.B_Outpost]                = PlayerRight.Outpost,
         [Technologies.B_BearCage]               = PlayerRight.BearCage,
         [Technologies.B_DogCage]                = PlayerRight.DogCage,
+        [Technologies.B_Traphole]               = PlayerRight.Traphole,
         [Technologies.B_ExecutionerPlace]       = PlayerRight.ExecutionerPlace,
         [Technologies.B_Beautification01]       = PlayerRight.Beautification1,
         [Technologies.B_Beautification02]       = PlayerRight.Beautification2,
