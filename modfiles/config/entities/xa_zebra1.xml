@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>XA_Zebra</Model>
+        <DrawPlayerColor>True</DrawPlayerColor>
+        <Anim>XA_Zebra_Dying</Anim>
+        <Anim>XA_Zebra_Idle1</Anim>
+        <Anim>XA_Zebra_Idle2</Anim>
+        <Anim>XA_Zebra_Run</Anim>
+        <Anim>XA_Zebra_Walk</Anim>
+    </Display>
+
+    <Logic classname="GGL::CGLAnimalProps">
+		<Class>GGL::CAnimal</Class>
+		<AccessCategory>AccessCategoryAnimal</AccessCategory>
+		<DefaultTaskList>TL_ANIMAL_ZEBRA_IDLE</DefaultTaskList>
+		<TerritoryRadius>8000</TerritoryRadius>
+		<WanderRangeMin>3000</WanderRangeMin>
+		<WanderRangeMax>6000</WanderRangeMax>	
+		<NeedsPlayer>false</NeedsPlayer>
+		<MaxHealth>20</MaxHealth>
+		<ShyRange>1000</ShyRange>
+		<FleeTaskList>TL_ANIMAL_FLEE</FleeTaskList>
+	</Logic>
+
+    <Behavior>
+		<Logic classname="EGL::CMovementBehaviorProps">
+			<Class>GGL::CBehaviorAnimalMovement</Class>
+			<Speed>200</Speed>
+			<RotationSpeed>30</RotationSpeed>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorMovement</Class>
+		</Display>
+	</Behavior>
+
+    <Behavior>
+		<Logic classname="GGL::CGLAnimationBehaviorExProps">
+			<Class>GGL::CGLBehaviorAnimationEx</Class>
+			<SuspensionAnimation>XA_Zebra_Idle1</SuspensionAnimation>
+			<AnimSet>SET_ZEBRA</AnimSet>
+		</Logic>
+		<Display classname="ED::CBehaviorProps">
+			<Class>ED::CDisplayBehaviorAnimation</Class>
+		</Display>
+	</Behavior>
+</root>

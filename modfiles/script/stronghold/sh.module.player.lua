@@ -891,7 +891,7 @@ function Stronghold.Player:PlayerDefeatCondition(_PlayerID)
     elseif self.Config.DefeatModes.LastManStanding then
         local SoldierAmount = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
         -- Hawks must be explicitly excluded
-        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.XA_Hawk);
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Hawk_Deco);
         if  SoldierAmount == 0
         and not IsEntityValid(HeroName)
         and not IsExisting("HQ" .._PlayerID) then

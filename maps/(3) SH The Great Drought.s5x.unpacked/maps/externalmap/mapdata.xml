@@ -126800,7 +126800,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>1.424998e+004</X>
     <Y>3.860402e+004</Y>
@@ -126815,7 +126815,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>1.431129e+004</X>
     <Y>3.877815e+004</Y>
@@ -126830,7 +126830,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>1.450047e+004</X>
     <Y>3.867200e+004</Y>
@@ -126845,7 +126845,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>4.003297e+004</X>
     <Y>2.099984e+004</Y>
@@ -126860,7 +126860,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>4.019646e+004</X>
     <Y>2.119829e+004</Y>
@@ -126875,7 +126875,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>4.023839e+004</X>
     <Y>2.100199e+004</Y>
@@ -126890,7 +126890,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>1.356405e+004</X>
     <Y>5.756901e+003</Y>
@@ -126905,7 +126905,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>1.364769e+004</X>
     <Y>5.587068e+003</Y>
@@ -126920,7 +126920,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>1.376222e+004</X>
     <Y>5.725850e+003</Y>

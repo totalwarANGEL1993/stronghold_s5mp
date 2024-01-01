@@ -20465,7 +20465,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Zebra</Type>
+   <Type>XA_Zebra1</Type>
    <Position>
     <X>1.240838e+004</X>
     <Y>2.223471e+004</Y>
@@ -20585,7 +20585,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Tiger</Type>
+   <Type>XA_Tiger1</Type>
    <Position>
     <X>1.213900e+004</X>
     <Y>2.226515e+004</Y>
@@ -20600,7 +20600,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_SheepDog</Type>
+   <Type>XA_SheepDog1</Type>
    <Position>
     <X>1.214885e+004</X>
     <Y>2.217431e+004</Y>
@@ -20750,7 +20750,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDoe</Type>
+   <Type>XA_RedDeer2</Type>
    <Position>
     <X>1.184544e+004</X>
     <Y>2.198228e+004</Y>
@@ -20765,7 +20765,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDeer</Type>
+   <Type>XA_RedDeer1</Type>
    <Position>
     <X>1.184285e+004</X>
     <Y>2.186334e+004</Y>
@@ -20855,7 +20855,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Gazelle</Type>
+   <Type>XA_Gazelle1</Type>
    <Position>
     <X>1.154733e+004</X>
     <Y>2.192386e+004</Y>
@@ -20945,7 +20945,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Dromedary</Type>
+   <Type>XA_Dromedary1</Type>
    <Position>
     <X>1.122002e+004</X>
     <Y>2.199748e+004</Y>
@@ -21050,7 +21050,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_Bear</Type>
+   <Type>XA_Bear1</Type>
    <Position>
     <X>1.091201e+004</X>
     <Y>2.185378e+004</Y>

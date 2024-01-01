@@ -1077,6 +1077,7 @@
         <Entity>PU_Dog_Cage</Entity>
         <Entity>PU_Bear_Deco</Entity>
         <Entity>PU_Dog_Deco</Entity>
+        <Entity>PU_Hawk_Deco</Entity>
         <Entity>PV_Cannon7</Entity>
         <Entity>PV_Cannon8</Entity>
 
@@ -1173,18 +1174,40 @@
         <Entity>XD_WallGate_Replacer</Entity>
 
         <!-- Aggressive animals -->
-        <Entity>CU_Carnivore_Bear</Entity>
-        <Entity>CU_Carnivore_Dog</Entity>
-        <Entity>CU_Carnivore_Lion1</Entity>
-        <Entity>CU_Carnivore_Lion2</Entity>
-        <Entity>CU_Carnivore_Tiger</Entity>
-        <Entity>CU_Carnivore_Wolf1</Entity>
-        <Entity>CU_Carnivore_Wolf2</Entity>
-        <Entity>CU_Carnivore_Wolf3</Entity>
-        <Entity>CU_Carnivore_Wolf4</Entity>
+        <Entity>CU_AggressiveBear1</Entity>
+        <Entity>CU_AggressiveDog1</Entity>
+        <Entity>CU_AggressiveLion1</Entity>
+        <Entity>CU_AggressiveLion2</Entity>
+        <Entity>CU_AggressiveTiger1</Entity>
+        <Entity>CU_AggressiveWolf1</Entity>
+        <Entity>CU_AggressiveWolf2</Entity>
+        <Entity>CU_AggressiveWolf3</Entity>
+        <Entity>CU_AggressiveWolf4</Entity>
+
+        <!-- NPC animals -->
+        <Entity>CU_Cow1_Idle</Entity>
+        <Entity>CU_Cow2_Idle</Entity>
+        <Entity>CU_Cow3_Idle</Entity>
+        <Entity>CU_Dromedary1_Idle</Entity>
+        <Entity>CU_Gazelle1_Idle</Entity>
+        <Entity>CU_Rabbit1_Idle</Entity>
+        <Entity>CU_Rabbit2_Idle</Entity>
+        <Entity>CU_Rabbit3_Idle</Entity>
+        <Entity>CU_RedDeer1_Idle</Entity>
+        <Entity>CU_RedDeer2_Idle</Entity>
+        <Entity>CU_Reindeer1_Idle</Entity>
+        <Entity>CU_Reindeer2_Idle</Entity>
+        <Entity>CU_Reindeer3_Idle</Entity>
+        <Entity>CU_Sheep1_Idle</Entity>
+		<Entity>CU_Sheep2_Idle</Entity>
+		<Entity>CU_Sheep3_Idle</Entity>
+        <Entity>CU_WildBoar1_Idle</Entity>
+		<Entity>CU_WildBoar2_Idle</Entity>
+		<Entity>CU_WildBoar3_Idle</Entity>
+        <Entity>CU_Zebra1_Idle</Entity>
 
         <!-- Passive animals -->
-        <Entity>XA_Bear</Entity>
+        <Entity>XA_Bear1</Entity>
         <Entity>XA_Butterfly1</Entity>
         <Entity>XA_Butterfly2</Entity>
         <Entity>XA_Butterfly3</Entity>
@@ -1197,33 +1220,32 @@
         <Entity>XA_Cow1</Entity>
         <Entity>XA_Cow2</Entity>
         <Entity>XA_Cow3</Entity>
-        <Entity>XA_Dromedary</Entity>
+        <Entity>XA_Dromedary1</Entity>
 		<Entity>XA_Elephant1</Entity>
 		<Entity>XA_Elephant2</Entity>
 		<Entity>XA_Frog1</Entity>
 		<Entity>XA_Frog2</Entity>
 		<Entity>XA_Frog3</Entity>
-        <Entity>XA_Gazelle</Entity>
-        <Entity>XA_Hawk</Entity>
+        <Entity>XA_Gazelle1</Entity>
 		<Entity>XA_Lion1</Entity>
 		<Entity>XA_Lion2</Entity>
 		<Entity>XA_Rabbit1</Entity>
 		<Entity>XA_Rabbit2</Entity>
 		<Entity>XA_Rabbit3</Entity>
-        <Entity>XA_RedDeer</Entity>
-        <Entity>XA_RedDoe</Entity>
+        <Entity>XA_RedDeer1</Entity>
+        <Entity>XA_RedDeer2</Entity>
 		<Entity>XA_Reindeer1</Entity>
 		<Entity>XA_Reindeer2</Entity>
 		<Entity>XA_Reindeer3</Entity>
 		<Entity>XA_Scorpion1</Entity>
 		<Entity>XA_Scorpion2</Entity>
 		<Entity>XA_Scorpion3</Entity>
-		<Entity>XA_Seagull</Entity>
+		<Entity>XA_Seagull1</Entity>
 		<Entity>XA_Sheep1</Entity>
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>
-		<Entity>XA_SheepDog</Entity>
-		<Entity>XA_Tiger</Entity>
+		<Entity>XA_SheepDog1</Entity>
+		<Entity>XA_Tiger1</Entity>
 		<Entity>XA_Wolf1</Entity>
 		<Entity>XA_Wolf2</Entity>
 		<Entity>XA_Wolf3</Entity>
@@ -1231,7 +1253,7 @@
 		<Entity>XA_WildBoar1</Entity>
 		<Entity>XA_WildBoar2</Entity>
 		<Entity>XA_WildBoar3</Entity>
-		<Entity>XA_Zebra</Entity>
+		<Entity>XA_Zebra1</Entity>
 
         <!-- Cadaver -->
         <Entity>XD_Cadaver_Cow1</Entity>
@@ -1256,26 +1278,26 @@
         <Entity>XD_Cadaver_Zebra</Entity>
 
         <!-- Cadaver spawner -->
-        <Entity>CU_Herbivore_Cow1</Entity>
-        <Entity>CU_Herbivore_Cow2</Entity>
-        <Entity>CU_Herbivore_Cow3</Entity>
-        <Entity>CU_Herbivore_Dromedary</Entity>
-        <Entity>CU_Herbivore_Gazelle</Entity>
-        <Entity>CU_Herbivore_Rabbit1</Entity>
-        <Entity>CU_Herbivore_Rabbit2</Entity>
-        <Entity>CU_Herbivore_Rabbit3</Entity>
-        <Entity>CU_Herbivore_RedDeer</Entity>
-        <Entity>CU_Herbivore_RedDoe</Entity>
-        <Entity>CU_Herbivore_Reindeer1</Entity>
-        <Entity>CU_Herbivore_Reindeer2</Entity>
-        <Entity>CU_Herbivore_Reindeer3</Entity>
-        <Entity>CU_Herbivore_Sheep1</Entity>
-		<Entity>CU_Herbivore_Sheep2</Entity>
-		<Entity>CU_Herbivore_Sheep3</Entity>
-        <Entity>CU_Herbivore_WildBoar1</Entity>
-		<Entity>CU_Herbivore_WildBoar2</Entity>
-		<Entity>CU_Herbivore_WildBoar3</Entity>
-        <Entity>CU_Herbivore_Zebra</Entity>
+        <Entity>CU_Cow1_CorpsDropper</Entity>
+        <Entity>CU_Cow2_CorpsDropper</Entity>
+        <Entity>CU_Cow3_CorpsDropper</Entity>
+        <Entity>CU_Dromedary1_CorpsDropper</Entity>
+        <Entity>CU_Gazelle1_CorpsDropper</Entity>
+        <Entity>CU_Rabbit1_CorpsDropper</Entity>
+        <Entity>CU_Rabbit2_CorpsDropper</Entity>
+        <Entity>CU_Rabbit3_CorpsDropper</Entity>
+        <Entity>CU_RedDeer1_CorpsDropper</Entity>
+        <Entity>CU_RedDeer2_CorpsDropper</Entity>
+        <Entity>CU_Reindeer1_CorpsDropper</Entity>
+        <Entity>CU_Reindeer2_CorpsDropper</Entity>
+        <Entity>CU_Reindeer3_CorpsDropper</Entity>
+        <Entity>CU_Sheep1_CorpsDropper</Entity>
+		<Entity>CU_Sheep2_CorpsDropper</Entity>
+		<Entity>CU_Sheep3_CorpsDropper</Entity>
+        <Entity>CU_WildBoar1_CorpsDropper</Entity>
+		<Entity>CU_WildBoar2_CorpsDropper</Entity>
+		<Entity>CU_WildBoar3_CorpsDropper</Entity>
+        <Entity>CU_Zebra1_CorpsDropper</Entity>
 
         <!-- Misc -->
         <Entity>XD_Bomb2</Entity>

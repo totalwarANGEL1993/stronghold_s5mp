@@ -409,7 +409,7 @@ function Stronghold.Attraction:OnHawkHabitatCreated(_EntityID)
                 local Position = GetCirclePosition(_EntityID, 500, Angle);
                 table.insert(Positions, Position)
             end
-            local ID = Logic.CreateEntity(Entities.XA_Hawk, Positions[1].X, Positions[1].Y, 0, PlayerID);
+            local ID = Logic.CreateEntity(Entities.PU_Hawk_Deco, Positions[1].X, Positions[1].Y, 0, PlayerID);
             Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
             MakeInvulnerable(ID);
             self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};

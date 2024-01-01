@@ -5345,7 +5345,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_SheepDog</Type>
+   <Type>XA_SheepDog1</Type>
    <Position>
     <X>2.663952e+004</X>
     <Y>1.191633e+004</Y>
@@ -5360,7 +5360,7 @@
    <Scale>8.809962e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_SheepDog</Type>
+   <Type>XA_SheepDog1</Type>
    <Position>
     <X>2.752267e+004</X>
     <Y>7.082188e+003</Y>
@@ -5375,7 +5375,7 @@
    <Scale>9.907163e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_SheepDog</Type>
+   <Type>XA_SheepDog1</Type>
    <Position>
     <X>2.923366e+004</X>
     <Y>1.121985e+004</Y>
@@ -5525,7 +5525,7 @@
    <Scale>8.735740e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDeer</Type>
+   <Type>XA_RedDeer1</Type>
    <Position>
     <X>1.947495e+004</X>
     <Y>5.619296e+003</Y>
@@ -5540,7 +5540,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDoe</Type>
+   <Type>XA_RedDeer2</Type>
    <Position>
     <X>1.952557e+004</X>
     <Y>5.557380e+003</Y>
@@ -5555,7 +5555,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDoe</Type>
+   <Type>XA_RedDeer2</Type>
    <Position>
     <X>1.949256e+004</X>
     <Y>5.412565e+003</Y>
@@ -5600,7 +5600,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDoe</Type>
+   <Type>XA_RedDeer2</Type>
    <Position>
     <X>1.953892e+004</X>
     <Y>5.332427e+003</Y>
@@ -5675,7 +5675,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDoe</Type>
+   <Type>XA_RedDeer2</Type>
    <Position>
     <X>6.498813e+003</X>
     <Y>2.692483e+004</Y>
@@ -5690,7 +5690,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDoe</Type>
+   <Type>XA_RedDeer2</Type>
    <Position>
     <X>6.520209e+003</X>
     <Y>2.702221e+004</Y>
@@ -5705,7 +5705,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDoe</Type>
+   <Type>XA_RedDeer2</Type>
    <Position>
     <X>6.519585e+003</X>
     <Y>2.714828e+004</Y>
@@ -5720,7 +5720,7 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XA_RedDeer</Type>
+   <Type>XA_RedDeer1</Type>
    <Position>
     <X>6.472232e+003</X>
     <Y>2.723330e+004</Y>

@@ -42,12 +42,32 @@
     <!-- <EntityName>CV_Cannon1</EntityName> -->
     <!-- <EntityName>CV_Cannon2</EntityName> -->
     <!-- <EntityName>XD_BlendingFog</EntityName> -->
-    <EntityName>XA_Hawk</EntityName>
+    <EntityName>PU_Hawk_Deco</EntityName>
     <EntityName>XA_Deer</EntityName>
     <EntityName>XA_Doe</EntityName>
     <EntityName>XA_Rabbit</EntityName>
     <EntityName>XA_Wolf</EntityName>
-    <EntityName>CU_Aggressive_Wolf</EntityName>
+    <EntityName>CU_AggressiveWolf</EntityName>
+    <EntityName>CU_Cow1_CorpsDropper</EntityName>
+    <EntityName>CU_Cow2_CorpsDropper</EntityName>
+    <EntityName>CU_Cow3_CorpsDropper</EntityName>
+    <EntityName>CU_Dromedary1_CorpsDropper</EntityName>
+    <EntityName>CU_Gazelle1_CorpsDropper</EntityName>
+    <EntityName>CU_Rabbit1_CorpsDropper</EntityName>
+    <EntityName>CU_Rabbit2_CorpsDropper</EntityName>
+    <EntityName>CU_Rabbit3_CorpsDropper</EntityName>
+    <EntityName>CU_RedDeer1_CorpsDropper</EntityName>
+    <EntityName>CU_RedDeer2_CorpsDropper</EntityName>
+    <EntityName>CU_Reindeer1_CorpsDropper</EntityName>
+    <EntityName>CU_Reindeer2_CorpsDropper</EntityName>
+    <EntityName>CU_Reindeer3_CorpsDropper</EntityName>
+    <EntityName>CU_Sheep1_CorpsDropper</EntityName>
+    <EntityName>CU_Sheep2_CorpsDropper</EntityName>
+    <EntityName>CU_Sheep3_CorpsDropper</EntityName>
+    <EntityName>CU_WildBoar1_CorpsDropper</EntityName>
+    <EntityName>CU_WildBoar2_CorpsDropper</EntityName>
+    <EntityName>CU_WildBoar3_CorpsDropper</EntityName>
+    <EntityName>CU_Zebra1_CorpsDropper</EntityName>
     <EntityName>XD_Bomb1</EntityName>
     <EntityName>XD_Bomb2</EntityName>
     <EntityName>XD_Bridge1</EntityName>

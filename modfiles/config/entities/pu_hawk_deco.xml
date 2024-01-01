@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <!-- This hawk must be a leader for technical reasons. As an animal it 
+         would be deleted as son as it is on blocking and as a normal settler
+         it would need farm and residence. -->
+
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>XA_Hawk</Model>
+        <Anim>XA_Hawk_Fly</Anim>
+        <DrawPlayerColor>False</DrawPlayerColor>
+    </Display>
+
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
+        <Hat/>
+        <Cost>
+            <Gold>0</Gold>
+        </Cost>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <MaxHealth>500</MaxHealth>
+        <Exploration>0</Exploration>
+        <ArmorClass>ArmorClassFur</ArmorClass>
+        <ArmorAmount>0</ArmorAmount>
+        <DodgeChance>0</DodgeChance>
+        <IdleTaskList>TL_HAWK_IDLE</IdleTaskList>
+        <ExperiencePoints>0</ExperiencePoints>
+        <AttractionSlots>0</AttractionSlots>
+        <Fearless>true</Fearless>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Convertible>false</Convertible>
+		<CanDrown>false</CanDrown>
+        <!-- This is used to prevent units to automatically attack. -->
+        <Category>Wall</Category>
+    </Logic>
+
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>XA_Hawk_Fly</SuspensionAnimation>
+            <AnimSet>SET_HAWK</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CSoldierMovement</Class>
+            <Speed>400</Speed>
+            <RotationSpeed>50</RotationSpeed>
+            <MoveTaskList>TL_HAWK_IDLE</MoveTaskList>
+            <MoveIdleAnim>XA_Hawk_Fly</MoveIdleAnim>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CSoldierBehaviorProps">
+            <Class>GGL::CSoldierBehavior</Class>
+            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+            <NormalAttackAnim1>PU_SoldierBow4_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_SoldierBow4_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>PU_SoldierBow4_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_SoldierBow4_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_SoldierBow4_Attack1</MissAttackAnim>
+            <BattleIdleAnim>PU_SoldierBow4_IdleAttack1</BattleIdleAnim>
+            <BattleWalkAnim>PU_SoldierBow4_Run1</BattleWalkAnim>
+            <HitAnim>PU_SoldierBow4_Hit</HitAnim>
+
+            <DamageClass>DC_Bow</DamageClass>
+            <DamageAmount>1</DamageAmount>
+            <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
+
+            <!-- The hawk shall not attach anyone! -->
+            <BattleWaitUntil>99999999</BattleWaitUntil>
+            <ProjectileEffectID>FXArrow</ProjectileEffectID>
+            <MaxRange>0</MaxRange>
+            <MinRange>0</MinRange>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CFormationBehaviorProperties">
+            <Class>GGL::CFormationBehavior</Class>
+            <IdleAnim>
+                <AnimID>XA_Hawk_Fly</AnimID>
+                <Frequency>99</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>XA_Hawk_Fly</AnimID>
+                <Frequency>2</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>XA_Hawk_Fly</AnimID>
+                <Frequency>2</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>XA_Hawk_Fly</AnimID>
+                <Frequency>2</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>XA_Hawk_Fly</AnimID>
+                <Frequency>2</Frequency>
+            </IdleAnim>
+            <IdleAnim>
+                <AnimID>XA_Hawk_Fly</AnimID>
+                <Frequency>1</Frequency>
+            </IdleAnim>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CSoldierEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>300</BasePriority>
+            <ShouldEvade>false</ShouldEvade>
+        </Logic>
+    </Behavior>
+</root>
