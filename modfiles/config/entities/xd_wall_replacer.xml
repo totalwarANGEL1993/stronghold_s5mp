@@ -11,5 +11,7 @@
 		<DoNotExecute>True</DoNotExecute>
         <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
         <SnapTolerance>30.0f</SnapTolerance>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <NeedsPlayer>true</NeedsPlayer>
 	</Logic>
 </root>
