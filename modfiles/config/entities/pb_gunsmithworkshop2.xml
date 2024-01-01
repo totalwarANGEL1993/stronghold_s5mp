@@ -122,7 +122,7 @@
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
             <ResourceType>Sulfur</ResourceType>
-            <InitialFactor>4</InitialFactor>
+            <InitialFactor>2</InitialFactor>
             <SupplierCategory>SulfurSupplier</SupplierCategory>
         </Logic>
     </Behavior>

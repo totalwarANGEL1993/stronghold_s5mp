@@ -2,13 +2,12 @@
 <root>
 	<Display classname="ED::CDisplayEntityProps">
 		<Class>ED::CDisplayStaticEntity</Class>
-		<Model>XD_StonePit1_Med</Model>
-       <RenderInFoW>false</RenderInFoW>
+		<Model>XD_StonePit1</Model>
+        <RenderInFoW>true</RenderInFoW>
 	</Display>
 	<Logic classname="GGL::CResourceDoodadProperties">
 		<Class>GGL::CResourceDoodad</Class>
-        <AccessCategory>AccessCategoryResourceDoodad</AccessCategory>
-        <Category>ResourcePit</Category>
+    <AccessCategory>AccessCategoryResourceDoodad</AccessCategory>
 		<DoNotExecute>True</DoNotExecute>
 		<ApproachX>0</ApproachX>
 		<ApproachY>0</ApproachY>
