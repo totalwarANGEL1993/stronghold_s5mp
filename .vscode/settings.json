@@ -260,7 +260,8 @@
         "ROBBERS_COLOR",
         "NPC_COLOR",
         "GetPositionsBetween",
-        "CalculateOptimalNumPoints"
+        "CalculateOptimalNumPoints",
+        "EVELANCEMUSIC"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

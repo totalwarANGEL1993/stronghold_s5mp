@@ -1,6 +1,6 @@
 SHS5MP_RulesDefinition = {
     -- Config version (Always an integer)
-    Version = 4,
+    Version = 1,
 
     -- ###################################################################### --
     -- #                             CONFIG                                 # --
@@ -23,11 +23,11 @@ SHS5MP_RulesDefinition = {
 
     -- Fill resource piles with resources
     -- (value of resources or 0 to not change)
-    MapStartFillClay = 4000,
-    MapStartFillStone = 4000,
-    MapStartFillIron = 4000,
-    MapStartFillSulfur = 4000,
-    MapStartFillWood = 4000,
+    MapStartFillClay = 2000,
+    MapStartFillStone = 2000,
+    MapStartFillIron = 500,
+    MapStartFillSulfur = 500,
+    MapStartFillWood = 12000,
 
     -- Rank
     Rank = {
@@ -69,91 +69,32 @@ SHS5MP_RulesDefinition = {
 
     -- Called when map is loaded
     OnMapStart = function()
-        UseWeatherSet("HighlandsWeatherSet");
+        UseWeatherSet("EvelanceWeatherSet");
         AddPeriodicSummer(350);
         AddPeriodicRain(90);
-        LocalMusic.UseSet = HIGHLANDMUSIC;
-
-        Lib.Require("comfort/StartCountdown");
+        LocalMusic.UseSet = EVELANCEMUSIC;
     end,
 
     -- Called after game start timer is over
     OnGameStart = function()
         ForbidTechnology(Technologies.B_PowerPlant, 1);
         ForbidTechnology(Technologies.B_PowerPlant, 2);
-        CreateBanditCamps();
 
-        StartCountdown(15 * 60, MakeBanditCampsAttack, false);
+        SVLib.SetInvisibility(GetID("Blockade1"), true);
+        SVLib.SetInvisibility(GetID("Blockade2"), true);
     end,
 
     -- Called after peacetime is over
     OnPeaceTimeOver = function()
         AllowTechnology(Technologies.B_PowerPlant, 1);
         AllowTechnology(Technologies.B_PowerPlant, 2);
+
+        DestroyEntity("Blockade1");
+        DestroyEntity("Blockade2");
     end,
 
     -- Called after game has been loaded (singleplayer)
     OnSaveLoaded = function()
     end,
 }
-
--- -------------------------------------------------------------------------- --
-
-function CreateBanditCamps()
-    for _, Index in pairs{1, 3} do
-        Treasure.RandomChest("VCCamp" ..Index.. "Chest1", 1000, 2000);
-        local CampID = DelinquentsCampCreate {
-            HomePosition = "VCCamp" ..Index.. "Center",
-            Strength = 3,
-        };
-        _G["gvBanditCamp" ..Index] = CampID;
-
-        for j= 1, 3 do
-            DelinquentsCampAddSpawner(
-                CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
-                Entities.PU_LeaderPoleArm1,
-                Entities.CU_BanditLeaderBow1,
-                Entities.PV_Cannon1,
-                Entities.CU_BanditLeaderSword2,
-                Entities.CU_BanditLeaderBow1
-            );
-        end
-    end
-
-    for _, Index in pairs{2, 4} do
-        Treasure.RandomChest("VCCamp" ..Index.. "Chest1", 2000, 4000);
-
-        local CampID = DelinquentsCampCreate {
-            HomePosition = "VCCamp" ..Index.. "Center",
-            Strength = 10,
-        };
-        _G["gvBanditCamp" ..Index] = CampID;
-
-        for j= 1, 6 do
-            DelinquentsCampAddSpawner(
-                CampID, "VCCamp" ..Index.. "Tent" ..j, 60, 1,
-                Entities.CU_BanditLeaderSword2,
-                Entities.PU_LeaderPoleArm2,
-                Entities.PV_Cannon1,
-                Entities.CU_BanditLeaderBow1,
-                Entities.PV_Cannon1,
-                Entities.PU_LeaderPoleArm2,
-                Entities.CU_BanditLeaderSword2,
-                Entities.PV_Cannon1
-            );
-        end
-
-        DelinquentsCampAddTarget(CampID, "VCCamp" ..Index.. "Pos1");
-        DelinquentsCampAddTarget(CampID, "VCCamp" ..Index.. "Pos2");
-        DelinquentsCampAddTarget(CampID, "VCCamp" ..Index.. "Pos3");
-        DelinquentsCampActivateAttack(CampID, false);
-    end
-end
-
-function MakeBanditCampsAttack()
-    --- @diagnostic disable-next-line: undefined-global
-    DelinquentsCampActivateAttack(gvBanditCamp2, true);
-    --- @diagnostic disable-next-line: undefined-global
-    DelinquentsCampActivateAttack(gvBanditCamp4, true);
-end
 

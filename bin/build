@@ -96,6 +96,10 @@ bin/bba5.exe "maps/(2) SH Schiffbruch.s5x.unpacked"
 cp "maps/(2) SH Schiffbruch.s5x" release
 cp "maps/(2) SH Schiffbruch.lua" release/shs5mp_configs
 
+bin/bba5.exe "maps/(2) SH The only Way.s5x.unpacked"
+cp "maps/(2) SH The only Way.s5x" release
+cp "maps/(2) SH The only Way.lua" release/shs5mp_configs
+
 bin/bba5.exe "maps/(3) SH The Great Drought.s5x.unpacked"
 cp "maps/(3) SH The Great Drought.s5x" release
 cp "maps/(3) SH The Great Drought.lua" release/shs5mp_configs

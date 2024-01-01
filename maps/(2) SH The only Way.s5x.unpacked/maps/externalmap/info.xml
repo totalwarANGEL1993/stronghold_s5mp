@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey>MapDescription/Peaceful_Land_name</NameKey>
+ <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
+ <Name>(2) @color:200,70,40 SH @color:255,255,255 Der einzige Weg</Name>
+ <Desc>@color:200,70,40 von totalwarANGEL @cr @cr @color:255,255,255 In einem furchterregenden Land der Albträume seht Ihr Euch einen ebenbürdigen Gegner gegenüber. Um ihn zu besiegen, gibt es nur einen einzigen Weg! Wirklich nur einen? @cr @cr Konstellation: @cr P1 vs P2</Desc>
+ <SizeX>321</SizeX>
+ <SizeY>321</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>2</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>588982cc-4bc3-4079-9c97-b31568b93f78</Data>
+ </GUID>
+</root>
