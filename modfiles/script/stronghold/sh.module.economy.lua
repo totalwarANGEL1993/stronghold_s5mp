@@ -1340,6 +1340,9 @@ end
 
 function Stronghold.Economy:SelectUnitType(_UpgradeCategory)
     local PlayerID = GetLocalPlayerID();
+    if PlayerID == 0 or PlayerID == 17 then
+        return;
+    end
     local UnitTypes = Stronghold.Economy.Config.SelectCategoryMapping[_UpgradeCategory] or {};
     local UnitList = {};
     for _, Type in (UnitTypes) do
