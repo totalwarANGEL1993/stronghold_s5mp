@@ -8,14 +8,14 @@ Stronghold.Construction.Config = {
 
     -- Limit of recruiter buildings
     RecruitBuildingAmounts = {
-        [1] = 1,
-        [2] = 2,
-        [3] = 2,
-        [4] = 2,
-        [5] = 3,
-        [6] = 3,
-        [7] = 3,
-        [8] = 4,
+        [1] = 2,
+        [2] = 3,
+        [3] = 3,
+        [4] = 4,
+        [5] = 4,
+        [6] = 5,
+        [7] = 5,
+        [8] = 6,
     },
     -- Limit of cannon factories
     SmeltingBuildingAmounts = {

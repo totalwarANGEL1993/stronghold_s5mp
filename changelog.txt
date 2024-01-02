@@ -1,29 +1,41 @@
-Version 0.6.19
-- Schaden von einigen Einheiten wurde überarbeitet
-- Maßnahmen laden sich nun viel schneller auf
-- Das Leibeigenenmenü wurde überarbeitet und besteht nun aus 3 Tabs
-- Alle Adligen haben alle Standardtruppen und zusätzlich Spezialeinheiten
-  (Einige Adlige können bestimmte Standardeineiten nicht anheuern)
-- Adlige können Fremde Spezialeinheiten als Söldner zu höreren Preisen anheuern
-- Dario beschleunigt Maßnahmen nur noch um 50%
-- Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
-- Salim steigert Wissensgewinn Gelehrter um 20%
-- Salims Falle ist geschwächt
-- Aris Waldläufer wurden entfernt
-- Helias' hat nun ebenfalls Erecs Kavallerie als Spezialeinheiten
-- Helias' Templer wurden entfernt
-- Marie erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
+Version 0.6.31
 - Bevölkerungslimit wurde überarbeitet
-  * Haupthaus: 50, 65, 80
-  * Dorfzentrum: 25, 40, 55
+  * Haupthaus: 50, 75, 100
+  * Dorfzentrum: 35, 50, 65
 - Rekrutenlimit wurde überarbeitet
   * Haupthaus: 75, 100, 125
-  * Ausgebaute Rekrutierungsgebäude: 15
+  * Außenposten: 40, 65, 90
 - Anzahl an Rekrutierungsgebäude hängt vom erreichten Rang ab
 - Anzahl an Kanonengießereien hängt vom erreichten Rang ab
 - Benötigte Plätze für Kanonen überarbeitet
   * Bombarde, Große Bombarde, Bronzekanone: 4
   * Eisenkanone, Dschihad, Belagerungskanone: 8
+- Schaden von einigen Einheiten wurde überarbeitet
+- Soldatenanzahl der meisten Einheiten wurde überarbeitet
+- Maßnahmen laden sich nun viel schneller auf
+- Das Leibeigenenmenü wurde überarbeitet und besteht nun aus 3 Tabs
+- Aussichts, Ballista- und Kanonentürme werden getrennt voneinander gebaut
+- Neue Mechanik: Ratten
+  (Falknertürme - erweitere Aussichtstüre - bekämpfen Ratten)
+- Es ist nun allen Adligen möglich, Fallen zu stellen. Diese Fallen werden von
+  Leibeigenen gebaut und kosten Rohstoffe.
+- Alle Adligen haben alle Standardtruppen und zusätzlich Spezialeinheiten
+  (Einige Adlige können bestimmte Standardeineiten weiterhin nicht anheuern)
+- Adlige können Fremde Spezialeinheiten als Söldner zu höreren Preisen anheuern
+- Dario beschleunigt Maßnahmen nur noch um 50%
+- Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
+- Salim steigert Wissensgewinn Gelehrter um 20%
+- Salims (kostenlose) Falle ist geschwächt
+- Aris Waldläufer wurden entfernt
+- Helias' hat nun ebenfalls Erecs Kavallerie als Spezialeinheiten
+- Helias kann keine Templer mehr rekutieren
+  (Die Templer existieren weiter als mögliche KI-Truppen)
+- Marie erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
+- Drake reduziert den Unterhalt der Scharfschützen nur noch um 20%
+
+Version 0.5.35
+- Die Technologiebeschreibungen werden nicht mehr durch die Wetterwechselsperre
+  durcheinander gebracht.
   
 Version 0.5.34
 - Palisaden und Mauern sind nun von außen mit Nahkämpfern Angreifbar, egal
