@@ -84,6 +84,11 @@ Stronghold.Building.Config.Monastery = {
 
 Stronghold.Building.Config.WeatherChange = {
     TimeBetweenChanges = 5 * 60,
+    Technologies = {
+        [Technologies.T_MakeSummer] = true,
+        [Technologies.T_MakeRain] = true,
+        [Technologies.T_MakeSnow] = true,
+    },
 }
 
 Stronghold.Building.Config.Turrets = {

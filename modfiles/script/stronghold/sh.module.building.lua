@@ -2175,6 +2175,9 @@ function Stronghold.Building:ChangeWeatherAction(_StateID)
 end
 
 function Stronghold.Building:ChangeWeatherTooltip(_Technology, _TextKey, _KeyBind)
+    if not self.Config.WeatherChange.Technologies[_Technology] then
+        return;
+    end
 	local PlayerID = GUI.GetPlayerID();
 	local TechState = Logic.GetTechnologyState(PlayerID, _Technology);
 	Logic.FillTechnologyCostsTable(_Technology, InterfaceGlobals.CostTable);
