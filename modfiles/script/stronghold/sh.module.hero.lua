@@ -509,8 +509,8 @@ function Stronghold.Hero:ConfigureSummonedEntities(_EntityID)
     if Type == Entities.CU_Barbarian_Hero_wolf then
         if self:HasValidLordOfType(PlayerID, Entities.CU_Barbarian_Hero) then
             local CurrentRank = GetRank(PlayerID);
-            local Armor = 3 + math.floor(CurrentRank * 1);
-            local Damage = 16 + math.floor(CurrentRank * 4);
+            local Armor = 3 + math.floor(CurrentRank * 0.5);
+            local Damage = 14 + math.floor(CurrentRank * 2);
             Logic.SetSpeedFactor(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
             SVLib.SetEntitySize(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
             CEntity.SetArmor(_EntityID, Armor);
