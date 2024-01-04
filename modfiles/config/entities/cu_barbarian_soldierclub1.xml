@@ -111,7 +111,7 @@
             <BattleWalkAnim>CU_Barbarian_SoldierClub1_Run1</BattleWalkAnim>
             <HitAnim>CU_Barbarian_SoldierClub1_Hit</HitAnim>
 
-            <DamageClass>DC_Blunt</DamageClass>
+            <DamageClass>DC_Club</DamageClass>
             <DamageAmount>28</DamageAmount>
             <MaxRandomDamageBonus>32</MaxRandomDamageBonus>
 
