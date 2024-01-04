@@ -697,10 +697,10 @@ end
 -- If scale is researched, then taxes are increased by 5%.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local WorkerList = GetWorkersOfType(_PlayerID, 0);
+        local WorkerAmount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local TaxHeight = GetTaxHeight(_PlayerID);
         local PerWorker = self.Config.Income.TaxPerWorker;
-        local Income = (WorkerList[1] * PerWorker) * (TaxHeight -1);
+        local Income = (WorkerAmount * PerWorker) * (TaxHeight -1);
 
         -- Scale
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Scale) == 1 then
@@ -715,41 +715,19 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
 end
 
 -- Calculate unit upkeep
--- The upkeep is not for the leader himself. Soldiers are also incluced in the
--- calculation. The upkeep decreases if the group looses soldiers.
+-- The upkeep is not for the leader himself.
 function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Upkeep = 0;
-        for k, v in pairs(Stronghold.Unit.Config) do
-            if type(k) == "number" then
+        for Type, Data in pairs(Stronghold.Unit.Config) do
+            if type(Type) == "number" then
                 -- Merge military table
-                local Military = {0};
-                local LeaderList = GetLeadersOfType(_PlayerID, k);
-                for i= 2, LeaderList[1] +1 do
-                    table.insert(Military, LeaderList[i]);
-                    Military[1] = Military[1] + 1;
-                end
-                local CannonList = GetCannonsOfType(_PlayerID, k);
-                for i= 2, CannonList[1] +1 do
-                    table.insert(Military, CannonList[i]);
-                    Military[1] = Military[1] + 1;
-                end
-                -- Calculate regular upkeep
-                local TypeUpkeep = 0;
-                for i= 2, Military[1] +1 do
-                    local SoldiersMax = Logic.LeaderGetMaxNumberOfSoldiers(Military[i]);
-                    local SoldiersCur = Logic.LeaderGetNumberOfSoldiers(Military[i]);
-                    local UpkeepLeader = math.ceil((v.Upkeep or 0) / 2);
-                    local UpkeepSoldier = 0;
-                    if SoldiersMax > 0 then
-                        UpkeepSoldier = math.floor(((v.Upkeep or 0) / 2) * ((SoldiersCur +1) / (SoldiersMax +1)));
-                    end
-                    TypeUpkeep = TypeUpkeep + (UpkeepLeader + UpkeepSoldier);
-                end
+                local UnitCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Type);
+                local TypeUpkeep = (Data.Upkeep or 0) * UnitCount;
                 -- External calculations
-                TypeUpkeep = GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, k, TypeUpkeep)
+                TypeUpkeep = GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, Type, TypeUpkeep);
 
-                self.Data[_PlayerID].UpkeepDetails[k] = TypeUpkeep;
+                self.Data[_PlayerID].UpkeepDetails[Type] = TypeUpkeep;
                 Upkeep = Upkeep + TypeUpkeep;
             end
         end

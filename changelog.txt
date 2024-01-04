@@ -36,6 +36,8 @@ Version 0.6.31
 Version 0.5.35
 - Die Technologiebeschreibungen werden nicht mehr durch die Wetterwechselsperre
   durcheinander gebracht.
+- Die Einheiten-Finden-Buttons führen nicht mehr zu einem Absturz, wenn man als
+  Zuschauer spielt.
   
 Version 0.5.34
 - Palisaden und Mauern sind nun von außen mit Nahkämpfern Angreifbar, egal
