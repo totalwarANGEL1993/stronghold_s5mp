@@ -774,6 +774,16 @@ end
 
 function CreatePlayer2Armies()
     local ArmyID = AiArmy.New(2, 8, GetPosition("P2OuterPos"), 3000);
+    AiArmy.SetAllowedTypes(ArmyID, {
+        {Entities.CU_BlackKnight_LeaderMace2, 3},
+        {Entities.CU_BlackKnight_LeaderMace2, 3},
+        {Entities.PU_LeaderPoleArm2, 3},
+        {Entities.PU_LeaderSword3, 3},
+        {Entities.PU_LeaderBow2, 3},
+        {Entities.PU_LeaderBow3, 3},
+        {Entities.PU_LeaderHeavyCavalry1, 3},
+        {Entities.PV_Cannon1, 0},
+    });
     gvP2Army1 = ArmyID;
     AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
     AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);
@@ -785,6 +795,16 @@ function CreatePlayer2Armies()
 
     for i= 2, 7 do
         ArmyID = AiArmy.New(2, 3, GetPosition("P2DefPos1"), 5000);
+        AiArmy.SetAllowedTypes(ArmyID, {
+            {Entities.CU_BlackKnight_LeaderMace2, 3},
+            {Entities.CU_BlackKnight_LeaderMace2, 3},
+            {Entities.PU_LeaderPoleArm2, 3},
+            {Entities.PU_LeaderSword3, 3},
+            {Entities.PU_LeaderBow2, 3},
+            {Entities.PU_LeaderBow3, 3},
+            {Entities.PU_LeaderHeavyCavalry1, 3},
+            {Entities.PV_Cannon1, 0},
+        });
         _G["gvP2Army"..i] = ArmyID;
         AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
         AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);

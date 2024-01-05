@@ -300,6 +300,16 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
             local Troop = (type(arg[i]) ~= "table" and {arg[i], 0}) or arg[i];
             table.insert(Troops, Troop);
         end
+
+        AiArmy.SetAllowedTypes(
+            Data.AttackArmyID,
+            CopyTable(AiArmy.GetAllowedTypes(Data.AttackArmyID), Troops)
+        );
+        AiArmy.SetAllowedTypes(
+            Data.DefendArmyID,
+            CopyTable(AiArmy.GetAllowedTypes(Data.DefendArmyID), Troops)
+        );
+
         ID = AiArmyRefiller.CreateSpawner{
             ScriptName    = _ScriptName,
             SpawnPoint    = (IsExisting(_ScriptName.. "Spawn") and _ScriptName.. "Spawn") or nil,
