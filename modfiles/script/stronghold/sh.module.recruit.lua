@@ -83,8 +83,10 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
             elseif _Action == Stronghold.Recruit.SyncEvents.BuySerf then
                 Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
             elseif _Action == Stronghold.Recruit.SyncEvents.ToggleAutoFill then
-                local Current = Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]];
-                Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]] = not Current;
+                if Logic.EntityGetPlayer(arg[1]) == _PlayerID then
+                    local Current = Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]];
+                    Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]] = not Current;
+                end
             end
         end
     );
@@ -1025,11 +1027,13 @@ end
 
 function Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, _BuildingID, _EntityType, _UpgradeCategory)
     if IsPlayer(_PlayerID) then
-        table.insert(self.Data[_PlayerID].RecruitCommands, {
-            _BuildingID,
-            _EntityType,
-            _UpgradeCategory
-        });
+        if Logic.EntityGetPlayer(_BuildingID) == _PlayerID then
+            table.insert(self.Data[_PlayerID].RecruitCommands, {
+                _BuildingID,
+                _EntityType,
+                _UpgradeCategory
+            });
+        end
     end
 end
 

@@ -245,12 +245,14 @@ end
 
 function Stronghold.Mercenary:RegisterRecruitCommand(_PlayerID, _Index, _Type, _Soldiers, _BuildingID)
     if IsPlayer(_PlayerID) then
-        table.insert(self.Data[_PlayerID].RecruitCommands, {
-            _Index,
-            _Type,
-            _Soldiers,
-            _BuildingID,
-        });
+        if Logic.EntityGetPlayer(_BuildingID) == _PlayerID then
+            table.insert(self.Data[_PlayerID].RecruitCommands, {
+                _Index,
+                _Type,
+                _Soldiers,
+                _BuildingID,
+            });
+        end
     end
 end
 

@@ -47,6 +47,9 @@ function Stronghold.Unit:CreateUnitButtonHandlers()
 end
 
 function Stronghold.Unit:FillHeroGuard(_PlayerID, _EntityID, _SoldierAmount)
+    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
+        return;
+    end
     local Type = Logic.GetEntityType(_EntityID);
     if _SoldierAmount > 0 and Type == Entities.CU_BlackKnight then
         local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, Type, _SoldierAmount);
@@ -146,6 +149,9 @@ end
 -- Buy soldiers
 
 function Stronghold.Unit:BuySoldierActionCallback(_PlayerID, _EntityID, _LeaderType, _SoldierAmount)
+    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
+        return;
+    end
     -- Abort if barracks is being upgraded
     if IsBuildingBeingUpgraded(Logic.LeaderGetNearbyBarracks(_EntityID)) then
         return;
@@ -172,6 +178,9 @@ function Stronghold.Unit:BuySoldierActionCallback(_PlayerID, _EntityID, _LeaderT
 end
 
 function Stronghold.Unit:BuyMultipleSoldierActionCallback(_PlayerID, ...)
+    if Logic.EntityGetPlayer(arg[1]) ~= _PlayerID then
+        return;
+    end
     local RefillData = {};
     -- Get all troops to refill
     local MilitaryLimit = GetMilitaryAttractionLimit(_PlayerID);

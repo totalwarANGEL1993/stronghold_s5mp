@@ -1180,6 +1180,10 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y, _Init
         if GUI.GetPlayerID() == _PlayerID then
             GUIUpdate_PlaceRallyPoint();
         end
+        -- Check player
+        if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
+            return;
+        end
         -- Create position entity
         local ScriptName = CreateNameForEntity(_EntityID);
         local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X, _Y, 0, _PlayerID);
@@ -1945,69 +1949,85 @@ function Stronghold.Building:OnWallOrPalisadeDestroyed(_EntityID)
 end
 
 function Stronghold.Building:OnGateOpenedCallback(_PlayerID, _EntityID, _Type)
-    if IsPlayer(_PlayerID) and IsExisting(_EntityID) then
-        if Stronghold.Building.Config.ClosedToOpenGate[_Type] then
-            local Health = GetHealth(_EntityID);
-            local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.ClosedToOpenGate[_Type]);
-            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-            SetHealth(ID, Health);
-            if _PlayerID == GUI.GetPlayerID() then
-                GUI.SelectEntity(ID);
-            end
+    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
+        return;
+    end
+    if not IsPlayer(_PlayerID) or not IsExisting(_EntityID) then
+        return;
+    end
+    if Stronghold.Building.Config.ClosedToOpenGate[_Type] then
+        local Health = GetHealth(_EntityID);
+        local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.ClosedToOpenGate[_Type]);
+        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
+        SetHealth(ID, Health);
+        if _PlayerID == GUI.GetPlayerID() then
+            GUI.SelectEntity(ID);
         end
     end
 end
 
 function Stronghold.Building:OnGateClosedCallback(_PlayerID, _EntityID, _Type)
-    if IsPlayer(_PlayerID) and IsExisting(_EntityID) then
-        if Stronghold.Building.Config.OpenToClosedGate[_Type] then
-            local Health = GetHealth(_EntityID);
-            local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.OpenToClosedGate[_Type]);
-            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-            SetHealth(ID, Health);
-            if _PlayerID == GUI.GetPlayerID() then
-                GUI.SelectEntity(ID);
-            end
+    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
+        return;
+    end
+    if not IsPlayer(_PlayerID) or not IsExisting(_EntityID) then
+        return;
+    end
+    if Stronghold.Building.Config.OpenToClosedGate[_Type] then
+        local Health = GetHealth(_EntityID);
+        local ID = ReplaceEntity(_EntityID, Stronghold.Building.Config.OpenToClosedGate[_Type]);
+        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
+        SetHealth(ID, Health);
+        if _PlayerID == GUI.GetPlayerID() then
+            GUI.SelectEntity(ID);
         end
     end
 end
 
 function Stronghold.Building:OnGateTurnedToWallCallback(_PlayerID, _EntityID, _Type)
-    if IsPlayer(_PlayerID) and IsExisting(_EntityID) then
-        if Stronghold.Building.Config.GateToWall[_Type] then
-            local Position = GetPosition(_EntityID);
-            local Orientation = Logic.GetEntityOrientation(_EntityID) - 45;
-            local EntityType = Stronghold.Building.Config.GateToWall[_Type];
-            local ScriptName = Logic.GetEntityName(_EntityID);
-            local Health = GetHealth(_EntityID);
-            DestroyEntity(_EntityID);
-            local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, _PlayerID);
-            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-            Logic.SetEntityName(ID, ScriptName);
-            SetHealth(ID, Health);
-            if _PlayerID == GUI.GetPlayerID() then
-                GUI.SelectEntity(ID);
-            end
+    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
+        return;
+    end
+    if not IsPlayer(_PlayerID) or not IsExisting(_EntityID) then
+        return;
+    end
+    if Stronghold.Building.Config.GateToWall[_Type] then
+        local Position = GetPosition(_EntityID);
+        local Orientation = Logic.GetEntityOrientation(_EntityID) - 45;
+        local EntityType = Stronghold.Building.Config.GateToWall[_Type];
+        local ScriptName = Logic.GetEntityName(_EntityID);
+        local Health = GetHealth(_EntityID);
+        DestroyEntity(_EntityID);
+        local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, _PlayerID);
+        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
+        Logic.SetEntityName(ID, ScriptName);
+        SetHealth(ID, Health);
+        if _PlayerID == GUI.GetPlayerID() then
+            GUI.SelectEntity(ID);
         end
     end
 end
 
 function Stronghold.Building:OnWallTurnedToGateCallback(_PlayerID, _EntityID, _Type)
-    if IsPlayer(_PlayerID) and IsExisting(_EntityID) then
-        if Stronghold.Building.Config.WallToGate[_Type] then
-            local Position = GetPosition(_EntityID);
-            local Orientation = Logic.GetEntityOrientation(_EntityID) + 45;
-            local EntityType = Stronghold.Building.Config.WallToGate[_Type];
-            local ScriptName = Logic.GetEntityName(_EntityID);
-            local Health = GetHealth(_EntityID);
-            DestroyEntity(_EntityID);
-            local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, _PlayerID);
-            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-            Logic.SetEntityName(ID, ScriptName);
-            SetHealth(ID, Health);
-            if _PlayerID == GUI.GetPlayerID() then
-                GUI.SelectEntity(ID);
-            end
+    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
+        return;
+    end
+    if not IsPlayer(_PlayerID) or not IsExisting(_EntityID) then
+        return;
+    end
+    if Stronghold.Building.Config.WallToGate[_Type] then
+        local Position = GetPosition(_EntityID);
+        local Orientation = Logic.GetEntityOrientation(_EntityID) + 45;
+        local EntityType = Stronghold.Building.Config.WallToGate[_Type];
+        local ScriptName = Logic.GetEntityName(_EntityID);
+        local Health = GetHealth(_EntityID);
+        DestroyEntity(_EntityID);
+        local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, _PlayerID);
+        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
+        Logic.SetEntityName(ID, ScriptName);
+        SetHealth(ID, Health);
+        if _PlayerID == GUI.GetPlayerID() then
+            GUI.SelectEntity(ID);
         end
     end
 end
