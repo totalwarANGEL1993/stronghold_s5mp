@@ -36,7 +36,7 @@
         <Category>Sword</Category>
         <Category>Melee</Category>
         <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
@@ -110,9 +110,9 @@
             <BattleWalkAnim>CU_BlackKnight_SoldierMace1_Run1</BattleWalkAnim>
             <HitAnim>CU_BlackKnight_SoldierMace1_Hit</HitAnim>
 
-            <DamageClass>DC_Blunt</DamageClass>
+            <DamageClass>DC_Mace</DamageClass>
             <DamageAmount>12</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 

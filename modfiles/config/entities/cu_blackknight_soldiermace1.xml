@@ -24,7 +24,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>225</MaxHealth>
+        <MaxHealth>325</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -36,7 +36,7 @@
         <Category>Sword</Category>
         <Category>Melee</Category>
         <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>9</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
@@ -110,9 +110,9 @@
             <BattleWalkAnim>CU_BlackKnight_SoldierMace1_Run1</BattleWalkAnim>
             <HitAnim>CU_BlackKnight_SoldierMace1_Hit</HitAnim>
 
-            <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>24</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageClass>DC_Mace</DamageClass>
+            <DamageAmount>40</DamageAmount>
+            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

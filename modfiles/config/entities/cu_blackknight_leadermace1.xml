@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>275</MaxHealth>
+        <MaxHealth>375</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -35,7 +35,7 @@
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>9</ArmorAmount>
         <DodgeChance>8</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -113,9 +113,9 @@
             <BattleWalkAnim>CU_BlackKnight_LeaderMace1_Run1</BattleWalkAnim>
             <HitAnim>CU_BlackKnight_LeaderMace1_Hit</HitAnim>
 
-            <DamageClass>DC_Blunt</DamageClass>
-            <DamageAmount>24</DamageAmount>
-            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
+            <DamageClass>DC_Mace</DamageClass>
+            <DamageAmount>40</DamageAmount>
+            <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
@@ -133,7 +133,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>6</Limit>
+                <Limit>3</Limit>
             </Attachment>
         </Logic>
     </Behavior>
