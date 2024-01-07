@@ -445,8 +445,15 @@ function Stronghold.Rights:GetSoldierAmountInSettlement(_PlayerID)
     local MaxPlayers = GetMaxAmountOfPlayer();
     assert(_PlayerID and _PlayerID >= 1 and _PlayerID <= MaxPlayers);
     local Amount = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
-    -- Hawks must be explicitly excluded
+    -- Deco entities must be explicitly excluded
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Bear_Deco);
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Criminal_Deco);
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Dog_Deco);
     Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Hawk_Deco);
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Watchman_Deco);
+    -- Cage animals must be explicitly excluded
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Bear_Cage);
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Dog_Cage);
     return math.max(Amount, 0);
 end
 

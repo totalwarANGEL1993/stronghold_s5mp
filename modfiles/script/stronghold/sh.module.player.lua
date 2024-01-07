@@ -890,8 +890,17 @@ function Stronghold.Player:PlayerDefeatCondition(_PlayerID)
         end
     elseif self.Config.DefeatModes.LastManStanding then
         local SoldierAmount = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
-        -- Hawks must be explicitly excluded
+
+        -- Deco entities must be explicitly excluded
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Bear_Deco);
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Criminal_Deco);
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Dog_Deco);
         SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Hawk_Deco);
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Watchman_Deco);
+        -- Cage animals must be explicitly excluded
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Bear_Cage);
+        SoldierAmount = SoldierAmount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Dog_Cage);
+
         if  SoldierAmount == 0
         and not IsEntityValid(HeroName)
         and not IsExisting("HQ" .._PlayerID) then

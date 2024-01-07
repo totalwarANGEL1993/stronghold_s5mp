@@ -16,7 +16,7 @@ function GetEntityBehavior(_EntityID, _Behavior)
         local entityadress = CUtilMemory.GetMemory(CUtilMemory.GetEntityAddress(_EntityID));
         local startadress = entityadress[31];
         local endadress = entityadress[32];
-        local lastindex = (endadress:GetInt() - startadress:GetInt()) / 4 - 1
+        local lastindex = (endadress:GetInt() - startadress:GetInt()) / 4 - 1;
         for i = 0, lastindex do
             local behavioraddress = startadress[i];
             if behavioraddress:GetInt() ~= 0 and behavioraddress[0]:GetInt() == _Behavior then

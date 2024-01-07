@@ -197,7 +197,7 @@ function Stronghold.Recruit:GetLeaderTrainingAtBuilding(_EntityID)
         end
         return LeaderIDs;
     end
-    return 0;
+    return {0};
 end
 
 function Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)

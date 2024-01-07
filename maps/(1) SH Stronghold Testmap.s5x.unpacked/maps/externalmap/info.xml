@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
- <NameKey></NameKey>
- <DescKey></DescKey>
+ <NameKey>MapDescription/Peaceful_Land_name</NameKey>
+ <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
  <Name>(1) @color:200,70,40 SH @color:255,255,255 Stronghold Testmap</Name>
  <Desc>A simple testmap for the stronghold mod.</Desc>
  <SizeX>321</SizeX>
@@ -12,6 +12,6 @@
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>b53ab26b-dfbf-4b20-bc56-3f52d4d22d68</Data>
+  <Data>69f4a93b-d887-4883-9093-eac0a5eabe8b</Data>
  </GUID>
 </root>

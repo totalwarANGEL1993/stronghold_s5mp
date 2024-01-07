@@ -36,9 +36,6 @@
             <Gold>0</Gold>
         </Cost>
         <AttractionSlots>0</AttractionSlots>
-        <Category>Thief</Category>
-        <Category>Melee</Category>
-        <Category>Wall</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>18</Exploration>
         <ArmorClass>ArmorClassHero</ArmorClass>
@@ -47,6 +44,8 @@
         <IdleTaskList>TL_THIEF_IDLE</IdleTaskList>
         <ExperiencePoints>40</ExperiencePoints>
         <Fearless>true</Fearless>
+        <!-- This is used to prevent units to automatically attack. -->
+        <Category>Wall</Category>
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
@@ -65,7 +64,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>400</Speed>
+            <Speed>350</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_THIEF_WALK</MoveTaskList>
             <MoveIdleAnim>PU_Thief_Idle1</MoveIdleAnim>
@@ -107,7 +106,7 @@
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>0</AutoAttackRange>
 
-            <HealingPoints>15</HealingPoints>
+            <HealingPoints>5</HealingPoints>
             <HealingSeconds>2</HealingSeconds>
         </Logic>
     </Behavior>

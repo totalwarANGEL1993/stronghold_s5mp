@@ -9,6 +9,12 @@
     </ResourceCosts>
     <AutomaticResearch>true</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
+    <SpeedModifier>
+        <Value>1.2</Value>
+        <Operation>*</Operation>
+    </SpeedModifier>
+
     <Conditions>
         <RequiredTecConditions>1</RequiredTecConditions>
         <TecCondition>

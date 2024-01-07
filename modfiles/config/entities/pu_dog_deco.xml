@@ -16,14 +16,6 @@
         <MaxHealth>200</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <Hat/>
-        <Cost>
-            <Gold>0</Gold>
-        </Cost>
-        <Category>Military</Category>
-        <Category>Soldier</Category>
-        <Category>CavalryLight</Category>
-        <Category>Melee</Category>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
@@ -32,18 +24,12 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>25</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-        <Upgrade>
-            <Category>CarnovireSoldierWolf</Category>
-        </Upgrade>
-
-
-        <ModifyArmor>
-            <Technology>T_DogTraining</Technology>
-        </ModifyArmor>
-
-        <ModifyDamage>
-            <Technology>T_DogTraining</Technology>
-        </ModifyDamage>
+        <Hat/>
+        <Cost>
+            <Gold>0</Gold>
+        </Cost>
+        <!-- This is used to prevent units to automatically attack. -->
+        <Category>Wall</Category>
     </Logic>
 
     <Behavior>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>GD::CDisplaySettler</Class>
+        <Model>PU_SoldierPoleArm1</Model>
+        <DrawPlayerColor>True</DrawPlayerColor>
+        <Anim>PU_SoldierPoleArm1_Walk</Anim>
+        <Anim>PU_SoldierPoleArm1_Run1</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle1</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle2</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle3</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle4</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle5</Anim>
+        <Anim>PU_SoldierPoleArm1_Idle6</Anim>
+        <Anim>PU_SoldierPoleArm1_Attack1</Anim>
+        <Anim>PU_SoldierPoleArm1_Attack2</Anim>
+        <Anim>PU_SoldierPoleArm1_IdleAttack1</Anim>
+        <Anim>PU_SoldierPoleArm1_Finish</Anim>
+        <Anim>PU_SoldierPoleArm1_Dying1</Anim>
+        <Anim>PU_SoldierPoleArm1_Hit</Anim>
+    </Display>
+
+    <Logic classname="GGL::CGLSettlerProps">
+        <Class>GGL::CSettler</Class>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
+        <MaxHealth>200</MaxHealth>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <AttractionSlots>0</AttractionSlots>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <Exploration>5</Exploration>
+        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>5</DodgeChance>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <ExperiencePoints>10</ExperiencePoints>
+        <Hat></Hat>
+        <Cost>
+            <Gold>0</Gold>
+        </Cost>
+        <!-- This is used to prevent units to automatically attack. -->
+        <Category>Wall</Category>
+
+
+        <ModifySpeed>
+            <Technology>T_ReportingOffice</Technology>
+        </ModifySpeed>
+    </Logic>
+
+    <Behavior>
+        <Logic classname="GGL::CGLAnimationBehaviorExProps">
+            <Class>GGL::CGLBehaviorAnimationEx</Class>
+            <SuspensionAnimation>PU_SoldierPoleArm1_Idle1</SuspensionAnimation>
+            <AnimSet>SET_SOLDIERPOLEARM1</AnimSet>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorAnimation</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CMovementBehaviorProps">
+            <Class>GGL::CSettlerMovement</Class>
+            <Speed>380</Speed>
+            <RotationSpeed>30</RotationSpeed>
+            <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorMovement</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBehaviorWalkCommand</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CBattleSerfBehaviorProps">
+            <Class>GGL::CBattleSerfBehavior</Class>
+            <HomeRadius>0</HomeRadius>
+            <BattleTaskList>TL_BATTLE</BattleTaskList>
+
+            <NormalAttackAnim1>PU_SoldierPoleArm1_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_SoldierPoleArm1_Attack2</NormalAttackAnim2>
+            <CounterAttackAnim>PU_SoldierPoleArm1_Finish</CounterAttackAnim>
+            <FinishingMoveAnim>PU_SoldierPoleArm1_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_SoldierPoleArm1_Attack1</MissAttackAnim>
+            <BattleIdleAnim>PU_SoldierPoleArm1_Idle1</BattleIdleAnim>
+            <BattleWalkAnim>PU_SoldierPoleArm1_Run1</BattleWalkAnim>
+            <HitAnim>PU_SoldierPoleArm1_Hit</HitAnim>
+
+            <DamageClass>DC_Slash</DamageClass>
+            <DamageAmount>8</DamageAmount>
+            <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
+
+            <BattleWaitUntil>3000</BattleWaitUntil>
+
+            <MaxRange>150</MaxRange>
+            <MinRange>0.0f</MinRange>
+
+            <AutoAttackRange>0</AutoAttackRange>
+
+            <HealingPoints>1</HealingPoints>
+            <HealingSeconds>3</HealingSeconds>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CWorkerEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>300</BasePriority>
+        </Logic>
+    </Behavior>
+</root>

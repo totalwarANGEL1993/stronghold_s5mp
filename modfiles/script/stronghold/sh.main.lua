@@ -749,6 +749,7 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_EntityID, _PlayerID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_EntityID);
+        Stronghold.Attraction:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
     end);
@@ -757,6 +758,7 @@ function Stronghold:OverwriteCommonCallbacks()
         Overwrite.CallOriginal();
         local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
         Stronghold:OnSelectionMenuChanged(_EntityIDNew);
+        Stronghold.Attraction:OnUpgradeComplete(_EntityIDOld, _EntityIDNew);
         Stronghold.Building:SetIgnoreRallyPointSelectionCancel(PlayerID);
         Stronghold.Building:DestroyTurretsOfBuilding(_EntityIDOld);
         Stronghold.Building:CreateTurretsForBuilding(_EntityIDNew);

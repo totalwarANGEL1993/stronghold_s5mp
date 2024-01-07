@@ -16,34 +16,23 @@ Stronghold.Attraction.Config.Attraction = {
     RankSlaveBonus = 6,
 }
 
-Stronghold.Attraction.Config.Rats = {
-    BaseDirtRate = 0.015,
-    UpgradeDirtRade = 0.005,
-    DisposalRate = 0.05,
-    HawkArea = 5000,
-}
-
-Stronghold.Attraction.Config.Crime = {
-    Obfuscation = {
-        Points = 120,
-        SerfArea = 3000,
-        TowerArea = 5000,
-        HeroArea = 500,
-        SerfRate = 3.0,
-        TowerRate = 5.0,
-        HeroRate = 60.0,
-        TownGuardFactor = 1.5,
+Stronghold.Attraction.Config.CivilDuties = {
+    Rats = {
+        BaseDirtRate = 0.015,
+        UpgradeDirtRade = 0.005,
+        DisposalRate = 0.05,
+        HawkArea = 5000,
     },
-    Effects = {
+    Crime = {
+        TowerVisionArea = 5000,
+        HeroVisionArea = 300,
+        WorkerRate = 0.18,
+        CrimeRate = 1.5,
+        ExecutionerRate = 0.6,
+        MaxPerCycle = 5,
+        TimeBetween = 15,
         TheftAmount = {Min = 25, Max = 75},
         ReputationDamage = 4,
-    },
-    Convert = {
-        Chance = 6,
-        Rate = 1.5,
-        Executioner = 0.60,
-        MaxPerCycle = 5,
-        TimeBetween = 10,
     },
 }
 
