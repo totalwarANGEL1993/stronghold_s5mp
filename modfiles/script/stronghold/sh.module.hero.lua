@@ -935,9 +935,9 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicReputationIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicReputationIncrease", function(_PlayerID, _Type, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _Type, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -953,9 +953,9 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicHonorIncrease", function(_PlayerID, _BuildingID, _WorkerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicHonorIncrease", function(_PlayerID, _Type, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Type, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1255,11 +1255,10 @@ function Stronghold.Hero:ApplyReputationDecreasePassiveAbility(_PlayerID, _Decre
 end
 
 -- Passive Ability: Improve dynamic reputation generation
-function Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, _Amount)
+function Stronghold.Hero:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _Type, _Amount)
     local Value = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
-        local Type = Logic.GetEntityType(_BuildingID);
-        if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
+        if _Type == Entities.PB_Tavern1 or _Type == Entities.PB_Tavern2 then
             Value = Value * self.Config.Hero9.TavernEfficiency;
         end
     end
@@ -1274,11 +1273,10 @@ function Stronghold.Hero:ApplyHonorBonusPassiveAbility(_PlayerID, _Income)
 end
 
 -- Passive Ability: Improve dynamic honor generation
-function Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _BuildingID, _WorkerID, _Amount)
+function Stronghold.Hero:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Type, _Amount)
     local Value = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
-        local Type = Logic.GetEntityType(_BuildingID);
-        if Type == Entities.PB_Tavern1 or Type == Entities.PB_Tavern2 then
+        if _Type == Entities.PB_Tavern1 or _Type == Entities.PB_Tavern2 then
             Value = Value * self.Config.Hero9.TavernEfficiency;
         end
     end

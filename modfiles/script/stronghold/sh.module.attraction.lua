@@ -383,7 +383,7 @@ function Stronghold.Attraction:ManageWatchtowersOfPlayer(_PlayerID)
             end
             -- Move watchman to tower
             if Data[5] == 0 then
-                if GetDistance(Data[2], Data[3]) > 300 then
+                if GetDistance(Data[2], Data[3]) > 400 then
                     if Logic.IsEntityMoving(Data[2]) == false then
                         Logic.MoveSettler(Data[2], Data[3].X, Data[3].Y);
                     end

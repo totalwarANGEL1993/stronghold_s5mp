@@ -125,11 +125,10 @@ end
 
 --- Calculates how much reputation is gained by dynamic causes at the payday.
 --- @param _PlayerID integer ID of player
---- @param _BuildingID integer ID of building
---- @param _WorkerID integer ID of worker
+--- @param _Type integer Type of building
 --- @param _Amount integer Amount of reputation
 --- @return integer Reputation Amount of reputation
-function GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
+function GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _Type, _Amount)
     return _Amount;
 end
 
@@ -159,11 +158,10 @@ end
 
 --- Calculates how much honor is gained by dynamic causes at the payday.
 --- @param _PlayerID integer ID of player
---- @param _BuildingID integer ID of building
---- @param _WorkerID integer ID of worker
+--- @param _Type integer Type of building
 --- @param _Amount integer Amount of honor
 --- @return integer Honor Amount of honor
-function GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, _Amount)
+function GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _Type, _Amount)
     return _Amount;
 end
 
@@ -435,8 +433,8 @@ end
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Income = 0;
-        local WorkerList = GetWorkersOfType(_PlayerID, 0);
-        if WorkerList[1] > 0 then
+        local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
+        if WorkerCount > 0 then
             -- Tax height
             local TaxtHeight = GetTaxHeight(_PlayerID);
             self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;
@@ -447,38 +445,34 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
                 Income = Income + TaxBonus;
             end
 
-            -- Care for the settlers
+            -- Feeding settlers
             local Providing = 0;
-            local Housing = 0;
-            for i= 2, WorkerList[1] +1 do
-                local FarmID = Logic.GetSettlersFarm(WorkerList[i]);
-                if FarmID ~= 0 then
-                    local Bonus = self:CalculateReputationIncreaseTechnologyBonus(_PlayerID, FarmID, WorkerList[i]);
-                    Providing = Providing + Bonus;
-                    Income = Income + Bonus;
-                end
-                local ResidenceID = Logic.GetSettlersResidence(WorkerList[i]);
-                if ResidenceID ~= 0 then
-                    local Bonus = self:CalculateReputationIncreaseTechnologyBonus(_PlayerID, ResidenceID, WorkerList[i]);
-                    Housing = Housing + Bonus;
-                    Income = Income + Bonus;
-                end
+            local FarmList = Stronghold:GetFarmsOfType(_PlayerID, 0, true)
+            for i= FarmList[1] +1, 2, -1 do
+                local Type = Logic.GetEntityType(FarmList[i]);
+                local Bonus = self:CalculateReputationIncomeTechnologyBonus(_PlayerID, Type);
+                local Eaters = Logic.GetAttachedEaterToBuilding(FarmList[i]);
+                Providing = Providing + (Bonus * Eaters);
+                Income = Income + Bonus;
             end
             self.Data[_PlayerID].ReputationDetails.Providing = Providing;
+
+            -- Housing settlers
+            local Housing = 0;
+            local HouseList = Stronghold:GetHousesOfType(_PlayerID, 0, true);
+            for i= HouseList[1] +1, 2, -1 do
+                local Type = Logic.GetEntityType(HouseList[i]);
+                local Bonus = self:CalculateReputationIncomeTechnologyBonus(_PlayerID, Type);
+                local Sleepers = Logic.GetAttachedResidentsToBuilding(HouseList[i]);
+                Housing = Housing + (Bonus * Sleepers);
+                Income = Income + Bonus;
+            end
             self.Data[_PlayerID].ReputationDetails.Housing = Housing;
 
             -- Building bonuses
             local Beauty = 0;
             for k, v in pairs(self.Config.Income.Static) do
                 local Buildings = GetBuildingsOfType(_PlayerID, k, true);
-                for i= Buildings[1] +1, 2, -1 do
-                    if Logic.GetBuildingWorkPlaceLimit(Buildings[i]) > 0 then
-                        if Logic.GetBuildingWorkPlaceUsage(Buildings[i]) == 0 then
-                            table.remove(Buildings, i);
-                            Buildings[1] = Buildings[1] - 1;
-                        end
-                    end
-                end
                 local BuildingIncome = (Buildings[1] * v.Reputation);
                 BuildingIncome = GameCallback_SH_Calculate_StaticReputationIncrease(_PlayerID, k, BuildingIncome);
                 Income = Income + BuildingIncome;
@@ -504,23 +498,22 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     end
 end
 
-function Stronghold.Economy:CalculateReputationIncreaseTechnologyBonus(_PlayerID, _BuildingID, _WorkerID)
+function Stronghold.Economy:CalculateReputationIncomeTechnologyBonus(_PlayerID, _Type)
     local Bonus = 0;
-    local Type = Logic.GetEntityType(_BuildingID);
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if self.Config.Income.Dynamic[Type] then
-            Bonus = self.Config.Income.Dynamic[Type].Reputation;
+        if self.Config.Income.Dynamic[_Type] then
+            Bonus = self.Config.Income.Dynamic[_Type].Reputation;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_Hearthfire) == 1 then
-                if self.Config.Income.TechnologyEffect[Technologies.T_Hearthfire][Type] then
-                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_Hearthfire][Type].Reputation;
+                if self.Config.Income.TechnologyEffect[Technologies.T_Hearthfire][_Type] then
+                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_Hearthfire][_Type].Reputation;
                 end
             end
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_RoomKeys) == 1 then
-                if self.Config.Income.TechnologyEffect[Technologies.T_RoomKeys][Type] then
-                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_RoomKeys][Type].Reputation;
+                if self.Config.Income.TechnologyEffect[Technologies.T_RoomKeys][_Type] then
+                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_RoomKeys][_Type].Reputation;
                 end
             end
-            Bonus = GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _BuildingID, _WorkerID, Bonus);
+            Bonus = GameCallback_SH_Calculate_DynamicReputationIncrease(_PlayerID, _Type, Bonus);
         end
     end
     return Bonus;
@@ -602,46 +595,43 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Income = 0;
         if GetNobleID(_PlayerID) ~= 0 then
+            local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
             local WorkerList = GetWorkersOfType(_PlayerID, 0);
-            if WorkerList[1] > 0 then
+            if WorkerCount > 0 then
                 -- Tax height
                 local TaxHight = GetTaxHeight(_PlayerID);
                 local TaxBonus = self.Config.Income.TaxEffect[TaxHight].Honor;
                 self.Data[_PlayerID].HonorDetails.TaxBonus = TaxBonus;
                 Income = Income + TaxBonus;
 
-                -- Care for the settlers
-                local Housing = 0;
+                -- Feeding settlers
                 local Providing = 0;
-                for i= 2, WorkerList[1] +1 do
-                    local FarmID = Logic.GetSettlersFarm(WorkerList[i]);
-                    if FarmID ~= 0 then
-                        local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, FarmID, WorkerList[i]);
-                        Providing = Providing + Bonus;
-                        Income = Income + Bonus;
-                    end
-                    local ResidenceID = Logic.GetSettlersResidence(WorkerList[i]);
-                    if ResidenceID ~= 0 then
-                        local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, ResidenceID, WorkerList[i]);
-                        Housing = Housing + Bonus;
-                        Income = Income + Bonus;
-                    end
+                local FarmList = Stronghold:GetFarmsOfType(_PlayerID, 0, true);
+                for i= FarmList[1] +1, 2, -1 do
+                    local Type = Logic.GetEntityType(FarmList[i]);
+                    local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, Type);
+                    local Eaters = Logic.GetAttachedEaterToBuilding(FarmList[i]);
+                    Providing = Providing + (Bonus * Eaters);
+                    Income = Income + Bonus;
                 end
                 self.Data[_PlayerID].HonorDetails.Providing = Providing;
+
+                -- Housing settlers
+                local Housing = 0;
+                local HouseList = Stronghold:GetHousesOfType(_PlayerID, 0, true);
+                for i= HouseList[1] +1, 2, -1 do
+                    local Type = Logic.GetEntityType(HouseList[i]);
+                    local Bonus = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, Type);
+                    local Sleepers = Logic.GetAttachedResidentsToBuilding(HouseList[i]);
+                    Housing = Housing + (Bonus * Sleepers);
+                    Income = Income + Bonus;
+                end
                 self.Data[_PlayerID].HonorDetails.Housing = Housing;
 
                 -- Buildings bonuses
                 local Beauty = 0;
                 for k, v in pairs(self.Config.Income.Static) do
                     local Buildings = GetBuildingsOfType(_PlayerID, k, true);
-                    for i= Buildings[1] +1, 2, -1 do
-                        local WorkplaceLimit = Logic.GetBuildingWorkPlaceLimit(Buildings[i]);
-                        if WorkplaceLimit then
-                            if Logic.GetBuildingWorkPlaceUsage(Buildings[i]) < WorkplaceLimit then
-                                table.remove(Buildings, i);
-                            end
-                        end
-                    end
                     local BuildingBonus = (Buildings[1] * v.Honor);
                     BuildingBonus = GameCallback_SH_Calculate_StaticHonorIncrease(_PlayerID, k, BuildingBonus);
                     Beauty = Beauty + BuildingBonus
@@ -659,34 +649,34 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 self.Data[_PlayerID].HonorDetails.TaxBonus = 0;
                 self.Data[_PlayerID].HonorDetails.Housing = 0;
                 self.Data[_PlayerID].HonorDetails.Providing = 0;
+                self.Data[_PlayerID].HonorDetails.Criminals = 0;
                 self.Data[_PlayerID].HonorDetails.OtherBonus = 0;
             end
         end
     end
 end
 
-function Stronghold.Economy:CalculateHonorIncomeTechnologyBonus(_PlayerID, _BuildingID, _WorkerID)
+function Stronghold.Economy:CalculateHonorIncomeTechnologyBonus(_PlayerID, _Type)
     local Bonus = 0;
-    local Type = Logic.GetEntityType(_BuildingID);
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if self.Config.Income.Dynamic[Type] then
-            Bonus = self.Config.Income.Dynamic[Type].Honor;
+        if self.Config.Income.Dynamic[_Type] then
+            Bonus = self.Config.Income.Dynamic[_Type].Honor;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_CropCycle) == 1 then
-                if self.Config.Income.TechnologyEffect[Technologies.T_CropCycle][Type] then
-                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_CropCycle][Type].Honor;
+                if self.Config.Income.TechnologyEffect[Technologies.T_CropCycle][_Type] then
+                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_CropCycle][_Type].Honor;
                 end
             end
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_Spice) == 1 then
-                if self.Config.Income.TechnologyEffect[Technologies.T_Spice][Type] then
-                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_Spice][Type].Honor;
+                if self.Config.Income.TechnologyEffect[Technologies.T_Spice][_Type] then
+                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_Spice][_Type].Honor;
                 end
             end
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_Instruments) == 1 then
-                if self.Config.Income.TechnologyEffect[Technologies.T_Instruments][Type] then
-                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_Instruments][Type].Honor;
+                if self.Config.Income.TechnologyEffect[Technologies.T_Instruments][_Type] then
+                    Bonus = Bonus + self.Config.Income.TechnologyEffect[Technologies.T_Instruments][_Type].Honor;
                 end
             end
-            Bonus = GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _BuildingID, _WorkerID, Bonus);
+            Bonus = GameCallback_SH_Calculate_DynamicHonorIncrease(_PlayerID, _Type, Bonus);
         end
     end
     return Bonus;

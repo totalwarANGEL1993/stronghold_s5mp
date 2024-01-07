@@ -498,7 +498,9 @@ function Stronghold:InitPlayerEntityRecord()
             --
             All = {},
             Building = {},
+            Farm = {},
             Fortification = {},
+            House = {},
             Workplace = {},
             Settler = {},
             Leader = {},
@@ -533,6 +535,12 @@ function Stronghold:AddEntityToPlayerRecordOnCreate(_EntityID)
                 if Logic.GetBuildingWorkPlaceLimit(_EntityID) > 0 then
                     self.Record[PlayerID].Workplace[_EntityID] = true;
                 end
+                if Logic.IsEntityInCategory(_EntityID, EntityCategories.Farm) == 1 then
+                    self.Record[PlayerID].Farm[_EntityID] = true;
+                end
+                if Logic.IsEntityInCategory(_EntityID, EntityCategories.Residence) == 1 then
+                    self.Record[PlayerID].House[_EntityID] = true;
+                end
             end
             -- Insert to settlers
             if Logic.IsSettler(_EntityID) == 1 then
@@ -557,7 +565,9 @@ function Stronghold:RemoveEntityFromPlayerRecordOnDestroy(_EntityID)
     if self.Record[PlayerID] then
         self.Record[PlayerID].All[_EntityID] = nil;
         self.Record[PlayerID].Building[_EntityID] = nil;
+        self.Record[PlayerID].Farm[_EntityID] = nil;
         self.Record[PlayerID].Fortification[_EntityID] = nil;
+        self.Record[PlayerID].House[_EntityID] = nil;
         self.Record[PlayerID].Workplace[_EntityID] = nil;
         self.Record[PlayerID].Settler[_EntityID] = nil;
         self.Record[PlayerID].Leader[_EntityID] = nil;
@@ -571,7 +581,7 @@ function Stronghold:GetEntitiesOfType(_PlayerID, _Type, _IsConstructed, _Group)
     local List = {0};
     if IsPlayer(_PlayerID) then
         -- Use cache if valid
-        local Key = _Group.. "_" .._Type.. "_" .._Group.. "_" ..tostring(_IsConstructed);
+        local Key = _Group.. "_" .._Type.. "_" ..tostring(_IsConstructed);
         if self.Record[_PlayerID].Cache[Key] then
             return self.Record[_PlayerID].Cache[Key];
         end
@@ -613,7 +623,7 @@ function Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed, _Group)
     local List = {0};
     if IsPlayer(_PlayerID) then
         -- Use cache if valid
-        local Key = _Group.. "_" .._Type.. "_" .._Group.. "_" ..tostring(_IsConstructed);
+        local Key = _Group.. "_" .._Type.. "_" ..tostring(_IsConstructed);
         if self.Record[_PlayerID].Cache[Key] then
             return self.Record[_PlayerID].Cache[Key];
         end
@@ -650,12 +660,64 @@ function Stronghold:GetWorkplacesOfType(_PlayerID, _Type, _IsConstructed)
     return self:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Workplace");
 end
 
+function Stronghold:GetFarmsOfType(_PlayerID, _Type, _IsConstructed)
+    if _Type == 0 then
+        local Key = "Farm_0_nil";
+        if self.Record[_PlayerID].Cache[Key] then
+            return self.Record[_PlayerID].Cache[Key];
+        end
+        local FarmList = {};
+        local Farm1 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Farm1, _IsConstructed == true, "Farm");
+        table.remove(Farm1, 1);
+        FarmList = CopyTable(Farm1, FarmList);
+        local Farm2 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Farm2, _IsConstructed == true, "Farm");
+        table.remove(Farm2, 1);
+        FarmList = CopyTable(Farm2, FarmList);
+        local Farm3 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Farm3, _IsConstructed == true, "Farm");
+        table.remove(Farm3, 1);
+        FarmList = CopyTable(Farm3, FarmList);
+        local Tavern1 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Tavern1, _IsConstructed == true, "Farm");
+        table.remove(Tavern1, 1);
+        FarmList = CopyTable(Tavern1, FarmList);
+        local Tavern2 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Tavern2, _IsConstructed == true, "Farm");
+        table.remove(Tavern2, 1);
+        FarmList = CopyTable(Tavern2, FarmList);
+        table.insert(FarmList, 1, table.getn(FarmList));
+        self.Record[_PlayerID].Cache[Key] = FarmList;
+        return FarmList;
+    end
+    return self:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Farm");
+end
+
+function Stronghold:GetHousesOfType(_PlayerID, _Type, _IsConstructed)
+    if _Type == 0 then
+        local Key = "House_0_nil";
+        if self.Record[_PlayerID].Cache[Key] then
+            return self.Record[_PlayerID].Cache[Key];
+        end
+        local HouseList = {};
+        local House1 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Residence1, _IsConstructed == true, "House");
+        table.remove(House1, 1);
+        HouseList = CopyTable(House1, HouseList);
+        local House2 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Residence2, _IsConstructed == true, "House");
+        table.remove(House2, 1);
+        HouseList = CopyTable(House2, HouseList);
+        local House3 = self:GetBuildingsOfType(_PlayerID, Entities.PB_Residence3, _IsConstructed == true, "House");
+        table.remove(House3, 1);
+        HouseList = CopyTable(House3, HouseList);
+        table.insert(HouseList, 1, table.getn(HouseList));
+        self.Record[_PlayerID].Cache[Key] = HouseList;
+        return HouseList;
+    end
+    return self:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "House");
+end
+
 function Stronghold:GetSettlersOfType(_PlayerID, _Type, _Group)
     _Group = _Group or "Settler";
     local List = {0};
     if IsPlayer(_PlayerID) then
         -- Use cache if valid
-        local Key = _Group.. "_" .._Type.. "_" .._Group.. "_nil";
+        local Key = _Group.. "_" .._Type.. "_nil";
         if self.Record[_PlayerID].Cache[Key] then
             return self.Record[_PlayerID].Cache[Key];
         end
