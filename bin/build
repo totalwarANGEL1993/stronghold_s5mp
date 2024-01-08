@@ -92,6 +92,10 @@ bin/bba5.exe "maps/(1) SH Stronghold Testmap.s5x.unpacked"
 cp "maps/(1) SH Stronghold Testmap.s5x" release
 cp "maps/(1) SH Stronghold Testmap.lua" release/shs5mp_configs
 
+bin/bba5.exe "maps/(1) SH Stronghold Stresstest.s5x.unpacked"
+cp "maps/(1) SH Stronghold Stresstest.s5x" release
+cp "maps/(1) SH Stronghold Stresstest.lua" release/shs5mp_configs
+
 bin/bba5.exe "maps/(2) SH Schiffbruch.s5x.unpacked"
 cp "maps/(2) SH Schiffbruch.s5x" release
 cp "maps/(2) SH Schiffbruch.lua" release/shs5mp_configs
