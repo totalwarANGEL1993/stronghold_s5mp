@@ -7,15 +7,13 @@ echo "Compile archive..."
 # pre build cleanup
 rm -rf var
 
-# fill dev archive
-mkdir -p var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/graphics var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/config var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/script var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/text var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/menu var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/sounds var/stronghold_s5mp/archive.bba.unpacked
-cp -r modfiles/mapeditor var/stronghold_s5mp/archive.bba.unpacked
+# fill editor archives
+mkdir -p var/stronghold_s5mp/editor.bba.unpacked
+cp -r modfiles/graphics var/stronghold_s5mp/editor.bba.unpacked
+rm -rf var/stronghold_s5mp/editor.bba.unpacked/graphics/textureslow
+rm -rf var/stronghold_s5mp/editor.bba.unpacked/graphics/texturesmed
+cp -r modfiles/config var/stronghold_s5mp/editor.bba.unpacked
+cp -r modfiles/mapeditor var/stronghold_s5mp/editor.bba.unpacked
 
 # fill archives
 mkdir -p var/stronghold_s5mp/textureslow.bba.unpacked/graphics
@@ -60,7 +58,7 @@ cp -r "E:/Repositories/cerberus/var/cerberus" .
 cp -r cerberus var/stronghold_s5mp/system.bba.unpacked/script
 
 # pack archive
-bin/bba5.exe var/stronghold_s5mp/archive.bba.unpacked
+bin/bba5.exe var/stronghold_s5mp/editor.bba.unpacked
 bin/bba5.exe var/stronghold_s5mp/textureslow.bba.unpacked
 bin/bba5.exe var/stronghold_s5mp/texturesmed.bba.unpacked
 bin/bba5.exe var/stronghold_s5mp/textures.bba.unpacked
@@ -131,7 +129,6 @@ echo "Clean up..."
 # post build cleanup
 rm -rf var/stronghold_s5mp/*.bba.unpacked
 rm -rf release/stronghold_s5mp/*.bba.unpacked
-rm -rf release/stronghold_s5mp/archive.bba
 
 echo "Done!"
 
