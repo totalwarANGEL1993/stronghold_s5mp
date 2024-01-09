@@ -75,7 +75,10 @@ rm -rf release/shs5mp_configs
 rm -rf release/*.s5x
 mkdir -p release/stronghold_s5mp
 mkdir -p release/shs5mp_configs
+mkdir -p release/stronghold_s5mp/mapping
 cp -r var/stronghold_s5mp/* release/stronghold_s5mp
+mv var/stronghold_s5mp/editor.bba release/stronghold_s5mp/mapping
+cp modloader/callbacks.lua release/stronghold_s5mp/mapping
 
 # copy maps
 bin/bba5.exe "maps/StrongholdTutorial.s5x.unpacked"
@@ -129,6 +132,7 @@ echo "Clean up..."
 # post build cleanup
 rm -rf var/stronghold_s5mp/*.bba.unpacked
 rm -rf release/stronghold_s5mp/*.bba.unpacked
+rm release/stronghold_s5mp/editor.bba
 
 echo "Done!"
 
