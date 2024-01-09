@@ -24,7 +24,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>50</MaxHealth>
+        <MaxHealth>75</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Fearless>true</Fearless>
@@ -39,8 +39,8 @@
         <Category>Melee</Category>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
-        <DodgeChance>12</DodgeChance>
+        <ArmorAmount>6</ArmorAmount>
+        <DodgeChance>20</DodgeChance>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>15</ExperiencePoints>
@@ -113,7 +113,7 @@
             <HitAnim>CU_Evil_LeaderBearman1_Hit</HitAnim>
 
             <DamageClass>DC_Evil</DamageClass>
-            <DamageAmount>12</DamageAmount>
+            <DamageAmount>16</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>

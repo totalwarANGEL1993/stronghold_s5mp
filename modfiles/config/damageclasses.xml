@@ -32,7 +32,7 @@
             <ArmorClassIronFactor>2.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Mounted bowmen -->
@@ -44,7 +44,7 @@
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Spearmen, Lancers -->
@@ -80,7 +80,7 @@
             <ArmorClassIronFactor>0.25</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Black Knights -->
@@ -92,7 +92,7 @@
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.05</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Barbarians -->
@@ -104,7 +104,7 @@
             <ArmorClassIronFactor>0.7</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Heavy cavalry and axe bandits -->
@@ -116,7 +116,7 @@
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.5</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Towers, turrets -->
@@ -128,7 +128,7 @@
             <ArmorClassIronFactor>0.75</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.5</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.5</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Troop cannons, bombs -->
@@ -182,11 +182,11 @@
     <!-- Shrouded -->
     <DamageClass id="DC_Evil">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.7</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>1.7</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>1.1</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
+            <ArmorClassNoneFactor>1.9</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.2</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.9</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
+            <ArmorClassFortificationFactor>0.5</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
@@ -198,7 +198,7 @@
             <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.5</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>2.5</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>0.5</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>    
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
@@ -210,7 +210,7 @@
             <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>1.0</ArmorClassHeroFactor>
             <ArmorClassFurFactor>0.25</ArmorClassFurFactor>
         </Logic>

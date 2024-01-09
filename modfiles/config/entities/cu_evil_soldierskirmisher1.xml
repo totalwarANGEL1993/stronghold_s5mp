@@ -21,7 +21,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>50</MaxHealth>
+        <MaxHealth>75</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Fearless>true</Fearless>
@@ -34,9 +34,9 @@
         <Category>Soldier</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>20</Exploration>
+        <Exploration>22</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>15</ExperiencePoints>
@@ -124,18 +124,18 @@
             <HitAnim>CU_Evil_LeaderSkirmisher1_Hit</HitAnim>
 
             <DamageClass>DC_Javelin</DamageClass>
-            <DamageAmount>15</DamageAmount>
+            <DamageAmount>18</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <AutoAttackRange>2500</AutoAttackRange>
+            <AutoAttackRange>2200</AutoAttackRange>
 
-            <MissChance>9</MissChance>
+            <MissChance>5</MissChance>
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
 
-            <MaxRange>2000</MaxRange>
+            <MaxRange>22000</MaxRange>
             <MinRange>0.0f</MinRange>
         </Logic>
     </Behavior>

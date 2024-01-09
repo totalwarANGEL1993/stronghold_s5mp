@@ -34,10 +34,10 @@
         <Category>EvilLeader</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>75</MaxHealth>
-        <Exploration>20</Exploration>
+        <MaxHealth>100</MaxHealth>
+        <Exploration>22</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
@@ -138,17 +138,17 @@
             <HitAnim>CU_Evil_LeaderSkirmisher1_Hit</HitAnim>
 
             <DamageClass>DC_Javelin</DamageClass>
-            <DamageAmount>15</DamageAmount>
+            <DamageAmount>18</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2000</BattleWaitUntil>
 
-            <MissChance>9</MissChance>
+            <MissChance>5</MissChance>
 
             <ProjectileEffectID>FXArrow</ProjectileEffectID>
-            <MaxRange>2000</MaxRange>
+            <MaxRange>2200</MaxRange>
             <MinRange>0.0f</MinRange>
-            <AutoAttackRange>2000</AutoAttackRange>
+            <AutoAttackRange>2200</AutoAttackRange>
 
             <HealingPoints>2</HealingPoints>
             <HealingSeconds>10</HealingSeconds>
