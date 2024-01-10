@@ -1,4 +1,4 @@
-Version 0.6.31
+Version 0.7.00
 - Bevölkerungslimit wurde überarbeitet
   * Haupthaus: 50, 75, 100
   * Dorfzentrum: 35, 50, 65
@@ -33,11 +33,26 @@ Version 0.6.31
 - Marie erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
 - Drake reduziert den Unterhalt der Scharfschützen nur noch um 20%
 
+Version 0.5.38
+- Die Preise (fast) aller Einheiten wurden ein wenig gesenkt.
+- Der Steuersatz für die Arbeiter wurde leicht erhöht.
+- Die Performance wurde verbessert.
+
+Version 0.5.37
+- Folgende Dinge wurden an Kerberos' Schwarzen Rittern geändert:
+  * Schaden gegen Schwertkämpfer wurde erhöht
+  * Schaden gegen schwere Kavalerie wurde verringert
+  * Rüstungsklasse Leder -> Eisen
+  * Beschreibungstexte wurden angepasst
+
+Version 0.5.36
+- Zufallsschaden der Barbaren wurde leicht reduziert.
+- Schaden an Gebäuden durch Barbaren wurde sehr stark reduziert.
+- Gesundheit der Barbaren wurde ebenfalls reduziert.
+
 Version 0.5.35
 - Die Technologiebeschreibungen werden nicht mehr durch die Wetterwechselsperre
   durcheinander gebracht.
-- Die Einheiten-Finden-Buttons führen nicht mehr zu einem Absturz, wenn man als
-  Zuschauer spielt.
   
 Version 0.5.34
 - Palisaden und Mauern sind nun von außen mit Nahkämpfern Angreifbar, egal
