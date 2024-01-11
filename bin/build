@@ -14,6 +14,7 @@ rm -rf var/stronghold_s5mp/editor.bba.unpacked/graphics/textureslow
 rm -rf var/stronghold_s5mp/editor.bba.unpacked/graphics/texturesmed
 cp -r modfiles/config var/stronghold_s5mp/editor.bba.unpacked
 cp -r modfiles/mapeditor var/stronghold_s5mp/editor.bba.unpacked
+cp -r modfiles/text var/stronghold_s5mp/editor.bba.unpacked
 
 # fill archives
 mkdir -p var/stronghold_s5mp/textureslow.bba.unpacked/graphics
@@ -79,6 +80,7 @@ mkdir -p release/stronghold_s5mp/mapping
 cp -r var/stronghold_s5mp/* release/stronghold_s5mp
 mv var/stronghold_s5mp/editor.bba release/stronghold_s5mp/mapping
 cp modloader/callbacks.lua release/stronghold_s5mp/mapping
+cp dev/mapconfig.lua release/stronghold_s5mp/mapping
 
 # copy maps
 bin/bba5.exe "maps/StrongholdTutorial.s5x.unpacked"
