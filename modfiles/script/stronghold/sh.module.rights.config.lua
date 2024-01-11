@@ -247,6 +247,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.Treasury,
                 PlayerRight.PowerPlant,
                 PlayerRight.CannonTower,
+                PlayerRight.PitchPit,
                 ---
                 PlayerRight.GunFactory,
                 PlayerRight.RifleMusketman,

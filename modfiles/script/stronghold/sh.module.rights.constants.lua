@@ -89,6 +89,7 @@ PlayerRight = {
     DogCage = 244,
     BearCage = 245,
     Traphole = 246,
+    PitchPit = 247,
 
     -- Buildings
     BallistaTower = 300,

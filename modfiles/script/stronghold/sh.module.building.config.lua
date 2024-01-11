@@ -275,7 +275,16 @@ Stronghold.Building.Config.NeutralWallType = {
 Stronghold.Building.Config.TrapTypes = {
     [Entities.PB_BearCage1] = true,
     [Entities.PB_DogCage1]  = true,
+    [Entities.PB_PitchPit1] = true,
     [Entities.PB_Traphole1] = true,
+}
+
+-- Dictionary of trap auto activation
+Stronghold.Building.Config.TrapAutoActivateDistance = {
+    [Entities.PB_BearCage1] = 1000,
+    [Entities.PB_DogCage1]  = 1000,
+    -- [Entities.PB_PitchPit1] = 350,
+    [Entities.PB_Traphole1] = 350,
 }
 
 Stronghold.Building.Config.RecuitIndexRecuitShortcut = {

@@ -1667,6 +1667,8 @@ function Stronghold.Building:OnTrapTriggered(_PlayerID, _TrapID)
         self:OnDogTrapTriggered(_PlayerID, _TrapID);
     elseif EntityType == Entities.PB_Traphole1 then
         self:OnPoleTrapTriggered(_PlayerID, _TrapID);
+    elseif EntityType == Entities.PB_PitchPit1 then
+        self:OnPitchTrapTriggered(_PlayerID, _TrapID);
     end
 end
 
@@ -1765,7 +1767,68 @@ function Stronghold.Building:OnPoleTrapTriggered(_PlayerID, _TrapID)
         -- Does crash for some reason...
         -- CEntity.DealDamageInArea(DamageDealerID, x, y, EffectArea, Damage);
         -- Workaround:
-        Logic.CreateEntity(Entities.XD_Bomb3, x, y, 0, _PlayerID);
+        Logic.CreateEntity(Entities.XD_Bomb_PoleTrap, x, y, 0, GetVagabondPlayerID());
+    end
+end
+
+function Stronghold.Building:OnPitchTrapTriggered(_PlayerID, _TrapID)
+    if IsExisting(_TrapID) then
+        local Duration = 30;
+        local x, y, z = Logic.EntityGetPos(_TrapID);
+        local DamageDealerID = Logic.CreateEntity(Entities.XD_ScriptEntity, x, y, 0, _PlayerID);
+        Logic.SetModelAndAnimSet(ID, Models.Effects_XF_HouseFire);
+        SVLib.SetEntitySize(ID, 0.5);
+        SVLib.SetInvisibility(ID, false);
+        Sound.Play2DSound(Sounds.AmbientSounds_campfire_rnd_1, 0, 127);
+        SetHealth(_TrapID, 0);
+        self.Data.TrapRemains[DamageDealerID] = {Duration};
+
+        for Angle = 90, 360, 90 do
+            local Position = GetCirclePosition({X= x, Y= y}, 100, Angle);
+            local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, Position.X, Position.Y, 0, _PlayerID);
+            Logic.SetModelAndAnimSet(ID, Models.Effects_XF_HouseFireLo);
+            Logic.SetEntityExplorationRange(ID, 10);
+            SVLib.SetEntitySize(ID, 0.5);
+            SVLib.SetInvisibility(ID, false);
+            self.Data.TrapRemains[ID] = {Duration};
+        end
+        for Angle = 45, 315, 90 do
+            local Position = GetCirclePosition({X= x, Y= y}, 200, Angle);
+            local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, Position.X, Position.Y, 0, _PlayerID);
+            Logic.SetModelAndAnimSet(ID, Models.Effects_XF_HouseFireMedium);
+            SVLib.SetEntitySize(ID, 0.5);
+            SVLib.SetInvisibility(ID, false);
+            self.Data.TrapRemains[ID] = {Duration};
+        end
+        for Angle = 90, 360, 90 do
+            local Position = GetCirclePosition({X= x, Y= y}, 300, Angle);
+            local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, Position.X, Position.Y, 0, _PlayerID);
+            Logic.SetModelAndAnimSet(ID, Models.Effects_XF_HouseFireSmall);
+            SVLib.SetEntitySize(ID, 0.5);
+            SVLib.SetInvisibility(ID, false);
+            self.Data.TrapRemains[ID] = {Duration};
+        end
+
+        Job.Second(function(_Time, _X, _Y, _EntityID)
+            -- Stop after delay
+            if not IsExisting(_EntityID) or _Time + Duration < Logic.GetTime() then
+                return true;
+            end
+
+            local PlayerID = Logic.EntityGetPlayer(_EntityID);
+
+            -- Deal damage
+            -- Does crash for some reason...
+            -- CEntity.DealDamageInArea(_EntityID, _X, _Y, 300, 25);
+            -- Workaround:
+            Logic.CreateEntity(Entities.XD_Bomb_PitchTrap, _X, _Y, 0, GetVagabondPlayerID());
+
+            -- Ignite closeby
+            local _, NearPitchID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_PitchPit1, _X, _Y, 800, 1);
+            if NearPitchID and Logic.IsConstructionComplete(NearPitchID) == 1 then
+                self:OnPitchTrapTriggered(_PlayerID, NearPitchID);
+            end
+        end, Logic.GetTime(), x, y, DamageDealerID);
     end
 end
 
@@ -1781,6 +1844,16 @@ function Stronghold.Building:TrapController()
                 DestroyEntity(Data[3][i]);
             end
             self.Data.Traps[TrapID] = nil;
+        else
+            local Type = Logic.GetEntityType(TrapID);
+            if self.Config.TrapAutoActivateDistance[Type] then
+                local PlayerID = Logic.EntityGetPlayer(TrapID);
+                local Position = GetPosition(TrapID);
+                local Area = self.Config.TrapAutoActivateDistance[Type];
+                if AreEnemiesInArea(PlayerID, Position, Area) then
+                    self:OnTrapTriggered(PlayerID, TrapID);
+                end
+            end
         end
     end
     -- Remains
@@ -1836,20 +1909,27 @@ function Stronghold.Building:OnTrapSelected(_EntityID)
         return;
     end
 
+    -- Trigger button not needed anymore
+    XGUIEng.ShowWidget("TriggerTrap", 0);
+
     local TrapType = Logic.GetEntityType(_EntityID);
     if TrapType == Entities.PB_BearCage1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
-        XGUIEng.ShowWidget("TriggerTrap", 1);
         XGUIEng.ShowWidget("Research_BearTraining", 1);
+        XGUIEng.ShowWidget("TriggerTrap", 1);
     elseif TrapType == Entities.PB_DogCage1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
-        XGUIEng.ShowWidget("TriggerTrap", 1);
         XGUIEng.ShowWidget("Research_DogTraining", 1);
+        XGUIEng.ShowWidget("TriggerTrap", 1);
     elseif TrapType == Entities.PB_Traphole1 then
+        XGUIEng.ShowWidget("Trap", 1);
+        XGUIEng.ShowWidget("Commands_Trap", 1);
+        XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
+    elseif TrapType == Entities.PB_PitchPit1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);

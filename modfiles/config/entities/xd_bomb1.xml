@@ -13,7 +13,7 @@
     <Behavior>
         <Logic classname="GGL::CBombBehaviorProperties">
             <Class>GGL::CBombBehavior</Class>
-            <Radius>1000</Radius>
+            <Radius>1500</Radius>
             <Delay>2.0</Delay>
             <Damage>1</Damage>
             <DamageClass>DC_Hero</DamageClass>

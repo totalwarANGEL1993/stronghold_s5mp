@@ -35,9 +35,9 @@
             <Time>15</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>200</Wood>
+                <Wood>100</Wood>
                 <Stone>0</Stone>
-                <Gold>900</Gold>
+                <Gold>300</Gold>
                 <Iron>100</Iron>
                 <Sulfur/>
             </Cost>
@@ -47,6 +47,13 @@
                     <Y>0</Y>
                 </Position>
                 <Orientation>0</Orientation>
+            </BuilderSlot>
+            <BuilderSlot>
+                <Position>
+                    <X>0</X>
+                    <Y>-400</Y>
+                </Position>
+                <Orientation>90</Orientation>
             </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>

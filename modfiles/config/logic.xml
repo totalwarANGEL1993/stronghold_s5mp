@@ -1317,4 +1317,9 @@
         <Category>Traphole</Category>
         <FirstBuilding>PB_Traphole1</FirstBuilding>
     </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>PitchPit</Category>
+        <FirstBuilding>PB_PitchPit1</FirstBuilding>
+    </BuildingUpgrade>
 </root>

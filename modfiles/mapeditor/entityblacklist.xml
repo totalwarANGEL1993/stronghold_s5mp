@@ -70,8 +70,9 @@
     <EntityName>CU_WildBoar3_CorpsDropper</EntityName>
     <EntityName>CU_Zebra1_CorpsDropper</EntityName>
     <EntityName>XD_Bomb1</EntityName>
-    <EntityName>XD_Bomb2</EntityName>
-    <EntityName>XD_Bomb3</EntityName>
+    <EntityName>XD_Bomb_PitchTrap</EntityName>
+    <EntityName>XD_Bomb_PoleTrap</EntityName>
+    <EntityName>XD_Bomb_Scout</EntityName>
     <EntityName>XD_Bridge1</EntityName>
     <EntityName>XD_Bridge2</EntityName>
     <EntityName>XD_Bridge3</EntityName>

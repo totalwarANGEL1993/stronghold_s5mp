@@ -13,7 +13,7 @@
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <Category>Wall</Category>
-        <Exploration>0</Exploration>
+        <Exploration>2</Exploration>
         <IsWall>true</IsWall>
 
 

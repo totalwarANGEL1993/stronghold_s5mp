@@ -1103,6 +1103,7 @@
         <Entity>PB_WallStraight</Entity>
         <Entity>PB_WallStraightGate_Closed</Entity>
         <Entity>PB_WallStraightGate</Entity>
+        <Entity>PB_PitchPit1</Entity>
         <Entity>PB_Traphole1</Entity>
         <Entity>PB_Traphole1_Deco</Entity>
 
@@ -1306,6 +1307,7 @@
         <Entity>CU_Zebra1_CorpsDropper</Entity>
 
         <!-- Misc -->
-        <Entity>XD_Bomb2</Entity>
-        <Entity>XD_Bomb3</Entity>
+        <Entity>XD_Bomb_Hero2</Entity>
+        <Entity>XD_Bomb_PitchTrap</Entity>
+        <Entity>XD_Bomb_PoleTrap</Entity>
 </root>

@@ -133,7 +133,7 @@ function Stronghold.AI:ControlHero2DefendCastle(_PlayerID, _HeroID)
             local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1000);
             if table.getn(CloseEnemies) >= 5 then
                 local x,y,z = Logic.EntityGetPos(_HeroID);
-                local ID = Logic.CreateEntity(Entities.XD_Bomb2, x, y, 0, _PlayerID);
+                local ID = Logic.CreateEntity(Entities.XD_Bomb_Hero2, x, y, 0, _PlayerID);
                 WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
             end
         end
@@ -159,7 +159,7 @@ function Stronghold.AI:ControlHero3DefendCastle(_PlayerID, _HeroID)
                 local Selected = math.random(1, table.getn(FarEnemyList));
                 local EnemyID = FarEnemyList[Selected];
                 local x,y,z = Logic.EntityGetPos(EnemyID);
-                local ID = Logic.CreateEntity(Entities.XD_Bomb1, x, y, 0, _PlayerID);
+                local ID = Logic.CreateEntity(Entities.XD_Bomb_Hero2, x, y, 0, _PlayerID);
                 WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
                 Logic.HeroSetAbilityChargeSeconds(_HeroID, Abilities.AbilityBuildCannon, 0);
                 SVLib.SetInvisibility(ID, true);

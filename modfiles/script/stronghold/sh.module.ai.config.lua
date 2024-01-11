@@ -59,6 +59,7 @@ Stronghold.AI.Config = {
     AttackTargetBlacklist = {
         [Entities.PB_BearCage1] = true,
         [Entities.PB_DogCage1] = true,
+        [Entities.PB_PitchPit1] = true,
         [Entities.PB_Traphole1] = true,
         [Entities.PB_Traphole1_Deco] = true,
         [Entities.PU_Bear_Deco] = true,
