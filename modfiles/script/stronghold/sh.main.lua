@@ -263,8 +263,11 @@ function Stronghold:Init()
     self.Multiplayer:Install();
     self.AI:Install();
     self.Mercenary:Install();
+    self.Trap:Install();
+    self.Wall:Install();
 
-    self:OnPayday();
+    self:OverwritePayday();
+    self:OverwritePlacementCheck();
     self:StartTriggers();
 
     self:OverrideStringTableText();
@@ -309,6 +312,8 @@ function Stronghold:OnSaveGameLoaded()
     self.Multiplayer:OnSaveGameLoaded();
     self.AI:OnSaveGameLoaded();
     self.Mercenary:OnSaveGameLoaded();
+    self.Trap:OnSaveGameLoaded();
+    self.Wall:OnSaveGameLoaded();
 
     self:OverrideStringTableText();
 
@@ -362,6 +367,7 @@ function Stronghold:StartTriggers()
         end
         Stronghold.Building:OnEverySecond();
         Stronghold.Province:OnEverySecond();
+        Stronghold.Trap:OnEverySecond();
     end);
 
     Job.Turn(function()
@@ -410,6 +416,7 @@ function Stronghold:StartTriggers()
         Stronghold.Hero:OnEntityCreated(EntityID);
         Stronghold.Unit:OnEntityCreated(EntityID);
         Stronghold.Recruit:OnEntityCreated(EntityID);
+        Stronghold.Wall:OnEntityCreated(EntityID);
     end);
 
     Job.Destroy(function()
@@ -418,6 +425,7 @@ function Stronghold:StartTriggers()
         Stronghold.Attraction:OnEntityDestroyed(EntityID);
         Stronghold.Building:OnEntityDestroyed(EntityID);
         Stronghold.Construction:OnEntityDestroyed(EntityID);
+        Stronghold.Wall:OnEntityDestroyed(EntityID);
     end);
 
     Job.Trade(function()
@@ -472,7 +480,7 @@ function Stronghold:OnEntityHurtEntity()
 end
 
 -- Payday updater
-function Stronghold:OnPayday()
+function Stronghold:OverwritePayday()
     GameCallback_PaydayPayed = function(_PlayerID, _Amount)
         if _Amount ~= nil and IsPlayer(_PlayerID) then
             -- Change frequency on next payday
@@ -485,6 +493,26 @@ function Stronghold:OnPayday()
             return Stronghold.Player:OnPlayerPayday(_PlayerID);
         end
         return 0;
+    end
+end
+
+function Stronghold:OverwritePlacementCheck()
+    if CMod then
+        GameCallback_PlaceBuildingAdditionalCheck = function(_Type, _x, _y, _rotation, _isBuildOn)
+            local PlayerID = GUI.GetPlayerID();
+            if IsPlayer(PlayerID) then
+                if not Stronghold.Construction:OnPlacementCheck(PlayerID, _Type, _x, _y, _rotation, _isBuildOn) then
+                    return false;
+                end
+                if not Stronghold.Trap:OnPlacementCheck(PlayerID, _Type, _x, _y, _rotation, _isBuildOn) then
+                    return false;
+                end
+                if not Stronghold.Wall:OnPlacementCheck(PlayerID, _Type, _x, _y, _rotation, _isBuildOn) then
+                    return false;
+                end
+            end
+            return true;
+        end
     end
 end
 
@@ -814,6 +842,7 @@ function Stronghold:OverwriteCommonCallbacks()
         Stronghold.Attraction:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
+        Stronghold.Trap:OnBuildingConstructed(_EntityID, _PlayerID);
     end);
 
     Overwrite.CreateOverwrite("GameCallback_OnBuildingUpgradeComplete", function(_EntityIDOld, _EntityIDNew)

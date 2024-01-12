@@ -136,6 +136,10 @@ Script.Load(gvStronghold_Path.. "sh.module.unit.lua");
 Script.Load(gvStronghold_Path.. "sh.module.unit.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.mercenary.lua");
 Script.Load(gvStronghold_Path.. "sh.module.mercenary.config.lua");
+Script.Load(gvStronghold_Path.. "sh.module.trap.lua");
+Script.Load(gvStronghold_Path.. "sh.module.trap.config.lua");
+Script.Load(gvStronghold_Path.. "sh.module.wall.lua");
+Script.Load(gvStronghold_Path.. "sh.module.wall.config.lua");
 ---
 Script.Load(gvStronghold_Path.. "sh.module.multiplayer.lua");
 Script.Load(gvStronghold_Path.. "sh.module.multiplayer.config.lua");

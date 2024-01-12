@@ -37,7 +37,6 @@ function Stronghold.Construction:Install()
     self:OverwriteCallbacks();
     self:InitBuildingLimits();
     self:InitBarracksBuildingLimits(-1);
-    self:StartCheckTowerDistanceCallback();
     self:InitLightBricks();
     self:SetWallConstructionSiteModel();
 
@@ -379,27 +378,16 @@ end
 -- -------------------------------------------------------------------------- --
 -- Soft Tower Limit
 
-function Stronghold.Construction:StartCheckTowerDistanceCallback()
-    -- Check tower placement
-    -- Prevents towers from being placed if another tower of the same player is
-    -- to close. Type of tower does not matter.
-    if CMod then
-        GameCallback_PlaceBuildingAdditionalCheck = function(_Type, _x, _y, _rotation, _isBuildOn)
-            local PlayerID = GUI.GetPlayerID();
-            local Allowed = true;
-            if IsPlayer(PlayerID) then
-                local UpCat = Logic.GetUpgradeCategoryByBuildingType(_Type);
-                if Allowed and Stronghold.Construction.Config.TowerPlacementDistanceCheck[UpCat] then
-                    local AreaSize = Stronghold.Construction.Config.TowerDistance;
-                    AreaSize = GameCallback_SH_Calculate_MinimalTowerDistance(PlayerID, AreaSize);
-                    if Stronghold.Construction:AreTowersOfPlayerInArea(PlayerID, _x, _y, AreaSize) then
-                        Allowed = false;
-                    end
-                end
-            end
-            return Allowed;
+function Stronghold.Construction:OnPlacementCheck(_PlayerID, _Type, _X, _Y, _Rotation, _IsBuildOn)
+    local UpCat = Logic.GetUpgradeCategoryByBuildingType(_Type);
+    if self.Config.TowerPlacementDistanceCheck[UpCat] then
+        local AreaSize = self.Config.TowerDistance;
+        AreaSize = GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, AreaSize);
+        if self:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, AreaSize) then
+            return false;
         end
     end
+    return true;
 end
 
 function Stronghold.Construction:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, _AreaSize)
