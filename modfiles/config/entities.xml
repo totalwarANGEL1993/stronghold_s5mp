@@ -1137,6 +1137,11 @@
         <Entity>XD_DragonboatWreckage</Entity>
         <Entity>XD_ExecutionerPlace</Entity>
         <Entity>XD_HarborCrane</Entity>
+        <Entity>XD_PalisadeCorner</Entity>
+        <Entity>XD_PalisadeDistorted</Entity>
+        <Entity>XD_PalisadeStraight</Entity>
+        <Entity>XD_PalisadeStraightGate_Closed</Entity>
+        <Entity>XD_PalisadeStraightGate</Entity>
         <Entity>XD_Palm1</Entity>
         <Entity>XD_Palm2</Entity>
         <Entity>XD_Palm3</Entity>
