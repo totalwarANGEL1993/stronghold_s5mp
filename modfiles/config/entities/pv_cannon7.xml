@@ -24,7 +24,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>300</MaxHealth>
         <Exploration>22</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>5</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
@@ -102,7 +102,7 @@
 
             <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
             <MaxRange>2200</MaxRange>
-            <MinRange>1500</MinRange>
+            <MinRange>1000</MinRange>
 
             <AutoAttackRange>2200</AutoAttackRange>
 

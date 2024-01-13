@@ -24,7 +24,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>350</MaxHealth>
         <Exploration>35</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>

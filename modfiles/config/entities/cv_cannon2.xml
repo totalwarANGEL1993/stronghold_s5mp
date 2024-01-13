@@ -24,7 +24,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>300</MaxHealth>
         <Exploration>20</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>5</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
@@ -93,7 +93,7 @@
             <BattleWalkAnim>PV_Cannon5_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>70</DamageAmount>
+            <DamageAmount>85</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>225</DamageRange>
 
