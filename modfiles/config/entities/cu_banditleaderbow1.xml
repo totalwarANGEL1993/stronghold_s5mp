@@ -78,7 +78,7 @@
         <MaxHealth>200</MaxHealth>
         <Exploration>23</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>1</ArmorAmount>
+        <ArmorAmount>2</ArmorAmount>
         <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
@@ -132,8 +132,8 @@
             <HitAnim>CU_BanditLeaderBow1_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
-            <DamageAmount>13</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <DamageAmount>15</DamageAmount>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
