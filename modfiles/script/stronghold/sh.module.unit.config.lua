@@ -259,7 +259,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon7]                   = {
         Button            = "Buy_Cannon1",
         Costs             = {
-            [1] = {19, 350, 0, 65, 0, 125, 250},
+            [1] = {19, 450, 0, 75, 0, 225, 350},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.BigBombardCannon,
@@ -272,7 +272,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon8]                   = {
         Button            = "Buy_Cannon3",
         Costs             = {
-            [1] = {38, 700, 0, 130, 0, 300, 500},
+            [1] = {38, 900, 0, 150, 0, 400, 600},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.DschihadCannon,
@@ -285,7 +285,7 @@ Stronghold.Unit.Config = {
     [Entities.CV_Cannon1]                   = {
         Button            = "Buy_Cannon4",
         Costs             = {
-            [1] = {50, 1000, 0, 250, 0, 500, 800},
+            [1] = {50, 1200, 0, 250, 0, 500, 800},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.AtilleryCannon,
@@ -298,7 +298,7 @@ Stronghold.Unit.Config = {
     [Entities.CV_Cannon2]                   = {
         Button            = "Buy_Cannon4",
         Costs             = {
-            [1] = {50, 1000, 0, 250, 0, 600, 500},
+            [1] = {50, 1200, 0, 250, 0, 800, 500},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.GatlingCannon,
@@ -311,7 +311,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon1]                   = {
         Button            = "Buy_Cannon1",
         Costs             = {
-            [1] = {16, 300, 0, 50, 0, 100, 200},
+            [1] = {19, 400, 0, 75, 0, 200, 300},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.BombardCannon,
@@ -324,7 +324,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon2]                   = {
         Button            = "Buy_Cannon2",
         Costs             = {
-            [1] = {16, 300, 0, 50, 0, 200, 100},
+            [1] = {16, 400, 0, 75, 0, 300, 200},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.BronzeCannon,
@@ -337,7 +337,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon3]                   = {
         Button            = "Buy_Cannon3",
         Costs             = {
-            [1] = {32, 600, 0, 100, 0, 250, 400},
+            [1] = {32, 800, 0, 150, 0, 300, 500},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.IronCannon,
@@ -350,7 +350,7 @@ Stronghold.Unit.Config = {
     [Entities.PV_Cannon4]                   = {
         Button            = "Buy_Cannon4",
         Costs             = {
-            [1] = {32, 600, 0, 100, 0, 400, 250},
+            [1] = {32, 800, 0, 150, 0, 500, 300},
             [2] = {0, 0, 0, 0, 0, 0, 0},
         },
         Right             = PlayerRight.SiegeCannon,

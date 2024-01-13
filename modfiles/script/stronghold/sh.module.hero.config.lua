@@ -14,7 +14,7 @@ Stronghold.Hero.Config.Hero2 = {
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
-    CannonPlaceReduction = 1,
+    CannonPlaceReduction = 2,
     KnowledgeFactor = 1.20,
     CannonTypes = {
         Entities.CV_Cannon1,
@@ -35,7 +35,9 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
+    MinerMineralChance = 5,
     SerfMineralFrequency = 5,
+    SerfMineralChance = 10,
     SerfWoodBonus = 1,
 }
 -- Hero 6 properties

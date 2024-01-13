@@ -154,12 +154,9 @@ function Stronghold.Hero:OnEntityCreated(_EntityID)
     end
 end
 
-function Stronghold.Hero:OnEveryTurn(_PlayerID)
+function Stronghold.Hero:OncePerSecond(_PlayerID)
     -- Configure summons
     self:VargWolvesController(_PlayerID);
-end
-
-function Stronghold.Hero:OncePerSecond(_PlayerID)
     -- Helias conversion
     self:HeliasConvertController(_PlayerID);
     -- Yukis Shuriken
@@ -565,32 +562,40 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.LeaderPoleArm4;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.LeaderSword4;
     elseif _Type == Entities.PU_Hero2 then
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.LeaderAxe2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.LeaderAxe1;
     elseif _Type == Entities.PU_Hero3 then
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cannon[5] = UpgradeCategories.Cannon5;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cannon[6] = UpgradeCategories.Cannon6;
     elseif _Type == Entities.PU_Hero4 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.LeaderCavalry2;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[4] = UpgradeCategories.LeaderHeavyCavalry2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.LeaderCavalry2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[4] = UpgradeCategories.LeaderHeavyCavalry2;
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.PU_Hero5 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BanditLeaderSword1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.BanditLeaderBow1;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[2] = UpgradeCategories.RangerLeaderCavalry1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.RangerLeaderCavalry1;
     elseif _Type == Entities.PU_Hero6 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.LeaderCavalry2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[4] = UpgradeCategories.LeaderHeavyCavalry2;
     elseif _Type == Entities.PU_Hero10 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = UpgradeCategories.LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderRifle1;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderRifle2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[5] = UpgradeCategories.LeaderRifle2;
     elseif _Type == Entities.PU_Hero11 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[1] = UpgradeCategories.LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderRifle1;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderRifle2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[5] = UpgradeCategories.LeaderRifle2;
     elseif _Type == Entities.CU_BlackKnight then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BlackKnightLeader2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.BlackKnightLeader1;
@@ -606,12 +611,10 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     elseif _Type == Entities.CU_Barbarian_Hero then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BarbarianLeader2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.BarbarianLeader1;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = nil;
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.CU_Evil_Queen then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BearmanLeader1;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow3;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.SkirmisherLeader1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.SkirmisherLeader1;
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     end
     Stronghold.Recruit.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
@@ -707,15 +710,17 @@ function Stronghold.Hero:YukiShurikenConterController(_PlayerID, _AttackedID, _A
             -- Throw shuriken
             if self.Data[_PlayerID].Hero11.ShurikenAllowed == 1 then
                 local Task = Logic.GetCurrentTaskList(_AttackedID);
-                local IsFighting = Task and string.find(Task, "BATTLE") ~= nil;
+                local IsFighting = Task and string.find(Task, "_BATTLE") ~= nil;
                 local IsSpecial = Task and string.find(Task, "_SPECIAL") ~= nil;
-                if IsFighting and not IsSpecial then
+                local IsWalking = Task and string.find(Task, "_WALK") ~= nil;
+                if IsFighting and not IsSpecial and not IsWalking then
                     local YukiPlayerID = Logic.EntityGetPlayer(_AttackedID);
                     local AttackerID = _AttackerID;
                     if Logic.IsEntityInCategory(AttackerID, EntityCategories.Soldier) == 1 then
                         AttackerID = SVLib.GetLeaderOfSoldier(AttackerID);
                     end
                     if Logic.IsSettler(AttackerID) == 1
+                    and Logic.IsBuilding(AttackerID) == 0
                     and Logic.IsHero(AttackerID) == 0
                     and Logic.GetEntityHealth(AttackerID) > 0
                     and IsNear(_AttackedID, AttackerID, 3000) then
@@ -1086,6 +1091,11 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
             Amount = Amount + self.Config.Hero2.MinerExtractionBonus;
         end
     end
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
+        if math.random(1,100) <= self.Config.Hero5.MinerMineralChance then
+            ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
+        end
+    end
     return Amount, ResourceRemaining;
 end
 
@@ -1095,10 +1105,7 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type ~= ResourceType.WoodRaw then
-            -- Using only the n-th turn to grant the bonus on preservation is
-            -- the same as doing it with random values but more deterministic.
-            --- @diagnostic disable-next-line: undefined-field
-            if math.mod(Logic.GetCurrentTurn(), self.Config.Hero5.SerfMineralFrequency) == 0 then
+            if math.random(1,100) <= self.Config.Hero5.SerfMineralChance then
                 ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
             end
         else
@@ -1130,6 +1137,7 @@ end
 function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     local Costs = _Costs;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
+        -- Apply resource costs for regular training
         local Factor = self.Config.Hero4.UnitCostFactor;
         if _Type ~= Entities.PU_Serf then
             local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
@@ -1157,6 +1165,26 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
             end
         end
     end
+    -- Tripled honor cost of heavy cavalry
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3)
+    or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
+        if _Type == Entities.PU_LeaderHeavyCavalry1 or _Type == Entities.PU_LeaderHeavyCavalry2 then
+            if Costs[ResourceType.Silver] then
+                Costs[ResourceType.Silver] = math.ceil(Costs[ResourceType.Silver] * 3);
+            end
+        end
+    end
+    -- Tripled honor costs of riflemen
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4)
+    or self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero)
+    or self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
+        -- Triple honor costs of riflemen
+        if _Type == Entities.PU_LeaderRifle1 or _Type == Entities.PU_LeaderRifle2 then
+            if Costs[ResourceType.Silver] then
+                Costs[ResourceType.Silver] = math.ceil(Costs[ResourceType.Silver] * 3);
+            end
+        end
+    end
     return Costs;
 end
 
@@ -1170,13 +1198,7 @@ end
 -- Passive Ability: Change civil places usage
 function Stronghold.Hero:ApplyCivilAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-        for Type, Places in pairs (self.Config.Hero3.CannonTypes) do
-            local Amount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Type);
-            local Occupied = Amount * Places;
-            Value = Value - Occupied;
-        end
-    end
+    -- Do nothing
     return Value;
 end
 
