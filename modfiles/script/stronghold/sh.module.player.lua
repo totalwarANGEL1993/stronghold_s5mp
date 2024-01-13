@@ -139,7 +139,7 @@ end
 
 --- Returns the designated scriptname of the players hero.
 --- @param _PlayerID integer ID of player
---- @return string|nil Name Name of hero
+--- @return string Name Name of hero
 function GetNobleScriptname(_PlayerID)
     return Stronghold.Player:GetPlayerHeroName(_PlayerID);
 end

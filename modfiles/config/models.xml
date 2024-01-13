@@ -3683,7 +3683,7 @@
         <SelectionTexture>Selection_Building</SelectionTexture>
     </Model>
 
-    <Model id="XD_PitchPit1">
+    <Model id="XD_Pitch">
         <SelectionTexture>Selection_Building</SelectionTexture>
         <SelectionRadius>200</SelectionRadius>
     </Model>

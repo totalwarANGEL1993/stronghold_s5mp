@@ -33,6 +33,21 @@ function SetEntityStamina(_EntityID, _Stamina)
     end
 end
 
+--- Returns the ID of the attack target entity of the entity.
+--- @param _EntityID integer ID of attacking entity
+--- @return integer target ID of attacked entity
+function GetEntityCurrentTarget(_EntityID)
+    if IsValidEntity(_EntityID) then
+        local Attachments = CEntity.GetReversedAttachedEntities(_EntityID);
+        if next(Attachments) then
+            return (Attachments[32] and Attachments[32][1]) or
+                   (Attachments[35] and Attachments[35][1]) or
+                   (Attachments[51] and Attachments[51][1]);
+        end
+    end
+    return 0;
+end
+
 -- -------------------------------------------------------------------------- --
 -- Find trees
 -- (Limited to 16 per type but Vanilla compatible)

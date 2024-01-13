@@ -9,7 +9,7 @@ Stronghold = Stronghold or {};
 Stronghold.Trap = Stronghold.Trap or {
     SyncEvents = {},
     Data = {
-        ExposedTraps = {},
+        Trap = {},
         TrapDecoIDToTrapID = {},
         TrapRemains = {},
     },
@@ -22,7 +22,9 @@ Stronghold.Trap = Stronghold.Trap or {
 
 function Stronghold.Trap:Install()
     for i= 1, GetMaxPlayers() do
-        self.Data[i] = {};
+        self.Data[i] = {
+            ExposedTraps = {},
+        };
     end
 
     self:CreateTrapButtonHandlers();
@@ -59,6 +61,11 @@ end
 function Stronghold.Trap:OnConstructionComplete(_EntityID, _PlayerID)
     -- Trap
     self:OnTrapConstructed(_EntityID)
+end
+
+function Stronghold.Trap:OnDiplomacyChanged(_PlayerID1, _PlayerID2, _DiplomacyState)
+    -- Trap
+    self:UpdateTrapVisibilityOnDiplomacyChange(_PlayerID1, _PlayerID2, _DiplomacyState);
 end
 
 function Stronghold.Trap:OnPlacementCheck(_PlayerID, _Type, _X, _Y, _Rotation, _IsBuildOn)
@@ -100,16 +107,17 @@ function Stronghold.Trap:OnTrapTriggered(_PlayerID, _TrapID)
     end
 end
 
-function Stronghold.Trap:OnTrapConstructed(_TrapID)
+function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = Logic.EntityGetPlayer(_TrapID);
     local EntityType = Logic.GetEntityType(_TrapID);
     if not self.Config.TrapTypeConfig[EntityType] then
         return;
     end
 
-    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
-        SVLib.SetInvisibility(_TrapID, true);
+    if GuiPlayer ~= 17 and GuiPlayer ~= _PlayerID then
+        if Logic.GetDiplomacyState(_PlayerID, GuiPlayer) ~= Diplomacy.Friendly then
+            SVLib.SetInvisibility(_TrapID, true);
+        end
     end
 
     local Attachment = {0};
@@ -117,7 +125,7 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID)
     if EntityType == Entities.PB_BearCage1 then
         local x,y,z = Logic.EntityGetPos(_TrapID);
         local Rotation = Logic.GetEntityOrientation(_TrapID) - 90;
-        local AnimalID = Logic.CreateEntity(Entities.PU_Bear_Deco, x, y, Rotation, PlayerID);
+        local AnimalID = Logic.CreateEntity(Entities.PU_Bear_Deco, x, y, Rotation, _PlayerID);
         Logic.SetTaskList(AnimalID, TaskLists.TL_NPC_IDLE);
         MakeInvulnerable(AnimalID);
         SVLib.SetEntitySize(AnimalID, 0.85);
@@ -126,7 +134,7 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID)
     elseif EntityType == Entities.PB_DogCage1 then
         local x,y,z = Logic.EntityGetPos(_TrapID);
         local Rotation = Logic.GetEntityOrientation(_TrapID) - 90;
-        local AnimalID = Logic.CreateEntity(Entities.PU_Dog_Deco, x, y, Rotation, PlayerID);
+        local AnimalID = Logic.CreateEntity(Entities.PU_Dog_Deco, x, y, Rotation, _PlayerID);
         Logic.SetTaskList(AnimalID, TaskLists.TL_NPC_IDLE);
         MakeInvulnerable(AnimalID);
         Attachment = {1, AnimalID};
@@ -134,19 +142,21 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID)
     elseif EntityType == Entities.PB_Traphole1 then
         for Angle = 45, 360, 45 do
             local Position = GetCirclePosition(_TrapID, 230, Angle);
-            local DecoID = Logic.CreateEntity(Entities.PB_Traphole1_Deco, Position.X, Position.Y, 0, PlayerID);
+            local DecoID = Logic.CreateEntity(Entities.PB_Traphole1_Deco, Position.X, Position.Y, 0, _PlayerID);
             self.Data.TrapDecoIDToTrapID[DecoID] = _TrapID;
             table.insert(Attachment, DecoID);
             Attachment[1] = Attachment[1] + 1;
         end
     end
-    if Attachment[1] ~= 0 and GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+    if Attachment[1] ~= 0 and GuiPlayer ~= 17 and GuiPlayer ~= _PlayerID then
         for i= 2, Attachment[1] +1 do
-            SVLib.SetInvisibility(Attachment, true);
+            if Logic.GetDiplomacyState(_PlayerID, GuiPlayer) ~= Diplomacy.Friendly then
+                SVLib.SetInvisibility(Attachment, true);
+            end
         end
     end
 
-    self.Data.Trap[_TrapID] = {PlayerID, EntityType, Attachment};
+    self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment};
 end
 
 function Stronghold.Trap:OnBearTrapTriggered(_PlayerID, _TrapID)
@@ -261,7 +271,7 @@ function Stronghold.Trap:OnPitchTrapTriggered(_PlayerID, _TrapID)
 end
 
 -- Controls the traps.
--- Some traps have an attached entity. If it is destroyed, the trap will be
+-- Some traps have attached entities. If any is destroyed, the trap will be
 -- destroyed. If the trap is destroyed, the attachment is destroyed.
 function Stronghold.Trap:TrapController()
     -- Traps
@@ -279,10 +289,15 @@ function Stronghold.Trap:TrapController()
                 if Config.AutoTrigger then
                     local PlayerID = Logic.EntityGetPlayer(TrapID);
                     local Position = GetPosition(TrapID);
-                    local Area = self.Config.TrapTypeConfig[Type].AutoTriggerDistance;
-                    if AreEnemiesInArea(PlayerID, Position, Area) then
+                    local Area = Config.AutoTriggerDistance;
+                    local EnemyList = GetEnemiesInArea(PlayerID, Position, Area)
+                    if table.getn(EnemyList) >= 3 then
                         self:OnTrapTriggered(PlayerID, TrapID);
                     end
+                end
+                if Config.UnveilByThief then
+                    local PlayerID = Logic.EntityGetPlayer(TrapID);
+                    self:UpdateTrapVisibilityOnDiscovery(PlayerID, TrapID);
                 end
             end
         end
@@ -323,6 +338,71 @@ function Stronghold.Trap:TrapAggressiveAnimalController(_EntityID, _X, _Y)
         end
     end
     return false;
+end
+
+-- Controls trap invisibility.
+-- Traps can be pernamently exposed by a thief. This is only possible, if the
+-- owner of the thief and the owner of the trap are hostile to each other. If
+-- a thief comes to close to a trap of the enemy, it becomes visible for the 
+-- owner and their allies.
+function Stronghold.Trap:UpdateTrapVisibilityOnDiscovery(_PlayerID, _TrapID)
+    if SVLib.GetInvisibility(_TrapID) then
+        local x,y,z = Logic.EntityGetPos(_TrapID);
+        local Type = Logic.GetEntityType(_TrapID);
+        local Area = self.Config.TrapTypeConfig[Type].ThiefUnveilDistance;
+
+        local OwnerOfThief = 0;
+        for PlayerID = 1, GetMaxPlayers(), 1 do
+            if _PlayerID ~= PlayerID and Logic.GetDiplomacyState(PlayerID, _PlayerID) == Diplomacy.Hostile then
+                local _, ThiefID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Thief, x, y, Area, 1);
+                if ThiefID then
+                    OwnerOfThief = PlayerID;
+                    break;
+                end
+            end
+        end
+        if OwnerOfThief ~= 0 then
+            for PlayerID = 1, GetMaxPlayers(), 1 do
+                if Logic.GetDiplomacyState(PlayerID, OwnerOfThief) == Diplomacy.Friendly
+                or PlayerID == OwnerOfThief then
+                    SVLib.SetInvisibility(_TrapID, false);
+                    self.Data[PlayerID].ExposedTraps[_TrapID] = true;
+                end
+            end
+        end
+    end
+end
+
+-- Controls trap invisibility on diplomacy change.
+-- Each time diplomacy changes, the visiblity of traps changes. When a player
+-- becomes friendly to another they will see all placed traps but they are not
+-- registered as exposed. When a player becomes hostile or neutral, all traps
+-- not exposed by a thief are hidden again.
+function Stronghold.Trap:UpdateTrapVisibilityOnDiplomacyChange(_PlayerID1, _PlayerID2, _DiplomacyState)
+    if IsPlayer(_PlayerID1) then
+        for TrapID, _ in pairs(self.Data.Trap) do
+            if IsEntityValid(TrapID) then
+                local TrapPlayerID = Logic.EntityGetPlayer(TrapID);
+                -- Make traps invisible for hostile or neutral players
+                if _DiplomacyState == Diplomacy.Hostile
+                or _DiplomacyState == Diplomacy.Neutral then
+                    if GUI.GetPlayerID() == _PlayerID1 and TrapPlayerID == _PlayerID2 then
+                        if not self.Data[_PlayerID1].ExposedTraps[TrapID] then
+                            SVLib.SetInvisibility(TrapID, true);
+                        end
+                    end
+                end
+                -- Make traps visible for allied players
+                if _DiplomacyState == Diplomacy.Friendly then
+                    if GUI.GetPlayerID() == _PlayerID1 and TrapPlayerID == _PlayerID2 then
+                        if not self.Data[_PlayerID1].ExposedTraps[TrapID] then
+                            SVLib.SetInvisibility(TrapID, false);
+                        end
+                    end
+                end
+            end
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --

@@ -435,6 +435,13 @@ function Stronghold:StartTriggers()
     Job.Hurt(function()
         Stronghold:OnEntityHurtEntity();
     end);
+
+    Job.Diplomacy(function()
+        local Player1 = Event.GetSourcePlayerID();
+        local Player2 = Event.GetTargetPlayerID();
+        local State = Event.GetDiplomacyState();
+        Stronghold.Trap:OnDiplomacyChanged(Player1, Player2, State);
+    end);
 end
 
 function Stronghold:OnEntityHurtEntity()
@@ -809,8 +816,8 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnMonasterySelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
-        self.Building:OnTrapSelected(EntityID);
-        self.Building:OnWallSelected(EntityID);
+        self.Trap:OnTrapSelected(EntityID);
+        self.Wall:OnWallSelected(EntityID);
 
         self.Hero:OnSelectLeader(EntityID);
         self.Hero:OnSelectHero(EntityID);
@@ -842,7 +849,7 @@ function Stronghold:OverwriteCommonCallbacks()
         Stronghold.Attraction:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
-        Stronghold.Trap:OnBuildingConstructed(_EntityID, _PlayerID);
+        Stronghold.Trap:OnTrapConstructed(_EntityID, _PlayerID);
     end);
 
     Overwrite.CreateOverwrite("GameCallback_OnBuildingUpgradeComplete", function(_EntityIDOld, _EntityIDNew)
