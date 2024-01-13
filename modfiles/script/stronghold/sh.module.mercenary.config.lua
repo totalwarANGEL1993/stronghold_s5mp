@@ -3,7 +3,7 @@
 --- 
 
 Stronghold.Mercenary.Config = {
-    CostFactor = 2.5,
+    CostFactor = 2.0,
     QuantityFactor = 0.35,
 
     Units = {
@@ -206,6 +206,21 @@ Stronghold.Mercenary.Config = {
             Button     = "Buy_LeaderBow",
             RefillTime = 180,
             MaxAmount  = 5,
+        },
+        [Entities.CU_Templar_LeaderPoleArm1]    = {
+            Button     = "Buy_LeaderSpear",
+            RefillTime = 180,
+            MaxAmount  = 3,
+        },
+        [Entities.CU_Templar_LeaderCavalry1]    = {
+            Button     = "Buy_LeaderCavalryLight",
+            RefillTime = 180,
+            MaxAmount  = 3,
+        },
+        [Entities.CU_Templar_LeaderHeavyCavalry1]    = {
+            Button     = "Buy_LeaderCavalryHeavy",
+            RefillTime = 210,
+            MaxAmount  = 3,
         },
     },
 }

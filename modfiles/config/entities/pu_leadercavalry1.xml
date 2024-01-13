@@ -15,7 +15,6 @@
         <Anim>PU_LeaderCavalry1_Dying1</Anim>
         <Anim>PU_LeaderCavalry1_Walk</Anim>
         <Anim>PU_LeaderCavalry1_Hit</Anim>
-
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>

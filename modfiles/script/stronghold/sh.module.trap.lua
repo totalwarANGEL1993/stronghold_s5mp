@@ -428,13 +428,13 @@ function Stronghold.Trap:OnTrapSelected(_EntityID)
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
-        XGUIEng.ShowWidget("Research_BearTraining", 1);
+        -- XGUIEng.ShowWidget("Research_BearTraining", 1);
         XGUIEng.ShowWidget("TriggerTrap", 1);
     elseif TrapType == Entities.PB_DogCage1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
-        XGUIEng.ShowWidget("Research_DogTraining", 1);
+        -- XGUIEng.ShowWidget("Research_DogTraining", 1);
         XGUIEng.ShowWidget("TriggerTrap", 1);
     elseif TrapType == Entities.PB_Traphole1 then
         XGUIEng.ShowWidget("Trap", 1);

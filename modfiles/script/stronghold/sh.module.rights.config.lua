@@ -123,7 +123,6 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Barn,
                 PlayerRight.CavalryBow,
-                PlayerRight.CavalryCrusader,
                 ---
                 PlayerRight.Foundry,
                 PlayerRight.BronzeCannon,
@@ -153,6 +152,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Bearman,
                 PlayerRight.SpearHalberdier,
+                PlayerRight.SpearTemplar,
                 ---
                 PlayerRight.Archery,
                 PlayerRight.ArcherCrossbow,
@@ -192,6 +192,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.BlackKnightStrong,
                 ---
                 PlayerRight.CavalryCrossbow,
+                PlayerRight.CavalryCrusader,
                 PlayerRight.CavalryRanger,
                 ---
                 PlayerRight.Thief,
@@ -225,7 +226,6 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Stables,
                 PlayerRight.CavalrySword,
-                PlayerRight.CavalryTemplar,
                 ---
                 PlayerRight.CannonFactory,
                 PlayerRight.SiegeCannon,
@@ -252,6 +252,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.GunFactory,
                 PlayerRight.RifleMusketman,
                 PlayerRight.CavalryAxe,
+                PlayerRight.CavalryTemplar,
                 ---
                 PlayerRight.IronCannon,
                 PlayerRight.DschihadCannon,

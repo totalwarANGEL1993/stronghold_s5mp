@@ -32,11 +32,11 @@
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>28</Exploration>
-        <ArmorClass>ArmorClassIron</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>30</DodgeChance>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>50</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>55</ExperiencePoints>
+        <ExperiencePoints>35</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>TemplarLeaderCavalry1</Category>
@@ -116,11 +116,11 @@
 
             <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>22</DamageAmount>
-            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
-            <MissChance>4</MissChance>
+            <MissChance>2</MissChance>
 
             <ProjectileEffectID>FXCrossBowCavalryArrow</ProjectileEffectID>
             <MaxRange>2800</MaxRange>
@@ -140,7 +140,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>6</Limit>
+                <Limit>5</Limit>
             </Attachment>
         </Logic>
     </Behavior>

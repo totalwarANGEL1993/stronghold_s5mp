@@ -23,7 +23,7 @@
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>350</MaxHealth>
+        <MaxHealth>200</MaxHealth>
         <Exploration>26</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
@@ -94,7 +94,7 @@
             <BattleWalkAnim>PV_Cannon3_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>80</DamageAmount>
+            <DamageAmount>90</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>500</DamageRange>
 

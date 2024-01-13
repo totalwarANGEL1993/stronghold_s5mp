@@ -32,11 +32,11 @@
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>28</Exploration>
-        <ArmorClass>ArmorClassIron</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
-        <DodgeChance>30</DodgeChance>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>2</ArmorAmount>
+        <DodgeChance>50</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>30</ExperiencePoints>
+        <ExperiencePoints>15</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Upgrade>
             <Category>TemplarSoldierCavalry1</Category>
@@ -72,7 +72,7 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PU_SoldierSword1_Idle1</SuspensionAnimation>
+            <SuspensionAnimation>PU_SoldierCavalry2_Idle1</SuspensionAnimation>
             <AnimSet>SET_SOLDIERCAVALRY2</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
@@ -107,11 +107,11 @@
 
             <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>22</DamageAmount>
-            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
-            <MissChance>4</MissChance>
+            <MissChance>2</MissChance>
 
             <ProjectileEffectID>FXCrossBowCavalryArrow</ProjectileEffectID>
             <MaxRange>2800</MaxRange>

@@ -90,6 +90,7 @@ PlayerRight = {
     BearCage = 245,
     Traphole = 246,
     PitchPit = 247,
+    SpearTemplar = 248,
 
     -- Buildings
     BallistaTower = 300,

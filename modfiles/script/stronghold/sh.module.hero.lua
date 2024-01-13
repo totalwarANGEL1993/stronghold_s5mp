@@ -584,8 +584,9 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.BanditLeaderBow1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.RangerLeaderCavalry1;
     elseif _Type == Entities.PU_Hero6 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.LeaderCavalry2;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[4] = UpgradeCategories.LeaderHeavyCavalry2;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.TemplarLeaderPoleArm1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.TemplarLeaderCavalry1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[4] = UpgradeCategories.TemplarLeaderHeavyCavalry1;
     elseif _Type == Entities.PU_Hero10 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
@@ -1168,7 +1169,8 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     -- Tripled honor cost of heavy cavalry
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3)
     or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        if _Type == Entities.PU_LeaderHeavyCavalry1 or _Type == Entities.PU_LeaderHeavyCavalry2 then
+        if _Type == Entities.PU_LeaderHeavyCavalry1 or _Type == Entities.PU_LeaderHeavyCavalry2
+        or _Type == Entities.CU_Templar_LeaderHeavyCavalry1 then
             if Costs[ResourceType.Silver] then
                 Costs[ResourceType.Silver] = math.ceil(Costs[ResourceType.Silver] * 3);
             end
@@ -1176,6 +1178,7 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     end
     -- Tripled honor costs of riflemen
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4)
+    or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6)
     or self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero)
     or self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
         -- Triple honor costs of riflemen

@@ -15,7 +15,6 @@
         <Anim>PU_LeaderCavalry4_Dying1</Anim>
         <Anim>PU_LeaderCavalry4_Walk</Anim>
         <Anim>PU_LeaderCavalry4_Hit</Anim>
-
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
@@ -133,7 +132,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>3</Limit>
+                <Limit>5</Limit>
             </Attachment>
         </Logic>
     </Behavior>

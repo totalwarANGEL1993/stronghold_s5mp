@@ -33,11 +33,11 @@
         <Category>Spear</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>300</MaxHealth>
+        <MaxHealth>250</MaxHealth>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassJerkin</ArmorClass>
         <ArmorAmount>5</ArmorAmount>
-        <DodgeChance>5</DodgeChance>
+        <DodgeChance>50</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>40</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
@@ -103,7 +103,7 @@
             <Class>GGL::CLeaderBehavior</Class>
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>2000</HomeRadius>
-            <SoldierType>CU_TemplarSoldierPoleArm1</SoldierType>
+            <SoldierType>CU_Templar_SoldierPoleArm1</SoldierType>
 
             <BattleTaskList>TL_BATTLE_POLEARM</BattleTaskList>
 
@@ -118,7 +118,7 @@
 
             <DamageClass>DC_Pole</DamageClass>
             <DamageAmount>14</DamageAmount>
-            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
