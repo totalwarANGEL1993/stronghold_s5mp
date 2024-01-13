@@ -1,37 +1,123 @@
-Version 0.7.00
-- Bevölkerungslimit wurde überarbeitet
+**Strongold Version 0.7.00**
+
+Die "Lessons Learned" Edition
+
+__Bevölkerung__
+
+Das Soldatenlimit wird nicht mehr durch das ausbauen von Militärgebäuden erhöht,
+sondern stattdessen durch das Besetzen von Burgen. Eine zusätzliche Burg kann
+durch Bauen von Außenposten besetzt werden.
+
+- Bevölkerungslimit:
   * Haupthaus: 50, 75, 100
   * Dorfzentrum: 35, 50, 65
-- Rekrutenlimit wurde überarbeitet
+  * +20% (Kala)
+- Soldatenlimit:
   * Haupthaus: 75, 100, 125
   * Außenposten: 40, 65, 90
-- Anzahl an Rekrutierungsgebäude hängt vom erreichten Rang ab
-- Anzahl an Kanonengießereien hängt vom erreichten Rang ab
-- Benötigte Plätze für Kanonen überarbeitet
-  * Bombarde, Große Bombarde, Bronzekanone: 4
-  * Eisenkanone, Dschihad, Belagerungskanone: 8
-- Schaden von einigen Einheiten wurde überarbeitet
-- Soldatenanzahl der meisten Einheiten wurde überarbeitet
-- Maßnahmen laden sich nun viel schneller auf
-- Das Leibeigenenmenü wurde überarbeitet und besteht nun aus 3 Tabs
-- Aussichts, Ballista- und Kanonentürme werden getrennt voneinander gebaut
-- Neue Mechanik: Ratten
-  (Falknertürme - erweitere Aussichtstüre - bekämpfen Ratten)
-- Es ist nun allen Adligen möglich, Fallen zu stellen. Diese Fallen werden von
-  Leibeigenen gebaut und kosten Rohstoffe.
-- Alle Adligen haben alle Standardtruppen und zusätzlich Spezialeinheiten
-  (Einige Adlige können bestimmte Standardeineiten weiterhin nicht anheuern)
-- Adlige können Fremde Spezialeinheiten als Söldner zu höreren Preisen anheuern
-- Dario beschleunigt Maßnahmen nur noch um 50%
-- Salim reduziert nun (kostenlos) Platzbedarf jeder Kanone um 1
-- Salim steigert Wissensgewinn Gelehrter um 20%
-- Salims (kostenlose) Falle ist geschwächt
-- Aris Waldläufer wurden entfernt
-- Helias' hat nun ebenfalls Erecs Kavallerie als Spezialeinheiten
-- Helias kann keine Templer mehr rekutieren
-  (Die Templer existieren weiter als mögliche KI-Truppen)
-- Marie erhält nun für jeden Rangaufstieg 2 weitere mögliche Knechte
-- Drake reduziert den Unterhalt der Scharfschützen nur noch um 20%
+  * +10% (Dario)
+- Knechtelimit:
+  * Initial 30 maximale Knechte
+  * +6 maximale Knechte für jeden Rangaufstieg
+  * +2 maximale Knechte für jeden Rangaufstieg (Marie)
+
+__Einheiten__
+
+Die Werte aller Einheiten wurden stark überarbeitet. Dazu zählen Angriff, 
+Angriffsgeschwindigkeit, Verteidigung, Gesundheit und Soldatenanzahl.
+
+Außerdem können nun alle Adligen alle Standardeinheiten rekrutieren!
+
+__Kanonen__
+
+Kanonen haben nun die Rüstungsklasse von Gebäuden. Dadurch überleben sie länger.
+Als Ausgleich benötigen sie nun wesentlich mehr Platz.
+
+- Klein (Bombarde, Große Bombarde, Bronzekanone): 8
+- Groß (Eisenkanone, Dschihad, Belagerungskanone): 15
+- -2 Plätze pro Kanone (Salim)
+
+__Neue Gebäude__
+
+Beim Gebäudebau hat sich einiges verändert.
+
+- Allgemein:
+  * Es gibt nun 3 Tabs im Menü der Knechte
+  * Ballistatürme und Kanonentürme werden eigenständig gebaut
+  * Ballistatürme können weiterhin zu Kanonentürmen ausgebaut werden
+  * Wachtürme werden zu Falknertürmen ausgebaut
+  * Es gibt nun ein Söldnerlager, in dem Spezialeinheten gekauf werden können
+  * Es gibt nun einen Henkerplatz, der Verbrechen senkt
+  * Es gibt nun vier neue Verteidigungsfallen
+
+__Verteidigungsfallen__
+
+Zusätzlich zur Sprengfalle (Salim) kann nun jeder Adlige Fallen bauen. Knechte
+bauen diese Verteidigungsfallen wie gewöhnliche Gebäude.
+
+- Fallen sind nach Fertigstellung unsichtbar für den Gegner
+- Diebe können feindliche Fallen dauerhaft aufdecken
+- Fallenarten:
+  * Ein Hundezwinger lässt Kampfhunde auf nahe Feinde los
+  * Ein Bärenzwinger lässt einen Bären auf nahe Feinde los
+  * Eine Speerfalle spießt Feinde auf
+  * Eine Pechgrube verbrennt Feinde und entzündet andere Pechgruben
+
+__Wirtschaft__
+
+Bezüglich der Wirtschaft gab es einige kleinere und größere Anpassungen.
+
+- Es ist wesentlich einfacher die Beliebtheit aufrecht zu erhalten
+- Verbrecher
+  * Türme haben nun einen Wachmann, der aktiv Verbrecher jagd
+  * Verbrecher laufen nicht mehr nur zur Burg
+  * Der Henkerplatz reduziert das Verbrecheraufkommen
+- Ratten
+  * Ab dem Rang Graf muss sich um Verschmutzung gekümmert werden
+  * Produktionsgebäude erzeugen Ratten
+  * Falknertürme (Erweitere Aussichtstürme) fangen Ratten
+
+__Heldenfähigkeiten__
+
+- Salim:
+  * Kanonen belegen 2 Plätze weniger
+  * Gelehrte erlangen nun 30% schneller Wissen
+- Ari:
+  * Waldläufer (Armbrustschützen) wurden entfernt
+  * Vogelfreie können nun mit Armbrustschützen mithalten
+- Helias:
+  * Alle Templer genießen nun noch mehr "Göttlichen Segen"
+- Marie:
+  * 2 zusätzlich mögliche Knechte bei jedem Stufenaufstieg
+- Drake:
+  * Sold von Schafschützen wird nur noch um 20% reduziert
+
+__Maps__
+
+Alle alten Maps wurden an die neue Version angepasst. Des weiteren gibt es ein
+paar neue Maps:
+
+- *"Der einzige Weg"*
+  Eine Map für 2 Spieler, deren Inseln durch einen schmalen Pfad verbunden sind.
+- *"Die große Dürre"*
+  Eine Map für 3 Spieler, bei der das Wasser langsam verdunstet.
+- *"Im Stillen Winkel"*
+  Eine FFA Map für 5 Spieler (modifiziertes BB-Original)
+- *"Calabria"*
+  Eine Map für 10 Spieler in 2 Teams (ursprünglich von RobbieTheFox)
+
+__Mapping__
+
+In einem Unterordner "mapping" werden verschiedene Dinge bereitgestellt, um 
+auch anderen die Maperstellung zu ermöglichen.
+
+- Archiv "editor.bba" muss mit dem MP-Updater geladen werden
+- Skript "callbacks.lua" muss in jede Map eingefügt werden
+- Skript "mapconfig.lua" enthält die Mindeskonfiguration einer Map
+
+
+--------------------------------------------------------------------------------
+
 
 Version 0.5.38
 - Die Preise (fast) aller Einheiten wurden ein wenig gesenkt.

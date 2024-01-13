@@ -15,7 +15,7 @@ Stronghold.Hero.Config.Hero2 = {
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
     CannonPlaceReduction = 2,
-    KnowledgeFactor = 1.20,
+    KnowledgeFactor = 1.30,
     CannonTypes = {
         Entities.CV_Cannon1,
         Entities.CV_Cannon2,
