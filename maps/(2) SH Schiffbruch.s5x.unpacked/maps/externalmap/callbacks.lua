@@ -1,28 +1,80 @@
 ---
---- Mod Loader for current version.
+--- Mod loader for Stronghold.
 ---
 
-local print = function(...)
-	if LuaDebugger and LuaDebugger.Log then
-		if table.getn(arg) > 1 then
-			LuaDebugger.Log(arg)
-		else
-			LuaDebugger.Log(unpack(arg))
-		end;
-	end;
-end;
+StrongholdModLoader = {
+    -- Current live version
+    CURRENT_VERSION = "0_7_0",
+    -- Name of key were version is stored in game informations
+    CURRENT_VERSION_NAME = "STRONGHOLD_S5MP_VERSION",
 
-function OnMapStart()
-	CMod.PushArchive("stronghold_s5mp\\textureslow.bba");
-	CMod.PushArchive("stronghold_s5mp\\texturesmed.bba");
-	CMod.PushArchive("stronghold_s5mp\\textures.bba");
-	CMod.PushArchive("stronghold_s5mp\\sounds.bba");
-	CMod.PushArchive("stronghold_s5mp\\system.bba");
-    print("Stronghold mod loaded!");
-end;
+    -- Called when the player selects a map (multiplayer).
+    OnMapSelected = function()
+        if CNetwork then
+            local String = XNetwork.EXTENDED_GameInformation_GetCustomString();
+            local Data = CustomStringHelper.FromString(String);
+            CustomStringHelper.SetKeyValue(
+                Data,
+                StrongholdModLoader.CURRENT_VERSION_NAME,
+                StrongholdModLoader.CURRENT_VERSION
+            );
+            local Converted = CustomStringHelper.ToString(Data);
+            XNetwork.EXTENDED_GameInformation_SetCustomString(Converted);
+        end
+    end,
 
-local Callbacks = {
-	OnMapStart = OnMapStart;
-};
-return Callbacks;
+    -- Called when the player selects another map (multiplayer).
+    OnMapDeselected = function()
+        if CNetwork then
+            local String = XNetwork.EXTENDED_GameInformation_GetCustomString();
+            local Data = CustomStringHelper.FromString(String);
+            CustomStringHelper.ResetKey(
+                Data,
+                StrongholdModLoader.CURRENT_VERSION_NAME
+            );
+            local Converted = CustomStringHelper.ToString(Data);
+            XNetwork.EXTENDED_GameInformation_SetCustomString(Converted);
+        end
+    end,
+
+    -- Called when the player starts the game.
+    OnMapStart = function()
+        local SavedVersion;
+        if CNetwork then
+            local String = XNetwork.EXTENDED_GameInformation_GetCustomString();
+            local Data = CustomStringHelper.FromString(String);
+            SavedVersion = CustomStringHelper.GetValue(
+                Data,
+                StrongholdModLoader.CURRENT_VERSION_NAME
+            );
+        end
+        local Version = SavedVersion or StrongholdModLoader.CURRENT_VERSION;
+
+        if LuaDebugger and LuaDebugger.Log then
+            LuaDebugger.Log("Loading Stronghold version: ".. string.gsub(Version, "_", "."));
+        end
+        CMod.PushArchive("stronghold_s5mp\\version\\".. Version .."\\sh_textureslow.bba");
+        CMod.PushArchive("stronghold_s5mp\\version\\".. Version .."\\sh_texturesmed.bba");
+        CMod.PushArchive("stronghold_s5mp\\version\\".. Version .."\\sh_textures.bba");
+        CMod.PushArchive("stronghold_s5mp\\version\\".. Version .."\\sh_sounds.bba");
+        CMod.PushArchive("stronghold_s5mp\\version\\".. Version .."\\sh_system.bba");
+
+        local ArchiveFound = false;
+        local Archives = CMod.GetAllArchives();
+        Archives = type(Archives) ~= "table" and {Archives} or Archives;
+        for i= 1, table.getn(Archives) do
+            if string.find(Archives[i], "sh_system.bba") then
+                ArchiveFound = true;
+                break;
+            end
+        end
+
+        assert(ArchiveFound, "Unable to find Stronghold!");
+        if ArchiveFound and LuaDebugger and LuaDebugger.Log then
+            LuaDebugger.Log("Stronghold loaded!");
+        end
+    end,
+}
+
+return StrongholdModLoader;
 

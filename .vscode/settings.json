@@ -261,7 +261,8 @@
         "NPC_COLOR",
         "GetPositionsBetween",
         "CalculateOptimalNumPoints",
-        "EVELANCEMUSIC"
+        "EVELANCEMUSIC",
+        "CustomStringHelper"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

@@ -2,83 +2,90 @@
 
 # This shell script combines the source files into the archive.
 
+currentVersion="0_7_0"
+
 echo "Compile archive..."
 
 # pre build cleanup
 rm -rf var
 
 # fill editor archives
-mkdir -p var/stronghold_s5mp/editor.bba.unpacked
-cp -r modfiles/graphics var/stronghold_s5mp/editor.bba.unpacked
-rm -rf var/stronghold_s5mp/editor.bba.unpacked/graphics/textureslow
-rm -rf var/stronghold_s5mp/editor.bba.unpacked/graphics/texturesmed
-cp -r modfiles/config var/stronghold_s5mp/editor.bba.unpacked
-cp -r modfiles/mapeditor var/stronghold_s5mp/editor.bba.unpacked
-cp -r modfiles/text var/stronghold_s5mp/editor.bba.unpacked
+mkdir -p var/stronghold_s5mp/sh_editor.bba.unpacked
+cp -r modfiles/graphics var/stronghold_s5mp/sh_editor.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked/graphics/textureslow
+rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked/graphics/texturesmed
+cp -r modfiles/config var/stronghold_s5mp/sh_editor.bba.unpacked
+cp -r modfiles/mapeditor var/stronghold_s5mp/sh_editor.bba.unpacked
+cp -r modfiles/text var/stronghold_s5mp/sh_editor.bba.unpacked
 
 # fill archives
-mkdir -p var/stronghold_s5mp/textureslow.bba.unpacked/graphics
-mkdir -p var/stronghold_s5mp/texturesmed.bba.unpacked/graphics
-mkdir -p var/stronghold_s5mp/textures.bba.unpacked/graphics
-mkdir -p var/stronghold_s5mp/system.bba.unpacked/graphics
-cp -r modfiles/graphics/animations var/stronghold_s5mp/system.bba.unpacked/graphics
-cp -r modfiles/graphics/effects var/stronghold_s5mp/system.bba.unpacked/graphics
-cp -r modfiles/graphics/models var/stronghold_s5mp/system.bba.unpacked/graphics
-cp -r modfiles/graphics/textures var/stronghold_s5mp/textures.bba.unpacked/graphics
-cp -r modfiles/graphics/textureslow var/stronghold_s5mp/textureslow.bba.unpacked/graphics
-cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/textureslow.bba.unpacked/graphics/textureslow
-cp -r modfiles/graphics/texturesmed var/stronghold_s5mp/texturesmed.bba.unpacked/graphics
-cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/texturesmed.bba.unpacked/graphics/texturesmed
-cp -r modfiles/graphics/videos var/stronghold_s5mp/system.bba.unpacked/graphics
-cp -r modfiles/config var/stronghold_s5mp/system.bba.unpacked
-cp -r modfiles/script var/stronghold_s5mp/system.bba.unpacked
-cp -r modfiles/text var/stronghold_s5mp/system.bba.unpacked
-cp -r modfiles/menu var/stronghold_s5mp/system.bba.unpacked
-cp -r modfiles/sounds var/stronghold_s5mp/sounds.bba.unpacked
-cp -r modfiles/mapeditor var/stronghold_s5mp/system.bba.unpacked
+mkdir -p var/stronghold_s5mp/sh_textureslow.bba.unpacked/graphics
+mkdir -p var/stronghold_s5mp/sh_texturesmed.bba.unpacked/graphics
+mkdir -p var/stronghold_s5mp/sh_textures.bba.unpacked/graphics
+mkdir -p var/stronghold_s5mp/sh_system.bba.unpacked/graphics
+cp -r modfiles/graphics/animations var/stronghold_s5mp/sh_system.bba.unpacked/graphics
+cp -r modfiles/graphics/effects var/stronghold_s5mp/sh_system.bba.unpacked/graphics
+cp -r modfiles/graphics/models var/stronghold_s5mp/sh_system.bba.unpacked/graphics
+cp -r modfiles/graphics/textures var/stronghold_s5mp/sh_textures.bba.unpacked/graphics
+cp -r modfiles/graphics/textureslow var/stronghold_s5mp/sh_textureslow.bba.unpacked/graphics
+cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/sh_textureslow.bba.unpacked/graphics/textureslow
+cp -r modfiles/graphics/texturesmed var/stronghold_s5mp/sh_texturesmed.bba.unpacked/graphics
+cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/sh_texturesmed.bba.unpacked/graphics/texturesmed
+cp -r modfiles/graphics/videos var/stronghold_s5mp/sh_system.bba.unpacked/graphics
+cp -r modfiles/config var/stronghold_s5mp/sh_system.bba.unpacked
+cp -r modfiles/script var/stronghold_s5mp/sh_system.bba.unpacked
+cp -r modfiles/text var/stronghold_s5mp/sh_system.bba.unpacked
+cp -r modfiles/menu var/stronghold_s5mp/sh_system.bba.unpacked
+cp -r modfiles/sounds var/stronghold_s5mp/sh_sounds.bba.unpacked
+cp -r modfiles/mapeditor var/stronghold_s5mp/sh_system.bba.unpacked
 
 # lokalisation
-mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/es
-cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/es
-mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/fr
-cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/fr
-mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/it
-cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/it
-mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/pl
-cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/pl
-mkdir -p var/stronghold_s5mp/system.bba.unpacked/text/ru
-cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/ru
+mkdir -p var/stronghold_s5mp/sh_system.bba.unpacked/text/es
+cp -r var/stronghold_s5mp/sh_system.bba.unpacked/text/en/* var/stronghold_s5mp/sh_system.bba.unpacked/text/es
+mkdir -p var/stronghold_s5mp/sh_system.bba.unpacked/text/fr
+cp -r var/stronghold_s5mp/sh_system.bba.unpacked/text/en/* var/stronghold_s5mp/sh_system.bba.unpacked/text/fr
+mkdir -p var/stronghold_s5mp/sh_system.bba.unpacked/text/it
+cp -r var/stronghold_s5mp/sh_system.bba.unpacked/text/en/* var/stronghold_s5mp/sh_system.bba.unpacked/text/it
+mkdir -p var/stronghold_s5mp/sh_system.bba.unpacked/text/pl
+cp -r var/stronghold_s5mp/sh_system.bba.unpacked/text/en/* var/stronghold_s5mp/sh_system.bba.unpacked/text/pl
+mkdir -p var/stronghold_s5mp/sh_system.bba.unpacked/text/ru
+cp -r var/stronghold_s5mp/sh_system.bba.unpacked/text/en/* var/stronghold_s5mp/sh_system.bba.unpacked/text/ru
 # Testing en
-# cp -r var/stronghold_s5mp/system.bba.unpacked/text/en/* var/stronghold_s5mp/system.bba.unpacked/text/de
-# rm -rf var/stronghold_s5mp/system.bba.unpacked/text/de/ingame/keybindings.xml
-# cp -r modfiles/text/de/ingame/keybindings.xml var/stronghold_s5mp/system.bba.unpacked/text/de/ingame
+# cp -r var/stronghold_s5mp/sh_system.bba.unpacked/text/en/* var/stronghold_s5mp/sh_system.bba.unpacked/text/de
+# rm -rf var/stronghold_s5mp/sh_system.bba.unpacked/text/de/ingame/keybindings.xml
+# cp -r modfiles/text/de/ingame/keybindings.xml var/stronghold_s5mp/sh_system.bba.unpacked/text/de/ingame
 
 # copy cerberus folder
-mkdir -p var/stronghold_s5mp/system.bba.unpacked/script
+mkdir -p var/stronghold_s5mp/sh_system.bba.unpacked/script
 cp -r "E:/Repositories/cerberus/var/cerberus" .
-cp -r cerberus var/stronghold_s5mp/system.bba.unpacked/script
+cp -r cerberus var/stronghold_s5mp/sh_system.bba.unpacked/script
 
 # pack archive
-bin/bba5.exe var/stronghold_s5mp/editor.bba.unpacked
-bin/bba5.exe var/stronghold_s5mp/textureslow.bba.unpacked
-bin/bba5.exe var/stronghold_s5mp/texturesmed.bba.unpacked
-bin/bba5.exe var/stronghold_s5mp/textures.bba.unpacked
-bin/bba5.exe var/stronghold_s5mp/sounds.bba.unpacked
-bin/bba5.exe var/stronghold_s5mp/system.bba.unpacked
+bin/bba5.exe var/stronghold_s5mp/sh_editor.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked
+bin/bba5.exe var/stronghold_s5mp/sh_textureslow.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_textureslow.bba.unpacked
+bin/bba5.exe var/stronghold_s5mp/sh_texturesmed.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_texturesmed.bba.unpacked
+bin/bba5.exe var/stronghold_s5mp/sh_textures.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_textures.bba.unpacked
+bin/bba5.exe var/stronghold_s5mp/sh_sounds.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_sounds.bba.unpacked
+bin/bba5.exe var/stronghold_s5mp/sh_system.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_system.bba.unpacked
 
 echo "Done!"
 
 echo "Create release..."
 
 # fill release folder
-rm -rf release/stronghold_s5mp
-rm -rf release/shs5mp_configs
+rm -rf release/shs5mp_configs/version
 rm -rf release/*.s5x
-mkdir -p release/stronghold_s5mp
+mkdir -p "release/stronghold_s5mp/version/$currentVersion"
 mkdir -p release/shs5mp_configs
 mkdir -p release/stronghold_s5mp/mapping
-cp -r var/stronghold_s5mp/* release/stronghold_s5mp
-mv var/stronghold_s5mp/editor.bba release/stronghold_s5mp/mapping
+cp -r var/stronghold_s5mp/* "release/stronghold_s5mp/version/$currentVersion"
+mv var/stronghold_s5mp/sh_editor.bba release/stronghold_s5mp/mapping
 cp modloader/callbacks.lua release/stronghold_s5mp/mapping
 cp dev/mapconfig.lua release/stronghold_s5mp/mapping
 
@@ -126,15 +133,6 @@ cp "maps/(5) SH Im stillen Winkel.lua" release/shs5mp_configs
 bin/bba5.exe "maps/(10) SH Calabria.s5x.unpacked"
 cp "maps/(10) SH Calabria.s5x" release
 cp "maps/(10) SH Calabria.lua" release/shs5mp_configs
-
-echo "Done!"
-
-echo "Clean up..."
-
-# post build cleanup
-rm -rf var/stronghold_s5mp/*.bba.unpacked
-rm -rf release/stronghold_s5mp/*.bba.unpacked
-rm release/stronghold_s5mp/editor.bba
 
 echo "Done!"
 
