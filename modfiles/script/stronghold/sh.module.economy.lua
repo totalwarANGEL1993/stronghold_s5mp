@@ -317,10 +317,16 @@ function Stronghold.Economy:OncePerSecond(_PlayerID)
     self:GainMeasurePoints(_PlayerID);
     -- Knowledge
     self:GainKnowledgePoints(_PlayerID);
+    -- Reputation
+    self:CalculateReputationIncrease(_PlayerID);
+    self:CalculateReputationDecrease(_PlayerID);
+    -- Honor
+    self:CalculateHonorIncome(_PlayerID);
 end
 
 function Stronghold.Economy:OncePerTurn(_PlayerID)
-    -- Income and Costs
+    -- Income, Reputation, Honor
+    self:CalculateReputationBonusAmount(_PlayerID);
     self:UpdateIncomeAndUpkeep(_PlayerID);
 end
 
@@ -356,7 +362,6 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
 
         -- Calculate reputation bonus
         local ReputationPlus = 0;
-        self:CalculateReputationIncrease(_PlayerID);
         if self.Data[_PlayerID].ReputationDetails.Housing > 0 then
             ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.Housing;
         end
@@ -376,7 +381,6 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
 
         -- Calculate reputation penalty
         local ReputationMinus = 0;
-        self:CalculateReputationDecrease(_PlayerID);
         if self.Data[_PlayerID].ReputationDetails.Homelessness > 0 then
             ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.Homelessness;
         end
@@ -399,7 +403,6 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
 
         -- Calculate honor
         local HonorPlus = 0;
-        self:CalculateHonorIncome(_PlayerID);
         if self.Data[_PlayerID].HonorDetails.Housing > 0 then
             HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.Housing;
         end
@@ -479,14 +482,6 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
                 Beauty = Beauty + BuildingIncome;
             end
             self.Data[_PlayerID].ReputationDetails.Buildings = Beauty;
-
-            -- External calculations
-            local Special = GameCallback_SH_Calculate_ReputationIncreaseExternal(_PlayerID);
-            local ReputationOneshot = self.Data[_PlayerID].IncomeReputationSingle;
-            if ReputationOneshot > 0 then
-                Special = Special + ReputationOneshot;
-            end
-            self.Data[_PlayerID].ReputationDetails.OtherBonus = Special;
         else
             -- Reset all caches
             self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;
@@ -544,19 +539,6 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             local NoHousePenalty = 10 * ((1.0075 ^ NoHouse) -1);
             self.Data[_PlayerID].ReputationDetails.Homelessness = NoHousePenalty;
             Decrease = Decrease + NoFarmPenalty + NoHousePenalty;
-
-            -- External calculations
-            local Special = GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID);
-            local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
-            local Rats = Stronghold.Attraction:GetPlayerRats(_PlayerID);
-            self.Data[_PlayerID].ReputationDetails.Criminals = Criminals;
-            self.Data[_PlayerID].ReputationDetails.Rats = Rats;
-            self.Data[_PlayerID].ReputationDetails.OtherMalus = Special - Criminals - Rats;
-            local ReputationOneshot = self.Data[_PlayerID].IncomeReputationSingle;
-            if ReputationOneshot < 0 then
-                Special = Special + ((-1) * ReputationOneshot);
-            end
-            self.Data[_PlayerID].ReputationDetails.OtherMalus = Special;
         else
             -- Reset all caches
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = 0;
@@ -567,6 +549,33 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             self.Data[_PlayerID].ReputationDetails.OtherMalus = 0;
         end
     end
+end
+
+function Stronghold.Economy:CalculateReputationBonusAmount(_PlayerID)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Special, ReputationOneshot;
+        -- External bonus
+        Special = GameCallback_SH_Calculate_ReputationIncreaseExternal(_PlayerID);
+        ReputationOneshot = self.Data[_PlayerID].IncomeReputationSingle;
+        if ReputationOneshot > 0 then
+            Special = Special + ReputationOneshot;
+        end
+        self.Data[_PlayerID].ReputationDetails.OtherBonus = Special;
+
+        -- External malus
+        Special = GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID);
+        local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
+        local Rats = Stronghold.Attraction:GetPlayerRats(_PlayerID);
+        self.Data[_PlayerID].ReputationDetails.Criminals = Criminals;
+        self.Data[_PlayerID].ReputationDetails.Rats = Rats;
+        self.Data[_PlayerID].ReputationDetails.OtherMalus = Special - Criminals - Rats;
+        ReputationOneshot = self.Data[_PlayerID].IncomeReputationSingle;
+        if ReputationOneshot < 0 then
+            Special = Special + ((-1) * ReputationOneshot);
+        end
+        self.Data[_PlayerID].ReputationDetails.OtherMalus = Special;
+    end
+    return 0;
 end
 
 function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxHeight)
