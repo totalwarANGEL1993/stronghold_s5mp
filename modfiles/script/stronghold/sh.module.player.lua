@@ -243,6 +243,27 @@ function Stronghold.Player:OncePerSecond(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Game Mode
+
+function Stronghold.Player:ActivateGameModeKingsmaker()
+    self.Config.DefeatModes.Kingsmaker = true;
+    self.Config.DefeatModes.SuddenDeath = false;
+    self.Config.DefeatModes.Annihilation = false;
+end
+
+function Stronghold.Player:ActivateGameModeSuddenDeath()
+    self.Config.DefeatModes.Kingsmaker = false;
+    self.Config.DefeatModes.SuddenDeath = true;
+    self.Config.DefeatModes.Annihilation = false;
+end
+
+function Stronghold.Player:ActivateGameModeAnnihilation()
+    self.Config.DefeatModes.Kingsmaker = false;
+    self.Config.DefeatModes.SuddenDeath = false;
+    self.Config.DefeatModes.Annihilation = true;
+end
+
+-- -------------------------------------------------------------------------- --
 -- Player
 
 function Stronghold.Player:SetInitialRank(_Rank)
@@ -536,7 +557,7 @@ end
 -- gradually loose health until they die or a headquarter is build.
 function Stronghold.Player:WaitForPlayersHeadquarterConstructed(_PlayerID)
     if self:IsPlayer(_PlayerID) then
-        if self.Config.DefeatModes.Annihilation then
+        if self.Config.DefeatModes.Kingsmaker then
             return true;
         end
         if self.Data[_PlayerID].Player.IsDefeated then
@@ -571,10 +592,10 @@ end
 
 function Stronghold.Player:WaitForPlayerHeroSlowlyDies(_PlayerID)
     if self:IsPlayer(_PlayerID) then
-        if self.Config.DefeatModes.Annihilation then
+        if self.Config.DefeatModes.Kingsmaker then
             return true;
         end
-        if self.Config.DefeatModes.LastManStanding then
+        if self.Config.DefeatModes.Annihilation then
             return true;
         end
         if self.Data[_PlayerID].Player.IsDefeated then
@@ -842,7 +863,7 @@ function Stronghold.Player:PlayerDefeatCondition(_PlayerID)
     local CastleName = self.Data[_PlayerID].Player.HQScriptName;
 
     local PlayerIsDefeated = false;
-    if self.Config.DefeatModes.Annihilation then
+    if self.Config.DefeatModes.Kingsmaker then
         local MaxDistance = self.Config.Base.MaxHeroDistance;
         local HeroAtCastle = false;
         if IsEntityValid(HeroName) and GetDistance(HeroName, CastleName) <= MaxDistance then
@@ -888,7 +909,7 @@ function Stronghold.Player:PlayerDefeatCondition(_PlayerID)
         and Logic.PlayerGetGameState(_PlayerID) == 1 then
             PlayerIsDefeated = true;
         end
-    elseif self.Config.DefeatModes.LastManStanding then
+    elseif self.Config.DefeatModes.Annihilation then
         local SoldierAmount = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
 
         -- Deco entities must be explicitly excluded

@@ -14,8 +14,8 @@ Stronghold.Player.Config = {
 
     DefeatModes = {
         SuddenDeath = true,
-        LastManStanding = false,
         Annihilation = false,
+        Kingsmaker = false,
     },
 
     Payday = {

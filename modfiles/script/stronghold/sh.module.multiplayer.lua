@@ -37,6 +37,17 @@ function ShowStrongholdConfiguration(_Config)
     Stronghold.Multiplayer:ShowRuleSelection();
 end
 
+--- Returns the mode selected.
+---
+--- Possible values:
+--- * 1: Kingsmaker
+--- * 2: Sudden Death
+--- * 3: Last Man Standing
+--- @return number Selected Selected mode
+function GetSelectedMode()
+    return Stronghold.Multiplayer.Data.Config.ModeSelected;
+end
+
 --- Returns the selected peacetime.
 ---
 --- Possible values:
@@ -162,22 +173,25 @@ end
 
 function Stronghold.Multiplayer:CreateMultiplayerButtonHandlers()
     self.SyncEvents = {
-        ChangeResource = 1,
-        ChangeHero = 2,
-        ChangeStartRank = 3,
-        ChangeFinalRank = 4,
-        ChangePeacetime = 5,
-        Reset = 6,
-        Confirm = 7,
-        BroadcastMainVersion = 8,
-        BroadcastMapVersion = 9,
+        ChangeMode = 1,
+        ChangeResource = 2,
+        ChangeHero = 3,
+        ChangeStartRank = 4,
+        ChangeFinalRank = 5,
+        ChangePeacetime = 6,
+        Reset = 7,
+        Confirm = 8,
+        BroadcastMainVersion = 9,
+        BroadcastMapVersion = 10,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
             WriteSyncCallToLog("Multiplayer", _Action, _PlayerID, unpack(arg));
 
-            if _Action == Stronghold.Multiplayer.SyncEvents.ChangeResource then
+            if _Action == Stronghold.Multiplayer.SyncEvents.ChangeMode then
+                Stronghold.Multiplayer:ConfigureMode(arg[1]);
+            elseif _Action == Stronghold.Multiplayer.SyncEvents.ChangeResource then
                 Stronghold.Multiplayer:ConfigureResource(arg[1]);
             elseif _Action == Stronghold.Multiplayer.SyncEvents.ChangeHero then
                 Stronghold.Multiplayer:ConfigureHeroAllowed(arg[1], arg[2]);
@@ -201,6 +215,10 @@ function Stronghold.Multiplayer:CreateMultiplayerButtonHandlers()
 end
 
 -- -------------------------------------------------------------------------- --
+
+function Stronghold.Multiplayer:ConfigureMode(_Mode)
+    self.Data.Config.ModeSelected = _Mode;
+end
 
 function Stronghold.Multiplayer:ConfigureResource(_Amount)
     self.Data.Config.ResourceSelected = _Amount;
@@ -297,8 +315,9 @@ end
 function Stronghold.Multiplayer:ConfigureReset()
     self.Data.Config = CopyTable(self.Config.DefaultSettings);
 
+    self.Data.Config.ModeSelected = 2;
     self.Data.Config.ResourceSelected = 1;
-    self.Data.Config.PeacetimeSelected = 6;
+    self.Data.Config.PeacetimeSelected = 8;
     self.Data.Config.Rank.Initial = 0;
     self.Data.Config.Rank.Final = 7;
     if self.Data.Config.AllowedHeroes then
@@ -309,6 +328,28 @@ function Stronghold.Multiplayer:ConfigureReset()
 end
 
 function Stronghold.Multiplayer:Configure()
+    -- Setup mode
+    if self.Data.Config.Mode then
+        local Selected = self.Data.Config.ModeSelected;
+        if Selected == 1 then
+            Stronghold.Player:ActivateGameModeKingsmaker();
+            if XNetwork.Manager_DoesExist() == 1 then
+                local HumenPlayer = XNetwork.GameInformation_GetMapMaximumNumberOfHumanPlayer();
+                for PlayerID = 1, HumenPlayer, 1 do
+                    ForbidTechnology(Technologies.B_Headquarter, PlayerID);
+                end
+            else
+                ForbidTechnology(Technologies.B_Headquarter, GUI.GetPlayerID());
+            end
+        end
+        if Selected == 2 then
+            Stronghold.Player:ActivateGameModeSuddenDeath();
+        end
+        if Selected == 3 then
+            Stronghold.Player:ActivateGameModeAnnihilation();
+        end
+    end
+
     -- Setup ranks
     if self.Data.Config.Rank then
         local InitialRank = self.Data.Config.Rank.Initial or 0;
@@ -927,6 +968,21 @@ end
 -- -------------------------------------------------------------------------- --
 -- GUI Action
 
+function GUIAction_SHMP_Config_SetMode(_Mode)
+    local PlayerID = GUI.GetPlayerID();
+    -- Only host can trigger action
+    if (PlayerID ~= 17 and PlayerID ~= Syncer.GetHostPlayerID())
+    -- AND only if not already confirmed
+    or Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+        return;
+    end
+    Syncer.InvokeEvent(
+        Stronghold.Multiplayer.NetworkCall,
+        Stronghold.Multiplayer.SyncEvents.ChangeMode,
+        _Mode
+    );
+end
+
 function GUIAction_SHMP_Config_SetHeroAllowed(_Type)
     local PlayerID = GUI.GetPlayerID();
     -- Only host can trigger action
@@ -1045,6 +1101,13 @@ end
 -- -------------------------------------------------------------------------- --
 -- GUI Tooltip
 
+function GUITooltip_SHMP_Config_SetMode(_TextKey)
+    local Text = XGUIEng.GetStringTableText(_TextKey);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+end
+
 function GUITooltip_SHMP_Config_SetHeroAllowed(_Type)
     local TypeName = Logic.GetEntityTypeName(_Type);
     local Text = XGUIEng.GetStringTableText("sh_shs5mp/hero_" ..TypeName);
@@ -1090,6 +1153,12 @@ end
 
 -- -------------------------------------------------------------------------- --
 -- GUI Uptate
+
+function GUIUpdate_SHMP_Config_SetMode(_Widget)
+    local Selected = Stronghold.Multiplayer.Data.Config.ModeSelected or 1;
+    local Flag = (string.find(_Widget, "Mode" ..Selected) ~= nil and 1) or 0;
+    XGUIEng.HighLightButton(_Widget, Flag);
+end
 
 function GUIUpdate_SHMP_Config_SetHeroAllowed(_Widget, _Type)
     local Flag = (Stronghold.Multiplayer.Data.Config.AllowedHeroes[_Type] and 0) or 1;

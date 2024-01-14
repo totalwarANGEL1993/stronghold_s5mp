@@ -2,6 +2,25 @@
 
 Die "Lessons Learned" Edition
 
+__Spielmodus__
+
+Es gibt nun 3 verschiedene Spielmodi für die Standardsiegbedingung. Als Standard
+ist "Todesurteil" festgelegt.
+
+- Königsmacher:
+  * Die Burg eines Spielers muss zerstört werden
+  * Adlige können wiederbelebt werden
+  * Burgen sind unverwundbar, solange der Adlige nahe ist
+- Todesurteil:
+  * Die Burg und der Adlige müssen beseitigt werden
+  * Adlige können wiederbelebt werden
+  * Adlige ohne Burg erleiden kontinuierlich Schaden
+  * Burgen können wieder aufgebaut werden
+- Auslöschung:
+  * Die Burg, der Adlige und alle Militäreinheiten müssen beseitigt werden
+  * Adlige können wiederbelebt werden
+  * Burgen können wieder aufgebaut werden
+
 __Bevölkerung__
 
 Das Soldatenlimit wird nicht mehr durch das ausbauen von Militärgebäuden erhöht,
@@ -100,7 +119,7 @@ paar neue Maps:
 - *"Der einzige Weg"*
   Eine Map für 2 Spieler, deren Inseln durch einen schmalen Pfad verbunden sind.
 - *"Die große Dürre"*
-  Eine Map für 3 Spieler, bei der das Wasser langsam verdunstet.
+  Eine FFA Map für 3 Spieler, bei der das Wasser langsam verdunstet.
 - *"Im Stillen Winkel"*
   Eine FFA Map für 5 Spieler (modifiziertes BB-Original)
 - *"Calabria"*

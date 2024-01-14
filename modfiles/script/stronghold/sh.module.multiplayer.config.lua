@@ -5,6 +5,9 @@
 Stronghold.Multiplayer.Config.DefaultSettings = {
     Version = 1,
 
+    -- Peacetime in minutes
+    Mode = 0,
+
     -- Disable standard victory condition?
     -- (Game is not lost when the HQ falls)
     DisableDefaultWinCondition = false,
