@@ -564,8 +564,8 @@ function Stronghold.Economy:CalculateReputationBonusAmount(_PlayerID)
 
         -- External malus
         Special = GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID);
-        local Criminals = Stronghold.Attraction:GetReputationLossByCriminals(_PlayerID);
-        local Rats = Stronghold.Attraction:GetPlayerRats(_PlayerID);
+        local Criminals = Stronghold.Populace:GetReputationLossByCriminals(_PlayerID);
+        local Rats = Stronghold.Populace:GetPlayerRats(_PlayerID);
         self.Data[_PlayerID].ReputationDetails.Criminals = Criminals;
         self.Data[_PlayerID].ReputationDetails.Rats = Rats;
         self.Data[_PlayerID].ReputationDetails.OtherMalus = Special - Criminals - Rats;

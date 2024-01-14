@@ -258,6 +258,7 @@ function Stronghold:Init()
     self.Hero:Install();
     self.Unit:Install();
     self.Attraction:Install();
+    self.Populace:Install();
     self.Province:Install();
     self.Statistic:Install();
     self.Multiplayer:Install();
@@ -307,6 +308,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Hero:OnSaveGameLoaded();
     self.Unit:OnSaveGameLoaded();
     self.Attraction:OnSaveGameLoaded();
+    self.Populace:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();
     self.Statistic:OnSaveGameLoaded();
     self.Multiplayer:OnSaveGameLoaded();
@@ -395,7 +397,7 @@ function Stronghold:StartTriggers()
             if TimeMod == PlayerMod then
                 Stronghold:ClearPlayerRecordCache(PlayerID);
                 Stronghold.Player:OncePerSecond(PlayerID);
-                Stronghold.Attraction:OncePerSecond(PlayerID);
+                Stronghold.Populace:OncePerSecond(PlayerID);
                 Stronghold.Building:OncePerSecond(PlayerID);
                 Stronghold.Economy:OncePerSecond(PlayerID);
                 Stronghold.Hero:OncePerSecond(PlayerID);
@@ -410,6 +412,7 @@ function Stronghold:StartTriggers()
         Stronghold:AddEntityToPlayerRecordOnCreate(EntityID);
         Stronghold:OnSelectionMenuChanged(EntityID);
         Stronghold.Attraction:OnEntityCreated(EntityID);
+        Stronghold.Populace:OnEntityCreated(EntityID);
         Stronghold.Building:OnEntityCreated(EntityID);
         Stronghold.Economy:OnEntityCreated(EntityID);
         Stronghold.Hero:OnEntityCreated(EntityID);
@@ -421,7 +424,7 @@ function Stronghold:StartTriggers()
     Job.Destroy(function()
         local EntityID = Event.GetEntityID();
         Stronghold:RemoveEntityFromPlayerRecordOnDestroy(EntityID);
-        Stronghold.Attraction:OnEntityDestroyed(EntityID);
+        Stronghold.Populace:OnEntityDestroyed(EntityID);
         Stronghold.Building:OnEntityDestroyed(EntityID);
         Stronghold.Construction:OnEntityDestroyed(EntityID);
         Stronghold.Wall:OnEntityDestroyed(EntityID);
@@ -845,7 +848,6 @@ function Stronghold:OverwriteCommonCallbacks()
     Overwrite.CreateOverwrite("GameCallback_OnBuildingConstructionComplete", function(_EntityID, _PlayerID)
         Overwrite.CallOriginal();
         Stronghold:OnSelectionMenuChanged(_EntityID);
-        Stronghold.Attraction:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
         Stronghold.Trap:OnTrapConstructed(_EntityID, _PlayerID);
@@ -855,7 +857,6 @@ function Stronghold:OverwriteCommonCallbacks()
         Overwrite.CallOriginal();
         local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
         Stronghold:OnSelectionMenuChanged(_EntityIDNew);
-        Stronghold.Attraction:OnUpgradeComplete(_EntityIDOld, _EntityIDNew);
         Stronghold.Building:SetIgnoreRallyPointSelectionCancel(PlayerID);
         Stronghold.Building:DestroyTurretsOfBuilding(_EntityIDOld);
         Stronghold.Building:CreateTurretsForBuilding(_EntityIDNew);

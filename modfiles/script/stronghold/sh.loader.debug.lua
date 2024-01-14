@@ -115,6 +115,8 @@ Script.Load(gvStronghold_Path.. "sh.module.player.lua");
 Script.Load(gvStronghold_Path.. "sh.module.player.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.attraction.lua");
 Script.Load(gvStronghold_Path.. "sh.module.attraction.config.lua");
+Script.Load(gvStronghold_Path.. "sh.module.populace.lua");
+Script.Load(gvStronghold_Path.. "sh.module.populace.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.building.lua");
 Script.Load(gvStronghold_Path.. "sh.module.building.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.construction.lua");
