@@ -1239,6 +1239,7 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
 
     if _Key == "MenuTop/Find_spear" then
         Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Templar_LeaderPoleArm1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm2] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm3] or 0) +
@@ -1247,10 +1248,11 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
         Upkeep = Upkeep +
             (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderClub1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderClub2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderMace1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderMace2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword3] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderMace1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderMace2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub2] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderBearman1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword2] or 0) +
@@ -1276,10 +1278,13 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
             (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon8] or 0);
     elseif _Key == "MenuTop/Find_lightcavalry" then
         Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderCavalry1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Templar_LeaderCavalry1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry2] or 0);
     elseif _Key == "MenuTop/Find_heavycavalry" then
         Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Templar_LeaderHeavyCavalry1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry2] or 0);
     elseif _Key == "AOMenuTop/Find_rifle" then
