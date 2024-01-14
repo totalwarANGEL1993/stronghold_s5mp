@@ -23,7 +23,7 @@
             <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
-    <!-- Bowmen on foot -->
+    <!-- Bowmen -->
     <DamageClass id="DC_Arrow">
         <Logic classname="GGL::CDamageClassProps">
             <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
@@ -35,7 +35,7 @@
             <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
-    <!-- Mounted bowmen -->
+    <!-- Crossbowmen -->
     <DamageClass id="DC_Bolt">
         <Logic classname="GGL::CDamageClassProps">
             <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>

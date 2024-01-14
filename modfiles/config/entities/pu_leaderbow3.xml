@@ -122,7 +122,7 @@
             <BattleWalkAnim>PU_LeaderBow3_Run1</BattleWalkAnim>
             <HitAnim>PU_LeaderBow3_Hit</HitAnim>
 
-            <DamageClass>DC_Arrow</DamageClass>
+            <DamageClass>DC_Bolt</DamageClass>
             <DamageAmount>24</DamageAmount>
             <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
 
@@ -138,7 +138,7 @@
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>2</HealingSeconds>
 
-            <UpkeepCost>20</UpkeepCost>
+            <UpkeepCost>0</UpkeepCost>
         </Logic>
     </Behavior>
 

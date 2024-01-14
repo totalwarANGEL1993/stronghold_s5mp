@@ -26,7 +26,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <MaxHealth>175</MaxHealth>
         <Exploration>28</Exploration>
-        <ArmorClass>ArmorClassJerkin</ArmorClass>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>5</ArmorAmount>
         <DodgeChance>20</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
@@ -134,7 +134,7 @@
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
 
-            <UpkeepCost>20</UpkeepCost>
+            <UpkeepCost>0</UpkeepCost>
         </Logic>
     </Behavior>
 

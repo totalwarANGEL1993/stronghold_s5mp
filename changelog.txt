@@ -1,4 +1,4 @@
-**Strongold Version 0.7.00**
+**Strongold Version 0.7.0**
 
 Die "Lessons Learned" Edition
 

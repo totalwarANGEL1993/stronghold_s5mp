@@ -115,7 +115,7 @@
             <BattleWalkAnim>PU_LeaderCavalry1_Run1</BattleWalkAnim>
             <HitAnim>PU_LeaderCavalry1_Hit</HitAnim>
 
-            <DamageClass>DC_Bolt</DamageClass>
+            <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>30</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
@@ -131,7 +131,7 @@
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
 
-            <UpkeepCost>20</UpkeepCost>
+            <UpkeepCost>0</UpkeepCost>
         </Logic>
     </Behavior>
 

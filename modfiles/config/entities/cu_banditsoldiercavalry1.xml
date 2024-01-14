@@ -104,7 +104,7 @@
             <BattleWalkAnim>PU_SoldierCavalry1_Run1</BattleWalkAnim>
             <HitAnim>PU_SoldierCavalry1_Hit</HitAnim>
 
-            <DamageClass>DC_Bolt</DamageClass>
+            <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>32</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
