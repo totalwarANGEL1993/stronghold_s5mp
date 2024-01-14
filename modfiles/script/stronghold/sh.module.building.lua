@@ -1420,8 +1420,8 @@ end
 
 function Stronghold.Building:InitalizeTurretsForExistingBuildings()
     for PlayerID = 1, GetMaxPlayers() do
-        local Buildings = GetBuildingsOfType(PlayerID, 0, true);
-        for i= 2, Buildings[1] +1 do
+        local Buildings = GetPlayerEntities(PlayerID, 0);
+        for i= 1, table.getn(Buildings) do
             self:CreateTurretsForBuilding(Buildings[i]);
         end
     end
