@@ -1190,6 +1190,17 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         XGUIEng.SetText( "TaxLeaderSumOfPay", " @color:255,32,32 @ra "..Upkeep);
     end);
 
+    Overwrite.CreateOverwrite("GUIUpdate_TaxWorkerAmount", function()
+        local PlayerID = GetLocalPlayerID();
+        if not IsPlayer(PlayerID) then
+            return Overwrite.CallOriginal();
+        end
+        local NumerOfWorkers = Logic.GetNumberOfAttractedWorker(PlayerID);
+        NumerOfWorkers = NumerOfWorkers - Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Criminal_Deco);
+        NumerOfWorkers = NumerOfWorkers - Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Watchman_Deco);
+        XGUIEng.SetText( "TaxWorkerAmount", ""..NumerOfWorkers);
+    end);
+
     function GUIUpdate_Population()
         local PlayerID = GetLocalPlayerID();
         local Usage = GetCivilAttractionUsage(PlayerID);
