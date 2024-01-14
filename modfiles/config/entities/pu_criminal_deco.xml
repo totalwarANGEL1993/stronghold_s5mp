@@ -2,9 +2,10 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>PU_Thief</Model>
+        <Model>PU_ThiefCarry</Model>
         <Model2>PU_ThiefCarry</Model2>
-        <Model2>PU_ThiefSerf</Model2>
+        <Model3>PU_ThiefSerf</Model3>
+        <Model4>PU_Thief</Model4>
         <DrawPlayerColor>True</DrawPlayerColor>
         <Anim>PU_Thief_Walk</Anim>
         <Anim>PU_Thief_Run1</Anim>
@@ -25,54 +26,53 @@
         <Anim>PU_ThiefCarry_Run1</Anim>
         <Anim>PU_ThiefCarry_Idle1</Anim>
     </Display>
+
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>100</MaxHealth>
+        <Hat/>
+        <MaxHealth>200</MaxHealth>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>0</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <Hat/>
+        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <RepairFactor>0.3</RepairFactor>
+        <Exploration>24</Exploration>
+        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Gold>0</Gold>
         </Cost>
-        <AttractionSlots>0</AttractionSlots>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>18</Exploration>
-        <ArmorClass>ArmorClassHero</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>0</DodgeChance>
-        <IdleTaskList>TL_THIEF_IDLE</IdleTaskList>
-        <ExperiencePoints>40</ExperiencePoints>
         <Fearless>true</Fearless>
         <!-- This is used to prevent units to automatically attack. -->
         <Category>Wall</Category>
     </Logic>
+
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PU_Thief_Idle1</SuspensionAnimation>
-            <AnimSet>SET_THIEF</AnimSet>
-            <ExtraSet>
-                <Model>PU_ThiefCarry</Model>
-                <AnimSet>SET_THIEF_CARRY</AnimSet>
-            </ExtraSet>
+            <SuspensionAnimation>PU_Thief_CarryIdle1</SuspensionAnimation>
+            <AnimSet>SET_THIEF_CARRY</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>350</Speed>
+            <Speed>340</Speed>
             <RotationSpeed>30</RotationSpeed>
-            <MoveTaskList>TL_THIEF_WALK</MoveTaskList>
-            <MoveIdleAnim>PU_Thief_Idle1</MoveIdleAnim>
+            <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
+            <MoveIdleAnim>PU_Thief_CarryIdle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
         </Display>
     </Behavior>
+    
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CBehaviorWalkCommand</Class>
@@ -80,12 +80,18 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CLeaderBehaviorProps">
-            <Class>GGL::CLeaderBehavior</Class>
-            <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
-            <HomeRadius>3000</HomeRadius>
+        <Logic classname="GGL::CSerfBehaviorProps">
+            <Class>GGL::CSerfBehavior</Class>
+            <ApproachConstructionSiteTaskList>TL_SERF_GO_TO_CONSTRUCTION_SITE</ApproachConstructionSiteTaskList>
+            <TurnIntoBattleSerfTaskList>TL_SERF_TURN_INTO_BATTLE_SERF</TurnIntoBattleSerfTaskList>
+            <ResourceSearchRadius>0</ResourceSearchRadius>
+        </Logic>
+    </Behavior>
 
-            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+    <Behavior>
+        <Logic classname="GGL::CSerfBattleBehaviorProps">
+            <Class>GGL::CSerfBattleBehavior</Class>
+            <BattleTaskList>TL_BATTLE</BattleTaskList>
 
             <NormalAttackAnim1>PU_Thief_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_Thief_Attack2</NormalAttackAnim2>
@@ -96,18 +102,36 @@
             <BattleWalkAnim>PU_Thief_Run1</BattleWalkAnim>
             <HitAnim>PU_Thief_Hit</HitAnim>
 
-            <DamageClass>DC_Hero</DamageClass>
-            <DamageAmount>12</DamageAmount>
-            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
-
-            <BattleWaitUntil>1500</BattleWaitUntil>
-
+            <DamageClass>DC_Slash</DamageClass>
+            <DamageAmount>8</DamageAmount>
+            <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
+            <BattleWaitUntil>3000</BattleWaitUntil>
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>0</AutoAttackRange>
 
-            <HealingPoints>5</HealingPoints>
-            <HealingSeconds>2</HealingSeconds>
+            <HealingPoints>1</HealingPoints>
+            <HealingSeconds>3</HealingSeconds>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CCamperBehaviorProperties">
+            <Class>GGL::CCamperBehavior</Class>
+            <Range>5000</Range>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CWorkerEvadeBehavior</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
+            <Class>GGL::CEvadeExecutionBehavior</Class>
+            <BasePriority>400</BasePriority>
         </Logic>
     </Behavior>
 
@@ -117,17 +141,13 @@
             <DyingTaskList>TL_DIE</DyingTaskList>
         </Logic>
     </Behavior>
-
+    
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
-            <Class>GGL::CLeaderEvadeBehavior</Class>
+            <Class>EGL::CParticleEffectAttachmentBehavior</Class>
         </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CEvadeExecutionBehaviorProps">
-            <Class>GGL::CEvadeExecutionBehavior</Class>
-            <BasePriority>400</BasePriority>
-        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CParticleEffectAttachmentBehavior</Class>
+        </Display>
     </Behavior>
 </root>

@@ -3,6 +3,9 @@
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
         <Model>PU_SoldierPoleArm1</Model>
+        <Model2>PU_SoldierPoleArm1</Model2>
+        <Model3>PU_SoldierPoleArm1</Model3>
+        <Model4>PU_SoldierPoleArm1</Model4>
         <DrawPlayerColor>True</DrawPlayerColor>
         <Anim>PU_SoldierPoleArm1_Walk</Anim>
         <Anim>PU_SoldierPoleArm1_Run1</Anim>
@@ -23,21 +26,21 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
+        <Hat/>
         <MaxHealth>200</MaxHealth>
+        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorAmount>0</ArmorAmount>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <AttractionSlots>0</AttractionSlots>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>5</Exploration>
-        <ArmorClass>ArmorClassJerkin</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>5</DodgeChance>
+        <RepairFactor>0.3</RepairFactor>
+        <Exploration>24</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
-        <ExperiencePoints>10</ExperiencePoints>
-        <Hat></Hat>
+        <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Fearless>true</Fearless>
         <!-- This is used to prevent units to automatically attack. -->
         <Category>Wall</Category>
 
@@ -60,10 +63,11 @@
 
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
-            <Class>GGL::CSettlerMovement</Class>
+            <Class>GGL::CLeaderMovement</Class>
             <Speed>380</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
+            <MoveIdleAnim>PU_SoldierPoleArm1_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -77,9 +81,17 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CBattleSerfBehaviorProps">
-            <Class>GGL::CBattleSerfBehavior</Class>
-            <HomeRadius>0</HomeRadius>
+        <Logic classname="GGL::CSerfBehaviorProps">
+            <Class>GGL::CSerfBehavior</Class>
+            <ApproachConstructionSiteTaskList>TL_SERF_GO_TO_CONSTRUCTION_SITE</ApproachConstructionSiteTaskList>
+            <TurnIntoBattleSerfTaskList>TL_SERF_TURN_INTO_BATTLE_SERF</TurnIntoBattleSerfTaskList>
+            <ResourceSearchRadius>0</ResourceSearchRadius>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CSerfBattleBehaviorProps">
+            <Class>GGL::CSerfBattleBehavior</Class>
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 
             <NormalAttackAnim1>PU_SoldierPoleArm1_Attack1</NormalAttackAnim1>
@@ -94,12 +106,9 @@
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>8</DamageAmount>
             <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
-
             <BattleWaitUntil>3000</BattleWaitUntil>
-
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
-
             <AutoAttackRange>0</AutoAttackRange>
 
             <HealingPoints>1</HealingPoints>
@@ -108,9 +117,9 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CGLBehaviorPropsDying">
-            <Class>GGL::CGLBehaviorDying</Class>
-            <DyingTaskList>TL_DIE</DyingTaskList>
+        <Logic classname="GGL::CCamperBehaviorProperties">
+            <Class>GGL::CCamperBehavior</Class>
+            <Range>5000</Range>
         </Logic>
     </Behavior>
 
@@ -125,5 +134,21 @@
             <Class>GGL::CEvadeExecutionBehavior</Class>
             <BasePriority>300</BasePriority>
         </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE</DyingTaskList>
+        </Logic>
+    </Behavior>
+    
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::CParticleEffectAttachmentBehavior</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CParticleEffectAttachmentBehavior</Class>
+        </Display>
     </Behavior>
 </root>

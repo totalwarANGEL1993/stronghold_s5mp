@@ -284,8 +284,6 @@ end
 
 function Stronghold.Attraction:OnUpgradeComplete(_EntityIDOld, _EntityIDNew)
     local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
-    -- Watchtowers
-    self:OnWatchtowerUpgraded(_EntityIDOld, _EntityIDNew, PlayerID);
     -- Hawks
     self:OnHawkHabitatCreated(_EntityIDNew);
 end
@@ -395,26 +393,28 @@ function Stronghold.Attraction:ManageWatchtowersOfPlayer(_PlayerID)
             end
             -- Move watchman to tower
             if Data[5] == 0 then
-                if GetDistance(Data[2], Data[3]) > 400 then
+                if GetDistance(Data[2], Data[1]) > 300 then
                     if Logic.IsEntityMoving(Data[2]) == false then
-                        Logic.MoveSettler(Data[2], Data[3].X, Data[3].Y);
+                        Logic.MoveSettler(Data[2], Data[3].X, Data[3].Y, 270);
                     end
                 else
                     self.Data[_PlayerID].Watchtowers[i][5] = 1;
+                    SVLib.SetInvisibility(Data[2], true);
                 end
             -- Find criminal
             elseif Data[5] == 1 then
                 local _, Criminal = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PU_Criminal_Deco, Data[3].X, Data[3].Y, MaxDistance, 1);
                 self.Data[_PlayerID].Watchtowers[i][4] = Criminal or 0;
                 self.Data[_PlayerID].Watchtowers[i][5] = 2;
+                if Criminal then
+                    SVLib.SetInvisibility(Data[2], false);
+                end
             -- Catch criminal
             elseif Data[5] == 2 then
                 if not IsValidEntity(Data[4]) then
                     self.Data[_PlayerID].Watchtowers[i][5] = 0;
                     local x,y,z = Logic.EntityGetPos(Data[2]);
-                    if Logic.IsEntityMoving(Data[2]) == false then
-                        Logic.MoveSettler(Data[2], x, y);
-                    end
+                    Logic.MoveSettler(Data[2], x, y);
                 else
                     local x1,y1,z1 = Logic.EntityGetPos(Data[4]);
                     Logic.MoveSettler(Data[2], x1, y1);

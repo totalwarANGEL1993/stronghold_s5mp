@@ -66,6 +66,7 @@
             <Technology>T_Shoes</Technology>
         </ModifySpeed>
     </Logic>
+
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
@@ -78,6 +79,7 @@
             <Class>ED::CDisplayBehaviorAnimation</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
@@ -91,12 +93,14 @@
             <Class>ED::CDisplayBehaviorMovement</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <!-- this is required so the serf can be told to move around -->
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CBehaviorWalkCommand</Class>
         </Logic>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CSerfBehaviorProps">
             <Class>GGL::CSerfBehavior</Class>
@@ -166,13 +170,10 @@
             </ExtractionInfo>
         </Logic>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CSerfBattleBehaviorProps">
             <Class>GGL::CSerfBattleBehavior</Class>
-
-            <!--
-	            The task list below is the one driving the battle behavior
-	        -->
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 
             <NormalAttackAnim1>PU_Serf_Attack1</NormalAttackAnim1>
@@ -194,6 +195,7 @@
             <HealingSeconds>6</HealingSeconds>
         </Logic>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CCamperBehaviorProperties">
             <Class>GGL::CCamperBehavior</Class>
@@ -220,6 +222,7 @@
             <BasePriority>200</BasePriority>
         </Logic>
     </Behavior>
+    
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>EGL::CParticleEffectAttachmentBehavior</Class>
