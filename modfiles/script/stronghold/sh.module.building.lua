@@ -468,6 +468,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         AddGold(_PlayerID, RandomTax);
 
     elseif _BlessCategory == BlessCategories.Financial then
+        -- Change stamina of workers
         local StanimaBonus = 0.5;
         local Workplaces = GetWorkplacesOfType(_PlayerID, 0, true);
         for i= 2, Workplaces[1] +1 do
@@ -478,10 +479,12 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
                     local MaxStamina = CEntity.GetMaxStamina(Workers[j]);
                     SetEntityStamina(Workers[j], math.min(Stamina + (MaxStamina * StanimaBonus), MaxStamina));
                 end
-                local x,y,z = Logic.EntityGetPos(Workplaces[i]);
-                Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
             end
         end
+        -- create fireworks
+        local CastleID = GetHeadquarterID(_PlayerID);
+        local x,y,z = Logic.EntityGetPos(CastleID);
+        Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
     end
 end
 

@@ -225,6 +225,7 @@ function Stronghold.Attraction:Install()
 
     self:InitLogicOverride();
     self:InitalizeHawksForExistingTowers();
+    self:InitalizeGuardsForExistingBuildings();
     self:OnPayday();
 end
 
@@ -263,6 +264,16 @@ function Stronghold.Attraction:OnEveryTurn(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Limit, RawLimit = self:GetVirtualPlayerAttractionLimit(_PlayerID);
         CLogic.SetAttractionLimitOffset(_PlayerID, math.max(math.ceil(Limit - RawLimit), 0));
+    end
+end
+
+function Stronghold.Attraction:InitalizeGuardsForExistingBuildings()
+    for PlayerID = 1, GetMaxPlayers() do
+        local Buildings = GetPlayerEntities(PlayerID, 0);
+        for i= 1, table.getn(Buildings) do
+            self:OnWatchtowerBuild(Buildings[i], PlayerID);
+            self:OnHawkHabitatCreated(Buildings[i]);
+        end
     end
 end
 
@@ -330,7 +341,8 @@ end
 
 function Stronghold.Attraction:OnWatchtowerBuild(_EntityID, _PlayerID)
     local EntityType = Logic.GetEntityType(_EntityID);
-    if EntityType == Entities.PB_DarkTower1 or EntityType == Entities.PB_Tower1 then
+    if EntityType == Entities.PB_DarkTower1 or EntityType == Entities.PB_Tower1
+    or EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
         local x,y,z = Logic.EntityGetPos(_EntityID);
         local Position = GetCirclePosition(_EntityID, 200, -90);
         local ID = Logic.CreateEntity(Entities.PU_Watchman_Deco, Position.X, Position.Y, 0, _PlayerID);
