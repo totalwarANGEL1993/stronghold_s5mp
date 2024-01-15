@@ -111,7 +111,7 @@ end
 --- @param _IsConstructed boolean Only fully constructed
 --- @return table List List of results
 function GetFortificationOfType(_PlayerID, _Type, _IsConstructed)
-    return Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Fortification");
+    return Stronghold:GetFortificationOfType(_PlayerID, _Type, _IsConstructed == true);
 end
 
 --- Returns all workplaces of the type of the player.
@@ -120,7 +120,16 @@ end
 --- @param _IsConstructed boolean Only fully constructed
 --- @return table List List of results
 function GetWorkplacesOfType(_PlayerID, _Type, _IsConstructed)
-    return Stronghold:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Workplace");
+    return Stronghold:GetWorkplacesOfType(_PlayerID, _Type, _IsConstructed == true);
+end
+
+--- Returns all workplaces of the type of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type or 0
+--- @param _IsConstructed boolean Only fully constructed
+--- @return table List List of results
+function GetCathedralsOfType(_PlayerID, _Type, _IsConstructed)
+    return Stronghold:GetCathedralsOfType(_PlayerID, _Type, _IsConstructed == true);
 end
 
 --- Returns all settlers of the type of the player.
@@ -136,7 +145,7 @@ end
 --- @param _Type integer Entity type or 0
 --- @return table List List of results
 function GetLeadersOfType(_PlayerID, _Type)
-    return Stronghold:GetSettlersOfType(_PlayerID, _Type, "Leader");
+    return Stronghold:GetLeadersOfType(_PlayerID, _Type);
 end
 
 --- Returns all siege engines of the type of the player.
@@ -144,7 +153,7 @@ end
 --- @param _Type integer Entity type or 0
 --- @return table List List of results
 function GetCannonsOfType(_PlayerID, _Type)
-    return Stronghold:GetSettlersOfType(_PlayerID, _Type, "Cannon");
+    return Stronghold:GetCannonsOfType(_PlayerID, _Type);
 end
 
 --- Returns all workers of the type of the player.
@@ -152,7 +161,7 @@ end
 --- @param _Type integer Entity type or 0
 --- @return table List List of results
 function GetWorkersOfType(_PlayerID, _Type)
-    return Stronghold:GetSettlersOfType(_PlayerID, _Type, "Worker");
+    return Stronghold:GetWorkersOfType(_PlayerID, _Type);
 end
 
 --- Writes a log entry into the server log.
@@ -535,6 +544,7 @@ function Stronghold:InitPlayerEntityRecord()
             --
             All = {},
             Building = {},
+            Monastery = {},
             Farm = {},
             Fortification = {},
             House = {},
@@ -559,6 +569,8 @@ end
 
 function Stronghold:AddEntityToPlayerRecordOnCreate(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local EntityType = Logic.GetEntityType(_EntityID);
+    local TypeName = Logic.GetEntityType(EntityType);
     if self.Record[PlayerID] then
         if Logic.IsBuilding(_EntityID) == 1 or Logic.IsSettler(_EntityID) == 1 then
             -- Insert to all
@@ -577,6 +589,9 @@ function Stronghold:AddEntityToPlayerRecordOnCreate(_EntityID)
                 end
                 if Logic.IsEntityInCategory(_EntityID, EntityCategories.Residence) == 1 then
                     self.Record[PlayerID].House[_EntityID] = true;
+                end
+                if string.find(TypeName, "Monastery") then
+                    self.Record[PlayerID].Monastery[_EntityID] = true;
                 end
             end
             -- Insert to settlers
@@ -605,6 +620,7 @@ function Stronghold:RemoveEntityFromPlayerRecordOnDestroy(_EntityID)
         self.Record[PlayerID].Farm[_EntityID] = nil;
         self.Record[PlayerID].Fortification[_EntityID] = nil;
         self.Record[PlayerID].House[_EntityID] = nil;
+        self.Record[PlayerID].Monastery[_EntityID] = nil;
         self.Record[PlayerID].Workplace[_EntityID] = nil;
         self.Record[PlayerID].Settler[_EntityID] = nil;
         self.Record[PlayerID].Leader[_EntityID] = nil;
@@ -695,6 +711,10 @@ end
 
 function Stronghold:GetWorkplacesOfType(_PlayerID, _Type, _IsConstructed)
     return self:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Workplace");
+end
+
+function Stronghold:GetCathedralsOfType(_PlayerID, _Type, _IsConstructed)
+    return self:GetBuildingsOfType(_PlayerID, _Type, _IsConstructed == true, "Monastery");
 end
 
 function Stronghold:GetFarmsOfType(_PlayerID, _Type, _IsConstructed)

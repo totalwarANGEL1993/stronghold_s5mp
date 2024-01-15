@@ -472,6 +472,8 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             end
             self.Data[_PlayerID].ReputationDetails.Housing = Housing;
 
+            -- local TimeBefore = XGUIEng.GetSystemTime();
+
             -- Building bonuses
             local Beauty = 0;
             for k, v in pairs(self.Config.Income.Static) do
@@ -482,6 +484,10 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
                 Beauty = Beauty + BuildingIncome;
             end
             self.Data[_PlayerID].ReputationDetails.Buildings = Beauty;
+
+            -- local TimeAfter = XGUIEng.GetSystemTime();
+            -- GUI.ClearNotes();
+            -- Message("time passed: ".. (TimeAfter - TimeBefore));
         else
             -- Reset all caches
             self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;

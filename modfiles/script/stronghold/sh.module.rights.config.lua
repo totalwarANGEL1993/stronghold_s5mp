@@ -102,7 +102,7 @@ Stronghold.Rights.Config = {
             Costs  = {25, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Headquarters, 1},
-                {PlayerDuty.Buildings, 6},
+                {PlayerDuty.Workplaces, 6},
             },
             Rights = {
                 PlayerRight.Church,
@@ -167,7 +167,7 @@ Stronghold.Rights.Config = {
         [PlayerRank.Count]    = {
             Costs  = {100, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Buildings, 12},
+                {PlayerDuty.Workplaces, 12},
                 {PlayerDuty.Beautification, 1, 12},
             },
             Rights = {

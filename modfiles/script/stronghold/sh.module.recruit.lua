@@ -164,8 +164,16 @@ function Stronghold.Recruit:HasSufficientProviderBuilding(_BuildingID, _Type)
         end
         for i= 1, Providers do
             local BuildingType = Config.ProviderBuilding[i];
-            local Buildings = GetBuildingsOfType(PlayerID, BuildingType, true);
-            if Buildings[1] > 0 then
+            -- Check for level 1 (can be placed directly)
+            local Upgrade = GetUpgradeLevelByEntityType(BuildingType);
+            if Upgrade == 0 then
+                local Buildings = GetBuildingsOfType(PlayerID, BuildingType, true);
+                if Buildings[1] > 0 then
+                    return true;
+                end
+            end
+            -- Check for higher level (must be upgraded from level 1)
+            if Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, BuildingType) > 0 then
                 return true;
             end
         end

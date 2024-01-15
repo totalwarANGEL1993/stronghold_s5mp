@@ -4,8 +4,8 @@
 
 Stronghold.Populace.Config.CivilDuties = {
     Rats = {
-        BaseDirtRate = 0.015,
-        UpgradeDirtRade = 0.005,
+        BaseDirtRate = 0.009,
+        UpgradeDirtRade = 0.003,
         DisposalRate = 0.05,
         HawkArea = 5000,
     },
@@ -15,8 +15,8 @@ Stronghold.Populace.Config.CivilDuties = {
         WorkerRate = 0.09,
         CrimeRate = 1.5,
         ExecutionerRate = 0.6,
-        MaxPerCycle = 5,
-        TimeBetween = 15,
+        MaxPerCycle = 3,
+        TimeBetween = 20,
         TheftAmount = {Min = 25, Max = 75},
         ReputationDamage = 4,
     },

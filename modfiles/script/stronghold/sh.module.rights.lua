@@ -366,8 +366,8 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Index, _Type, ...)
         local Amount = self:GetSoldierAmountInSettlement(_PlayerID);
         Text = XGUIEng.GetStringTableText("sh_rights/Require_Soldiers");
         Text = string.format("%d/%d %s", Amount, arg[1], Text);
-    elseif _Type == PlayerDuty.Buildings then
-        local Amount = self:GetBuildingAmountInSettlement(_PlayerID);
+    elseif _Type == PlayerDuty.Workplaces then
+        local Amount = self:GetWorkplaceAmountInSettlement(_PlayerID);
         Text = XGUIEng.GetStringTableText("sh_rights/Require_Workplaces");
         Text = string.format("%d/%d %s", Amount, arg[1], Text);
     elseif _Type == PlayerDuty.Technology then
@@ -419,8 +419,8 @@ function Stronghold.Rights:ArePromotionRequirementsFulfilled(_PlayerID, _Rank)
             else
                 Fulfilled = Fulfilled and self:DoAllBeautificationsInSettlementExist(_PlayerID);
             end
-        elseif Condition[1] == PlayerDuty.Buildings then
-            Fulfilled = Fulfilled and self:DoesBuildingAmountInSettlementExist(_PlayerID, Condition[2]);
+        elseif Condition[1] == PlayerDuty.Workplaces then
+            Fulfilled = Fulfilled and self:DoesWorkplaceAmountInSettlementExist(_PlayerID, Condition[2]);
         elseif Condition[1] == PlayerDuty.Soldiers then
             Fulfilled = Fulfilled and self:DoesSoldierAmountInSettlementExist(_PlayerID, Condition[2]);
         elseif Condition[1] == PlayerDuty.Technology then
@@ -437,8 +437,7 @@ function Stronghold.Rights:IsTechnologyResearched(_PlayerID, _Technology)
 end
 
 function Stronghold.Rights:GetWorkerAmountInSettlement(_PlayerID)
-    local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
-    return Workers;
+    return Logic.GetNumberOfAttractedWorker(_PlayerID);
 end
 
 function Stronghold.Rights:GetSoldierAmountInSettlement(_PlayerID)
@@ -462,14 +461,17 @@ function Stronghold.Rights:GetSettlersOfTypeInSettlement(_PlayerID, _Type)
     return CurrentAmount;
 end
 
-function Stronghold.Rights:GetBuildingAmountInSettlement(_PlayerID)
+function Stronghold.Rights:GetWorkplaceAmountInSettlement(_PlayerID)
     local WorkplaceAmount = GetWorkplacesOfType(_PlayerID, 0, true);
     return WorkplaceAmount[1];
 end
 
 function Stronghold.Rights:GetBuildingsOfTypeInSettlement(_PlayerID, _Type)
-    local CurrentAmount = GetBuildingsOfType(_PlayerID, _Type, true);
-    return CurrentAmount[1];
+    if GetUpgradeLevelByEntityType(_Type) == 0 then
+        local BuildingsOfType = GetBuildingsOfType(_PlayerID, _Type, true);
+        return BuildingsOfType[1] or 0;
+    end
+    return Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, _Type);
 end
 
 function Stronghold.Rights:GetBeautificationAmountInSettlement(_PlayerID)
@@ -503,12 +505,15 @@ function Stronghold.Rights:DoesHeadquarterOfUpgradeLevelExist(_PlayerID, _Level)
 end
 
 function Stronghold.Rights:DoesCathedralOfUpgradeLevelExist(_PlayerID, _Level)
-    local Cathedral1 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
-    local Cathedral2 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
-    local Cathedral3 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery3, true);
-    local ID = Cathedral3[2] or Cathedral2[2] or Cathedral1[2] or 0;
-    if ID ~= 0 then
-        return Logic.GetUpgradeLevelForBuilding(ID) >= _Level;
+    if _Level == 0 then
+        local Cathedral = GetCathedralsOfType(_PlayerID, Entities.PB_Monastery1, true);
+        return Cathedral[1] > 0;
+    end
+    if _Level == 1 then
+        return Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Monastery2) > 0;
+    end
+    if _Level == 2 then
+        return Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Monastery3) > 0;
     end
     return false;
 end
@@ -525,8 +530,8 @@ function Stronghold.Rights:DoSettlersOfTypeInSettlementExist(_PlayerID, _Type, _
     return self:GetSettlersOfTypeInSettlement(_PlayerID, _Type) >= _Amount;
 end
 
-function Stronghold.Rights:DoesBuildingAmountInSettlementExist(_PlayerID, _Amount)
-    return self:GetBuildingAmountInSettlement(_PlayerID) >= _Amount;
+function Stronghold.Rights:DoesWorkplaceAmountInSettlementExist(_PlayerID, _Amount)
+    return self:GetWorkplaceAmountInSettlement(_PlayerID) >= _Amount;
 end
 
 function Stronghold.Rights:DoBuildingsOfTypeInSettlementExist(_PlayerID, _Type, _Amount)

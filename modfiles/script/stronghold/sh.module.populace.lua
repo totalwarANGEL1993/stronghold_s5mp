@@ -108,11 +108,15 @@ function Stronghold.Populace:OnSaveGameLoaded()
 end
 
 function Stronghold.Populace:OnEntityCreated(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     -- Set stamina
     if Logic.IsWorker(_EntityID) == 1 then
         local MaxStamina = CEntity.GetMaxStamina(_EntityID);
         SetEntityStamina(_EntityID, MaxStamina * 0.1);
     end
+    -- Watchtowers
+    self:OnWatchtowerBuild(_EntityID, PlayerID);
+    self:OnHawkHabitatCreated(_EntityID);
 end
 
 function Stronghold.Populace:OnEntityDestroyed(_EntityID)
@@ -160,7 +164,6 @@ function Stronghold.Populace:InitalizeGuardsForExistingBuildings()
         local Buildings = GetPlayerEntities(PlayerID, 0);
         for i= 1, table.getn(Buildings) do
             self:OnWatchtowerBuild(Buildings[i], PlayerID);
-            self:OnHawkHabitatCreated(Buildings[i]);
         end
     end
 end
@@ -169,16 +172,18 @@ function Stronghold.Populace:OnWatchtowerBuild(_EntityID, _PlayerID)
     local EntityType = Logic.GetEntityType(_EntityID);
     if EntityType == Entities.PB_DarkTower1 or EntityType == Entities.PB_Tower1
     or EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
-        local x,y,z = Logic.EntityGetPos(_EntityID);
-        local Position = GetCirclePosition(_EntityID, 200, -90);
-        local ID = Logic.CreateEntity(Entities.PU_Watchman_Deco, Position.X, Position.Y, 0, _PlayerID);
-        x,y,z = Logic.EntityGetPos(ID);
-        MakeInvulnerable(ID);
-        Logic.SetEntitySelectableFlag(ID, 0);
-        -- BuildingID, WatchmanID, HomePosition, PursuedTargetID, State
-        local Data = {_EntityID, ID, {X= x, Y= y}, 0, 0};
-        self.Data[_PlayerID].Watchtowers[1] = self.Data[_PlayerID].Watchtowers[1] + 1;
-        table.insert(self.Data[_PlayerID].Watchtowers, Data);
+        if Logic.IsConstructionComplete(_EntityID) == 1 then
+            local x,y,z = Logic.EntityGetPos(_EntityID);
+            local Position = GetCirclePosition(_EntityID, 200, -90);
+            local ID = Logic.CreateEntity(Entities.PU_Watchman_Deco, Position.X, Position.Y, 0, _PlayerID);
+            x,y,z = Logic.EntityGetPos(ID);
+            MakeInvulnerable(ID);
+            Logic.SetEntitySelectableFlag(ID, 0);
+            -- BuildingID, WatchmanID, HomePosition, PursuedTargetID, State
+            local Data = {_EntityID, ID, {X= x, Y= y}, 0, 0};
+            self.Data[_PlayerID].Watchtowers[1] = self.Data[_PlayerID].Watchtowers[1] + 1;
+            table.insert(self.Data[_PlayerID].Watchtowers, Data);
+        end
     end
 end
 
@@ -262,8 +267,8 @@ end
 
 function Stronghold.Populace:InitalizeHawksForExistingTowers()
     for PlayerID = 1, GetMaxPlayers() do
-        local Buildings = GetBuildingsOfType(PlayerID, 0, true);
-        for i= 2, Buildings[1] +1 do
+        local Buildings = GetPlayerEntities(PlayerID, 0);
+        for i= 1, table.getn(Buildings) do
             self:OnHawkHabitatCreated(Buildings[i]);
         end
     end
@@ -274,15 +279,17 @@ function Stronghold.Populace:OnHawkHabitatCreated(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if PlayerID ~= 0 then
         if EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
-            local Positions = {};
-            for Angle = 0, 288, 72 do
-                local Position = GetCirclePosition(_EntityID, 500, Angle);
-                table.insert(Positions, Position)
+            if Logic.IsConstructionComplete(_EntityID) == 1 then
+                local Positions = {};
+                for Angle = 0, 288, 72 do
+                    local Position = GetCirclePosition(_EntityID, 500, Angle);
+                    table.insert(Positions, Position)
+                end
+                local ID = Logic.CreateEntity(Entities.PU_Hawk_Deco, Positions[1].X, Positions[1].Y, 0, PlayerID);
+                Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
+                MakeInvulnerable(ID);
+                self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
             end
-            local ID = Logic.CreateEntity(Entities.PU_Hawk_Deco, Positions[1].X, Positions[1].Y, 0, PlayerID);
-            Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
-            MakeInvulnerable(ID);
-            self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
         end
     end
 end
@@ -496,8 +503,8 @@ function Stronghold.Populace:CalculateCrimeRate(_PlayerID)
     local CrimeRate = 0;
     if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
         CrimeRate = self.Config.CivilDuties.Crime.CrimeRate;
-        local Places = GetBuildingsOfType(_PlayerID, Entities.PB_ExecutionerPlace1, true);
-        if Places[1] > 0 then
+        local ChopChop = GetPlayerEntities(_PlayerID, Entities.PB_ExecutionerPlace1);
+        if ChopChop[1] and Logic.IsConstructionComplete(ChopChop[1]) == 1 then
             CrimeRate = CrimeRate * self.Config.CivilDuties.Crime.ExecutionerRate;
         end
         CrimeRate = GameCallback_SH_Calculate_CrimeRate(_PlayerID, CrimeRate);
