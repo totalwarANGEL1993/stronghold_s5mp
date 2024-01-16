@@ -647,18 +647,23 @@ end
 
 function Stronghold.Hero:HeroTeleportController(_PlayerID, _EntityID)
     if Logic.IsHero(_EntityID) == 1 and Logic.GetEntityHealth(_EntityID) == 0 then
-        local CastleID = GetHeadquarterID(_PlayerID);
-        if CastleID ~= 0 and Logic.IsBuilding(CastleID) == 1 then
-            Stronghold.Player:InvalidateAttackRegister(_PlayerID, _EntityID);
-            local Text = XGUIEng.GetStringTableText("sh_text/Player_NobleDefeated");
-            Message(Text);
-            local x,y,z = Logic.EntityGetPos(_EntityID);
-            Logic.CreateEffect(GGL_Effects.FXDieHero, x, y, _PlayerID);
-            local ID = SetPosition(_EntityID, GetHeadquarterEntrance(_PlayerID));
-            if Logic.GetEntityType(ID) == Entities.CU_BlackKnight then
-                Logic.LeaderChangeFormationType(ID, 1);
+        local EntityType = Logic.GetEntityType(_EntityID);
+        if Stronghold.Populace.Config.FakeHeroTypes[EntityType] then
+            DestroyEntity(_EntityID);
+        else
+            local CastleID = GetHeadquarterID(_PlayerID);
+            if CastleID ~= 0 and Logic.IsBuilding(CastleID) == 1 then
+                Stronghold.Player:InvalidateAttackRegister(_PlayerID, _EntityID);
+                local Text = XGUIEng.GetStringTableText("sh_text/Player_NobleDefeated");
+                Message(Text);
+                local x,y,z = Logic.EntityGetPos(_EntityID);
+                Logic.CreateEffect(GGL_Effects.FXDieHero, x, y, _PlayerID);
+                local ID = SetPosition(_EntityID, GetHeadquarterEntrance(_PlayerID));
+                if Logic.GetEntityType(ID) == Entities.CU_BlackKnight then
+                    Logic.LeaderChangeFormationType(ID, 1);
+                end
+                Logic.HurtEntity(ID, Logic.GetEntityHealth(ID));
             end
-            Logic.HurtEntity(ID, Logic.GetEntityHealth(ID));
         end
     end
 end
