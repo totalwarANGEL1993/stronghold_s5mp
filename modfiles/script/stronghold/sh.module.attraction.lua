@@ -223,7 +223,10 @@ GameCallback_GetPlayerAttractionLimitForSpawningWorker = function(_PlayerID, _Am
 end
 
 GameCallback_GetPlayerAttractionUsageForSpawningWorker = function(_PlayerID, _Amount)
-    return Logic.GetPlayerAttractionUsage(_PlayerID);
+    if GetReputation(_PlayerID) > 30 then
+        return Logic.GetPlayerAttractionUsage(_PlayerID);
+    end
+    return 0;
 end
 
 GameCallback_BuyEntityAttractionLimitCheck = function(_PlayerID, _CanSpawn)
@@ -245,6 +248,7 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Update Motivation of workers
         local WorkerList = GetWorkersOfType(_PlayerID, 0);
+        local WorkerLeaves = false;
         for i= 2, WorkerList[1] +1 do
             local WorkplaceID = Logic.GetSettlersWorkBuilding(WorkerList[i]);
             if  (WorkplaceID ~= nil and WorkplaceID ~= 0)
@@ -255,8 +259,21 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
                 NewMoti = math.min(NewMoti, GetMaxReputation(_PlayerID));
                 NewMoti = math.min(NewMoti, GetReputation(_PlayerID));
                 NewMoti = math.max(NewMoti, 20);
-                CEntity.SetMotivation(WorkerList[i], NewMoti / 100);
+                -- Ensure that only every fifth worker leaves
+                local NewMotiFactor = NewMoti / 100;
+                if NewMotiFactor <= 0.25 and math.mod(i, 5) ~= 1 then
+                    NewMotiFactor = 0.26;
+                end
+                if NewMotiFactor <= 0.25 then
+                    WorkerLeaves = true;
+                end
+                CEntity.SetMotivation(WorkerList[i], NewMotiFactor);
             end
+        end
+        -- Print worker leave message
+        if WorkerLeaves then
+            Message(XGUIEng.GetStringTableText("sh_text/UI_WorkerLeave"));
+            Sound.PlayFeedbackSound(Sounds.VoicesMentor_LEAVE_Settler, 127);
         end
         -- Restore reputation when workers are all gone
         -- (Must be done so that they don't leave immedaitly when they return.)

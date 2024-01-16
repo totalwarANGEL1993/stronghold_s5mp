@@ -794,6 +794,10 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
             for i= 1, WorkerCount do
                 Influence = Influence * WorkerFactor;
             end
+            -- Hard cap influence base groth
+            if Influence > self.Config.Income.InfluenceHardCap then
+                Influence = self.Config.Income.InfluenceHardCap;
+            end
             MeasurePoints = Influence * math.log(12 * Reputation);
         end
         MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);

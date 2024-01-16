@@ -66,7 +66,8 @@ Stronghold.Economy.Config.Income = {
     CoinageBonus = 1,
     KnowledgePointsPerWorker = 12,
     BetterStudiesFactor = 1.2,
-    InfluenceWorkerFactor = 0.98,
+    InfluenceWorkerFactor = 0.99,
+    InfluenceHardCap = 25,
     InfluenceBase = 12,
     InfluenceRank = 3,
 
