@@ -1,30 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>PU_ThiefCarry</Model>
-        <Model2>PU_ThiefCarry</Model2>
-        <Model3>PU_ThiefSerf</Model3>
-        <Model4>PU_Thief</Model4>
+        <Model>XA_Rat1</Model>
+        <Model2>XA_Rat1</Model2>
+        <Model3>XA_Rat1</Model3>
+        <Model4>XA_Rat1</Model4>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>PU_Thief_Walk</Anim>
-        <Anim>PU_Thief_Run1</Anim>
-        <Anim>PU_Thief_Idle1</Anim>
-        <Anim>PU_Thief_Idle2</Anim>
-        <Anim>PU_Thief_Idle3</Anim>
-        <Anim>PU_Thief_Idle4</Anim>
-        <Anim>PU_Thief_Idle5</Anim>
-        <Anim>PU_Thief_Idle6</Anim>
-        <Anim>PU_Thief_Attack1</Anim>
-        <Anim>PU_Thief_Attack2</Anim>
-        <Anim>PU_Thief_IdleAttack1</Anim>
-        <Anim>PU_Thief_Finish</Anim>
-        <Anim>PU_Thief_Dying1</Anim>
-        <Anim>PU_Thief_Hit</Anim>
-        <Anim>PU_Thief_Dead</Anim>
-        <Anim>PU_Thief_Bomb</Anim>
-        <Anim>PU_ThiefCarry_Run1</Anim>
-        <Anim>PU_ThiefCarry_Idle1</Anim>
+        <Anim>XA_Squirrel_Idle1</Anim>
+        <Anim>XA_Squirrel_Idle2</Anim>
+        <Anim>XA_Squirrel_Look</Anim>
+        <Anim>XA_Squirrel_Run</Anim>
     </Display>
 
     <Logic classname="GGL::CGLSettlerProps">
@@ -55,8 +41,8 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PU_Thief_CarryIdle1</SuspensionAnimation>
-            <AnimSet>SET_THIEF_CARRY</AnimSet>
+            <SuspensionAnimation>XA_Squirrel_Idle1</SuspensionAnimation>
+            <AnimSet>SET_RAT</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -66,10 +52,10 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>340</Speed>
+            <Speed>150</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
-            <MoveIdleAnim>PU_Thief_CarryIdle1</MoveIdleAnim>
+            <MoveIdleAnim>XA_Squirrel_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -94,14 +80,14 @@
             <SoldierType>PU_SoldierSword4</SoldierType>
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 
-            <NormalAttackAnim1>PU_Thief_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>PU_Thief_Attack2</NormalAttackAnim2>
-            <CounterAttackAnim>PU_Thief_Finish</CounterAttackAnim>
-            <FinishingMoveAnim>PU_Thief_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>PU_Thief_Attack1</MissAttackAnim>
-            <BattleIdleAnim>PU_Thief_IdleAttack1</BattleIdleAnim>
-            <BattleWalkAnim>PU_Thief_Run1</BattleWalkAnim>
-            <HitAnim>PU_Thief_Hit</HitAnim>
+            <NormalAttackAnim1>XA_Squirrel_Look</NormalAttackAnim1>
+            <NormalAttackAnim2>XA_Squirrel_Look</NormalAttackAnim2>
+            <CounterAttackAnim>XA_Squirrel_Look</CounterAttackAnim>
+            <FinishingMoveAnim>XA_Squirrel_Look</FinishingMoveAnim>
+            <MissAttackAnim>XA_Squirrel_Look</MissAttackAnim>
+            <BattleIdleAnim>XA_Squirrel_Look</BattleIdleAnim>
+            <BattleWalkAnim>XA_Squirrel_Run</BattleWalkAnim>
+            <HitAnim>XA_Squirrel_Look</HitAnim>
 
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>8</DamageAmount>

@@ -18,7 +18,7 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
     DisableGameStartTimer = false;
 
     -- Peacetime in minutes
-    PeaceTime = 0,
+    PeaceTime = 30,
     -- Open up named gates on the map.
     -- (PTGate1, PTGate2, ...)
     PeaceTimeOpenGates = true,

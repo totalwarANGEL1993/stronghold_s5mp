@@ -37,9 +37,12 @@
         <Exploration>24</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <AttractionSlots>0</AttractionSlots>
+        <Category>Hero</Category>
         <Cost>
             <Gold>0</Gold>
         </Cost>
+        <Convertible>false</Convertible>
+        <ExperiencePoints>0</ExperiencePoints>
         <Fearless>true</Fearless>
         <!-- This is used to prevent units to automatically attack. -->
         <Category>Wall</Category>
@@ -81,17 +84,15 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CSerfBehaviorProps">
-            <Class>GGL::CSerfBehavior</Class>
-            <ApproachConstructionSiteTaskList>TL_SERF_GO_TO_CONSTRUCTION_SITE</ApproachConstructionSiteTaskList>
-            <TurnIntoBattleSerfTaskList>TL_SERF_TURN_INTO_BATTLE_SERF</TurnIntoBattleSerfTaskList>
-            <ResourceSearchRadius>0</ResourceSearchRadius>
+        <Logic classname="GGL::CHeroBehaviorProps">
+            <Class>GGL::CHeroBehavior</Class>
         </Logic>
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CSerfBattleBehaviorProps">
-            <Class>GGL::CSerfBattleBehavior</Class>
+        <Logic classname="GGL::CLeaderBehaviorProps">
+            <Class>GGL::CLeaderBehavior</Class>
+            <SoldierType>PU_SoldierSword4</SoldierType>
             <BattleTaskList>TL_BATTLE</BattleTaskList>
 
             <NormalAttackAnim1>PU_SoldierPoleArm1_Attack1</NormalAttackAnim1>
@@ -106,10 +107,12 @@
             <DamageClass>DC_Slash</DamageClass>
             <DamageAmount>8</DamageAmount>
             <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
-            <BattleWaitUntil>3000</BattleWaitUntil>
+
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>0</AutoAttackRange>
+
+            <BattleWaitUntil>3000</BattleWaitUntil>
 
             <HealingPoints>1</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
@@ -124,6 +127,13 @@
     </Behavior>
 
     <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+            <DyingTaskList>TL_DIE_HERO</DyingTaskList>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CWorkerEvadeBehavior</Class>
         </Logic>
@@ -132,23 +142,7 @@
     <Behavior>
         <Logic classname="GGL::CEvadeExecutionBehaviorProps">
             <Class>GGL::CEvadeExecutionBehavior</Class>
-            <BasePriority>300</BasePriority>
+            <BasePriority>500</BasePriority>
         </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CGLBehaviorPropsDying">
-            <Class>GGL::CGLBehaviorDying</Class>
-            <DyingTaskList>TL_DIE</DyingTaskList>
-        </Logic>
-    </Behavior>
-    
-    <Behavior>
-        <Logic classname="EGL::CGLEBehaviorProps">
-            <Class>EGL::CParticleEffectAttachmentBehavior</Class>
-        </Logic>
-        <Display classname="ED::CBehaviorProps">
-            <Class>ED::CParticleEffectAttachmentBehavior</Class>
-        </Display>
     </Behavior>
 </root>

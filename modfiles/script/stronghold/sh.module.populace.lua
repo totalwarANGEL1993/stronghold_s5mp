@@ -64,7 +64,7 @@ end
 --- Calculates the crime rate of the player.
 --- @param _PlayerID integer ID of player
 --- @param _Rate number Current crime rate
---- @return number Altered Alterec crime rate
+--- @return number Altered Altered crime rate
 function GameCallback_SH_Calculate_CrimeRate(_PlayerID, _Rate)
     return _Rate;
 end
@@ -83,17 +83,41 @@ end
 function GameCallback_SH_Logic_CriminalCatched(_PlayerID, _EntityID, _BuildingID)
 end
 
+--- Calculates the filth rate of the player.
+--- @param _PlayerID integer ID of player
+--- @param _Rate number Current filth rate
+--- @return number Altered Altered filth rate
+function GameCallback_SH_Calculate_FilthRate(_PlayerID, _Rate)
+    return _Rate;
+end
+
+--- Triggers after a building has spawned a rat.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of rat
+--- @param _BuildingID integer ID of building
+function GameCallback_SH_Logic_RatAppeared(_PlayerID, _EntityID, _BuildingID)
+end
+
+--- Triggers before a rat is deleted because it has been killed.
+--- @param _PlayerID integer ID of player
+--- @param _EntityID integer ID of rat
+--- @param _BuildingID integer ID of building
+function GameCallback_SH_Logic_RatExterminated(_PlayerID, _EntityID, _BuildingID)
+end
+
 -- -------------------------------------------------------------------------- --
 -- Main
 
 function Stronghold.Populace:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
+            Watchtowers = {0},
             LastCrimeAttempt = 0,
             CriminalsCounter = 0,
             Criminals = {0},
-            Watchtowers = {0},
-            RatData = {},
+            LastRatAttempt = 0,
+            RatsCounter = 0,
+            Rats = {0},
         };
         -- For each player seperatly to better distribute the computing load
         self.Data.HawkHabitats[i] = {};
@@ -101,6 +125,7 @@ function Stronghold.Populace:Install()
 
     self:InitalizeHawksForExistingTowers();
     self:InitalizeGuardsForExistingBuildings();
+    self:OverwriteHeroFindButtonUpdate();
     self:OnPayday();
 end
 
@@ -152,8 +177,44 @@ function Stronghold.Populace:OnPayday()
         Stronghold.Populace:OnRatPlagueOnPayday(_PlayerID);
         Stronghold.Populace:StealGoodsOnPayday(_PlayerID);
         Stronghold.Populace:ResetThievesCycleCounter(_PlayerID);
+        Stronghold.Populace:ResetRatsCycleCounter(_PlayerID);
         return Amount;
     end);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Hero Update
+
+function Stronghold.Populace:OverwriteHeroFindButtonUpdate()
+    GUIUpdate_HeroFindButtons = function()
+        local PlayerID = GUI.GetPlayerID();
+
+        local Hero = {};
+        Logic.GetHeroes(PlayerID, Hero);
+        for i= table.getn(Hero), 1, -1 do
+            local Type = Logic.GetEntityType(Hero[i]);
+            if self.Config.FakeHeroTypes[Type] then
+                table.remove(Hero, i);
+            end
+        end
+
+        for j= 1, 6 do
+            if  Hero[j] ~= nil then
+                XGUIEng.ShowWidget(gvGUI_WidgetID.HeroFindButtons[j], 1);
+                XGUIEng.ShowWidget(gvGUI_WidgetID.HeroBGIcon[j], 1);
+                XGUIEng.SetBaseWidgetUserVariable(gvGUI_WidgetID.HeroFindButtons[j], 0,Hero[j]);
+                if Logic.GetEntityHealth(Hero[j]) == 0 then
+                    XGUIEng.ShowWidget(gvGUI_WidgetID.HeroDeadIcon[j], 1);
+                else
+                    XGUIEng.ShowWidget(gvGUI_WidgetID.HeroDeadIcon[j], 0);
+                end
+            else
+                XGUIEng.ShowWidget(gvGUI_WidgetID.HeroFindButtons[j], 0);
+                XGUIEng.ShowWidget(gvGUI_WidgetID.HeroBGIcon[j], 0);
+                XGUIEng.ShowWidget(gvGUI_WidgetID.HeroDeadIcon[j], 0);
+            end
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -241,6 +302,8 @@ function Stronghold.Populace:ManageWatchtowersOfPlayer(_PlayerID)
                 self.Data[_PlayerID].Watchtowers[i][5] = 2;
                 if Criminal then
                     SVLib.SetInvisibility(Data[2], false);
+                    Logic.SetEntitySelectableFlag(Data[2], 0);
+                    Logic.SetEntityScriptingValue(Data[2], 72, 4);
                 end
             -- Catch criminal
             elseif Data[5] == 2 then
@@ -279,17 +342,15 @@ function Stronghold.Populace:OnHawkHabitatCreated(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if PlayerID ~= 0 then
         if EntityType == Entities.PB_DarkTower4 or EntityType == Entities.PB_Tower4 then
-            if Logic.IsConstructionComplete(_EntityID) == 1 then
-                local Positions = {};
-                for Angle = 0, 288, 72 do
-                    local Position = GetCirclePosition(_EntityID, 500, Angle);
-                    table.insert(Positions, Position)
-                end
-                local ID = Logic.CreateEntity(Entities.PU_Hawk_Deco, Positions[1].X, Positions[1].Y, 0, PlayerID);
-                Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
-                MakeInvulnerable(ID);
-                self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
+            local Positions = {};
+            for Angle = 0, 288, 72 do
+                local Position = GetCirclePosition(_EntityID, 500, Angle);
+                table.insert(Positions, Position)
             end
+            local ID = Logic.CreateEntity(Entities.PU_Hawk_Deco, Positions[1].X, Positions[1].Y, 0, PlayerID);
+            Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
+            MakeInvulnerable(ID);
+            self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
         end
     end
 end
@@ -327,64 +388,234 @@ end
 -- -------------------------------------------------------------------------- --
 -- Rats
 
+function Stronghold.Populace:ResetRatsCycleCounter(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].RatsCounter = 0;
+    end
+end
+
 function Stronghold.Populace:DoRatsAppear(_PlayerID)
     return GetRank(_PlayerID) >= PlayerRank.Count;
 end
 
-function Stronghold.Populace:GetPlayerRats(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        local Rats = 0;
-        for EntityID, Data in pairs(self.Data[_PlayerID].RatData) do
-            Rats = Rats + Data[1];
-        end
-        return math.floor(Rats);
-    end
-    return 0;
-end
-
-function Stronghold.Populace:GetBuildingsInfestableWithRats(_PlayerID)
+function Stronghold.Populace:GetRatDestinations(_PlayerID)
     local Buildings = {};
     if IsPlayer(_PlayerID) then
         Buildings = GetWorkplacesOfType(_PlayerID, 0, true);
-        for i= 2, Buildings[1] +1 do
-            if not self.Data[_PlayerID].RatData[Buildings[i]] then
-                self.Data[_PlayerID].RatData[Buildings[i]] = {0};
-            end
+        local CastleID = GetHeadquarterID(_PlayerID);
+        if CastleID ~= 0 then
+            table.insert(Buildings, CastleID);
+            Buildings[1] = Buildings[1] + 1;
         end
     end
     return Buildings;
 end
 
+function Stronghold.Populace:CreateRatAtBuilding(_PlayerID, _BuildingID)
+    local ID = 0;
+    if IsExisting(_BuildingID) then
+        -- Create rat
+        local x,y,z = Logic.EntityGetPos(_BuildingID);
+        ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Rat_Deco, nil, 0, x, y, 0, 0, 0, 0);
+        SVLib.SetEntitySize(ID, 0.5);
+        x,y,z = Logic.EntityGetPos(ID);
+        Logic.SetEntitySelectableFlag(ID, 0);
+        Logic.MoveSettler(ID, x, y);
+    end
+    return ID;
+end
+
+function Stronghold.Populace:RegisterRat(_PlayerID, _BuildingID)
+    local ID = 0;
+    if self.Data[_PlayerID] and IsExisting(_BuildingID) then
+        -- Create thief
+        local x,y,z = Logic.EntityGetPos(_BuildingID);
+        ID = self:CreateRatAtBuilding(_PlayerID, _BuildingID);
+        x,y,z = Logic.EntityGetPos(ID);
+        local Data = {ID, _BuildingID, {X= x, Y= y}, nil, 0};
+        table.insert(self.Data[_PlayerID].Rats, Data);
+        self.Data[_PlayerID].Rats[1] = self.Data[_PlayerID].Rats[1] + 1;
+        -- Trigger callback
+        GameCallback_SH_Logic_RatAppeared(_PlayerID, ID, _BuildingID);
+    end
+    return ID;
+end
+
+function Stronghold.Populace:UnregisterRat(_PlayerID, _EntityID)
+    if self.Data[_PlayerID] then
+        for i= self.Data[_PlayerID].Rats[1] +1, 2, -1 do
+            local Data = self.Data[_PlayerID].Rats[i];
+            if Data[1] == _EntityID then
+                -- Invoke callback
+                GameCallback_SH_Logic_RatExterminated(_PlayerID, Data[1], Data[2]);
+                -- Delete thief
+                table.remove(self.Data[_PlayerID].Rats, i);
+                self.Data[_PlayerID].Rats[1] = self.Data[_PlayerID].Rats[1] - 1;
+            end
+        end
+    end
+end
+
+function Stronghold.Populace:CalculateFilthRate(_PlayerID)
+    local FilthRate = 0;
+    if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        FilthRate = self.Config.CivilDuties.Rats.FilthRate;
+        -- TODO: Create special building?
+        FilthRate = GameCallback_SH_Calculate_FilthRate(_PlayerID, FilthRate);
+    end
+    return FilthRate;
+end
+
+function Stronghold.Populace:CountRats(_PlayerID)
+    local RatCount = 0;
+    if self.Data[_PlayerID] then
+        RatCount = self.Data[_PlayerID].Rats[1];
+    end
+    return RatCount;
+end
+
+function Stronghold.Populace:GetReputationLossByRats(_PlayerID)
+    local Loss = 0;
+    if self.Data[_PlayerID] then
+        local Rats = self:CountRats(_PlayerID);
+        local Damage = self.Config.CivilDuties.Rats.ReputationDamage;
+        Loss = Loss + (Damage * Rats);
+    end
+    return Loss;
+end
+
+function Stronghold.Populace:GetRatsOfBuilding(_BuildingID)
+    local PlayerID = Logic.EntityGetPlayer(_BuildingID);
+    local Rats = {0};
+    if self.Data[PlayerID] then
+        for i= self.Data[PlayerID].Rats[1] +1, 2, -1 do
+            if self.Data[PlayerID].Rats[i][2] == _BuildingID then
+                table.insert(Rats, self.Data[PlayerID].Rats[i][1]);
+                Rats[1] = Rats[1] + 1;
+            end
+        end
+    end
+    return Rats;
+end
+
+-- Returns a random position for a thief to walk to.
+function Stronghold.Populace:GetRatTarget(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local WorkplaceList = GetWorkplacesOfType(PlayerID, 0, true);
+    local DoorPos = GetHeadquarterEntrance(PlayerID);
+    local Target = WorkplaceList[math.random(2, WorkplaceList[1] +1)];
+    return GetReachablePosition(_EntityID, Target, DoorPos);
+end
+
+-- Returns the amount of filthiness.
+function Stronghold.Populace:GetPlayerFilthiness(_PlayerID)
+    local Motivation = GetReputation(_PlayerID) / 100;
+    local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
+    local WorkerRate = self.Config.CivilDuties.Rats.WorkerRate;
+    local FilthRate = self:CalculateFilthRate(_PlayerID);
+    local Potential = (Workers * WorkerRate) * (1/Motivation) * FilthRate;
+    return math.min(math.floor(Potential), 100);
+end
+
+function Stronghold.Populace:GetHawkTowersInArea(_PlayerID, _X, _Y, _Area)
+    local _, HawkTower1 = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower4, _X, _Y, _Area, 1);
+    local _, HawkTower2 = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower4, _X, _Y, _Area, 1);
+    if HawkTower1 or HawkTower2 then
+        return true;
+    end
+    return false;
+end
+
 function Stronghold.Populace:OnRatPlagueOnPayday(_PlayerID)
     if IsPlayer(_PlayerID) then
-        if self:GetPlayerRats(_PlayerID) >= 1 and GUI.GetPlayerID() == _PlayerID then
+        if self:GetReputationLossByRats(_PlayerID) > 0 and GUI.GetPlayerID() == _PlayerID then
             Message(XGUIEng.GetStringTableText("sh_text/Player_RatsSpreadDisease"));
         end
     end
 end
 
 function Stronghold.Populace:ManageRatsOfPlayer(_PlayerID)
-    if IsPlayerInitalized(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local BaseRate = self.Config.CivilDuties.Rats.BaseDirtRate;
-        local UpgradeRate = self.Config.CivilDuties.Rats.UpgradeDirtRade;
-        local CleanRate = self.Config.CivilDuties.Rats.DisposalRate;
-
+    if IsPlayerInitalized(_PlayerID) then
+        -- Create rats at workplaces
+        -- Depending on the filth rate each x seconds a rat is spawned by
+        -- a chance of y%.
         if self:DoRatsAppear(_PlayerID) then
-            local Buildings = self:GetBuildingsInfestableWithRats(_PlayerID);
-            for i= 2, Buildings[1] +1 do
-                local Data = self.Data[_PlayerID].RatData[Buildings[i]];
-                local Level = Logic.GetUpgradeLevelForBuilding(Buildings[i]);
-                local WorkerMax = Logic.GetBuildingWorkPlaceLimit(Buildings[i]);
-                local Worker = Logic.GetBuildingWorkPlaceUsage(Buildings[i]);
-                local Dirt = math.min(Data[1] + (Worker/WorkerMax) * (BaseRate + (Level * UpgradeRate)), 1);
+            local Data = self.Data[_PlayerID];
+            local TimeBetween = self.Config.CivilDuties.Rats.TimeBetween;
+            if Data.RatsCounter < self.Config.CivilDuties.Rats.MaxPerCycle then
+                if Data.LastRatAttempt + TimeBetween < Logic.GetTime() then
+                    local Filth = self:GetPlayerFilthiness(_PlayerID);
+                    if Filth > 0 and math.random(1,100) <= Filth then
+                        local BuildingList = GetWorkplacesOfType(_PlayerID, 0);
+                        local Selected = BuildingList[math.random(2, BuildingList[1] +1)];
+                        if self:RegisterRat(_PlayerID, Selected) ~= 0 then
+                            self.Data[_PlayerID].RatsCounter = Data.RatsCounter +1;
+                        end
+                        self.Data[_PlayerID].LastRatAttempt = Logic.GetTime();
+                    end
+                end
+            end
+        end
 
-                local HawkArea = self.Config.CivilDuties.Rats.HawkArea;
-                local x,y,z = Logic.EntityGetPos(Buildings[i]);
-                local Tower1 = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower4, x, y, HawkArea, 16);
-                local Tower2 = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower4, x, y, HawkArea, 16);
-                Dirt = math.max(Dirt - (CleanRate * (Tower1 + Tower2)), 0);
+        -- Control rats
+        -- Moves the rats between random workplaces.
+        for i= self.Data[_PlayerID].Rats[1] +1, 2, -1 do
+            local Data = self.Data[_PlayerID].Rats[i];
+            if IsValidEntity(Data[1]) then
+                if Data[5] == 0 then
+                    local RandomPosition = self:GetRatTarget(Data[1]);
+                    self.Data[_PlayerID].Rats[i][4] = RandomPosition;
+                    self.Data[_PlayerID].Rats[i][5] = 1;
+                    Logic.MoveSettler(Data[1], Data[4].X, Data[4].Y);
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
+                elseif Data[5] == 1 then
+                    if Logic.IsEntityMoving(Data[1]) == false then
+                        self.Data[_PlayerID].Rats[i][5] = 2;
+                        return;
+                    end
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
+                    local x,y,z = Logic.EntityGetPos(Data[1])
+                    local Area = self.Config.CivilDuties.Rats.TowerVisionArea;
+                    if self:GetHawkTowersInArea(_PlayerID, x, y, Area) then
+                        local Chance = self.Config.CivilDuties.Rats.CatchChance;
+                        if math.random(1, 100) <= Chance then
+                            DestroyEntity(Data[1]);
+                        end
+                    end
+                elseif Data[5] == 2 then
+                    self.Data[_PlayerID].Rats[i][4] = CopyTable(Data[3]);
+                    self.Data[_PlayerID].Rats[i][5] = 3;
+                    Logic.MoveSettler(Data[1], Data[4].X, Data[4].Y);
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
+                elseif Data[5] == 3 then
+                    if Logic.IsEntityMoving(Data[1]) == false then
+                        self.Data[_PlayerID].Rats[i][5] = 0;
+                        return;
+                    end
+                    local x,y,z = Logic.EntityGetPos(Data[1])
+                    local Area = self.Config.CivilDuties.Rats.TowerVisionArea;
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
+                    if self:GetHawkTowersInArea(_PlayerID, x, y, Area) then
+                        local Chance = self.Config.CivilDuties.Rats.CatchChance;
+                        if math.random(1, 100) <= Chance then
+                            DestroyEntity(Data[1]);
+                        end
+                    end
+                end
+            else
+                self:UnregisterRat(_PlayerID, Data[1]);
+            end
+        end
 
-                self.Data[_PlayerID].RatData[Buildings[i]][1] = Dirt;
+        -- Control hero
+        -- The hero can hunt down rats everywhere
+        local HeroID = GetNobleID(_PlayerID);
+        if IsEntityValid(HeroID) then
+            local x,y,z = Logic.EntityGetPos(HeroID);
+            local Area = self.Config.CivilDuties.Rats.HeroVisionArea;
+            local _, EntityID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PU_Rat_Deco, x, y, Area, 1);
+            if EntityID then
+                DestroyEntity(EntityID);
             end
         end
     end
@@ -453,7 +684,6 @@ end
 
 -- Replaces the worker with a criminal and calls the callback.
 function Stronghold.Populace:ConvertToCriminal(_PlayerID, _BuildingID, _WorkerID)
-    local GuiPlayer = GUI.GetPlayerID();
     local ID = 0;
     if self.Data[_PlayerID] and IsExisting(_BuildingID) then
         -- Create thief
@@ -463,11 +693,6 @@ function Stronghold.Populace:ConvertToCriminal(_PlayerID, _BuildingID, _WorkerID
         local Data = {ID, _BuildingID, {X= x, Y= y}, nil, 0};
         table.insert(self.Data[_PlayerID].Criminals, Data);
         self.Data[_PlayerID].Criminals[1] = self.Data[_PlayerID].Criminals[1] + 1;
-
-        -- Show message
-        if GuiPlayer == _PlayerID and GuiPlayer ~= 17 then
-            Message(XGUIEng.GetStringTableText("sh_text/Player_ConvertedToCriminal"));
-        end
         -- Trigger callback
         GameCallback_SH_Logic_CriminalAppeared(_PlayerID, ID, _BuildingID);
     end
@@ -476,15 +701,10 @@ end
 
 -- Unregister the criminal and calls the callback.
 function Stronghold.Populace:UnregisterCriminal(_PlayerID, _EntityID)
-    local GuiPlayer = GUI.GetPlayerID();
     if self.Data[_PlayerID] then
         for i= self.Data[_PlayerID].Criminals[1] +1, 2, -1 do
             local Data = self.Data[_PlayerID].Criminals[i];
             if Data[1] == _EntityID then
-                -- Show message
-                if GuiPlayer == _PlayerID and GuiPlayer ~= 17 then
-                    Message(XGUIEng.GetStringTableText("sh_text/Player_CriminalResocialized"));
-                end
                 -- Invoke callback
                 GameCallback_SH_Logic_CriminalCatched(_PlayerID, Data[1], Data[2]);
                 -- Delete thief
@@ -589,7 +809,6 @@ function Stronghold.Populace:ManageCriminalsOfPlayer(_PlayerID)
 
         -- Control criminals
         -- Moves the criminals between the castle and their former workplace.
-        -- They might get seen what will rise their exposition.
         for i= self.Data[_PlayerID].Criminals[1] +1, 2, -1 do
             local Data = self.Data[_PlayerID].Criminals[i];
             if IsValidEntity(Data[1]) then
@@ -597,11 +816,13 @@ function Stronghold.Populace:ManageCriminalsOfPlayer(_PlayerID)
                     local RandomPosition = self:GetCriminalTarget(Data[1]);
                     self.Data[_PlayerID].Criminals[i][4] = RandomPosition;
                     self.Data[_PlayerID].Criminals[i][5] = 1;
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
                     Logic.MoveSettler(Data[1], Data[4].X, Data[4].Y);
                 elseif Data[5] == 1 then
                     if Logic.IsEntityMoving(Data[1]) == false then
                         self.Data[_PlayerID].Criminals[i][5] = 2;
                     end
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
                     local x,y,z = Logic.EntityGetPos(Data[1])
                     local _, Criminal = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PU_Watchman_Deco, x, y, 300, 1);
                     if Criminal then
@@ -611,10 +832,12 @@ function Stronghold.Populace:ManageCriminalsOfPlayer(_PlayerID)
                     self.Data[_PlayerID].Criminals[i][4] = CopyTable(Data[3]);
                     self.Data[_PlayerID].Criminals[i][5] = 3;
                     Logic.MoveSettler(Data[1], Data[4].X, Data[4].Y);
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
                 elseif Data[5] == 3 then
                     if Logic.IsEntityMoving(Data[1]) == false then
                         self.Data[_PlayerID].Criminals[i][5] = 0;
                     end
+                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
                 end
             else
                 self:UnregisterCriminal(_PlayerID, Data[1]);

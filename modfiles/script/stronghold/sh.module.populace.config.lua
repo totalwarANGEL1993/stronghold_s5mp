@@ -4,10 +4,14 @@
 
 Stronghold.Populace.Config.CivilDuties = {
     Rats = {
-        BaseDirtRate = 0.009,
-        UpgradeDirtRade = 0.003,
-        DisposalRate = 0.05,
-        HawkArea = 5000,
+        TowerVisionArea = 5000,
+        HeroVisionArea = 300,
+        WorkerRate = 0.09,
+        FilthRate = 1.0,
+        CatchChance = 10,
+        MaxPerCycle = 5,
+        TimeBetween = 12,
+        ReputationDamage = 2,
     },
     Crime = {
         TowerVisionArea = 5000,
@@ -18,7 +22,13 @@ Stronghold.Populace.Config.CivilDuties = {
         MaxPerCycle = 3,
         TimeBetween = 20,
         TheftAmount = {Min = 25, Max = 75},
-        ReputationDamage = 4,
+        ReputationDamage = 2,
     },
+}
+
+Stronghold.Populace.Config.FakeHeroTypes = {
+    [Entities.PU_Criminal_Deco] = true,
+    [Entities.PU_Rat_Deco] = true,
+    [Entities.PU_Watchman_Deco] = true,
 }
 

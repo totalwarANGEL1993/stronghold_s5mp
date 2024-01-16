@@ -1079,6 +1079,7 @@
         <Entity>PU_Criminal_Deco</Entity>
         <Entity>PU_Dog_Deco</Entity>
         <Entity>PU_Hawk_Deco</Entity>
+        <Entity>PU_Rat_Deco</Entity>
         <Entity>PU_Watchman_Deco</Entity>
         <Entity>PV_Cannon7</Entity>
         <Entity>PV_Cannon8</Entity>
@@ -1257,6 +1258,7 @@
 		<Entity>XA_Sheep2</Entity>
 		<Entity>XA_Sheep3</Entity>
 		<Entity>XA_SheepDog1</Entity>
+		<Entity>XA_Squirrel1</Entity>
 		<Entity>XA_Tiger1</Entity>
 		<Entity>XA_Wolf1</Entity>
 		<Entity>XA_Wolf2</Entity>

@@ -570,7 +570,7 @@ end
 function Stronghold:AddEntityToPlayerRecordOnCreate(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local EntityType = Logic.GetEntityType(_EntityID);
-    local TypeName = Logic.GetEntityType(EntityType);
+    local TypeName = Logic.GetEntityTypeName(EntityType);
     if self.Record[PlayerID] then
         if Logic.IsBuilding(_EntityID) == 1 or Logic.IsSettler(_EntityID) == 1 then
             -- Insert to all

@@ -571,7 +571,7 @@ function Stronghold.Economy:CalculateReputationBonusAmount(_PlayerID)
         -- External malus
         Special = GameCallback_SH_Calculate_ReputationDecreaseExternal(_PlayerID);
         local Criminals = Stronghold.Populace:GetReputationLossByCriminals(_PlayerID);
-        local Rats = Stronghold.Populace:GetPlayerRats(_PlayerID);
+        local Rats = Stronghold.Populace:GetReputationLossByRats(_PlayerID);
         self.Data[_PlayerID].ReputationDetails.Criminals = Criminals;
         self.Data[_PlayerID].ReputationDetails.Rats = Rats;
         self.Data[_PlayerID].ReputationDetails.OtherMalus = Special - Criminals - Rats;
@@ -1202,8 +1202,6 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
             return Overwrite.CallOriginal();
         end
         local NumerOfWorkers = Logic.GetNumberOfAttractedWorker(PlayerID);
-        NumerOfWorkers = NumerOfWorkers - Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Criminal_Deco);
-        NumerOfWorkers = NumerOfWorkers - Logic.GetNumberOfEntitiesOfTypeOfPlayer(PlayerID, Entities.PU_Watchman_Deco);
         XGUIEng.SetText( "TaxWorkerAmount", ""..NumerOfWorkers);
     end);
 

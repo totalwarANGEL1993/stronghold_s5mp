@@ -3765,6 +3765,13 @@
         <UseAlphaBlending>True</UseAlphaBlending>
     </Model>
 
+    <Model id="XA_Rat1">
+        <Effect>SkinnedObjectAlpha</Effect>
+        <CastShadow>True</CastShadow>
+        <UseSurfaceHeight>True</UseSurfaceHeight>
+        <UseAlphaBlending>True</UseAlphaBlending>
+    </Model>
+
     <Model id="XA_Seagull">
         <Effect>SkinnedObjectAlpha</Effect>
         <CastShadow>True</CastShadow>
