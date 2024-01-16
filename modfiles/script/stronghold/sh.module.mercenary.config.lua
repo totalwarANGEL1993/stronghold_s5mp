@@ -207,17 +207,17 @@ Stronghold.Mercenary.Config = {
             RefillTime = 180,
             MaxAmount  = 5,
         },
-        [Entities.CU_Templar_LeaderPoleArm1]    = {
+        [Entities.CU_TemplarLeaderPoleArm1]    = {
             Button     = "Buy_LeaderSpear",
             RefillTime = 180,
             MaxAmount  = 3,
         },
-        [Entities.CU_Templar_LeaderCavalry1]    = {
+        [Entities.CU_TemplarLeaderCavalry1]    = {
             Button     = "Buy_LeaderCavalryLight",
             RefillTime = 180,
             MaxAmount  = 3,
         },
-        [Entities.CU_Templar_LeaderHeavyCavalry1]    = {
+        [Entities.CU_TemplarLeaderHeavyCavalry1]    = {
             Button     = "Buy_LeaderCavalryHeavy",
             RefillTime = 210,
             MaxAmount  = 3,

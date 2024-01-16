@@ -1193,7 +1193,7 @@ function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3)
     or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type == Entities.PU_LeaderHeavyCavalry1 or _Type == Entities.PU_LeaderHeavyCavalry2
-        or _Type == Entities.CU_Templar_LeaderHeavyCavalry1 then
+        or _Type == Entities.CU_TemplarLeaderHeavyCavalry1 then
             if Costs[ResourceType.Silver] then
                 Costs[ResourceType.Silver] = math.ceil(Costs[ResourceType.Silver] * 3);
             end

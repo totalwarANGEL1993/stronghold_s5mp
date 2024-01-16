@@ -406,7 +406,7 @@ Stronghold.Unit.Config = {
 
     -- Crusader --
 
-    [Entities.CU_Templar_LeaderCavalry1]            = {
+    [Entities.CU_TemplarLeaderCavalry1]            = {
         Button            = "Buy_LeaderCavalryLight",
         Costs             = {
             [1] = {20, 175, 0, 20, 0, 50, 0},
@@ -419,7 +419,7 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Stable1, Entities.PB_Stable2},
         ProviderBuilding  = {Entities.PB_Sawmill2},
     },
-    [Entities.CU_Templar_LeaderHeavyCavalry1]       = {
+    [Entities.CU_TemplarLeaderHeavyCavalry1]       = {
         Button            = "Buy_LeaderCavalryHeavy",
         Costs             = {
             [1] = {36, 300, 0, 0, 0, 150, 0},
@@ -432,7 +432,7 @@ Stronghold.Unit.Config = {
         RecruiterBuilding = {Entities.PB_Stable2},
         ProviderBuilding  = {Entities.PB_Blacksmith3},
     },
-    [Entities.CU_Templar_LeaderPoleArm1]            = {
+    [Entities.CU_TemplarLeaderPoleArm1]            = {
         Button            = "Buy_LeaderSpear",
         Costs             = {
             [1] = {14, 120, 0, 80, 0, 20, 0},
