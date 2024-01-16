@@ -22,6 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
+        <MaxHealth>400</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -33,7 +34,6 @@
         <Category>Sword</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>400</MaxHealth>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>6</ArmorAmount>

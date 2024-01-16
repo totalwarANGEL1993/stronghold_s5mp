@@ -112,7 +112,7 @@
 
             <DamageClass>DC_Bullet</DamageClass>
             <DamageAmount>40</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <AutoAttackRange>2300</AutoAttackRange>
 
