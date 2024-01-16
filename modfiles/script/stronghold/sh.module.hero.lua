@@ -369,6 +369,18 @@ end
 -- Buy Hero
 
 function Stronghold.Hero:ConfigureBuyHero()
+    GameCallback_GUI_BuyHero_CountHeroes = function(_PlayerID)
+        local Hero = {};
+        Logic.GetHeroes(_PlayerID, Hero);
+        for i= table.getn(Hero), 1, -1 do
+            local Type = Logic.GetEntityType(Hero[i]);
+            if Stronghold.Populace.Config.FakeHeroTypes[Type] then
+                table.remove(Hero, i);
+            end
+        end
+        return table.getn(Hero);
+    end
+
     Overwrite.CreateOverwrite("GameCallback_Logic_BuyHero_OnHeroSelected", function(_PlayerID, _ID, _Type)
         if IsPlayer(_PlayerID) then
             Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID);
