@@ -1088,6 +1088,12 @@ end
 function Stronghold.Hero:GetHeroes(_PlayerID)
     local HeroList = {};
     Logic.GetHeroes(_PlayerID, HeroList);
+    for i= table.getn(HeroList), 1, -1 do
+        local Type = Logic.GetEntityType(HeroList[i]);
+        if Stronghold.Populace.Config.FakeHeroTypes[Type] then
+            table.remove(HeroList, i);
+        end
+    end
     return HeroList;
 end
 

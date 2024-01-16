@@ -541,6 +541,12 @@ function Stronghold.Player:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType)
     -- Initalize with any hero
     local HeroList = {};
     Logic.GetHeroes(_PlayerID, HeroList);
+    for i= table.getn(HeroList), 1, -1 do
+        local Type = Logic.GetEntityType(HeroList[i]);
+        if Stronghold.Populace.Config.FakeHeroTypes[Type] then
+            table.remove(HeroList, i);
+        end
+    end
     if HeroList[1] then
         local HeroType = Logic.GetEntityType(HeroList[1]);
         local Position = GetPosition(HeroList[1]);
