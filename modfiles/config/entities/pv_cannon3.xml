@@ -23,10 +23,10 @@
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>200</MaxHealth>
+        <MaxHealth>800</MaxHealth>
         <Exploration>26</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
+        <ArmorClass>ArmorClassLeather</ArmorClass>
+        <ArmorAmount>8</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_VEHICLE_IDLE</IdleTaskList>
         <ExperiencePoints>80</ExperiencePoints>
