@@ -76,5 +76,15 @@ StrongholdModLoader = {
     end,
 }
 
+-- Add new sounds
+CUtil.AddSound("animal\\so_bear_attack_rnd_1");
+CUtil.AddSound("animal\\so_bear_attack_rnd_2");
+CUtil.AddSound("animal\\so_dog_attack_rnd_1");
+CUtil.AddSound("animal\\so_dog_attack_rnd_2");
+CUtil.AddSound("animal\\so_lion_attack_rnd_1");
+CUtil.AddSound("animal\\so_lion_attack_rnd_2");
+CUtil.AddSound("animal\\so_wolf_attack_rnd_1");
+CUtil.AddSound("animal\\so_wolf_attack_rnd_2");
+
 return StrongholdModLoader;
 
