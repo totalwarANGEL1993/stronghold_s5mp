@@ -1,7 +1,5 @@
 **Strongold Version 0.7.0**
 
-Die "Lessons Learned" Edition
-
 __Spielmodus__
 
 Es gibt nun 3 verschiedene Spielmodi für die Standardsiegbedingung. Als Standard
@@ -43,6 +41,20 @@ durch Bauen von Außenposten besetzt werden.
   * Außenposten: 40, 65, 90
   * +10% (Dario)
 
+__Adliger__
+
+Der Adlige bekommt nun Angriff und Rüstung für jeden Stufenaufstieg.
+Zu beginn hat der Adlige einen Angriff von 30 und Rüstung von 1.
+
+- Aufstiegsbonus:
+  * Kastellan: +  5 Angriff   + 0 Rüstung
+  * Vogt:      +  5 Angriff   + 1 Rüstung
+  * Fürst:     +  5 Angriff   + 0 Rüstung
+  * Baron:     +  5 Angriff   + 1 Rüstung
+  * Graf:      +  5 Angriff   + 1 Rüstung
+  * Markgraf:  + 10 Angriff   + 1 Rüstung
+  * Herzog:    + 10 Angriff   + 1 Rüstung
+
 __Einheiten__
 
 Die Werte aller Einheiten wurden stark überarbeitet. Dazu zählen Angriff, 
@@ -56,7 +68,7 @@ Kanonen haben nun die Rüstungsklasse von Gebäuden. Dadurch überleben sie län
 Als Ausgleich benötigen sie nun wesentlich mehr Platz.
 
 - Klein (Bombarde, Große Bombarde, Bronzekanone): 8
-- Groß (Eisenkanone, Dschihad, Belagerungskanone): 15
+- Groß (Eisenkanone, Dschihad, Belagerungskanone): 16
 - -2 Plätze pro Kanone (Salim)
 
 __Neue Gebäude__
