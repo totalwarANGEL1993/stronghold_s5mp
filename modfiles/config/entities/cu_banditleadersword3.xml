@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>150</MaxHealth>
+        <MaxHealth>225</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -34,7 +34,7 @@
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <Exploration>20</Exploration>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>3</ArmorAmount>
         <ExperiencePoints>20</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <DodgeChance>10</DodgeChance>

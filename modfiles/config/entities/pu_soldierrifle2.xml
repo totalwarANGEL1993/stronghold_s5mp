@@ -25,7 +25,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>125</MaxHealth>
+        <MaxHealth>200</MaxHealth>
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>5</ArmorAmount>

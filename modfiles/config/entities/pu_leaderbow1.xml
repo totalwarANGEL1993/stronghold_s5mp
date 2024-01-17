@@ -31,7 +31,7 @@
         <Category>Bow</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>125</MaxHealth>
+        <MaxHealth>150</MaxHealth>
         <Exploration>22</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>0</ArmorAmount>

@@ -36,7 +36,7 @@
         <MaxHealth>250</MaxHealth>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassJerkin</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>50</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>40</ExperiencePoints>
