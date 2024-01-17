@@ -169,6 +169,7 @@ end
 
 function Stronghold.Multiplayer:OnSaveGameLoaded()
     self:InitEmsFeatureReplicaKeybindings();
+    Delay.Turn(0, GameCallback_SH_Logic_SaveLoaded);
 end
 
 function Stronghold.Multiplayer:CreateMultiplayerButtonHandlers()

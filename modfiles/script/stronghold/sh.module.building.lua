@@ -80,6 +80,7 @@ function Stronghold.Building:OnSaveGameLoaded()
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
     self:InitalizeBuyUnitKeybindings();
+    self:InitalizeSerfBuildingTabs();
 end
 
 function Stronghold.Building:CreateBuildingButtonHandlers()

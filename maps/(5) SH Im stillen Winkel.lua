@@ -84,6 +84,7 @@ SHS5MP_RulesDefinition = {
 
     -- Called after game has been loaded (singleplayer)
     OnSaveLoaded = function()
+        UseWeatherSet("HighlandsWeatherSet");
     end,
 }
 

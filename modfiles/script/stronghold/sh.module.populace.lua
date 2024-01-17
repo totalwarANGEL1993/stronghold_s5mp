@@ -130,6 +130,7 @@ function Stronghold.Populace:Install()
 end
 
 function Stronghold.Populace:OnSaveGameLoaded()
+    self:OverwriteHeroFindButtonUpdate();
 end
 
 function Stronghold.Populace:OnEntityCreated(_EntityID)
