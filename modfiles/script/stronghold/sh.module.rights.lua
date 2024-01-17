@@ -574,7 +574,7 @@ function Stronghold.Rights:OnlineHelpAction()
     else
         if GUI.GetPlayerID() == PlayerID then
             Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
-            if not IsExisting(GetID(PlayerID)) then
+            if not IsExisting(GetNobleID(PlayerID)) then
                 Message(XGUIEng.GetStringTableText("sh_rights/PromoteHero"));
             else
                 Message(XGUIEng.GetStringTableText("sh_rights/PromoteLocked"));

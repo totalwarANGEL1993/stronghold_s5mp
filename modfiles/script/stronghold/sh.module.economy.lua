@@ -1227,10 +1227,15 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
 
     function GUIUpdate_Slaves()
         local PlayerID = GetLocalPlayerID();
-        local Usage = GetSlaveAttractionUsage(PlayerID);
-        local Limit = GetSlaveAttractionLimit(PlayerID);
-        local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
-        XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+        local CivilUsage = GetCivilAttractionUsage(PlayerID);
+        local CivilLimit = GetCivilAttractionLimit(PlayerID);
+        local SlaveUsage = GetSlaveAttractionUsage(PlayerID);
+        local SlaveLimit = GetSlaveAttractionLimit(PlayerID);
+        local Color = " @color:255,120,120,255 ";
+        if SlaveUsage < SlaveLimit and CivilUsage < CivilLimit then
+            Color = "";
+        end
+        XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..SlaveUsage.. "/" ..SlaveLimit);
     end
 end
 

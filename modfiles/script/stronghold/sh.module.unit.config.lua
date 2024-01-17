@@ -493,8 +493,8 @@ Stronghold.Unit.Config = {
     [Entities.CU_BanditLeaderBow1]          = {
         Button            = "Buy_LeaderBow",
         Costs             = {
-            [1] = {4, 40, 0, 48, 0, 0, 0},
-            [2] = {0, 15, 0, 27, 0, 0, 0},
+            [1] = {4, 40, 0, 60, 0, 0, 0},
+            [2] = {0, 20, 0, 30, 0, 0, 0},
         },
         Right             = PlayerRight.BanditBow,
         IsCivil           = false,

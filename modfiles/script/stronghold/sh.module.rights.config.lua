@@ -105,6 +105,7 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Workplaces, 6},
             },
             Rights = {
+                PlayerRight.TownCenter,
                 PlayerRight.Church,
                 PlayerRight.Smithy,
                 PlayerRight.MasonHut,
@@ -173,7 +174,7 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.University,
                 PlayerRight.ExecutionerPlace,
-                PlayerRight.TownCenter,
+                PlayerRight.CityCenter,
                 PlayerRight.Cathedral,
                 PlayerRight.Brickworks,
                 PlayerRight.LumberMill,
@@ -243,7 +244,6 @@ Stronghold.Rights.Config = {
                 {PlayerDuty.Beautification, 2},
             },
             Rights = {
-                PlayerRight.CityCenter,
                 PlayerRight.Treasury,
                 PlayerRight.PowerPlant,
                 PlayerRight.CannonTower,

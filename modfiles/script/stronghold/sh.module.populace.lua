@@ -307,7 +307,8 @@ function Stronghold.Populace:ManageWatchtowersOfPlayer(_PlayerID)
                 end
             -- Catch criminal
             elseif Data[5] == 2 then
-                if not IsValidEntity(Data[4]) then
+                if not IsValidEntity(Data[4])
+                or Logic.CheckEntitiesDistance(Data[1], Data[2], MaxDistance) == 0 then
                     self.Data[_PlayerID].Watchtowers[i][5] = 0;
                     local x,y,z = Logic.EntityGetPos(Data[2]);
                     Logic.MoveSettler(Data[2], x, y);

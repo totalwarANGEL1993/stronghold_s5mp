@@ -382,9 +382,11 @@ end
 
 function Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local CivilLimit = Logic.GetPlayerAttractionLimit(_PlayerID)
+        local CivilUsage = Logic.GetPlayerAttractionUsage(_PlayerID)
         local SlaveLimit = self:GetPlayerSlaveAttractionLimit(_PlayerID);
         local SlaveUsage = self:GetPlayerSlaveAttractionUsage(_PlayerID);
-        return SlaveLimit - SlaveUsage >= 1;
+        return CivilLimit - CivilUsage >= 1 and SlaveLimit - SlaveUsage >= 1;
     end
     return true;
 end
@@ -395,7 +397,7 @@ end
 function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if Stronghold.Player.Config.DefeatModes.Annihilation
+        if not Stronghold.Player.Config.DefeatModes.Kingsmaker
         or IsEntityValid(GetNobleID(_PlayerID)) then
             -- Headquarters
             local HQ1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);

@@ -322,13 +322,12 @@ function Stronghold.Trap:TrapAggressiveAnimalController(_EntityID, _X, _Y)
         return true;
     end
 
-    local MaxDistance = (IsFighting(_EntityID) and 5000) or 1000;
+    local MaxDistance = 5000;
     if GetDistance(_EntityID, {X= _X, Y= _Y}) > MaxDistance then
         Logic.MoveSettler(_EntityID, _X, _Y);
         return false;
     end
 
-    MaxDistance = 5000;
     if not IsFighting(_EntityID) and not Logic.IsEntityMoving(_EntityID) then
         local PlayerID = Logic.EntityGetPlayer(_EntityID);
         local Enemies = GetEnemiesInArea(PlayerID, {X= _X, Y= _Y}, MaxDistance);
