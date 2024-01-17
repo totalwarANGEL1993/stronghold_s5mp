@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Bridge1</Model>
-		  <Model2>XD_Bridge1_2</Model2>
-		  <Model3>XD_Bridge1_3</Model3>
-		  <Model4>XD_Bridge1_4</Model4>^
-		  <RenderInFoW>true</RenderInFoW>
-	</Display>
-	<Logic classname="GGL::CBridgeProperties">
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Bridge1</Model>
+        <Model2>XD_Bridge1_2</Model2>
+        <Model3>XD_Bridge1_3</Model3>
+        <Model4>XD_Bridge1_4</Model4>^
+        <RenderInFoW>true</RenderInFoW>
+    </Display>
+    <Logic classname="GGL::CBridgeProperties">
         <Class>GGL::CBridgeEntity</Class>
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <Category>Bridge</Category>
@@ -39,11 +39,11 @@
         <BridgeArea>
             <Blocked1>
                 <X>-1600</X>
-                <Y>-200</Y>
+                <Y>-100</Y>
             </Blocked1>
             <Blocked2>
                 <X>1600</X>
-                <Y>200</Y>
+                <Y>100</Y>
             </Blocked2>
         </BridgeArea>
 
@@ -54,55 +54,55 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-			    <Clay>5</Clay>
-			    <Wood>5</Wood>
-			    <Stone>5</Stone>
-			    <Gold/>
-			    <Iron/>
-			    <Sulfur/>
+                <Clay>5</Clay>
+                <Wood>5</Wood>
+                <Stone>5</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
-            	<Position>
-	                <X>1740</X>
-	            	<Y>-170</Y>
-            	</Position>
-            	<Orientation>180</Orientation>
+                <Position>
+                    <X>1740</X>
+                    <Y>-170</Y>
+                </Position>
+                <Orientation>180</Orientation>
             </BuilderSlot>
-	        	<BuilderSlot>
-	            	<Position>
-		                <X>1740</X>
-		            	<Y>220</Y>
-	            	</Position>
-	           	<Orientation>180</Orientation>
-	       	</BuilderSlot>
+            <BuilderSlot>
+                <Position>
+                    <X>1740</X>
+                    <Y>220</Y>
+                </Position>
+                <Orientation>180</Orientation>
+            </BuilderSlot>
 
 
-			<BuilderSlot>
-            	<Position>
-	                <X>-1740</X>
-	            	<Y>-170</Y>
-            	</Position>
-            	<Orientation>0</Orientation>
+            <BuilderSlot>
+                <Position>
+                    <X>-1740</X>
+                    <Y>-170</Y>
+                </Position>
+                <Orientation>0</Orientation>
             </BuilderSlot>
-	        	<BuilderSlot>
-	            	<Position>
-		                <X>-1740</X>
-		            	<Y>220</Y>
-	            	</Position>
-	           	<Orientation>0</Orientation>
-	       	</BuilderSlot>
+            <BuilderSlot>
+                <Position>
+                    <X>-1740</X>
+                    <Y>220</Y>
+                </Position>
+                <Orientation>0</Orientation>
+            </BuilderSlot>
 
             <ConstructionSite>ZB_ConstructionSiteBridge1</ConstructionSite>
         </ConstructionInfo>
-	</Logic>
+    </Logic>
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
-         <Class>GGL::CBuildingBehavior</Class>
+            <Class>GGL::CBuildingBehavior</Class>
         </Logic>
         <Display classname="GD::CBuildingBehaviorProps">
-         <Class>GD::CBuildingBehavior</Class>
-         <NumDamageEffects>26</NumDamageEffects>
-         <NumDestroyEffects>18</NumDestroyEffects>
+            <Class>GD::CBuildingBehavior</Class>
+            <NumDamageEffects>26</NumDamageEffects>
+            <NumDestroyEffects>18</NumDestroyEffects>
         </Display>
     </Behavior>
 </root>

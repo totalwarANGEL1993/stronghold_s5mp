@@ -45,11 +45,11 @@
 
         <BridgeArea>
             <Blocked1>
-                <X>-200</X>
+                <X>-100</X>
                 <Y>-925</Y>
             </Blocked1>
             <Blocked2>
-                <X>200</X>
+                <X>100</X>
                 <Y>925</Y>
             </Blocked2>
         </BridgeArea>

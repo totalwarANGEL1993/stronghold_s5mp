@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Bridge2</Model>
-		  <Model2>XD_Bridge2_2</Model2>
-		  <Model3>XD_Bridge2_3</Model3>
-		  <Model4>XD_Bridge2_4</Model4>
-		  <RenderInFoW>true</RenderInFoW>
-	</Display>
-	<Logic classname="GGL::CBridgeProperties">
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Bridge2</Model>
+        <Model2>XD_Bridge2_2</Model2>
+        <Model3>XD_Bridge2_3</Model3>
+        <Model4>XD_Bridge2_4</Model4>
+        <RenderInFoW>true</RenderInFoW>
+    </Display>
+    <Logic classname="GGL::CBridgeProperties">
         <Class>GGL::CBridgeEntity</Class>
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <Category>Bridge</Category>
@@ -38,11 +38,11 @@
 
         <BridgeArea>
             <Blocked1>
-                <X>-200</X>
+                <X>-100</X>
                 <Y>-1600</Y>
             </Blocked1>
             <Blocked2>
-                <X>200</X>
+                <X>100</X>
                 <Y>1600</Y>
             </Blocked2>
         </BridgeArea>
@@ -54,53 +54,53 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-			    <Clay>0</Clay>
-			    <Wood>0</Wood>
-			    <Stone>0</Stone>
-			    <Gold/>
-			    <Iron/>
-			    <Sulfur/>
+                <Clay>0</Clay>
+                <Wood>0</Wood>
+                <Stone>0</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
-                	<Position>
-                		<X>-200</X>
-            			<Y>1720</Y>
-                	</Position>
-                	<Orientation>270</Orientation>
-            	</BuilderSlot>
-            	<BuilderSlot>
-                	<Position>
-                		<X>200</X>
-            			<Y>1720</Y>
-                	</Position>
-                	<Orientation>270</Orientation>
-            	</BuilderSlot>
-            
-             <BuilderSlot>
-                	<Position>
-                		<X>-200</X>
-            			<Y>-1720</Y>
-                	</Position>
-                	<Orientation>90</Orientation>
-            	</BuilderSlot>
-            	<BuilderSlot>
-                	<Position>
-                		<X>200</X>
-            			<Y>-1720</Y>
-                	</Position>
-                	<Orientation>90</Orientation>
-            	</BuilderSlot>
+                <Position>
+                    <X>-200</X>
+                    <Y>1720</Y>
+                </Position>
+                <Orientation>270</Orientation>
+            </BuilderSlot>
+            <BuilderSlot>
+                <Position>
+                    <X>200</X>
+                    <Y>1720</Y>
+                </Position>
+                <Orientation>270</Orientation>
+            </BuilderSlot>
+
+            <BuilderSlot>
+                <Position>
+                    <X>-200</X>
+                    <Y>-1720</Y>
+                </Position>
+                <Orientation>90</Orientation>
+            </BuilderSlot>
+            <BuilderSlot>
+                <Position>
+                    <X>200</X>
+                    <Y>-1720</Y>
+                </Position>
+                <Orientation>90</Orientation>
+            </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteBridge1</ConstructionSite>
         </ConstructionInfo>
-	</Logic>
+    </Logic>
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
-         <Class>GGL::CBuildingBehavior</Class>
+            <Class>GGL::CBuildingBehavior</Class>
         </Logic>
         <Display classname="GD::CBuildingBehaviorProps">
-         <Class>GD::CBuildingBehavior</Class>
-         <NumDamageEffects>26</NumDamageEffects>
-         <NumDestroyEffects>18</NumDestroyEffects>
+            <Class>GD::CBuildingBehavior</Class>
+            <NumDamageEffects>26</NumDamageEffects>
+            <NumDestroyEffects>18</NumDestroyEffects>
         </Display>
     </Behavior>
 </root>
