@@ -27,18 +27,21 @@ Das Soldatenlimit wird nicht mehr durch das ausbauen von Militärgebäuden erhö
 sondern stattdessen durch das Besetzen von Burgen. Eine zusätzliche Burg kann
 durch Bauen von Außenposten besetzt werden.
 
-- Bevölkerungslimit:
+- Bevölkerung:
   * Haupthaus: 50, 75, 100
-  * Dorfzentrum: 35, 50, 65
+  * Dorfzentrum: 45, 65, 85
   * +20% (Kala)
-- Soldatenlimit:
+- Knechte:
+  * Knechte zählen nun auch zur Bevölkerung!
+  * Initial 24 maximale Knechte
+  * +6 maximale Knechte für jeden Rangaufstieg
+  * +2 maximale Knechte für jeden Rangaufstieg (Marie)
+- Soldaten:
+  * Soldaten können auch mit besiegtem Adligen rekrutiert werden
+    (Ausnahme: Spielmodus Königsmacher)
   * Haupthaus: 75, 100, 125
   * Außenposten: 40, 65, 90
   * +10% (Dario)
-- Knechtelimit:
-  * Initial 30 maximale Knechte
-  * +6 maximale Knechte für jeden Rangaufstieg
-  * +2 maximale Knechte für jeden Rangaufstieg (Marie)
 
 __Einheiten__
 

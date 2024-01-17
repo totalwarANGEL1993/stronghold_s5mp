@@ -146,12 +146,12 @@
     <!-- Siege cannons -->
     <DamageClass id="DC_SiegeCannon">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>0.1</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>0.1</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>0.1</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>0.1</ArmorClassIronFactor>
+            <ArmorClassNoneFactor>0.2</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>0.2</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>0.2</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>0.2</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
-            <ArmorClassHeroFactor>0.1</ArmorClassHeroFactor>            
+            <ArmorClassHeroFactor>0.2</ArmorClassHeroFactor>            
             <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
