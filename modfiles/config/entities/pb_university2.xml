@@ -15,20 +15,20 @@
         <MaxHealth>3500</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
+        <MaxWorkers>9</MaxWorkers>
+        <InitialMaxWorkers>9</InitialMaxWorkers>
 
-        <!-- Armor -->
+
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
 
+
         <Worker>PU_Scholar</Worker>
-        <MaxWorkers>9</MaxWorkers>
-        <InitialMaxWorkers>9</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_SCHOLAR_WORK3_START</Start>
             <Work>TL_SCHOLAR_WORK3</Work>

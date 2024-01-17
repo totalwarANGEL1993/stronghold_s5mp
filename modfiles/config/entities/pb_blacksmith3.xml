@@ -28,8 +28,8 @@
 
 
         <Worker>PU_Smith</Worker>
-        <MaxWorkers>6</MaxWorkers>
-        <InitialMaxWorkers>6</InitialMaxWorkers>
+        <MaxWorkers>8</MaxWorkers>
+        <InitialMaxWorkers>8</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_SMITH_WORK4_START</Start>
             <Work>TL_SMITH_WORK4</Work>

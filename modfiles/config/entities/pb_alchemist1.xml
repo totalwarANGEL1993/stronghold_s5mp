@@ -42,8 +42,8 @@
         </Upgrade>
         <Exploration>20</Exploration>
         <Worker>PU_Alchemist</Worker>
-        <MaxWorkers>3</MaxWorkers>
-        <InitialMaxWorkers>3</InitialMaxWorkers>
+        <MaxWorkers>4</MaxWorkers>
+        <InitialMaxWorkers>4</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_ALCHEMIST_WORK_START</Start>
             <Work>TL_ALCHEMIST_WORK</Work>

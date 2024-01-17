@@ -18,19 +18,18 @@
         <ArmorAmount>4</ArmorAmount>
         <Worker>PU_Scholar</Worker>
         <MaxWorkers>6</MaxWorkers>
+        <InitialMaxWorkers>6</InitialMaxWorkers>
 
 
-        <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
 
-        <InitialMaxWorkers>6</InitialMaxWorkers>
+
         <WorkTaskList>
             <Start>TL_SCHOLAR_WORK_START</Start>
             <Work>TL_SCHOLAR_WORK</Work>

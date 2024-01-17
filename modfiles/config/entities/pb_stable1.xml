@@ -1,35 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Stable1</Model>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
- 	    <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <UpgradeSite>ZB_UpgradeSiteStables1</UpgradeSite>
-      <Category>MilitaryBuilding</Category>
-      <Category>SerfConversionBuilding</Category>
-		  <MaxHealth>1500</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>4</ArmorAmount>
-		  
-		<!-- Armor -->
-		<ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-				
-		<!-- Exploration-->
-		<ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Stable1</Model>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Category>MilitaryBuilding</Category>
+        <Category>SerfConversionBuilding</Category>
+        <MaxHealth>1500</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>4</ArmorAmount>
         <Exploration>30</Exploration>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
         <Upgrade>
             <Category>Stable</Category>
-            <Time>40</Time>  
+            <Time>40</Time>
             <Cost>
                 <Clay>200</Clay>
                 <Wood>0</Wood>
@@ -40,6 +39,8 @@
             </Cost>
             <Type>PB_Stable2</Type>
         </Upgrade>
+        <UpgradeSite>ZB_UpgradeSiteStables1</UpgradeSite>
+        
         <ConstructionInfo>
             <Time>120</Time>
             <Cost>
@@ -106,19 +107,19 @@
                 </Position>
                 <Orientation>0</Orientation>
             </BuilderSlot>
-                  
+
             <ConstructionSite>ZB_ConstructionSiteStables1</ConstructionSite>
         </ConstructionInfo>
-       <ApproachPos>
+        <ApproachPos>
             <X>-900</X>
             <Y>100</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>-350</X>
-            <Y>400</Y>			
+            <Y>400</Y>
         </DoorPos>
-        
+
         <Blocked1>
             <X>-800</X>
             <Y>900</Y>
@@ -134,38 +135,38 @@
         <TerrainPos2>
             <X>900</X>
             <Y>-1000</Y>
-        </TerrainPos2>	
-        	
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>24</NumDamageEffects>
-			  <NumDestroyEffects>26</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CBarrackBehaviorProperties">
-			  <Class>GGL::CBarrackBehavior</Class>
-			  <LeaveTaskList>TL_LEAVE_STABLES</LeaveTaskList>
-			  <TrainingTime>20</TrainingTime>
-			  <TrainingTaskList>TL_TRAIN1_STABLES1</TrainingTaskList>
-			  <TrainingTaskList>TL_TRAIN2_STABLES1</TrainingTaskList>
-			  <TrainingTaskList>TL_TRAIN3_STABLES1</TrainingTaskList>
-		</Logic>
-	</Behavior>
+        </TerrainPos2>
+
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>24</NumDamageEffects>
+            <NumDestroyEffects>26</NumDestroyEffects>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="GGL::CBarrackBehaviorProperties">
+            <Class>GGL::CBarrackBehavior</Class>
+            <LeaveTaskList>TL_LEAVE_STABLES</LeaveTaskList>
+            <TrainingTime>20</TrainingTime>
+            <TrainingTaskList>TL_TRAIN1_STABLES1</TrainingTaskList>
+            <TrainingTaskList>TL_TRAIN2_STABLES1</TrainingTaskList>
+            <TrainingTaskList>TL_TRAIN3_STABLES1</TrainingTaskList>
+        </Logic>
+    </Behavior>
 
 
 

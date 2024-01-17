@@ -16,24 +16,22 @@
         <MaxHealth>1200</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
+        <BuildOn>XD_StonePit1</BuildOn>
+        <Worker>PU_Miner</Worker>
+        <MaxWorkers>9</MaxWorkers>
+        <InitialMaxWorkers>9</InitialMaxWorkers>
+        <Category>StoneSupplier</Category>
 
 
-        <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
 
-        <BuildOn>XD_StonePit1</BuildOn>
-        <Worker>PU_Miner</Worker>
-        <Category>StoneSupplier</Category>
-        <MaxWorkers>7</MaxWorkers>
-        <InitialMaxWorkers>7</InitialMaxWorkers>
+
         <WorkTaskList>
             <Start>TL_MINER_STONEMINE_WORK6_START</Start>
             <Work>TL_MINER_STONEMINE_WORK6</Work>
