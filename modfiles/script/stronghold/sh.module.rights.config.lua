@@ -137,7 +137,7 @@ Stronghold.Rights.Config = {
             Costs  = {50, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Cathedral, 1},
-                {PlayerDuty.Soldiers, 50},
+                {PlayerDuty.Soldiers, 20},
             },
             Rights = {
                 PlayerRight.Blacksmith,
@@ -207,7 +207,7 @@ Stronghold.Rights.Config = {
         [PlayerRank.Margrave] = {
             Costs  = {200, 0, 0, 0, 0, 0, 0},
             Duties = {
-                {PlayerDuty.Settlers, 2, 75},
+                {PlayerDuty.Settlers, 2, 50},
                 {PlayerDuty.Cathedral, 2},
             },
             Rights = {
@@ -240,7 +240,7 @@ Stronghold.Rights.Config = {
             Costs  = {300, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Headquarters, 2},
-                {PlayerDuty.Settlers, 2, 100},
+                {PlayerDuty.Settlers, 2, 75},
                 {PlayerDuty.Beautification, 2},
             },
             Rights = {

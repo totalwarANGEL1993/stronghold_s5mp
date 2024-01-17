@@ -12,20 +12,20 @@
         <MaxHealth>300</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>0</ArmorAmount>
-        <ModifyArmor>
-            <Technology>GT_Architecture</Technology>
-        </ModifyArmor>
+        <Exploration>12</Exploration>
+
+
         <Upgrade>
             <Category>Beautification01</Category>
         </Upgrade>
-        <Exploration>12</Exploration>
+
         <ConstructionInfo>
             <Time>20</Time>
             <Cost>
                 <Clay>150</Clay>
                 <Wood/>
                 <Stone>50</Stone>
-                <Gold>300</Gold>
+                <Gold>200</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>

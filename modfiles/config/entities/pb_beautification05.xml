@@ -12,18 +12,19 @@
         <MaxHealth>300</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>0</ArmorAmount>
+        <Exploration>12</Exploration>
 
         <Upgrade>
             <Category>Beautification04</Category>
         </Upgrade>
-        <Exploration>12</Exploration>
+
         <ConstructionInfo>
             <Time>30</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>0</Wood>
                 <Stone>300</Stone>
-                <Gold>600</Gold>
+                <Gold>300</Gold>
                 <Iron>0</Iron>
                 <Sulfur/>
             </Cost>

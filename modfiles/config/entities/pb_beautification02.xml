@@ -1,35 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?><root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Beautification02</Model>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <MaxHealth>300</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>0</ArmorAmount>   
-		
-  
-  
-  <!--ModifyArmor>
-		  	<Technology>GT_Architecture</Technology>		  
-		  </ModifyArmor-->             
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<root>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Beautification02</Model>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <MaxHealth>300</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>0</ArmorAmount>
+        <Exploration>12</Exploration>
+
+
         <Upgrade>
-            <Category>Beautification02</Category>            
+            <Category>Beautification02</Category>
         </Upgrade>
-		  <Exploration>12</Exploration>
+
         <ConstructionInfo>
             <Time>20</Time>
             <Cost>
-				    <Clay/>
-				    <Wood>0</Wood>
-				    <Stone>150</Stone>
-				    <Gold>300</Gold>
-				    <Iron>50</Iron>
-				    <Sulfur/>
+                <Clay/>
+                <Wood>0</Wood>
+                <Stone>150</Stone>
+                <Gold>200</Gold>
+                <Iron>50</Iron>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>
@@ -38,17 +36,17 @@
                 </Position>
                 <Orientation>1</Orientation>
             </BuilderSlot>
-             
+
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>
         <ApproachPos>
             <X>-250</X>
             <Y>250</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>10</X>
-            <Y>10</Y>			
+            <Y>10</Y>
         </DoorPos>
         <Blocked1>
             <X>-150</X>
@@ -65,29 +63,29 @@
         <TerrainPos2>
             <X>250</X>
             <Y>-250</Y>
-        </TerrainPos2>     
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>6</NumDamageEffects>
-			  <NumDestroyEffects>8</NumDestroyEffects> 
-		</Display>
-	</Behavior>
-	
-	<!-- <Behavior>
+        </TerrainPos2>
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>6</NumDamageEffects>
+            <NumDestroyEffects>8</NumDestroyEffects>
+        </Display>
+    </Behavior>
+
+    <!-- <Behavior>
 	    <Logic classname="GGL::CAffectMotivationBehaviorProps">
 	        <Class>GGL::CAffectMotivationBehavior</Class>
 	        <MotivationEffect>0.04</MotivationEffect>
