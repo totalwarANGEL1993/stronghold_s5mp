@@ -948,9 +948,9 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyType, _BuyAmount, _SellType, _SellAmount);
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MinimalTowerDistance", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MinimalConstructionDistance", function(_PlayerID, _UpgradeCategory, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, _UpgradeCategory, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1458,9 +1458,13 @@ function Stronghold.Hero:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCa
 end
 
 -- Passive Ability: Soft tower limit
-function Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, _Amount)
+function Stronghold.Hero:ApplyTowerDistancePassiveAbility(_PlayerID, _UpgradeCategory, _Amount)
     local Amount = _Amount;
-    -- Nothing to do
+    if self.Config.TowerPlacementDistanceCheck[_UpgradeCategory] then
+        if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero2) then
+            Amount = self.Config.Hero2.TowerDistance;
+        end
+    end
     return Amount;
 end
 
@@ -1468,19 +1472,7 @@ end
 function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _Damage)
     local PlayerID = Logic.EntityGetPlayer(_AttackerID);
     local Amount = _Damage;
-    local AttackerType = Logic.GetEntityType(_AttackerID);
-    if self:HasValidLordOfType(PlayerID, Entities.PU_Hero2) then
-        -- Tower bonus
-        if AttackerType == Entities.CB_Evil_Tower1_ArrowLauncher
-        or AttackerType == Entities.PB_DarkTower1_ArrowLauncher
-        or AttackerType == Entities.PB_DarkTower2_Ballista
-        or AttackerType == Entities.PB_DarkTower3_Cannon
-        or AttackerType == Entities.PB_Tower1_ArrowLauncher
-        or AttackerType == Entities.PB_Tower2_Ballista
-        or AttackerType == Entities.PB_Tower3_Cannon then
-            Amount = Amount * self.Config.Hero2.TowerBonusFactor;
-        end
-    end
+    -- Nothing to do
     return Amount;
 end
 

@@ -4,9 +4,6 @@
 --- This script implements construction and upgrade of buildings and their
 --- respective limitations.
 ---
---- - <number> GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, _CurrentAmount)
----   Allows to overwrite the minimum distance between towers
----
 
 Stronghold = Stronghold or {};
 
@@ -21,9 +18,10 @@ Stronghold.Construction = {
 
 --- Calculates the minimum distance between towers.
 --- @param _PlayerID integer ID of player
+--- @param _UpgradeCategory integer Upgrade category
 --- @param _CurrentAmount integer Distance
 --- @return integer Distance Distance
-function GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, _CurrentAmount)
+function GameCallback_SH_Calculate_MinimalConstructionDistance(_PlayerID, _UpgradeCategory, _CurrentAmount)
     return Stronghold.Construction.Config.TowerDistance;
 end
 
@@ -376,30 +374,37 @@ function Stronghold.Construction:InitLightBricks()
 end
 
 -- -------------------------------------------------------------------------- --
--- Soft Tower Limit
+-- Construction Distances
 
 function Stronghold.Construction:OnPlacementCheck(_PlayerID, _Type, _X, _Y, _Rotation, _IsBuildOn)
     local UpCat = Logic.GetUpgradeCategoryByBuildingType(_Type);
-    if self.Config.TowerPlacementDistanceCheck[UpCat] then
-        local AreaSize = self.Config.TowerDistance;
-        AreaSize = GameCallback_SH_Calculate_MinimalTowerDistance(_PlayerID, AreaSize);
-        if self:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, AreaSize) then
+    -- Check distance to buildings of same category
+    if self.Config.PlacementDistanceCheck[UpCat] then
+        local AreaSize = self.Config.PlacementDistanceCheck[UpCat];
+        AreaSize = GameCallback_SH_Calculate_MinimalConstructionDistance(_PlayerID, UpCat, AreaSize);
+        if self:AreBuildingsOfPlayerInArea(_PlayerID, UpCat, _X, _Y, AreaSize) then
+            return false;
+        end
+    end
+    -- Check distance to enemies
+    if self.Config.EnemyDistanceCheck[UpCat] then
+        local AreaSize = self.Config.EnemyDistanceCheck[UpCat];
+        if AreEnemiesInArea(_PlayerID, {X= _X, Y= _Y}, AreaSize) then
             return false;
         end
     end
     return true;
 end
 
-function Stronghold.Construction:AreTowersOfPlayerInArea(_PlayerID, _X, _Y, _AreaSize)
-    local DarkTower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower1, _X, _Y, _AreaSize, 1)};
-    local DarkTower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower2, _X, _Y, _AreaSize, 1)};
-    local DarkTower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower3, _X, _Y, _AreaSize, 1)};
-    local DarkTower4 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_DarkTower4, _X, _Y, _AreaSize, 1)};
-    local Tower1 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower1, _X, _Y, _AreaSize, 1)};
-    local Tower2 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower2, _X, _Y, _AreaSize, 1)};
-    local Tower3 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower3, _X, _Y, _AreaSize, 1)};
-    local Tower4 = {Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.PB_Tower4, _X, _Y, _AreaSize, 1)};
-    return Tower1[1] + Tower2[1] + Tower3[1] + Tower4[1] + DarkTower1[1] + DarkTower2[1] + DarkTower3[1] + DarkTower4[1] > 0;
+function Stronghold.Construction:AreBuildingsOfPlayerInArea(_PlayerID, _UpgradeCategory, _X, _Y, _AreaSize)
+    local UpgradeCategories = {Logic.GetBuildingTypesInUpgradeCategory(_UpgradeCategory)};
+    for i= 2, UpgradeCategories[1] +1 do
+        local Building = {Logic.GetPlayerEntitiesInArea(_PlayerID, UpgradeCategories[i], _X, _Y, _AreaSize, 1)};
+        if Building[1] > 0 then
+            return true;
+        end
+    end
+    return false;
 end
 
 -- -------------------------------------------------------------------------- --

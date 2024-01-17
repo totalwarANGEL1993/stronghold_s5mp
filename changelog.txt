@@ -71,7 +71,7 @@ Als Ausgleich benötigen sie nun wesentlich mehr Platz.
 - Groß (Eisenkanone, Dschihad, Belagerungskanone): 16
 - -2 Plätze pro Kanone (Salim)
 
-__Neue Gebäude__
+__Gebäude__
 
 Beim Gebäudebau hat sich einiges verändert.
 
@@ -80,6 +80,7 @@ Beim Gebäudebau hat sich einiges verändert.
   * Ballistatürme und Kanonentürme werden eigenständig gebaut
   * Ballistatürme können weiterhin zu Kanonentürmen ausgebaut werden
   * Wachtürme werden zu Falknertürmen ausgebaut
+  * Mauern können nicht gebaut werden, wenn Feinde nahe sind
   * Es gibt nun ein Söldnerlager, in dem Spezialeinheten gekauf werden können
   * Es gibt nun einen Henkerplatz, der Verbrechen senkt
   * Es gibt nun vier neue Verteidigungsfallen
@@ -91,6 +92,7 @@ bauen diese Verteidigungsfallen wie gewöhnliche Gebäude.
 
 - Fallen sind nach Fertigstellung unsichtbar für den Gegner
 - Diebe können feindliche Fallen dauerhaft aufdecken
+- Fallen können nicht gebaut werden, wenn Feinde nahe sind
 - Fallenarten:
   * Ein Hundezwinger lässt Kampfhunde auf nahe Feinde los
   * Ein Bärenzwinger lässt einen Bären auf nahe Feinde los
@@ -113,6 +115,8 @@ Bezüglich der Wirtschaft gab es einige kleinere und größere Anpassungen.
 
 __Heldenfähigkeiten__
 
+- Pilgrim:
+  * Türme können näher beieinander platziert werden
 - Salim:
   * Kanonen belegen 2 Plätze weniger
   * Gelehrte erlangen nun 30% schneller Wissen

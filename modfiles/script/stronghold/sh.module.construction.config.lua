@@ -8,36 +8,49 @@ Stronghold.Construction.Config = {
 
     -- Limit of recruiter buildings
     RecruitBuildingAmounts = {
-        [1] = 2,
-        [2] = 3,
-        [3] = 3,
-        [4] = 4,
-        [5] = 4,
-        [6] = 5,
-        [7] = 5,
-        [8] = 6,
+        [1] = -1,
+        [2] = -1,
+        [3] = -1,
+        [4] = -1,
+        [5] = -1,
+        [6] = -1,
+        [7] = -1,
+        [8] = -1,
     },
     -- Limit of cannon factories
     SmeltingBuildingAmounts = {
         [1] = 1,
         [2] = 1,
         [3] = 1,
-        [4] = 2,
+        [4] = 1,
         [5] = 2,
         [6] = 2,
         [7] = 3,
         [8] = 3,
     },
 
-    TowerPlacementDistanceCheck = {
-        [UpgradeCategories.DarkBallistaTower] = true,
-        [UpgradeCategories.DarkCannonTower] = true,
-        [UpgradeCategories.DarkWatchTower] = true,
-        [UpgradeCategories.DarkTower] = true,
-        [UpgradeCategories.Tower] = true,
-        [UpgradeCategories.BallistaTower] = true,
-        [UpgradeCategories.CannonTower] = true,
-        [UpgradeCategories.WatchTower] = true,
+    PlacementDistanceCheck = {
+        -- Towers
+        [UpgradeCategories.DarkBallistaTower] = 1500,
+        [UpgradeCategories.DarkCannonTower]   = 1500,
+        [UpgradeCategories.DarkWatchTower]    = 1500,
+        [UpgradeCategories.DarkTower]         = 1500,
+        [UpgradeCategories.Tower]             = 1500,
+        [UpgradeCategories.BallistaTower]     = 1500,
+        [UpgradeCategories.CannonTower]       = 1500,
+        [UpgradeCategories.WatchTower]        = 1500,
+    },
+
+    EnemyDistanceCheck = {
+        -- Traps
+        [UpgradeCategories.BearCage]          = 2500,
+        [UpgradeCategories.DogCage]           = 2500,
+        [UpgradeCategories.PitchPit]          = 2500,
+        [UpgradeCategories.Traphole]          = 2500,
+        -- Walls
+        [UpgradeCategories.DarkWall]          = 3000,
+        [UpgradeCategories.Palisade]          = 3000,
+        [UpgradeCategories.Wall]              = 3000,
     },
 
     -- Check types for construction technology

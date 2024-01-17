@@ -23,6 +23,7 @@ Stronghold.Hero.Config.Hero1 = {
 Stronghold.Hero.Config.Hero2 = {
     MinerExtractionBonus = 2,
     TowerBonusFactor = 1.2,
+    TowerDistance = 1000,
 }
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
@@ -145,5 +146,17 @@ Stronghold.Hero.Config.DarkBuildingReplacements = {
     [UpgradeCategories.Tower] = UpgradeCategories.DarkTower,
     [UpgradeCategories.Wall] = UpgradeCategories.DarkWall,
     [UpgradeCategories.WatchTower] = UpgradeCategories.DarkWatchTower,
-};
+}
+
+-- Tower upgrade categories
+Stronghold.Hero.Config.TowerPlacementDistanceCheck = {
+    [UpgradeCategories.DarkBallistaTower] = true,
+    [UpgradeCategories.DarkCannonTower] = true,
+    [UpgradeCategories.DarkWatchTower] = true,
+    [UpgradeCategories.DarkTower] = true,
+    [UpgradeCategories.Tower] = true,
+    [UpgradeCategories.BallistaTower] = true,
+    [UpgradeCategories.CannonTower] = true,
+    [UpgradeCategories.WatchTower] = true,
+}
 
