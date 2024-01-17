@@ -9,26 +9,28 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <MaxHealth>1200</MaxHealth>
+        <MaxHealth>1400</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>8</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
+        <Exploration>30</Exploration>
         <Category>MilitaryBuilding</Category>
         <Category>Military</Category>
 
-        <!-- Armor -->
+
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
 
+
         <Upgrade>
             <Category>CannonTower</Category>
         </Upgrade>
-        <Exploration>30</Exploration>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
+    
         <ConstructionInfo>
             <Time>120</Time>
             <Cost>

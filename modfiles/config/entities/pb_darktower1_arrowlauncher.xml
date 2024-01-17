@@ -26,12 +26,12 @@
             <RotationSpeed>20</RotationSpeed>
             <CannonBallEffectType>FXTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
-            <ReloadTime>1300</ReloadTime>
+            <ReloadTime>1500</ReloadTime>
             <MaxAttackRange>2500.0f</MaxAttackRange>
             <MinRange>800</MinRange>
             <DamageClass>DC_Arrow</DamageClass>
             <!-- Note: That is single target damage! -->
-            <DamageAmount>30</DamageAmount>
+            <DamageAmount>25</DamageAmount>
             <DamageRange>300</DamageRange>
             <AutoAttackRange>2500</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

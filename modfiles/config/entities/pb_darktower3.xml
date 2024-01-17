@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_DarkTower3</Model>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <MaxHealth>1300</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>9</ArmorAmount>
-      <Category>MilitaryBuilding</Category>
-		  <Category>Military</Category>
-		  
-		<!-- Armor -->
-		<ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-				
-		<!-- Exploration-->
-		<ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_DarkTower3</Model>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <MaxHealth>1600</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>6</ArmorAmount>
+        <Exploration>30</Exploration>
+        <Category>MilitaryBuilding</Category>
+        <Category>Military</Category>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
         <Upgrade>
-			  <Category>DarkCannonTower</Category> 			
-		</Upgrade>
-		  <Exploration>30</Exploration>        
+            <Category>DarkCannonTower</Category>
+        </Upgrade>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
+        
         <ConstructionInfo>
             <BuilderSlot>
                 <Position>
@@ -57,18 +59,18 @@
                     <Y>100</Y>
                 </Position>
                 <Orientation>0</Orientation>
-            </BuilderSlot>   
-            
+            </BuilderSlot>
+
             <ConstructionSite>ZB_ConstructionSiteTower1</ConstructionSite>
         </ConstructionInfo>
-       <ApproachPos>
+        <ApproachPos>
             <X>-100</X>
             <Y>200</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>-50</X>
-            <Y>-250</Y>			
+            <Y>-250</Y>
         </DoorPos>
         <Blocked1>
             <X>-100</X>
@@ -85,41 +87,41 @@
         <TerrainPos2>
             <X>200</X>
             <Y>-200</Y>
-        </TerrainPos2>      
-        
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>DefaultBend</Banner>
-			  <NumDamageEffects>16</NumDamageEffects>
-			  <NumDestroyEffects>9</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	
-	<Behavior>
-	    <Logic classname="GGL::CFoundationBehaviorProps">
-	        <Class>GGL::CFoundationBehavior</Class>
-	        <TopEntityType>PB_DarkTower3_Cannon</TopEntityType>
+        </TerrainPos2>
+
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>DefaultBend</Banner>
+            <NumDamageEffects>16</NumDamageEffects>
+            <NumDestroyEffects>9</NumDestroyEffects>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CFoundationBehaviorProps">
+            <Class>GGL::CFoundationBehavior</Class>
+            <TopEntityType>PB_DarkTower3_Cannon</TopEntityType>
         </Logic>
     </Behavior>
-         
-	<Behavior>
-		  <Logic classname="GGL::CGLBehaviorPropsDying">
-			  <Class>GGL::CGLBehaviorDying</Class>
-		</Logic>
-	</Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CGLBehaviorPropsDying">
+            <Class>GGL::CGLBehaviorDying</Class>
+        </Logic>
+    </Behavior>
 
 
 

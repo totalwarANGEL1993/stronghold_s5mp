@@ -9,24 +9,22 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
-        <MaxHealth>1000</MaxHealth>
+        <MaxHealth>1200</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>6</ArmorAmount>
+        <ArmorAmount>5</ArmorAmount>
+        <Exploration>30</Exploration>
         <Category>MilitaryBuilding</Category>
         <Category>Military</Category>
 
 
-        <!-- Armor -->
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
 
-
-        <!-- Exploration-->
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
+
 
         <Upgrade>
             <Category>BallistaTower</Category>
@@ -41,7 +39,8 @@
             </Cost>
             <Type>PB_Tower3</Type>
         </Upgrade>
-        <Exploration>30</Exploration>
+        <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
+        
         <ConstructionInfo>
             <Time>90</Time>
             <Cost>

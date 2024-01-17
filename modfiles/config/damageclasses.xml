@@ -28,8 +28,8 @@
         <Logic classname="GGL::CDamageClassProps">
             <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
             <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>2.0</ArmorClassIronFactor>
+            <ArmorClassLeatherFactor>0.8</ArmorClassLeatherFactor>
+            <ArmorClassIronFactor>1.9</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
@@ -41,7 +41,7 @@
             <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
             <ArmorClassJerkinFactor>1.7</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.7</ArmorClassLeatherFactor>
-            <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
+            <ArmorClassIronFactor>0.8</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.2</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>0.1</ArmorClassFurFactor>
@@ -174,7 +174,7 @@
             <ArmorClassJerkinFactor>1.6</ArmorClassJerkinFactor>
             <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.3</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>0.25</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>0.05</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>0.5</ArmorClassHeroFactor>
             <ArmorClassFurFactor>2.0</ArmorClassFurFactor>
         </Logic>
@@ -212,7 +212,7 @@
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>1.0</ArmorClassHeroFactor>
-            <ArmorClassFurFactor>0.25</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.5</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
 </root>
