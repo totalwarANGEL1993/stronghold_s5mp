@@ -47,13 +47,13 @@ Der Adlige bekommt nun Angriff und Rüstung für jeden Stufenaufstieg.
 Zu beginn hat der Adlige einen Angriff von 30 und Rüstung von 1.
 
 - Aufstiegsbonus:
-  * Kastellan: +  5 Angriff   + 0 Rüstung
-  * Vogt:      +  5 Angriff   + 1 Rüstung
-  * Fürst:     +  5 Angriff   + 0 Rüstung
-  * Baron:     +  5 Angriff   + 1 Rüstung
-  * Graf:      +  5 Angriff   + 1 Rüstung
-  * Markgraf:  + 10 Angriff   + 1 Rüstung
-  * Herzog:    + 10 Angriff   + 1 Rüstung
+  * Kastellan: + 5 Angriff, + 0 Rüstung
+  * Vogt: + 5 Angriff, + 1 Rüstung
+  * Fürst: + 5 Angriff, + 0 Rüstung
+  * Baron: + 5 Angriff, + 1 Rüstung
+  * Graf: + 5 Angriff, + 1 Rüstung
+  * Markgraf: + 10 Angriff, + 1 Rüstung
+  * Herzog: + 10 Angriff, + 1 Rüstung
 
 __Einheiten__
 
@@ -64,8 +64,8 @@ Außerdem können nun alle Adligen alle Standardeinheiten rekrutieren!
 
 __Kanonen__
 
-Kanonen haben nun die Rüstungsklasse von Gebäuden. Dadurch überleben sie länger.
-Als Ausgleich benötigen sie nun wesentlich mehr Platz.
+Kanonen haben nun die Rüstungsklasse von Schwertkämpfern. Dadurch überleben sie
+länger. Als Ausgleich benötigen sie nun wesentlich mehr Platz.
 
 - Klein (Bombarde, Große Bombarde, Bronzekanone): 8
 - Groß (Eisenkanone, Dschihad, Belagerungskanone): 16
@@ -149,9 +149,10 @@ __Mapping__
 In einem Unterordner "mapping" werden verschiedene Dinge bereitgestellt, um 
 auch anderen die Maperstellung zu ermöglichen.
 
-- Archiv "editor.bba" muss mit dem MP-Updater geladen werden
+- Archiv "sh_editor.bba" muss mit dem MP-Updater geladen werden
 - Skript "callbacks.lua" muss in jede Map eingefügt werden
 - Skript "mapconfig.lua" enthält die Mindeskonfiguration einer Map
+- Skript "mapscript.lua" muss das Kartenspript der Map ersetzen
 
 
 --------------------------------------------------------------------------------

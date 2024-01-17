@@ -88,6 +88,7 @@ cp -r var/stronghold_s5mp/* "release/stronghold_s5mp/version/$currentVersion"
 mv var/stronghold_s5mp/sh_editor.bba release/stronghold_s5mp/mapping
 cp modloader/callbacks.lua release/stronghold_s5mp/mapping
 cp dev/mapconfig.lua release/stronghold_s5mp/mapping
+cp dev/mapscript.lua release/stronghold_s5mp/mapping
 
 # copy maps
 bin/bba5.exe "maps/StrongholdTutorial.s5x.unpacked"
