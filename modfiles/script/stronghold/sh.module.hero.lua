@@ -504,21 +504,6 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
         if _PlayerID == GUI.GetPlayerID() or GUI.GetPlayerID() == 17 then
             Stronghold.Building:OnHeadquarterSelected(GUI.GetSelectedEntity());
         end
-
-        -- Initialize stats
-        self:SetHeroStatsByTitle(_PlayerID);
-    end
-end
-
-function Stronghold.Hero:SetHeroStatsByTitle(_PlayerID)
-    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Rank = GetRank(_PlayerID) +1;
-        local HeroID = GetNobleID(_PlayerID);
-        local Data = self.Config.HeroStats[Rank];
-        if IsExisting(HeroID) then
-            CEntity.SetArmor(HeroID, Data.Armor);
-            CEntity.SetDamage(HeroID, Data.Damage);
-        end
     end
 end
 

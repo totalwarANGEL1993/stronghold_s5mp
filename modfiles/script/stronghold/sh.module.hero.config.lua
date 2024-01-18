@@ -2,18 +2,6 @@
 --- Config for heroes
 --- 
 
--- Hero promotion effects
-Stronghold.Hero.Config.HeroStats = {
-    [1] = {Damage = 30, Armor = 1},
-    [2] = {Damage = 35, Armor = 1},
-    [3] = {Damage = 40, Armor = 2},
-    [4] = {Damage = 45, Armor = 2},
-    [5] = {Damage = 50, Armor = 3},
-    [6] = {Damage = 55, Armor = 4},
-    [7] = {Damage = 65, Armor = 5},
-    [8] = {Damage = 75, Armor = 6},
-}
-
 -- Hero 1 properties
 Stronghold.Hero.Config.Hero1 = {
     MeasureFactor = 1.5,

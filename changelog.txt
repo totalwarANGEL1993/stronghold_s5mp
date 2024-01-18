@@ -41,20 +41,6 @@ durch Bauen von Außenposten besetzt werden.
   * Außenposten: 40, 65, 90
   * +10% (Dario)
 
-__Adliger__
-
-Der Adlige bekommt nun Angriff und Rüstung für jeden Stufenaufstieg.
-Zu beginn hat der Adlige einen Angriff von 30 und Rüstung von 1.
-
-- Aufstiegsbonus:
-  * Kastellan: + 5 Angriff, + 0 Rüstung
-  * Vogt: + 5 Angriff, + 1 Rüstung
-  * Fürst: + 5 Angriff, + 0 Rüstung
-  * Baron: + 5 Angriff, + 1 Rüstung
-  * Graf: + 5 Angriff, + 1 Rüstung
-  * Markgraf: + 10 Angriff, + 1 Rüstung
-  * Herzog: + 10 Angriff, + 1 Rüstung
-
 __Einheiten__
 
 Die Werte aller Einheiten wurden stark überarbeitet. Dazu zählen Angriff, 
