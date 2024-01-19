@@ -947,11 +947,6 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Noble --
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
-        Overwrite.CallOriginal();
-        Stronghold.Hero:SetHeroStatsByTitle(_PlayerID);
-    end);
-
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxReputationPassiveAbility(_PlayerID, CurrentAmount);
