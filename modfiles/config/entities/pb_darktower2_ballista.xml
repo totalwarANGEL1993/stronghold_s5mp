@@ -26,7 +26,7 @@
             <RotationSpeed>7</RotationSpeed>
             <CannonBallEffectType>FXBalistaTowerArrow</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
-            <ReloadTime>2300</ReloadTime>
+            <ReloadTime>4600</ReloadTime>
             <MaxAttackRange>2800.0f</MaxAttackRange>
             <MinRange>1000</MinRange>
             <DamageClass>DC_Turret</DamageClass>

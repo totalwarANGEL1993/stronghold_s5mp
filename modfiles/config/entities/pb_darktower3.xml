@@ -9,9 +9,9 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <MaxHealth>1600</MaxHealth>
+        <MaxHealth>900</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>6</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <Exploration>30</Exploration>
         <Category>MilitaryBuilding</Category>
         <Category>Military</Category>
