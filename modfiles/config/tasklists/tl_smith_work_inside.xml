@@ -67,7 +67,7 @@
         <TaskType>TASK_WAIT</TaskType>
         <Thousandths>5000</Thousandths>
     </Task>
-
+    
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
     </Task>
