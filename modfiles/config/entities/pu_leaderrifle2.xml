@@ -37,7 +37,11 @@
         <Category>Rifle</Category>
         <Category>LongRange</Category>
         <Cost>
-            <Gold>0</Gold>
+            <Silver>28</Silver>
+            <Gold>400</Gold>
+            <Wood>30</Wood>
+            <Iron>30</Iron>
+            <Sulfur>150</Sulfur>
         </Cost>
         <Upgrade>
             <Category>LeaderRifle2</Category>

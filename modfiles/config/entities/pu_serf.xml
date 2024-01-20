@@ -48,7 +48,7 @@
         <AttractionSlots>1</AttractionSlots>
         <Category>Serf</Category>
         <Cost>
-            <Gold>0</Gold>
+            <Gold>50</Gold>
         </Cost>
         <Upgrade>
             <Category>Serf</Category>

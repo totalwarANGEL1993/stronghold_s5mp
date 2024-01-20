@@ -39,7 +39,10 @@
         <ExperiencePoints>40</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Cost>
-            <Gold>0</Gold>
+            <Silver>16</Silver>
+            <Gold>220</Gold>
+            <Wood>60</Wood>
+            <Iron>75</Iron>
         </Cost>
         <Upgrade>
             <Category>LeaderAxe1</Category>

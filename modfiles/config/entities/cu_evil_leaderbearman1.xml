@@ -29,7 +29,10 @@
         <Convertible>false</Convertible>
         <Hat/>
         <Cost>
-            <Gold>0</Gold>
+            <Silver>4</Silver>
+            <Gold>65</Gold>
+            <Wood>130</Wood>
+            <Iron>30</Iron>
         </Cost>
         <Category>Military</Category>
         <Category>Leader</Category>

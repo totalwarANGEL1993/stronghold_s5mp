@@ -33,7 +33,10 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>0</Gold>
+            <Silver>15</Silver>
+            <Gold>250</Gold>
+            <Wood>75</Wood>
+            <Iron>75</Iron>
         </Cost>
         <Category>Military</Category>
         <Category>Melee</Category>

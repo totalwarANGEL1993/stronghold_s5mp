@@ -295,9 +295,6 @@ function Stronghold.Attraction:GetVirtualPlayerAttractionLimit(_PlayerID)
         RawLimit = RawLimit + (HQ2 * self.Config.Attraction.HQCivil[2]);
         local HQ3 = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PB_Headquarters3);
         RawLimit = RawLimit + (HQ3 * self.Config.Attraction.HQCivil[3]);
-        if RawLimit == 0 and GetHeadquarterID(_PlayerID) == 0 then
-            Limit = Limit + 35;
-        end
         -- Village Centers
         local VC1 = GetBuildingsOfType(_PlayerID, Entities.PB_VillageCenter1, true);
         RawLimit = RawLimit + (VC1[1] * self.Config.Attraction.VCCivil[1]);

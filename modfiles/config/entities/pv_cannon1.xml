@@ -16,7 +16,11 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Cost>
-            <Gold>0</Gold>
+            <Silver>19</Silver>
+            <Gold>400</Gold>
+            <Wood>75</Wood>
+            <Iron>200</Iron>
+            <Sulfur>300</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Cannon</Category>

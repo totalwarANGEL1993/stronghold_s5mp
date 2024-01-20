@@ -41,7 +41,8 @@
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <Cost>
-            <Gold>0</Gold>
+            <Gold>6</Gold>
+            <Iron>30</Iron>
         </Cost>
         <Upgrade>
             <Category>BanditSoldierSword1</Category>

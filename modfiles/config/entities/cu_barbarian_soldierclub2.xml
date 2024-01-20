@@ -27,7 +27,9 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>0</Gold>
+            <Gold>20</Gold>
+            <Wood>20</Wood>
+            <Iron>12</Iron>
         </Cost>
         <Category>Military</Category>
         <Category>Soldier</Category>

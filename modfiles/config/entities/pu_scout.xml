@@ -30,7 +30,10 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>0</Gold>
+            <Silver>0</Silver>
+            <Gold>100</Gold>
+            <Wood>50</Wood>
+            <Iron>50</Iron>
         </Cost>
         <Upgrade>
             <Category>Scout</Category>

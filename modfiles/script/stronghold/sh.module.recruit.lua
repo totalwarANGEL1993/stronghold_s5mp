@@ -49,7 +49,6 @@ function Stronghold.Recruit:Install()
         self.Data[i] = {
             Config = CopyTable(Stronghold.Unit.Config),
             Roster = {},
-            AutoFill = {},
             TrainingLeaders = {},
             ForgeRegister = {},
             RecruitCommands = {},
@@ -70,7 +69,6 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
         BuyCannon = 1,
         BuyLeader = 2,
         BuySerf = 3,
-        ToggleAutoFill = 4,
     };
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
@@ -82,11 +80,6 @@ function Stronghold.Recruit:CreateBuildingButtonHandlers()
                 Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
             elseif _Action == Stronghold.Recruit.SyncEvents.BuySerf then
                 Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
-            elseif _Action == Stronghold.Recruit.SyncEvents.ToggleAutoFill then
-                if Logic.EntityGetPlayer(arg[1]) == _PlayerID then
-                    local Current = Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]];
-                    Stronghold.Recruit.Data[_PlayerID].AutoFill[arg[1]] = not Current;
-                end
             end
         end
     );
@@ -100,15 +93,8 @@ end
 function Stronghold.Recruit:OnEveryTurn(_PlayerID)
     -- Buy leader queue
     self:RecruitCommandController(_PlayerID);
-    -- Auto recruit soldiers
-    self:SoldierRecruiterController(_PlayerID);
     -- Cannon progress
     self:ControlCannonProducers(_PlayerID);
-end
-
-function Stronghold.Recruit:PayUnit(_PlayerID, _Type, _SoldierAmount)
-    local Costs = self:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount);
-    RemoveResourcesFromPlayer(_PlayerID, Costs);
 end
 
 function Stronghold.Recruit:PaySoldiers(_PlayerID, _Type, _SoldierAmount)
@@ -212,11 +198,10 @@ function Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
     local Costs = {};
     local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
     if Config then
+        local UpgradeCategory = GetUpgradeCategoryByEntityType(_Type);
+        Logic.FillLeaderCostsTable(_PlayerID, UpgradeCategory, Costs);
         _SoldierAmount = _SoldierAmount or Config.Soldiers;
-        Costs = CopyTable(Config.Costs[1]);
-        Costs = CreateCostTable(unpack(Costs));
 
-        Costs = Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, Costs);
         if _SoldierAmount and _SoldierAmount > 0 then
             local SoldierCosts = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
             Costs = MergeCostTable(Costs, SoldierCosts);
@@ -229,12 +214,16 @@ function Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amoun
     local Costs = {};
     local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
     if Config then
-        Costs = CopyTable(Config.Costs[2]);
-        for i= 2, 7 do
-            Costs[i] = Costs[i] * (_Amount or Config.Soldiers);
-        end
-        Costs = CreateCostTable(unpack(Costs));
-        Costs = Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _Type, Costs);
+        local UpgradeCategory = GetUpgradeCategoryByEntityType(_Type);
+        Logic.FillSoldierCostsTable(_PlayerID, UpgradeCategory, Costs);
+
+        Costs[ResourceType.Silver] = Costs[ResourceType.Silver] * (_Amount or Config.Soldiers);
+        Costs[ResourceType.Gold]   = Costs[ResourceType.Gold] * (_Amount or Config.Gold);
+        Costs[ResourceType.Clay]   = Costs[ResourceType.Clay] * (_Amount or Config.Clay);
+        Costs[ResourceType.Wood]   = Costs[ResourceType.Wood] * (_Amount or Config.Wood);
+        Costs[ResourceType.Stone]  = Costs[ResourceType.Stone] * (_Amount or Config.Stone);
+        Costs[ResourceType.Iron]   = Costs[ResourceType.Iron] * (_Amount or Config.Iron);
+        Costs[ResourceType.Sulfur] = Costs[ResourceType.Sulfur] * (_Amount or Config.Sulfur);
     end
     return Costs;
 end
@@ -293,9 +282,7 @@ function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _Entity
     else
         local TypeName = Logic.GetEntityTypeName(_EntityType);
         local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
-        local AutoFillActive = self.Data[_PlayerID].AutoFill[_EntityID] == true;
-        local Soldiers = (AutoFillActive and Config.Soldiers) or 0;
-        local Costs = self:GetLeaderCosts(_PlayerID, _EntityType, Soldiers);
+        local Costs = self:GetLeaderCosts(_PlayerID, _EntityType, 0);
         CostsText = FormatCostString(_PlayerID, Costs);
         local NeededPlaces = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
         CostsText = CostsText .. XGUIEng.GetStringTableText("InGameMessages/GUI_NamePlaces") .. ": " .. NeededPlaces;
@@ -438,8 +425,8 @@ function Stronghold.Recruit:BuySerfTooltip(_PlayerID, _EntityID)
     if not self:IsUnitAllowed(_EntityID, Entities.PU_Serf) then
         Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
     else
-        local Config = Stronghold.Unit.Config:Get(Entities.PU_Serf);
-        local Costs = CreateCostTable(unpack(Config.Costs[1]));
+        local Costs = {};
+        Logic.FillSerfCostsTable(Costs);
         Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buyserf");
         Shortcut = XGUIEng.GetStringTableText("MenuGeneric/Key_name") .. ": [" .. XGUIEng.GetStringTableText("KeyBindings/BuyUnits1") .. "]";
         CostText = FormatCostString(GuiPlayer, Costs);
@@ -852,31 +839,22 @@ end
 function Stronghold.Recruit:InitAutoFillButtons()
     GUIAction_ToggleAutoFill = function()
         local BuildingID = GUI.GetSelectedEntity();
-        local PlayerID = Logic.EntityGetPlayer(BuildingID);
-        if Stronghold.Recruit.Data[PlayerID] then
-            Syncer.InvokeEvent(
-                Stronghold.Recruit.NetworkCall,
-                Stronghold.Recruit.SyncEvents.ToggleAutoFill,
-                BuildingID
-            );
+        if Logic.IsAutoFillActive(BuildingID) == 1 then
+            GUI.DeactivateAutoFillAtBarracks(GUI.GetSelectedEntity());
+        else
+            GUI.ActivateAutoFillAtBarracks(GUI.GetSelectedEntity());
         end
+        XGUIEng.DoManualButtonUpdate(gvGUI_WidgetID.InGame);
     end
 
     GUIUpdate_ToggleGroupRecruitingButtons = function()
         local BuildingID = GUI.GetSelectedEntity();
-        if BuildingID then
-            local PlayerID = Logic.EntityGetPlayer(BuildingID);
-            local AutoFillActive = Logic.IsAutoFillActive(BuildingID) == 1;
-            if Stronghold.Recruit.Data[PlayerID] then
-                AutoFillActive = Stronghold.Recruit.Data[PlayerID].AutoFill[BuildingID] == true;
-            end
-            if AutoFillActive then
-                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitSingleLeader, 1);
-                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitGroups, 0);
-            else
-                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitGroups, 1);
-                XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitSingleLeader, 0);
-            end
+        if Logic.IsAutoFillActive(BuildingID) == 1 then
+            XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitSingleLeader, 1);
+            XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitGroups, 0);
+        else
+            XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitGroups, 1);
+            XGUIEng.ShowWidget(gvGUI_WidgetID.RecruitSingleLeader, 0);
         end
     end
 end
@@ -955,10 +933,6 @@ end
 function Stronghold.Recruit:UnitRecruiterController(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if IsPlayer(PlayerID) then
-        -- Activate autofill
-        if Logic.IsBuilding(_EntityID) == 1 then
-            self.Data[PlayerID].AutoFill[_EntityID] = true;
-        end
         -- Add training leader
         if Logic.IsLeader(_EntityID) == 1 then
             local Experience = Stronghold.Hero:ApplyExperiencePassiveAbility(PlayerID, _EntityID, 0);
@@ -974,61 +948,6 @@ function Stronghold.Recruit:UnitRecruiterController(_EntityID)
         end
         if Logic.GetEntityType(_EntityID) == Entities.PV_Cannon8 then
             SVLib.SetEntitySize(_EntityID, 0.65);
-        end
-    end
-end
-
-function Stronghold.Recruit:SoldierRecruiterController(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        -- Update training leaders
-        local MiitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
-        local MiitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
-        local MilitarySpace = MiitaryLimit - MiitaryUsage;
-        for LeaderID,_ in pairs(self.Data[_PlayerID].TrainingLeaders) do
-            local BarracksID = Logic.LeaderGetBarrack(LeaderID);
-            if BarracksID == 0 then
-                if self.Data[_PlayerID].TrainingLeaders[LeaderID] then
-                    BarracksID = self.Data[_PlayerID].TrainingLeaders[LeaderID];
-                    self.Data[_PlayerID].TrainingLeaders[LeaderID] = nil;
-                    if IsExisting(BarracksID) and self.Data[_PlayerID].AutoFill[BarracksID] then
-                        local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(LeaderID);
-                        local Soldiers = Logic.LeaderGetNumberOfSoldiers(LeaderID);
-                        local MaxHealth = Logic.GetEntityMaxHealth(BarracksID);
-                        local Health = Logic.GetEntityHealth(BarracksID);
-                        local IsConstructed = Logic.IsConstructionComplete(BarracksID) == 1;
-                        local IsUpgrading = IsBuildingBeingUpgraded(BarracksID);
-                        local SoldierAmount = MaxSoldiers - Soldiers;
-                        if IsConstructed and not IsUpgrading and SoldierAmount > 0 and Health / MaxHealth > 0.2 then
-                            -- Buy soldiers normally for human players
-                            if not IsAIPlayer(_PlayerID) then
-                                local EntityType = Logic.GetEntityType(LeaderID);
-                                local Places = GetMilitaryPlacesUsedByUnit(EntityType, 1);
-                                local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, EntityType, 1);
-                                for i= 1, SoldierAmount do
-                                    if  MilitarySpace >= Places and HasEnoughResources(_PlayerID, Costs) then
-                                        self:PaySoldiers(_PlayerID, EntityType, 1);
-                                        MilitarySpace = MilitarySpace - Places;
-                                        if GUI.GetPlayerID() == _PlayerID then
-                                            GUI.BuySoldier(LeaderID);
-                                        end
-                                    end
-                                end
-                            -- Just create soldiers for AI players
-                            else
-                                local Task = Logic.GetCurrentTaskList(LeaderID);
-                                MaxHealth = Logic.GetEntityMaxHealth(LeaderID);
-                                Health = Logic.GetEntityHealth(LeaderID);
-                                if  Health > 0 and Health < MaxHealth and Task
-                                and (not string.find(Task, "BATTLE") and not string.find(Task, "DIE")) then
-                                    Tools.CreateSoldiersForLeader(LeaderID, SoldierAmount);
-                                end
-                            end
-                        end
-                    end
-                end
-            else
-                self.Data[_PlayerID].TrainingLeaders[LeaderID] = BarracksID;
-            end
         end
     end
 end
@@ -1052,9 +971,6 @@ function Stronghold.Recruit:RecruitCommandController(_PlayerID)
             while self.Data[_PlayerID].RecruitCommands[1] do
                 local Command = table.remove(self.Data[_PlayerID].RecruitCommands, 1);
                 if self:CanBuildingProduceUnit(_PlayerID, Command[1], Command[2], false) then
-                    -- Pay costs
-                    local Costs = self:GetLeaderCosts(_PlayerID, Command[2], 0);
-                    RemoveResourcesFromPlayer(_PlayerID, Costs);
                     -- Buy serf
                     if Command[3] == UpgradeCategories.Serf then
                         if GUI.GetPlayerID() == _PlayerID then
@@ -1068,10 +984,6 @@ function Stronghold.Recruit:RecruitCommandController(_PlayerID)
                     -- Buy leader
                     else
                         if GUI.GetPlayerID() == _PlayerID then
-                            if SendEvent.DeactivateAutoFillAtBarracks then
-                                SendEvent.DeactivateAutoFillAtBarracks(Command[1]);
-                            end
-                            GUI.DeactivateAutoFillAtBarracks(Command[1]);
                             GUI.BuyLeader(Command[1], Command[3]);
                         end
                     end

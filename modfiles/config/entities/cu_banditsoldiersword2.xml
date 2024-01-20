@@ -41,7 +41,10 @@
         <ExperiencePoints>10</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
         <Cost>
-            <Gold>0</Gold>
+            <Silver>0</Silver>
+            <Gold>50</Gold>
+            <Wood>8</Wood>
+            <Iron>36</Iron>
         </Cost>
         <Upgrade>
             <Category>SoldierAxe2</Category>

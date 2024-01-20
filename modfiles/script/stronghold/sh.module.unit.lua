@@ -168,7 +168,6 @@ function Stronghold.Unit:BuySoldierActionCallback(_PlayerID, _EntityID, _LeaderT
             if  HasEnoughResources(_PlayerID, Costs)
             and HasPlayerSpaceForUnits(_PlayerID, RequiredPlaces)
             and _LeaderType ~= Entities.CU_BlackKnight then
-                RemoveResourcesFromPlayer(_PlayerID, Costs);
                 if GUI.GetPlayerID() == _PlayerID then
                     GUI.BuySoldier(_EntityID);
                 end
@@ -215,7 +214,6 @@ function Stronghold.Unit:BuyMultipleSoldierActionCallback(_PlayerID, ...)
         local SoldierCosts = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, LeaderType, 1);
         for j= 1, Soldiers do
             if HasEnoughResources(_PlayerID, SoldierCosts) then
-                RemoveResourcesFromPlayer(_PlayerID, SoldierCosts);
                 if LeaderType ~= Entities.CU_BlackKnight then
                     if GUI.GetPlayerID() == _PlayerID then
                         GUI.BuySoldier(EntityID);
