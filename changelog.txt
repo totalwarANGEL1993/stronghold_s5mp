@@ -144,6 +144,26 @@ auch anderen die Maperstellung zu ermöglichen.
 --------------------------------------------------------------------------------
 
 
+Version 0.5.49
+- Türme
+  * Können nicht gebaut werden, wenn Feinde nah sind
+  * Angriffskraft gesenkt
+  * Feuerrate gesenkt
+  * Trefferpukte halbiert
+  * Rüstung halbiert (Mauerhandwerk gibt normalen Bonus)
+- Knechte
+  * Knechte zählen zusätzlich als Bevölkerung
+- Dorfzentren
+  * Gewähren mehr Bevölkerungsplatz
+  * Ausbauten sind eher verfügbar
+
+Version 0.5.45
+- Das Verbrechersystem wurde komplett überarbeitet:
+  * Verbrecher werden von Wachmännern gejagt, die vom Wachturm gespawnt werden
+  * Verbrecher laufen nun zwischen zufälligen Gebäuden umher
+- Bei Beliebtheit <= 25 geht pro Zahltag nur noch jeder 3 Arbeiter
+- Der Schaden der meisten Fernkämpfer gegen Gebäude ist reduziert
+
 Version 0.5.38
 - Die Preise (fast) aller Einheiten wurden ein wenig gesenkt.
 - Der Steuersatz für die Arbeiter wurde leicht erhöht.
