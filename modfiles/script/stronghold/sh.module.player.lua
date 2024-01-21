@@ -166,11 +166,11 @@ end
 
 --- Returns the tax hight of the player.
 ---
---- The tax height is between 1 and 5. In case of error 0 is returned.
+--- The tax height is between 1 and 5.
 --- @param _PlayerID integer ID of player
 --- @return integer Height Tax height
 function GetTaxHeight(_PlayerID)
-    return Stronghold.Player:GetPlayerTaxHeight(_PlayerID);
+    return Stronghold.Player:GetPlayerTaxHeight(_PlayerID) +1;
 end
 
 --- Sets the tax height of the player.
@@ -179,7 +179,7 @@ end
 --- @param _PlayerID integer ID of player
 --- @param _Height integer Tax height
 function SetTaxHeight(_PlayerID, _Height)
-    Stronghold.Player:SetPlayerTaxHeight(_PlayerID, _Height);
+    Stronghold.Player:SetPlayerTaxHeight(_PlayerID, _Height -1);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -290,7 +290,6 @@ function Stronghold.Player:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
         DoorPos = nil;
         CampPos = nil;
 
-        TaxHeight = 3,
         ReputationLimit = 200,
         Reputation = 100,
 
@@ -298,10 +297,6 @@ function Stronghold.Player:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
         VulnerabilityInfoShown = true,
         AttackMemory = {},
     };
-
-    if CNetwork then
-        SendEvent.SetTaxes(_PlayerID, 0);
-    end
 
     Job.Turn(function(_PlayerID, _Serfs, _HeroType)
         return Stronghold.Player:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType);
@@ -364,11 +359,15 @@ function Stronghold.Player:GetPlayerHeroName(_PlayerID)
 end
 
 function Stronghold.Player:GetPlayerTaxHeight(_PlayerID)
-    return self.Data[_PlayerID].Player.TaxHeight;
+    return Logic.GetTaxLevel(_PlayerID);
 end
 
 function Stronghold.Player:SetPlayerTaxHeight(_PlayerID, _Height)
-    self.Data[_PlayerID].Player.TaxHeight = _Height;
+    if CNetwork then
+        SendEvent.SetTaxes(_PlayerID, _Height);
+    else
+        GUI.SetTaxLevel(_Height);
+    end
 end
 
 function Stronghold.Player:InitalizePlayerWithoutHeadquarters(_PlayerID, _StartPosition, _HeroType, _SerfAmount)

@@ -87,7 +87,6 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-
     </Logic>
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
@@ -151,7 +150,7 @@
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
 
-            <UpkeepCost>0</UpkeepCost>
+            <UpkeepCost>20</UpkeepCost>
 
         </Logic>
     </Behavior>

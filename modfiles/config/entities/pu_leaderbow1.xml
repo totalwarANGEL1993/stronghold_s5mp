@@ -151,7 +151,7 @@
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
 
-            <UpkeepCost>0</UpkeepCost>
+            <UpkeepCost>20</UpkeepCost>
 
         </Logic>
     </Behavior>

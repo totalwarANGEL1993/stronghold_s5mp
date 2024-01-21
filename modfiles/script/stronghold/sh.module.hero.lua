@@ -876,11 +876,10 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
 
     GUIUpdate_DetailsSlots = function()
         local ID = GUI.GetSelectedEntity();
-        local PlayerID = Logic.EntityGetPlayer(ID);
         local Type = Logic.GetEntityType(ID);
-        local Config = Stronghold.Unit.Config.Troops:GetConfig(Type, PlayerID);
-        if Logic.IsLeader(ID) == 1 and Config and Type ~= Entities.CU_BlackKnight then
-            XGUIEng.SetText("DetailsPayAndSlots_SlotAmount", "@ra " ..(Config.Upkeep or 0));
+        if Logic.IsLeader(ID) == 1 and Type ~= Entities.CU_BlackKnight then
+            local Upkeep = Logic.LeaderGetUpkeepCost(ID);
+            XGUIEng.SetText("DetailsPayAndSlots_SlotAmount", "@ra " ..Upkeep);
             XGUIEng.ShowWidget("DetailsPayAndSlots", 1);
         else
             XGUIEng.ShowWidget("DetailsPayAndSlots", 0);

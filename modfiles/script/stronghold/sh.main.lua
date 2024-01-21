@@ -253,7 +253,6 @@ function Stronghold:Init()
 
     self:InitPlayerEntityRecord();
     Camera.ZoomSetFactorMax(2.0);
-    GUI.SetTaxLevel(0);
     GUI.ClearSelection();
 
     self.Utils:OverwriteInterfaceTools();

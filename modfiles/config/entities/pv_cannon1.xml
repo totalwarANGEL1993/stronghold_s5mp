@@ -111,10 +111,10 @@
             <MinRange>1000</MinRange>
             <AutoAttackRange>2200</AutoAttackRange>
 
-            <UpkeepCost>0</UpkeepCost>
-
             <HealingPoints>0</HealingPoints>
             <HealingSeconds>0</HealingSeconds>
+
+            <UpkeepCost>30</UpkeepCost>
         </Logic>
     </Behavior>
 

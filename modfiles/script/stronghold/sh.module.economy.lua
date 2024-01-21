@@ -188,6 +188,16 @@ function GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates how much upkeep the player earns from the type of worker.
+--- @param _PlayerID integer ID of player
+--- @param _PayerType integer Type of entity
+--- @param _Amount integer Upkeep
+--- @return integer Upkeep Upkeep
+function GameCallback_SH_Calculate_PaydayIncome(_PlayerID, _PayerType, _Amount)
+    -- TODO: Not implemented
+    return _Amount;
+end
+
 --- Calculates how much upkeep the player has to pay for the unit type.
 --- @param _PlayerID integer ID of player
 --- @param _UnitType integer Type of entity
@@ -702,18 +712,13 @@ end
 -- If scale is researched, then taxes are increased by 5%.
 function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local TaxPerWorker = Logic.GetPlayerRegularTaxPerWorker(_PlayerID);
         local WorkerAmount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-        local TaxHeight = GetTaxHeight(_PlayerID);
-        local PerWorker = self.Config.Income.TaxPerWorker;
-        local Income = (WorkerAmount * PerWorker) * (TaxHeight -1);
-
-        -- Scale
+        local Income = TaxPerWorker * WorkerAmount;
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Scale) == 1 then
             Income = Income * self.Config.Income.ScaleBonusFactor;
         end
-        -- External
         Income = GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, Income);
-
         return math.floor(Income + 0.5);
     end
     return 0;
@@ -723,21 +728,24 @@ end
 -- The upkeep is not for the leader himself.
 function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Upkeep = 0;
-        for Type, Data in pairs(Stronghold.Unit.Config) do
-            if type(Type) == "number" then
-                -- Merge military table
-                local UnitCount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Type);
-                local TypeUpkeep = (Data.Upkeep or 0) * UnitCount;
-                -- External calculations
-                TypeUpkeep = GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, Type, TypeUpkeep);
-
-                self.Data[_PlayerID].UpkeepDetails[Type] = TypeUpkeep;
-                Upkeep = Upkeep + TypeUpkeep;
+        local Upkeep = Logic.GetPlayerPaydayLeaderCosts(_PlayerID);
+        Upkeep = GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, Upkeep);
+        for Type, Data in pairs (Stronghold.Unit.Config.Troops) do
+            local Leaders = GetLeadersOfType(_PlayerID, Type);
+            if Leaders[1] > 0 then
+                local UnitCost = Logic.LeaderGetUpkeepCost(Leaders[2]);
+                Upkeep = Upkeep - (UnitCost * Leaders[1]);
+                UnitCost = GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, Type, UnitCost * Leaders[1]);
+                Upkeep = Upkeep + UnitCost;
+            end
+            local Cannons = GetCannonsOfType(_PlayerID, Type);
+            if Cannons[1] > 0 then
+                local UnitCost = Logic.LeaderGetUpkeepCost(Cannons[2]);
+                Upkeep = Upkeep - (UnitCost * Cannons[1]);
+                UnitCost = GameCallback_SH_Calculate_PaydayUpkeep(_PlayerID, Type, UnitCost * Cannons[1]);
+                Upkeep = Upkeep + UnitCost;
             end
         end
-        -- External
-        Upkeep = GameCallback_SH_Calculate_TotalPaydayUpkeep(_PlayerID, Upkeep);
         return math.floor(Upkeep);
     end
     return 0;
