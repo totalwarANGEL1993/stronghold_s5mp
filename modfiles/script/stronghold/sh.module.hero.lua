@@ -1158,63 +1158,6 @@ function Stronghold.Hero:ResourceRefiningBonus(_PlayerID, _BuildingID, _Type, _A
     return Amount;
 end
 
--- Passive Ability: leader costs
-function Stronghold.Hero:ApplyLeaderCostPassiveAbility(_PlayerID, _Type, _Costs)
-    local Costs = _Costs;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
-        -- Apply resource costs for regular training
-        local Factor = self.Config.Hero4.UnitCostFactor;
-        if _Type ~= Entities.PU_Serf then
-            local IsCannon = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Cannon) == 1;
-            local IsScout = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Scout) == 1;
-            local IsThief = Logic.IsEntityTypeInCategory(_Type, EntityCategories.Thief) == 1;
-            if not IsCannon and not IsScout and not IsThief then
-                if Costs[ResourceType.Gold] then
-                    Costs[ResourceType.Gold] = math.ceil(Costs[ResourceType.Gold] * Factor);
-                end
-                if Costs[ResourceType.Clay] then
-                    Costs[ResourceType.Clay] = math.ceil(Costs[ResourceType.Clay] * Factor);
-                end
-                if Costs[ResourceType.Wood] then
-                    Costs[ResourceType.Wood] = math.ceil(Costs[ResourceType.Wood] * Factor);
-                end
-                if Costs[ResourceType.Stone] then
-                    Costs[ResourceType.Stone] = math.ceil(Costs[ResourceType.Stone] * Factor);
-                end
-                if Costs[ResourceType.Iron] then
-                    Costs[ResourceType.Iron] = math.ceil(Costs[ResourceType.Iron] * Factor);
-                end
-                if Costs[ResourceType.Sulfur] then
-                    Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * Factor);
-                end
-            end
-        end
-    end
-    -- Tripled honor cost of heavy cavalry
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3)
-    or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        if _Type == Entities.PU_LeaderHeavyCavalry1 or _Type == Entities.PU_LeaderHeavyCavalry2
-        or _Type == Entities.CU_TemplarLeaderHeavyCavalry1 then
-            if Costs[ResourceType.Silver] then
-                Costs[ResourceType.Silver] = math.ceil(Costs[ResourceType.Silver] * 3);
-            end
-        end
-    end
-    -- Tripled honor costs of riflemen
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4)
-    or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6)
-    or self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero)
-    or self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        -- Triple honor costs of riflemen
-        if _Type == Entities.PU_LeaderRifle1 or _Type == Entities.PU_LeaderRifle2 then
-            if Costs[ResourceType.Silver] then
-                Costs[ResourceType.Silver] = math.ceil(Costs[ResourceType.Silver] * 3);
-            end
-        end
-    end
-    return Costs;
-end
-
 -- Passive Ability: soldier costs
 function Stronghold.Hero:ApplySoldierCostPassiveAbility(_PlayerID, _LeaderType, _Costs)
     local Costs = _Costs;
@@ -1254,12 +1197,39 @@ function Stronghold.Hero:ApplySlaveAttractionPassiveAbility(_PlayerID, _Value)
     return Value;
 end
 
+-- Passive Ability: Change used space of specific unit type
+function Stronghold.Hero:ApplyUnitAttractionPassiveAbility(_PlayerID, _Type, _Value)
+    local Value = _Value;
+    -- Cavalry malus (Salim, Ari)
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3)
+    or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
+        if _Type == Entities.CU_TemplarLeaderHeavyCavalry1
+        or _Type == Entities.PU_LeaderHeavyCavalry1
+        or _Type == Entities.PU_LeaderHeavyCavalry2 then
+            Value = Value + 1;
+        end
+    end
+    -- Sharpshooter malus (Erec, Helias, Varg, Kala)
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4)
+    or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6)
+    or self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero)
+    or self:HasValidLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
+        -- Triple honor costs of riflemen
+        if _Type == Entities.PU_LeaderRifle1
+        or _Type == Entities.PU_LeaderRifle2 then
+            Value = Value + 1;
+        end
+    end
+    return Value;
+end
+
 -- Passive Ability: Change millitary places usage
 function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-        for Type, Places in pairs (self.Config.Hero3.CannonTypes) do
+        for _, Type in pairs (self.Config.Hero3.CannonTypes) do
             local Amount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Type);
+            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_PlayerID, Type, Amount);
             local Occupied = Amount * Places;
             Value = Value - Occupied;
         end

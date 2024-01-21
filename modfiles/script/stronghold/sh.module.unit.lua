@@ -161,7 +161,7 @@ function Stronghold.Unit:BuySoldierActionCallback(_PlayerID, _EntityID, _LeaderT
     local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _LeaderType, 1);
     local MilitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
     local MilitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
-    local RequiredPlaces = GetMilitaryPlacesUsedByUnit(_LeaderType, 1);
+    local RequiredPlaces = GetMilitaryPlacesUsedByUnit(_PlayerID, _LeaderType, 1);
     local UnitsToBuy = math.floor(math.max(MilitaryLimit - MilitaryUsage, 0) / RequiredPlaces);
     for i= 1, _SoldierAmount do
         if UnitsToBuy > 0 then
@@ -191,7 +191,7 @@ function Stronghold.Unit:BuyMultipleSoldierActionCallback(_PlayerID, ...)
         if  IsExisting(BarracksID) and not IsBuildingBeingUpgraded(BarracksID)
         and PlacesLeft > 0 then
             local LeaderType = Logic.GetEntityType(EntityID);
-            local RequiredPlaces = GetMilitaryPlacesUsedByUnit(LeaderType, 1);
+            local RequiredPlaces = GetMilitaryPlacesUsedByUnit(_PlayerID, LeaderType, 1);
             local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(EntityID);
             local CurSoldiers = Logic.LeaderGetNumberOfSoldiers(EntityID);
             local SoldiersToBuy = 0;

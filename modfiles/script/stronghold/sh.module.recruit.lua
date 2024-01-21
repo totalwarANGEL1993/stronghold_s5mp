@@ -218,12 +218,12 @@ function Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amoun
         Logic.FillSoldierCostsTable(_PlayerID, UpgradeCategory, Costs);
 
         Costs[ResourceType.Silver] = Costs[ResourceType.Silver] * (_Amount or Config.Soldiers);
-        Costs[ResourceType.Gold]   = Costs[ResourceType.Gold] * (_Amount or Config.Gold);
-        Costs[ResourceType.Clay]   = Costs[ResourceType.Clay] * (_Amount or Config.Clay);
-        Costs[ResourceType.Wood]   = Costs[ResourceType.Wood] * (_Amount or Config.Wood);
-        Costs[ResourceType.Stone]  = Costs[ResourceType.Stone] * (_Amount or Config.Stone);
-        Costs[ResourceType.Iron]   = Costs[ResourceType.Iron] * (_Amount or Config.Iron);
-        Costs[ResourceType.Sulfur] = Costs[ResourceType.Sulfur] * (_Amount or Config.Sulfur);
+        Costs[ResourceType.Gold]   = Costs[ResourceType.Gold]   * (_Amount or Config.Soldiers);
+        Costs[ResourceType.Clay]   = Costs[ResourceType.Clay]   * (_Amount or Config.Soldiers);
+        Costs[ResourceType.Wood]   = Costs[ResourceType.Wood]   * (_Amount or Config.Soldiers);
+        Costs[ResourceType.Stone]  = Costs[ResourceType.Stone]  * (_Amount or Config.Soldiers);
+        Costs[ResourceType.Iron]   = Costs[ResourceType.Iron]   * (_Amount or Config.Soldiers);
+        Costs[ResourceType.Sulfur] = Costs[ResourceType.Sulfur] * (_Amount or Config.Soldiers);
     end
     return Costs;
 end
@@ -284,7 +284,7 @@ function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _Entity
         local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
         local Costs = self:GetLeaderCosts(_PlayerID, _EntityType, 0);
         CostsText = FormatCostString(_PlayerID, Costs);
-        local NeededPlaces = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
+        local NeededPlaces = GetMilitaryPlacesUsedByUnit(_PlayerID, _EntityType, 1);
         CostsText = CostsText .. XGUIEng.GetStringTableText("InGameMessages/GUI_NamePlaces") .. ": " .. NeededPlaces;
         local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);
         Text = Name.. " @cr " ..XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_normal");
@@ -357,7 +357,7 @@ function Stronghold.Recruit:CanBuildingProduceUnit(_PlayerID, _EntityID, _Entity
         end
     end
     -- Check places
-    local Places = GetMilitaryPlacesUsedByUnit(_EntityType, 1);
+    local Places = GetMilitaryPlacesUsedByUnit(_PlayerID, _EntityType, 1);
     if _EntityType == Entities.PU_Serf then
         if not HasPlayerSpaceForSlave(_PlayerID) then
             if _Verbose and GUI.GetPlayerID() == _PlayerID then
@@ -888,19 +888,14 @@ function Stronghold.Recruit:ControlCannonProducers(_PlayerID)
             local CannonProgress = Logic.GetCannonProgress(BuildingID);
             local Worker = {Logic.GetAttachedWorkersToBuilding(BuildingID)};
             if not IsExisting(BuildingID) then
-                -- Delete dictionary entry
                 self.Data[_PlayerID].ForgeRegister[BuildingID] = nil;
             elseif CannonProgress > 0 and CannonProgress < 100 then
-                -- Invalidate wait for worker delay
                 self.Data[_PlayerID].ForgeRegister[BuildingID][1] = 0;
             elseif CannonProgress == 100 then
                 if Worker[1] > 0 and Logic.IsSettlerAtWork(Worker[2]) == 1 then
-                    -- Count down worker delay
                     self.Data[_PlayerID].ForgeRegister[BuildingID][1] = Data[1] - 1;
                     if Data[1] <= 0 then
-                        -- Delete dictionary entry
                         self.Data[_PlayerID].ForgeRegister[BuildingID] = nil;
-                        -- Deselect, if selected
                         if IsEntitySelected(BuildingID) then
                             XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress, 0);
                         end
@@ -916,7 +911,7 @@ function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
     local Places = 0;
     if self.Data[_PlayerID] then
         for _, Data in pairs(self.Data[_PlayerID].ForgeRegister) do
-            local Size = GetMilitaryPlacesUsedByUnit(Data[2], 1);
+            local Size = GetMilitaryPlacesUsedByUnit(_PlayerID, Data[2], 1);
             -- Salim passive skill
             if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
                 Size = Size - Stronghold.Hero.Config.Hero3.CannonPlaceReduction;

@@ -34,11 +34,12 @@ function HasPlayerSpaceForSlave(_PlayerID)
 end
 
 --- Returns the amount of places a unit is occupying.
+--- @param _PlayerID integer ID of player
 --- @param _Type integer Type of unit
 --- @param _Amount integer amount of units
 --- @return integer Amount Places used
-function GetMilitaryPlacesUsedByUnit(_Type, _Amount)
-    return Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type, _Amount);
+function GetMilitaryPlacesUsedByUnit(_PlayerID, _Type, _Amount)
+    return Stronghold.Attraction:GetRequiredSpaceForUnitType(_PlayerID, _Type, _Amount);
 end
 
 --- Returns the current military attraction limit of the player.
@@ -140,7 +141,7 @@ end
 --- @param _Type integer Type of unit
 --- @param _Usage integer Current amount of places
 --- @return integer Places Amount of places
-function GameCallback_SH_Calculate_UnitPlaces(_PlayerID, _EntityID, _Type, _Usage)
+function GameCallback_SH_Calculate_SingleUnitPlaces(_PlayerID, _EntityID, _Type, _Usage)
     return _Usage;
 end
 
@@ -230,14 +231,25 @@ GameCallback_GetPlayerAttractionUsageForSpawningWorker = function(_PlayerID, _Am
 end
 
 GameCallback_BuyEntityAttractionLimitCheck = function(_PlayerID, _CanSpawn)
-    -- TODO: Let soldier costs be handeled by logic?
     local BuyEvent = CEntity.GetEventData(1);
+    if BuyEvent.event == CEntity.Events.BUY_SERF then
+        if not HasPlayerSpaceForSlave(_PlayerID) then
+            return false;
+        end
+    end
+    if BuyEvent.event == CEntity.Events.BUY_LEADER then
+        local _, EntityType = Logic.GetSettlerTypesInUpgradeCategory(BuyEvent.upgradeCategory);
+        local Places = GetMilitaryPlacesUsedByUnit(_PlayerID, EntityType, 1);
+        if not HasPlayerSpaceForUnits(_PlayerID, Places) then
+            return false;
+        end
+    end
     if BuyEvent.event == CEntity.Events.BUY_SOLDIER then
         local LeaderType = Logic.GetEntityType(BuyEvent.leaderID);
-        local Places = GetMilitaryPlacesUsedByUnit(LeaderType, 1);
+        local Places = GetMilitaryPlacesUsedByUnit(_PlayerID, LeaderType, 1);
         if not HasPlayerSpaceForUnits(_PlayerID, Places) then
-            local Costs = GetSoldierCostsByLeaderType(_PlayerID, LeaderType, 1);
-            AddResourcesToPlayer(_PlayerID, Costs);
+            -- local Costs = GetSoldierCostsByLeaderType(_PlayerID, LeaderType, 1);
+            -- AddResourcesToPlayer(_PlayerID, Costs);
             return false;
         end
     end
@@ -420,9 +432,12 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     return math.floor(Limit);
 end
 
-function Stronghold.Attraction:GetRequiredSpaceForUnitType(_Type, _Amount)
+function Stronghold.Attraction:GetRequiredSpaceForUnitType(_PlayerID, _Type, _Amount)
     if self.Config.UsedSpace[_Type] then
-        return self.Config.UsedSpace[_Type] * (_Amount or 1);
+        local SpaceUsed = self.Config.UsedSpace[_Type];
+        -- Apply unit places hero ability
+        SpaceUsed = Stronghold.Hero:ApplyUnitAttractionPassiveAbility(_PlayerID, _Type, SpaceUsed);
+        return SpaceUsed * (_Amount or 1);
     end
     return 0;
 end
@@ -448,20 +463,18 @@ end
 
 function Stronghold.Attraction:GetMillitarySize(_PlayerID)
     local Size = 0;
-    for k,v in pairs(self.Config.UsedSpace) do
-        local Config = Stronghold.Unit.Config:Get(k, _PlayerID);
+    for Type, Places in pairs(self.Config.UsedSpace) do
+        local Config = Stronghold.Unit.Config:Get(Type, _PlayerID);
         if not Config or Config.IsCivil ~= true then
-            local UnitList = GetLeadersOfType(_PlayerID, k);
+            Places = Stronghold.Hero:ApplyUnitAttractionPassiveAbility(_PlayerID, Type, Places);
+            local UnitList = GetLeadersOfType(_PlayerID, Type);
             for i= 2, UnitList[1] +1 do
-                -- Get unit size
-                local Usage = v;
+                local Usage = Places;
                 if Logic.IsLeader(UnitList[i]) == 1 then
                     local Soldiers = {Logic.GetSoldiersAttachedToLeader(UnitList[i])};
-                    Usage = Usage + (Usage * Soldiers[1]);
+                    Usage = Usage + (Places * Soldiers[1]);
                 end
-                -- External
-                Usage = GameCallback_SH_Calculate_UnitPlaces(_PlayerID, UnitList[i], k, Usage);
-
+                Usage = GameCallback_SH_Calculate_SingleUnitPlaces(_PlayerID, UnitList[i], Type, Usage);
                 Size = Size + Usage;
             end
         end

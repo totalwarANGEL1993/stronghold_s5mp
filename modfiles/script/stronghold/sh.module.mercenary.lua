@@ -158,7 +158,7 @@ function Stronghold.Mercenary:BuyMercenaryUnitTooltip(_WidgetID, _Index, _Player
     else
         local TypeName = Logic.GetEntityTypeName(EntityType);
         CostsText = FormatCostString(_PlayerID, Costs);
-        local NeededPlaces = GetMilitaryPlacesUsedByUnit(EntityType, UnitConfig.Soldiers + 1);
+        local NeededPlaces = GetMilitaryPlacesUsedByUnit(_PlayerID, EntityType, UnitConfig.Soldiers + 1);
         CostsText = CostsText .. XGUIEng.GetStringTableText("InGameMessages/GUI_NamePlaces") .. ": " .. NeededPlaces;
         local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);
         Text = Name.. " @cr " ..XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_normal");
@@ -334,7 +334,7 @@ function Stronghold.Mercenary:BuyMercenaryOffer(_PlayerID, _Index, _Type, _Soldi
     -- Create unit
     local Costs = self:GetInflatedUnitCosts(_PlayerID, _Type, _Soldiers);
     if HasEnoughResources(_PlayerID, Costs) then
-        local Places = GetMilitaryPlacesUsedByUnit(_Type, _Soldiers);
+        local Places = GetMilitaryPlacesUsedByUnit(_PlayerID, _Type, _Soldiers);
         if HasPlayerSpaceForUnits(_PlayerID, Places) then
             if Contingent.Amount <= 0 then
                 return;
