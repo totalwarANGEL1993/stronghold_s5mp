@@ -2,7 +2,7 @@
 --- Animal AI
 ---
 
-Stronghold.AI.Data.Animals = {};
+Stronghold.AI.Data.Animals = {0};
 
 -- -------------------------------------------------------------------------- --
 
@@ -20,20 +20,27 @@ function Stronghold.AI:RegisterMigratoryAnimal(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if PlayerID == 0 and self.Config.MigratoryAnimal[Type] then
-        self.Data.Animals[_EntityID] = true;
+        self.Data.Animals[1] = self.Data.Animals[1] + 1;
+        table.insert(self.Data.Animals, _EntityID);
     end
 end
 
 function Stronghold.AI:ControlMigratoryAnimal()
-    for EntityID, Data in pairs(self.Data.Animals) do
-        if not IsExisting(EntityID) then
-            self.Data.Animals[EntityID] = nil;
-        else
-            local TaskList = Logic.GetCurrentTaskList(EntityID);
-            if TaskList == "TL_ANIMAL_FLEE" then
-                Logic.SetSpeedFactor(EntityID, 2.0);
+    local CurrentTurn = Logic.GetCurrentTurn();
+    if CurrentTurn > 50 then
+        local TurnMod = math.mod(CurrentTurn, 10);
+        for i= (self.Data.Animals[1] +1) - TurnMod, 2, -10 do
+            if not IsExisting(self.Data.Animals[i]) then
+                self.Data.Animals[1] = self.Data.Animals[1] - 1;
+                table.remove(self.Data.Animals, i);
+            end
+            local TaskList = Logic.GetEntityScriptingValue(self.Data.Animals[i], -22);
+            if TaskList == TaskLists.TL_ANIMAL_FLEE then
+                local Factor = self.Config.MigratoryAnimal.FleeingSpeedFactor;
+                Logic.SetSpeedFactor(self.Data.Animals[i], Factor);
             else
-                Logic.SetSpeedFactor(EntityID, 1.0);
+                local Factor = self.Config.MigratoryAnimal.RegularSpeedFactor;
+                Logic.SetSpeedFactor(self.Data.Animals[i], Factor);
             end
         end
     end

@@ -37,7 +37,10 @@ function Stronghold.AI:OnSaveGameLoaded()
     Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
 end
 
-function Stronghold.AI:OncePerTurn(_PlayerID)
+function Stronghold.AI:OnEveryTurn(_PlayerID)
+end
+
+function Stronghold.AI:OnEveryTurnNoPlayer()
     -- Control animals
     self:ControlMigratoryAnimal();
 end

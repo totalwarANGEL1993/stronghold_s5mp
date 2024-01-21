@@ -388,13 +388,15 @@ function Stronghold:StartTriggers()
         -- Player jobs on each turn
         local Players = GetMaxPlayers();
         for PlayerID = 1, Players do
-            Stronghold.AI:OncePerTurn(PlayerID);
+            Stronghold.AI:OnEveryTurn(PlayerID);
             Stronghold.Attraction:OnEveryTurn(PlayerID);
             Stronghold.Economy:OncePerTurn(PlayerID);
             Stronghold.Mercenary:OnEveryTurn(PlayerID);
             Stronghold.Rights:OnEveryTurn(PlayerID);
             Stronghold.Recruit:OnEveryTurn(PlayerID);
         end
+        Stronghold.AI:OnEveryTurnNoPlayer();
+
         -- Player jobs on modified turns
         --- @diagnostic disable-next-line: undefined-field
         for PlayerID = 1, Players do
