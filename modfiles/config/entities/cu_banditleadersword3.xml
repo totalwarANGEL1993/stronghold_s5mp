@@ -40,7 +40,7 @@
         <DodgeChance>10</DodgeChance>
         <Cost>
             <Gold>35</Gold>
-            <Gold>60</Gold>
+            <Iron>60</Iron>
         </Cost>
         <Upgrade>
             <Category>BanditLeaderSword1</Category>

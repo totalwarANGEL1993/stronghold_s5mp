@@ -80,6 +80,94 @@ function Stronghold.Unit:OverwriteScoutFindResources()
 end
 
 -- -------------------------------------------------------------------------- --
+-- Category mapping
+
+GetUpgradeCategoryByEntityType_CategoryMap = {
+    -- Axe
+    [Entities.CU_BanditLeaderSword1] = UpgradeCategories.LeaderAxe1,
+    [Entities.CU_BanditSoldierSword1] = UpgradeCategories.SoldierAxe1,
+    [Entities.CU_BanditLeaderSword2] = UpgradeCategories.LeaderAxe2,
+    [Entities.CU_BanditSoldierSword2] = UpgradeCategories.SoldierAxe2,
+    -- Bow
+    [Entities.CU_BanditLeaderBow1] = UpgradeCategories.BanditLeaderBow1,
+    [Entities.CU_BanditSoldierBow1] = UpgradeCategories.BanditSoldierBow1,
+    [Entities.PU_LeaderBow1] = UpgradeCategories.LeaderBow1,
+    [Entities.PU_SoldierBow1] = UpgradeCategories.SoldierBow1,
+    [Entities.PU_LeaderBow2] = UpgradeCategories.LeaderBow2,
+    [Entities.PU_SoldierBow2] = UpgradeCategories.SoldierBow2,
+    [Entities.PU_LeaderBow3] = UpgradeCategories.LeaderBow3,
+    [Entities.PU_SoldierBow3] = UpgradeCategories.SoldierBow3,
+    [Entities.PU_LeaderBow4] = UpgradeCategories.LeaderBow4,
+    [Entities.PU_SoldierBow4] = UpgradeCategories.SoldierBow4,
+    -- Cannons
+    [Entities.CV_Cannon1] = UpgradeCategories.Cannon7,
+    [Entities.CV_Cannon2] = UpgradeCategories.Cannon8,
+    [Entities.PV_Cannon1] = UpgradeCategories.Cannon1,
+    [Entities.PV_Cannon2] = UpgradeCategories.Cannon2,
+    [Entities.PV_Cannon3] = UpgradeCategories.Cannon3,
+    [Entities.PV_Cannon4] = UpgradeCategories.Cannon4,
+    [Entities.PV_Cannon7] = UpgradeCategories.Cannon5,
+    [Entities.PV_Cannon8] = UpgradeCategories.Cannon6,
+    -- Cavalry Heavy
+    [Entities.CU_TemplarLeaderHeavyCavalry1] = UpgradeCategories.TemplarLeaderHeavyCavalry1,
+    [Entities.CU_TemplarSoldierHeavyCavalry1] = UpgradeCategories.TemplarSoldierHeavyCavalry1,
+    [Entities.PU_LeaderHeavyCavalry1] = UpgradeCategories.LeaderHeavyCavalry1,
+    [Entities.PU_SoldierHeavyCavalry1] = UpgradeCategories.SoldierHeavyCavalry1,
+    [Entities.PU_LeaderHeavyCavalry2] = UpgradeCategories.LeaderHeavyCavalry2,
+    [Entities.PU_SoldierHeavyCavalry2] = UpgradeCategories.SoldierHeavyCavalry2,
+    -- Cavalry Light
+    [Entities.CU_BanditLeaderCavalry1] = UpgradeCategories.BanditLeaderCavalry1,
+    [Entities.CU_BanditSoldierCavalry1] = UpgradeCategories.BanditSoldierCavalry1,
+    [Entities.CU_TemplarLeaderCavalry1] = UpgradeCategories.TemplarLeaderCavalry1,
+    [Entities.CU_TemplarSoldierCavalry1] = UpgradeCategories.TemplarSoldierCavalry1,
+    [Entities.PU_LeaderCavalry1] = UpgradeCategories.LeaderCavalry1,
+    [Entities.PU_SoldierCavalry1] = UpgradeCategories.SoldierCavalry1,
+    [Entities.PU_LeaderCavalry2] = UpgradeCategories.LeaderCavalry2,
+    [Entities.PU_SoldierCavalry2] = UpgradeCategories.SoldierCavalry2,
+    -- Mace
+    [Entities.CU_Barbarian_LeaderClub1] = UpgradeCategories.BarbarianLeader1,
+    [Entities.CU_Barbarian_SoldierClub1] = UpgradeCategories.BarbarianSoldier1,
+    [Entities.CU_Barbarian_LeaderClub2] = UpgradeCategories.BarbarianLeader2,
+    [Entities.CU_Barbarian_SoldierClub2] = UpgradeCategories.BarbarianSoldier2,
+    [Entities.CU_BlackKnight_LeaderMace1] = UpgradeCategories.BlackKnightLeader1,
+    [Entities.CU_BlackKnight_SoldierMace1] = UpgradeCategories.BlackKnightSoldier1,
+    [Entities.CU_BlackKnight_LeaderMace2] = UpgradeCategories.BlackKnightLeader2,
+    [Entities.CU_BlackKnight_SoldierMace2] = UpgradeCategories.BlackKnightSoldier2,
+    -- Rifle
+    [Entities.PU_LeaderRifle1] = UpgradeCategories.LeaderRifle1,
+    [Entities.PU_SoldierRifle1] = UpgradeCategories.SoldierRifle1,
+    [Entities.PU_LeaderRifle2] = UpgradeCategories.LeaderRifle2,
+    [Entities.PU_SoldierRifle2] = UpgradeCategories.SoldierRifle2,
+    -- Shrouded
+    [Entities.CU_Evil_LeaderBearman1] = UpgradeCategories.BearmanLeader1,
+    [Entities.CU_Evil_SoldierBearman1] = UpgradeCategories.BearmanSoldier1,
+    [Entities.CU_Evil_LeaderSkirmisher1] = UpgradeCategories.SkirmisherLeader1,
+    [Entities.CU_Evil_SoldierSkirmisher1] = UpgradeCategories.SkirmisherSoldier1,
+    -- Spear
+    [Entities.CU_TemplarLeaderPoleArm1] = UpgradeCategories.TemplarLeaderPoleArm1,
+    [Entities.CU_TemplarSoldierPoleArm1] = UpgradeCategories.TemplarSoldierPoleArm1,
+    [Entities.PU_LeaderPoleArm1] = UpgradeCategories.LeaderPoleArm1,
+    [Entities.PU_SoldierPoleArm1] = UpgradeCategories.SoldierPoleArm1,
+    [Entities.PU_LeaderPoleArm2] = UpgradeCategories.LeaderPoleArm2,
+    [Entities.PU_SoldierPoleArm2] = UpgradeCategories.SoldierPoleArm2,
+    [Entities.PU_LeaderPoleArm3] = UpgradeCategories.LeaderPoleArm3,
+    [Entities.PU_SoldierPoleArm3] = UpgradeCategories.SoldierPoleArm3,
+    [Entities.PU_LeaderPoleArm4] = UpgradeCategories.LeaderPoleArm4,
+    [Entities.PU_SoldierPoleArm4] = UpgradeCategories.SoldierPoleArm4,
+    -- Sword
+    [Entities.CU_BanditLeaderSword3] = UpgradeCategories.BanditLeaderSword1,
+    [Entities.CU_BanditSoldierSword3] = UpgradeCategories.BanditSoldierSword1,
+    [Entities.PU_LeaderSword1] = UpgradeCategories.LeaderSword1,
+    [Entities.PU_SoldierSword1] = UpgradeCategories.SoldierSword1,
+    [Entities.PU_LeaderSword2] = UpgradeCategories.LeaderSword2,
+    [Entities.PU_SoldierSword2] = UpgradeCategories.SoldierSword2,
+    [Entities.PU_LeaderSword3] = UpgradeCategories.LeaderSword3,
+    [Entities.PU_SoldierSword3] = UpgradeCategories.SoldierSword3,
+    [Entities.PU_LeaderSword4] = UpgradeCategories.LeaderSword4,
+    [Entities.PU_SoldierSword4] = UpgradeCategories.SoldierSword4,
+};
+
+-- -------------------------------------------------------------------------- --
 -- Set formation
 
 function Stronghold.Unit:SetFormationOnCreate(_ID)
@@ -353,7 +441,7 @@ function Stronghold.Unit:BuySoldierButtonUpdate()
             if Type == Entities.CU_BlackKnight then
                 XGUIEng.DisableButton("Buy_Soldier_Button", 0);
             else
-                if not Stronghold.Unit.Config:Get(Type, PlayerID)
+                if not Stronghold.Unit.Config.Troops:GetConfig(Type, PlayerID)
                 or Logic.IsLeader(EntityID) == 0 then
                     XGUIEng.DisableButton("Buy_Soldier_Button", 1);
                 else

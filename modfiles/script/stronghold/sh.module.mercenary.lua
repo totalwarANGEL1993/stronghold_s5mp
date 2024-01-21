@@ -122,7 +122,7 @@ function Stronghold.Mercenary:BuyMercenaryUnitAction(_WidgetID, _Index, _PlayerI
     local UpgradeCategory = self.Data[_PlayerID].Roster[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
     if Amount > 0 and XGUIEng.IsButtonDisabled(_WidgetID) == 0 then
-        local UnitConfig = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+        local UnitConfig = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
         if XGUIEng.IsButtonDisabled(_WidgetID) == 1 then
             return true;
         end
@@ -145,7 +145,7 @@ end
 function Stronghold.Mercenary:BuyMercenaryUnitTooltip(_WidgetID, _Index, _PlayerID, _EntityID)
     local UpgradeCategory = self.Data[_PlayerID].Roster[_Index];
     local _, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local UnitConfig = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+    local UnitConfig = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
     local CostFactor = self.Config.CostFactor;
     local Costs = self:GetInflatedUnitCosts(_PlayerID, EntityType, UnitConfig.Soldiers);
 
@@ -188,7 +188,7 @@ function Stronghold.Mercenary:BuyMercenaryUnitUpdate(_WidgetID, _Index, _PlayerI
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster[_Index];
     local _, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local UnitConfig = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+    local UnitConfig = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
     local Contingent = self.Data[_PlayerID].Contingent[EntityType];
 
     -- Button
@@ -326,7 +326,7 @@ function Stronghold.Mercenary:SetMercenaryCostFactor(_Factor)
 end
 
 function Stronghold.Mercenary:BuyMercenaryOffer(_PlayerID, _Index, _Type, _Soldiers, _BuildingID)
-    local UnitConfig = Stronghold.Unit.Config:Get(_Type, _PlayerID);
+    local UnitConfig = Stronghold.Unit.Config.Troops:GetConfig(_Type, _PlayerID);
     assert(UnitConfig ~= nil);
     local Contingent = self.Data[_PlayerID].Contingent[_Type];
     assert(UnitConfig ~= nil);

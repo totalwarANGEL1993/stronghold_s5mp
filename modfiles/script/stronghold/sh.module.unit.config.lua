@@ -2,7 +2,8 @@
 --- Config for Units
 --- 
 
-Stronghold.Unit.Config = {
+-- Troops config
+Stronghold.Unit.Config.Troops = {
     -- Spear --
 
     [Entities.PU_LeaderPoleArm1]            = {
@@ -445,10 +446,55 @@ Stronghold.Unit.Config = {
     },
 }
 
-function Stronghold.Unit.Config:Get(_Type, _PlayerID)
+function Stronghold.Unit.Config.Troops:GetConfig(_Type, _PlayerID)
     if not _PlayerID or not IsPlayer(_PlayerID) then
         return self[_Type];
     end
     return Stronghold.Recruit.Data[_PlayerID].Config[_Type];
 end
+
+-- Soldier to leader assignment
+Stronghold.Unit.Config.LeaderToSoldierMap = {
+    -- Axe
+    [Entities.CU_BanditLeaderSword1] = Entities.CU_BanditSoldierSword1,
+    [Entities.CU_BanditLeaderSword2] = Entities.CU_BanditSoldierSword2,
+    -- Bow
+    [Entities.CU_BanditLeaderBow1] = Entities.CU_BanditSoldierBow1,
+    [Entities.PU_LeaderBow1] = Entities.PU_SoldierBow1,
+    [Entities.PU_LeaderBow2] = Entities.PU_SoldierBow2,
+    [Entities.PU_LeaderBow3] = Entities.PU_SoldierBow3,
+    [Entities.PU_LeaderBow4] = Entities.PU_SoldierBow4,
+    -- Cavalry Heavy
+    [Entities.CU_TemplarLeaderHeavyCavalry1] = Entities.CU_TemplarSoldierHeavyCavalry1,
+    [Entities.PU_LeaderHeavyCavalry1] = Entities.PU_SoldierHeavyCavalry1,
+    [Entities.PU_LeaderHeavyCavalry2] = Entities.PU_SoldierHeavyCavalry2,
+    -- Cavalry Light
+    [Entities.CU_BanditLeaderCavalry1] = Entities.CU_BanditSoldierCavalry1,
+    [Entities.CU_TemplarLeaderCavalry1] = Entities.CU_TemplarSoldierCavalry1,
+    [Entities.PU_LeaderCavalry1] = Entities.PU_SoldierCavalry1,
+    [Entities.PU_LeaderCavalry2] = Entities.PU_SoldierCavalry2,
+    -- Mace
+    [Entities.CU_Barbarian_LeaderClub1] = Entities.CU_Barbarian_SoldierClub1,
+    [Entities.CU_Barbarian_LeaderClub2] = Entities.CU_Barbarian_SoldierClub2,
+    [Entities.CU_BlackKnight_LeaderMace1] = Entities.CU_BlackKnight_SoldierMace1,
+    [Entities.CU_BlackKnight_LeaderMace2] = Entities.CU_BlackKnight_SoldierMace2,
+    -- Rifle
+    [Entities.PU_LeaderRifle1] = Entities.PU_SoldierRifle1,
+    [Entities.PU_LeaderRifle2] = Entities.PU_SoldierRifle2,
+    -- Shrouded
+    [Entities.CU_Evil_LeaderBearman1] = Entities.CU_Evil_SoldierBearman1,
+    [Entities.CU_Evil_LeaderSkirmisher1] = Entities.CU_Evil_SoldierSkirmisher1,
+    -- Spear
+    [Entities.CU_TemplarLeaderPoleArm1] = Entities.CU_TemplarSoldierPoleArm1,
+    [Entities.PU_LeaderPoleArm1] = Entities.PU_SoldierPoleArm1,
+    [Entities.PU_LeaderPoleArm2] = Entities.PU_SoldierPoleArm2,
+    [Entities.PU_LeaderPoleArm3] = Entities.PU_SoldierPoleArm3,
+    [Entities.PU_LeaderPoleArm4] = Entities.PU_SoldierPoleArm4,
+    -- Sword
+    [Entities.CU_BanditLeaderSword3] = Entities.CU_BanditSoldierSword3,
+    [Entities.PU_LeaderSword1] = Entities.PU_SoldierSword1,
+    [Entities.PU_LeaderSword2] = Entities.PU_SoldierSword2,
+    [Entities.PU_LeaderSword3] = Entities.PU_SoldierSword3,
+    [Entities.PU_LeaderSword4] = Entities.PU_SoldierSword4,
+};
 

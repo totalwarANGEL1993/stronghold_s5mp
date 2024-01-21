@@ -47,7 +47,7 @@ Stronghold.Recruit = Stronghold.Recruit or {
 function Stronghold.Recruit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
-            Config = CopyTable(Stronghold.Unit.Config),
+            Config = CopyTable(Stronghold.Unit.Config.Troops),
             Roster = {},
             TrainingLeaders = {},
             ForgeRegister = {},
@@ -112,7 +112,7 @@ end
 
 function Stronghold.Recruit:IsUnitAllowed(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(_Type, PlayerID);
     if Config then
         if not Stronghold.Rights:IsRightLockedForPlayer(PlayerID, Config.Right) then
             return Stronghold.Rights:GetRankRequiredForRight(PlayerID, Config.Right) >= 0;
@@ -123,7 +123,7 @@ end
 
 function Stronghold.Recruit:HasSufficientRecruiterBuilding(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(_Type, PlayerID);
     if Config then
         local Providers = table.getn(Config.RecruiterBuilding);
         if Providers == 0 then
@@ -142,7 +142,7 @@ end
 
 function Stronghold.Recruit:HasSufficientProviderBuilding(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(_Type, PlayerID);
     if Config then
         local Providers = table.getn(Config.ProviderBuilding);
         if Providers == 0 then
@@ -169,7 +169,7 @@ end
 
 function Stronghold.Recruit:HasSufficientRank(_BuildingID, _Type)
     local PlayerID = Logic.EntityGetPlayer(_BuildingID);
-    local Config = Stronghold.Unit.Config:Get(_Type, PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(_Type, PlayerID);
     if Config then
         if GetRank(PlayerID) >= GetRankRequired(PlayerID, Config.Right) then
             return true;
@@ -196,7 +196,7 @@ end
 
 function Stronghold.Recruit:GetLeaderCosts(_PlayerID, _Type, _SoldierAmount)
     local Costs = {};
-    local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(_Type, _PlayerID);
     if Config then
         local UpgradeCategory = GetUpgradeCategoryByEntityType(_Type);
         Logic.FillLeaderCostsTable(_PlayerID, UpgradeCategory, Costs);
@@ -212,18 +212,21 @@ end
 
 function Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amount)
     local Costs = {};
-    local Config = Stronghold.Unit.Config:Get(_Type, _PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(_Type, _PlayerID);
     if Config then
-        local UpgradeCategory = GetUpgradeCategoryByEntityType(_Type);
-        Logic.FillSoldierCostsTable(_PlayerID, UpgradeCategory, Costs);
+        local SoldierType = Stronghold.Unit.Config.LeaderToSoldierMap[_Type] or 0;
+        if SoldierType ~= 0 then
+            local UpgradeCategory = GetUpgradeCategoryByEntityType(SoldierType);
+            Logic.FillSoldierCostsTable(_PlayerID, UpgradeCategory, Costs);
 
-        Costs[ResourceType.Silver] = Costs[ResourceType.Silver] * (_Amount or Config.Soldiers);
-        Costs[ResourceType.Gold]   = Costs[ResourceType.Gold]   * (_Amount or Config.Soldiers);
-        Costs[ResourceType.Clay]   = Costs[ResourceType.Clay]   * (_Amount or Config.Soldiers);
-        Costs[ResourceType.Wood]   = Costs[ResourceType.Wood]   * (_Amount or Config.Soldiers);
-        Costs[ResourceType.Stone]  = Costs[ResourceType.Stone]  * (_Amount or Config.Soldiers);
-        Costs[ResourceType.Iron]   = Costs[ResourceType.Iron]   * (_Amount or Config.Soldiers);
-        Costs[ResourceType.Sulfur] = Costs[ResourceType.Sulfur] * (_Amount or Config.Soldiers);
+            Costs[ResourceType.Silver] = Costs[ResourceType.Silver] * (_Amount or Config.Soldiers);
+            Costs[ResourceType.Gold]   = Costs[ResourceType.Gold]   * (_Amount or Config.Soldiers);
+            Costs[ResourceType.Clay]   = Costs[ResourceType.Clay]   * (_Amount or Config.Soldiers);
+            Costs[ResourceType.Wood]   = Costs[ResourceType.Wood]   * (_Amount or Config.Soldiers);
+            Costs[ResourceType.Stone]  = Costs[ResourceType.Stone]  * (_Amount or Config.Soldiers);
+            Costs[ResourceType.Iron]   = Costs[ResourceType.Iron]   * (_Amount or Config.Soldiers);
+            Costs[ResourceType.Sulfur] = Costs[ResourceType.Sulfur] * (_Amount or Config.Soldiers);
+        end
     end
     return Costs;
 end
@@ -281,7 +284,7 @@ function Stronghold.Recruit:BuyUnitTooltip(_Index, _WidgetID, _PlayerID, _Entity
         Text = XGUIEng.GetStringTableText("MenuGeneric/UnitNotAvailable");
     else
         local TypeName = Logic.GetEntityTypeName(_EntityType);
-        local Config = Stronghold.Unit.Config:Get(_EntityType, _PlayerID);
+        local Config = Stronghold.Unit.Config.Troops:GetConfig(_EntityType, _PlayerID);
         local Costs = self:GetLeaderCosts(_PlayerID, _EntityType, 0);
         CostsText = FormatCostString(_PlayerID, Costs);
         local NeededPlaces = GetMilitaryPlacesUsedByUnit(_PlayerID, _EntityType, 1);
@@ -514,7 +517,7 @@ function Stronghold.Recruit:BuyMeleeUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Melee[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -591,7 +594,7 @@ function Stronghold.Recruit:BuyRangedUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Ranged[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -668,7 +671,7 @@ function Stronghold.Recruit:BuyCavalryUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cavalry[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -752,7 +755,7 @@ function Stronghold.Recruit:BuyCannonUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Cannon[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 
@@ -829,7 +832,7 @@ function Stronghold.Recruit:BuyTavernUnitUpdate(_PlayerID, _EntityID, _Index)
     end
     local UpgradeCategory = self.Data[_PlayerID].Roster.Tavern[_Index];
     local Amount, EntityType = Logic.GetSettlerTypesInUpgradeCategory(UpgradeCategory);
-    local Config = Stronghold.Unit.Config:Get(EntityType, _PlayerID);
+    local Config = Stronghold.Unit.Config.Troops:GetConfig(EntityType, _PlayerID);
     Stronghold.Recruit:BuyUnitUpdate(_Index, WidgetID, _PlayerID, _EntityID, EntityType, Config.Button);
 end
 

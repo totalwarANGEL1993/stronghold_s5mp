@@ -687,7 +687,7 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID, _AttackedID, _Attack
                 end
                 if not self.Data.ConvertBlacklist[AttackerID] then
                     local UnitType = Logic.GetEntityType(AttackerID);
-                    local Config = Stronghold.Unit.Config:Get(UnitType, _PlayerID);
+                    local Config = Stronghold.Unit.Config.Troops:GetConfig(UnitType, _PlayerID);
                     if Config then
                         local RankRequired = GetRankRequired(UnitType, Config.Right);
                         if  (RankRequired ~= -1 and GetRank(_PlayerID) >= RankRequired)
@@ -884,7 +884,7 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
         local ID = GUI.GetSelectedEntity();
         local PlayerID = Logic.EntityGetPlayer(ID);
         local Type = Logic.GetEntityType(ID);
-        local Config = Stronghold.Unit.Config:Get(Type, PlayerID);
+        local Config = Stronghold.Unit.Config.Troops:GetConfig(Type, PlayerID);
         if Logic.IsLeader(ID) == 1 and Config and Type ~= Entities.CU_BlackKnight then
             XGUIEng.SetText("DetailsPayAndSlots_SlotAmount", "@ra " ..(Config.Upkeep or 0));
             XGUIEng.ShowWidget("DetailsPayAndSlots", 1);

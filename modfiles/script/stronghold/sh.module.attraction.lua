@@ -464,7 +464,7 @@ end
 function Stronghold.Attraction:GetMillitarySize(_PlayerID)
     local Size = 0;
     for Type, Places in pairs(self.Config.UsedSpace) do
-        local Config = Stronghold.Unit.Config:Get(Type, _PlayerID);
+        local Config = Stronghold.Unit.Config.Troops:GetConfig(Type, _PlayerID);
         if not Config or Config.IsCivil ~= true then
             Places = Stronghold.Hero:ApplyUnitAttractionPassiveAbility(_PlayerID, Type, Places);
             local UnitList = GetLeadersOfType(_PlayerID, Type);
