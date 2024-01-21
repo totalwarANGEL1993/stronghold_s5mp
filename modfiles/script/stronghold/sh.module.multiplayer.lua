@@ -319,6 +319,9 @@ function Stronghold.Multiplayer:ConfigureReset()
     self.Data.Config.ModeSelected = 2;
     self.Data.Config.ResourceSelected = 1;
     self.Data.Config.PeacetimeSelected = 8;
+    if XNetwork.Manager_DoesExist() == 0 then
+        self.Data.Config.PeacetimeSelected = 6;
+    end
     self.Data.Config.Rank.Initial = 0;
     self.Data.Config.Rank.Final = 7;
     if self.Data.Config.AllowedHeroes then
