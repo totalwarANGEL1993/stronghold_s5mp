@@ -6,7 +6,7 @@
 
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Run</Name>
-		<Animation>XA_Bear_Run2</Animation>
+		<Animation>XA_Bear_Run1</Animation>
     </Category>
 
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
