@@ -18,7 +18,7 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
     DisableGameStartTimer = false;
 
     -- Peacetime in minutes
-    PeaceTime = 30,
+    PeaceTime = nil,
     -- Open up named gates on the map.
     -- (PTGate1, PTGate2, ...)
     PeaceTimeOpenGates = true,
@@ -28,11 +28,11 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
 
     -- Fill resource piles with resources
     -- (value of resources or 0 to not change)
-    MapStartFillClay = 4000,
-    MapStartFillStone = 4000,
-    MapStartFillIron = 4000,
-    MapStartFillSulfur = 4000,
-    MapStartFillWood = 4000,
+    MapStartFillClay = 2000,
+    MapStartFillStone = 2000,
+    MapStartFillIron = 2000,
+    MapStartFillSulfur = 2000,
+    MapStartFillWood = 2000,
 
     -- Rank
     Rank = {

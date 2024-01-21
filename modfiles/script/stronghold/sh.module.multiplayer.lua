@@ -19,10 +19,10 @@ Stronghold.Multiplayer = {
 --- Takes a configuration and immediately confirms it.
 --- @param _Config? table Overwrite configuration
 function SetupStrongholdMultiplayerConfig(_Config)
-    Stronghold.Multiplayer:ConfigureReset();
-    if _Config then
+    if _Config ~= nil then
         Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
     end
+    Stronghold.Multiplayer:ConfigureReset();
     Stronghold.Multiplayer:Configure();
 end
 
@@ -30,8 +30,10 @@ end
 --- @param _Config? table Overwrite default configuration
 function ShowStrongholdConfiguration(_Config)
     if not Stronghold.Multiplayer:HaveRulesBeenConfigured() then
+        if _Config ~= nil then
+            Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
+        end
         Stronghold.Multiplayer:ConfigureReset();
-        Stronghold.Multiplayer:ConfigureChangeDefault(_Config);
         Stronghold.Multiplayer:SuspendPlayers();
     end
     Stronghold.Multiplayer:ShowRuleSelection();
@@ -64,7 +66,9 @@ end
 --- Returns the peacetime in seconds.
 --- @return integer Peacetime Peacetime
 function GetPeacetimeInSeconds()
-    return Stronghold.Multiplayer.Data.Config.PeaceTime * 60;
+    local TimeMap = {0, 10, 20, 30, 40, 0, 15, 30, 45, 60};
+    local Selected = TimeMap[Stronghold.Multiplayer.Data.Config.PeacetimeSelected];
+    return Selected * 60;
 end
 
 --- Returns the resources selected.
@@ -254,35 +258,35 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         local Default = self.Config.DefaultSettings;
 
         if _Config.MapStartFillClay then
-            self.Data.Config.MapStartFillClay = _Config.MapStartFillClay;
+            self.Config.DefaultSettings.MapStartFillClay = _Config.MapStartFillClay;
         end
         if _Config.MapStartFillIron then
-            self.Data.Config.MapStartFillIron = _Config.MapStartFillIron;
+            self.Config.DefaultSettings.MapStartFillIron = _Config.MapStartFillIron;
         end
         if _Config.MapStartFillStone then
-            self.Data.Config.MapStartFillStone = _Config.MapStartFillStone;
+            self.Config.DefaultSettings.MapStartFillStone = _Config.MapStartFillStone;
         end
         if _Config.MapStartFillSulfur then
-            self.Data.Config.MapStartFillSulfur = _Config.MapStartFillSulfur;
+            self.Config.DefaultSettings.MapStartFillSulfur = _Config.MapStartFillSulfur;
         end
         if _Config.MapStartFillWood then
-            self.Data.Config.MapStartFillWood = _Config.MapStartFillWood;
+            self.Config.DefaultSettings.MapStartFillWood = _Config.MapStartFillWood;
         end
 
         if _Config.Version then
-            self.Data.Config.Version = _Config.Version;
+            self.Config.DefaultSettings.Version = _Config.Version;
         end
         if _Config.DisableRuleConfiguration ~= nil then
-            self.Data.Config.DisableRuleConfiguration = _Config.DisableRuleConfiguration == true;
+            self.Config.DefaultSettings.DisableRuleConfiguration = _Config.DisableRuleConfiguration == true;
         end
         if _Config.DisableDefaultWinCondition ~= nil then
-            self.Data.Config.DisableDefaultWinCondition = _Config.DisableDefaultWinCondition == true;
+            self.Config.DefaultSettings.DisableDefaultWinCondition = _Config.DisableDefaultWinCondition == true;
         end
         if _Config.PeaceTimeOpenGates ~= nil then
-            self.Data.Config.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
+            self.Config.DefaultSettings.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
         end
 
-        self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime or Default.PeaceTime;
+        self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime;
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
         self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
         self.Config.DefaultSettings.Resources = _Config.Resources or Default.Resources;
@@ -319,9 +323,6 @@ function Stronghold.Multiplayer:ConfigureReset()
     self.Data.Config.ModeSelected = 2;
     self.Data.Config.ResourceSelected = 1;
     self.Data.Config.PeacetimeSelected = 8;
-    if XNetwork.Manager_DoesExist() == 0 then
-        self.Data.Config.PeacetimeSelected = 6;
-    end
     self.Data.Config.Rank.Initial = 0;
     self.Data.Config.Rank.Final = 7;
     if self.Data.Config.AllowedHeroes then
@@ -838,13 +839,14 @@ function Stronghold.Multiplayer:OnGameModeSet()
         return true;
     end
 
-    -- Start default victory condition?
-    -- if not self.Data.Config.DisableDefaultWinCondition then
-    --     Trigger.RequestTrigger(Events.LOGIC_EVENT_EVERY_SECOND, nil, "VC_Deathmatch", 1);
-    -- end
-
     -- Start peacetime?
-    local PeaceTime = self.Data.Config.PeaceTime or 0;
+    local PeaceTime = 0;
+    if self.Data.Config.PeaceTime then
+        PeaceTime = self.Data.Config.PeaceTime;
+    else
+        local TimeMap = {0, 10, 20, 30, 40, 0, 15, 30, 45, 60};
+        PeaceTime = TimeMap[self.Data.Config.PeacetimeSelected];
+    end
     if PeaceTime > 0 then
         MultiplayerTools.PeaceTime = math.ceil(PeaceTime) * 60;
         GUIAction_ToggleStopWatch(MultiplayerTools.PeaceTime, 1);
