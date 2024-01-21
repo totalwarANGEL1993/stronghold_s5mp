@@ -27,9 +27,10 @@
         <Hat/>
         <Cost>
             <Silver>2</Silver>
-            <Gold>30</Gold>
-            <Wood>40</Wood>
-            <Iron>6</Iron>
+            <Gold>50</Gold>
+            <Wood>70</Wood>
+            <Iron>0</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Leader</Category>
@@ -123,7 +124,7 @@
             <HitAnim>PU_LeaderPoleArm2_Hit</HitAnim>
 
             <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>15</DamageAmount>
+            <DamageAmount>14</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>

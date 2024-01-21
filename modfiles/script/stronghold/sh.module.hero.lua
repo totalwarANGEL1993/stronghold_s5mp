@@ -574,27 +574,22 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.LeaderPoleArm4;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.LeaderSword4;
     elseif _Type == Entities.PU_Hero2 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.LeaderAxe2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.LeaderAxe1;
     elseif _Type == Entities.PU_Hero3 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cannon[5] = UpgradeCategories.Cannon5;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cannon[6] = UpgradeCategories.Cannon6;
     elseif _Type == Entities.PU_Hero4 then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.LeaderCavalry2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[4] = UpgradeCategories.LeaderHeavyCavalry2;
         ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.PU_Hero5 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BanditLeaderSword1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.BanditLeaderBow1;
-        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.RangerLeaderCavalry1;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.BanditLeaderCavalry1;
     elseif _Type == Entities.PU_Hero6 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.TemplarLeaderPoleArm1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.TemplarLeaderCavalry1;
@@ -613,7 +608,6 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BlackKnightLeader2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.BlackKnightLeader1;
     elseif _Type == Entities.CU_Mary_de_Mortfichet then
-        Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderRifle1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderBow4;
         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
         local RankScout = GetRankRequired(_PlayerID, PlayerRight.Scout);

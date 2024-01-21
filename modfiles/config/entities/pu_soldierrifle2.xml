@@ -38,10 +38,11 @@
         <Category>Soldier</Category>
         <Category>LongRange</Category>
         <Cost>
-            <Gold>135</Gold>
-            <Wood>15</Wood>
-            <Iron>15</Iron>
-            <Sulfur>85</Sulfur>
+            <Silver>0</Silver>
+            <Gold>160</Gold>
+            <Wood>0</Wood>
+            <Iron>80</Iron>
+            <Sulfur>150</Sulfur>
         </Cost>
         <Upgrade>
             <Category>SoldierRifle2</Category>

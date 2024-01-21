@@ -19,15 +19,16 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>300</MaxHealth>
+        <MaxHealth>275</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Silver>36</Silver>
-            <Gold>300</Gold>
+            <Silver>18</Silver>
+            <Gold>750</Gold>
             <Wood>0</Wood>
-            <Iron>150</Iron>
+            <Iron>90</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Leader</Category>
@@ -36,7 +37,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassIron</ArmorClass>
-        <ArmorAmount>7</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <DodgeChance>50</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>55</ExperiencePoints>

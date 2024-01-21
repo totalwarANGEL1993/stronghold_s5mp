@@ -28,9 +28,11 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>80</Gold>
-            <Wood>90</Wood>
-            <Iron>10</Iron>
+            <Silver>0</Silver>
+            <Gold>50</Gold>
+            <Wood>40</Wood>
+            <Iron>0</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Soldier</Category>
@@ -107,7 +109,7 @@
             <HitAnim>PU_SoldierPoleArm3_Hit</HitAnim>
 
             <DamageClass>DC_Pole</DamageClass>
-            <DamageAmount>21</DamageAmount>
+            <DamageAmount>22</DamageAmount>
             <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

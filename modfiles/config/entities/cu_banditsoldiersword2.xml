@@ -42,9 +42,10 @@
         <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Silver>0</Silver>
-            <Gold>50</Gold>
-            <Wood>8</Wood>
-            <Iron>36</Iron>
+            <Gold>35</Gold>
+            <Wood>0</Wood>
+            <Iron>35</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Upgrade>
             <Category>SoldierAxe2</Category>

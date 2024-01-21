@@ -27,10 +27,11 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Silver>15</Silver>
-            <Gold>130</Gold>
-            <Wood>105</Wood>
-            <Iron>35</Iron>
+            <Silver>12</Silver>
+            <Gold>250</Gold>
+            <Wood>120</Wood>
+            <Iron>30</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Leader</Category>
@@ -119,7 +120,7 @@
             <HitAnim>PU_LeaderPoleArm4_Hit</HitAnim>
 
             <DamageClass>DC_Halberd</DamageClass>
-            <DamageAmount>19</DamageAmount>
+            <DamageAmount>18</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
@@ -139,7 +140,7 @@
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_LEADER_SOLDIER</Type>
-                <Limit>3</Limit>
+                <Limit>6</Limit>
             </Attachment>
         </Logic>
     </Behavior>

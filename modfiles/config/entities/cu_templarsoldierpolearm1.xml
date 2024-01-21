@@ -29,9 +29,10 @@
         <Hat/>
         <Cost>
             <Silver>0</Silver>
-            <Gold>85</Gold>
-            <Wood>100</Wood>
-            <Iron>12</Iron>
+            <Gold>75</Gold>
+            <Wood>40</Wood>
+            <Iron>0</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Soldier</Category>

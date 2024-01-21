@@ -31,9 +31,11 @@
         <Convertible>false</Convertible>
         <Hat/>
         <Cost>
-            <Gold>4</Gold>
-            <Wood>10</Wood>
-            <Iron>8</Iron>
+            <Silver>0</Silver>
+            <Gold>5</Gold>
+            <Wood>30</Wood>
+            <Iron>20</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Soldier</Category>

@@ -194,7 +194,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.CavalryCrossbow,
                 PlayerRight.CavalryCrusader,
-                PlayerRight.CavalryRanger,
+                PlayerRight.CavalryBandit,
                 ---
                 PlayerRight.Thief,
                 PlayerRight.Inn,

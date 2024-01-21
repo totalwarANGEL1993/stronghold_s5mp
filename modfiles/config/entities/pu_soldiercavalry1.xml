@@ -26,8 +26,9 @@
         <Cost>
             <Silver>0</Silver>
             <Gold>60</Gold>
-            <Wood>30</Wood>
-            <Iron>20</Iron>
+            <Wood>80</Wood>
+            <Iron>0</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>CavalryLight</Category>

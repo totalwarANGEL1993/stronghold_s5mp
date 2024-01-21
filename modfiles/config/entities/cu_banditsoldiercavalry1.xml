@@ -24,8 +24,11 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>80</Gold>
-            <Wood>85</Wood>
+            <Silver>0</Silver>
+            <Gold>75</Gold>
+            <Wood>90</Wood>
+            <Iron>0</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>CavalryLight</Category>

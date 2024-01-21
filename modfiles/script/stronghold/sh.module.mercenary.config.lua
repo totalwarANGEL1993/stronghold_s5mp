@@ -3,7 +3,7 @@
 --- 
 
 Stronghold.Mercenary.Config = {
-    CostFactor = 2.0,
+    CostFactor = 1.5,
     QuantityFactor = 0.35,
 
     Units = {

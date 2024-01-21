@@ -16,10 +16,10 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Silver>19</Silver>
+            <Silver>10</Silver>
             <Gold>450</Gold>
-            <Wood>75</Wood>
-            <Iron>225</Iron>
+            <Wood>0</Wood>
+            <Iron>200</Iron>
             <Sulfur>350</Sulfur>
         </Cost>
         <Category>Military</Category>

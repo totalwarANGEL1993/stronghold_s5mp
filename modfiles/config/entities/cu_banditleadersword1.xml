@@ -40,9 +40,10 @@
         <AttractionSlots>0</AttractionSlots>
         <Cost>
             <Silver>16</Silver>
-            <Gold>220</Gold>
-            <Wood>60</Wood>
-            <Iron>75</Iron>
+            <Gold>350</Gold>
+            <Wood>0</Wood>
+            <Iron>90</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Upgrade>
             <Category>LeaderAxe1</Category>

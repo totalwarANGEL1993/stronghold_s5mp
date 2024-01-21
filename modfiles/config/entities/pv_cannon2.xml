@@ -16,9 +16,9 @@
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Cost>
-            <Silver>16</Silver>
+            <Silver>10</Silver>
             <Gold>400</Gold>
-            <Wood>75</Wood>
+            <Wood>0</Wood>
             <Iron>300</Iron>
             <Sulfur>200</Sulfur>
         </Cost>

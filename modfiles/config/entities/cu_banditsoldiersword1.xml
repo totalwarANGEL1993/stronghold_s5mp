@@ -43,8 +43,9 @@
         <Cost>
             <Silver>0</Silver>
             <Gold>70</Gold>
-            <Wood>40</Wood>
-            <Iron>65</Iron>
+            <Wood>0</Wood>
+            <Iron>50</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Upgrade>
             <Category>SoldierAxe1</Category>

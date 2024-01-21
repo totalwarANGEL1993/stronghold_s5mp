@@ -28,9 +28,11 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>4</Gold>
-            <Wood>13</Wood>
+            <Silver>0</Silver>
+            <Gold>5</Gold>
+            <Wood>10</Wood>
             <Iron>0</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Soldier</Category>
@@ -114,7 +116,7 @@
 
             <DamageClass>DC_Pole</DamageClass>
             <DamageAmount>12</DamageAmount>
-            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
 

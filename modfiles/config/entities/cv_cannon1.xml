@@ -16,11 +16,11 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Silver>50</Silver>
-            <Gold>1200</Gold>
-            <Wood>250</Wood>
-            <Iron>500</Iron>
-            <Sulfur>800</Sulfur>
+            <Silver>40</Silver>
+            <Gold>2000</Gold>
+            <Wood>200</Wood>
+            <Iron>600</Iron>
+            <Sulfur>600</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Cannon</Category>

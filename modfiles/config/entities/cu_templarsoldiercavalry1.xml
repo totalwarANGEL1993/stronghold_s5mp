@@ -25,9 +25,10 @@
         <Hat/>
         <Cost>
             <Silver>0</Silver>
-            <Gold>42</Gold>
-            <Wood>24</Wood>
-            <Iron>18</Iron>
+            <Gold>80</Gold>
+            <Wood>15</Wood>
+            <Iron>15</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>CavalryLight</Category>

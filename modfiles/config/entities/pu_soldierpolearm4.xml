@@ -28,9 +28,11 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Gold>90</Gold>
-            <Wood>100</Wood>
-            <Iron>24</Iron>
+            <Silver>0</Silver>
+            <Gold>70</Gold>
+            <Wood>50</Wood>
+            <Iron>10</Iron>
+            <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Spear</Category>
@@ -108,7 +110,7 @@
 
             <DamageClass>DC_Halberd</DamageClass>
 
-            <DamageAmount>19</DamageAmount>
+            <DamageAmount>18</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>3000</BattleWaitUntil>
