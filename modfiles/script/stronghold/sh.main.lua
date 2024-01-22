@@ -871,6 +871,7 @@ function Stronghold:OverwriteCommonCallbacks()
         Stronghold:OnSelectionMenuChanged(_EntityID);
         Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Province:OnBuildingConstructed(_EntityID, _PlayerID);
+        Stronghold.Populace:OnConstructionComplete(_EntityID, _PlayerID);
         Stronghold.Trap:OnTrapConstructed(_EntityID, _PlayerID);
     end);
 
