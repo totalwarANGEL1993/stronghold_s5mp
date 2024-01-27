@@ -197,6 +197,7 @@ function Stronghold.Building:CheckBuildingTechnologyConditions(_PlayerID)
     -- Upgrade keep
     if  Logic.GetTechnologyState(_PlayerID, Technologies.UP1_Headquarter) == 1
     and GetRank(_PlayerID) >= GetRankRequired(_PlayerID, PlayerRight.Fortress)
+    and not IsRightLockedForPlayer(_PlayerID, PlayerRight.Fortress)
     and Logic.GetUpgradeLevelForBuilding(GetHeadquarterID(_PlayerID)) < 1 then
         Logic.SetTechnologyState(_PlayerID, Technologies.UP1_Headquarter, 2);
     end
@@ -206,6 +207,7 @@ function Stronghold.Building:CheckBuildingTechnologyConditions(_PlayerID)
     if  Logic.GetTechnologyState(_PlayerID, Technologies.UP1_Headquarter) >= 2
     and Logic.GetTechnologyState(_PlayerID, Technologies.UP2_Headquarter) == 1
     and GetRank(_PlayerID) >= GetRankRequired(_PlayerID, PlayerRight.Zitadel)
+    and not IsRightLockedForPlayer(_PlayerID, PlayerRight.Zitadel)
     and Logic.GetUpgradeLevelForBuilding(GetHeadquarterID(_PlayerID)) < 2 then
         local BuildingAmount = 0;
         for i= 2, WorkplaceList[1] +1 do
@@ -534,7 +536,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
     end
 
     local Text = "";
-    if not IsRightUnlockable(_PlayerID, Right) then
+    if not IsRightUnlockable(_PlayerID, Right) or IsRightLockedForPlayer(_PlayerID, Right) then
         Text = XGUIEng.GetStringTableText("MenuGeneric/TechnologyNotAvailable");
     else
         local EffectText = "";
@@ -594,23 +596,28 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
     local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
     local ButtonDisabled = 0;
     if _Button == "BlessSettlers1" then
-        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLevyTax) then
+        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLevyTax)
+        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureLevyTax) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers2" then
-        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLawAndOrder) then
+        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLawAndOrder)
+        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureLawAndOrder) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers3" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.FoodDistribution) then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.FoodDistribution)
+        or IsRightLockedForPlayer(_PlayerID, PlayerRight.FoodDistribution) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers4" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFolkloreFeast) then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFolkloreFeast)
+        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureFolkloreFeast) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers5" then
-        if Level < 2 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureOrgy) then
+        if Level < 2 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureOrgy)
+        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureOrgy) then
             ButtonDisabled = 1;
         end
     elseif _Button == "Research_DraconicPunishment" then

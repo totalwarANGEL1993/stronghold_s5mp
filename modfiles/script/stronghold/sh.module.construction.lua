@@ -225,7 +225,7 @@ function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Butto
     end
     -- Check right
     local Right = Stronghold.Rights:GetRankRequiredForRight(_PlayerID, CheckRight);
-    if Right > 0 and GetRank(_PlayerID) < Right then
+    if Right > 0 and (GetRank(_PlayerID) < Right or IsRightLockedForPlayer(_PlayerID, Right)) then
         Disable = true;
     end
     -- Check technology
@@ -340,7 +340,7 @@ function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technolo
         end
         -- Check right
         local Right = Stronghold.Rights:GetRankRequiredForRight(PlayerID, CheckRight);
-        if Right > 0 and GetRank(PlayerID) < Right then
+        if Right > 0 and (GetRank(PlayerID) < Right or IsRightLockedForPlayer(PlayerID, Right)) then
             Disable = true;
         end
         -- Check technology
