@@ -12,7 +12,7 @@
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
-        <AccessCategory>ArmorClassFortification</AccessCategory>
+        <AccessCategory>AccessCategorySettler</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -58,7 +58,7 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PV_Cannon2_Drive</SuspensionAnimation>
+            <SuspensionAnimation>PV_Cannon3_Drive</SuspensionAnimation>
             <AnimSet>SET_CANNON3</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">

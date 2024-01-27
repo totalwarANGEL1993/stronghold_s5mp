@@ -71,6 +71,9 @@
 <string id="ExplainProvince_1">TOM SIMPKINS: Look, a province! Build an outpost to gain sovereignty over land. {scarlet}Provinces increase your army size and grant additional effects. {white}Secure them as quickly as possible.</string>
 <string id="ExplainProvince_2">TOM SIMPKINS: Capture the province to see what bonus it has in store for you!</string>
 
+<string id="ExplainTrap_1">TOM SIMPKINS: Your Highness, one of your men has stumbeled into an enemies trap. Those contraptions are belonging to the most treacherous weapons in a Nobles arsenal! {scarlet}You can uncover traps with your thieves!</string>
+<string id="ExplainTrap_2">TOM SIMPKINS: Maybe you should consider traps too. {scarlet}Serfs can build traps. The traps will be hidden from the enemy. {white}But if Sir William is happening to ask, I didn't told you that.</string>
+
 <string id="TutorialEnd_1">TOM SIMPKINS: Congratulations, Your Honor! You have successfully mastered the introduction to {scarlet}Stronghold {white}. You can now end the game or complete the mission.</string>
 <string id="TutorialEnd_2">TOM SIMPKINS: No matter what you decide, I will now throw lime kilns down from the South Sea island and then spread myself there! Have a good time, Highness!</string>
 </stringtable>

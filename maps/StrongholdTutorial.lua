@@ -82,17 +82,11 @@ SHS5MP_RulesDefinition = {
 
         Tutorial.Install();
         LockRank(1, 0);
-        ForbidTechnology(Technologies.B_MasterBuilderWorkshop, 1);
-        ForbidTechnology(Technologies.B_Palisade, 1);
-        ForbidTechnology(Technologies.B_PowerPlant, 1);
-        ForbidTechnology(Technologies.B_Wall, 1);
         ForbidTechnology(Technologies.T_FreeCamera, 1);
 
-        ChangePlayer("HQ1", 8);
-        Tools.CreateSoldiersForLeader(GetID("Scout"), 3);
-        for k,v in pairs(GetPlayerEntities(1, Entities.PU_Serf)) do
-            Logic.SuspendEntity(v);
-        end
+        LockPlayerRight(1, PlayerRight.Thief);
+        LockPlayerRight(1, PlayerRight.ArchitectShop);
+        LockPlayerRight(1, PlayerRight.PowerPlant);
 
         BriefingTutorialIntro();
         Tutorial_OverwriteCallbacks();
@@ -104,6 +98,12 @@ SHS5MP_RulesDefinition = {
 
     -- Called after game start timer is over
     OnGameStart = function()
+        ChangePlayer("HQ1", 8);
+        Tools.CreateSoldiersForLeader(GetID("Scout"), 3);
+        for k,v in pairs(GetPlayerEntities(1, Entities.PU_Serf)) do
+            Logic.SuspendEntity(v);
+        end
+        SetupAiPlayer(2, 0);
     end,
 
     -- Called after peacetime is over
@@ -149,6 +149,18 @@ function Tutorial_OverwriteCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_OnProvinceClaimed", function(_PlayerID, _ProvinceID, _BuildingID)
         Overwrite.CallOriginal();
         gvTutorial_ProvinceClaimed = true;
+    end);
+
+    -- For when player runs in a trap
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_OnSpawnTrapTriggered", function(_PlayerID, _Type, _X, _Y, ...)
+        Overwrite.CallOriginal();
+        gvTutorial_OnEnemyTrapActivated = true;
+    end);
+
+    -- For when player runs in a trap
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_OnAoETrapTriggered", function(_PlayerID, _Type, _X, _Y)
+        Overwrite.CallOriginal();
+        gvTutorial_OnEnemyTrapActivated = true;
     end);
 end
 
@@ -275,7 +287,7 @@ function Tutorial_AddMainInterfaceSection()
         end,
     }
 end
--- Sound.Play2DSound( Sounds.Smith01,0 )
+
 function Tutorial_AddCastleInterfaceSection()
     local ArrowPos_RallyPoint = {675, 625};
     local ArrowPos_Treasury = {317, 575};
@@ -664,6 +676,34 @@ end
 function Tutorial_StartPart4()
     Tutorial.Stop();
     Tutorial.SetCallback(function()
+        Job.Second(Tutorial_StartPart4Trigger);
+        UnlockPlayerRight(1, PlayerRight.Thief);
+    end);
+
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/TutorialEnd_1",
+    }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/TutorialEnd_2",
+        Action      = function(_Data)
+            gvTutorial_OnTrapTutorialOver = true;
+        end,
+    }
+    Tutorial.Start();
+end
+
+function Tutorial_StartPart4Trigger()
+    if not gvTutorial_OnEnemyTrapActivated then
+        Tutorial_StartPart4();
+        return true;
+    end
+end
+
+-- Part 5 ------------------------------------------------------------------- --
+
+function Tutorial_StartPart5()
+    Tutorial.Stop();
+    Tutorial.SetCallback(function()
         BriefingGuardian1Npc();
         Job.Second(Tutorial_CheckVictory);
     end);
@@ -680,9 +720,9 @@ function Tutorial_StartPart4()
     Tutorial.Start();
 end
 
-function Tutorial_StartPart4Trigger()
-    if not IsExisting("HQ3") then
-        Tutorial_StartPart4();
+function Tutorial_StartPart5Trigger()
+    if not IsExisting("HQ3") and gvTutorial_OnTrapTutorialOver then
+        Tutorial_StartPart5();
         return true;
     end
 end
@@ -699,10 +739,6 @@ end
 
 function Tutorial_CheckVictory()
     if not IsExisting("Scorillo") then
-        -- Not a stronghold AI so nuke manually.
-        for k,v in pairs(GetPlayerEntities(2,0)) do
-            DestroyEntity(v);
-        end
         Victory(1);
         return true;
     end
@@ -730,9 +766,20 @@ function CreatePlayer2Spawner()
         }
     };
 
-    gvP2BarracksSpawner = AiArmyRefiller.CreateSpawner {
+    gvP2Barracks1Spawner = AiArmyRefiller.CreateSpawner {
         ScriptName      = "P2Barracks1",
         SpawnPoint      = "P2Barracks1Spawn",
+        SpawnAmount     = 1,
+        SpawnTimer      = 3*60,
+        AllowedTypes    = {
+            {Entities.PU_LeaderPoleArm2, 3},
+            {Entities.PU_LeaderSword3, 3},
+        }
+    };
+
+    gvP2Barracks2Spawner = AiArmyRefiller.CreateSpawner {
+        ScriptName      = "P2Barracks2",
+        SpawnPoint      = "P2Barracks2Spawn",
         SpawnAmount     = 1,
         SpawnTimer      = 3*60,
         AllowedTypes    = {
@@ -747,7 +794,7 @@ function CreatePlayer2Spawner()
         SpawnAmount     = 2,
         SpawnTimer      = 3*60,
         AllowedTypes    = {
-            {Entities.PU_LeaderBow2, 3},
+            {Entities.PU_LeaderRifle1, 3},
             {Entities.PU_LeaderBow3, 3},
         }
     };
@@ -758,7 +805,7 @@ function CreatePlayer2Spawner()
         SpawnAmount     = 1,
         SpawnTimer      = 3*60,
         AllowedTypes    = {
-            {Entities.PU_LeaderHeavyCavalry1, 3},
+            {Entities.PU_LeaderHeavyCavalry2, 3},
         }
     };
 
@@ -768,26 +815,25 @@ function CreatePlayer2Spawner()
         SpawnAmount     = 3,
         SpawnTimer      = 3*60,
         AllowedTypes    = {
-            {Entities.PV_Cannon1, 0},
+            {Entities.PV_Cannon3, 0},
+            {Entities.PV_Cannon4, 0},
         }
     };
 end
 
 function CreatePlayer2Armies()
-    local ArmyID = AiArmy.New(2, 8, GetPosition("P2OuterPos"), 3000);
+    local ArmyID = AiArmy.New(2, 12, GetPosition("P2OuterPos"), 3000);
     AiArmy.SetAllowedTypes(ArmyID, {
         {Entities.CU_BlackKnight_LeaderMace2, 3},
-        {Entities.CU_BlackKnight_LeaderMace2, 3},
         {Entities.PU_LeaderPoleArm2, 3},
-        {Entities.PU_LeaderSword3, 3},
-        {Entities.PU_LeaderBow2, 3},
         {Entities.PU_LeaderBow3, 3},
         {Entities.PU_LeaderHeavyCavalry1, 3},
-        {Entities.PV_Cannon1, 0},
+        {Entities.PV_Cannon4, 0},
     });
     gvP2Army1 = ArmyID;
     AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
-    AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);
+    AiArmyRefiller.AddArmy(gvP2Barracks1Spawner, ArmyID);
+    AiArmyRefiller.AddArmy(gvP2Barracks2Spawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2StableSpawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2FoundrySpawner, ArmyID);
@@ -795,20 +841,18 @@ function CreatePlayer2Armies()
     Job.Second(ControllPlayer2Attacker, ArmyID);
 
     for i= 2, 7 do
-        ArmyID = AiArmy.New(2, 3, GetPosition("P2DefPos1"), 5000);
+        ArmyID = AiArmy.New(2, 5, GetPosition("P2DefPos1"), 5000);
         AiArmy.SetAllowedTypes(ArmyID, {
             {Entities.CU_BlackKnight_LeaderMace2, 3},
-            {Entities.CU_BlackKnight_LeaderMace2, 3},
-            {Entities.PU_LeaderPoleArm2, 3},
             {Entities.PU_LeaderSword3, 3},
-            {Entities.PU_LeaderBow2, 3},
-            {Entities.PU_LeaderBow3, 3},
+            {Entities.PU_LeaderRifle1, 3},
             {Entities.PU_LeaderHeavyCavalry1, 3},
-            {Entities.PV_Cannon1, 0},
+            {Entities.PV_Cannon3, 0},
         });
         _G["gvP2Army"..i] = ArmyID;
         AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
-        AiArmyRefiller.AddArmy(gvP2BarracksSpawner, ArmyID);
+        AiArmyRefiller.AddArmy(gvP2Barracks1Spawner, ArmyID);
+        AiArmyRefiller.AddArmy(gvP2Barracks2Spawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2StableSpawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2FoundrySpawner, ArmyID);
@@ -834,6 +878,8 @@ function ControllPlayer2Attacker(_ArmyID)
         AiArmy.ClearCommands(_ArmyID);
         AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "P2OuterPos"), false);
         AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "P2AttackPath1"), false);
+        AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "P2AttackPath2"), false);
+        AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "P2AttackPath3"), false);
         AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, "PlayerHome"), false);
         AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle), false);
         AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Fallback), false);
@@ -845,7 +891,7 @@ function ControllPlayer2Defender(_ArmyID)
         return true;
     end
     if AiArmy.IsArmyDoingNothing(_ArmyID) then
-        local Positions = {"P2DefPos1","P2DefPos2","P2DefPos3"};
+        local Positions = {"P2DefPos1","P2DefPos2","P2DefPos3","P2DefPos4"};
         for _, Position in ipairs(ShuffleTable(Positions)) do
             AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, Position), false);
             AiArmy.PushCommand(_ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60), false);
@@ -905,9 +951,9 @@ function BriefingTutorialIntro()
         FaderAlpha  = 1,
         Duration    = 0,
         Target      = "CamPos3",
-        Rotation    = -45,
-        Distance    = 1000,
-        Angle       = 5,
+        Rotation    = -30,
+        Distance    = 4000,
+        Angle       = 20,
     }
     AP {
         Text        = "map_sh_tutorial/BriefingTutorialIntro_2_Text",
@@ -916,18 +962,18 @@ function BriefingTutorialIntro()
         FadeIn      = 3,
         Duration    = 18,
         Target      = "CamPos4",
-        Rotation    = -55,
+        Rotation    = 45,
         Distance    = 4000,
-        Angle       = 10,
+        Angle       = 20,
     }
     AP {
         NoSkip      = true,
         Duration    = 0,
         Target      = "CamPos2",
-        Rotation    = -35,
+        Rotation    = -65,
         Distance    = 7000,
-        Height      = 1300,
-        Angle       = 5,
+        Height      = 0,
+        Angle       = 14,
     }
     AP {
         Text        = "map_sh_tutorial/BriefingTutorialIntro_4_Text",
@@ -935,9 +981,9 @@ function BriefingTutorialIntro()
         NoSkip      = true,
         Duration    = 25,
         Target      = "CamPos1",
-        Rotation    = -55,
-        Distance    = 10000,
-        Height      = 3000,
+        Rotation    = -25,
+        Distance    = 7000,
+        Height      = 0,
         Angle       = 8,
     }
     AP {
@@ -1111,7 +1157,7 @@ function BriefingGuardian1(_Npc, _HeroID)
     }
 
     Briefing.Finished = function(_Data)
-        AllowTechnology(Technologies.B_MasterBuilderWorkshop, 1);
+        UnlockPlayerRight(1, PlayerRight.ArchitectShop);
         Job.Second(Tutorial_BridgeBuildTrigger);
         local Title = XGUIEng.GetStringTableText("map_sh_tutorial/Quest_Sub_1_Title");
         local Text  = XGUIEng.GetStringTableText("map_sh_tutorial/Quest_Sub_1_Text");
