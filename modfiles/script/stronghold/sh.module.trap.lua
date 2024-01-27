@@ -18,6 +18,26 @@ Stronghold.Trap = Stronghold.Trap or {
 }
 
 -- -------------------------------------------------------------------------- --
+-- Callbacks
+
+--- Triggered when a unit spawning trap is triggered.
+--- @param _PlayerID integer Owner of trap
+--- @param _Type integer Type of trap
+--- @param _X number X coordinate of trap
+--- @param _Y number Y coordinate of trap
+--- @param ... integer Spawned entities
+function GameCallback_SH_Logic_OnSpawnTrapTriggered(_PlayerID, _Type, _X, _Y, ...)
+end
+
+--- Triggered when a AoE damage trap is triggered.
+--- @param _PlayerID integer Owner of trap
+--- @param _Type integer Type of trap
+--- @param _X number X coordinate of trap
+--- @param _Y number Y coordinate of trap
+function GameCallback_SH_Logic_OnAoETrapTriggered(_PlayerID, _Type, _X, _Y)
+end
+
+-- -------------------------------------------------------------------------- --
 -- Internal
 
 function Stronghold.Trap:Install()
@@ -110,7 +130,8 @@ end
 function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
     local GuiPlayer = GUI.GetPlayerID();
     local EntityType = Logic.GetEntityType(_TrapID);
-    if not self.Config.TrapTypeConfig[EntityType] then
+    local Config = self.Config.TrapTypeConfig[EntityType];
+    if not Config then
         return;
     end
 
@@ -156,7 +177,8 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
         end
     end
 
-    self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment};
+    local AutoTrigger = IsAIPlayer(_PlayerID) or Config.AutoTrigger;
+    self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment, AutoTrigger};
 end
 
 function Stronghold.Trap:OnBearTrapTriggered(_PlayerID, _TrapID)
@@ -168,6 +190,7 @@ function Stronghold.Trap:OnBearTrapTriggered(_PlayerID, _TrapID)
         SetHealth(_TrapID, 0);
         local ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Bear_Cage, nil, 0, x, y, 0, 0, 0, 0);
         Logic.SetEntitySelectableFlag(ID, 0);
+        GameCallback_SH_Logic_OnSpawnTrapTriggered(_PlayerID, Entities.PB_BearCage1, x, y, ID);
         Job.Second(function(_AnimalID, _X, _Y)
             return Stronghold.Trap:TrapAggressiveAnimalController(_AnimalID, _X, _Y);
         end, ID, x, y);
@@ -181,13 +204,17 @@ function Stronghold.Trap:OnDogTrapTriggered(_PlayerID, _TrapID)
             DestroyEntity(self.Data.Trap[_TrapID][3][i]);
         end
         SetHealth(_TrapID, 0);
+
+        local AnimalsCreated = {};
         for i= 1, 3 do
             local ID = AI.Entity_CreateFormation(_PlayerID, Entities.PU_Dog_Cage, nil, 0, x, y, 0, 0, 0, 0);
             Logic.SetEntitySelectableFlag(ID, 0);
+            table.insert(AnimalsCreated, ID);
             Job.Second(function(_AnimalID, _X, _Y)
                 return Stronghold.Trap:TrapAggressiveAnimalController(_AnimalID, _X, _Y);
             end, ID, x, y);
         end
+        GameCallback_SH_Logic_OnSpawnTrapTriggered(_PlayerID, Entities.PB_DogCage1, x, y, unpack(AnimalsCreated));
     end
 end
 
@@ -202,6 +229,7 @@ function Stronghold.Trap:OnPoleTrapTriggered(_PlayerID, _TrapID)
         local DamageDealerID = Logic.CreateEntity(Entities.XD_Traphole_Activated, x, y, 0, _PlayerID);
         self.Data.TrapRemains[DamageDealerID] = {5};
         SetHealth(_TrapID, 0);
+        GameCallback_SH_Logic_OnAoETrapTriggered(_PlayerID, Entities.PB_Traphole1, x, y);
         -- Does crash for some reason...
         -- CEntity.DealDamageInArea(DamageDealerID, x, y, EffectArea, Damage);
         -- Workaround:
@@ -247,6 +275,8 @@ function Stronghold.Trap:OnPitchTrapTriggered(_PlayerID, _TrapID)
             self.Data.TrapRemains[ID] = {Duration};
         end
 
+        GameCallback_SH_Logic_OnAoETrapTriggered(_PlayerID, Entities.PB_PitchPit1, x, y);
+
         Job.Second(function(_Time, _X, _Y, _EntityID)
             -- Stop after delay
             if not IsExisting(_EntityID) or _Time + Duration < Logic.GetTime() then
@@ -285,8 +315,9 @@ function Stronghold.Trap:TrapController()
         else
             local Type = Logic.GetEntityType(TrapID);
             local Config = self.Config.TrapTypeConfig[Type];
+            local AutoTrigger = self.Data.Trap[TrapID][4] == true;
             if Config then
-                if Config.AutoTrigger then
+                if Config.AutoTrigger or AutoTrigger then
                     local PlayerID = Logic.EntityGetPlayer(TrapID);
                     local Position = GetPosition(TrapID);
                     local Area = Config.AutoTriggerDistance;
