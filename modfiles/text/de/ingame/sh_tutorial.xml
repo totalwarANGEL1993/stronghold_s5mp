@@ -71,6 +71,9 @@
 <string id="ExplainProvince_1">TOM SIMPKINS: Schaut, eine Provinz! Wenn Ihr hier eine Landwehr errichtet, sichert Euch dies die Hoheit über die Provinz. {scarlet}Provinzen erhöhen Eure maximale Heeresstärke und gewähren Euch verschiedene Bonuseffekte. {white}Versucht sie Euch also schnell zu sichern.</string>
 <string id="ExplainProvince_2">TOM SIMPKINS: Nehmt die Provinz ein, um zu erfahren, welchen Bonus sie für Euch bereit hält!</string>
 
+<string id="ExplainTrap_1">TOM SIMPKINS: Hochwohlgeboren, Eure Leute sind in eine Falle des Feindes getappt. Fallen gehören zu den hinterhältigen Tricks, im Arsenal eines jeden Burgherren! {scarlet}Ihr könnt feindliche Fallen mit Dieben aufdecken!</string>
+<string id="ExplainTrap_2">TOM SIMPKINS: Vielleicht solltet Ihr auch über Fallen nachdenken. {scarlet}Eure Knechte können Fallen bauen und vor dem Feind verstecken. {white} Aber sollte Sir William fragen, halten meinen Namen aus dieser Sache heraus.</string>
+
 <string id="TutorialEnd_1">TOM SIMPKINS: Meinen Glückwunsch, Hochwohlgeboren! Ihr habt die Einführung in {scarlet}Stronghold {white} erfolgreich gemeistert. Ihr könnt das Spiel nun beenden oder die Mission zu Ende spielen.</string>
 <string id="TutorialEnd_2">TOM SIMPKINS: Egal wie Ihr Euch entscheidet, ich werde nun Kalkofe von der Südseeinsel herunter werfen und mich anschließend selbst dort breit machen! Gehabt Euch wohl, Hochwohlgeboren!</string>
 </stringtable>
