@@ -97,6 +97,28 @@ function IsRightUnlockable(_PlayerID, _Right)
     return Stronghold.Rights:IsRightUnlockable(_PlayerID, _Right);
 end
 
+--- Locks a right for the player so that they can not obtain it.
+--- @param _PlayerID integer ID of player
+--- @param _Right integer ID of right
+function LockPlayerRight(_PlayerID, _Right)
+    Stronghold.Rights:LockPlayerRight(_PlayerID, _Right);
+end
+
+--- Unlocks a right for the player so that they can use it.
+--- @param _PlayerID integer ID of player
+--- @param _Right integer ID of right
+function UnlockPlayerRight(_PlayerID, _Right)
+    Stronghold.Rights:UnlockPlayerRight(_PlayerID, _Right);
+end
+
+--- Checks if a right is locked for the player
+--- @param _PlayerID integer ID of player
+--- @param _Right integer ID of right
+--- @return boolean IsLocked Right is locked
+function IsRightLockedForPlayer(_PlayerID, _Right)
+    return Stronghold.Rights:IsRightLockedForPlayer(_PlayerID, _Right);
+end
+
 --- Returns the gender of the entity type.
 --- @param _Type integer Type of entity
 --- @return integer Gender Gender of entity
