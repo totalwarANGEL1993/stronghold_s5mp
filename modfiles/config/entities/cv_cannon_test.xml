@@ -54,7 +54,7 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PV_Cannon2_Drive</SuspensionAnimation>
+            <SuspensionAnimation>PV_Cannon3_Drive</SuspensionAnimation>
             <AnimSet>SET_CANNON3</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
