@@ -839,6 +839,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnMonasterySelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
+        self.Building:OnTavernSelected(EntityID);
         self.Trap:OnTrapSelected(EntityID);
         self.Wall:OnWallSelected(EntityID);
 
