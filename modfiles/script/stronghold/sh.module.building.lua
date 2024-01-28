@@ -152,7 +152,7 @@ end
 
 function Stronghold.Building:InitalizeSerfBuildingTabs()
 	gvGUI_WidgetID.SerfMenus               = XGUIEng.GetWidgetID("Commands_Serf");
-    gvGUI_WidgetID.ToSerfConstructionMenu  = XGUIEng.GetWidgetID( "SerfToConstructionMenu");
+    gvGUI_WidgetID.ToSerfConstructionMenu  = XGUIEng.GetWidgetID("SerfToConstructionMenu");
     gvGUI_WidgetID.ToSerfMilitaryMenu      = XGUIEng.GetWidgetID("SerfToMilitaryMenu");
 	gvGUI_WidgetID.ToSerfBeatificationMenu = XGUIEng.GetWidgetID("SerfToBeautificationMenu");
     gvGUI_WidgetID.SerfConstructionMenu    = XGUIEng.GetWidgetID("SerfConstructionMenu");
@@ -912,6 +912,13 @@ function Stronghold.Building:OnAlchemistSelected(_EntityID)
     end
     XGUIEng.ShowWidget("Research_WeatherForecast", 0);
     XGUIEng.ShowWidget("Research_ChangeWeather", 0);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Tavern
+
+function Stronghold.Building:OnTavernSelected(_EntityID)
+    XGUIEng.ShowWidget("BuildingTabs", 1);
 end
 
 -- -------------------------------------------------------------------------- --
