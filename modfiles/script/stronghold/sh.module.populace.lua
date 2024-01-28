@@ -687,7 +687,7 @@ end
 -- Replaces the worker with a criminal and calls the callback.
 function Stronghold.Populace:ConvertToCriminal(_PlayerID, _BuildingID, _WorkerID)
     local ID = 0;
-    if self.Data[_PlayerID] and IsExisting(_BuildingID) then
+    if self.Data[_PlayerID] and IsExisting(_BuildingID) and IsExisting(_WorkerID) then
         -- Create thief
         local x,y,z = Logic.EntityGetPos(_BuildingID);
         ID = self:CreateCriminalFromWorker(_PlayerID, _BuildingID, _WorkerID);
@@ -770,19 +770,24 @@ end
 function Stronghold.Populace:GetCriminalTarget(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local WorkplaceList = GetWorkplacesOfType(PlayerID, 0, true);
-    local DoorPos = GetHeadquarterEntrance(PlayerID);
-    local Target = WorkplaceList[math.random(2, WorkplaceList[1] +1)];
-    return GetReachablePosition(_EntityID, Target, DoorPos);
+    if WorkplaceList[1] > 0 then
+        local DoorPos = GetHeadquarterEntrance(PlayerID);
+        local Target = WorkplaceList[math.random(2, WorkplaceList[1] +1)];
+        return GetReachablePosition(_EntityID, Target, DoorPos);
+    end
 end
 
 -- Returns the amount of criminal energy.
 function Stronghold.Populace:GetCriminalEnergy(_PlayerID)
     local Motivation = GetReputation(_PlayerID) / 100;
     local Workers = Logic.GetNumberOfAttractedWorker(_PlayerID);
-    local WorkerRate = self.Config.CivilDuties.Crime.WorkerRate;
-    local CrimeRate = self:CalculateCrimeRate(_PlayerID);
-    local Potential = (Workers * WorkerRate) * (1/Motivation) * CrimeRate;
-    return math.min(math.floor(Potential), 100);
+    if Workers > 0 then
+        local WorkerRate = self.Config.CivilDuties.Crime.WorkerRate;
+        local CrimeRate = self:CalculateCrimeRate(_PlayerID);
+        local Potential = (Workers * WorkerRate) * (1/Motivation) * CrimeRate;
+        return math.min(math.floor(Potential), 100);
+    end
+    return 0;
 end
 
 function Stronghold.Populace:ManageCriminalsOfPlayer(_PlayerID)
@@ -797,8 +802,11 @@ function Stronghold.Populace:ManageCriminalsOfPlayer(_PlayerID)
                 if Data.LastCrimeAttempt + TimeBetween < Logic.GetTime() then
                     local CriminalEnergy = self:GetCriminalEnergy(_PlayerID);
                     if CriminalEnergy > 0 and math.random(1,100) <= CriminalEnergy then
+                        local Selected = 0;
                         local WorkerList = GetWorkersOfType(_PlayerID, 0);
-                        local Selected = WorkerList[math.random(2, WorkerList[1] +1)];
+                        if WorkerList[1] > 0 then
+                            Selected = WorkerList[math.random(2, WorkerList[1] +1)];
+                        end
                         local Building = Logic.GetSettlersWorkBuilding(Selected);
                         if self:ConvertToCriminal(_PlayerID, Building, Selected) ~= 0 then
                             self.Data[_PlayerID].CriminalsCounter = Data.CriminalsCounter +1;
@@ -816,10 +824,12 @@ function Stronghold.Populace:ManageCriminalsOfPlayer(_PlayerID)
             if IsValidEntity(Data[1]) then
                 if Data[5] == 0 then
                     local RandomPosition = self:GetCriminalTarget(Data[1]);
-                    self.Data[_PlayerID].Criminals[i][4] = RandomPosition;
-                    self.Data[_PlayerID].Criminals[i][5] = 1;
-                    Logic.SetEntityScriptingValue(Data[1], 72, 4);
-                    Logic.MoveSettler(Data[1], Data[4].X, Data[4].Y);
+                    if RandomPosition then
+                        self.Data[_PlayerID].Criminals[i][4] = RandomPosition;
+                        self.Data[_PlayerID].Criminals[i][5] = 1;
+                        Logic.SetEntityScriptingValue(Data[1], 72, 4);
+                        Logic.MoveSettler(Data[1], Data[4].X, Data[4].Y);
+                    end
                 elseif Data[5] == 1 then
                     if Logic.IsEntityMoving(Data[1]) == false then
                         self.Data[_PlayerID].Criminals[i][5] = 2;
