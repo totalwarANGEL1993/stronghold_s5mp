@@ -431,18 +431,18 @@ function Stronghold.Wall:CreateWallCornerForSegment(_EntityID)
             IsGate = true;
         end
 
-        local Distance = 283.1;
+        local Distance1 = 283.1;
         local Orientation = Logic.GetEntityOrientation(_EntityID);
         if Orientation == 45 or Orientation == 135 or Orientation == 225 or Orientation == 315 then
-            Distance = (not IsGate and 300.1) or 283.1;
+            Distance1 = (not IsGate and 300.1) or 300.1;
         else
-            Distance = (not IsGate and 283.1) or 300.1;
+            Distance1 = (not IsGate and 300.1) or 300.1;
         end
 
         local Angle1 = (IsGate and 90) or 135;
         local Angle2 = (IsGate and 270) or 315;
-        local Position1 = GetCirclePosition(_EntityID, Distance, Angle1);
-        local Position2 = GetCirclePosition(_EntityID, Distance, Angle2);
+        local Position1 = GetCirclePosition(_EntityID, Distance1, Angle1);
+        local Position2 = GetCirclePosition(_EntityID, Distance1, Angle2);
         local CornerType = self.Config.CornerForSegment[SegmentType];
         if not CornerType then
             return;
@@ -450,12 +450,20 @@ function Stronghold.Wall:CreateWallCornerForSegment(_EntityID)
 
         self.Data[PlayerID].Corners[_EntityID] = {};
         if not self:IsGroundToSteep(Position1.X, Position1.Y, 250) then
-            local ID = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 0);
+            local _, OtherID = Logic.GetEntitiesInArea(CornerType, Position1.X, Position1.Y, 200, 1);
+            if OtherID then
+                Position1 = GetCirclePosition(OtherID, 0.1, Angle1);
+            end
+            local ID = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 1);
             WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
         end
         if not self:IsGroundToSteep(Position2.X, Position2.Y, 250) then
-            local ID = Logic.CreateEntity(CornerType, Position2.X, Position2.Y, 0, 0);
+            local _, OtherID = Logic.GetEntitiesInArea(CornerType, Position2.X, Position2.Y, 200, 1);
+            if OtherID then
+                Position2 = GetCirclePosition(OtherID, 0.1, Angle1);
+            end
+            local ID = Logic.CreateEntity(CornerType, Position2.X, Position2.Y, 0, 1);
             WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
         end

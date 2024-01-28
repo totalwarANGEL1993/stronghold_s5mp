@@ -44,9 +44,9 @@ Stronghold.Wall.Config.GateToWall = {
 
 -- Dictionary to map wall types to gate types
 Stronghold.Wall.Config.WallToGate = {
-    [Entities.PB_DarkWallDistorted]             = Entities.PB_DarkWallStraightGate_Closed,
-    [Entities.PB_PalisadeDistorted]             = Entities.PB_PalisadeStraightGate_Closed,
-    [Entities.PB_WallDistorted]                 = Entities.PB_WallStraightGate_Closed,
+    [Entities.PB_DarkWallDistorted]             = Entities.PB_DarkWallStraightGate,
+    [Entities.PB_PalisadeDistorted]             = Entities.PB_PalisadeStraightGate,
+    [Entities.PB_WallDistorted]                 = Entities.PB_WallStraightGate,
 }
 
 -- Dictionary to map wall types to dark counterparts
