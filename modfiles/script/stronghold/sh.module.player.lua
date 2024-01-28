@@ -34,6 +34,9 @@ end
 --- A player configured as AI ignores honor and reputation, will not have any
 --- criminals and basically can cheat as they want.
 ---
+--- If an AI player shall not have an hero from the begining, 0 must be passed
+--- as hero type. Otherwise the default AI hero (Dovbar) is used.
+---
 --- A AI player can not be initialized without a headquarter!
 --- @param _PlayerID integer ID of player
 --- @param _Serfs? integer Amount of serfs
@@ -59,7 +62,8 @@ function DestructPlayer(_PlayerID)
     end
 end
 
---- Sets a player as defeated and deletes all entities.
+--- Sets a player as defeated and deletes all entities. Also the usual defeat
+--- message will be shown.
 --- @param _PlayerID integer ID of player
 function DefeatPlayer(_PlayerID)
     if IsPlayer(_PlayerID) then
@@ -424,10 +428,12 @@ function Stronghold.Player:InitalizeAiPlayer(_PlayerID, _HeroType)
     if self:IsAIPlayer(_PlayerID) then
         local Position = self.Data[_PlayerID].Player.DoorPos;
         local Type = _HeroType or Entities.CU_Hero13;
-        PlayerCreateNoble(_PlayerID, Type, Position);
-        local HeroID = GetID(self.Data[_PlayerID].Player.LordScriptName);
-        Logic.RotateEntity(HeroID, 180);
-        Logic.PlayerSetIsHumanFlag(_PlayerID, 0);
+        if Type ~= 0 then
+            PlayerCreateNoble(_PlayerID, Type, Position);
+            local HeroID = GetID(self.Data[_PlayerID].Player.LordScriptName);
+            Logic.RotateEntity(HeroID, 180);
+            Logic.PlayerSetIsHumanFlag(_PlayerID, 0);
+        end
     end
 end
 
