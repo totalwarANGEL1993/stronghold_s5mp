@@ -78,7 +78,7 @@ Stronghold.Economy.Config.Income = {
         [4] = {Honor = 0, Reputation = -4,},
         [5] = {Honor = 0, Reputation = -8,},
         WorkerFactor = 0.032,
-        RankFactor = 1.038,
+        RankFactor = 1.05,
     },
 
     TechnologyEffect = {
@@ -179,10 +179,13 @@ Stronghold.Economy.Config.SelectCategoryMapping = {
         Entities.PU_LeaderBow4,
     },
     [UpgradeCategories.LeaderCavalry] = {
+        Entities.CU_BanditLeaderCavalry1,
+        Entities.CU_TemplarLeaderCavalry1,
         Entities.PU_LeaderCavalry1,
         Entities.PU_LeaderCavalry2,
     },
     [UpgradeCategories.LeaderHeavyCavalry] = {
+        Entities.CU_TemplarLeaderHeavyCavalry1,
         Entities.PU_LeaderHeavyCavalry1,
         Entities.PU_LeaderHeavyCavalry2,
     },
@@ -197,10 +200,14 @@ Stronghold.Economy.Config.SelectCategoryMapping = {
         Entities.PU_Thief,
     },
     [UpgradeCategories.Cannon1] = {
+        Entities.CV_Cannon1,
+        Entities.CV_Cannon2,
         Entities.PV_Cannon1,
         Entities.PV_Cannon2,
         Entities.PV_Cannon3,
         Entities.PV_Cannon4,
+        Entities.PV_Cannon7,
+        Entities.PV_Cannon8,
     },
 }
 
