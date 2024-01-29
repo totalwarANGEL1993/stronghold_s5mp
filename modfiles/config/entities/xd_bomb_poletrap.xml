@@ -17,7 +17,7 @@
             <Class>GGL::CBombBehavior</Class>
             <Radius>350</Radius>
             <Delay>0</Delay>
-            <Damage>200</Damage>
+            <Damage>125</Damage>
             <DamageClass>DC_Hero</DamageClass>
             <ExplodeEffectID>FXExtractStone</ExplodeEffectID>
         </Logic>
