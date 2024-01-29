@@ -74,17 +74,14 @@ function Stronghold.Trap:OncePerSecond(_PlayerID)
 end
 
 function Stronghold.Trap:OnEverySecond()
-    -- Traps
     self:TrapController();
 end
 
 function Stronghold.Trap:OnConstructionComplete(_EntityID, _PlayerID)
-    -- Trap
-    self:OnTrapConstructed(_EntityID)
+    self:OnTrapConstructed(_EntityID, _PlayerID)
 end
 
 function Stronghold.Trap:OnDiplomacyChanged(_PlayerID1, _PlayerID2, _DiplomacyState)
-    -- Trap
     self:UpdateTrapVisibilityOnDiplomacyChange(_PlayerID1, _PlayerID2, _DiplomacyState);
 end
 
@@ -103,9 +100,9 @@ end
 
 function Stronghold.Trap:InitalizeTrapsCurrentlyExisting()
     for PlayerID = 1, GetMaxPlayers() do
-        local Buildings = GetBuildingsOfType(PlayerID, 0, true);
-        for i= 2, Buildings[1] +1 do
-            self:OnTrapConstructed(Buildings[i]);
+        local Buildings = GetPlayerEntities(PlayerID, 0);
+        for i= 1, table.getn(Buildings) do
+            self:OnTrapConstructed(Buildings[i], PlayerID);
         end
     end
 end
@@ -172,13 +169,12 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
     if Attachment[1] ~= 0 and GuiPlayer ~= 17 and GuiPlayer ~= _PlayerID then
         for i= 2, Attachment[1] +1 do
             if Logic.GetDiplomacyState(_PlayerID, GuiPlayer) ~= Diplomacy.Friendly then
-                SVLib.SetInvisibility(Attachment, true);
+                SVLib.SetInvisibility(Attachment[i], true);
             end
         end
     end
 
-    local AutoTrigger = IsAIPlayer(_PlayerID) or Config.AutoTrigger;
-    self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment, AutoTrigger};
+    self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment};
 end
 
 function Stronghold.Trap:OnBearTrapTriggered(_PlayerID, _TrapID)
@@ -313,16 +309,15 @@ function Stronghold.Trap:TrapController()
             end
             self.Data.Trap[TrapID] = nil;
         else
+            local PlayerID = Logic.EntityGetPlayer(TrapID);
             local Type = Logic.GetEntityType(TrapID);
             local Config = self.Config.TrapTypeConfig[Type];
-            local AutoTrigger = self.Data.Trap[TrapID][4] == true;
+            local AutoTrigger = (IsAIPlayer(PlayerID) or Config.AutoTrigger) == true;
             if Config then
                 if Config.AutoTrigger or AutoTrigger then
-                    local PlayerID = Logic.EntityGetPlayer(TrapID);
                     local Position = GetPosition(TrapID);
                     local Area = Config.AutoTriggerDistance;
-                    local EnemyList = GetEnemiesInArea(PlayerID, Position, Area)
-                    if table.getn(EnemyList) >= 3 then
+                    if AreEnemiesInArea(PlayerID, Position, Area) then
                         self:OnTrapTriggered(PlayerID, TrapID);
                     end
                 end
@@ -384,7 +379,7 @@ function Stronghold.Trap:UpdateTrapVisibilityOnDiscovery(_PlayerID, _TrapID)
         local OwnerOfThief = 0;
         for PlayerID = 1, GetMaxPlayers(), 1 do
             if _PlayerID ~= PlayerID and Logic.GetDiplomacyState(PlayerID, _PlayerID) == Diplomacy.Hostile then
-                local _, ThiefID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_Thief, x, y, Area, 1);
+                local _, ThiefID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PU_Thief, x, y, Area, 1);
                 if ThiefID then
                     OwnerOfThief = PlayerID;
                     break;
@@ -395,7 +390,11 @@ function Stronghold.Trap:UpdateTrapVisibilityOnDiscovery(_PlayerID, _TrapID)
             for PlayerID = 1, GetMaxPlayers(), 1 do
                 if Logic.GetDiplomacyState(PlayerID, OwnerOfThief) == Diplomacy.Friendly
                 or PlayerID == OwnerOfThief then
+                    local TrapData = self.Data.Trap[_TrapID];
                     SVLib.SetInvisibility(_TrapID, false);
+                    for i= 2, TrapData[3][1] +1 do
+                        SVLib.SetInvisibility(TrapData[3][i], false);
+                    end
                     self.Data[PlayerID].ExposedTraps[_TrapID] = true;
                 end
             end
@@ -410,7 +409,7 @@ end
 -- not exposed by a thief are hidden again.
 function Stronghold.Trap:UpdateTrapVisibilityOnDiplomacyChange(_PlayerID1, _PlayerID2, _DiplomacyState)
     if IsPlayer(_PlayerID1) then
-        for TrapID, _ in pairs(self.Data.Trap) do
+        for TrapID, TrapData in pairs(self.Data.Trap) do
             if IsEntityValid(TrapID) then
                 local TrapPlayerID = Logic.EntityGetPlayer(TrapID);
                 -- Make traps invisible for hostile or neutral players
@@ -419,6 +418,9 @@ function Stronghold.Trap:UpdateTrapVisibilityOnDiplomacyChange(_PlayerID1, _Play
                     if GUI.GetPlayerID() == _PlayerID1 and TrapPlayerID == _PlayerID2 then
                         if not self.Data[_PlayerID1].ExposedTraps[TrapID] then
                             SVLib.SetInvisibility(TrapID, true);
+                            for i= 2, TrapData[3][1] +1 do
+                                SVLib.SetInvisibility(TrapData[3][i], true);
+                            end
                         end
                     end
                 end
@@ -427,6 +429,9 @@ function Stronghold.Trap:UpdateTrapVisibilityOnDiplomacyChange(_PlayerID1, _Play
                     if GUI.GetPlayerID() == _PlayerID1 and TrapPlayerID == _PlayerID2 then
                         if not self.Data[_PlayerID1].ExposedTraps[TrapID] then
                             SVLib.SetInvisibility(TrapID, false);
+                            for i= 2, TrapData[3][1] +1 do
+                                SVLib.SetInvisibility(TrapData[3][i], false);
+                            end
                         end
                     end
                 end
