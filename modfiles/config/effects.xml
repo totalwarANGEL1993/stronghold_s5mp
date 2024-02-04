@@ -138,7 +138,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1200.0</Speed>
+            <Speed>3000.0</Speed>
             <GravityFactor>600.0f</GravityFactor>
             <HeightOffsetStart>160.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
@@ -155,7 +155,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1200.0</Speed>
+            <Speed>3600.0</Speed>
             <GravityFactor>300.0f</GravityFactor>
             <HeightOffsetStart>160.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
@@ -172,7 +172,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1200.0</Speed>
+            <Speed>3000.0</Speed>
             <GravityFactor>600.0f</GravityFactor>
             <HeightOffsetStart>200.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
@@ -189,7 +189,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1200.0</Speed>
+            <Speed>3600.0</Speed>
             <GravityFactor>300.0f</GravityFactor>
             <HeightOffsetStart>200.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
@@ -316,7 +316,7 @@
             <Class>GGL::CCannonBallEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1800.0</Speed>
+            <Speed>2400.0</Speed>
             <Radius>0</Radius>
             <Damage>0</Damage>
             <GravityFactor>800.0f</GravityFactor>
@@ -549,7 +549,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>4000.0</Speed>
+            <Speed>6000.0</Speed>
             <GravityFactor>5.0f</GravityFactor>
             <HeightOffsetStart>70.0</HeightOffsetStart>
             <HeightOffsetTarget>70.0</HeightOffsetTarget>
@@ -566,7 +566,7 @@
             <Class>GGL::CCannonBallEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>8000.0</Speed>
+            <Speed>9000.0</Speed>
             <Radius>0</Radius>
             <Damage>0</Damage>
             <GravityFactor>5.0f</GravityFactor>
@@ -608,7 +608,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>2000.0</Speed>
+            <Speed>2700.0</Speed>
             <GravityFactor>0.0f</GravityFactor>
             <HeightOffsetStart>0.0</HeightOffsetStart>
             <HeightOffsetTarget>0.0</HeightOffsetTarget>
@@ -637,7 +637,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1200.0</Speed>
+            <Speed>3000.0</Speed>
             <GravityFactor>600.0f</GravityFactor>
             <HeightOffsetStart>160.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
@@ -682,7 +682,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>1200.0</Speed>
+            <Speed>3000.0</Speed>
             <GravityFactor>600.0f</GravityFactor>
             <HeightOffsetStart>570.0</HeightOffsetStart>
             <HeightOffsetTarget>0.0</HeightOffsetTarget>

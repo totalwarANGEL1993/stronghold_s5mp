@@ -351,15 +351,19 @@ function DelinquentsCampAddTarget(_ID, ...)
     table.insert(TargetTable, 1, table.getn(TargetTable));
     if Stronghold.AI.Data.Delinquents[_ID] then
         local Data = Stronghold.AI.Data.Delinquents[_ID];
-        -- Check if target is allready contained
-        for i= Data.AttackTargets[1] +1, 2, -1 do
-            if Data.AttackTargets[i][Data.AttackTargets[i][1]] == TargetTable[TargetTable[1] +1] then
-                return;
+        for i= TargetTable[1] +1, 2, -1 do
+            local IsContained = false;
+            for j= Data.AttackTargets[1] +1, 2, -1 do
+                if Data.AttackTargets[j] == TargetTable[TargetTable[i]] then
+                    IsContained = true;
+                    break;
+                end
+            end
+            if not IsContained then
+                table.insert(Data.AttackTargets, TargetTable[i]);
+                Data.AttackTargets[1] = Data.AttackTargets[1] + 1;
             end
         end
-        -- Add to targets
-        table.insert(Data.AttackTargets, TargetTable);
-        Data.AttackTargets[1] = Data.AttackTargets[1] + 1;
         Stronghold.AI.Data.Delinquents[_ID] = Data;
     end
 end
@@ -374,19 +378,25 @@ end
 
 --- Adds guard positions to the camp.
 --- @param _ID integer ID of camp
---- @param _Position string|table List of targets
-function DelinquentsCampAddGuardPositions(_ID, _Position)
+--- @param ... string|table List of targets
+function DelinquentsCampAddGuardPositions(_ID, ...)
+    local GuardTable = CopyTable(arg);
+    table.insert(GuardTable, 1, table.getn(GuardTable));
     if Stronghold.AI.Data.Delinquents[_ID] then
         local Data = Stronghold.AI.Data.Delinquents[_ID];
-        -- Check if target is allready contained
-        for i= Data.DefendTargets[1] +1, 2, -1 do
-            if Data.DefendTargets[i] == _Position then
-                return;
+        for i= GuardTable[1] +1, 2, -1 do
+            local IsContained = false;
+            for j= Data.DefendTargets[1] +1, 2, -1 do
+                if Data.DefendTargets[j] == GuardTable[GuardTable[i]] then
+                    IsContained = true;
+                    break;
+                end
+            end
+            if not IsContained then
+                table.insert(Data.DefendTargets, GuardTable[i]);
+                Data.DefendTargets[1] = Data.DefendTargets[1] + 1;
             end
         end
-        -- Add to targets
-        table.insert(Data.DefendTargets, _Position);
-        Data.DefendTargets[1] = Data.DefendTargets[1] + 1;
         Stronghold.AI.Data.Delinquents[_ID] = Data;
     end
 end

@@ -78,6 +78,8 @@ SHS5MP_RulesDefinition = {
         CreateProvince1();
         CreateProvince2();
         CreateProvince3();
+
+        CreateCamp1();
     end,
 
     -- Called after peacetime is over
@@ -89,6 +91,28 @@ SHS5MP_RulesDefinition = {
         UseWeatherSet("EuropeanWeatherSet");
     end,
 }
+
+-- -------------------------------------------------------------------------- --
+-- Camps
+
+function CreateCamp1()
+    gvTestCamp1 = DelinquentsCampCreate {
+        PlayerID        = 2,
+        HomePosition    = "TestCamp1Home",
+        Strength        = 6,
+        RodeLength      = 2500,
+    };
+
+    DelinquentsCampAddSpawner(
+        gvTestCamp1, "TestCamp1", 30, 2,
+        {Entities.PU_LeaderPoleArm1, 3},
+        {Entities.PU_LeaderBow1, 3},
+        {Entities.PU_LeaderSword1, 3}
+    );
+
+    DelinquentsCampAddTarget(gvTestCamp1, "PlayerHome");
+    DelinquentsCampActivateAttack(gvTestCamp1, false);
+end
 
 -- -------------------------------------------------------------------------- --
 -- Provinces
