@@ -5,9 +5,9 @@
     <ResourceCosts>
 		<Knowledge>1</Knowledge>
         <Gold/>
-        <Clay>200</Clay>
-        <Wood>200</Wood>
-        <Stone>200</Stone>
+        <Clay>100</Clay>
+        <Wood>100</Wood>
+        <Stone>100</Stone>
         <Iron/>
         <Sulfur/>
     </ResourceCosts>
