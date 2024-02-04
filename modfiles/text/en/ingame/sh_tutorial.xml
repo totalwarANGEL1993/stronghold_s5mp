@@ -11,7 +11,7 @@
 <string id="ExplainInterface_9">TOM SIMPKINS: If you have achieved enough honor and meet the conditions for promotion, you can raise your noble {scarlet} to a higher rank {white} here.</string>
 <string id="ExplainInterface_10">TOM SIMPKINS: Be sure to provide for your people {scarlet}{white} or they will quickly become dissatisfied. The costs of house and farm are reduced in this game mode. {scarlet}Expansion{white} allows you to gain popularity and honor more quickly.</string>
 <string id="ExplainInterface_11">TOM SIMPKINS: This meter shows how many people live under your rule. All of your taxable workers and also lousy criminals are part of your population. {scarlet}Expand the castle or build outposts,{white} to be able to accommodate more people.</string>
-<string id="ExplainInterface_12">TOM SIMPKINS: Servants are unfree and do not count as population or military, but are the property of your noble. The number of servants you can own {scarlet} increases with each additional title your noble achieves.</string>
+<string id="ExplainInterface_12">TOM SIMPKINS: Servants are unfree and count as the property of your noble. {scarlet} They will also occupy population space. {white} The number of servants you can own {scarlet} increases with each additional title your noble achieves.</string>
 <string id="ExplainInterface_13">TOM SIMPKINS: Here you can see how strong your army is and how big it can still become. All agents, soldiers and cannons count as military. {scarlet} Expand the castle or build recruitment buildings,{white} to increase your army strength.</string>
 <string id="ExplainInterface_14">TOM SIMPKINS: The payday clock shows you how long you have to wait until the next money. {scarlet} Payday is every 90 seconds in this game mode.</string>
 <string id="ExplainInterface_15">TOM SIMPKINS: The clock doesn't just tell the time until payday. Here you can also see {scarlet}how popularity and honor will change. {white} You can see more details if you hold down CTRL.</string>
@@ -29,7 +29,7 @@
 <string id="ExplainCastle_7">TOM SIMPKINS: You place a rally point {scarlet}by right-clicking on the game world after the mouse becomes a hand with a flag. {white} This only works if the position is reachable.</string>
 <string id="ExplainCastle_8">TOM SIMPKINS: Give it a try! To set a collection point, you have to right-click on a position that can be reached from the building.</string>
 <string id="ExplainCastle_9">TOM SIMPKINS: Well done! Future trained servants will go to the marked position!</string>
-<string id="ExplainCastle_10">TOM SIMPKINS: Now it's time to choose your noble. {scarlet} You can't hire a military without a noble! {white}If the noble falls in battle, {scarlet} you will find him or her in front of your castle.</string>
+<string id="ExplainCastle_10">TOM SIMPKINS: Now it's time to choose your noble. {scarlet} You can't obtain new ranks without a noble! {white}If the noble falls in battle, {scarlet} you will find him or her in front of your castle.</string>
 <string id="ExplainCastle_11">TOM SIMPKINS: Open the menu and choose a noble! To pass this introduction, it is irrelevant which noble you choose.</string>
 <string id="ExplainCastle_12">TOM SIMPKINS: Every noble has different characteristics. You would do well to choose a noble {scarlet}that suits your play style. {white} Everyone has individual advantages over the others.</string>
 <string id="ExplainCastle_13">TOM SIMPKINS: Jump to the measures so I can explain them to you as well.</string>
@@ -46,7 +46,7 @@
 <string id="ExplainUnit_7">TOM SIMPKINS: These numbers indicate troop strength. Almost all military units and Kerberos have soldiers.</string>
 <string id="ExplainUnit_8">TOM SIMPKINS: Here you can see the squad's defense. It will reduce damage taken.</string>
 <string id="ExplainUnit_9">TOM SIMPKINS: Attack power indicates the damage a squad can deal. The attack power is offset against the armor of the attack target.</string>
-<string id="ExplainUnit_10">TOM SIMPKINS: And finally, maintenance. Your units will require different amounts of pay. The maintenance depends on {scarlet}the type of troops{white} and {scarlet}the number of soldiers.</string>
+<string id="ExplainUnit_10">TOM SIMPKINS: And finally, maintenance. Your units will require different amounts of pay. The maintenance depends on {scarlet}the type of troops.</string>
 <string id="ExplainUnit_11">TOM SIMPKINS: Of course you can release troops when you no longer need them.</string>
 
 <string id="ExplainManage_1">TOM SIMPKINS: It's time for me to tell you how to run your castle.</string>
@@ -62,6 +62,12 @@
 <string id="ExplainManage_11">TOM SIMPKINS: Workers will {scarlet}break the law. {white}Failure to catch criminals {scarlet} will quickly ruin your popularity! {white}Try to catch them quickly. {scarlet} Have armed servants keep watch or build observation towers!</string>
 <string id="ExplainManage_12">TOM SIMPKINS: Even the nobleman can catch criminals. {scarlet}To do this, you must send the noble to hunt down these criminal elements.</string>
 <string id="ExplainManage_13">TOM SIMPKINS: To ged rid of rats, {scarlet}you have to upgrade your watchtowers to falconry towers.{white} A hawk is able to keep a large area around the tower clean.</string>
+<string id="ExplainManage_14">TOM SIMPKINS: Next you should build a chapel. It immediately grants you additional popularity and you can also bless your workers.</string>
+<string id="ExplainManage_15">TOM SIMPKINS: Now raise your noble to the next higher rank.</string>
+<string id="ExplainManage_16">TOM SIMPKINS: Your Highness, if we continue, we will soon run out of place for new subjects. You need to upgrade your keep!</string>
+<string id="ExplainManage_17">TOM SIMPKINS: Now build a highschool. As I explained to you before, scholars produce essential knowledge without which you cannot research!</string>
+<string id="ExplainManage_18">TOM SIMPKINS: Did you see that over there is a good place to erect palisades or walls? {scarlet}Those ramparts can only be build on those construction sites.{white} You should keep that in mind.</string>
+<string id="ExplainManage_19">TOM SIMPKINS: Terrific! The most important buildings should now be in place so that your economy can take off. But don't forget to expand your city and claim higer ranks with your noble.</string>
 
 <string id="ExplainRecruit_1">TOM SIMPKINS: Soldiers are recruited in barracks and similar buildings. Build a barracks!</string>
 <string id="ExplainRecruit_2">TOM SIMPKINS: Wonderful! Through the barracks you are now in a position to recruit your first soldiers. They are weak but cheap and can be thrown into battle en masse.</string>
@@ -73,6 +79,9 @@
 
 <string id="ExplainTrap_1">TOM SIMPKINS: Your Highness, one of your men has stumbeled into an enemies trap. Those contraptions are belonging to the most treacherous weapons in a Nobles arsenal! {scarlet}You can uncover traps with your thieves!</string>
 <string id="ExplainTrap_2">TOM SIMPKINS: Maybe you should consider traps too. {scarlet}Serfs can build traps. The traps will be hidden from the enemy. {white}But if Sir William is happening to ask, I didn't told you that.</string>
+
+<string id="ExplainScout_1">TOM SIMPKINS: Look, we have discovered hidden resources! You can not exploit this resources right away, Your Highness.</string>
+<string id="ExplainScout_2">TOM SIMPKINS: To make those resources usable, {scarlet}you have to research Blasting in your tavern and then send a scout.</string>
 
 <string id="TutorialEnd_1">TOM SIMPKINS: Congratulations, Your Honor! You have successfully mastered the introduction to {scarlet}Stronghold {white}. You can now end the game or complete the mission.</string>
 <string id="TutorialEnd_2">TOM SIMPKINS: No matter what you decide, I will now throw lime kilns down from the South Sea island and then spread myself there! Have a good time, Highness!</string>
