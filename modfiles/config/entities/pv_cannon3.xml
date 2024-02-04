@@ -8,7 +8,6 @@
         <Anim>PV_Cannon3_Shoot</Anim>
         <Anim>PV_Cannon3_Destroyed</Anim>
         <Anim>PV_Cannon3_Idle</Anim>
-
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
