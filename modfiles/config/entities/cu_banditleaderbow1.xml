@@ -65,6 +65,9 @@
         <ModifyDamage>
             <Technology>T_BetterTrainingArchery</Technology>
         </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_SteadyAim</Technology>
+        </ModifyDamage>
 
         <ModifyArmor>
             <Technology>T_SoftArcherArmor</Technology>

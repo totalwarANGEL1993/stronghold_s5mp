@@ -388,6 +388,7 @@
 
     <!-- Units -->
     <Technology>T_AutoRepair</Technology>
+    <Technology>T_SteadyAim</Technology>
 
     <!-- Honor & Reputation -->
     <Technology>T_Instruments</Technology>

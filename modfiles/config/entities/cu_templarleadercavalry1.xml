@@ -38,7 +38,7 @@
         <Exploration>28</Exploration>
         <ArmorClass>ArmorClassNone</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
-        <DodgeChance>50</DodgeChance>
+        <DodgeChance>30</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
@@ -67,6 +67,9 @@
 
         <ModifyDamage>
             <Technology>T_BodkinArrow</Technology>
+        </ModifyDamage>
+        <ModifyDamage>
+            <Technology>T_SteadyAim</Technology>
         </ModifyDamage>
 
         <ModifySpeed>

@@ -549,7 +549,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>9000.0</Speed>
+            <Speed>5000.0</Speed>
             <GravityFactor>5.0f</GravityFactor>
             <HeightOffsetStart>70.0</HeightOffsetStart>
             <HeightOffsetTarget>70.0</HeightOffsetTarget>
@@ -566,7 +566,7 @@
             <Class>GGL::CCannonBallEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>9000.0</Speed>
+            <Speed>5000.0</Speed>
             <Radius>0</Radius>
             <Damage>0</Damage>
             <GravityFactor>5.0f</GravityFactor>
@@ -750,4 +750,25 @@
 			<Model>XD_BulletBig</Model>
 		</Display>
     </Effect>
+
+    <Effect id="FXExplosiveBullet">
+        <Logic classname="GGL::CCannonBallEffectProps">
+            <Class>GGL::CCannonBallEffect</Class>
+            <Global>false</Global>
+            <Duration>0</Duration>
+            <Speed>5000.0</Speed>
+            <GravityFactor>300.0</GravityFactor>
+            <HeightOffsetStart>80.0</HeightOffsetStart>
+            <HeightOffsetTarget>0.0</HeightOffsetTarget>
+            <ImpactEffectID>FXExplosionShrapnel</ImpactEffectID>
+            <!-- Hopefully this works without problems... ^^ -->
+            <DamageClass>DC_Hero</DamageClass>
+            <Radius>400</Radius>
+            <Damage>150</Damage>
+        </Logic>  
+		<Display classname="ED::CFlyingEffectProps">
+			<Class>ED::CFlyingEffect</Class>
+			<Model>XD_BulletBig</Model>
+		</Display>
+    </Effect>  
 </root>

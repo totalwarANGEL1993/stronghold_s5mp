@@ -21,9 +21,9 @@ ist "Todesurteil" festgelegt.
 
 __Bevölkerung__
 
-Das Soldatenlimit wird nicht mehr durch das ausbauen von Militärgebäuden erhöht,
-sondern stattdessen durch das Besetzen von Burgen. Eine zusätzliche Burg kann
-durch Bauen von Außenposten besetzt werden.
+Das Soldatenlimit wird nicht mehr durch das Ausbauen von Militärgebäuden erhöht, 
+sondern stattdessen durch das Besetzen von Burgen. Eine Burg kann durch Bauen 
+von Außenposten besetzt werden.
 
 - Bevölkerung:
   * Haupthaus: 50, 75, 100
@@ -67,7 +67,7 @@ Beim Gebäudebau hat sich einiges verändert.
   * Ballistatürme können weiterhin zu Kanonentürmen ausgebaut werden
   * Wachtürme werden zu Falknertürmen ausgebaut
   * Mauern können nicht gebaut werden, wenn Feinde nahe sind
-  * Es gibt nun ein Söldnerlager, in dem Spezialeinheten gekauf werden können
+  * Es gibt nun ein Söldnerlager, in dem Spezialeinheten gekauft werden können
   * Es gibt nun einen Henkerplatz, der Verbrechen senkt
   * Es gibt nun vier neue Verteidigungsfallen
 
@@ -109,12 +109,13 @@ __Heldenfähigkeiten__
 - Ari:
   * Waldläufer (Armbrustschützen) wurden entfernt
   * Vogelfreie können nun mit Armbrustschützen mithalten
-- Helias:
-  * Alle Templer genießen nun noch mehr "Göttlichen Segen"
 - Marie:
   * 2 zusätzlich mögliche Knechte bei jedem Stufenaufstieg
 - Drake:
-  * Sold von Schafschützen wird nur noch um 20% reduziert
+  * Drake kann seine Aura nicht mehr verwenden
+  * Sold von Schafschützen wird nicht mehr verringert
+  * "Explosiver Schuss" als neue aktive Fähigkeit hinzugefügt
+  * Automatisch erforschte Technologie "Leitende Hand" verbessert Fernkämpfer
 
 __Maps__
 
