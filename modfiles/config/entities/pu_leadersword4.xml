@@ -110,8 +110,8 @@
             <NormalAttackAnim1>PU_LeaderSword4_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_LeaderSword4_Attack2</NormalAttackAnim2>
             <CounterAttackAnim>PU_LeaderSword4_Finish</CounterAttackAnim>
-            <FinishingMoveAnim>PU_SoldierSword4_Finish</FinishingMoveAnim>
-            <MissAttackAnim>PU_SoldierSword4_IdleAttack1</MissAttackAnim>
+            <FinishingMoveAnim>PU_LeaderSword4_Finish</FinishingMoveAnim>
+            <MissAttackAnim>PU_LeaderSword4_IdleAttack1</MissAttackAnim>
             <BattleIdleAnim>PU_LeaderSword4_IdleAttack1</BattleIdleAnim>
             <BattleWalkAnim>PU_LeaderSword4_Run1</BattleWalkAnim>
             <HitAnim>PU_LeaderSword4_Hit</HitAnim>

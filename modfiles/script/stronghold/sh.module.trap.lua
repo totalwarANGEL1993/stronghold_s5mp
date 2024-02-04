@@ -322,7 +322,6 @@ function Stronghold.Trap:TrapController()
                     end
                 end
                 if Config.UnveilByThief then
-                    local PlayerID = Logic.EntityGetPlayer(TrapID);
                     self:UpdateTrapVisibilityOnDiscovery(PlayerID, TrapID);
                 end
             end

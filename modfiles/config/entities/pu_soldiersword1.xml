@@ -139,7 +139,7 @@
             <Class>GGL::CSoldierBehavior</Class>
 
             <BattleTaskList>TL_BATTLE</BattleTaskList>
-            <NormalAttackAnim1>PU_SoldierSword1_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim1>PU_SoldierSword1_Finish</NormalAttackAnim1>
             <NormalAttackAnim2>PU_SoldierSword1_Attack2</NormalAttackAnim2>
             <CounterAttackAnim>PU_SoldierSword1_Finish</CounterAttackAnim>
             <FinishingMoveAnim>PU_SoldierSword1_Attack1</FinishingMoveAnim>
