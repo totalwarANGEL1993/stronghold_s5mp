@@ -139,7 +139,7 @@
             <Global>false</Global>
             <Duration>0</Duration>
             <Speed>3000.0</Speed>
-            <GravityFactor>600.0f</GravityFactor>
+            <GravityFactor>1200.0f</GravityFactor>
             <HeightOffsetStart>160.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
             <Damage>0</Damage>
@@ -156,7 +156,7 @@
             <Global>false</Global>
             <Duration>0</Duration>
             <Speed>3600.0</Speed>
-            <GravityFactor>300.0f</GravityFactor>
+            <GravityFactor>600.0f</GravityFactor>
             <HeightOffsetStart>160.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
             <Damage>0</Damage>
@@ -173,7 +173,7 @@
             <Global>false</Global>
             <Duration>0</Duration>
             <Speed>3000.0</Speed>
-            <GravityFactor>600.0f</GravityFactor>
+            <GravityFactor>1200.0f</GravityFactor>
             <HeightOffsetStart>200.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
             <Damage>0</Damage>
@@ -190,7 +190,7 @@
             <Global>false</Global>
             <Duration>0</Duration>
             <Speed>3600.0</Speed>
-            <GravityFactor>300.0f</GravityFactor>
+            <GravityFactor>600.0f</GravityFactor>
             <HeightOffsetStart>200.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
             <Damage>0</Damage>
@@ -549,7 +549,7 @@
             <Class>GGL::CArrowEffect</Class>
             <Global>false</Global>
             <Duration>0</Duration>
-            <Speed>6000.0</Speed>
+            <Speed>9000.0</Speed>
             <GravityFactor>5.0f</GravityFactor>
             <HeightOffsetStart>70.0</HeightOffsetStart>
             <HeightOffsetTarget>70.0</HeightOffsetTarget>
@@ -638,7 +638,7 @@
             <Global>false</Global>
             <Duration>0</Duration>
             <Speed>3000.0</Speed>
-            <GravityFactor>600.0f</GravityFactor>
+            <GravityFactor>1200.0f</GravityFactor>
             <HeightOffsetStart>160.0</HeightOffsetStart>
             <HeightOffsetTarget>120.0</HeightOffsetTarget>
             <Damage>0</Damage>
