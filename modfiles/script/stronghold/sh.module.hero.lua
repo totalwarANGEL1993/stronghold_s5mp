@@ -98,6 +98,7 @@ function Stronghold.Hero:Install()
     self:ConfigureBuyHero();
     self:OverrideCalculationCallbacks();
     self:OverrideHero5AbilityArrowRain();
+    self:OverrideHero7AbilityMadness();
     self:OverrideHero8AbilityMoralDamage();
     self:OverrideHero10ExplosiveShot();
     self:OverrideDetailsPayAndSlots();
@@ -798,6 +799,26 @@ function Stronghold.Hero:OverrideHero5AbilityArrowRain()
         Overwrite.CallOriginal();
         if _TextKey == "AOMenuHero5/command_poisonarrows" then
             local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_PU_Hero5");
+            ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
+                ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
+
+            XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
+            XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+            XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+        end
+    end);
+end
+
+function Stronghold.Hero:OverrideHero7AbilityMadness()
+    GUIAction_Hero7Madness = function()
+        local HeroID = HeroSelection_GetCurrentSelectedHeroID();
+        GUI.SettlerInflictFear(HeroID);
+        GUI.SettlerAffectUnitsInArea(HeroID);
+    end
+    Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
+        Overwrite.CallOriginal();
+        if _TextKey == "MenuHero7/command_madness" then
+            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_CU_BlackKnight");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 

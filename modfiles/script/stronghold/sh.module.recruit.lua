@@ -216,7 +216,10 @@ function Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _Type, _Amoun
     if Config then
         local SoldierType = Stronghold.Unit.Config.LeaderToSoldierMap[_Type] or 0;
         if SoldierType ~= 0 then
-            local UpgradeCategory = GetUpgradeCategoryByEntityType(SoldierType);
+            local UpgradeCategory = UpgradeCategories.BlackKnightBodyguard;
+            if _Type ~= Entities.CU_BlackKnight then
+                UpgradeCategory = GetUpgradeCategoryByEntityType(SoldierType);
+            end
             Logic.FillSoldierCostsTable(_PlayerID, UpgradeCategory, Costs);
 
             Costs[ResourceType.Silver] = Costs[ResourceType.Silver] * (_Amount or Config.Soldiers);

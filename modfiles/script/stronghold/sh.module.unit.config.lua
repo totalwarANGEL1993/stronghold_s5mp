@@ -410,6 +410,8 @@ end
 
 -- Soldier to leader assignment
 Stronghold.Unit.Config.LeaderToSoldierMap = {
+    -- Kerberos
+    [Entities.CU_BlackKnight] = Entities.CU_BlackKnight_Bodyguard,
     -- Axe
     [Entities.CU_BanditLeaderSword1] = Entities.CU_BanditSoldierSword1,
     [Entities.CU_BanditLeaderSword2] = Entities.CU_BanditSoldierSword2,

@@ -109,6 +109,8 @@ __Heldenfähigkeiten__
 - Ari:
   * Waldläufer (Armbrustschützen) wurden entfernt
   * Vogelfreie können nun mit Armbrustschützen mithalten
+- Kerberos:
+  * Aura der Furcht hat zusätzlich einen Paralyseeffekt
 - Marie:
   * 2 zusätzlich mögliche Knechte bei jedem Stufenaufstieg
 - Drake:
