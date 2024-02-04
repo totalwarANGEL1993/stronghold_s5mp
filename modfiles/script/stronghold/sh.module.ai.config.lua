@@ -60,7 +60,6 @@ Stronghold.AI.Config = {
         [Entities.PB_DogCage1] = true,
         [Entities.PB_PitchPit1] = true,
         [Entities.PB_Traphole1] = true,
-        [Entities.PB_Traphole1_Deco] = true,
         [Entities.PU_Bear_Deco] = true,
         [Entities.PU_Criminal_Deco] = true,
         [Entities.PU_Dog_Deco] = true,
