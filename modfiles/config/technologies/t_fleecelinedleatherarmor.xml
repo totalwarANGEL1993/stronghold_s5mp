@@ -13,10 +13,12 @@
     </ResourceCosts>
     <AutomaticResearch>false</AutomaticResearch>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
+
     <ArmorModifier>
         <Value>4</Value>
         <Operation>+</Operation>
     </ArmorModifier>
+    
     <Conditions>
         <TecCondition>
             <TecType>T_FleeceArmor</TecType>
