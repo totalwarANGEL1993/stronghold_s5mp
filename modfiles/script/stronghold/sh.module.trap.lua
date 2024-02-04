@@ -114,13 +114,13 @@ function Stronghold.Trap:OnTrapTriggered(_PlayerID, _TrapID)
     end
     local EntityType = Logic.GetEntityType(_TrapID);
     if EntityType == Entities.PB_BearCage1 then
-        self:OnBearTrapTriggered(_PlayerID, _TrapID);
+        self:OnBearCageTriggered(_PlayerID, _TrapID);
     elseif EntityType == Entities.PB_DogCage1 then
-        self:OnDogTrapTriggered(_PlayerID, _TrapID);
+        self:OnDogCageTriggered(_PlayerID, _TrapID);
     elseif EntityType == Entities.PB_Traphole1 then
-        self:OnPoleTrapTriggered(_PlayerID, _TrapID);
+        self:OnTrapholeTriggered(_PlayerID, _TrapID);
     elseif EntityType == Entities.PB_PitchPit1 then
-        self:OnPitchTrapTriggered(_PlayerID, _TrapID);
+        self:OnPitchpitTriggered(_PlayerID, _TrapID);
     end
 end
 
@@ -156,15 +156,6 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
         Logic.SetTaskList(AnimalID, TaskLists.TL_NPC_IDLE);
         MakeInvulnerable(AnimalID);
         Attachment = {1, AnimalID};
-    -- Create deco poles
-    elseif EntityType == Entities.PB_Traphole1 then
-        for Angle = 45, 360, 45 do
-            local Position = GetCirclePosition(_TrapID, 230, Angle);
-            local DecoID = Logic.CreateEntity(Entities.PB_Traphole1_Deco, Position.X, Position.Y, 0, _PlayerID);
-            self.Data.TrapDecoIDToTrapID[DecoID] = _TrapID;
-            table.insert(Attachment, DecoID);
-            Attachment[1] = Attachment[1] + 1;
-        end
     end
     if Attachment[1] ~= 0 and GuiPlayer ~= 17 and GuiPlayer ~= _PlayerID then
         for i= 2, Attachment[1] +1 do
@@ -177,7 +168,7 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
     self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment};
 end
 
-function Stronghold.Trap:OnBearTrapTriggered(_PlayerID, _TrapID)
+function Stronghold.Trap:OnBearCageTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local x,y,z = Logic.EntityGetPos(_TrapID);
         for i= 2, self.Data.Trap[_TrapID][3][1] +1 do
@@ -193,7 +184,7 @@ function Stronghold.Trap:OnBearTrapTriggered(_PlayerID, _TrapID)
     end
 end
 
-function Stronghold.Trap:OnDogTrapTriggered(_PlayerID, _TrapID)
+function Stronghold.Trap:OnDogCageTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local x,y,z = Logic.EntityGetPos(_TrapID);
         for i= 2, self.Data.Trap[_TrapID][3][1] +1 do
@@ -214,7 +205,7 @@ function Stronghold.Trap:OnDogTrapTriggered(_PlayerID, _TrapID)
     end
 end
 
-function Stronghold.Trap:OnPoleTrapTriggered(_PlayerID, _TrapID)
+function Stronghold.Trap:OnTrapholeTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local x,y,z = Logic.EntityGetPos(_TrapID);
         for i= 2, self.Data.Trap[_TrapID][3][1] +1 do
@@ -229,11 +220,11 @@ function Stronghold.Trap:OnPoleTrapTriggered(_PlayerID, _TrapID)
         -- Does crash for some reason...
         -- CEntity.DealDamageInArea(DamageDealerID, x, y, EffectArea, Damage);
         -- Workaround:
-        Logic.CreateEntity(Entities.XD_Bomb_PoleTrap, x, y, 0, GetVagabondPlayerID());
+        Logic.CreateEntity(Entities.XD_Bomb_Traphole, x, y, 0, _PlayerID);
     end
 end
 
-function Stronghold.Trap:OnPitchTrapTriggered(_PlayerID, _TrapID)
+function Stronghold.Trap:OnPitchpitTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local Duration = 30;
         local x, y, z = Logic.EntityGetPos(_TrapID);
@@ -285,12 +276,12 @@ function Stronghold.Trap:OnPitchTrapTriggered(_PlayerID, _TrapID)
             -- Does crash for some reason...
             -- CEntity.DealDamageInArea(_EntityID, _X, _Y, 300, 25);
             -- Workaround:
-            Logic.CreateEntity(Entities.XD_Bomb_PitchTrap, _X, _Y, 0, GetVagabondPlayerID());
+            Logic.CreateEntity(Entities.XD_Bomb_Pitchpit, _X, _Y, 0, _PlayerID);
 
             -- Ignite closeby
             local _, NearPitchID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_PitchPit1, _X, _Y, 800, 1);
             if NearPitchID and Logic.IsConstructionComplete(NearPitchID) == 1 then
-                self:OnPitchTrapTriggered(_PlayerID, NearPitchID);
+                self:OnPitchpitTriggered(_PlayerID, NearPitchID);
             end
         end, Logic.GetTime(), x, y, DamageDealerID);
     end

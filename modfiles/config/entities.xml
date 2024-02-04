@@ -1106,7 +1106,6 @@
         <Entity>PB_WallStraightGate</Entity>
         <Entity>PB_PitchPit1</Entity>
         <Entity>PB_Traphole1</Entity>
-        <Entity>PB_Traphole1_Deco</Entity>
 
         <!-- Landscape objects -->
         <Entity>XD_AmmunitionIron1</Entity>
