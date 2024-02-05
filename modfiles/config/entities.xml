@@ -1314,6 +1314,6 @@
 
         <!-- Misc -->
         <Entity>XD_Bomb_Hero2</Entity>
-        <Entity>XD_Bomb_PitchTrap</Entity>
-        <Entity>XD_Bomb_PoleTrap</Entity>
+        <Entity>XD_Bomb_PitchPit</Entity>
+        <Entity>XD_Bomb_Traphole</Entity>
 </root>

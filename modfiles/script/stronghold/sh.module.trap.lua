@@ -208,9 +208,10 @@ end
 function Stronghold.Trap:OnTrapholeTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local x,y,z = Logic.EntityGetPos(_TrapID);
-        for i= 2, self.Data.Trap[_TrapID][3][1] +1 do
-            local ID = ReplaceEntity(self.Data.Trap[_TrapID][3][i], Entities.XD_Traphole_Activated);
-            self.Data.TrapRemains[ID] = {5};
+        for Angle = 45, 360, 45 do
+            local Position = GetCirclePosition(_TrapID, 230, Angle);
+            local DecoID = Logic.CreateEntity(Entities.XD_Traphole_Activated, Position.X, Position.Y, 0, 0);
+            self.Data.TrapRemains[DecoID] = {5};
         end
         Sound.Play2DSound(Sounds.Military_SO_Bearman_rnd_1, 0, 127);
         local DamageDealerID = Logic.CreateEntity(Entities.XD_Traphole_Activated, x, y, 0, _PlayerID);

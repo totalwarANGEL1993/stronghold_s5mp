@@ -37,9 +37,9 @@
                 <Clay>0</Clay>
                 <Wood>0</Wood>
                 <Stone>0</Stone>
-                <Gold>250</Gold>
+                <Gold>150</Gold>
                 <Iron>0</Iron>
-                <Sulfur>350</Sulfur>
+                <Sulfur>200</Sulfur>
             </Cost>
             <BuilderSlot>
                 <Position>

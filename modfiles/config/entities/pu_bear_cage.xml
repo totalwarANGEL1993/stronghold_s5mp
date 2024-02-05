@@ -28,7 +28,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
+        <ArmorAmount>8</ArmorAmount>
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>50</ExperiencePoints>
@@ -93,7 +93,7 @@
             <HitAnim>XA_Bear_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>70</DamageAmount>
+            <DamageAmount>90</DamageAmount>
             <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
