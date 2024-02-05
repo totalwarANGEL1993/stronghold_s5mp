@@ -311,8 +311,8 @@ end
 
 function Tutorial_AddCastleInterfaceSection()
     local ArrowPos_RallyPoint = {675, 625};
-    local ArrowPos_Treasury = {671, 575};
-    local ArrowPos_Measure = {701, 575};
+    local ArrowPos_Treasury = {668, 575};
+    local ArrowPos_Measure = {698, 575};
     local ArrowPos_BuyNoble = {350, 700};
     local ArrowPos_Tax = {517, 692};
     local ArrowPos_Measures_Row = {522, 635};
@@ -524,27 +524,34 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_3",
+        Condition   = function(_Data)
+            local SerfAmount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PU_Serf);
+            return SerfAmount >= 18;
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/ExplainManage_4",
         Action      = function(_Data)
             local Position = GetPosition("ClayMinePointer");
             gvTutorial_ClayMinePointer = Logic.CreateEffect(GGL_Effects.FXTerrainPointer, Position.X, Position.Y, 0);
         end,
         Condition   = function(_Data)
-            local _, ID1 = Logic.GetEntities(Entities.PB_ClayMine1, 1);
-            local _, ID2 = Logic.GetEntities(Entities.PB_ClayMine2, 1);
-            local _, ID3 = Logic.GetEntities(Entities.PB_ClayMine3, 1);
+            local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_ClayMine1, 1);
+            local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_ClayMine2, 1);
+            local _, ID3 = Logic.GetPlayerEntities(1, Entities.PB_ClayMine3, 1);
             return (ID1 and Logic.IsConstructionComplete(ID1) == 1) or
                    (ID2 and Logic.IsConstructionComplete(ID2) == 1) or
                    (ID3 and Logic.IsConstructionComplete(ID3) == 1);
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_4",
+        Text        = "sh_tutorial/ExplainManage_5",
         Action      = function(_Data)
             Logic.DestroyEffect(gvTutorial_ClayMinePointer);
         end,
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_5",
+        Text        = "sh_tutorial/ExplainManage_6",
         Condition   = function(_Data)
             local NoFarm = Logic.GetNumberOfWorkerWithoutEatPlace(1);
             local NoHouse = Logic.GetNumberOfWorkerWithoutSleepPlace(1);
@@ -552,10 +559,10 @@ function Tutorial_AddProvisionSection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_6",
+        Text        = "sh_tutorial/ExplainManage_7",
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_7",
+        Text        = "sh_tutorial/ExplainManage_8",
         Condition   = function(_Data)
             local WorkerCount = Logic.GetNumberOfAttractedWorker(1);
             local Reputation = GetReputationIncome(1);
@@ -563,21 +570,16 @@ function Tutorial_AddProvisionSection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_8",
+        Text        = "sh_tutorial/ExplainManage_9",
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_9",
+        Text        = "sh_tutorial/ExplainManage_10",
         Action      = function(_Data)
             LockRank(1, 8);
         end,
         Condition   = function(_Data)
-            if GetRank(1) >= 1 then
-                return true;
-            end
+            return GetRank(1) >= 1;
         end
-    }
-    Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_10",
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_11",
@@ -590,43 +592,44 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_14",
+    }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/ExplainManage_15",
         Condition   = function(_Data)
-            local _, ID1 = Logic.GetEntities(Entities.PB_Monastery1, 1);
-            local _, ID2 = Logic.GetEntities(Entities.PB_Monastery2, 1);
-            local _, ID3 = Logic.GetEntities(Entities.PB_Monastery3, 1);
+            local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_Monastery1, 1);
+            local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_Monastery2, 1);
+            local _, ID3 = Logic.GetPlayerEntities(1, Entities.PB_Monastery3, 1);
             return (ID1 and Logic.IsConstructionComplete(ID1) == 1) or
                    (ID2 and Logic.IsConstructionComplete(ID2) == 1) or
                    (ID3 and Logic.IsConstructionComplete(ID3) == 1);
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_15",
-        Condition   = function(_Data)
-            if GetRank(1) >= 2 then
-                return true;
-            end
-        end
-    }
-    Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_16",
         Condition   = function(_Data)
-            local _, ID1 = Logic.GetEntities(Entities.PB_Headquarters2, 1);
-            local _, ID2 = Logic.GetEntities(Entities.PB_Headquarters3, 1);
-            return (ID1 and Logic.IsConstructionComplete(ID1) == 1) or
-                   (ID2 and Logic.IsConstructionComplete(ID2) == 1);
+            return GetRank(1) >= 2;
         end
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_17",
         Condition   = function(_Data)
-            local _, ID1 = Logic.GetEntities(Entities.PB_University1, 1);
-            local _, ID2 = Logic.GetEntities(Entities.PB_University2, 1);
+            local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_Headquarters2, 1);
+            local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_Headquarters3, 1);
             return (ID1 and Logic.IsConstructionComplete(ID1) == 1) or
                    (ID2 and Logic.IsConstructionComplete(ID2) == 1);
         end
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_18",
+        Condition   = function(_Data)
+            local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_University1, 1);
+            local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_University2, 1);
+            return (ID1 and Logic.IsConstructionComplete(ID1) == 1) or
+                   (ID2 and Logic.IsConstructionComplete(ID2) == 1);
+        end
+    }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/ExplainManage_19",
         Action      = function(_Data)
             local Position = GetPosition("P2AttackPath3");
             Tools.ExploreArea(Position.X, Position.Y, 10);
@@ -634,7 +637,7 @@ function Tutorial_AddProvisionSection()
         end,
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_19",
+        Text        = "sh_tutorial/ExplainManage_20",
     }
 end
 
@@ -642,8 +645,8 @@ function Tutorial_AddExplainBarracks()
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainRecruit_1",
         Condition   = function(_Data)
-            local _, ID1 = Logic.GetEntities(Entities.PB_Barracks1, 1);
-            local _, ID2 = Logic.GetEntities(Entities.PB_Barracks2, 1);
+            local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_Barracks1, 1);
+            local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_Barracks2, 1);
             return (ID1 and Logic.IsConstructionComplete(ID1) == 1) or
                    (ID2 and Logic.IsConstructionComplete(ID2) == 1);
         end
@@ -665,6 +668,9 @@ function Tutorial_AddExplainBarracks()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainRecruit_4",
+    }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/ExplainRecruit_5",
         Action      = function(_Data)
             ReplaceEntity("BridgeBarrier", Entities.XD_Rock7);
             DelinquentsCampActivateAttack(gvPlayer3Camp, true);

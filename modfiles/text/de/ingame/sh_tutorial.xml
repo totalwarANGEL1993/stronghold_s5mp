@@ -2,7 +2,7 @@
 <stringtable>
 <string id="ExplainInterface_1">TOM SIMPKINS: Es ist schön, Euch nach all den Jahren widerzusehen, Sire. Auch dieses Mal hat man mich auserkoren, Euch mit Rat und Tat zur Seite zu stehen. Hach, diese Erinnerungen an unsere ruhmreichen Schlachten gegen Lord Barkley...</string>
 <string id="ExplainInterface_2">TOM SIMPKINS: Doch ich fürchte, wir werden keine Zeit haben, in Erinnerungen zu schwelgen! Abermals sind finstere Schatten erschienen und bedrohen das Reich und seine Bewohner!</string>
-<string id="ExplainInterface_3">TOM SIMPKINS: Ich fürchte, es ist an Euch, die Schrecken abermals zu vertreiben. Aber Ihr seid etwas eingerostet was die Führung einer Burg betrifft.</string>
+<string id="ExplainInterface_3">TOM SIMPKINS: Wieder einmal ist es an Euch, die Schrecken zu vertreiben. Aber Ihr seid etwas eingerostet was die Führung einer Burg betrifft.</string>
 <string id="ExplainInterface_4">TOM SIMPKINS: Lasst mich Euch die neuen Elemente des Interfaces erklären.</string>
 <string id="ExplainInterface_5">TOM SIMPKINS: Diese Ansicht zeigt die sozialen Ressourcen. Mit ihnen erforscht Ihr Technologien, schaltet neue Ränge frei und macht Euer Volk zufrieden.</string>
 <string id="ExplainInterface_6">TOM SIMPKINS: {scarlet}Ehre{white} steht für Euer ansehen beim Adelsstand. Sie ist nötig, um Truppen auszubilden, den Adligen in einen höheren Stand zu erheben und viele andere Dinge. Prunkbauten, Ziergebäude und verschiedene Maßnahmen gereichen Euch an Ehre.</string>
@@ -51,28 +51,30 @@
 
 <string id="ExplainManage_1">TOM SIMPKINS: Es ist an der Zeit, dass ich Euch erkläre, wie Ihr Eure Burg zu führen habt.</string>
 <string id="ExplainManage_2">TOM SIMPKINS: Eure Gebäude werden noch immer von Knechten gebaut. Manche Gebäude sind an einen Titel gebunden. {scarlet} Ihr seht die Bedigungen im Tooltip. {white} Ebenso sind Technologien u.a. an den Titel gebunden.</string>
-<string id="ExplainManage_3">TOM SIMPKINS: Nicht weit von Euer Burg gibt es ein Lehmvorkommen. Beginnen wir damit, dass Ihr es abbaut. Baut eine Lehmgrube an der markierten Stelle!</string>
-<string id="ExplainManage_4">TOM SIMPKINS: Schaut, die Bergmänner kommen auf die Burg. Doch was ist das? Sie sind nicht zufrieden! Wenn das so weiter geht, werden sie sehr schnell wieder gehen! Macht nicht den Fehler den Pöbel zu unterschätzen!</string>
-<string id="ExplainManage_5">TOM SIMPKINS: Schnell, stellt ihnen Haus und Hof bereit! Wenn sie ihre Mägen füllen und ihre müden Knochen zur Ruhe betten können, sind sie zufriedener.</string>
-<string id="ExplainManage_6">TOM SIMPKINS: Das sieht schon besser aus! Allerdings wird dies noch nicht reichen. Ihr werdet schon mehr tun müssen. Ziergebäude bauen, Technologien erforschen.... Denkt an das, was ich Euch bereits beigebracht habe!</string>
-<string id="ExplainManage_7">TOM SIMPKINS: Versucht, die Abzüge auf die Beliebtheit am Zahltag auszugleichen und lockt insgesamt 15 Arbeiter (keine Knechte) an!</string>
-<string id="ExplainManage_8">TOM SIMPKINS: Die neuen Arbeiter spülen frisches Gold in Eurer Stadtsäckel. Fianzen, die Ihr bitter benötigen werdet, um Truppen auszuheben. Aber als herkömmlicher Adliger könnt Ihr nur Eure Knechte bewaffnen und Speerträger rekrutieren.</string>
-<string id="ExplainManage_9">TOM SIMPKINS: Erhebt Euren Adligen in den Rang eines Kastellan!</string>
-<string id="ExplainManage_10">TOM SIMPKINS: Jeder Rang bringt neue Rechte und Pflichten mit sich. as Volk wird ebenfalls immer schwieriger zufrieden zu stellen. {scarlet}Bald müsst Ihr Euch um die Strafverfolgung und Schädlingsbekämpfung kümmern!</string>
-<string id="ExplainManage_11">TOM SIMPKINS: Arbeiter werden {scarlet}das Gesetz brechen. {white}Verbrecher nicht zu fangen, {scarlet}ruiniert schnell Euer Ansehen! {white}Versucht sie schnell zu fangen. {scarlet} Lasst dazu bewaffnete Knechte Wache schieben oder baut Aussichtstürme!</string>
-<string id="ExplainManage_12">TOM SIMPKINS: Auch der Adlige kann Verbrecher fangen. {scarlet}Dazu müsst ihr den Adligen entsenden, diese kriminellen Elemente zu jagen.</string>
-<string id="ExplainManage_13">TOM SIMPKINS: Um Ratten zu beseitigen, {scarlet}müsst Ihr Eure Aussichtstürme zu Falknerturmen ausbauen.{white} Ein Falke ist in der Lage, ein großes Gebiet um den Turm sauber zu halten.</string>
-<string id="ExplainManage_14">TOM SIMPKINS: Als nächstes solltet Ihr eine Kapelle errichten. Sie gewährt Euch sofort zusätzliche Beliebtheit und Ihr könnt zusätzlich Eure Arbeiter segnen.</string>
-<string id="ExplainManage_15">TOM SIMPKINS: Erhebt Euren Adligen nun in den nächsthöheren Stand.</string>
-<string id="ExplainManage_16">TOM SIMPKINS: Hochwohlgeboren, wenn wir so weiter machen, haben wir bald keinen Platz für weitere Untertanen. Ihr solltet als nächstes die Burg ausbauen!</string>
-<string id="ExplainManage_17">TOM SIMPKINS: Baut nun eine Hochschule. Wie ich Euch zuvor bereits erklärte, produzieren Gelehrte essentielles Wissen, ohne das Ihr nicht forschen könnt!</string>
-<string id="ExplainManage_18">TOM SIMPKINS: Habt Ihr bemerkt, dass hier eine gute Stelle für Befestigungsanlagen, wie Palisaden oder Mauern ist? {scarlet}Palisaden und Mauern können ausschließlich auf diesen Bauplätzen errichtet werden.{white} Das solltet Ihr im Hinterkopf behalten.</string>
-<string id="ExplainManage_19">TOM SIMPKINS: Hervorragend! Nun sollten die wichtigsten Gebäude vorhanden sein, damit Eure Wirtschaft durchstarten kann. Aber vergesst nicht weitere Gebäude zu bauen und Euren Adligen weiter zu befördern.</string>
+<string id="ExplainManage_3">TOM SIMPKINS: Kauf weitere Knechte, bis Ihr mindestens 18 von ihnen habt! Weist ihnen Aufgaben zu, die Ihr für richtig haltet.</string>
+<string id="ExplainManage_4">TOM SIMPKINS: Nicht weit von Euer Burg gibt es ein Lehmvorkommen. Beginnen wir damit, dass Ihr es abbaut. Baut eine Lehmgrube an der markierten Stelle!</string>
+<string id="ExplainManage_5">TOM SIMPKINS: Schaut, die Bergmänner kommen auf die Burg. Doch was ist das? Sie sind nicht zufrieden! Wenn das so weiter geht, werden sie sehr schnell wieder gehen! Macht nicht den Fehler den Pöbel zu unterschätzen!</string>
+<string id="ExplainManage_6">TOM SIMPKINS: Schnell, stellt ihnen Haus und Hof bereit! Wenn sie ihre Mägen füllen und ihre müden Knochen zur Ruhe betten können, sind sie zufriedener.</string>
+<string id="ExplainManage_7">TOM SIMPKINS: Das sieht schon besser aus! Allerdings wird dies noch nicht reichen. Ihr werdet schon mehr tun müssen. Ziergebäude bauen, Technologien erforschen.... Denkt an das, was ich Euch bereits beigebracht habe!</string>
+<string id="ExplainManage_8">TOM SIMPKINS: Versucht, die Abzüge auf die Beliebtheit am Zahltag auszugleichen und lockt insgesamt 15 Arbeiter (keine Knechte) an!</string>
+<string id="ExplainManage_9">TOM SIMPKINS: Die neuen Arbeiter spülen frisches Gold in Eurer Stadtsäckel. Fianzen, die Ihr bitter benötigen werdet, um Truppen auszuheben. Aber als herkömmlicher Adliger könnt Ihr nur Eure Knechte bewaffnen und Speerträger rekrutieren.</string>
+<string id="ExplainManage_10">TOM SIMPKINS: Erhebt Euren Adligen in den Rang eines Kastellan!</string>
+<string id="ExplainManage_11">TOM SIMPKINS: Jeder Rang bringt neue Rechte und Pflichten mit sich. as Volk wird ebenfalls immer schwieriger zufrieden zu stellen. {scarlet}Bald müsst Ihr Euch um die Strafverfolgung und Schädlingsbekämpfung kümmern!</string>
+<string id="ExplainManage_12">TOM SIMPKINS: Arbeiter werden {scarlet}das Gesetz brechen. {white}Verbrecher nicht zu fangen, {scarlet}ruiniert schnell Euer Ansehen! {white}Versucht sie schnell zu fangen. {scarlet} Lasst dazu bewaffnete Knechte Wache schieben oder baut Aussichtstürme!</string>
+<string id="ExplainManage_13">TOM SIMPKINS: Auch der Adlige kann Verbrecher fangen. {scarlet}Dazu müsst ihr den Adligen entsenden, diese kriminellen Elemente zu jagen.</string>
+<string id="ExplainManage_14">TOM SIMPKINS: Um Ratten zu beseitigen, {scarlet}müsst Ihr Eure Aussichtstürme zu Falknerturmen ausbauen.{white} Ein Falke ist in der Lage, ein großes Gebiet um den Turm sauber zu halten.</string>
+<string id="ExplainManage_15">TOM SIMPKINS: Als nächstes solltet Ihr eine Kapelle errichten. Sie gewährt Euch sofort zusätzliche Beliebtheit und Ihr könnt zusätzlich Eure Arbeiter segnen.</string>
+<string id="ExplainManage_16">TOM SIMPKINS: Erhebt Euren Adligen nun in den nächsthöheren Stand.</string>
+<string id="ExplainManage_17">TOM SIMPKINS: Hochwohlgeboren, wenn wir so weiter machen, haben wir bald keinen Platz für weitere Untertanen. Ihr solltet als nächstes die Burg ausbauen!</string>
+<string id="ExplainManage_18">TOM SIMPKINS: Baut nun eine Hochschule. Wie ich Euch zuvor bereits erklärte, produzieren Gelehrte essentielles Wissen, ohne das Ihr nicht forschen könnt!</string>
+<string id="ExplainManage_19">TOM SIMPKINS: Habt Ihr bemerkt, dass hier eine gute Stelle für Befestigungsanlagen wie Palisaden oder Mauern ist? {scarlet}Palisaden und Mauern können ausschließlich auf diesen Bauplätzen errichtet werden.{white} Das solltet Ihr im Hinterkopf behalten.</string>
+<string id="ExplainManage_20">TOM SIMPKINS: Hervorragend! Nun sollten die wichtigsten Gebäude vorhanden sein, damit Eure Wirtschaft durchstarten kann. Aber vergesst nicht weitere Gebäude zu bauen und Euren Adligen weiter zu befördern.</string>
 
-<string id="ExplainRecruit_1">TOM SIMPKINS: Soldaten werden in Barracken und ähnlichen Gebäuden angeworben. Errichtet eine Kaserne!</string>
+<string id="ExplainRecruit_1">TOM SIMPKINS: Soldaten werden in Kasernen und ähnlichen Gebäuden angeworben. Errichtet eine Kaserne, damit Ihr Eure ersten eigenen Truppen ausstatten könnt!</string>
 <string id="ExplainRecruit_2">TOM SIMPKINS: Wundervoll! Durch die Kaserne seid Ihrnun in der Position, Eure ersten Truppen auszurüsten. Sie sind schwach aber billig und können in Massen in die Schlacht geworfen werden.</string>
 <string id="ExplainRecruit_3">TOM SIMPKINS: Rekrutiert 3 Gruppen Soldaten!</string>
-<string id="ExplainRecruit_4">TOM SIMPKINS: Ihr werdet Eure neuen Truppen schon bald brauchen. {scarlet}Die Wegelagerer haben von uns Notiz genommen und planen einen Angriff auf Eure Burg! {white}Die Gelegenheit, das Erlernte anzuwenden!</string>
+<string id="ExplainRecruit_4">TOM SIMPKINS: Da Ihr nun ein Rekrutierungsgebäude besitzt, {scarlet}könnt Ihr ein Soldnerlager errichten. {white}Das Söldnerlager ermöglicht Euch, {scarlet}die Spezialeinheiten anderer Burgherren gegen einen Aufpreis anzuheuern.{white} Ihr müsst allerdings noch immer die Rekrutierungsbedingungen erfüllen.</string>
+<string id="ExplainRecruit_5">TOM SIMPKINS: Ihr werdet Eure neuen Truppen schon bald brauchen. {scarlet}Die Wegelagerer haben von uns Notiz genommen und planen einen Angriff auf Eure Burg! {white}Die Gelegenheit, das Erlernte anzuwenden!</string>
 
 <string id="ExplainProvince_1">TOM SIMPKINS: Schaut, eine Provinz! Wenn Ihr hier eine Landwehr errichtet, sichert Euch dies die Hoheit über die Provinz. {scarlet}Provinzen erhöhen Eure maximale Heeresstärke und gewähren Euch verschiedene Bonuseffekte. {white}Versucht sie Euch also schnell zu sichern.</string>
 <string id="ExplainProvince_2">TOM SIMPKINS: Nehmt die Provinz ein, um zu erfahren, welchen Bonus sie für Euch bereit hält!</string>
