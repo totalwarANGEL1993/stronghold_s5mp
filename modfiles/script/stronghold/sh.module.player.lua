@@ -412,10 +412,7 @@ function Stronghold.Player:InitalizePlayerWithHeadquarters(_PlayerID, _Serfs, _H
 
     self:InitalizePlayersHeadquarter(_PlayerID);
     self:InitalizePlayersSerfs(_PlayerID, _Serfs);
-
-    -- Set rank
     SetRank(_PlayerID, self.Config.Base.InitialRank);
-
     Logic.PlayerSetGameStateToPlaying(_PlayerID);
     self:InitalizeAiPlayer(_PlayerID, _HeroType);
 
@@ -468,11 +465,12 @@ function Stronghold.Player:InitalizePlayersHeadquarter(_PlayerID)
     local ID, DoorPos;
     if not IsExisting(DoorPosName) then
         DoorPos = GetCirclePosition(HQName, 800, 180);
-        if (Orientation >= 45 and Orientation <= 135) then
-            DoorPos.X = DoorPos.X + 150;
+        if (Orientation >= 0 and Orientation <= 45)
+        or  Orientation >= 315 then
+            DoorPos.Y = DoorPos.Y - 190;
         end
-        if (Orientation >= 225 and Orientation <= 315) then
-            DoorPos.X = DoorPos.X - 150;
+        if (Orientation >= 135 and Orientation <= 225) then
+            DoorPos.Y = DoorPos.Y + 190;
         end
         ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
         WriteEntityCreatedToLog(0, ID, Logic.GetEntityType(ID));
@@ -493,9 +491,11 @@ function Stronghold.Player:InitalizePlayersHeadquarter(_PlayerID)
     -- Create camp
     ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, CampPos.X, CampPos.Y, 0, 0);
     WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-    Logic.SetModelAndAnimSet(ID, Models.XD_LargeCampFire);
-    SVLib.SetInvisibility(ID, false);
     Logic.SetEntityName(ID, CampName);
+    if Logic.IsEntityInCategory(CastleID, EntityCategories.Headquarters) == 1 then
+        Logic.SetModelAndAnimSet(ID, Models.XD_LargeCampFire);
+        SVLib.SetInvisibility(ID, false);
+    end
 
     -- Create turrets
     Stronghold.Building:CreateTurretsForBuilding(CastleID);
@@ -519,7 +519,9 @@ function Stronghold.Player:InitalizePlayersSerfs(_PlayerID, _Serfs, _CampPos, _L
         local SerfPos = GetCirclePosition(CampPos, 250, (360/SerfCount) * i);
         ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
         WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
-        LookAt(ID, CampName);
+        if IsExisting(CampName) then
+            LookAt(ID, CampName);
+        end
     end
 end
 
