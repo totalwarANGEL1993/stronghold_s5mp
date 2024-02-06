@@ -89,9 +89,10 @@ SHS5MP_RulesDefinition = {
         LockPlayerRight(1, PlayerRight.ArchitectShop);
         LockPlayerRight(1, PlayerRight.PowerPlant);
 
+        gvTutorial_Skip = false;
         BriefingTutorialIntro();
         Tutorial_OverwriteCallbacks();
-        Tutorial_CreateProvince()
+        Tutorial_CreateProvince();
 
         CreatePlayer2();
         CreatePlayer3();
@@ -816,6 +817,29 @@ function Tutorial_CheckVictory()
     end
 end
 
+function Tutorial_SkipExplainations()
+    -- Prepare player 1
+    for k,v in pairs(GetPlayerEntities(1, Entities.PU_Serf)) do
+        Logic.ResumeEntity(v);
+    end
+    DestroyEntity("Scout");
+    ChangePlayer("HQ1", 1);
+    LockRank(1, 8);
+    UnlockPlayerRight(1, PlayerRight.Scout);
+    UnlockPlayerRight(1, PlayerRight.Thief);
+    Tools.GiveResouces(1, 5000, 4000, 2500, 3000, 3000, 3000);
+    AddHonor(1, 1000);
+    -- Delete player 3
+    for k,v in pairs(GetPlayerEntities(3, 0)) do
+        DestroyEntity(v);
+    end
+    -- Start post tutorial content
+    ReplaceEntity("BridgeBarrier", Entities.XD_Rock7);
+    ReplaceEntity("GateDude", Entities.CU_PoleArmIdle);
+    BriefingGuardian1Npc();
+    Job.Second(Tutorial_CheckVictory);
+end
+
 -- ########################################################################## --
 -- #                                ENEMY                                   # --
 -- ########################################################################## --
@@ -1050,6 +1074,10 @@ function BriefingTutorialIntro()
         Distance    = 7000,
         Height      = 0,
         Angle       = 8,
+        Action      = function()
+            -- TODO: Needs a proper function to do that for AI players!
+            SVLib.SetInvisibility(GetID("CampP2"), true);
+        end
     }
     AP {
         Text        = "map_sh_tutorial/BriefingTutorialIntro_4_Text",
@@ -1094,7 +1122,11 @@ function BriefingTutorialIntro()
         for k,v in pairs(GetPlayerEntities(1, Entities.PU_Serf)) do
             Logic.SuspendEntity(v);
         end
-        Tutorial_StartPart1();
+        if gvTutorial_Skip then
+            Tutorial_SkipExplainations();
+        else
+            Tutorial_StartPart1();
+        end
     end
     BriefingSystem.Start(1, "BriefingTutorialIntro", Briefing);
 end
