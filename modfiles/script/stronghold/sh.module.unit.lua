@@ -9,7 +9,6 @@
 Stronghold = Stronghold or {};
 
 Stronghold.Unit = {
-    SyncEvents = {},
     Data = {},
     Config = {},
 }
@@ -18,44 +17,11 @@ function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
     end
-    self:CreateUnitButtonHandlers();
     self:StartSerfHealingJob();
     self:OverwriteScoutFindResources();
 end
 
 function Stronghold.Unit:OnSaveGameLoaded()
-end
-
-function Stronghold.Unit:CreateUnitButtonHandlers()
-    self.SyncEvents = {
-        BuySoldier = 1,
-        BuySoldiers = 2,
-    };
-
-    self.NetworkCall = Syncer.CreateEvent(
-        function(_PlayerID, _Action, ...)
-            WriteSyncCallToLog("Unit", _Action, _PlayerID, unpack(arg));
-
-            if _Action == Stronghold.Unit.SyncEvents.BuySoldier then
-                Stronghold.Unit:BuySoldierActionCallback(_PlayerID, arg[3], arg[1], arg[2]);
-                Stronghold.Unit:FillHeroGuard(_PlayerID, arg[3], arg[2]);
-            elseif _Action == Stronghold.Unit.SyncEvents.BuySoldiers then
-                Stronghold.Unit:BuyMultipleSoldierActionCallback(_PlayerID, unpack(arg));
-            end
-        end
-    );
-end
-
-function Stronghold.Unit:FillHeroGuard(_PlayerID, _EntityID, _SoldierAmount)
-    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
-        return;
-    end
-    local Type = Logic.GetEntityType(_EntityID);
-    if _SoldierAmount > 0 and Type == Entities.CU_BlackKnight then
-        local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, Type, _SoldierAmount);
-        RemoveResourcesFromPlayer(_PlayerID, Costs);
-        Tools.CreateSoldiersForLeader(_EntityID, _SoldierAmount);
-    end
 end
 
 function Stronghold.Unit:OnEntityCreated(_EntityID)
@@ -237,88 +203,11 @@ end
 -- -------------------------------------------------------------------------- --
 -- Buy soldiers
 
-function Stronghold.Unit:BuySoldierActionCallback(_PlayerID, _EntityID, _LeaderType, _SoldierAmount)
-    if Logic.EntityGetPlayer(_EntityID) ~= _PlayerID then
-        return;
-    end
-    -- Abort if barracks is being upgraded
-    if IsBuildingBeingUpgraded(Logic.LeaderGetNearbyBarracks(_EntityID)) then
-        return;
-    end
-    -- Buy soldiers for leader if possible
-    local Costs = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, _LeaderType, 1);
-    local MilitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
-    local MilitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
-    local RequiredPlaces = GetMilitaryPlacesUsedByUnit(_PlayerID, _LeaderType, 1);
-    local UnitsToBuy = math.floor(math.max(MilitaryLimit - MilitaryUsage, 0) / RequiredPlaces);
-    for i= 1, _SoldierAmount do
-        if UnitsToBuy > 0 then
-            if  HasEnoughResources(_PlayerID, Costs)
-            and HasPlayerSpaceForUnits(_PlayerID, RequiredPlaces)
-            and _LeaderType ~= Entities.CU_BlackKnight then
-                if GUI.GetPlayerID() == _PlayerID then
-                    GUI.BuySoldier(_EntityID);
-                end
-                UnitsToBuy = UnitsToBuy - 1;
-            end
-        end
-    end
-end
-
-function Stronghold.Unit:BuyMultipleSoldierActionCallback(_PlayerID, ...)
-    if Logic.EntityGetPlayer(arg[1]) ~= _PlayerID then
-        return;
-    end
-    local RefillData = {};
-    -- Get all troops to refill
-    local MilitaryLimit = GetMilitaryAttractionLimit(_PlayerID);
-    local MilitaryUsage = GetMilitaryAttractionUsage(_PlayerID);
-    local PlacesLeft = math.max(MilitaryLimit - MilitaryUsage, 0);
-    for _,EntityID in pairs(arg) do
-        local BarracksID = Logic.LeaderGetNearbyBarracks(EntityID);
-        if  IsExisting(BarracksID) and not IsBuildingBeingUpgraded(BarracksID)
-        and PlacesLeft > 0 then
-            local LeaderType = Logic.GetEntityType(EntityID);
-            local RequiredPlaces = GetMilitaryPlacesUsedByUnit(_PlayerID, LeaderType, 1);
-            local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(EntityID);
-            local CurSoldiers = Logic.LeaderGetNumberOfSoldiers(EntityID);
-            local SoldiersToBuy = 0;
-            for i= 1, (MaxSoldiers - CurSoldiers) do
-                if PlacesLeft >= RequiredPlaces then
-                    PlacesLeft = PlacesLeft - RequiredPlaces;
-                    SoldiersToBuy = SoldiersToBuy + 1;
-                end
-            end
-            if SoldiersToBuy > 0 then
-                table.insert(RefillData, {EntityID, LeaderType, SoldiersToBuy});
-            end
-        end
-    end
-    -- Pay costs and refill
-    for i= 1, table.getn(RefillData) do
-        local EntityID = RefillData[i][1];
-        local LeaderType = RefillData[i][2];
-        local Soldiers = RefillData[i][3];
-        local SoldierCosts = Stronghold.Recruit:GetSoldierCostsByLeaderType(_PlayerID, LeaderType, 1);
-        for j= 1, Soldiers do
-            if HasEnoughResources(_PlayerID, SoldierCosts) then
-                if LeaderType ~= Entities.CU_BlackKnight then
-                    if GUI.GetPlayerID() == _PlayerID then
-                        GUI.BuySoldier(EntityID);
-                    end
-                else
-                    Tools.CreateSoldiersForLeader(EntityID, 1);
-                end
-            end
-        end
-    end
-end
-
 function Stronghold.Unit:BuySoldierButtonAction()
     -- Check modifier pressed
     local SelectedLeader = {GUI.GetSelectedEntities()};
     if  XGUIEng.IsModifierPressed(Keys.ModifierControl)== 1
-    and table.getn(SelectedLeader) > 1 then
+    and table.getn(SelectedLeader) > 0 then
         return Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders();
     end
     -- Check player
@@ -366,14 +255,8 @@ function Stronghold.Unit:BuySoldierButtonAction()
     if InterfaceTool_HasPlayerEnoughResources_Feedback(Costs) == 0 then
         return true;
     end
-    -- Send event
-    Syncer.InvokeEvent(
-        Stronghold.Unit.NetworkCall,
-        Stronghold.Unit.SyncEvents.BuySoldier,
-        Type,
-        BuyAmount,
-        EntityID
-    );
+    -- Buy soldier
+    GUI.BuySoldier(EntityID);
     return true;
 end
 
@@ -480,17 +363,17 @@ function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
             local CurrentSoldiers = Logic.LeaderGetNumberOfSoldiers(SelectedLeader[i]);
             local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(SelectedLeader[i]);
             if CurrentSoldiers < MaxSoldiers then
-                table.insert(LeaderToRefill, SelectedLeader[i]);
+                table.insert(LeaderToRefill, {SelectedLeader[i], MaxSoldiers - CurrentSoldiers});
             end
         end
     end
     -- Send event
-    if table.getn(LeaderToRefill) > 0 then
-        Syncer.InvokeEvent(
-            Stronghold.Unit.NetworkCall,
-            Stronghold.Unit.SyncEvents.BuySoldiers,
-            unpack(LeaderToRefill)
-        );
+    for i= 1, table.getn(LeaderToRefill) do
+        local LeaderID = LeaderToRefill[i][1];
+        local Amount = LeaderToRefill[i][2];
+        for j= 1, Amount do
+            GUI.BuySoldier(LeaderID);
+        end
     end
     return true;
 end

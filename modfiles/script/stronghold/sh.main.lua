@@ -427,7 +427,6 @@ function Stronghold:StartTriggers()
         Stronghold.Economy:OnEntityCreated(EntityID);
         Stronghold.Hero:OnEntityCreated(EntityID);
         Stronghold.Unit:OnEntityCreated(EntityID);
-        Stronghold.Recruit:OnEntityCreated(EntityID);
         Stronghold.Wall:OnEntityCreated(EntityID);
     end);
 

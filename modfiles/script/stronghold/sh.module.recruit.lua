@@ -39,7 +39,6 @@ end
 -- Main
 
 Stronghold.Recruit = Stronghold.Recruit or {
-    SyncEvents = {},
     Data = {},
     Config = {},
 };
@@ -55,7 +54,6 @@ function Stronghold.Recruit:Install()
         };
         self:InitDefaultRoster(i);
     end
-    self:CreateBuildingButtonHandlers();
     self:InitAutoFillButtons();
     self:OverwriteBuySerfAction();
     self:OverrideCalculateMilitaryUsage();
@@ -64,42 +62,9 @@ end
 function Stronghold.Recruit:OnSaveGameLoaded()
 end
 
-function Stronghold.Recruit:CreateBuildingButtonHandlers()
-    self.SyncEvents = {
-        BuyCannon = 1,
-        BuyLeader = 2,
-        BuySerf = 3,
-    };
-    self.NetworkCall = Syncer.CreateEvent(
-        function(_PlayerID, _Action, ...)
-            WriteSyncCallToLog("Recruit", _Action, _PlayerID, unpack(arg));
-
-            if _Action == Stronghold.Recruit.SyncEvents.BuyCannon then
-                Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
-            elseif _Action == Stronghold.Recruit.SyncEvents.BuyLeader then
-                Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
-            elseif _Action == Stronghold.Recruit.SyncEvents.BuySerf then
-                Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, arg[3], arg[1], arg[2]);
-            end
-        end
-    );
-end
-
-function Stronghold.Recruit:OnEntityCreated(_EntityID)
-    -- Recruit units
-    self:UnitRecruiterController(_EntityID);
-end
-
 function Stronghold.Recruit:OnEveryTurn(_PlayerID)
-    -- Buy leader queue
-    self:RecruitCommandController(_PlayerID);
     -- Cannon progress
     self:ControlCannonProducers(_PlayerID);
-end
-
-function Stronghold.Recruit:PaySoldiers(_PlayerID, _Type, _SoldierAmount)
-    local Costs = self:GetSoldierCostsByLeaderType(_PlayerID, _Type, _SoldierAmount);
-    RemoveResourcesFromPlayer(_PlayerID, Costs);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -244,37 +209,16 @@ function Stronghold.Recruit:BuyUnitAction(_Index, _WidgetID, _PlayerID, _EntityI
     if not self:CanBuildingProduceUnit(_PlayerID, _EntityID, _EntityType, true) then
         return false;
     end
-    -- Send buy serf event
     if _UpgradeCategory == UpgradeCategories.Serf then
-        Syncer.InvokeEvent(
-            self.NetworkCall,
-            self.SyncEvents.BuySerf,
-            _EntityType,
-            _UpgradeCategory,
-            _EntityID
-        );
-    -- Send buy cannon event
+        GUI.BuySerf(_EntityID);
     elseif Logic.IsEntityTypeInCategory(_EntityType, EntityCategories.Cannon) == 1 then
         if not self.Data[_PlayerID].ForgeRegister[_EntityID] then
             XGUIEng.ShowWidget(gvGUI_WidgetID.CannonInProgress, 1);
             self:RegisterCannonOrder(_PlayerID, _EntityID, _EntityType);
-            Syncer.InvokeEvent(
-                self.NetworkCall,
-                self.SyncEvents.BuyCannon,
-                _EntityType,
-                _UpgradeCategory,
-                _EntityID
-            );
+            GUI.BuyCannon(_EntityID, _EntityType);
         end
-    -- Send buy leader event
     else
-        Syncer.InvokeEvent(
-            self.NetworkCall,
-            self.SyncEvents.BuyLeader,
-            _EntityType,
-            _UpgradeCategory,
-            _EntityID
-        );
+        GUI.BuyLeader(_EntityID, _UpgradeCategory);
     end
     return true;
 end
@@ -926,72 +870,5 @@ function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
         end
     end
     return Places;
-end
-
--- -------------------------------------------------------------------------- --
--- Recruit military
-
-function Stronghold.Recruit:UnitRecruiterController(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if IsPlayer(PlayerID) then
-        -- Add training leader
-        if Logic.IsLeader(_EntityID) == 1 then
-            local Experience = Stronghold.Hero:ApplyExperiencePassiveAbility(PlayerID, _EntityID, 0);
-            local CurrentExperience = CEntity.GetLeaderExperience(_EntityID);
-            if Experience > 0 and Experience > CurrentExperience then
-                CEntity.SetLeaderExperience(_EntityID, Experience);
-            end
-            self.Data[PlayerID].TrainingLeaders[_EntityID] = 0;
-        end
-        -- Scale units
-        if Logic.GetEntityType(_EntityID) == Entities.PV_Cannon7 then
-            SVLib.SetEntitySize(_EntityID, 1.35);
-        end
-        if Logic.GetEntityType(_EntityID) == Entities.PV_Cannon8 then
-            SVLib.SetEntitySize(_EntityID, 0.65);
-        end
-    end
-end
-
-function Stronghold.Recruit:RegisterRecruitCommand(_PlayerID, _BuildingID, _EntityType, _UpgradeCategory)
-    if IsPlayer(_PlayerID) then
-        if Logic.EntityGetPlayer(_BuildingID) == _PlayerID then
-            table.insert(self.Data[_PlayerID].RecruitCommands, {
-                _BuildingID,
-                _EntityType,
-                _UpgradeCategory
-            });
-        end
-    end
-end
-
-function Stronghold.Recruit:RecruitCommandController(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        --- @diagnostic disable-next-line: undefined-field
-        if math.mod(Logic.GetCurrentTurn(), 5) == 0 then
-            while self.Data[_PlayerID].RecruitCommands[1] do
-                local Command = table.remove(self.Data[_PlayerID].RecruitCommands, 1);
-                if self:CanBuildingProduceUnit(_PlayerID, Command[1], Command[2], false) then
-                    -- Buy serf
-                    if Command[3] == UpgradeCategories.Serf then
-                        if GUI.GetPlayerID() == _PlayerID then
-                            GUI.BuySerf(Command[1]);
-                        end
-                    -- Buy cannon
-                    elseif Logic.IsEntityTypeInCategory(Command[2], EntityCategories.Cannon) == 1 then
-                        if GUI.GetPlayerID() == _PlayerID then
-                            GUI.BuyCannon(Command[1], Command[2]);
-                        end
-                    -- Buy leader
-                    else
-                        if GUI.GetPlayerID() == _PlayerID then
-                            GUI.BuyLeader(Command[1], Command[3]);
-                        end
-                    end
-                    break;
-                end
-            end
-        end
-    end
 end
 

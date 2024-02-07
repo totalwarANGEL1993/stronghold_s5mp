@@ -61,7 +61,6 @@ end
 function Stronghold.Mercenary:CreateBuildingButtonHandlers()
     self.SyncEvents = {
         BuyMercenary = 1,
-        BuySoldier = 1,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
