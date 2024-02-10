@@ -38,7 +38,7 @@ PlayerRight = {
     -- Measures
     MeasureLevyTax = 100,
     MeasureLawAndOrder = 101,
-    FoodDistribution = 102,
+    MeasureFoodDistribution = 102,
     MeasureFolkloreFeast = 103,
     MeasureOrgy = 104,
 

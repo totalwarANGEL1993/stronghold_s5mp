@@ -30,7 +30,7 @@ Stronghold.Rights.Config = {
                 -- DO NOT MOVE THIS!!! --
                 PlayerRight.MeasureLevyTax,
                 PlayerRight.MeasureLawAndOrder,
-                PlayerRight.FoodDistribution,
+                PlayerRight.MeasureFoodDistribution,
                 PlayerRight.MeasureFolkloreFeast,
                 PlayerRight.MeasureOrgy,
                 PlayerRight.House,

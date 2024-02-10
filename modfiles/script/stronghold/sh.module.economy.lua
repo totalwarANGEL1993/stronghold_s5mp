@@ -16,25 +16,25 @@ Stronghold.Economy = {
 -- -------------------------------------------------------------------------- --
 -- API
 
---- Gives Measure points to the player.
+--- Gives influence points to the player.
 --- @param _PlayerID integer ID of player
---- @param _Amount integer Measure points
-function AddPlayerMeasure(_PlayerID, _Amount)
-    Stronghold.Economy:AddPlayerMeasurePoints(_PlayerID, _Amount)
+--- @param _Amount integer influence points
+function AddPlayerInfluence(_PlayerID, _Amount)
+    Stronghold.Economy:AddPlayerInfluencePoints(_PlayerID, _Amount)
 end
 
---- Returns the Measure points of the player.
+--- Returns the influence points of the player.
 --- @param _PlayerID integer ID of player
---- @return integer Amount Measure points
-function GetPlayerMeasure(_PlayerID)
-    return Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID);
+--- @return integer Amount influence points
+function GetPlayerInfluence(_PlayerID)
+    return Stronghold.Economy:GetPlayerInfluencePoints(_PlayerID);
 end
 
---- Returns the max Measure points of the player.
+--- Returns the max influence points of the player.
 --- @param _PlayerID integer ID of player
---- @return integer Amount Max measure points
-function GetPlayerMaxMeasurePoints(_PlayerID)
-    return Stronghold.Economy:GetPlayerMeasurePointsPointsLimit(_PlayerID);
+--- @return integer Amount Max influence points
+function GetPlayerMaxInfluencePoints(_PlayerID)
+    return Stronghold.Economy:GetPlayerInfluencePointsPointsLimit(_PlayerID);
 end
 
 --- Gives knowledge to the player.
@@ -247,7 +247,7 @@ end
 --- @param _PlayerID integer ID of player
 --- @param _Amount integer Amount of influence
 --- @return integer Amount Amount of influence
-function GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_InfluenceIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
@@ -267,7 +267,7 @@ function Stronghold.Economy:Install()
         CUtil.AddToPlayersMotivationSoftcap(i, 1);
 
         self.Data[i] = {
-            MeasurePoints = 0,
+            InfluencePoints = 0,
             KnowledgePoints = 0,
 
             IncomeMoney = 0,
@@ -323,8 +323,8 @@ function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
 end
 
 function Stronghold.Economy:OncePerSecond(_PlayerID)
-    -- Measure
-    self:GainMeasurePoints(_PlayerID);
+    -- Influence
+    self:GainInfluencePoints(_PlayerID);
     -- Knowledge
     self:GainKnowledgePoints(_PlayerID);
     -- Reputation
@@ -536,7 +536,6 @@ end
 -- Reputation can only decrease if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Decrease = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             -- Tax height
@@ -545,16 +544,19 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
                 GetTaxHeight(_PlayerID)
             );
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = TaxPenalty;
-            Decrease = TaxPenalty;
 
-            -- Care for the settlers
+            -- Penalty for no food
             local NoFarm = Logic.GetNumberOfWorkerWithoutEatPlace(_PlayerID);
-            local NoFarmPenalty = 15 * ((1.0080 ^ NoFarm) -1);
-            self.Data[_PlayerID].ReputationDetails.Hunger = NoFarmPenalty;
+            local HunFact = self.Config.Income.HungerFactor;
+            local HunMult = self.Config.Income.HungerMultiplier;
+            local HungerPenalty = HunMult * ((HunFact ^ NoFarm) -1);
+            self.Data[_PlayerID].ReputationDetails.Hunger = HungerPenalty;
+            -- Penalty for no house
             local NoHouse = Logic.GetNumberOfWorkerWithoutSleepPlace(_PlayerID);
-            local NoHousePenalty = 10 * ((1.0075 ^ NoHouse) -1);
-            self.Data[_PlayerID].ReputationDetails.Homelessness = NoHousePenalty;
-            Decrease = Decrease + NoFarmPenalty + NoHousePenalty;
+            local InsFact = self.Config.Income.InsomniaFactor;
+            local InsMult = self.Config.Income.InsomniaMultiplier;
+            local SleepPenalty = InsMult * ((InsFact ^ NoHouse) -1);
+            self.Data[_PlayerID].ReputationDetails.Homelessness = SleepPenalty;
         else
             -- Reset all caches
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = 0;
@@ -766,31 +768,31 @@ function Stronghold.Economy:AddOneTimeReputation(_PlayerID, _Amount)
 end
 
 -- -------------------------------------------------------------------------- --
--- Measure Points
+-- Influence Points
 
-function Stronghold.Economy:AddPlayerMeasurePoints(_PlayerID, _Amount)
+function Stronghold.Economy:AddPlayerInfluencePoints(_PlayerID, _Amount)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local MeasurePoints = self:GetPlayerMeasurePoints(_PlayerID);
-        MeasurePoints = math.max(MeasurePoints + _Amount, 0);
-        MeasurePoints = math.min(MeasurePoints, self:GetPlayerMeasurePointsPointsLimit(_PlayerID));
-        self.Data[_PlayerID].MeasurePoints = MeasurePoints;
+        local InfluencePoints = self:GetPlayerInfluencePoints(_PlayerID);
+        InfluencePoints = math.max(InfluencePoints + _Amount, 0);
+        InfluencePoints = math.min(InfluencePoints, self:GetPlayerInfluencePointsPointsLimit(_PlayerID));
+        self.Data[_PlayerID].InfluencePoints = InfluencePoints;
     end
 end
 
-function Stronghold.Economy:GetPlayerMeasurePoints(_PlayerID)
+function Stronghold.Economy:GetPlayerInfluencePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        return self.Data[_PlayerID].MeasurePoints;
+        return self.Data[_PlayerID].InfluencePoints;
     end
     return 0;
 end
 
-function Stronghold.Economy:GetPlayerMeasurePointsPointsLimit(_PlayerID)
-    return self.Config.Income.MaxMeasurePoints;
+function Stronghold.Economy:GetPlayerInfluencePointsPointsLimit(_PlayerID)
+    return self.Config.Income.MaxInfluencePoints;
 end
 
-function Stronghold.Economy:GainMeasurePoints(_PlayerID)
+function Stronghold.Economy:GainInfluencePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local MeasurePoints = 0;
+        local InfluencePoints = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             local Reputation = GetReputation(_PlayerID);
@@ -806,10 +808,10 @@ function Stronghold.Economy:GainMeasurePoints(_PlayerID)
             if Influence > self.Config.Income.InfluenceHardCap then
                 Influence = self.Config.Income.InfluenceHardCap;
             end
-            MeasurePoints = Influence * math.log(12 * Reputation);
+            InfluencePoints = Influence * math.log(12 * Reputation);
         end
-        MeasurePoints = GameCallback_SH_Calculate_MeasureIncrease(_PlayerID, MeasurePoints);
-        self:AddPlayerMeasurePoints(_PlayerID, MeasurePoints);
+        InfluencePoints = GameCallback_SH_Calculate_InfluenceIncrease(_PlayerID, InfluencePoints);
+        self:AddPlayerInfluencePoints(_PlayerID, InfluencePoints);
     end
 end
 
@@ -1428,8 +1430,6 @@ function Stronghold.Economy:FormatPaydayClockText(_PlayerID)
 end
 
 function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
-    local irep = self.Data[_PlayerID].IncomeReputation;
-
     local ihon = self.Data[_PlayerID].IncomeHonor;
     local hbb  = self.Data[_PlayerID].HonorDetails.Buildings;
     local htb  = self.Data[_PlayerID].HonorDetails.TaxBonus;
@@ -1437,6 +1437,7 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
     local hpr  = self.Data[_PlayerID].HonorDetails.Providing;
     local hob  = self.Data[_PlayerID].HonorDetails.OtherBonus;
 
+    local irep = self.Data[_PlayerID].IncomeReputation;
     local pbb  = self.Data[_PlayerID].ReputationDetails.Buildings;
     local ptb  = self.Data[_PlayerID].ReputationDetails.TaxBonus;
     local ptp  = self.Data[_PlayerID].ReputationDetails.TaxPenalty;

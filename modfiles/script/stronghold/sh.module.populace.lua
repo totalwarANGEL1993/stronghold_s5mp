@@ -548,7 +548,7 @@ function Stronghold.Populace:ManageRatsOfPlayer(_PlayerID)
                 if Data.LastRatAttempt + TimeBetween < Logic.GetTime() then
                     local Filth = self:GetPlayerFilthiness(_PlayerID);
                     if Filth > 0 and math.random(1,100) <= Filth then
-                        local BuildingList = GetWorkplacesOfType(_PlayerID, 0);
+                        local BuildingList = GetWorkplacesOfType(_PlayerID, 0, true);
                         local Selected = BuildingList[math.random(2, BuildingList[1] +1)];
                         if self:RegisterRat(_PlayerID, Selected) ~= 0 then
                             self.Data[_PlayerID].RatsCounter = Data.RatsCounter +1;

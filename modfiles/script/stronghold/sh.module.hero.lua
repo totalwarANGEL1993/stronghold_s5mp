@@ -1080,9 +1080,9 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
 
     -- Social --
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MeasureIncrease", function(_PlayerID, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_InfluenceIncrease", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero:ApplyInfluencePointsPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1367,11 +1367,11 @@ function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type,
     return Upkeep;
 end
 
--- Passive Ability: Generating Measure points
-function Stronghold.Hero:ApplyMeasurePointsPassiveAbility(_PlayerID, _Value)
+-- Passive Ability: Generating influence points
+function Stronghold.Hero:ApplyInfluencePointsPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
-        Value = Value * self.Config.Hero1.MeasureFactor;
+        Value = Value * self.Config.Hero1.InfluenceFactor;
     end
     return Value;
 end
@@ -1394,7 +1394,7 @@ function Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, _Chance)
     return Value;
 end
 
--- Passive Ability: Generating Measure points
+-- Passive Ability: Generating knowledge points
 function Stronghold.Hero:ApplyKnowledgePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then

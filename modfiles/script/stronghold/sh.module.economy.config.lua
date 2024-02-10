@@ -57,7 +57,7 @@ Stronghold.Economy.Config.Resource = {
 }
 
 Stronghold.Economy.Config.Income = {
-    MaxMeasurePoints = 5000,
+    MaxInfluencePoints = 5000,
     MaxKnowledgePoints = 5000,
     MaxReputation = 200,
     TaxPerWorker = 5,
@@ -70,6 +70,10 @@ Stronghold.Economy.Config.Income = {
     InfluenceHardCap = 25,
     InfluenceBase = 12,
     InfluenceRank = 3,
+    HungerFactor = 1.0095,
+    HungerMultiplier = 10,
+    InsomniaFactor = 1.0085,
+    InsomniaMultiplier = 15,
 
     TaxEffect = {
         [1] = {Honor = 4, Reputation = 10,},
@@ -117,8 +121,8 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Residence2] = {Honor =    0, Reputation = 0.09,},
         [Entities.PB_Residence3] = {Honor =    0, Reputation = 0.12,},
         ---
-        [Entities.PB_Tavern1]    = {Honor = 0, Reputation = 0.40,},
-        [Entities.PB_Tavern2]    = {Honor = 0, Reputation = 0.30,},
+        [Entities.PB_Tavern1]    = {Honor =    0, Reputation = 0.40,},
+        [Entities.PB_Tavern2]    = {Honor =    0, Reputation = 0.30,},
     },
     Static = {
         [Entities.PB_Beautification04]  = {Honor = 1, Reputation = 1,},
@@ -137,12 +141,9 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Beautification10]  = {Honor = 6, Reputation = 1,},
         [Entities.PB_Beautification11]  = {Honor = 6, Reputation = 1,},
         ---
-        [Entities.PB_Headquarters2]     = {Honor =  6, Reputation = 0,},
-        [Entities.PB_Headquarters3]     = {Honor = 12, Reputation = 0,},
-        ---
         [Entities.PB_Monastery1]       = {Honor = 0, Reputation = 6,},
-        [Entities.PB_Monastery2]       = {Honor = 0, Reputation = 12,},
-        [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 24,},
+        [Entities.PB_Monastery2]       = {Honor = 0, Reputation = 9,},
+        [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 12,},
     },
 }
 
