@@ -10,6 +10,9 @@ Stronghold.Building.Config.Headquarters = {
     TjostingArmorHonorBonus = 0.20,
     TjostingArmorReputationBonus = 0.20,
 
+    AlmsFarmFactor = 0.75,
+    AlmsHouseFactor = 0.75,
+
     [BlessCategories.Construction] = {
         Reputation = -15,
         Honor = 0,
@@ -35,20 +38,20 @@ Stronghold.Building.Config.Headquarters = {
         Text = "sh_menuheadquarter/blesssettlers4",
     },
     [BlessCategories.Canonisation] = {
-        Reputation = -45,
-        Honor = 150,
+        Reputation = -25,
+        Honor = 60,
 
         Text = "sh_menuheadquarter/blesssettlers5",
     },
 }
 
 Stronghold.Building.Config.Monastery = {
-    SundayAssemblyHonorBonus = 2,
-    SundayAssemblyReputationBonus = 2,
-    HolyRelicsHonorBonus = 2,
-    HolyRelicsReputationBonus = 2,
-    PopalBlessingHonorBonus = 2,
-    PopalBlessingReputationBonus = 2,
+    SundayAssemblyHonorBonus = 0.25,
+    SundayAssemblyReputationBonus = 0.25,
+    HolyRelicsHonorBonus = 0.25,
+    HolyRelicsReputationBonus = 0.25,
+    PopalBlessingHonorBonus = 0.25,
+    PopalBlessingReputationBonus = 0.25,
 
     [BlessCategories.Construction] = {
         Reputation = 8,

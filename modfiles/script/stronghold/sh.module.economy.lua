@@ -274,6 +274,9 @@ function Stronghold.Economy:Install()
             UpkeepMoney = 0,
             UpkeepDetails = {},
 
+            TemporaryFarm = 0,
+            TemporarHouse = 0,
+
             IncomeReputation = 0,
             IncomeReputationSingle = 0,
             ReputationDetails = {
@@ -546,13 +549,13 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = TaxPenalty;
 
             -- Penalty for no food
-            local NoFarm = Logic.GetNumberOfWorkerWithoutEatPlace(_PlayerID);
+            local NoFarm = self:GetNumberOfWorkerWithoutFarm(_PlayerID);
             local HunFact = self.Config.Income.HungerFactor;
             local HunMult = self.Config.Income.HungerMultiplier;
             local HungerPenalty = HunMult * ((HunFact ^ NoFarm) -1);
             self.Data[_PlayerID].ReputationDetails.Hunger = HungerPenalty;
             -- Penalty for no house
-            local NoHouse = Logic.GetNumberOfWorkerWithoutSleepPlace(_PlayerID);
+            local NoHouse = self:GetNumberOfWorkerWithoutHouse(_PlayerID);
             local InsFact = self.Config.Income.InsomniaFactor;
             local InsMult = self.Config.Income.InsomniaMultiplier;
             local SleepPenalty = InsMult * ((InsFact ^ NoHouse) -1);
@@ -566,6 +569,34 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             self.Data[_PlayerID].ReputationDetails.Rats = 0;
             self.Data[_PlayerID].ReputationDetails.OtherMalus = 0;
         end
+    end
+end
+
+function Stronghold.Economy:GetNumberOfWorkerWithoutFarm(_PlayerID)
+    local Amount = Logic.GetNumberOfWorkerWithoutEatPlace(_PlayerID);
+    if self.Data[_PlayerID].TemporaryFarm > 0 then
+        Amount = math.max(Amount - self.Data[_PlayerID].TemporaryFarm, 0);
+    end
+    return Amount;
+end
+
+function Stronghold.Economy:AddTemporaryEatingPlace(_PlayerID, _Amount)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        self.Data[_PlayerID].TemporaryFarm = self.Data[_PlayerID].TemporaryFarm + _Amount;
+    end
+end
+
+function Stronghold.Economy:GetNumberOfWorkerWithoutHouse(_PlayerID)
+    local Amount = Logic.GetNumberOfWorkerWithoutSleepPlace(_PlayerID);
+    if self.Data[_PlayerID].TemporaryFarm > 0 then
+        Amount = math.max(Amount - self.Data[_PlayerID].TemporaryHouse, 0);
+    end
+    return Amount;
+end
+
+function Stronghold.Economy:AddTemporarySleepingPlace(_PlayerID, _Amount)
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        self.Data[_PlayerID].TemporaryHouse = self.Data[_PlayerID].TemporaryHouse + _Amount;
     end
 end
 
@@ -1165,6 +1196,8 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         if IsPlayer(_PlayerID) then
             Stronghold.Economy.Data[_PlayerID].IncomeReputationSingle = 0;
             Stronghold.Economy.Data[_PlayerID].IncomeHonorSingle = 0;
+            Stronghold.Economy.Data[_PlayerID].TemporaryFarm = 0;
+            Stronghold.Economy.Data[_PlayerID].TemporaryHouse = 0;
         end
         return Amount;
     end);

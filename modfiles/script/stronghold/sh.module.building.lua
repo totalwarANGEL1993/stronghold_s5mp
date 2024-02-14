@@ -469,7 +469,7 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         end
         AddGold(_PlayerID, RandomTax);
 
-    elseif _BlessCategory == BlessCategories.Financial then
+    elseif _BlessCategory == BlessCategories.Weapons then
         -- Change stamina of workers
         local StanimaBonus = 0.5;
         local Workplaces = GetWorkplacesOfType(_PlayerID, 0, true);
@@ -487,6 +487,16 @@ function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory
         local CastleID = GetHeadquarterID(_PlayerID);
         local x,y,z = Logic.EntityGetPos(CastleID);
         Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
+
+    elseif _BlessCategory == BlessCategories.Financial then
+        -- Reduce hungry citizen amount
+        local NoFood = Stronghold.Economy:GetNumberOfWorkerWithoutFarm(_PlayerID);
+        local NoFoodFactor = self.Config.Headquarters.AlmsFarmFactor;
+        Stronghold.Economy:AddTemporaryEatingPlace(_PlayerID, math.floor(NoFood * NoFoodFactor));
+        -- Reduce sleepy citizen amount
+        local NoBeds = Stronghold.Economy:GetNumberOfWorkerWithoutHouse(_PlayerID);
+        local NoHouseFactor = self.Config.Headquarters.AlmsHouseFactor;
+        Stronghold.Economy:AddTemporarySleepingPlace(_PlayerID, math.floor(NoBeds * NoHouseFactor));
     end
 end
 
@@ -606,13 +616,13 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers3" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFoodDistribution)
-        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureFoodDistribution) then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFolkloreFeast)
+        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureFolkloreFeast) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers4" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFolkloreFeast)
-        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureFolkloreFeast) then
+        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFoodDistribution)
+        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureFoodDistribution) then
             ButtonDisabled = 1;
         end
     elseif _Button == "BlessSettlers5" then
@@ -670,8 +680,8 @@ function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _Entit
 
     XGUIEng.TransferMaterials("Levy_Duties", "BlessSettlers1");
     XGUIEng.TransferMaterials("Research_Laws", "BlessSettlers2");
-    XGUIEng.TransferMaterials("Alms_Source", "BlessSettlers3");
-    XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "BlessSettlers4");
+    XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "BlessSettlers3");
+    XGUIEng.TransferMaterials("Alms_Source", "BlessSettlers4");
     XGUIEng.TransferMaterials("Build_Tavern", "BlessSettlers5");
 
     self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers1");
@@ -739,30 +749,32 @@ function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
 
     local BlessData = self.Config.Monastery[_BlessCategory];
     if BlessData.Reputation > 0 then
-        local Reputation = BlessData.Reputation;
+        local Factor = 1;
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-            Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
+            Factor = Factor + self.Config.Monastery.SundayAssemblyReputationBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-            Reputation = Reputation + self.Config.Monastery.HolyRelicsReputationBonus;
+            Factor = Factor + self.Config.Monastery.HolyRelicsReputationBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            Reputation = Reputation + self.Config.Monastery.PopalBlessingReputationBonus;
+            Factor = Factor + self.Config.Monastery.PopalBlessingReputationBonus;
         end
+        local Reputation = BlessData.Reputation * Factor;
         Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, Reputation);
         Stronghold.Economy:AddOneTimeReputation(_PlayerID, math.floor(Reputation + 0.5));
     end
     if BlessData.Honor > 0 then
-        local Honor = BlessData.Honor;
+        local Factor = 1;
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-            Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
+            Factor = Factor + self.Config.Monastery.SundayAssemblyHonorBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-            Honor = Honor + self.Config.Monastery.HolyRelicsHonorBonus;
+            Factor = Factor + self.Config.Monastery.HolyRelicsHonorBonus;
         end
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            Honor = Honor + self.Config.Monastery.PopalBlessingHonorBonus;
+            Factor = Factor + self.Config.Monastery.PopalBlessingHonorBonus;
         end
+        local Honor = BlessData.Honor * Factor;
         Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, _BlessCategory, Honor);
         Stronghold.Economy:AddOneTimeHonor(_PlayerID, math.floor(Honor + 0.5));
     end
@@ -860,31 +872,33 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         local Effects = Stronghold.Building.Config.Monastery[BlessCategory];
         if Effects.Reputation > 0 then
             local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
-            local Reputation = Effects.Reputation;
+            local Factor = 1;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-                Reputation = Reputation + self.Config.Monastery.SundayAssemblyReputationBonus;
+                Factor = Factor + self.Config.Monastery.SundayAssemblyReputationBonus;
             end
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-                Reputation = Reputation + self.Config.Monastery.HolyRelicsReputationBonus;
+                Factor = Factor + self.Config.Monastery.HolyRelicsReputationBonus;
             end
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-                Reputation = Reputation + self.Config.Monastery.PopalBlessingReputationBonus;
+                Factor = Factor + self.Config.Monastery.PopalBlessingReputationBonus;
             end
+            local Reputation = Effects.Reputation * Factor;
             Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, BlessCategory, Reputation);
             EffectText = EffectText.. "+" ..math.floor(Reputation + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor > 0 then
             local Name = XGUIEng.GetStringTableText("sh_names/Silver");
-            local Honor = Effects.Honor;
+            local Factor = 1;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-                Honor = Honor + self.Config.Monastery.SundayAssemblyHonorBonus;
+                Factor = Factor + self.Config.Monastery.SundayAssemblyHonorBonus;
             end
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-                Honor = Honor + self.Config.Monastery.HolyRelicsHonorBonus;
+                Factor = Factor + self.Config.Monastery.HolyRelicsHonorBonus;
             end
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-                Honor = Honor + self.Config.Monastery.PopalBlessingHonorBonus;
+                Factor = Factor + self.Config.Monastery.PopalBlessingHonorBonus;
             end
+            local Honor = Effects.Honor * Factor;
             Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, BlessCategory, Honor);
             EffectText = EffectText.. "+" ..math.floor(Honor + 0.5).. " " ..Name;
         end
