@@ -75,9 +75,6 @@
         <ModifyDamage>
             <Technology>T_BodkinArrow</Technology>
         </ModifyDamage>
-        <ModifyDamage>
-            <Technology>T_SteadyAim</Technology>
-        </ModifyDamage>
 
         <ModifySpeed>
             <Technology>T_BetterTrainingArchery</Technology>

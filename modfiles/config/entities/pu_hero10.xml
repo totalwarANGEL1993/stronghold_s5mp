@@ -150,25 +150,8 @@
             <RechargeTimeSeconds>90</RechargeTimeSeconds>
             <TaskList>TL_SNIPE_SPECIAL</TaskList>
             <Animation>PU_Hero10_SniperAttack</Animation>
-            <DamageFactor>1.0</DamageFactor>
+            <DamageFactor>1.0f</DamageFactor>
             <Range>5500.0</Range>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CShurikenAbilityProps">
-            <Class>GGL::CShurikenAbility</Class>
-            <RechargeTimeSeconds>30</RechargeTimeSeconds>
-            <TaskList>TL_SHURIKEN_SPECIAL</TaskList>
-            <Animation>PU_Hero10_SniperAttack</Animation>
-            <Range>3000.0</Range>
-            <MaxArcDegree>90</MaxArcDegree>
-            <NumberShuriken>1</NumberShuriken>
-            <ProjectileType>FXExplosiveBullet</ProjectileType>
-            <ProjectileOffsetHeight>120.0</ProjectileOffsetHeight>
-            <DamageClass>DC_Hero</DamageClass>
-            <!-- Damage is handeled in the effect -->
-            <DamageAmount>0</DamageAmount>
         </Logic>
     </Behavior>
 

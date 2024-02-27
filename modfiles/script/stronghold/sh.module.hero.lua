@@ -100,7 +100,6 @@ function Stronghold.Hero:Install()
     self:OverrideHero5AbilityArrowRain();
     self:OverrideHero7AbilityMadness();
     self:OverrideHero8AbilityMoralDamage();
-    self:OverrideHero10ExplosiveShot();
     self:OverrideDetailsPayAndSlots();
     self:OverrideGuiPlaceBuilding();
     self:OverwriteAttackMemoryRegister();
@@ -323,12 +322,10 @@ end
 function Stronghold.Hero:OnSelectHero10(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
     if Type == Entities.PU_Hero10 then
-        XGUIEng.ShowWidget("Hero10_RechargeExplosiveBullet", 1);
-        XGUIEng.ShowWidget("Hero10_ExplosiveBullet", 1);
+        XGUIEng.SetWidgetPosition("Hero10_RechargeLongRangeAura", 4, 38);
+        XGUIEng.SetWidgetPosition("Hero10_LongRangeAura", 4, 38);
         XGUIEng.ShowWidget("Hero10_RechargeSniperAttack", 0);
         XGUIEng.ShowWidget("Hero10_SniperAttack", 0);
-        XGUIEng.ShowWidget("Hero10_RechargeLongRangeAura", 0);
-        XGUIEng.ShowWidget("Hero10_LongRangeAura", 0);
     end
 end
 
@@ -603,7 +600,6 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderRifle1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[5] = UpgradeCategories.LeaderRifle2;
-        ResearchTechnology(Technologies.T_SteadyAim, _PlayerID);
     elseif _Type == Entities.PU_Hero11 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[2] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[3] = UpgradeCategories.LeaderBow3;
@@ -839,25 +835,6 @@ function Stronghold.Hero:OverrideHero8AbilityMoralDamage()
         Overwrite.CallOriginal();
         if _TextKey == "MenuHero8/command_moraledamage" then
             local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_CU_Mary_de_Mortfichet");
-            ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
-                ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
-
-            XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
-            XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
-            XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
-        end
-    end);
-end
-
-function Stronghold.Hero:OverrideHero10ExplosiveShot()
-    function GUIAction_Hero10ExplosiveBullet()
-        GUI.ActivateShurikenCommandState();
-	    GUI.State_SetExclusiveMessageRecipient(HeroSelection_GetCurrentSelectedHeroID());
-    end
-    Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
-        Overwrite.CallOriginal();
-        if _TextKey == "AOMenuHero10/command_explosivebullet" then
-            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_PU_Hero10");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 
@@ -1362,6 +1339,11 @@ function Stronghold.Hero:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _Type,
     if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
         if _Type == Entities.PU_Scout or _Type == Entities.PU_Thief then
             Upkeep = Upkeep * self.Config.Hero8.UpkeepFactor;
+        end
+    end
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10) then
+        if _Type == Entities.PU_LeaderRifle1 or _Type == Entities.PU_LeaderRifle2 then
+            Upkeep = Upkeep * self.Config.Hero10.UpkeepFactor;
         end
     end
     return Upkeep;
