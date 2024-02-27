@@ -22,7 +22,7 @@ Stronghold.Construction = {
 --- @param _CurrentAmount integer Distance
 --- @return integer Distance Distance
 function GameCallback_SH_Calculate_MinimalConstructionDistance(_PlayerID, _UpgradeCategory, _CurrentAmount)
-    return Stronghold.Construction.Config.TowerDistance;
+    return _CurrentAmount;
 end
 
 -- -------------------------------------------------------------------------- --

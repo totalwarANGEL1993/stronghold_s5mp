@@ -479,9 +479,17 @@ end
 
 function Stronghold.Province:CheckFortificationAllowed(_Type, _x, _y, _rotation, _isBuildOn)
     local PlayerID = GUI.GetPlayerID()
-    if IsPlayer(PlayerID) then
-        if Logic.IsEntityTypeInCategory(_Type, EntityCategories.Headquarters) == 1 then
-            return not AreEnemiesInArea(PlayerID, {X= _x, Y= _y}, 5000);
+    if IsPlayer(PlayerID) and _isBuildOn then
+        if Logic.IsEntityInCategory(_Type, EntityCategories.VillageCenter)
+        or Logic.IsEntityInCategory(_Type, EntityCategories.Headquarters) == 1 then
+            local Position = {X= _x or 0, Y= _y or 0};
+            if IsValidPosition(Position) then
+                for _, Data in pairs(self.Data.Provinces) do
+                    if GetDistance(Position, Data.Position) <= 100 then
+                        return not AreEnemiesInArea(PlayerID, {X= _x, Y= _y}, 5000);
+                    end
+                end
+            end
         end
     end
     return true;
@@ -489,11 +497,13 @@ end
 
 function Stronghold.Province:OnBuildingConstructed(_BuildingID, _PlayerID)
     if IsPlayer(_PlayerID) then
-        if Logic.IsEntityInCategory(_BuildingID, EntityCategories.Headquarters) == 1 then
+        if Logic.IsEntityInCategory(_BuildingID, EntityCategories.VillageCenter)
+        or Logic.IsEntityInCategory(_BuildingID, EntityCategories.Headquarters) == 1 then
             local Position = GetPosition(_BuildingID);
             local EntityType = Logic.GetEntityType(_BuildingID);
             local TypeName = Logic.GetEntityTypeName(EntityType);
-            if string.find(TypeName, "PB_Outpost") then
+            if string.find(TypeName, "PB_Outpost")
+            or string.find(TypeName, "PB_VillageCenter") then
                 for ID, Data in pairs(self.Data.Provinces) do
                     if Data.Owner == self.Config.NeutralPlayerID then
                         if GetDistance(Position, Data.Position) <= 100 then
@@ -508,11 +518,13 @@ end
 
 function Stronghold.Province:OnBuildingUpgraded(_BuildingID, _PlayerID)
     if IsPlayer(_PlayerID) then
-        if Logic.IsEntityInCategory(_BuildingID, EntityCategories.Headquarters) == 1 then
+        if Logic.IsEntityInCategory(_BuildingID, EntityCategories.VillageCenter)
+        or Logic.IsEntityInCategory(_BuildingID, EntityCategories.Headquarters) == 1 then
             local ScriptName = CreateNameForEntity(_BuildingID);
             local EntityType = Logic.GetEntityType(_BuildingID);
             local TypeName = Logic.GetEntityTypeName(EntityType);
-            if string.find(TypeName, "PB_Outpost") then
+            if string.find(TypeName, "PB_Outpost")
+            or string.find(TypeName, "PB_VillageCenter") then
                 for ID, Data in pairs(self.Data.Provinces) do
                     if Data.Owner ~= self.Config.NeutralPlayerID and Data.Outpost == ScriptName then
                         self:UpgradeProvince(ID, _PlayerID, _BuildingID);

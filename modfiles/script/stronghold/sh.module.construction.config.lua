@@ -3,7 +3,6 @@
 --- 
 
 Stronghold.Construction.Config = {
-    TowerDistance = 1500,
     LightBricksFactor = 1.2,
 
     -- Limit of recruiter buildings

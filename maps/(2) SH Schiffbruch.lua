@@ -15,8 +15,6 @@ SHS5MP_RulesDefinition = {
     -- (Requires rule config to be disabled!)
     DisableGameStartTimer = false;
 
-    -- Peacetime in minutes
-    PeaceTime = 0,
     -- Open up named gates on the map.
     -- (PTGate1, PTGate2, ...)
     PeaceTimeOpenGates = true,

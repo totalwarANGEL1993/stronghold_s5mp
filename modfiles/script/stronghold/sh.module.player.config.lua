@@ -10,6 +10,7 @@ Stronghold.Player.Config = {
         InitialRank = 0,
         MaxRank = 7,
         StartingSerfs = 9,
+        MaxHonor = 5000,
     },
 
     DefeatModes = {

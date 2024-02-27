@@ -803,8 +803,10 @@ end
 
 function Stronghold.Player:AddPlayerHonor(_PlayerID, _Amount)
     if _Amount > 0 then
-        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Silver, _Amount);
-        WriteResourcesGainedToLog(_PlayerID, "Silver", _Amount);
+        local MaxPossibleHonor = self.Config.Base.MaxHonor - self:GetPlayerHonor(_PlayerID);
+        local Amount = math.min(_Amount, math.max(MaxPossibleHonor, 0));
+        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Silver, Amount);
+        WriteResourcesGainedToLog(_PlayerID, "Silver", Amount);
     elseif _Amount < 0 then
         Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Silver, (-1) * _Amount);
         WriteResourcesGainedToLog(_PlayerID, "Silver", (-1) * _Amount);
