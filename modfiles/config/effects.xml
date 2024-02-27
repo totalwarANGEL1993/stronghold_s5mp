@@ -763,7 +763,7 @@
             <ImpactEffectID>FXExplosionShrapnel</ImpactEffectID>
             <!-- Hopefully this works without problems... ^^ -->
             <DamageClass>DC_Hero</DamageClass>
-            <Radius>500</Radius>
+            <Radius>400</Radius>
             <Damage>150</Damage>
         </Logic>  
 		<Display classname="ED::CFlyingEffectProps">
