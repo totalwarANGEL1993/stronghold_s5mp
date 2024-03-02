@@ -93,8 +93,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            WriteSyncCallToLog("Building", _Action, _PlayerID, unpack(arg));
-
             if _Action == Stronghold.Building.SyncEvents.ChangeTax then
                 Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, arg[1]);
             end
@@ -745,7 +743,6 @@ end
 function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
     local CurrentFaith = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Faith);
     Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Faith, CurrentFaith);
-    WriteResourcesGainedToLog(_PlayerID, "Faith", (-1) * CurrentFaith);
 
     local BlessData = self.Config.Monastery[_BlessCategory];
     if BlessData.Reputation > 0 then
@@ -1185,7 +1182,6 @@ function Stronghold.Building:PlaceRallyPoint(_PlayerID, _EntityID, _X, _Y, _Init
         -- Create position entity
         local ScriptName = CreateNameForEntity(_EntityID);
         local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X, _Y, 0, _PlayerID);
-        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         -- Check connectivity
         if not ArePositionsConnected(ID, _EntityID) then
             DestroyEntity(ID);
@@ -1464,7 +1460,6 @@ function Stronghold.Building:CreateTurretsForBuilding(_EntityID)
             for k,v in pairs(self.Config.Turrets[Type]) do
                 local Position = GetCirclePosition(_EntityID, v[2], v[3]);
                 local TurretID = Logic.CreateEntity(v[1], Position.X, Position.Y, 0, PlayerID);
-                WriteEntityCreatedToLog(PlayerID, TurretID, Logic.GetEntityType(TurretID));
                 SVLib.SetInvisibility(TurretID, true);
                 MakeInvulnerable(TurretID);
                 table.insert(self.Data.Turrets[_EntityID], TurretID);

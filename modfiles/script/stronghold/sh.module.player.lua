@@ -473,7 +473,6 @@ function Stronghold.Player:InitalizePlayersHeadquarter(_PlayerID)
             DoorPos.Y = DoorPos.Y + 190;
         end
         ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
-        WriteEntityCreatedToLog(0, ID, Logic.GetEntityType(ID));
         Logic.SetEntityName(ID, DoorPosName);
         self.Data[_PlayerID].Player.DoorPos = DoorPos;
     else
@@ -484,13 +483,11 @@ function Stronghold.Player:InitalizePlayersHeadquarter(_PlayerID)
 
     -- Create camp Pos
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, _PlayerID);
-    WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
     local CampPos = GetCirclePosition(ID, 400, 160);
     self.Data[_PlayerID].Player.CampPos = CampPos;
     DestroyEntity(ID);
     -- Create camp
     ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, CampPos.X, CampPos.Y, 0, 0);
-    WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
     Logic.SetEntityName(ID, CampName);
     if Logic.IsEntityInCategory(CastleID, EntityCategories.Headquarters) == 1 then
         Logic.SetModelAndAnimSet(ID, Models.XD_LargeCampFire);
@@ -518,7 +515,6 @@ function Stronghold.Player:InitalizePlayersSerfs(_PlayerID, _Serfs, _CampPos, _L
     for i= 1, SerfCount do
         local SerfPos = GetCirclePosition(CampPos, 250, (360/SerfCount) * i);
         ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
-        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         if IsExisting(CampName) then
             LookAt(ID, CampName);
         end
@@ -806,10 +802,8 @@ function Stronghold.Player:AddPlayerHonor(_PlayerID, _Amount)
         local MaxPossibleHonor = self.Config.Base.MaxHonor - self:GetPlayerHonor(_PlayerID);
         local Amount = math.min(_Amount, math.max(MaxPossibleHonor, 0));
         Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Silver, Amount);
-        WriteResourcesGainedToLog(_PlayerID, "Silver", Amount);
     elseif _Amount < 0 then
         Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Silver, (-1) * _Amount);
-        WriteResourcesGainedToLog(_PlayerID, "Silver", (-1) * _Amount);
     end
     GameCallback_SH_Logic_HonorGained(_PlayerID, _Amount);
 end

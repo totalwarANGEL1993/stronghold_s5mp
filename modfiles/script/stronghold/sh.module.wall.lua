@@ -43,8 +43,6 @@ function Stronghold.Wall:CreateWallsButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            WriteSyncCallToLog("Wall", _Action, _PlayerID, unpack(arg));
-
             if _Action == Stronghold.Wall.SyncEvents.OpenGate then
                 Stronghold.Wall:OnGateOpenedCallback(_PlayerID, arg[1], arg[2]);
             end
@@ -318,8 +316,7 @@ function Stronghold.Wall:OnWallOrPalisadeUpgraded(_EntityID)
         or PlayerHasLordOfType(PlayerID, Entities.CU_Evil_Queen) then
             local SegmentType = Logic.GetEntityType(_EntityID);
             SegmentType = Stronghold.Wall.Config.WallToDarkWall[SegmentType] or SegmentType;
-            local ID = ReplaceEntity(_EntityID, SegmentType);
-            WriteEntityCreatedToLog(PlayerID, ID, SegmentType);
+            ReplaceEntity(_EntityID, SegmentType);
         end
     end
 end
@@ -348,7 +345,6 @@ function Stronghold.Wall:OnGateOpenedCallback(_PlayerID, _EntityID, _Type)
     if Stronghold.Wall.Config.ClosedToOpenGate[_Type] then
         local Health = GetHealth(_EntityID);
         local ID = ReplaceEntity(_EntityID, Stronghold.Wall.Config.ClosedToOpenGate[_Type]);
-        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         SetHealth(ID, Health);
         if _PlayerID == GUI.GetPlayerID() then
             GUI.SelectEntity(ID);
@@ -366,7 +362,6 @@ function Stronghold.Wall:OnGateClosedCallback(_PlayerID, _EntityID, _Type)
     if Stronghold.Wall.Config.OpenToClosedGate[_Type] then
         local Health = GetHealth(_EntityID);
         local ID = ReplaceEntity(_EntityID, Stronghold.Wall.Config.OpenToClosedGate[_Type]);
-        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         SetHealth(ID, Health);
         if _PlayerID == GUI.GetPlayerID() then
             GUI.SelectEntity(ID);
@@ -389,7 +384,6 @@ function Stronghold.Wall:OnGateTurnedToWallCallback(_PlayerID, _EntityID, _Type)
         local Health = GetHealth(_EntityID);
         DestroyEntity(_EntityID);
         local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, _PlayerID);
-        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         Logic.SetEntityName(ID, ScriptName);
         SetHealth(ID, Health);
         if _PlayerID == GUI.GetPlayerID() then
@@ -413,7 +407,6 @@ function Stronghold.Wall:OnWallTurnedToGateCallback(_PlayerID, _EntityID, _Type)
         local Health = GetHealth(_EntityID);
         DestroyEntity(_EntityID);
         local ID = Logic.CreateEntity(EntityType, Position.X, Position.Y, Orientation, _PlayerID);
-        WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         Logic.SetEntityName(ID, ScriptName);
         SetHealth(ID, Health);
         if _PlayerID == GUI.GetPlayerID() then
@@ -455,7 +448,6 @@ function Stronghold.Wall:CreateWallCornerForSegment(_EntityID)
                 Position1 = GetCirclePosition(OtherID, 0.1, Angle1);
             end
             local ID = Logic.CreateEntity(CornerType, Position1.X, Position1.Y, 0, 1);
-            WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
         end
         if not self:IsGroundToSteep(Position2.X, Position2.Y, 250) then
@@ -464,7 +456,6 @@ function Stronghold.Wall:CreateWallCornerForSegment(_EntityID)
                 Position2 = GetCirclePosition(OtherID, 0.1, Angle1);
             end
             local ID = Logic.CreateEntity(CornerType, Position2.X, Position2.Y, 0, 1);
-            WriteEntityCreatedToLog(PlayerID, ID, Logic.GetEntityType(ID));
             table.insert(self.Data[PlayerID].Corners[_EntityID], ID);
         end
     end
@@ -475,7 +466,6 @@ function Stronghold.Wall:IsGroundToSteep(_X, _Y, _Height)
     for x = -200, 200, 200 do
         for y = -200, 200, 200 do
             local ID = Logic.CreateEntity(Entities.XD_ScriptEntity, _X+x, _Y+y, 0, 0);
-            WriteEntityCreatedToLog(0, ID, Logic.GetEntityType(ID));
             if IsExisting(ID) then
                 local _,_,z = Logic.EntityGetPos(ID);
                 table.insert(Heights, z);

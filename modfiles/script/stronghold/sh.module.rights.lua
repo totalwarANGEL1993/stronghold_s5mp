@@ -170,8 +170,6 @@ function Stronghold.Rights:CreateButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            WriteSyncCallToLog("Rights", _Action, _PlayerID, unpack(arg));
-
             if _Action == Stronghold.Rights.SyncEvents.RankUp then
                 Stronghold.Rights:PromotePlayer(_PlayerID, false, true);
                 if _PlayerID == GUI.GetPlayerID() or GUI.GetPlayerID() == 17 then

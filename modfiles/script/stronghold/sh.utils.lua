@@ -503,79 +503,65 @@ function AddResourcesToPlayer(_PlayerID, _Resources)
         if _Resources[ResourceType.Silver] ~= nil then
             local Amount = _Resources[ResourceType.Silver];
             AddHonor(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, ResourceType.Silver, Amount);
         end
         -- Add knowledge
         if _Resources[ResourceType.Knowledge] ~= nil then
             local Amount = _Resources[ResourceType.Knowledge];
             AddKnowledge(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Knowledge", Amount);
         end
         -- Add gold
         if _Resources[ResourceType.Gold] then
             local Amount = _Resources[ResourceType.Gold];
             AddGold(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Gold", Amount);
         end
         if _Resources[ResourceType.GoldRaw] then
             local Amount = _Resources[ResourceType.GoldRaw];
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.GoldRaw, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "GoldRaw", Amount);
         end
         -- Add clay
         if _Resources[ResourceType.Clay] then
             local Amount = _Resources[ResourceType.Clay];
             AddClay(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Clay", Amount);
         end
         if _Resources[ResourceType.ClayRaw] then
             local Amount = _Resources[ResourceType.ClayRaw];
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.ClayRaw, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "ClayRaw", Amount);
         end
         -- Add wood
         if _Resources[ResourceType.Wood] then
             local Amount = _Resources[ResourceType.Wood];
             AddWood(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Wood", Amount);
         end
         if _Resources[ResourceType.WoodRaw] then
             local Amount = _Resources[ResourceType.WoodRaw];
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "WoodRaw", Amount);
         end
         -- Add iron
         if _Resources[ResourceType.Iron] then
             local Amount = _Resources[ResourceType.Iron];
             AddIron(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Iron", Amount);
         end
         if _Resources[ResourceType.IronRaw] then
             local Amount = _Resources[ResourceType.IronRaw];
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.IronRaw, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "IronRaw", Amount);
         end
         -- Add stone
         if _Resources[ResourceType.Stone] then
             local Amount = _Resources[ResourceType.Stone];
             AddStone(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Stone", Amount);
         end
         if _Resources[ResourceType.StoneRaw] then
             local Amount = _Resources[ResourceType.StoneRaw];
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.StoneRaw, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "StoneRaw", Amount);
         end
         -- Add sulfur
         if _Resources[ResourceType.Sulfur] then
             local Amount = _Resources[ResourceType.Sulfur];
             AddSulfur(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Sulfur", Amount);
         end
         if _Resources[ResourceType.SulfurRaw] then
             local Amount = _Resources[ResourceType.SulfurRaw];
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.SulfurRaw, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "SulfurRaw", Amount);
         end
     end
 end
@@ -602,56 +588,48 @@ function RemoveResourcesFromPlayer(_PlayerID, _Costs)
         and Honor >= _Costs[ResourceType.Silver] then
             local Amount = _Costs[ResourceType.Silver] * (-1);
             AddHonor(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, ResourceType.Silver, Amount);
         end
         -- Knowledge cost
         if  _Costs[ResourceType.Knowledge] ~= nil and _Costs[ResourceType.Knowledge] > 0
         and Knowledge >= _Costs[ResourceType.Knowledge] then
             local Amount = _Costs[ResourceType.Knowledge] * (-1);
             AddKnowledge(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Knowledge", Amount);
         end
         -- Gold cost
         if  _Costs[ResourceType.Gold] ~= nil and _Costs[ResourceType.Gold] > 0
         and Gold+GoldRaw >= _Costs[ResourceType.Gold] then
             local Amount = _Costs[ResourceType.Gold] * (-1);
             AddGold(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Gold", Amount);
         end
         -- Clay cost
         if  _Costs[ResourceType.Clay] ~= nil and _Costs[ResourceType.Clay] > 0
         and Clay+ClayRaw >= _Costs[ResourceType.Clay]  then
             local Amount = _Costs[ResourceType.Clay] * (-1);
             AddClay(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Clay", Amount);
         end
         -- Wood cost
         if  _Costs[ResourceType.Wood] ~= nil and _Costs[ResourceType.Wood] > 0
         and Wood+WoodRaw >= _Costs[ResourceType.Wood]  then
             local Amount = _Costs[ResourceType.Wood] * (-1);
             AddWood(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Wood", Amount);
         end
         -- Iron cost
         if  _Costs[ResourceType.Iron] ~= nil and _Costs[ResourceType.Iron] > 0
         and Iron+IronRaw >= _Costs[ResourceType.Iron] then
             local Amount = _Costs[ResourceType.Iron] * (-1);
             AddIron(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Iron", Amount);
         end
         -- Stone cost
         if  _Costs[ResourceType.Stone] ~= nil and _Costs[ResourceType.Stone] > 0
         and Stone+StoneRaw >= _Costs[ResourceType.Stone] then
             local Amount = _Costs[ResourceType.Stone] * (-1);
             AddStone(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Stone", Amount);
         end
         -- Sulfur cost
         if  _Costs[ResourceType.Sulfur] ~= nil and _Costs[ResourceType.Sulfur] > 0
         and Sulfur+SulfurRaw >= _Costs[ResourceType.Sulfur] then
             local Amount = _Costs[ResourceType.Sulfur] * (-1);
             AddSulfur(_PlayerID, Amount);
-            WriteResourcesGainedToLog(_PlayerID, "Sulfur", Amount);
         end
     end
 end

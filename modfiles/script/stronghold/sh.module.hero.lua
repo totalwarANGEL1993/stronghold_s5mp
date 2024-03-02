@@ -462,7 +462,6 @@ function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
                 Position = GetPosition(Position);
             end
             ID = Logic.CreateEntity(_Type, Position.X, Position.Y, 0, _PlayerID);
-            WriteEntityCreatedToLog(_PlayerID, ID, Logic.GetEntityType(ID));
         end
         self:BuyHeroSetupNoble(_PlayerID, ID, _Type, true);
         self:InitSpecialUnits(_PlayerID, _Type);
@@ -693,11 +692,6 @@ function Stronghold.Hero:HeliasConvertController(_PlayerID, _AttackedID, _Attack
                                 local ID = ChangePlayer(AttackerID, HeliasPlayerID);
                                 if GUI.GetPlayerID() == HeliasPlayerID then
                                     Sound.PlayFeedbackSound(Sounds.VoicesHero6_HERO6_ConvertSettler_rnd_01, 100);
-                                end
-                                WriteEntityCreatedToLog(HeliasPlayerID, ID, Logic.GetEntityType(ID));
-                                local CreatedSoldiers = {Logic.GetSoldiersAttachedToLeader(ID)};
-                                for j= 2, CreatedSoldiers[1] +1 do
-                                    WriteEntityCreatedToLog(_PlayerID, CreatedSoldiers[j], Logic.GetEntityType(CreatedSoldiers[j]));
                                 end
                                 self.Data[_PlayerID].Hero6.ConversionTime = CurrentTurn;
                                 self.Data[_PlayerID].Hero6.ConvertAllowed = 0;
@@ -1152,7 +1146,6 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
             -- long as the tree was half full the amount of wood was restored
             -- without the downside of trees blocking building places longer.
             Logic.AddToPlayersGlobalResource(_PlayerID, _Type, self.Config.Hero5.SerfWoodBonus);
-            WriteResourcesGainedToLog(_PlayerID, _Type, self.Config.Hero5.SerfWoodBonus);
         end
     end
     return Amount, ResourceRemaining;
@@ -1396,7 +1389,6 @@ function Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyTy
     end
     if Bonus > 0 then
         Logic.AddToPlayersGlobalResource(_PlayerID, _BuyType, Bonus);
-        WriteResourcesGainedToLog(_PlayerID, _BuyType, Bonus);
         if GuiPlayer == _PlayerID then
             Message(string.format(Text, Bonus, ResourceName));
         end

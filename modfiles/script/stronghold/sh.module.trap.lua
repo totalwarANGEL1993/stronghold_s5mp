@@ -61,8 +61,6 @@ function Stronghold.Trap:CreateTrapButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            WriteSyncCallToLog("Trap", _Action, _PlayerID, unpack(arg));
-
             if _Action == Stronghold.Trap.SyncEvents.TriggerTrap then
                 Stronghold.Trap:OnTrapTriggered(_PlayerID, arg[1]);
             end

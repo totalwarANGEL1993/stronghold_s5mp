@@ -65,8 +65,6 @@ function Stronghold.Mercenary:CreateBuildingButtonHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            WriteSyncCallToLog("Mercenary", _Action, _PlayerID, unpack(arg));
-
             if _Action == Stronghold.Mercenary.SyncEvents.BuyMercenary then
                 Stronghold.Mercenary:RegisterRecruitCommand(_PlayerID, arg[1], arg[2], arg[3], arg[4]);
             end
