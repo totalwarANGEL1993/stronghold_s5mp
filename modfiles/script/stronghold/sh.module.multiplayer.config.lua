@@ -32,7 +32,7 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
     MapStartFillStone = 2000,
     MapStartFillIron = 2000,
     MapStartFillSulfur = 2000,
-    MapStartFillWood = 2000,
+    MapStartFillWood = 20000,
 
     -- Rank
     Rank = {
