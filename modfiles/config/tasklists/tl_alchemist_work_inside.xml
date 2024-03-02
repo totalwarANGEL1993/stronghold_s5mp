@@ -29,7 +29,7 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>5000</Thousandths>
+        <Thousandths>3000</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
@@ -39,7 +39,7 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>5000</Thousandths>
+        <Thousandths>3000</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
@@ -49,7 +49,7 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>5000</Thousandths>
+        <Thousandths>3000</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
@@ -59,7 +59,7 @@
 
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>5000</Thousandths>
+        <Thousandths>3000</Thousandths>
     </Task>
     
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">

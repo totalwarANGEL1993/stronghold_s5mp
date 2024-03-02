@@ -42,7 +42,7 @@
         <Upgrade>
             <Time>90.0</Time>
             <Cost>
-                <Silver>100</Silver>
+                <Silver>50</Silver>
                 <Gold>0</Gold>
                 <Clay>600</Clay>
                 <Wood/>

@@ -15,8 +15,8 @@
         <MaxHealth>3500</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
-        <MaxWorkers>9</MaxWorkers>
-        <InitialMaxWorkers>9</InitialMaxWorkers>
+        <MaxWorkers>10</MaxWorkers>
+        <InitialMaxWorkers>10</InitialMaxWorkers>
 
 
         <ModifyArmor>

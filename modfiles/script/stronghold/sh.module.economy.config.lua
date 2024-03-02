@@ -70,9 +70,9 @@ Stronghold.Economy.Config.Income = {
     InfluenceHardCap = 25,
     InfluenceBase = 12,
     InfluenceRank = 3,
-    HungerFactor = 1.0095,
+    HungerFactor = 1.0105,
     HungerMultiplier = 10,
-    InsomniaFactor = 1.0085,
+    InsomniaFactor = 1.0095,
     InsomniaMultiplier = 15,
 
     TaxEffect = {
@@ -81,20 +81,20 @@ Stronghold.Economy.Config.Income = {
         [3] = {Honor = 1, Reputation = -2,},
         [4] = {Honor = 0, Reputation = -4,},
         [5] = {Honor = 0, Reputation = -8,},
-        WorkerFactor = 0.032,
+        WorkerFactor = 0.021,
         RankFactor = 1.05,
     },
 
     TechnologyEffect = {
         [Technologies.T_CropCycle]   = {
             [Entities.PB_Farm1]      = {Honor =    0, Reputation =    0,},
-            [Entities.PB_Farm2]      = {Honor = 0.06, Reputation =    0,},
-            [Entities.PB_Farm3]      = {Honor = 0.09, Reputation =    0,},
+            [Entities.PB_Farm2]      = {Honor = 0.08, Reputation =    0,},
+            [Entities.PB_Farm3]      = {Honor = 0.14, Reputation =    0,},
         },
         [Technologies.T_Spice]       = {
             [Entities.PB_Farm1]      = {Honor =    0, Reputation =    0,},
-            [Entities.PB_Farm2]      = {Honor = 0.06, Reputation =    0,},
-            [Entities.PB_Farm3]      = {Honor = 0.09, Reputation =    0,},
+            [Entities.PB_Farm2]      = {Honor = 0.08, Reputation =    0,},
+            [Entities.PB_Farm3]      = {Honor = 0.14, Reputation =    0,},
         },
         [Technologies.T_Hearthfire]  = {
             [Entities.PB_Residence1] = {Honor =    0, Reputation =    0,},
@@ -107,15 +107,15 @@ Stronghold.Economy.Config.Income = {
             [Entities.PB_Residence3] = {Honor =    0, Reputation = 0.12,},
         },
         [Technologies.T_Instruments] = {
-            [Entities.PB_Tavern1]    = {Honor = 0.20, Reputation =    0,},
-            [Entities.PB_Tavern2]    = {Honor = 0.15, Reputation =    0,},
+            [Entities.PB_Tavern1]    = {Honor = 0.40, Reputation =    0,},
+            [Entities.PB_Tavern2]    = {Honor = 0.30, Reputation =    0,},
         },
     },
 
     Dynamic = {
         [Entities.PB_Farm1]      = {Honor =    0, Reputation =    0,},
-        [Entities.PB_Farm2]      = {Honor = 0.09, Reputation =    0,},
-        [Entities.PB_Farm3]      = {Honor = 0.12, Reputation =    0,},
+        [Entities.PB_Farm2]      = {Honor = 0.12, Reputation =    0,},
+        [Entities.PB_Farm3]      = {Honor = 0.18, Reputation =    0,},
         ---
         [Entities.PB_Residence1] = {Honor =    0, Reputation =    0,},
         [Entities.PB_Residence2] = {Honor =    0, Reputation = 0.09,},

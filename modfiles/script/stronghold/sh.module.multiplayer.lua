@@ -888,7 +888,7 @@ function Stronghold.Multiplayer:OnGameModeSet()
     -- Replace wood piles
     if self.Data.Config.MapStartFillWood then
         for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_SingnalFireOff)) do
-            CreateWoodPile(EntityID, self.Data.Config.MapStartFillWood);
+            CreateWoodPile(CreateNameForEntity(EntityID), self.Data.Config.MapStartFillWood);
         end
     end
 end
