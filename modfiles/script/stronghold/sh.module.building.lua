@@ -273,8 +273,9 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
         return;
     end
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
-        local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID));
-        local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil)
+        local Type = Logic.GetEntityType(_EntityID);
+        local TypeName = Logic.GetEntityTypeName(Type);
+        local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil);
         XGUIEng.ShowWidget("BuildingTabs", (IsOutpost and 0) or 1);
         XGUIEng.ShowWidget("RallyPoint", 1);
         XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
@@ -287,7 +288,6 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
         XGUIEng.ShowWidget("Upgrade_Headquarter2", 0);
         XGUIEng.ShowWidget("Upgrade_Outpost1", 0);
         XGUIEng.ShowWidget("Upgrade_Outpost2", 0);
-        local Type = Logic.GetEntityType(_EntityID);
         if Logic.IsConstructionComplete(_EntityID) == 1 then
             if Type == Entities.PB_Headquarters1 then
                 XGUIEng.ShowWidget("Upgrade_Headquarter1", 1);
@@ -505,6 +505,10 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _Enti
     if Stronghold.Economy:GetPlayerInfluencePoints(_PlayerID) < GetPlayerMaxInfluencePoints(_PlayerID) then
         Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
         Message(XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers_error"));
+        return true;
+    end
+    -- Dirty Fix: Prevent player from wasting influence
+    if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
         return true;
     end
 
@@ -817,19 +821,23 @@ function Stronghold.Building:MonasteryBlessSettlersGuiAction(_PlayerID, _EntityI
     if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
         return false;
     end
-
     local CurrentFaith = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Faith);
     local BlessCosts = Logic.GetBlessCostByBlessCategory(_BlessCategory);
-    if BlessCosts <= CurrentFaith then
-        Syncer.InvokeEvent(
-            Stronghold.Building.NetworkCall,
-            Stronghold.Building.SyncEvents.BlessSettlers,
-            _BlessCategory
-        );
-    else
+    if BlessCosts > CurrentFaith then
         GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/GUI_NotEnoughFaith"));
         Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_MonksNeedMoreTime_rnd_01, 100);
+        return true;
     end
+    -- Dirty Fix: Prevent player from wasting faith
+    if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
+        return true;
+    end
+
+    Syncer.InvokeEvent(
+        Stronghold.Building.NetworkCall,
+        Stronghold.Building.SyncEvents.BlessSettlers,
+        _BlessCategory
+    );
     return true;
 end
 
