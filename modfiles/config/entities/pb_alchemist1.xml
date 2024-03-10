@@ -9,12 +9,12 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <UpgradeSite>ZB_UpgradeSiteMint1</UpgradeSite>
         <MaxHealth>1200</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <Category>Workplace</Category>
         <Category>DefendableBuilding</Category>
+        <Exploration>20</Exploration>
 
 
         <ModifyArmor>
@@ -24,23 +24,8 @@
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
+        
 
-
-        <UpgradeSite>ZB_UpgradeSite1</UpgradeSite>
-        <Upgrade>
-            <Category>Alchemist</Category>
-            <Time>40.0</Time>
-            <Cost>
-                <Clay>0</Clay>
-                <Wood/>
-                <Stone>300</Stone>
-                <Gold/>
-                <Iron>100</Iron>
-                <Sulfur/>
-            </Cost>
-            <Type>PB_Alchemist2</Type>
-        </Upgrade>
-        <Exploration>20</Exploration>
         <Worker>PU_Alchemist</Worker>
         <MaxWorkers>4</MaxWorkers>
         <InitialMaxWorkers>4</InitialMaxWorkers>
@@ -52,11 +37,28 @@
             <Start>TL_ALCHEMIST_WORK_INSIDE_START</Start>
             <Work>TL_ALCHEMIST_WORK_INSIDE</Work>
         </WorkTaskList>
+
+        <UpgradeSite>ZB_UpgradeSite1</UpgradeSite>
+        <Upgrade>
+            <Category>Alchemist</Category>
+            <Time>40.0</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood/>
+                <Stone>250</Stone>
+                <Gold/>
+                <Iron>150</Iron>
+                <Sulfur/>
+            </Cost>
+            <Type>PB_Alchemist2</Type>
+        </Upgrade>
+        <UpgradeSite>ZB_UpgradeSiteMint1</UpgradeSite>
+
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>200</Wood>
+                <Wood>100</Wood>
                 <Stone>200</Stone>
                 <Gold/>
                 <Iron/>

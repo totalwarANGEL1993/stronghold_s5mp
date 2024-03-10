@@ -44,9 +44,9 @@
             <Category>Sawmill</Category>
             <Time>40.0</Time>
             <Cost>
-                <Clay>300</Clay>
+                <Clay>200</Clay>
                 <Wood/>
-                <Stone>200</Stone>
+                <Stone>150</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -58,9 +58,9 @@
         <ConstructionInfo>
             <Time>110</Time>
             <Cost>
-                <Clay>200</Clay>
+                <Clay>150</Clay>
                 <Wood>0</Wood>
-                <Stone>150</Stone>
+                <Stone>100</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>

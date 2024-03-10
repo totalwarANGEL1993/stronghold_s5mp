@@ -100387,8 +100387,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>PB_DarkTower2</Type>
    <Position>
-    <X>1.040000e+004</X>
-    <Y>3.830000e+004</Y>
+    <X>1.030000e+004</X>
+    <Y>3.770000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -112657,8 +112657,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>CB_Bastille1</Type>
    <Position>
-    <X>1.580000e+004</X>
-    <Y>3.200000e+003</Y>
+    <X>1.620000e+004</X>
+    <Y>3.300000e+003</Y>
    </Position>
    <Orientation>1.800000e+002</Orientation>
    <Flags>0</Flags>
@@ -113090,19 +113090,19 @@
    <Scale>1.158605e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_RockKhakiBright1</Type>
+   <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>1.687257e+004</X>
-    <Y>3.171859e+003</Y>
+    <X>1.630000e+004</X>
+    <Y>3.600000e+003</Y>
    </Position>
-   <Orientation>2.856532e+002</Orientation>
+   <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
+   <PlayerID>8</PlayerID>
    <Health>-1</Health>
-   <Name></Name>
+   <Name>RobbersTower2Spawn</Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>8.761254e-001</Scale>
+   <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_RockKhakiBright1</Type>
@@ -115235,16 +115235,16 @@
    <Scale>9.248695e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>CB_Bastille1</Type>
+   <Type>PB_DarkTower2</Type>
    <Position>
-    <X>4.200000e+004</X>
-    <Y>2.350000e+004</Y>
+    <X>4.170000e+004</X>
+    <Y>2.440000e+004</Y>
    </Position>
-   <Orientation>2.700000e+002</Orientation>
+   <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
    <PlayerID>7</PlayerID>
    <Health>-1</Health>
-   <Name>RobbersTower3</Name>
+   <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>1.000000e+000</Scale>
@@ -115282,8 +115282,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>CB_Bastille1</Type>
    <Position>
-    <X>9.900000e+003</X>
-    <Y>3.900000e+004</Y>
+    <X>9.800000e+003</X>
+    <Y>3.840000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -117172,8 +117172,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>1.580000e+004</X>
-    <Y>3.700000e+003</Y>
+    <X>1.630000e+004</X>
+    <Y>3.900000e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -122795,19 +122795,19 @@
    <Scale>1.192932e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_DeadBush1</Type>
+   <Type>XD_Explore10</Type>
    <Position>
-    <X>4.107070e+004</X>
-    <Y>1.127576e+004</Y>
+    <X>4.022107e+004</X>
+    <Y>1.196612e+004</Y>
    </Position>
-   <Orientation>3.067147e+002</Orientation>
+   <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
+   <PlayerID>2</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>9.023347e-001</Scale>
+   <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_DeadBush5</Type>
@@ -122855,19 +122855,19 @@
    <Scale>9.610645e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_DeadBush2</Type>
+   <Type>PB_DarkTower2</Type>
    <Position>
-    <X>4.078222e+004</X>
-    <Y>1.102690e+004</Y>
+    <X>1.670000e+004</X>
+    <Y>4.000000e+003</Y>
    </Position>
-   <Orientation>2.587359e+002</Orientation>
+   <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>0</PlayerID>
+   <PlayerID>7</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>9.937315e-001</Scale>
+   <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_DeadBush1</Type>
@@ -126695,25 +126695,10 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>PB_DarkTower2</Type>
-   <Position>
-    <X>1.650000e+004</X>
-    <Y>3.600000e+003</Y>
-   </Position>
-   <Orientation>0.000000e+000</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>7</PlayerID>
-   <Health>-1</Health>
-   <Name></Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>9.600000e+003</X>
-    <Y>3.820000e+004</Y>
+    <X>9.500000e+003</X>
+    <Y>3.760000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -126725,40 +126710,10 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>PB_DarkTower2</Type>
-   <Position>
-    <X>4.210000e+004</X>
-    <Y>2.420000e+004</Y>
-   </Position>
-   <Orientation>0.000000e+000</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>7</PlayerID>
-   <Health>-1</Health>
-   <Name></Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>1.590000e+004</X>
-    <Y>3.500000e+003</Y>
-   </Position>
-   <Orientation>0.000000e+000</Orientation>
-   <Flags>0</Flags>
-   <PlayerID>8</PlayerID>
-   <Health>-1</Health>
-   <Name>RobbersTower2Spawn</Name>
-   <ScriptCommandLine></ScriptCommandLine>
-   <AmbientSoundType></AmbientSoundType>
-   <Scale>1.000000e+000</Scale>
-  </Entity>
-  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_ScriptEntity</Type>
-   <Position>
-    <X>9.800000e+003</X>
-    <Y>3.860000e+004</Y>
+    <X>9.700000e+003</X>
+    <Y>3.800000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -126770,16 +126725,16 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_ScriptEntity</Type>
+   <Type>CB_Bastille1</Type>
    <Position>
-    <X>4.150000e+004</X>
-    <Y>2.350000e+004</Y>
+    <X>4.160000e+004</X>
+    <Y>2.370000e+004</Y>
    </Position>
-   <Orientation>0.000000e+000</Orientation>
+   <Orientation>2.700000e+002</Orientation>
    <Flags>0</Flags>
-   <PlayerID>8</PlayerID>
+   <PlayerID>7</PlayerID>
    <Health>-1</Health>
-   <Name>RobbersTower3Spawn</Name>
+   <Name>RobbersTower3</Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>1.000000e+000</Scale>
@@ -126787,8 +126742,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>4.170000e+004</X>
-    <Y>2.420000e+004</Y>
+    <X>4.130000e+004</X>
+    <Y>2.440000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -127355,16 +127310,16 @@
    <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Explore10</Type>
+   <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>4.022107e+004</X>
-    <Y>1.196612e+004</Y>
+    <X>4.110000e+004</X>
+    <Y>2.370000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>1</PlayerID>
+   <PlayerID>8</PlayerID>
    <Health>-1</Health>
-   <Name></Name>
+   <Name>RobbersTower3Spawn</Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
    <Scale>1.000000e+000</Scale>

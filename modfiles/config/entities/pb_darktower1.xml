@@ -28,7 +28,7 @@
             <Time>20.0</Time>  
             <Cost>
                 <Clay>0</Clay>
-                <Wood>300</Wood>
+                <Wood>200</Wood>
                 <Stone>0</Stone>
                 <Gold>100</Gold>
                 <Iron/>
@@ -42,7 +42,7 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-                <Clay>200</Clay>
+                <Clay>100</Clay>
                 <Wood>200</Wood>
                 <Stone>0</Stone>
                 <Gold/>

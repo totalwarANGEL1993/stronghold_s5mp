@@ -43,9 +43,9 @@
             <Category>GunsmithWorkshop</Category>
             <Time>40.0</Time>
             <Cost>
-                <Clay>200</Clay>
+                <Clay>100</Clay>
                 <Wood>200</Wood>
-                <Stone>200</Stone>
+                <Stone>100</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur>0</Sulfur>
