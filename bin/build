@@ -27,10 +27,8 @@ cp -r modfiles/graphics/animations var/stronghold_s5mp/sh_system.bba.unpacked/gr
 cp -r modfiles/graphics/effects var/stronghold_s5mp/sh_system.bba.unpacked/graphics
 cp -r modfiles/graphics/models var/stronghold_s5mp/sh_system.bba.unpacked/graphics
 cp -r modfiles/graphics/textures var/stronghold_s5mp/sh_textures.bba.unpacked/graphics
-cp -r modfiles/graphics/textureslow var/stronghold_s5mp/sh_textureslow.bba.unpacked/graphics
-cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/sh_textureslow.bba.unpacked/graphics/textureslow
-cp -r modfiles/graphics/texturesmed var/stronghold_s5mp/sh_texturesmed.bba.unpacked/graphics
-cp -r modfiles/graphics/textures/gui var/stronghold_s5mp/sh_texturesmed.bba.unpacked/graphics/texturesmed
+cp -r modfiles/graphics/textures var/stronghold_s5mp/sh_textureslow.bba.unpacked/graphics/textureslow
+cp -r modfiles/graphics/textures var/stronghold_s5mp/sh_texturesmed.bba.unpacked/graphics/texturesmed
 cp -r modfiles/graphics/videos var/stronghold_s5mp/sh_system.bba.unpacked/graphics
 cp -r modfiles/config var/stronghold_s5mp/sh_system.bba.unpacked
 cp -r modfiles/script var/stronghold_s5mp/sh_system.bba.unpacked
