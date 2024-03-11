@@ -262,7 +262,9 @@
         "GetPositionsBetween",
         "CalculateOptimalNumPoints",
         "EVELANCEMUSIC",
-        "CustomStringHelper"
+        "CustomStringHelper",
+        "MP_DiplomacyWindow",
+        "CWidget"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

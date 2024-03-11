@@ -153,6 +153,7 @@ end
 function Stronghold.Multiplayer:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
+            ColorID = 0,
             ReplacedEntities = {};
             Versions = {
                 Main = 0,
@@ -167,12 +168,13 @@ function Stronghold.Multiplayer:Install()
     self:CreateMultiplayerButtonHandlers();
     self:OverrideFunctions();
     self:OnGameStart();
-    self:InitEmsFeatureReplicaKeybindings();
-    self:InitEmsFeatureReplicaFunctions();
+    self:InitQoLFunctions();
+    self:InitQoLValues();
+    self:InitQoLInterface();
 end
 
 function Stronghold.Multiplayer:OnSaveGameLoaded()
-    self:InitEmsFeatureReplicaKeybindings();
+    self:InitQoLInterface();
     Delay.Turn(0, GameCallback_SH_Logic_SaveLoaded);
 end
 
@@ -917,13 +919,40 @@ function Stronghold.Multiplayer:OverrideFunctions()
 end
 
 -- -------------------------------------------------------------------------- --
--- EMS Stuff
+-- Quality of Life
 
-function Stronghold.Multiplayer:InitEmsFeatureReplicaKeybindings()
-    Input.KeyBindDown(Keys.Back, "Stronghold_KeyBindings_FastDemolish(GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
+function Stronghold.Multiplayer:InitQoLValues()
+    -- Starting color ID
+    for PlayerID = 1, GetMaxPlayers() do
+        local ColorID = PlayerID;
+        if XNetwork.Manager_DoesExist() == 1 then
+            local MPColorID = XNetwork.GameInformation_GetLogicPlayerColor(PlayerID);
+            if MPColorID and MPColorID > 0 and MPColorID < 17 then
+                ColorID = MPColorID;
+            end
+        end
+        self.Data[PlayerID].ColorID = ColorID;
+    end
 end
 
-function Stronghold.Multiplayer:InitEmsFeatureReplicaFunctions()
+function Stronghold.Multiplayer:InitQoLInterface()
+    Input.KeyBindDown(Keys.Back, "Stronghold_QoL_Hotkey_FastDemolish(GUI.GetPlayerID(), GUI.GetSelectedEntity())", 2);
+end
+
+function Stronghold.Multiplayer:InitQoLFunctions()
+    self.Orig_GUIAction_ToggleMenu = GUIAction_ToggleMenu;
+    GUIAction_ToggleMenu = function(_Button, _Flag)
+        Stronghold.Multiplayer.Orig_GUIAction_ToggleMenu(_Button, _Flag);
+        if _Button == XGUIEng.GetWidgetID("DiplomacyWindow") then
+            if XGUIEng.IsWidgetShown("DiplomacyWindow") == 0 then
+                XGUIEng.ShowWidget("DiplomacyWindow_SHS5MP", 0);
+            else
+                XGUIEng.ShowWidget("DiplomacyWindow_SHS5MP", 1);
+            end
+            Stronghold.Multiplayer:DiplomacyPlayerColorPickerButtonUpdate();
+        end
+    end
+
     self.Orig_GUIAction_ExpelSettler = GUIAction_ExpelSettler;
     GUIAction_ExpelSettler = function()
         if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
@@ -946,10 +975,55 @@ function Stronghold.Multiplayer:InitEmsFeatureReplicaFunctions()
     end
 end
 
-function Stronghold_KeyBindings_FastDemolish(_PlayerID, _EntityID)
+function Stronghold.Multiplayer:DiplomacyPlayerColorPickerButtonAction(_PlayerID)
+    local PlayerID = _PlayerID;
+    if CNetwork then
+        local Page = math.max(MP_DiplomacyWindow.page - 1, 0);
+        PlayerID = PlayerID + (8 * Page);
+    end
+    if self.Data[PlayerID] then
+        local ColorID = self.Data[PlayerID].ColorID;
+        ColorID = (ColorID + 1 > 16 and 1) or ColorID + 1;
+        self.Data[PlayerID].ColorID = ColorID;
+        Display.SetPlayerColorMapping(PlayerID, ColorID);
+        local R,G,B = GUI.GetPlayerColor(PlayerID);
+        Logic.PlayerSetPlayerColor(PlayerID, R, G, B);
+    end
+end
+
+function Stronghold.Multiplayer:DiplomacyPlayerColorPickerButtonUpdate()
+    for i = 1, 8 do
+        local VisibleFlag = 1;
+        local ButtonName = "DiplomacyWindow_SHS5MP_PlayerColorButton" ..i;
+        if XNetwork.Manager_DoesExist() == 0 then
+            VisibleFlag = 0;
+        end
+        local PlayerID = i;
+        if CNetwork then
+            local Page = math.max(MP_DiplomacyWindow.page - 1, 0);
+            PlayerID = i + (8 * Page);
+        end
+        if Logic.PlayerGetGameState(PlayerID) ~= 1 then
+            VisibleFlag = 0;
+        end
+        XGUIEng.ShowWidget(ButtonName, VisibleFlag);
+    end
+end
+
+function Stronghold_QoL_GUIAction_DiplomacyWindow_ChangePlayerColor(_PlayerID)
+    Stronghold.Multiplayer:DiplomacyPlayerColorPickerButtonAction(_PlayerID)
+end
+
+function Stronghold_QoL_GUIUpdate_DiplomacyWindow_ChangePlayerColor()
+    Stronghold.Multiplayer:DiplomacyPlayerColorPickerButtonUpdate();
+end
+
+function Stronghold_QoL_Hotkey_FastDemolish(_PlayerID, _EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if _PlayerID ~= 17 and PlayerID == _PlayerID then
         if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0
+        and XGUIEng.IsWidgetShown("DestroyBuildingButton") == 1
+        and XGUIEng.IsButtonDisabled("DestroyBuildingButton") == 0
         and Logic.IsBuilding(_EntityID) == 1 then
             GUI.SellBuilding(_EntityID);
         end

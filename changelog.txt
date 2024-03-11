@@ -116,6 +116,11 @@ __Heldenfähigkeiten__
 - Drake:
   * Sold von Schafschützen wird nur noch um 20% reduziert
 
+__QoL__
+
+- Im Multiplayer kann die Farbe aller Spieler lokal geändert werden. Analog zu 
+  EMS, können die Farben im Diplomatiemenü durchgeschalten werden.
+
 __Maps__
 
 Alle alten Maps wurden an die neue Version angepasst. Des weiteren gibt es ein
