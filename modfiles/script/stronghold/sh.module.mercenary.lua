@@ -14,26 +14,47 @@ Stronghold.Mercenary = Stronghold.Mercenary or {
 -- -------------------------------------------------------------------------- --
 -- API
 
+--- Adds to the current contingent of hireable mercenaries.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type
+--- @param _Amount integer Amount to increase
 function AddToMercenaryContingent(_PlayerID, _Type, _Amount)
-    return Stronghold.Mercenary:AddToMercenaryContingent(_PlayerID, _Type, _Amount);
+    Stronghold.Mercenary:AddToMercenaryContingent(_PlayerID, _Type, _Amount);
 end
 
+--- Returns the current amount of hireable mercenaries.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type
+--- @return integer
 function GetMercenaryContingent(_PlayerID, _Type)
     return Stronghold.Mercenary:GetMercenaryContingent(_PlayerID, _Type);
 end
 
+--- Returns the current maximum of hirable mercenaries.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type
+--- @return integer
 function GetMaxMercenaryContingent(_PlayerID, _Type)
     return Stronghold.Mercenary:GetMaxMercenaryContingent(_PlayerID, _Type);
 end
 
+--- Returns the current cost factor for mercenaries.
+--- @return number Factor Cost factor
 function GetMercenaryCostFactor()
     return Stronghold.Mercenary:GetMercenaryCostFactor();
 end
 
+--- Changes the cost factor for mercenaries.
+--- @param _Factor number Factor
 function SetMercenaryCostFactor(_Factor)
     Stronghold.Mercenary:SetMercenaryCostFactor(_Factor);
 end
 
+--- Returns the current costs for the unit type.
+--- @param _PlayerID integer ID of player
+--- @param _Type integer Entity type
+--- @param _Soldiers integer Soldier amount
+--- @return table Costs Costs table
 function GetMercenaryUnitCosts(_PlayerID, _Type, _Soldiers)
     return Stronghold.Mercenary:GetInflatedUnitCosts(_PlayerID, _Type, _Soldiers);
 end
@@ -361,8 +382,8 @@ function Stronghold.Mercenary:RefillMercenaryOffers(_PlayerID)
                 local Config = self.Config:Get(Type);
                 assert(Config ~= nil);
                 local MaxAmountBase = Config.MaxAmount;
-                local MaxAmountBonus = (MercenaryCamps[1] -1) * self.Config.QuantityFactor;
-                local MaxAmount = math.floor(MaxAmountBase + MaxAmountBonus);
+                local MaxAmountBonus = math.max(MercenaryCamps[1] -1, 0) * self.Config.QuantityFactor;
+                local MaxAmount = math.floor(MaxAmountBase + (MaxAmountBase * MaxAmountBonus));
                 self.Data[_PlayerID].Contingent[Type].MaxAmount = MaxAmount;
                 if Data.Amount < MaxAmount then
                     self.Data[_PlayerID].Contingent[Type].RefillTimer = Data.RefillTimer + 1;
