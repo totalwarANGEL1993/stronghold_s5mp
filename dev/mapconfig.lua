@@ -10,10 +10,10 @@ SHS5MP_RulesDefinition = {
     -- (Game is not lost when the HQ falls)
     DisableDefaultWinCondition = false,
     -- Disable rule configuration?
-    DisableRuleConfiguration = true;
+    DisableRuleConfiguration = false,
 
-    -- Peacetime in minutes
-    PeaceTime = 0,
+    -- Peacetime in minutes (only needed for fixed peacetimes or singleplayer)
+    PeaceTime = nil,
     -- Open up named gates on the map.
     -- (PTGate1, PTGate2, ...)
     PeaceTimeOpenGates = true,
@@ -27,7 +27,7 @@ SHS5MP_RulesDefinition = {
     MapStartFillStone = 4000,
     MapStartFillIron = 4000,
     MapStartFillSulfur = 4000,
-    MapStartFillWood = 4000,
+    MapStartFillWood = 20000,
 
     -- Rank
     Rank = {
@@ -50,11 +50,11 @@ SHS5MP_RulesDefinition = {
         -- Helias
         [Entities.PU_Hero6]              = true,
         -- Kerberos
-        [Entities.CU_BlackKnight]        = false,
+        [Entities.CU_BlackKnight]        = true,
         -- Mary
-        [Entities.CU_Mary_de_Mortfichet] = false,
+        [Entities.CU_Mary_de_Mortfichet] = true,
         -- Varg
-        [Entities.CU_Barbarian_Hero]     = false,
+        [Entities.CU_Barbarian_Hero]     = true,
         -- Drake
         [Entities.PU_Hero10]             = true,
         -- Yuki
