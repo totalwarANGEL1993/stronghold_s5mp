@@ -33,10 +33,10 @@
             <Time>90</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>300</Wood>
+                <Wood>600</Wood>
                 <Stone>0</Stone>
-                <Gold>1000</Gold>
-                <Iron>100</Iron>
+                <Gold>1500</Gold>
+                <Iron>200</Iron>
                 <Sulfur/>
             </Cost>
             <BuilderSlot>

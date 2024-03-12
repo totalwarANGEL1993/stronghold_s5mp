@@ -141,9 +141,11 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Beautification10]  = {Honor = 6, Reputation = 1,},
         [Entities.PB_Beautification11]  = {Honor = 6, Reputation = 1,},
         ---
-        [Entities.PB_Monastery1]       = {Honor = 0, Reputation = 6,},
-        [Entities.PB_Monastery2]       = {Honor = 0, Reputation = 9,},
-        [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 12,},
+        [Entities.PB_Monastery1]        = {Honor = 0, Reputation = 6,},
+        [Entities.PB_Monastery2]        = {Honor = 0, Reputation = 9,},
+        [Entities.PB_Monastery3]        = {Honor = 0, Reputation = 12,},
+        ---
+        [Entities.PB_ExecutionerPlace1] = {Honor = 10, Reputation = 10,},
     },
 }
 
