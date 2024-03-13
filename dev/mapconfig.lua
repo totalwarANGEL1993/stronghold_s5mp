@@ -7,7 +7,6 @@ SHS5MP_RulesDefinition = {
     -- ###################################################################### --
 
     -- Disable standard victory condition?
-    -- (Game is not lost when the HQ falls)
     DisableDefaultWinCondition = false,
     -- Disable rule configuration?
     DisableRuleConfiguration = false,

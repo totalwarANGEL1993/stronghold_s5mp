@@ -60,15 +60,21 @@ end
 --- * 5: 60 minutes
 --- @return integer Selected Selected peacetime
 function GetSelectedPeacetime()
-    return Stronghold.Multiplayer.Data.Config.PeacetimeSelected;
+    local Index = Stronghold.Multiplayer.Data.Config.PeacetimeSelected;
+    local IdexMap = {[6] = 1, [7] = 2, [8] = 3, [9] = 4, [10] = 5,};
+    return IdexMap[Index] or Index;
 end
 
 --- Returns the peacetime in seconds.
 --- @return integer Peacetime Peacetime
 function GetPeacetimeInSeconds()
-    local TimeMap = {0, 10, 20, 30, 40, 0, 15, 30, 45, 60};
-    local Selected = TimeMap[Stronghold.Multiplayer.Data.Config.PeacetimeSelected];
-    return Selected * 60;
+    if Stronghold.Multiplayer.Data.Config.PeaceTime then
+        return Stronghold.Multiplayer.Data.Config.PeaceTime;
+    else
+        local TimeMap = {0, 10, 20, 30, 40, 0, 15, 30, 45, 60};
+        local Selected = TimeMap[Stronghold.Multiplayer.Data.Config.PeacetimeSelected];
+        return Selected * 60;
+    end
 end
 
 --- Returns the resources selected.
@@ -329,6 +335,13 @@ function Stronghold.Multiplayer:ConfigureReset()
         for k,v in pairs(self.Data.Config.AllowedHeroes) do
             self.Data.Config.AllowedHeroes[k] = true;
         end
+    end
+
+    if self.Data.Config.DisableDefaultWinCondition then
+        self.Data.Config.ModeSelected = 0;
+    end
+    if self.Data.Config.PeaceTime then
+        self.Data.Config.PeacetimeSelected = 0;
     end
 end
 
@@ -793,9 +806,7 @@ function Stronghold.Multiplayer:OnPeaceTimeOver()
             if not IsExisting("PTGate" ..Index) then
                 break;
             end
-
             local ID = GetID("PTGate" ..Index);
-            local PlayerID = Logic.EntityGetPlayer(ID);
             local Type = Logic.GetEntityType(ID);
             if Type == Entities.XD_PalisadeGate1 then
                 ReplaceEntity(ID, Entities.XD_PalisadeGate2);
@@ -1220,9 +1231,14 @@ end
 -- GUI Uptate
 
 function GUIUpdate_SHMP_Config_SetMode(_Widget)
-    local Selected = Stronghold.Multiplayer.Data.Config.ModeSelected or 1;
-    local Flag = (string.find(_Widget, "Mode" ..Selected) ~= nil and 1) or 0;
-    XGUIEng.HighLightButton(_Widget, Flag);
+    if Stronghold.Multiplayer.Data.Config.DisableDefaultWinCondition then
+        XGUIEng.HighLightButton(_Widget, 0);
+        XGUIEng.DisableButton(_Widget, 1);
+    else
+        local Selected = Stronghold.Multiplayer.Data.Config.ModeSelected or 1;
+        local Flag = (string.find(_Widget, "Mode" ..Selected) ~= nil and 1) or 0;
+        XGUIEng.HighLightButton(_Widget, Flag);
+    end
 end
 
 function GUIUpdate_SHMP_Config_SetHeroAllowed(_Widget, _Type)
@@ -1237,9 +1253,14 @@ function GUIUpdate_SHMP_Config_SetResource(_Widget)
 end
 
 function GUIUpdate_SHMP_Config_SetPeacetime(_Widget)
-    local Selected = Stronghold.Multiplayer.Data.Config.PeacetimeSelected or 6;
-    local Flag = (string.find(_Widget, "Peacetime" ..Selected) ~= nil and 1) or 0;
-    XGUIEng.HighLightButton(_Widget, Flag);
+    if Stronghold.Multiplayer.Data.Config.PeaceTime then
+        XGUIEng.HighLightButton(_Widget, 0);
+        XGUIEng.DisableButton(_Widget, 1);
+    else
+        local Selected = Stronghold.Multiplayer.Data.Config.PeacetimeSelected or 6;
+        local Flag = (string.find(_Widget, "Peacetime" ..Selected) ~= nil and 1) or 0;
+        XGUIEng.HighLightButton(_Widget, Flag);
+    end
 end
 
 function GUIUpdate_SHMP_Config_SetInitialRank(_Widget)
