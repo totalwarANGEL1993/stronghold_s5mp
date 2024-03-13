@@ -466,11 +466,11 @@ function Stronghold.Player:InitalizePlayersHeadquarter(_PlayerID)
     if not IsExisting(DoorPosName) then
         DoorPos = GetCirclePosition(HQName, 800, 180);
         if (Orientation >= 0 and Orientation <= 45)
+        or (Orientation >= 225 and Orientation <= 315)
         or  Orientation >= 315 then
-            DoorPos.Y = DoorPos.Y - 190;
-        end
-        if (Orientation >= 135 and Orientation <= 225) then
-            DoorPos.Y = DoorPos.Y + 190;
+            DoorPos.Y = DoorPos.Y + 0;
+        else
+            DoorPos.Y = DoorPos.Y + 100;
         end
         ID = Logic.CreateEntity(Entities.XD_BuildBlockScriptEntity, DoorPos.X, DoorPos.Y, Orientation, 0);
         Logic.SetEntityName(ID, DoorPosName);
@@ -483,7 +483,7 @@ function Stronghold.Player:InitalizePlayersHeadquarter(_PlayerID)
 
     -- Create camp Pos
     ID = Logic.CreateEntity(Entities.XD_ScriptEntity, DoorPos.X, DoorPos.Y, Orientation, _PlayerID);
-    local CampPos = GetCirclePosition(ID, 400, 160);
+    local CampPos = GetCirclePosition(ID, 400, 180);
     self.Data[_PlayerID].Player.CampPos = CampPos;
     DestroyEntity(ID);
     -- Create camp
