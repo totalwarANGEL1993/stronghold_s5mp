@@ -79,6 +79,7 @@ echo "Create release..."
 # fill release folder
 rm -rf release/shs5mp_configs/version
 rm -rf release/*.s5x
+rm -rf release/readme.md
 mkdir -p "release/stronghold_s5mp/version/$currentVersion"
 mkdir -p release/shs5mp_configs
 mkdir -p release/stronghold_s5mp/mapping
@@ -87,6 +88,7 @@ mv var/stronghold_s5mp/sh_editor.bba release/stronghold_s5mp/mapping
 cp modloader/callbacks.lua release/stronghold_s5mp/mapping
 cp dev/mapconfig.lua release/stronghold_s5mp/mapping
 cp dev/mapscript.lua release/stronghold_s5mp/mapping
+cp changelog.txt release/readme.md
 
 # copy maps
 bin/bba5.exe "maps/StrongholdTutorial.s5x.unpacked"
