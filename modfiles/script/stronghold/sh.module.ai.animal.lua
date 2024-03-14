@@ -33,14 +33,15 @@ function Stronghold.AI:ControlMigratoryAnimal()
             if not IsExisting(self.Data.Animals[i]) then
                 self.Data.Animals[1] = self.Data.Animals[1] - 1;
                 table.remove(self.Data.Animals, i);
-            end
-            local TaskList = Logic.GetEntityScriptingValue(self.Data.Animals[i], -22);
-            if TaskList == TaskLists.TL_ANIMAL_FLEE then
-                local Factor = self.Config.MigratoryAnimal.FleeingSpeedFactor;
-                Logic.SetSpeedFactor(self.Data.Animals[i], Factor);
             else
-                local Factor = self.Config.MigratoryAnimal.RegularSpeedFactor;
-                Logic.SetSpeedFactor(self.Data.Animals[i], Factor);
+                local TaskList = Logic.GetEntityScriptingValue(self.Data.Animals[i], -22);
+                if TaskList == TaskLists.TL_ANIMAL_FLEE then
+                    local Factor = self.Config.MigratoryAnimal.FleeingSpeedFactor;
+                    Logic.SetSpeedFactor(self.Data.Animals[i], Factor);
+                else
+                    local Factor = self.Config.MigratoryAnimal.RegularSpeedFactor;
+                    Logic.SetSpeedFactor(self.Data.Animals[i], Factor);
+                end
             end
         end
     end
