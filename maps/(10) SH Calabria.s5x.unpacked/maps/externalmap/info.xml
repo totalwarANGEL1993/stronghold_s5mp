@@ -3,7 +3,7 @@
  <NameKey>Volcano</NameKey>
  <DescKey>Volcano</DescKey>
  <Name>(10) @color:200,70,40 SH @color:255,255,255 Calabria</Name>
- <Desc>@color:200,70,40 von RobbiTheFox @cr @cr @color:255,255,255 Kalabrien (italienisch Calabria; kalabresisch Calàbbria) ist die südlichste Region des italienischen Festlandes. Zehn Burgherren kämpfen um dieses Land. @cr @cr Konstellation P1, P2, P3, P4, P5 (rechts) vs P6, P7, P8, P9, P10 (links)</Desc>
+ <Desc>@color:200,70,40 von RobbiTheFox @cr @cr @color:255,255,255 Kalabrien (italienisch Calabria; kalabresisch Calàbbria) ist die südlichste Region des italienischen Festlandes. Zehn Burgherren kämpfen um dieses Land. @cr @cr @color:190,0,0 Diese Karte kann nicht im Singleplayer gespielt werden! @color:255,255,255 @cr @cr Konstellation P1, P2, P3, P4, P5 (rechts) vs P6, P7, P8, P9, P10 (links)</Desc>
  <SizeX>769</SizeX>
  <SizeY>769</SizeY>
  <MPFlag>true</MPFlag>
@@ -12,6 +12,6 @@
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>8ef8aa8a-82b1-46fe-aa98-883dab8c8fe8</Data>
+  <Data>1fb43add-7715-475e-9584-2072d0d74b2f</Data>
  </GUID>
 </root>

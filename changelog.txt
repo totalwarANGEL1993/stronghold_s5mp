@@ -116,7 +116,7 @@ __Heldenfähigkeiten__
 - Drake:
   * Sold von Schafschützen wird nur noch um 20% reduziert
 
-__QoL__
+__Quality of Life__
 
 - Im Multiplayer kann die Farbe aller Spieler lokal geändert werden. Analog zu 
   EMS, können die Farben im Diplomatiemenü durchgeschalten werden.
