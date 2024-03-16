@@ -568,7 +568,6 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     Stronghold.Recruit:InitDefaultRoster(_PlayerID);
 
     local ThiefRecruiter = {Entities.PB_Tavern2};
-    AllowTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     if string.find(Logic.GetEntityTypeName(_Type), "^PU_Hero1[abc]+$")
     or _Type == Entities.CU_Hero13 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.LeaderPoleArm4;
@@ -585,7 +584,6 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderBow2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[3] = UpgradeCategories.LeaderCavalry2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry[4] = UpgradeCategories.LeaderHeavyCavalry2;
-        ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.PU_Hero5 then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BanditLeaderSword1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.BanditLeaderBow1;
@@ -618,11 +616,9 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     elseif _Type == Entities.CU_Barbarian_Hero then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BarbarianLeader2;
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.BarbarianLeader1;
-        ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     elseif _Type == Entities.CU_Evil_Queen then
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[5] = UpgradeCategories.BearmanLeader1;
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.SkirmisherLeader1;
-        ForbidTechnology(Technologies.B_GunsmithWorkshop, _PlayerID);
     end
     Stronghold.Recruit.Data[_PlayerID].Config[Entities.PU_Thief].RecruiterBuilding = ThiefRecruiter;
 end

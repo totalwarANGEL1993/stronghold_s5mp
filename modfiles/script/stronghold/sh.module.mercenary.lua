@@ -473,6 +473,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero1(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
+        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
@@ -595,7 +596,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero4(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
+        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
@@ -810,7 +811,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero9(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
+        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
@@ -939,7 +940,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero12(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
+        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
