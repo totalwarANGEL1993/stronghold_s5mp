@@ -31,8 +31,8 @@
         <Cost>
             <Silver>3</Silver>
             <Gold>150</Gold>
-            <Wood>140</Wood>
-            <Iron>60</Iron>
+            <Wood>110</Wood>
+            <Iron>40</Iron>
             <Sulfur>0</Sulfur>
         </Cost>
         <Category>Military</Category>
