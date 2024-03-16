@@ -181,7 +181,7 @@ function Stronghold.Mercenary:BuyMercenaryUnitTooltip(_WidgetID, _Index, _Player
         local Name = " @color:180,180,180,255 " ..XGUIEng.GetStringTableText("names/".. TypeName);
         Text = Name.. " @cr " ..XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_normal");
         if XGUIEng.IsButtonDisabled(_WidgetID) == 1 then
-            local DisabledText = XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_disabled");
+            local DisabledText = XGUIEng.GetStringTableText("sh_description/Unit_" ..TypeName.. "_disabled_mercenary");
             local Rank = Stronghold.Rights:GetRankRequiredForRight(_PlayerID, UnitConfig.Right);
             local RankName = GetRankName(Rank, _PlayerID);
             DisabledText = string.gsub(DisabledText, "#Rank#", RankName);
