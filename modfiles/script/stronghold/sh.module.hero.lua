@@ -1027,12 +1027,6 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MilitaryAttrationUsage", function(_PlayerID, _CurrentAmount)
-        local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, CurrentAmount);
-        return CurrentAmount;
-    end);
-
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_SlaveAttrationLimit", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyMaxSlaveAttractionPassiveAbility(_PlayerID, CurrentAmount);
@@ -1223,18 +1217,17 @@ function Stronghold.Hero:ApplyUnitAttractionPassiveAbility(_PlayerID, _Type, _Va
             Value = Value + 1;
         end
     end
-    return Value;
-end
-
--- Passive Ability: Change millitary places usage
-function Stronghold.Hero:ApplyMilitaryAttractionPassiveAbility(_PlayerID, _Value)
-    local Value = _Value;
+    -- Cannon bonus (Salim)
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-        for _, Type in pairs (self.Config.Hero3.CannonTypes) do
-            local Amount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Type);
-            local Places = Stronghold.Attraction:GetRequiredSpaceForUnitType(_PlayerID, Type, Amount);
-            local Occupied = Amount * Places;
-            Value = Value - Occupied;
+        if _Type == Entities.CV_Cannon1
+        or _Type == Entities.CV_Cannon2
+        or _Type == Entities.PV_Cannon1
+        or _Type == Entities.PV_Cannon2
+        or _Type == Entities.PV_Cannon3
+        or _Type == Entities.PV_Cannon4
+        or _Type == Entities.PV_Cannon7
+        or _Type == Entities.PV_Cannon8 then
+            Value = Value - self.Config.Hero3.CannonPlaceReduction;
         end
     end
     return Value;
