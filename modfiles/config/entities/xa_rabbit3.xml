@@ -14,9 +14,9 @@
 		<Class>GGL::CAnimal</Class>
 		<AccessCategory>AccessCategoryAnimal</AccessCategory>
 		<DefaultTaskList>TL_ANIMAL_RABBIT_IDLE</DefaultTaskList>
-		<TerritoryRadius>4000</TerritoryRadius>
-		<WanderRangeMin>1000</WanderRangeMin>
-		<WanderRangeMax>3000</WanderRangeMax>	
+		<TerritoryRadius>2000</TerritoryRadius>
+		<WanderRangeMin>750</WanderRangeMin>
+		<WanderRangeMax>1500</WanderRangeMax>
 		<NeedsPlayer>false</NeedsPlayer>
 		<MaxHealth>20</MaxHealth>
 		<ShyRange>1000</ShyRange>
@@ -26,7 +26,7 @@
     <Behavior>
 		<Logic classname="EGL::CMovementBehaviorProps">
 			<Class>GGL::CBehaviorAnimalMovement</Class>
-			<Speed>200</Speed>
+			<Speed>180</Speed>
 			<RotationSpeed>30</RotationSpeed>
 		</Logic>
 		<Display classname="ED::CBehaviorProps">
