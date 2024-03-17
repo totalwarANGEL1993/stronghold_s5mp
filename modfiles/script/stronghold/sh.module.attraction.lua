@@ -270,16 +270,11 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
                 local NewMoti = math.floor((OldMoti * 100) + 0.5) + _Amount;
                 NewMoti = math.min(NewMoti, GetMaxReputation(_PlayerID));
                 NewMoti = math.min(NewMoti, GetReputation(_PlayerID));
-                NewMoti = math.max(NewMoti, 20);
-                -- Ensure that only every fifth worker leaves
-                local NewMotiFactor = NewMoti / 100;
-                if NewMotiFactor <= 0.25 and math.mod(i, 5) ~= 1 then
-                    NewMotiFactor = 0.26;
-                end
-                if NewMotiFactor <= 0.25 then
+                NewMoti = math.max(NewMoti, 0);
+                if NewMoti <= 25 then
                     WorkerLeaves = true;
                 end
-                CEntity.SetMotivation(WorkerList[i], NewMotiFactor);
+                CEntity.SetMotivation(WorkerList[i], NewMoti / 100);
             end
         end
         -- Print worker leave message
