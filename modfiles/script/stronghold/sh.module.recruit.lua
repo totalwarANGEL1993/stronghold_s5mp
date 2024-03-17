@@ -862,10 +862,6 @@ function Stronghold.Recruit:GetOccupiedSpacesFromCannonsInProgress(_PlayerID)
     if self.Data[_PlayerID] then
         for _, Data in pairs(self.Data[_PlayerID].ForgeRegister) do
             local Size = GetMilitaryPlacesUsedByUnit(_PlayerID, Data[2], 1);
-            -- Salim passive skill
-            if Stronghold.Hero:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-                Size = Size - Stronghold.Hero.Config.Hero3.CannonPlaceReduction;
-            end
             Places = Places + Size;
         end
     end
