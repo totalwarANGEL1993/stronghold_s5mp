@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey></NameKey>
+ <DescKey></DescKey>
+ <Name>(2) Meister der Täuschung</Name>
+ <Desc>...</Desc>
+ <SizeX>545</SizeX>
+ <SizeY>545</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>2</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>6cb3a59c-40c8-4fc0-9d89-a450a44a6649</Data>
+ </GUID>
+</root>
