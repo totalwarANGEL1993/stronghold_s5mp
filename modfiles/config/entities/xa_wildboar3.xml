@@ -15,9 +15,9 @@
 		<Class>GGL::CAnimal</Class>
 		<AccessCategory>AccessCategoryAnimal</AccessCategory>
 		<DefaultTaskList>TL_ANIMAL_WILDBOAR3_IDLE</DefaultTaskList>
-		<TerritoryRadius>5000</TerritoryRadius>
-		<WanderRangeMin>2000</WanderRangeMin>
-		<WanderRangeMax>3000</WanderRangeMax>	
+		<TerritoryRadius>2000</TerritoryRadius>
+		<WanderRangeMin>500</WanderRangeMin>
+		<WanderRangeMax>1000</WanderRangeMax>	
 		<NeedsPlayer>false</NeedsPlayer>
 		<MaxHealth>20</MaxHealth>
 		<ShyRange>1000</ShyRange>
@@ -27,7 +27,7 @@
     <Behavior>
 		<Logic classname="EGL::CMovementBehaviorProps">
 			<Class>GGL::CBehaviorAnimalMovement</Class>
-			<Speed>175</Speed>
+			<Speed>150</Speed>
 			<RotationSpeed>30</RotationSpeed>
 		</Logic>
 		<Display classname="ED::CBehaviorProps">

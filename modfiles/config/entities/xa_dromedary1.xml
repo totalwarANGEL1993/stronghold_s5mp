@@ -15,9 +15,9 @@
 		<Class>GGL::CAnimal</Class>
 		<AccessCategory>AccessCategoryAnimal</AccessCategory>
 		<DefaultTaskList>TL_ANIMAL_DROMEDARY_IDLE</DefaultTaskList>
-		<TerritoryRadius>8000</TerritoryRadius>
-		<WanderRangeMin>3000</WanderRangeMin>
-		<WanderRangeMax>6000</WanderRangeMax>	
+		<TerritoryRadius>5000</TerritoryRadius>
+		<WanderRangeMin>4000</WanderRangeMin>
+		<WanderRangeMax>2500</WanderRangeMax>	
 		<NeedsPlayer>false</NeedsPlayer>
 		<MaxHealth>20</MaxHealth>
 		<ShyRange>1000</ShyRange>

@@ -13,12 +13,12 @@
 		<Class>GGL::CAnimal</Class>
 		<AccessCategory>AccessCategoryAnimal</AccessCategory>
 		<DefaultTaskList>TL_ANIMAL_SHEEP_IDLE</DefaultTaskList>
-		<TerritoryRadius>5000</TerritoryRadius>
-		<WanderRangeMin>2000</WanderRangeMin>
-		<WanderRangeMax>3000</WanderRangeMax>	
+		<TerritoryRadius>2000</TerritoryRadius>
+		<WanderRangeMin>1000</WanderRangeMin>
+		<WanderRangeMax>500</WanderRangeMax>
 		<NeedsPlayer>false</NeedsPlayer>
 		<MaxHealth>20</MaxHealth>
-		<ShyRange>1000</ShyRange>
+		<ShyRange>500</ShyRange>
 		<FleeTaskList>TL_ANIMAL_FLEE</FleeTaskList>
 	</Logic>
 

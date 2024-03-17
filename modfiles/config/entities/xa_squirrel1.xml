@@ -14,9 +14,9 @@
 		<Class>GGL::CAnimal</Class>
 		<AccessCategory>AccessCategoryAnimal</AccessCategory>
 		<DefaultTaskList>TL_ANIMAL_SQUIRREL_IDLE</DefaultTaskList>
-		<TerritoryRadius>3000</TerritoryRadius>
-		<WanderRangeMin>1000</WanderRangeMin>
-		<WanderRangeMax>2000</WanderRangeMax>	
+		<TerritoryRadius>2000</TerritoryRadius>
+		<WanderRangeMin>750</WanderRangeMin>
+		<WanderRangeMax>1500</WanderRangeMax>
 		<NeedsPlayer>false</NeedsPlayer>
 		<MaxHealth>20</MaxHealth>
 		<ShyRange>1000</ShyRange>
@@ -26,7 +26,7 @@
     <Behavior>
 		<Logic classname="EGL::CMovementBehaviorProps">
 			<Class>GGL::CBehaviorAnimalMovement</Class>
-			<Speed>350</Speed>
+			<Speed>200</Speed>
 			<RotationSpeed>30</RotationSpeed>
 		</Logic>
 		<Display classname="ED::CBehaviorProps">
