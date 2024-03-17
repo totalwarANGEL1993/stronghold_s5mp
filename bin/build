@@ -77,61 +77,13 @@ echo "Done!"
 echo "Create release..."
 
 # fill release folder
-rm -rf release/shs5mp_configs/version
-rm -rf release/*.s5x
 mkdir -p "release/stronghold_s5mp/version/$currentVersion"
-mkdir -p release/shs5mp_configs
 mkdir -p release/stronghold_s5mp/mapping
 cp -r var/stronghold_s5mp/* "release/stronghold_s5mp/version/$currentVersion"
 mv var/stronghold_s5mp/sh_editor.bba release/stronghold_s5mp/mapping
 cp modloader/callbacks.lua release/stronghold_s5mp/mapping
 cp dev/mapconfig.lua release/stronghold_s5mp/mapping
 cp dev/mapscript.lua release/stronghold_s5mp/mapping
-
-# copy maps
-bin/bba5.exe "maps/StrongholdTutorial.s5x.unpacked"
-cp "maps/StrongholdTutorial.s5x" release
-cp "maps/StrongholdTutorial.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/StrongholdSmallDale.s5x.unpacked"
-cp "maps/StrongholdSmallDale.s5x" release
-cp "maps/StrongholdSmallDale.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(1) SH Stronghold Testmap.s5x.unpacked"
-cp "maps/(1) SH Stronghold Testmap.s5x" release
-cp "maps/(1) SH Stronghold Testmap.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(1) SH Stronghold Stresstest.s5x.unpacked"
-cp "maps/(1) SH Stronghold Stresstest.s5x" release
-cp "maps/(1) SH Stronghold Stresstest.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(2) SH Schiffbruch.s5x.unpacked"
-cp "maps/(2) SH Schiffbruch.s5x" release
-cp "maps/(2) SH Schiffbruch.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(2) SH The only Way.s5x.unpacked"
-cp "maps/(2) SH The only Way.s5x" release
-cp "maps/(2) SH The only Way.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(3) SH The Great Drought.s5x.unpacked"
-cp "maps/(3) SH The Great Drought.s5x" release
-cp "maps/(3) SH The Great Drought.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(4) SH Auge der Sahara.s5x.unpacked"
-cp "maps/(4) SH Auge der Sahara.s5x" release
-cp "maps/(4) SH Auge der Sahara.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(4) SH Kuestenjuwelen.s5x.unpacked"
-cp "maps/(4) SH Kuestenjuwelen.s5x" release
-cp "maps/(4) SH Kuestenjuwelen.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(5) SH Im stillen Winkel.s5x.unpacked"
-cp "maps/(5) SH Im stillen Winkel.s5x" release
-cp "maps/(5) SH Im stillen Winkel.lua" release/shs5mp_configs
-
-bin/bba5.exe "maps/(10) SH Calabria.s5x.unpacked"
-cp "maps/(10) SH Calabria.s5x" release
-cp "maps/(10) SH Calabria.lua" release/shs5mp_configs
 
 echo "Done!"
 
