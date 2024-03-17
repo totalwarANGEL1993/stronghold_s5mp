@@ -273,36 +273,42 @@ function Stronghold.Building:OnHeadquarterSelected(_EntityID)
         return;
     end
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
-        local Type = Logic.GetEntityType(_EntityID);
-        local TypeName = Logic.GetEntityTypeName(Type);
-        local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil);
-        XGUIEng.ShowWidget("BuildingTabs", (IsOutpost and 0) or 1);
-        XGUIEng.ShowWidget("RallyPoint", 1);
-        XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
-        GUIUpdate_BuySerf();
-        GUIUpdate_PlaceRallyPoint();
-        local WidgetID = gvStronghold_LastSelectedHQMenu;
-        self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, WidgetID);
-        -- Upgrade buttons
-        XGUIEng.ShowWidget("Upgrade_Headquarter1", 0);
-        XGUIEng.ShowWidget("Upgrade_Headquarter2", 0);
-        XGUIEng.ShowWidget("Upgrade_Outpost1", 0);
-        XGUIEng.ShowWidget("Upgrade_Outpost2", 0);
         if Logic.IsConstructionComplete(_EntityID) == 1 then
-            if Type == Entities.PB_Headquarters1 then
-                XGUIEng.ShowWidget("Upgrade_Headquarter1", 1);
-            elseif Type == Entities.PB_Headquarters2 then
-                XGUIEng.ShowWidget("Upgrade_Headquarter2", 1);
-            elseif Type == Entities.PB_Outpost1 then
-                XGUIEng.ShowWidget("Upgrade_Outpost1", 1);
-            elseif Type == Entities.PB_Outpost2 then
-                XGUIEng.ShowWidget("Upgrade_Outpost2", 1);
+            local Type = Logic.GetEntityType(_EntityID);
+            local TypeName = Logic.GetEntityTypeName(Type);
+            local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil);
+            XGUIEng.ShowWidget("BuildingTabs", (IsOutpost and 0) or 1);
+            XGUIEng.ShowWidget("RallyPoint", 1);
+            XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+            GUIUpdate_BuySerf();
+            GUIUpdate_PlaceRallyPoint();
+            local WidgetID = gvStronghold_LastSelectedHQMenu;
+            self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, WidgetID);
+            -- Upgrade buttons
+            XGUIEng.ShowWidget("Upgrade_Headquarter1", 0);
+            XGUIEng.ShowWidget("Upgrade_Headquarter2", 0);
+            XGUIEng.ShowWidget("Upgrade_Outpost1", 0);
+            XGUIEng.ShowWidget("Upgrade_Outpost2", 0);
+            if Logic.IsConstructionComplete(_EntityID) == 1 then
+                if Type == Entities.PB_Headquarters1 then
+                    XGUIEng.ShowWidget("Upgrade_Headquarter1", 1);
+                elseif Type == Entities.PB_Headquarters2 then
+                    XGUIEng.ShowWidget("Upgrade_Headquarter2", 1);
+                elseif Type == Entities.PB_Outpost1 then
+                    XGUIEng.ShowWidget("Upgrade_Outpost1", 1);
+                elseif Type == Entities.PB_Outpost2 then
+                    XGUIEng.ShowWidget("Upgrade_Outpost2", 1);
+                end
             end
-        end
-        GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
-        GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP2_Outpost);
-        if IsOutpost then
-            GUIUpdate_GlobalTechnologiesButtons("Research_Tracking", Technologies.T_Tracking, Entities.PB_Outpost1);
+            GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
+            GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP2_Outpost);
+                -- Tracking
+            if IsOutpost then
+                GUIUpdate_GlobalTechnologiesButtons("Research_Tracking", Technologies.T_Tracking, Entities.PB_Outpost1);
+            end
+        else
+            XGUIEng.ShowWidget("Headquarter", 0);
+            XGUIEng.ShowWidget("Monastery", 0);
         end
     else
         gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
@@ -937,7 +943,10 @@ end
 -- Tavern
 
 function Stronghold.Building:OnTavernSelected(_EntityID)
-    XGUIEng.ShowWidget("BuildingTabs", 1);
+    if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Farm) == 1
+    and Logic.IsConstructionComplete(_EntityID) == 1 then
+        XGUIEng.ShowWidget("BuildingTabs", 1);
+    end
 end
 
 -- -------------------------------------------------------------------------- --
