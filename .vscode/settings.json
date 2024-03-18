@@ -264,7 +264,8 @@
         "EVELANCEMUSIC",
         "CustomStringHelper",
         "MP_DiplomacyWindow",
-        "CWidget"
+        "CWidget",
+        "GroupSelection_EntityIDChanged"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

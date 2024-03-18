@@ -186,6 +186,32 @@ function SetTaxHeight(_PlayerID, _Height)
     Stronghold.Player:SetPlayerTaxHeight(_PlayerID, _Height -1);
 end
 
+--- Returns if the game mode is Conservative.
+--- @return boolean Mode Is game mode
+function IsGameModeConservative()
+    return Stronghold.Player.Config.DefeatModes.Kingsmaker;
+end
+
+--- Returns if the game mode is Kingsmaker.
+--- @return boolean Mode Is game mode
+function IsGameModeKingsmaker()
+    return Stronghold.Player.Config.DefeatModes.SuddenDeath;
+end
+
+--- Returns if the game mode is Annihilation.
+--- @return boolean Mode Is game mode
+function IsGameModeAnnihilation()
+    return Stronghold.Player.Config.DefeatModes.Annihilation;
+end
+
+--- Returns if the game mode is Custom.
+--- @return boolean Mode Is game mode
+function IsGameModeCustom()
+    return not IsGameModeConservative() and
+           not IsGameModeKingsmaker() and
+           not IsGameModeAnnihilation();
+end
+
 -- -------------------------------------------------------------------------- --
 -- Callbacks
 
@@ -584,6 +610,7 @@ function Stronghold.Player:WaitForPlayersHeadquarterConstructed(_PlayerID)
         if  CastleID ~= 0 and Logic.IsBuilding(CastleID) == 1
         and Logic.IsConstructionComplete(CastleID) == 1 then
             self:InitalizePlayersHeadquarter(_PlayerID);
+            self:ResurrectPlayerLordForAnnihilation(_PlayerID);
 
             Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
             local PlayerName = UserTool_GetPlayerName(_PlayerID);
@@ -597,6 +624,26 @@ function Stronghold.Player:WaitForPlayersHeadquarterConstructed(_PlayerID)
         end
     end
     return false;
+end
+
+function Stronghold.Player:ResurrectPlayerLordForAnnihilation(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        if self.Config.DefeatModes.Annihilation
+        or (not self.Config.DefeatModes.Kingsmaker and
+            not self.Config.DefeatModes.SuddenDeath) then
+            local HeroID = GetNobleID(_PlayerID);
+            local Health = Logic.GetEntityHealth(HeroID);
+            if HeroID ~= 0 and Health == 0 then
+                local DoorPos = GetHeadquarterEntrance(_PlayerID);
+                assert(DoorPos ~= nil, "Entrance for players HQ does't exist!");
+                local ID = SetPosition(HeroID, DoorPos);
+                if Logic.GetEntityType(ID) == Entities.CU_BlackKnight then
+                    Logic.LeaderChangeFormationType(ID, 1);
+                end
+                Logic.HurtEntity(ID, Logic.GetEntityHealth(ID));
+            end
+        end
+    end
 end
 
 function Stronghold.Player:WaitForPlayerHeroSlowlyDies(_PlayerID)

@@ -133,6 +133,51 @@ function FillTreeTable()
 end
 
 -- -------------------------------------------------------------------------- --
+-- Entity Tools
+
+function Stronghold.Utils:OverwriteLogicTools()
+    SetPosition = SetSettlerPosition;
+end
+
+--- Places a copy of a settler at a position
+--- @param _Entity any
+--- @param _Position any
+--- @return unknown
+function SetSettlerPosition(_Entity, _Position)
+    local OldID = GetID(_Entity)
+    assert(OldID ~= 0);
+
+    local PlayerID       = Logic.EntityGetPlayer(OldID);
+    local ScriptName     = Logic.GetEntityName(OldID);
+    local EntityType     = Logic.GetEntityType(OldID);
+    local RelativeHealth = GetHealth(OldID);
+
+    local SoldierAmount = 0;
+    if Logic.IsLeader(OldID) == 1 or EntityType == Entities.CU_BlackKnight then
+        SoldierAmount = Logic.GetSoldiersAttachedToLeader(OldID);
+    end
+
+    local WasSelected = IsEntitySelected(OldID);
+    if WasSelected then
+        GUI.DeselectEntity(OldID);
+    end
+
+    DestroyEntity(OldID);
+    local NewID = AI.Entity_CreateFormation(PlayerID, Entities.PU_Watchman_Deco, nil, 0, _Position.X, _Position.Y, 0, 0, 0, 0);
+    NewID = ReplaceEntity(NewID, EntityType);
+    if SoldierAmount > 0 then
+        Tools.CreateSoldiersForLeader(NewID, SoldierAmount);
+    end
+    Logic.SetEntityName(NewID, ScriptName);
+    if WasSelected then
+        GUI.SelectEntity(NewID);
+    end
+    SetHealth(NewID, RelativeHealth);
+    GroupSelection_EntityIDChanged(OldID, NewID);
+    return NewID;
+end
+
+-- -------------------------------------------------------------------------- --
 -- UI Tools
 
 function Stronghold.Utils:OverwriteInterfaceTools()
