@@ -32,6 +32,7 @@
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
         
         <ConstructionInfo>
+            <Time>120</Time>
             <BuilderSlot>
                 <Position>
                     <X>100</X>
