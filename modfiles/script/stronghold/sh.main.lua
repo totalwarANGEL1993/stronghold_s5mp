@@ -206,6 +206,7 @@ function Stronghold:Init()
     Camera.ZoomSetFactorMax(2.0);
     GUI.ClearSelection();
 
+    self.Utils:OverwriteLogicTools();
     self.Utils:OverwriteInterfaceTools();
     self.Player:Install();
     self.Rights:Install();

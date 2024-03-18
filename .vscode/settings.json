@@ -265,7 +265,8 @@
         "CustomStringHelper",
         "MP_DiplomacyWindow",
         "CWidget",
-        "SetPlayerName"
+        "SetPlayerName",
+        "GroupSelection_EntityIDChanged"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
