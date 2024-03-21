@@ -68,6 +68,11 @@ SHS5MP_RulesDefinition = {
         ReplaceEntity("DrawBridge1", Entities.XD_DrawBridgeOpen1);
         ReplaceEntity("Isabella1", Entities.XD_ScriptEntity);
         MakeInvulnerable(GetID("ImposterMayor5"));
+
+        Difficulty_Selected = 0;
+        Difficulty_NetEvent = Syncer.CreateEvent(function(_PlayerID, _Selected)
+            Difficulty_Selected = _Selected;
+        end);
     end,
 
     -- Called after game start timer is over
@@ -93,11 +98,15 @@ SHS5MP_RulesDefinition = {
         Lib.Require("module/entity/EntityMover");
         Lib.Require("module/cinematic/BriefingSystem");
         Lib.Require("module/io/NonPlayerCharacter");
+        BriefingSystem.SetMCButtonCount(8);
 
+        Main1Quest_Init();
         Mayor1Quest_Init();
         TraitorRevengeQuest_Init();
         FindSheepsQuest_Init();
         DrawBridgeQuest_Init();
+
+        Difficulty_BriefingSelectDifficulty();
     end,
 
     -- Called after peacetime is over
@@ -108,6 +117,129 @@ SHS5MP_RulesDefinition = {
     OnSaveLoaded = function()
     end,
 }
+
+-- ########################################################################## --
+-- #                               DIFFICULTY                               # --
+-- ########################################################################## --
+
+function Difficulty_SetEasy()
+    Message("Easy difficulty selected")
+end
+
+function Difficulty_SetNormal()
+    Message("Normal difficulty selected")
+end
+
+function Difficulty_SetHard()
+    Message("Hard difficulty selected")
+end
+
+function Difficulty_SetManiac()
+    Message("Maniac difficulty selected")
+end
+
+function Difficulty_BriefingSelectDifficulty()
+    local PlayerID = GUI.GetPlayerID();
+    local HostPlayerID = Syncer.GetHostPlayerID();
+    local PalPlayerID = (HostPlayerID == 1 and 2) or 1;
+    if PlayerID ~= HostPlayerID and PlayerID ~= PalPlayerID then
+        return;
+    end
+
+    local Briefing = {};
+    local AP, ASP, AMC = BriefingSystem.AddPages(Briefing);
+
+    AP {
+        Name        = "ChoicePage",
+        Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Text",
+        Target      = "HQ1",
+        MC          = {
+            {"map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Option_1", "ChoseEasy"},
+            {"map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Option_2", "ChoseMedium"},
+            {"map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Option_3", "ChoseHard"},
+            {"map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Option_4", "ChoseManiac"},
+        }
+    }
+
+    AP {
+        Name        = "ChoseEasy",
+        Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_2_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_2_Text",
+        Target      = "HQ1",
+        NoSkip      = true,
+        Duration    = 10,
+    }
+    AP("FaderPage");
+
+    AP {
+        Name        = "ChoseMedium",
+        Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_4_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_4_Text",
+        Target      = "HQ1",
+        NoSkip      = true,
+        Duration    = 10,
+    }
+    AP("FaderPage");
+
+    AP {
+        Name        = "ChoseHard",
+        Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_6_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_6_Text",
+        Target      = "HQ1",
+        NoSkip      = true,
+        Duration    = 10,
+    }
+    AP("FaderPage");
+
+    AP {
+        Name        = "ChoseManiac",
+        Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_8_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_8_Text",
+        Target      = "HQ1",
+        NoSkip      = true,
+        Duration    = 10,
+    }
+
+    AP {
+        Name        = "FaderPage",
+        Target      = "HQ1",
+        NoSkip      = true,
+        FadeOut     = 3,
+        Duration    = 3,
+    }
+
+    Briefing.Finished = function()
+        if GUI.GetPlayerID() == Syncer.GetHostPlayerID() then
+            local Selected = BriefingSystem.GetSelectedAnswer("ChoicePage", 1);
+            Syncer.InvokeEvent(Difficulty_NetEvent, Selected);
+        end
+    end
+
+    -- Change briefing for the other player
+    if PlayerID == PalPlayerID then
+        Briefing[1].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Title";
+        Briefing[1].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Text";
+        Briefing[1].DisableSkipping = true;
+        Briefing[1].MC = nil;
+        Briefing[2].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_2_Title";
+        Briefing[2].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_2_Text";
+        Briefing[4].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_4_Title";
+        Briefing[4].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_4_Text";
+        Briefing[6].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_6_Title";
+        Briefing[6].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_6_Text";
+        Briefing[8].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Title";
+        Briefing[8].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Text";
+    end
+    BriefingSystem.Start(HostPlayerID, "BriefingSelectDifficulty_Host", Briefing);
+    BriefingSystem.Start(PalPlayerID, "BriefingSelectDifficulty_Pal", Briefing);
+end
+
+-- ########################################################################## --
+-- #                                 ENEMY                                  # --
+-- ########################################################################## --
+
+
 
 -- ########################################################################## --
 -- #                                TRADER                                  # --
@@ -134,6 +266,29 @@ end
 MainQuest_ID = 1;
 MainQuest_Done = 0;
 
+function Main1Quest_Init()
+    Job.Second(Main1Quest_WaitForDifficultySelection);
+end
+
+function Main1Quest_WaitForDifficultySelection()
+    if Difficulty_Selected ~= 0 then
+        if Difficulty_Selected == 1 then
+            Difficulty_SetEasy();
+        elseif Difficulty_Selected == 2 then
+            Difficulty_SetNormal();
+        elseif Difficulty_Selected == 3 then
+            Difficulty_SetHard();
+        elseif Difficulty_Selected == 4 then
+            Difficulty_SetManiac();
+        end
+        if XNetwork.Manager_DoesExist() == 0 then
+            DestroyEntity("HQ2");
+        end
+        -- TODO: Setup enemies here
+        return true;
+    end
+end
+
 function MainQuest_RevealEnemyCoalition()
     SetPlayerName(2, "Erzherzog Dovbar");
     SetPlayerName(3, "Dovbars linke Hand");
@@ -148,6 +303,14 @@ Mayor1Quest_IsDone = 0;
 
 function Mayor1Quest_Init()
     Mayor1Quest_CreateMayor1Npc1();
+    Job.Second(Mayor1Quest_RescureWifeController);
+end
+
+function Mayor1Quest_RescureWifeController()
+    if RescueWifeQuest_IsDone ~= 0 then
+        Mayor1Quest_CreateMayor1Npc2();
+        return true;
+    end
 end
 
 function Mayor1Quest_Done()
@@ -252,7 +415,7 @@ function Mayor1Quest_BriefingDustin2(_Npc, _HeroID)
     };
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
-    if Mayor1Quest_IsDone == 1 then
+    if RescueWifeQuest_IsDone == 1 then
         AP {
             Title       = HeroName,
             Text        = "Ich habe Euch Euer Weib wiedergebracht.",
@@ -316,6 +479,8 @@ function TraitorRevengeQuest_Init()
 end
 
 function TraitorRevengeQuest_Done()
+    SetNeutral(1,7);
+    SetNeutral(2,7);
     ReplaceEntity("Traitor1", Entities.XD_ScriptEntity);
     ReplaceEntity("VC_Blockade", Entities.XD_ScriptEntity);
     TraitorRevengeQuest_IsDone = 1;
@@ -467,6 +632,7 @@ function RescueWifeQuest_Done()
         AddHonor(1, 300);
         AddHonor(2, 300);
     end
+    NonPlayerCharacter.Delete("Isabella1");
     Logic.SetQuestType(1, RescueWifeQuest_ID, SUBQUEST_CLOSED, 1);
     Logic.SetQuestType(2, RescueWifeQuest_ID, SUBQUEST_CLOSED, 1);
 end
@@ -513,7 +679,6 @@ function RescueWifeQuest_CreateIsabella1Npc2()
         Follow      = true,
         Target      = "Isabella1Pos1",
         Callback    = function()
-            Move("Isabella1", "Isabella1Pos1");
         end,
         WayCallback = function(_Npc, _HeroID)
             local PlayerID = GUI.GetPlayerID();
@@ -594,18 +759,27 @@ function FindSheepsQuest_CreateEscapedSheepNpcs()
         NonPlayerCharacter.Create {
             ScriptName = "Sheep" ..i,
             Callback   = function(_Npc, _HeroID)
+                local PlayerID = GUI.GetPlayerID();
+                if PlayerID == 1 or PlayerID == 2 then
+                    local Msg = "Ein Schaf macht sich auf den Heimweg!";
+                    Message(Msg);
+                end
                 Job.Second(function(_ScriptName)
                     local ID = GetID(_ScriptName);
+                    if Logic.IsEntityMoving(ID) == false then
+                        Move(ID, _ScriptName.. "Pos");
+                    end
                     if not IsExisting(ID) or IsNear(ID, _ScriptName.. "Pos", 100) then
                         FindSheepQuest_SheepArrivalCounter = FindSheepQuest_SheepArrivalCounter + 1;
                         if FindSheepQuest_SheepArrivalCounter >= 5 then
                             FindSheepsQuest_Done();
-                            return true;
                         end
+                        return true;
                     end
                 end, _Npc.ScriptName);
             end,
         }
+        NonPlayerCharacter.Activate("Sheep" ..i);
     end
 end
 
@@ -751,7 +925,7 @@ function FindSheepsQuest_BriefingFarmer2(_Npc, _HeroID)
     BriefingSystem.Start(PlayerID, "BriefingFarmer2", Briefing);
 end
 
--- Find Sheeps -------------------------------------------------------------- --
+-- Draw Bridge -------------------------------------------------------------- --
 
 DrawBridgeQuest_ID = 6;
 DrawBridgeQuest_Player1ID = 1;

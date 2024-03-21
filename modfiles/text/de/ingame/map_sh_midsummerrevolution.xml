@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<!-- Difficulty selection -->
+
+<string id="BriefingSelectDifficulty_1_Title">Schwierigkeit wählen</string>
+<string id="BriefingSelectDifficulty_1_Text">Wählt die Schwierigkeit mit der Ihr spielen wollt.</string>
+<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Wolkenweich</string>
+<string id="BriefingSelectDifficulty_1_Option_2">{yellow} @center Durschnittlich</string>
+<string id="BriefingSelectDifficulty_1_Option_3">{orange} @center Herausfordernd</string>
+<string id="BriefingSelectDifficulty_1_Option_4">{red} @center Geisteskrank</string>
+<string id="BriefingSelectDifficulty_2_Title">Leichte Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_2_Text">Ihr habt Euch für die leichte Schwierigkeit entschieden. Denkt Ihr nicht, dass Ihr es Euch zu einfach macht?</string>
+<string id="BriefingSelectDifficulty_4_Title">Normale Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_4_Text">Ihr spielt auf der normalen Schwierigkeit. Eine vernünftige Entscheidung. Habt viel Spaß beim spielen.</string>
+<string id="BriefingSelectDifficulty_6_Title">Hohe Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_6_Text">Ihr wollt Euch beweisen und spielt auf erhöhter Schwierigkeit. Wenn Ihr das so wollt...</string>
+<string id="BriefingSelectDifficulty_8_Title">Sehr hohe Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_8_Text">Wollt Ihr nicht lieber eine Therapie machen? So viel Selbsthass ist ungesund...</string>
+
+<string id="BriefingSelectDifficulty_Pal_1_Title">Schwierigkeit wählen</string>
+<string id="BriefingSelectDifficulty_Pal_1_Text">Der Host wählt die Schwierigkeit. Habt bitte einen Moment Geduld...</string>
+<string id="BriefingSelectDifficulty_Pal_2_Title">Leichte Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_Pal_2_Text">Der Host hat leichte Schwierigkeit gewählt. Stellt Euch darauf ein, Euch zu Tode zu langweilen!</string>
+<string id="BriefingSelectDifficulty_Pal_4_Title">Normale Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_Pal_4_Text">Der Host hat normale Schwierigkeit gewählt. Ihr werdet Euch gut unterhalten fühlen, erwartet aber keine Herausforderung!</string>
+<string id="BriefingSelectDifficulty_Pal_6_Title">Hohe Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_Pal_6_Text">Der Host hat hohe Schwierigkeit gewählt. Die Feinde sind zäh und Ihr werdet schon ein wenig für den Sieg tun müssen!</string>
+<string id="BriefingSelectDifficulty_Pal_8_Title">Sehr hohe Schwierigkeit</string>
+<string id="BriefingSelectDifficulty_Pal_8_Text">Der Host hat sehr hohe Schwierigkeit gewählt. Ihr könnt Euch dafür bedanken, denn einfach wird es nicht!</string>
+</stringtable>
