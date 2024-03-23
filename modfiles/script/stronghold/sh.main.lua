@@ -197,6 +197,11 @@ function Stronghold:Init()
     Extension.Install();
     FreeCam.SetToggleable(true);
 
+    -- Player 0 building fix
+    Score.Player[0] = Score.Player[0] or {};
+	Score.Player[0]["buildings"] = Score.Player[0]["buildings"] or 0;
+	Score.Player[0]["all"] = Score.Player[0]["all"] or 0;
+
     if not CMod then
         Message("The S5 Community Server is required!");
         return false;
