@@ -21,7 +21,7 @@ SHS5MP_RulesDefinition = {
     StartingSerfs = 6,
 
     -- Fill resource piles with resources
-    -- (value of resources or 0 to not change)
+    -- (Entities with scriptnames are ignored. Set to 0 to deactivate.)
     MapStartFillClay = 4000,
     MapStartFillStone = 4000,
     MapStartFillIron = 4000,
@@ -29,9 +29,18 @@ SHS5MP_RulesDefinition = {
     MapStartFillWood = 20000,
 
     -- Rank
+    -- (Adds 5 * inital rank knowledge to the players)
     Rank = {
         Initial = 0,
         Final = 7,
+    },
+
+    -- Resources
+    -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
+    Resources = {
+        [1] = {  0, 1000, 1200, 1500,  550,    0,    0},
+        [2] = { 50, 2000, 2400, 3000, 1100,  600,    0},
+        [3] = {300, 8000, 4800, 6000, 3300, 1800,  900},
     },
 
     -- Setup heroes allowed
