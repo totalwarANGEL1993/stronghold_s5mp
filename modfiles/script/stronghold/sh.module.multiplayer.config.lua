@@ -35,6 +35,7 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
     MapStartFillWood = 20000,
 
     -- Rank
+    -- (Adds 5 * inital rank knowledge to the players)
     Rank = {
         Initial = 0,
         Final = 7,
@@ -43,9 +44,9 @@ Stronghold.Multiplayer.Config.DefaultSettings = {
     -- Resources
     -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
     Resources = {
-        [1] = {  0, 1000, 1200, 1500,  550,   0,    0},
-        [2] = { 50, 2000, 2400, 3000, 1100, 600,    0},
-        [3] = {300, 8000, 4800, 6000, 3300, 1800, 900},
+        [1] = {  0, 1000, 1200, 1500,  550,    0,    0},
+        [2] = { 50, 2000, 2400, 3000, 1100,  600,    0},
+        [3] = {300, 8000, 4800, 6000, 3300, 1800,  900},
     },
 
     -- Setup heroes allowed

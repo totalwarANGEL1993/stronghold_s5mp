@@ -295,7 +295,7 @@ end
 --- @param ... integer|table List of troop types
 --- @return integer ID ID of spawner
 function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
-    local ID = 0;
+    local SpawnerID = 0;
     if Stronghold.AI.Data.Delinquents[_ID] then
         local Data = Stronghold.AI.Data.Delinquents[_ID];
         local Troops = {};
@@ -304,29 +304,28 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
             table.insert(Troops, Troop);
         end
 
-        AiArmy.SetAllowedTypes(
-            Data.AttackArmyID,
-            CopyTable(AiArmy.GetAllowedTypes(Data.AttackArmyID), Troops)
-        );
-        AiArmy.SetAllowedTypes(
-            Data.DefendArmyID,
-            CopyTable(AiArmy.GetAllowedTypes(Data.DefendArmyID), Troops)
-        );
+        local AtkTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
+        AiArmy.SetAllowedTypes(Data.AttackArmyID, CopyTable(AtkTypes, Troops));
+        local DefTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
+        AiArmy.SetAllowedTypes(Data.DefendArmyID, CopyTable(DefTypes, Troops));
 
-        ID = AiArmyRefiller.CreateSpawner{
-            ScriptName    = _ScriptName,
-            SpawnPoint    = (IsExisting(_ScriptName.. "Spawn") and _ScriptName.. "Spawn") or nil,
-            SpawnAmount   = _Amount,
-            SpawnTimer    = _Time,
-            Sequentially  = true,
-            Endlessly     = true,
-            AllowedTypes  = Troops,
-        }
-        AiArmyRefiller.AddArmy(ID, Data.AttackArmyID);
-        AiArmyRefiller.AddArmy(ID, Data.DefendArmyID);
-        table.insert(Stronghold.AI.Data.Delinquents[_ID].Spawner, ID);
+        SpawnerID = AiArmyRefiller.Get(_ScriptName);
+        if SpawnerID == 0 then
+            SpawnerID = AiArmyRefiller.CreateSpawner{
+                ScriptName    = _ScriptName,
+                SpawnPoint    = (IsExisting(_ScriptName.. "Spawn") and _ScriptName.. "Spawn") or nil,
+                SpawnAmount   = _Amount,
+                SpawnTimer    = _Time,
+                Sequentially  = true,
+                Endlessly     = true,
+                AllowedTypes  = Troops,
+            };
+        end
+        AiArmyRefiller.AddArmy(SpawnerID, Data.AttackArmyID);
+        AiArmyRefiller.AddArmy(SpawnerID, Data.DefendArmyID);
+        table.insert(Stronghold.AI.Data.Delinquents[_ID].Spawner, SpawnerID);
     end
-    return ID;
+    return SpawnerID;
 end
 
 --- Removes all spawners from the camp.
