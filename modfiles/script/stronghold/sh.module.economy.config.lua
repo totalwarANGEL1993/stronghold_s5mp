@@ -107,8 +107,8 @@ Stronghold.Economy.Config.Income = {
             [Entities.PB_Residence3] = {Honor =    0, Reputation = 0.12,},
         },
         [Technologies.T_Instruments] = {
-            [Entities.PB_Tavern1]    = {Honor = 0.40, Reputation =    0,},
-            [Entities.PB_Tavern2]    = {Honor = 0.30, Reputation =    0,},
+            [Entities.PB_Tavern1]    = {Honor = 0.35, Reputation =    0,},
+            [Entities.PB_Tavern2]    = {Honor = 0.20, Reputation =    0,},
         },
     },
 
@@ -121,8 +121,8 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Residence2] = {Honor =    0, Reputation = 0.09,},
         [Entities.PB_Residence3] = {Honor =    0, Reputation = 0.12,},
         ---
-        [Entities.PB_Tavern1]    = {Honor =    0, Reputation = 0.40,},
-        [Entities.PB_Tavern2]    = {Honor =    0, Reputation = 0.30,},
+        [Entities.PB_Tavern1]    = {Honor =    0, Reputation = 0.35,},
+        [Entities.PB_Tavern2]    = {Honor =    0, Reputation = 0.20,},
     },
     Static = {
         [Entities.PB_Beautification04]  = {Honor = 1, Reputation = 1,},
