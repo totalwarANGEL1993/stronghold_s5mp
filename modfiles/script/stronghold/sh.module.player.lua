@@ -540,7 +540,7 @@ function Stronghold.Player:InitalizePlayersSerfs(_PlayerID, _Serfs, _CampPos, _L
     local SerfCount = _Serfs or self.Config.Base.StartingSerfs;
     for i= 1, SerfCount do
         local SerfPos = GetCirclePosition(CampPos, 250, (360/SerfCount) * i);
-        ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
+        local ID = Logic.CreateEntity(Entities.PU_Serf, SerfPos.X, SerfPos.Y, 360 - ((360/SerfCount) * i), _PlayerID);
         if IsExisting(CampName) then
             LookAt(ID, CampName);
         end
