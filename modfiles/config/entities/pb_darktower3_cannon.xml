@@ -26,11 +26,11 @@
     	    <RotationSpeed>7</RotationSpeed>
     	    <CannonBallEffectType>FXCannonTowerBall</CannonBallEffectType>
   			<ProjectileOffsetFront>100</ProjectileOffsetFront>
-    	    <ReloadTime>7400</ReloadTime>
+    	    <ReloadTime>7000</ReloadTime>
     	    <MaxAttackRange>3200.0f</MaxAttackRange>
-    	    <MinRange>800</MinRange>
+    	    <MinRange>500</MinRange>
     	    <DamageClass>DC_Turret</DamageClass>
-    	    <DamageAmount>30</DamageAmount>
+    	    <DamageAmount>45</DamageAmount>
     	    <DamageRange>600</DamageRange>
     	    <AutoAttackRange>3200</AutoAttackRange>
     	    <BattleTaskList>TL_BATTLE_CANNONTOWER</BattleTaskList>
