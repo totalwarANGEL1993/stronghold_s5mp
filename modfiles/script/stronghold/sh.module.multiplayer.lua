@@ -296,7 +296,6 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
         self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
         self.Config.DefaultSettings.Resources = _Config.Resources or Default.Resources;
-        self.Config.DefaultSettings.Knowledge = _Config.Knowledge or Default.Knowledge;
         for k,v in pairs(Default.AllowedHeroes) do
             self.Config.DefaultSettings.AllowedHeroes[k] = _Config.AllowedHeroes[k] or v;
         end
@@ -858,40 +857,7 @@ function Stronghold.Multiplayer:OnGameModeSet()
         self:OnPeaceTimeOver();
     end
 
-    -- Fill clay
-    if self.Data.Config.MapStartFillClay and self.Data.Config.MapStartFillClay > 0 then
-        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Clay1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillClay);
-        end
-    end
-    -- Fill stone
-    if self.Data.Config.MapStartFillStone and self.Data.Config.MapStartFillStone > 0 then
-        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillStone);
-        end
-        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone2)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillStone);
-        end
-    end
-    -- Fill iron
-    if self.Data.Config.MapStartFillIron and self.Data.Config.MapStartFillIron > 0 then
-        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Iron1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillIron);
-        end
-    end
-    -- Fill sulfur
-    if self.Data.Config.MapStartFillSulfur and self.Data.Config.MapStartFillSulfur > 0 then
-        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Sulfur1)) do
-            Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillSulfur);
-        end
-    end
-
-    -- Replace wood piles
-    if self.Data.Config.MapStartFillWood then
-        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_SingnalFireOff)) do
-            CreateWoodPile(CreateNameForEntity(EntityID), self.Data.Config.MapStartFillWood);
-        end
-    end
+    self:FillResourceHeapsAndPiles();
 end
 
 function Stronghold.Multiplayer:OverrideFunctions()
@@ -926,6 +892,60 @@ function Stronghold.Multiplayer:OverrideFunctions()
         end
     else
         Stronghold.Multiplayer:OnGameStart();
+    end
+end
+
+function Stronghold.Multiplayer:FillResourceHeapsAndPiles()
+    -- Fill clay
+    if self.Data.Config.MapStartFillClay and self.Data.Config.MapStartFillClay > 0 then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Clay1)) do
+            local ScriptName = Logic.GetEntityName(EntityID);
+            if ScriptName == nil or ScriptName == "" then
+                Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillClay);
+            end
+        end
+    end
+    -- Fill stone
+    if self.Data.Config.MapStartFillStone and self.Data.Config.MapStartFillStone > 0 then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone1)) do
+            local ScriptName = Logic.GetEntityName(EntityID);
+            if ScriptName == nil or ScriptName == "" then
+                Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillStone);
+            end
+        end
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Stone2)) do
+            local ScriptName = Logic.GetEntityName(EntityID);
+            if ScriptName == nil or ScriptName == "" then
+                Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillStone);
+            end
+        end
+    end
+    -- Fill iron
+    if self.Data.Config.MapStartFillIron and self.Data.Config.MapStartFillIron > 0 then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Iron1)) do
+            local ScriptName = Logic.GetEntityName(EntityID);
+            if ScriptName == nil or ScriptName == "" then
+                Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillIron);
+            end
+        end
+    end
+    -- Fill sulfur
+    if self.Data.Config.MapStartFillSulfur and self.Data.Config.MapStartFillSulfur > 0 then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_Sulfur1)) do
+            local ScriptName = Logic.GetEntityName(EntityID);
+            if ScriptName == nil or ScriptName == "" then
+                Logic.SetResourceDoodadGoodAmount(EntityID, self.Data.Config.MapStartFillSulfur);
+            end
+        end
+    end
+    -- Replace wood piles
+    if self.Data.Config.MapStartFillWood and self.Data.Config.MapStartFillWood > 0 then
+        for EntityID in CEntityIterator.Iterator(CEntityIterator.OfTypeFilter(Entities.XD_SingnalFireOff)) do
+            local ScriptName = Logic.GetEntityName(EntityID);
+            if ScriptName == nil or ScriptName == "" then
+                CreateWoodPile(CreateNameForEntity(EntityID), self.Data.Config.MapStartFillWood);
+            end
+        end
     end
 end
 
