@@ -305,9 +305,9 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
         end
 
         local AtkTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
-        AiArmy.SetAllowedTypes(Data.AttackArmyID, CopyTable(AtkTypes, Troops));
+        AiArmy.SetAllowedTypes(Data.AttackArmyID, CopyTable(Troops, AtkTypes));
         local DefTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
-        AiArmy.SetAllowedTypes(Data.DefendArmyID, CopyTable(DefTypes, Troops));
+        AiArmy.SetAllowedTypes(Data.DefendArmyID, CopyTable(Troops, DefTypes));
 
         SpawnerID = AiArmyRefiller.Get(_ScriptName);
         if SpawnerID == 0 then
@@ -326,6 +326,26 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
         table.insert(Stronghold.AI.Data.Delinquents[_ID].Spawner, SpawnerID);
     end
     return SpawnerID;
+end
+
+--- Returns the ID of the attacking army of the camp.
+--- @param _ID integer ID of camp
+--- @return integer ID ID of army
+function DelinquentsCampGetAttackerArmy(_ID)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        return Stronghold.AI.Data.Delinquents[_ID].AttackArmyID;
+    end
+    return 0;
+end
+
+--- Returns the ID of the defending army of the camp.
+--- @param _ID integer ID of camp
+--- @return integer ID ID of army
+function DelinquentsCampGetDefenderArmy(_ID)
+    if Stronghold.AI.Data.Delinquents[_ID] then
+        return Stronghold.AI.Data.Delinquents[_ID].DefendArmyID;
+    end
+    return 0;
 end
 
 --- Removes all spawners from the camp.
