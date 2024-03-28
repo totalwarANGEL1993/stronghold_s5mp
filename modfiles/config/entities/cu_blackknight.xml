@@ -116,12 +116,12 @@
     <Behavior>
         <Logic classname="GGL::CInflictFearAbilityProps">
             <Class>GGL::CInflictFearAbility</Class>
-            <RechargeTimeSeconds>5</RechargeTimeSeconds>            <!--120-->
+            <RechargeTimeSeconds>120</RechargeTimeSeconds>            <!--120-->
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>CU_BlackKnight_Blackknight_Order1</Animation>
             <Range>1000.0</Range>
             <FlightDistance>0</FlightDistance>
-            <FlightDuration>60</FlightDuration>
+            <FlightDuration>90</FlightDuration>
         </Logic>
     </Behavior>
 
