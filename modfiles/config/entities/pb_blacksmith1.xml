@@ -27,8 +27,8 @@
         </ModifyExploration>
 
         <Worker>PU_Smith</Worker>
-        <MaxWorkers>3</MaxWorkers>
-        <InitialMaxWorkers>3</InitialMaxWorkers>
+        <MaxWorkers>2</MaxWorkers>
+        <InitialMaxWorkers>2</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_SMITH_WORK_START</Start>
             <Work>TL_SMITH_WORK</Work>

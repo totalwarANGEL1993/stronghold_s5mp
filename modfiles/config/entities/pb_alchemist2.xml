@@ -25,8 +25,8 @@
         </ModifyExploration> 
         <Exploration>20</Exploration>
         <Worker>PU_Alchemist</Worker>
-        <MaxWorkers>6</MaxWorkers>
-        <InitialMaxWorkers>6</InitialMaxWorkers>
+        <MaxWorkers>4</MaxWorkers>
+        <InitialMaxWorkers>4</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_ALCHEMIST_WORK1_START</Start> 
             <Work>TL_ALCHEMIST_WORK1</Work> 

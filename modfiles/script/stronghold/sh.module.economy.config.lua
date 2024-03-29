@@ -49,7 +49,7 @@ Stronghold.Economy.Config.Resource = {
         [ResourceType.WoodRaw] = 3,
         [ResourceType.StoneRaw] = 2,
         [ResourceType.IronRaw] = 2,
-        [ResourceType.SulfurRaw] = 1,
+        [ResourceType.SulfurRaw] = 2,
 
         SharpAxeBonus = 1,
         HardHandleBonus = 1,

@@ -101,11 +101,11 @@
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>1000</DamageRange>
 
-            <BattleWaitUntil>12000</BattleWaitUntil>
+            <BattleWaitUntil>15000</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBallArtillery</ProjectileEffectID>
             <MaxRange>6800</MaxRange>
-            <MinRange>1500</MinRange>
+            <MinRange>1000</MinRange>
 
             <AutoAttackRange>6800</AutoAttackRange>
 
