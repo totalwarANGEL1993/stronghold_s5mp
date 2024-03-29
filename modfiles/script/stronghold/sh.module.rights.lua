@@ -659,6 +659,14 @@ function Stronghold.Rights:PromotePlayer(_PlayerID, _IgnoreDuties, _Verbose)
     if self:CanPlayerBePromoted(_PlayerID, _IgnoreDuties) then
         local CurrentRank = GetRank(_PlayerID);
         self:SetPlayerRank(_PlayerID, CurrentRank +1);
+        for i= 0, 7 do
+            if i >= CurrentRank +1 then
+                AllowTechnology(self.Config.RankToTechnology[i], _PlayerID);
+            else
+                ForbidTechnology(self.Config.RankToTechnology[i], _PlayerID);
+            end
+        end
+
         -- Pay costs
         if not _IgnoreDuties then
             local Costs = CreateCostTable(unpack(self.Data[_PlayerID].Titles[CurrentRank +1].Costs));
