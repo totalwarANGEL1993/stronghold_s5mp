@@ -411,6 +411,16 @@
     <Technology>T_BearTraining</Technology>
     <Technology>T_DogTraining</Technology>
 
+    <!-- Ranks -->
+    <Technology>R_Commoner</Technology>
+    <Technology>R_Noble</Technology>
+    <Technology>R_Steward</Technology>
+    <Technology>R_Bailiff</Technology>
+    <Technology>R_Baron</Technology>
+    <Technology>R_Count</Technology>
+    <Technology>R_Margrave</Technology>
+    <Technology>R_Duke</Technology>
+
     <!-- Toggle free camera -->
     <Technology>T_FreeCamera</Technology>
 </root>

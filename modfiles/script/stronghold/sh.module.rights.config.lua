@@ -3,6 +3,17 @@
 --- 
 
 Stronghold.Rights.Config = {
+    RankToTechnology = {
+        [PlayerRank.Commoner]   = Technologies.R_Commoner,
+        [PlayerRank.Noble]      = Technologies.R_Noble,
+        [PlayerRank.Mayor]      = Technologies.R_Steward,
+        [PlayerRank.Earl]       = Technologies.R_Bailiff,
+        [PlayerRank.Baron]      = Technologies.R_Baron,
+        [PlayerRank.Count]      = Technologies.R_Count,
+        [PlayerRank.Margrave]   = Technologies.R_Margrave,
+        [PlayerRank.Duke]       = Technologies.R_Duke,
+    },
+
     Gender = {
         [Entities.PU_Hero1]              = Gender.Male,
         [Entities.PU_Hero1a]             = Gender.Male,
