@@ -29,8 +29,8 @@
 
 
         <Worker>PU_Sawmillworker</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>
+        <MaxWorkers>3</MaxWorkers>
+        <InitialMaxWorkers>3</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_SAWMILLWORKER_WORK_START</Start>
             <Work>TL_SAWMILLWORKER_WORK</Work>

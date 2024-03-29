@@ -507,7 +507,7 @@ function Stronghold.AI:DelinquentsCampController(_ID)
                     local Enemies = AiArmy.GetEnemiesInCircle(AttackArmyID, Position, RodeLength);
                     if Enemies[1] then
                         AiArmy.ClearCommands(AttackArmyID);
-                        AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, Target), false);
+                        AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, Target), false);
                         AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, Target), false);
                         AiArmy.PushCommand(AttackArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
                     end

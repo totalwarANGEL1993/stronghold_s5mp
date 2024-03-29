@@ -31,7 +31,7 @@
             <MinRange>500</MinRange>
             <DamageClass>DC_Turret</DamageClass>
             <DamageAmount>30</DamageAmount>
-            <DamageRange>400</DamageRange>
+            <DamageRange>500</DamageRange>
             <AutoAttackRange>2800</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>
         </Logic>

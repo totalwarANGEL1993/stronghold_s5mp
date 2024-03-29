@@ -110,7 +110,7 @@
 
             <ExtractionInfo>
                 <ResourceEntityType>XD_Iron1</ResourceEntityType>
-                <Delay>8</Delay>
+                <Delay>12</Delay>
                 <Amount>2</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
@@ -135,7 +135,7 @@
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_Sulfur1</ResourceEntityType>
-                <Delay>8</Delay>
+                <Delay>12</Delay>
                 <Amount>2</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
@@ -145,7 +145,7 @@
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_IronPit1</ResourceEntityType>
-                <Delay>7</Delay>
+                <Delay>10</Delay>
                 <Amount>2</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
@@ -160,7 +160,7 @@
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_SulfurPit1</ResourceEntityType>
-                <Delay>7</Delay>
+                <Delay>10</Delay>
                 <Amount>2</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
