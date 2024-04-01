@@ -28,8 +28,8 @@
 
 
         <Worker>PU_Stonecutter</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>
+        <MaxWorkers>3</MaxWorkers>
+        <InitialMaxWorkers>3</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_STONECUTTER_WORK_START</Start>
             <Work>TL_STONECUTTER_WORK</Work>
