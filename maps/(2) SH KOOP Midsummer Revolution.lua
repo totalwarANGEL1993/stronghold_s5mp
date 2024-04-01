@@ -15,7 +15,7 @@ SHS5MP_RulesDefinition = {
     PeaceTime = 0,
 
     -- Fill resource piles with resources
-    -- (value of resources or 0 to not change)
+    -- (Entities with scriptnames are ignored. Set to 0 to deactivate.)
     MapStartFillClay = 1000,
     MapStartFillStone = 1000,
     MapStartFillIron = 500,
@@ -26,6 +26,15 @@ SHS5MP_RulesDefinition = {
     Rank = {
         Initial = 0,
         Final = 7,
+    },
+
+    -- Resources
+    -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
+    Resources = {
+        [1] = {  0,    0,    0,    0,    0,    0,    0},
+        -- unbenutzt
+        [2] = { 50, 2000, 2400, 3000, 1100,  600,    0},
+        [3] = {300, 8000, 4800, 6000, 3300, 1800,  900},
     },
 
     -- Setup heroes allowed
@@ -64,10 +73,23 @@ SHS5MP_RulesDefinition = {
     OnMapStart = function()
         UseWeatherSet("EuropeanWeatherSet");
         LocalMusic.UseSet = EUROPEMUSIC;
+        AddPeriodicSummer(490);
+        AddPeriodicRain(60);
+        AddPeriodicSummer(120);
+        AddPeriodicRain(60);
+        AddPeriodicWinter(500);
+        AddPeriodicRain(60);
 
         ReplaceEntity("DrawBridge1", Entities.XD_DrawBridgeOpen1);
         ReplaceEntity("Isabella1", Entities.XD_ScriptEntity);
         MakeInvulnerable(GetID("ImposterMayor5"));
+
+        Lib.Require("module/entity/EntityMover");
+        Lib.Require("module/cinematic/BriefingSystem");
+        Lib.Require("module/io/NonPlayerCharacter");
+        Lib.Require("module/io/NonPlayerMerchant");
+        Lib.Require("comfort/StartCountdown");
+        BriefingSystem.SetMCButtonCount(8);
 
         Difficulty_Selected = 0;
         Difficulty_NetEvent = Syncer.CreateEvent(function(_PlayerID, _Selected)
@@ -88,17 +110,11 @@ SHS5MP_RulesDefinition = {
         SetNeutral(1, 3);
         SetNeutral(1, 4);
         SetNeutral(1, 5);
+        SetNeutral(1, 7);
         SetNeutral(2, 3);
         SetNeutral(2, 4);
         SetNeutral(2, 5);
-
-        SetHostile(1, 7);
-        SetHostile(2, 7);
-
-        Lib.Require("module/entity/EntityMover");
-        Lib.Require("module/cinematic/BriefingSystem");
-        Lib.Require("module/io/NonPlayerCharacter");
-        BriefingSystem.SetMCButtonCount(8);
+        SetNeutral(2, 7);
 
         Main1Quest_Init();
         Mayor1Quest_Init();
@@ -107,6 +123,7 @@ SHS5MP_RulesDefinition = {
         DrawBridgeQuest_Init();
 
         Difficulty_BriefingSelectDifficulty();
+        MainQuest_BriefingIntro();
     end,
 
     -- Called after peacetime is over
@@ -122,20 +139,41 @@ SHS5MP_RulesDefinition = {
 -- #                               DIFFICULTY                               # --
 -- ########################################################################## --
 
+Difficulty_InitialPeaceTime = 50*60;
+Difficulty_Selected = 1;
+
 function Difficulty_SetEasy()
-    Message("Easy difficulty selected")
+    AddHonor(1, 15);
+    Tools.GiveResouces(1, 1000, 1200, 1500, 550, 300, 0);
+    AddHonor(2, 15);
+    Tools.GiveResouces(2, 1000, 1200, 1500, 550, 300, 0);
+
+    Difficulty_InitialPeaceTime = 40*60;
+    Difficulty_Selected = 1;
 end
 
 function Difficulty_SetNormal()
-    Message("Normal difficulty selected")
+    Tools.GiveResouces(1, 900, 1000, 1200, 550, 0, 0);
+    Tools.GiveResouces(2, 900, 1000, 1200, 550, 0, 0);
+
+    Difficulty_InitialPeaceTime = 30*60;
+    Difficulty_Selected = 2;
 end
 
 function Difficulty_SetHard()
-    Message("Hard difficulty selected")
+    Tools.GiveResouces(1, 750, 900, 1000, 0, 0, 0);
+    Tools.GiveResouces(2, 750, 900, 1000, 0, 0, 0);
+
+    Difficulty_InitialPeaceTime = 20*60;
+    Difficulty_Selected = 3;
 end
 
 function Difficulty_SetManiac()
-    Message("Maniac difficulty selected")
+    Tools.GiveResouces(1, 600, 750, 900, 0, 0, 0);
+    Tools.GiveResouces(2, 600, 750, 900, 0, 0, 0);
+
+    Difficulty_InitialPeaceTime = 20*60;
+    Difficulty_Selected = 4;
 end
 
 function Difficulty_BriefingSelectDifficulty()
@@ -146,7 +184,10 @@ function Difficulty_BriefingSelectDifficulty()
         return;
     end
 
-    local Briefing = {};
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+    };
     local AP, ASP, AMC = BriefingSystem.AddPages(Briefing);
 
     AP {
@@ -216,7 +257,7 @@ function Difficulty_BriefingSelectDifficulty()
         end
     end
 
-    -- Change briefing for the other player
+    -- Change briefing for the pal player
     if PlayerID == PalPlayerID then
         Briefing[1].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Title";
         Briefing[1].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Text";
@@ -231,34 +272,167 @@ function Difficulty_BriefingSelectDifficulty()
         Briefing[8].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Title";
         Briefing[8].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Text";
     end
-    BriefingSystem.Start(HostPlayerID, "BriefingSelectDifficulty_Host", Briefing);
-    BriefingSystem.Start(PalPlayerID, "BriefingSelectDifficulty_Pal", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingSelectDifficulty", Briefing);
 end
 
 -- ########################################################################## --
 -- #                                 ENEMY                                  # --
 -- ########################################################################## --
 
+-- Player 2 --------------------------------------------------------------------
 
-
--- ########################################################################## --
--- #                                TRADER                                  # --
--- ########################################################################## --
-
-function Trader_CreateNpcTrader1()
+function Enemy_InitPlayer2()
 
 end
 
-function Trader_CreateNpcTrader2()
+-- Player 3 --------------------------------------------------------------------
+
+function Enemy_InitPlayer3()
 
 end
 
-function Trader_CreateNpcTrader3()
+-- Player 4 --------------------------------------------------------------------
 
+function Enemy_InitPlayer4()
+
+end
+
+-- Player 5 --------------------------------------------------------------------
+
+Enemy_Player5_BuildingPositions = {};
+Enemy_Player5_IsDefeated = 0;
+
+-- Player 5 is not supposed to be the real meat and because I am as lazy as a
+-- human being can get, I will use the bandit stuff for them too.
+function Enemy_Player5_Init()
+    local Strength = 10 + (6 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
+
+    -- Select types
+    local AllowedMelee = {Entities.PU_LeaderPoleArm2, Entities.PU_LeaderSword2, Entities.PU_LeaderPoleArm2};
+    if Difficulty_Selected >= 3 then
+        AllowedMelee = {Entities.CU_TemplarLeaderPoleArm1, Entities.PU_LeaderSword4, Entities.PU_LeaderSword4};
+    end
+    local AllowedRanged = {Entities.PU_LeaderBow2, Entities.PU_LeaderRifle1};
+    if Difficulty_Selected >= 3 then
+        AllowedRanged = {Entities.PU_LeaderBow4, Entities.PU_LeaderRifle2};
+    end
+    local AllowedCavalry = {Entities.PU_LeaderCavalry1, Entities.PU_LeaderHeavyCavalry1, Entities.PU_LeaderCavalry1};
+    if Difficulty_Selected >= 3 then
+        AllowedCavalry = {Entities.CU_TemplarLeaderCavalry1, Entities.CU_TemplarLeaderHeavyCavalry1};
+    end
+    local AllowedCannons = {Entities.PV_Cannon1, Entities.PV_Cannon2};
+    if Difficulty_Selected >= 3 then
+        AllowedCannons = {Entities.PV_Cannon3, Entities.PV_Cannon4};
+    end
+
+    -- Create enemies for player 1
+    Enemy_Player5Camp1 = DelinquentsCampCreate {
+        PlayerID     = 5,
+        HomePosition = "P5DefPos2",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_BC1", RespawnTime, 1, unpack(AllowedMelee));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 2, unpack(AllowedCannons));
+    DelinquentsCampAddGuardPositions(Enemy_Player5Camp1, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
+    DelinquentsCampAddTarget(Enemy_Player5Camp1, "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
+    DelinquentsCampAddTarget(Enemy_Player5Camp1, "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
+
+    -- Create enemies for player 2
+    Enemy_Player5Camp2 = DelinquentsCampCreate {
+        PlayerID     = 5,
+        HomePosition = "P5DefPos3",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_BC1", RespawnTime, 1, unpack(AllowedMelee));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_FD1", RespawnTime, 2, unpack(AllowedCannons));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
+    DelinquentsCampAddGuardPositions(Enemy_Player5Camp2, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
+    DelinquentsCampAddTarget(Enemy_Player5Camp2, "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
+    DelinquentsCampAddTarget(Enemy_Player5Camp2, "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
+
+    -- To make player 5 not too boring...
+    Enemy_Player5_SaveSpawnerBuildings();
+    Job.Second(Enemy_Player5_RestoreSpawnersInFog);
+end
+
+function Enemy_Player5_SaveSpawnerBuildings()
+    for _,ScriptName in pairs{"P5_BC1","P5_AC1","P5_ST1","P5_FD1"} do
+        local Position = GetPosition(ScriptName);
+        local Type = Logic.GetEntityType(GetID(ScriptName));
+        local Orientation = Logic.GetEntityOrientation(GetID(ScriptName));
+        Enemy_Player5_BuildingPositions[ScriptName] = {
+            Position.X, Position.Y, Type, Orientation
+        };
+    end
+end
+
+function Enemy_Player5_RestoreSpawnersInFog()
+    -- End job after imposter is killed
+    if (not IsExisting("ImposterMayor5")) then
+        DelinquentsCampDestroy(Enemy_Player5Camp1);
+        DelinquentsCampDestroy(Enemy_Player5Camp2);
+        Enemy_Player5_IsDefeated = 1;
+        return true;
+    end
+    -- Control imposter vulnerability
+    if  not IsExisting("P5_BC1") and not IsExisting("P5_AC1")
+    and not IsExisting("P5_ST1") and not IsExisting("P5_FD1") then
+        MakeVulnerable("ImposterMayor5");
+    else
+        MakeInvulnerable("ImposterMayor5");
+    end
+    -- Restore buildings in fog
+    for ScriptName, Data in pairs(Enemy_Player5_BuildingPositions) do
+        if not IsExisting(ScriptName) then
+            if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
+            and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                Logic.SetEntityName(ID, ScriptName);
+            end
+        end
+    end
+end
+
+-- Player 7 --------------------------------------------------------------------
+
+-- Player 7 is a normal bandit enemy so we do not need to put a lot of effort
+-- into them to make them truly stand out.
+function Enemy_Player7_Init()
+    local Strength = 4 + (2 * (Difficulty_Selected -1));
+    local Respawn = math.ceil(180 / (Difficulty_Selected ^ (1.3)));
+    local AllowedTroops = {
+        {Entities.PU_LeaderPoleArm1, 3},
+        {Entities.PU_LeaderBow1, 3},
+        {Entities.PU_LeaderBow1, 3},
+        {Entities.CU_BanditLeaderSword3, 3},
+        {Entities.PU_LeaderPoleArm1, 3},
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedTroops = {
+            {Entities.PU_LeaderPoleArm3, 3},
+            {Entities.CU_BanditLeaderBow1, 3},
+            {Entities.PU_LeaderBow3, 3},
+            {Entities.CU_BanditLeaderSword1, 3},
+            {Entities.PU_LeaderRifle1, 3},
+        };
+    end
+
+    Enemy_Player7Camp1 = DelinquentsCampCreate {
+        PlayerID     = 7,
+        HomePosition = "P7DefPos1",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player7Camp1, "BanditTower1", Respawn, 2, unpack(AllowedTroops));
+    DelinquentsCampAddTarget(Enemy_Player7Camp1, "SSWP1", "SSWP2", "SWP4", "SWP5", "Player1Home");
+    DelinquentsCampAddTarget(Enemy_Player7Camp1, "SSWP1", "SSWP2", "SWP4", "SWP5", "NWP5", "NWP6", "Player2Home");
 end
 
 -- ########################################################################## --
--- #                                QUESTS                                  # --
+-- #                              MAIN QUEST                                # --
 -- ########################################################################## --
 
 -- Main --------------------------------------------------------------------- --
@@ -268,6 +442,14 @@ MainQuest_Done = 0;
 
 function Main1Quest_Init()
     Job.Second(Main1Quest_WaitForDifficultySelection);
+    Job.Second(Main1Quest_IsPlayer5Defeated);
+end
+
+function Main1Quest_IsPlayer5Defeated()
+    if Enemy_Player5_IsDefeated == 1 then
+        Message("Debug: Test successful");
+        return true;
+    end
 end
 
 function Main1Quest_WaitForDifficultySelection()
@@ -281,12 +463,27 @@ function Main1Quest_WaitForDifficultySelection()
         elseif Difficulty_Selected == 4 then
             Difficulty_SetManiac();
         end
+
+        -- Delete player 2 in singleplayer
         if XNetwork.Manager_DoesExist() == 0 then
             DestroyEntity("HQ2");
         end
+
         -- TODO: Setup enemies here
+        Enemy_Player5_Init();
+        Enemy_Player7_Init();
         return true;
     end
+end
+
+function MainQuest_PeaceTimeOver()
+    -- Make player 5 aggressive
+    DelinquentsCampActivateAttack(Enemy_Player5Camp1, true);
+    DelinquentsCampActivateAttack(Enemy_Player5Camp2, true);
+    ReplaceEntity("P5NG1", Entities.XD_WallStraightGate);
+    ReplaceEntity("P5SG1", Entities.XD_WallStraightGate);
+    SetHostile(1, 5);
+    SetHostile(2, 5);
 end
 
 function MainQuest_RevealEnemyCoalition()
@@ -294,6 +491,55 @@ function MainQuest_RevealEnemyCoalition()
     SetPlayerName(3, "Dovbars linke Hand");
     SetPlayerName(4, "Dovbars rechte Hand");
 end
+
+function MainQuest_JournalStage1()
+    local Title = "Der Aufstand";
+    local Text  = "Der Bischof hat sich von einem demütigen Diener Gottes zu einem bösartigen Tyrann entwickelt. Ihr und Euer Verbündeter habt Euch erhoben, um Euch dem Unrecht entgegenzustellen. Etwas muss für die Änderung seines Charakter verantwortlich sein. Ihr müsst es herausfinden! {cr}{cr}- Besiegt die Truppen des Bishof";
+    for PlayerID = 1, 2 do
+        Logic.AddQuest(
+            PlayerID,
+            MainQuest_ID,
+            MAINQUEST_OPEN,
+            Placeholder.Replace(Title),
+            Placeholder.Replace(Text),
+            1
+        );
+    end
+end
+
+function MainQuest_BriefingIntro()
+    local PlayerID = GUI.GetPlayerID();
+    local HostPlayerID = Syncer.GetHostPlayerID();
+    local PalPlayerID = (HostPlayerID == 1 and 2) or 1;
+    if PlayerID ~= HostPlayerID and PlayerID ~= PalPlayerID then
+        return;
+    end
+
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
+
+    AP {
+        Title       = "Intro",
+        Text        = "This will later be the intro!",
+        Target      = "HQ1",
+        NoSkip      = true,
+        Duration    = 10,
+    }
+
+    Briefing.Finished = function()
+        MainQuest_JournalStage1();
+        StartCountdown(Difficulty_InitialPeaceTime, MainQuest_PeaceTimeOver, true);
+    end
+    BriefingSystem.Start(PlayerID, "BriefingIntro", Briefing);
+end
+
+-- ########################################################################## --
+-- #                              SUB QUESTS                                # --
+-- ########################################################################## --
 
 -- Mayor 1 ------------------------------------------------------------------ --
 
@@ -479,10 +725,17 @@ function TraitorRevengeQuest_Init()
 end
 
 function TraitorRevengeQuest_Done()
-    SetNeutral(1,7);
-    SetNeutral(2,7);
+    -- make village center accessible
     ReplaceEntity("Traitor1", Entities.XD_ScriptEntity);
     ReplaceEntity("VC_Blockade", Entities.XD_ScriptEntity);
+    -- make player 7 neutral to humans
+    SetNeutral(1,7);
+    SetNeutral(2,7);
+    -- destroy remaining bandits
+    for k,v in pairs(GetPlayerEntities(7, 0)) do
+        DestroyEntity(v);
+    end
+    -- continue quests
     TraitorRevengeQuest_IsDone = 1;
     if Mayor1Quest_WifeQuestStarted == 1 then
         RescueWifeQuest_Init();
@@ -494,6 +747,14 @@ function TraitorRevengeQuest_DestroyBanditsController()
         TraitorRevengeQuest_CreateTraitor1Npc2();
         return true;
     end
+    -- Player must destroy all balista towers first
+    for i= 1, 5 do
+        if IsExisting("OutlawTower" ..i) then
+            MakeInvulnerable("BanditTower1");
+            return false;
+        end
+    end
+    MakeVulnerable("BanditTower1");
 end
 
 function TraitorRevengeQuest_AddToJournal()
@@ -568,6 +829,9 @@ function TraitorRevengeQuest_BriefingTraitor1(_Npc, _HeroID)
     Briefing.Finished = function(_PlayerID)
         TraitorRevengeQuest_AddToJournal();
         ReplaceEntity("BanditBarrier", Entities.XD_Rock7);
+        DelinquentsCampActivateAttack(Enemy_Player7Camp1, true);
+        SetHostile(1, 7);
+        SetHostile(2, 7);
     end
     BriefingSystem.Start(PlayerID, "BriefingTraitor1", Briefing);
 end
@@ -620,7 +884,7 @@ function RescueWifeQuest_Done()
     if PlayerID == 1 or PlayerID == 2 then
         local Msg = "Isabella ist sicher zu ihrem Ehemann zurückgekehrt.";
         if RescueWifeQuest_IsDone == 2 then
-            Msg = "Isabella hat ein neues Leben angefangen! Ihr habt 300 Ehre erhalten.";
+            Msg = "Isabella hat ein neues Leben angefangen! Ihr habt 150 Ehre erhalten.";
         end
         Message(Msg);
     end
@@ -629,8 +893,8 @@ function RescueWifeQuest_Done()
         Move("Isabella1", "Isabella1Pos1");
     else
         MoveAndVanish("Isabella1", "Isabella1Pos2");
-        AddHonor(1, 300);
-        AddHonor(2, 300);
+        AddHonor(1, 150);
+        AddHonor(2, 150);
     end
     NonPlayerCharacter.Delete("Isabella1");
     Logic.SetQuestType(1, RescueWifeQuest_ID, SUBQUEST_CLOSED, 1);
@@ -652,7 +916,7 @@ end
 
 function RescueWifeQuest_AddToJournal()
     local Title = "Eine unangenehme Wahrheit";
-    local Text  = "Nachdem Ihr die Entführer beseitigt habt, erfahrt Ihr die Wahrheit. Isabella wurde nicht entführt, sondern ist vor Dustin geflohen, weil sie seine Mishandlungen nicht mehr ertragen konnte. {cr}{cr}- Eskortiert Isabella in ein neues Leben";
+    local Text  = "Nachdem Ihr die Entführer beseitigt habt, erfahrt Ihr die Wahrheit. Isabella wurde nicht entführt, sondern ist vor Dustin geflohen, weil sie seine Mishandlungen nicht mehr ertragen konnte. {cr}{cr}- Eskortiert Isabella in ein neues Leben {cr}- ODER bringt sie zu Dustin zurück";
     for PlayerID = 1, 2 do
         Logic.AddQuest(
             PlayerID,
@@ -915,7 +1179,7 @@ function FindSheepsQuest_BriefingFarmer2(_Npc, _HeroID)
     AP {
         Title       = "Glücklicher Bauer",
         Text        = "Ihr solltet vielleicht mit unserem Händler sprechen. Vielleicht findet Ihr etwas Interessantes...",
-        Target      = "NPCTrader1",
+        Target      = "NPCTrader2",
         CloseUp     = true,
     }
 
@@ -953,9 +1217,10 @@ function DrawBridgeQuest_Done()
 end
 
 function DrawBridgeQuest_AddTribute()
-    local Msg = "Bezahlt 7500 Taler, damit der Wächter die Brücke herunterlässt.";
-    Logic.AddTribute(1, DrawBridgeQuest_Player1ID, 0, 0, Msg, ResourceType.Gold, 7500);
-    Logic.AddTribute(2, DrawBridgeQuest_Player2ID, 0, 0, Msg, ResourceType.Gold, 7500);
+    local Tribute = 2500 * Difficulty_Selected;
+    local Msg = "Bezahlt %d Taler, damit der Wächter die Brücke herunterlässt.";
+    Logic.AddTribute(1, DrawBridgeQuest_Player1ID, 0, 0, string.format(Msg, Tribute), ResourceType.Gold, Tribute);
+    Logic.AddTribute(2, DrawBridgeQuest_Player2ID, 0, 0, string.format(Msg, Tribute), ResourceType.Gold, Tribute);
 end
 
 function DrawBridgeQuest_FulfillTribute()
@@ -1034,5 +1299,37 @@ function DrawBridgeQuest_BriefingGuard1(_Npc, _HeroID)
         DrawBridgeQuest_AddToJournal();
     end
     BriefingSystem.Start(PlayerID, "BriefingGuard1", Briefing);
+end
+
+-- ########################################################################## --
+-- #                                TRADER                                  # --
+-- ########################################################################## --
+
+function Trader_CreateNpcTrader1()
+    local CostAmount = 250 * Difficulty_Selected;
+    NonPlayerMerchant.Create {
+        ScriptName  = "NPCTrader1",
+    }
+    NonPlayerMerchant.AddResourceOffer("NPCTrader1", ResourceType.Sulfur, 250, {Iron = CostAmount}, 3, 5*60);
+    NonPlayerMerchant.Activate("NPCTrader1");
+end
+
+function Trader_CreateNpcTrader2()
+    local CostAmount = 350 * Difficulty_Selected;
+    NonPlayerMerchant.Create {
+        ScriptName  = "NPCTrader2",
+    }
+    NonPlayerMerchant.AddResourceOffer("NPCTrader2", ResourceType.Stone, 500, {Wood = CostAmount}, 5, 3*60);
+    NonPlayerMerchant.AddResourceOffer("NPCTrader2", ResourceType.Iron, 500, {Clay = CostAmount}, 5, 3*60);
+    NonPlayerMerchant.Activate("NPCTrader2");
+end
+
+function Trader_CreateNpcTrader3()
+    local CostAmount = 2500 * Difficulty_Selected;
+    NonPlayerMerchant.Create {
+        ScriptName  = "Garek1",
+    }
+    NonPlayerMerchant.AddTechnologyOffer("Garek1", Technologies.B_Mercenary, {Gold = CostAmount});
+    NonPlayerMerchant.Activate("Garek1");
 end
 

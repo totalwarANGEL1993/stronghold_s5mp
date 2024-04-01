@@ -4,12 +4,12 @@
 
 <string id="BriefingSelectDifficulty_1_Title">Schwierigkeit wählen</string>
 <string id="BriefingSelectDifficulty_1_Text">Wählt die Schwierigkeit mit der Ihr spielen wollt.</string>
-<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Wolkenweich</string>
+<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Wellnessurlaub</string>
 <string id="BriefingSelectDifficulty_1_Option_2">{yellow} @center Durschnittlich</string>
 <string id="BriefingSelectDifficulty_1_Option_3">{orange} @center Herausfordernd</string>
 <string id="BriefingSelectDifficulty_1_Option_4">{red} @center Geisteskrank</string>
 <string id="BriefingSelectDifficulty_2_Title">Leichte Schwierigkeit</string>
-<string id="BriefingSelectDifficulty_2_Text">Ihr habt Euch für die leichte Schwierigkeit entschieden. Denkt Ihr nicht, dass Ihr es Euch zu einfach macht?</string>
+<string id="BriefingSelectDifficulty_2_Text">Ihr habt Euch für ein entspanntes Spielen entschieden. Denkt Ihr nicht, dass Ihr es Euch zu einfach macht?</string>
 <string id="BriefingSelectDifficulty_4_Title">Normale Schwierigkeit</string>
 <string id="BriefingSelectDifficulty_4_Text">Ihr spielt auf der normalen Schwierigkeit. Eine vernünftige Entscheidung. Habt viel Spaß beim spielen.</string>
 <string id="BriefingSelectDifficulty_6_Title">Hohe Schwierigkeit</string>

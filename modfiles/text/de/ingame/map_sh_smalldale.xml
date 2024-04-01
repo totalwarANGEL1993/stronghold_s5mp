@@ -2,7 +2,7 @@
 <stringtable>
 <string id="BriefingSelectDifficulty_1_Title">Schwierigkeit</string>
 <string id="BriefingSelectDifficulty_1_Text">Wählt die Schwierigkeit mit der Ihr spielen wollt.</string>
-<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Wolkenweich</string>
+<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Wellnessurlaub</string>
 <string id="BriefingSelectDifficulty_1_Option_2">{yellow} @center Durschnittlich</string>
 <string id="BriefingSelectDifficulty_1_Option_3">{orange} @center Herausfordernd</string>
 <string id="BriefingSelectDifficulty_1_Option_4">{red} @center Geisteskrank</string>
