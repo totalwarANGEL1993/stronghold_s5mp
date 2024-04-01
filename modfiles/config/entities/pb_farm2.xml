@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Farm2</Model>
-		  <Anim>PB_Farm2_600</Anim>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <Category>Farm</Category>
-		  <Category>DefendableBuilding</Category>  
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <UpgradeSite>ZB_UpgradeSiteFarm1</UpgradeSite>
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Farm2</Model>
+        <Anim>PB_Farm2_600</Anim>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <Category>Farm</Category>
+        <Category>DefendableBuilding</Category>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
         <MaxHealth>700</MaxHealth>
-        <ArmorClass>ArmorClassFortification</ArmorClass> 
-        <ArmorAmount>3</ArmorAmount>  
-        
-		
-  <!-- Armor -->
-		  <ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-		    		
-		
-  <!-- Exploration-->
-		  <ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>3</ArmorAmount>
+        <Exploration>30</Exploration>
         <Worker>PU_Farmer</Worker>
         <MaxWorkers>1</MaxWorkers>
         <WorkTaskList>
-            <Start>TL_FARMER_WORK_START1</Start> 
-            <Work>TL_FARMER_WORK1</Work> 
+            <Start>TL_FARMER_WORK_START1</Start>
+            <Work>TL_FARMER_WORK1</Work>
         </WorkTaskList>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
         <Upgrade>
             <Category>Farm</Category>
-            <Time>50.0</Time>  
+            <Time>50.0</Time>
             <Cost>
-			    <Clay>250</Clay>
-			    <Wood>150</Wood>
-                <Stone>50</Stone>
+                <Clay>50</Clay>
+                <Wood>150</Wood>
+                <Stone>250</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
             </Cost>
             <Type>PB_Farm3</Type>
         </Upgrade>
-		  <Exploration>30</Exploration>
+        <UpgradeSite>ZB_UpgradeSiteFarm1</UpgradeSite>
+
         <ConstructionInfo>
-             <BuilderSlot>
+            <BuilderSlot>
                 <Position>
-                <X>-400</X>
-                <Y>500</Y>
+                    <X>-400</X>
+                    <Y>500</Y>
                 </Position>
                 <Orientation>0</Orientation>
             </BuilderSlot>
             <BuilderSlot>
                 <Position>
-                <X>-400</X>
-                <Y>200</Y>
+                    <X>-400</X>
+                    <Y>200</Y>
                 </Position>
                 <Orientation>0</Orientation>
             </BuilderSlot>
             <BuilderSlot>
                 <Position>
-                <X>-400</X>
-                <Y>-100</Y>
+                    <X>-400</X>
+                    <Y>-100</Y>
                 </Position>
                 <Orientation>0</Orientation>
-            </BuilderSlot>            
+            </BuilderSlot>
             <BuilderSlot>
                 <Position>
-                <X>-100</X>
-                <Y>-500</Y>
+                    <X>-100</X>
+                    <Y>-500</Y>
                 </Position>
                 <Orientation>90</Orientation>
-            </BuilderSlot>          
+            </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteFarm1</ConstructionSite>
         </ConstructionInfo>
+
         <LeavePos>
             <X>-400</X>
             <Y>200</Y>
@@ -88,13 +88,13 @@
             <X>-400</X>
             <Y>300</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>-10</X>
-            <Y>267</Y>			
+            <Y>267</Y>
         </DoorPos>
-         
-           <Blocked1>
+
+        <Blocked1>
             <X>-300</X>
             <Y>600</Y>
         </Blocked1>
@@ -109,21 +109,21 @@
         <TerrainPos2>
             <X>400</X>
             <Y>-500</Y>
-        </TerrainPos2>  
-         
-             
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
-			  <Class>GGL::CLimitedAttachmentBehavior</Class>
+        </TerrainPos2>
+    </Logic>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_WORKER_FARM</Type>
                 <Limit>10</Limit>
@@ -133,36 +133,29 @@
                 <Type>ATTACHMENT_DEFENDER_BUILDING</Type>
                 <Limit>10</Limit>
             </Attachment>
-		</Logic>
-	</Behavior>
-	
+        </Logic>
+    </Behavior>
 
-	
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>17</NumDamageEffects>
-			  <NumDestroyEffects>15</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CFarmBehavior</Class>
-		</Logic>
-	</Behavior>
-	
-	<Behavior>
-	    <Logic classname="GGL::CDefendableBuildingBehaviorProps">
-	        <Class>GGL::CDefendableBuildingBehavior</Class>
-	    </Logic>
-	</Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>17</NumDamageEffects>
+            <NumDestroyEffects>15</NumDestroyEffects>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CFarmBehavior</Class>
+        </Logic>
+    </Behavior>
 
-
-
-
-
+    <Behavior>
+        <Logic classname="GGL::CDefendableBuildingBehaviorProps">
+            <Class>GGL::CDefendableBuildingBehavior</Class>
+        </Logic>
+    </Behavior>
 </root>
