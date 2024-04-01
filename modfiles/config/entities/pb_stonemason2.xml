@@ -27,8 +27,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Stonecutter</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>        
+        <MaxWorkers>6</MaxWorkers>
+        <InitialMaxWorkers>6</InitialMaxWorkers>        
 		  <WorkTaskList>
 		    <Start>TL_STONECUTTER_WORK2_START</Start> 
 		    <Work>TL_STONECUTTER_WORK2</Work> 

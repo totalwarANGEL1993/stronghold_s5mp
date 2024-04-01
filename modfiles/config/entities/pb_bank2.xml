@@ -30,8 +30,8 @@
 		
         <Exploration>30</Exploration>
         <Worker>PU_Treasurer</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>
+        <MaxWorkers>6</MaxWorkers>
+        <InitialMaxWorkers>6</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_TREASURER_WORK1_START</Start> 
             <Work>TL_TREASURER_WORK1</Work> 

@@ -28,8 +28,8 @@
         </ModifyExploration>   
 		
         <Worker>PU_Sawmillworker</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>        
+        <MaxWorkers>6</MaxWorkers>
+        <InitialMaxWorkers>6</InitialMaxWorkers>        
 		  <WorkTaskList>
 		    <Start>TL_SAWMILLWORKER_WORK1_START</Start> 
 		    <Work>TL_SAWMILLWORKER_WORK1</Work> 
