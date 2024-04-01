@@ -4,16 +4,20 @@
 	<TimeToResearch>25</TimeToResearch>
 	<ResourceCosts>
 		<Silver>0</Silver>
-		<Knowledge>10</Knowledge>
+		<Knowledge>5</Knowledge>
 		<Gold>0</Gold>
 		<Clay/>
-		<Wood>500</Wood>
+		<Wood>200</Wood>
 		<Stone/>
-		<Iron>0</Iron>
+		<Iron>100</Iron>
 		<Sulfur/>
 	</ResourceCosts>
 	<AutomaticResearch>false</AutomaticResearch>
 	<UseForStatisticsFlag>true</UseForStatisticsFlag>
 	<Conditions>
+        <EntityCondition>
+            <EntityType>PB_University2</EntityType>
+            <Amount>1</Amount>
+        </EntityCondition>
 	</Conditions>
 </root>
