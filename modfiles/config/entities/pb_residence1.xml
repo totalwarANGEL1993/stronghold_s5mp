@@ -29,8 +29,8 @@
         <Upgrade>
             <Time>40.0</Time>
             <Cost>
-                <Clay>150</Clay>
-                <Wood>75</Wood>
+                <Clay>75</Clay>
+                <Wood>150</Wood>
                 <Stone>75</Stone>
                 <Gold/>
                 <Iron/>
