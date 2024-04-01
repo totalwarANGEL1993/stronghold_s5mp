@@ -28,8 +28,8 @@
 
 
         <Worker>PU_Gunsmith</Worker>
-        <MaxWorkers>3</MaxWorkers>
-        <InitialMaxWorkers>3</InitialMaxWorkers>
+        <MaxWorkers>4</MaxWorkers>
+        <InitialMaxWorkers>4</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_GUNSMITH_WORK_START</Start>
             <Work>TL_GUNSMITH_WORK</Work>
