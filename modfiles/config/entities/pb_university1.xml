@@ -16,8 +16,8 @@
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <Worker>PU_Scholar</Worker>
-        <MaxWorkers>5</MaxWorkers>
-        <InitialMaxWorkers>5</InitialMaxWorkers>
+        <MaxWorkers>6</MaxWorkers>
+        <InitialMaxWorkers>6</InitialMaxWorkers>
 
 
         <ModifyArmor>
