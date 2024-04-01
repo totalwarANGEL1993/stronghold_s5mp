@@ -30,8 +30,8 @@
         </ModifyExploration>
 
         <Worker>PU_BrickMaker</Worker>
-        <MaxWorkers>6</MaxWorkers>
-        <InitialMaxWorkers>6</InitialMaxWorkers>
+        <MaxWorkers>4</MaxWorkers>
+        <InitialMaxWorkers>4</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_BRICKMAKER_WORK2_START</Start>
             <Work>TL_BRICKMAKER_WORK2</Work>

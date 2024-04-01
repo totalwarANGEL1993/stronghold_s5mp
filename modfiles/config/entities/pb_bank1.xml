@@ -26,8 +26,8 @@
 
 
         <Worker>PU_Treasurer</Worker>
-        <MaxWorkers>4</MaxWorkers>
-        <InitialMaxWorkers>4</InitialMaxWorkers>
+        <MaxWorkers>3</MaxWorkers>
+        <InitialMaxWorkers>3</InitialMaxWorkers>
         <WorkTaskList>
             <Start>TL_TREASURER_WORK_START</Start>
             <Work>TL_TREASURER_WORK</Work>
