@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CGLETaskList>
+    <Script>
+    	Logic.CreateEntity(Entities.PB_Market1,3500,2000,0);
+    	Logic.CreateEntity(Entities.PB_Alchemist2,1500,2000,0);
+    	Logic.CreateEntity(Entities.PU_Alchemist,500,500,0);
+		Logic.CreateEntity(Entities.PU_Alchemist,500,500,0);
+ 		Logic.AddToPlayersGlobalResource(1, ResourceType.SulfurRaw, 30000);
+    </Script>
+    <PrincipalTask>Work</PrincipalTask>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_RESET_TASK_LIST_TIMER</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_APPEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosAndOrientation" classid="0x2f706fdd">
+        <TaskType>TASK_SET_POS</TaskType>
+        <Position>
+            <X>-1.000000e+002</X>
+            <Y>0.000000e+000</Y>
+        </Position>
+        <Orientation>1.800000e+002</Orientation>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_Alchemist_Walk</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-1.164592e+002</X>
+            <Y>-5.495605e+000</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-3.278855e+002</X>
+            <Y>-4.570166e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-3.702357e+002</X>
+            <Y>-7.853223e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-4.062239e+002</X>
+            <Y>-1.511753e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-3.987681e+002</X>
+            <Y>-1.897119e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-3.668726e+002</X>
+            <Y>-2.181274e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-2.947280e+002</X>
+            <Y>-2.217344e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_Alchemist_Work1</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSound" classid="0x2cfedfcd">
+        <TaskType>TASK_PLAY_SOUND</TaskType>
+        <SoundID>Buildings\SO_AlchemistBlubber_rnd_2</SoundID>
+        <Volume>50</Volume>
+        <Looped>true</Looped>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>200</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>400</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>400</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_Alchemist_Walk</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSound" classid="0x2cfedfcd">
+        <TaskType>TASK_STOP_SOUND</TaskType>
+        <SoundID>Buildings\SO_AlchemistBlubber_rnd_2</SoundID>
+        <Volume>0</Volume>
+        <Looped>true</Looped>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-2.783376e+002</X>
+            <Y>-9.890820e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-2.027764e+002</X>
+            <Y>-2.610938e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-7.197095e+001</X>
+            <Y>-1.108154e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_WORK_WAIT_UNTIL</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_ADVANCE_IN_CYCLE</TaskType>
+    </Task>
+</CGLETaskList>

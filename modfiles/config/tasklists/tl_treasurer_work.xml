@@ -1,71 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<CGLETaskList>
-
+<CTasksList>
     <Script>
- 		Logic.CreateEntity(Entities.PB_Market1,3500,2000,0);
-    	Logic.CreateEntity(Entities.PB_Brickworks1,1500,1500,0);
-    	Logic.CreateEntity(Entities.PU_BrickMaker,500,500,0);
-    	Logic.AddToPlayersGlobalResource(1, ResourceType.ClayRaw, 30000);
+     	Logic.CreateEntity(Entities.PB_Market1,3500,2000,0);
+    	Logic.CreateEntity(Entities.PB_Bank1,1500,1500,0);
+    	Logic.CreateEntity(Entities.PU_Treasurer,500,500,0);
+    	Logic.CreateEntity(Entities.PU_Treasurer,500,500,0);
+    	Logic.CreateEntity(Entities.PU_Treasurer,500,500,0);
+    	Logic.CreateEntity(Entities.PU_Treasurer,500,500,0);
+    	Logic.CreateEntity(Entities.PU_Treasurer,500,500,0);
+    	Logic.CreateEntity(Entities.PU_Treasurer,500,500,0);
+    	
     </Script>
 
     <PrincipalTask>Work</PrincipalTask>
 
-
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_CHECK_FEAR</TaskType>
     </Task>
-
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_CHECK_FEAR</TaskType>
     </Task>
-
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_RESET_TASK_LIST_TIMER</TaskType>
     </Task>
-
-    <!-- refining -->
-
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_APPEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosAndOrientation" classid="0x2f706fdd">
+        <TaskType>TASK_SET_POS</TaskType>
+        <Position>
+            <X>-200</X>
+            <Y>0</Y>
+        </Position>
+        <Orientation>180</Orientation>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSound" classid="0x2cfedfcd">
+        <TaskType>TASK_PLAY_SOUND</TaskType>
+        <SoundID>Coiner01</SoundID>
+        <Volume>40</Volume>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT</TaskType>
+        <Thousandths>5000</Thousandths>
+    </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
-        <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>2000</Thousandths>
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1000</Thousandths>
     </Task>
-
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>
     </Task>
-    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
-        <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>2000</Thousandths>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
     </Task>
 
-    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
-        <TaskType>TASK_REFINE_RESOURCE</TaskType>
-    </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>2000</Thousandths>
-    </Task>
-
-    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
-        <TaskType>TASK_REFINE_RESOURCE</TaskType>
-    </Task>
-    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
-        <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>2000</Thousandths>
+        <Thousandths>4000</Thousandths>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
     </Task>
-
-    <!-- refining -->
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1000</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
 
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT</TaskType>
-        <Thousandths>3000</Thousandths>
+        <Thousandths>4000</Thousandths>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
@@ -75,8 +88,4 @@
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_ADVANCE_IN_CYCLE</TaskType>
     </Task>
-</CGLETaskList>
-
-
-
- 
+</CTasksList>
