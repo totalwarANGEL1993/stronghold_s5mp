@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CGLETaskList>
+    <Script>
+     	Logic.CreateEntity(Entities.PB_Market1,3500,2000,0);
+    	Logic.CreateEntity(Entities.PB_Brickworks1,1500,1500,0);
+    	Logic.CreateEntity(Entities.PU_BrickMaker,500,500,0);
+    </Script>
+
+    <PrincipalTask>Work</PrincipalTask>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_RESET_TASK_LIST_TIMER</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_APPEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosAndOrientation" classid="0x2f706fdd">
+        <TaskType>TASK_SET_POS</TaskType>
+        <Position>
+            <X>200</X>
+            <Y>100</Y>
+        </Position>
+        <Orientation>180</Orientation>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_BrickMaker_Walk</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CTaskArgsFloat" classid="0xa2787eed">
+        <TaskType>TASK_SET_TARGET_ORIENTATION_RELATIVE</TaskType>
+        <Value>2.000000e+002</Value>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_TURN_TO_TARGET_ORIENTATION</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-1.815033e+002</X>
+            <Y>2.233496e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-1.486285e+002</X>
+            <Y>-1.174302e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-1.510228e+002</X>
+            <Y>-2.090894e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CTaskArgsFloat" classid="0xa2787eed">
+        <TaskType>TASK_SET_TARGET_ORIENTATION_RELATIVE</TaskType>
+        <Value>9.000000e+001</Value>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_TURN_TO_TARGET_ORIENTATION</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_BrickMaker_Work2</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>130</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSubAnim" classid="0x23f8242d">
+        <TaskType>TASK_SET_ANIM_AT_WORKPLACE</TaskType>
+        <AnimID>PB_Brickworks1_stove_601</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+        <IsLooped>false</IsLooped>
+        <SubAnimIdx>1</SubAnimIdx>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSound" classid="0x2cfedfcd">
+        <TaskType>TASK_PLAY_SOUND</TaskType>
+        <SoundID>Buildings\SO_BrickWorks_OvenDoor1</SoundID>
+        <Volume>50</Volume>
+        <Looped>false</Looped>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>400</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1130</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSubAnim" classid="0x23f8242d">
+        <TaskType>TASK_SET_ANIM_AT_WORKPLACE</TaskType>
+        <AnimID>PB_Brickworks1_stove_601</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+        <IsLooped>false</IsLooped>
+        <SubAnimIdx>1</SubAnimIdx>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSound" classid="0x2cfedfcd">
+        <TaskType>TASK_PLAY_SOUND</TaskType>
+        <SoundID>Buildings\SO_BrickWorks_OvenDoor1</SoundID>
+        <Volume>50</Volume>
+        <Looped>false</Looped>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>750</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>750</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>2000</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_BrickMaker_Walk</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-1.812841e+002</X>
+            <Y>-1.133135e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-1.371830e+002</X>
+            <Y>1.840527e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>2.138442e+002</X>
+            <Y>1.026997e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_WORK_WAIT_UNTIL</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_ADVANCE_IN_CYCLE</TaskType>
+    </Task>
+</CGLETaskList>

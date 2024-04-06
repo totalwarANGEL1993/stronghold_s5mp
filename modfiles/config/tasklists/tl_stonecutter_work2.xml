@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CGLETaskList>
+    <Script>
+    	Logic.CreateEntity(Entities.PB_Market1,3500,2000,0);
+    	Logic.CreateEntity(Entities.PB_StoneMason2,1500,2000,0);
+    	Logic.CreateEntity(Entities.PU_Stonecutter,500,500,0);
+    	Logic.CreateEntity(Entities.PU_Stonecutter,500,500,0);
+    	Logic.CreateEntity(Entities.PU_Stonecutter,500,500,0);
+    	Logic.AddToPlayersGlobalResource(1, ResourceType.Stone, 30000) 
+    </Script>
+
+    <PrincipalTask>Work</PrincipalTask>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_RESET_TASK_LIST_TIMER</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_APPEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosAndOrientation" classid="0x2f706fdd">
+        <TaskType>TASK_SET_POS</TaskType>
+        <Position>
+            <X>200</X>
+            <Y>-300</Y>
+        </Position>
+        <Orientation>180</Orientation>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_Stonecutter_Walk</AnimID>
+        <Category>Walk</Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSubAnim" classid="0x23f8242d">
+        <TaskType>TASK_SET_ANIM_AT_WORKPLACE</TaskType>
+        <AnimID>PB_StoneMason2_600</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+        <IsLooped>false</IsLooped>
+        <SubAnimIdx>1</SubAnimIdx>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>2.952295e+001</X>
+            <Y>-2.197632e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>4.542969e+001</X>
+            <Y>6.381299e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>3.260693e+001</X>
+            <Y>1.533430e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-5.469775e+001</X>
+            <Y>1.396101e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CTaskArgsFloat" classid="0xa2787eed">
+        <TaskType>TASK_SET_TARGET_ORIENTATION_RELATIVE</TaskType>
+        <Value>1.200000e+002</Value>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_TURN_TO_TARGET_ORIENTATION</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_Stonecutter_Work1</AnimID>
+        <Category>Walk</Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>100</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1300</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_Stonecutter_Walk</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>1.250854e+001</X>
+            <Y>1.525867e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>2.916699e+001</X>
+            <Y>-2.203699e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>2.876179e+002</X>
+            <Y>-2.366201e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_VANISH</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_WORK_WAIT_UNTIL</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_ADVANCE_IN_CYCLE</TaskType>
+    </Task>
+</CGLETaskList>

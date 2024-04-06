@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CGLETaskList>
+    <Script>
+    	Logic.CreateEntity(Entities.PB_Market1,3500,2000,0);
+    	Logic.CreateEntity(Entities.PB_Brickworks1,1500,1500,0);
+    	Logic.CreateEntity(Entities.PU_BrickMaker,500,500,0);
+    	Logic.CreateEntity(Entities.PU_BrickMaker,500,500,0);
+    </Script>
+
+    <PrincipalTask>Work</PrincipalTask>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_RESET_TASK_LIST_TIMER</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_APPEAR</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosAndOrientation" classid="0x2f706fdd">
+        <TaskType>TASK_SET_POS</TaskType>
+        <Position>
+            <X>200</X>
+            <Y>100</Y>
+        </Position>
+        <Orientation>180</Orientation>
+    </Task>
+    <Task classname="EGL::CTaskArgsFloat" classid="0xa2787eed">
+        <TaskType>TASK_SET_TARGET_ORIENTATION_RELATIVE</TaskType>
+        <Value>2.000000e+002</Value>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_TURN_TO_TARGET_ORIENTATION</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_BrickMaker_Walk</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-9.068848e+000</X>
+            <Y>7.762622e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-2.584700e+002</X>
+            <Y>-2.598269e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-3.276716e+002</X>
+            <Y>-2.452063e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_BrickMaker_Work1</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>400</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>295</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>295</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSound" classid="0x2cfedfcd">
+        <TaskType>TASK_PLAY_SOUND</TaskType>
+        <SoundID>Buildings\SO_BrickWorks_Table1</SoundID>
+        <Volume>50</Volume>
+        <Looped>false</Looped>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSubAnim" classid="0x23f8242d">
+        <TaskType>TASK_SET_ANIM_AT_WORKPLACE</TaskType>
+        <AnimID>PB_Brickworks1_table_602</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+        <IsLooped>false</IsLooped>
+        <SubAnimIdx>2</SubAnimIdx>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1590</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSound" classid="0x2cfedfcd">
+        <TaskType>TASK_PLAY_SOUND</TaskType>
+        <SoundID>Buildings\SO_BrickWorks_Table1</SoundID>
+        <Volume>50</Volume>
+        <Looped>false</Looped>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsSubAnim" classid="0x23f8242d">
+        <TaskType>TASK_SET_ANIM_AT_WORKPLACE</TaskType>
+        <AnimID>PB_Brickworks1_table_602</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+        <IsLooped>false</IsLooped>
+        <SubAnimIdx>2</SubAnimIdx>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1000</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1000</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHANGE_WORK_TIME_WORK</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>1000</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_BrickMaker_Walk</AnimID>
+        <Category></Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-2.732837e+002</X>
+            <Y>-1.297007e+002</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-2.036270e+002</X>
+            <Y>-8.128174e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>-1.025977e+001</X>
+            <Y>7.751978e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsPosition" classid="0x5cc25f38">
+        <TaskType>TASK_GO_TO_POS</TaskType>
+        <Position>
+            <X>1.795049e+002</X>
+            <Y>8.957202e+001</Y>
+        </Position>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_WORK_WAIT_UNTIL</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_ADVANCE_IN_CYCLE</TaskType>
+    </Task>
+</CGLETaskList>
