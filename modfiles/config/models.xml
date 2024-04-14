@@ -3638,6 +3638,17 @@
         <OcclusionReceiver>True</OcclusionReceiver>
     </Model>
 
+    <Model id="CU_BanditSoldierCavalry1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
+    <Model id="CU_BanditSoldierCavalry1">
+        <Effect>SettlerPlayerColorSpecular</Effect>
+        <SelectionTexture>Selection_Soldier</SelectionTexture>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
     <Model id="CU_Templar_LeaderCavalry1">
         <Effect>SettlerPlayerColorSpecular</Effect>
         <OcclusionReceiver>True</OcclusionReceiver>
