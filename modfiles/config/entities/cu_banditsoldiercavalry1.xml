@@ -2,18 +2,18 @@
 <root>
     <Display classname="ED::CDisplayEntityProps">
         <Class>GD::CDisplaySettler</Class>
-        <Model>PU_SoldierCavalry1</Model>
+        <Model>CU_BanditLeaderCavalry1</Model>
         <DrawPlayerColor>True</DrawPlayerColor>
-        <Anim>PU_SoldierCavalry1_Run1</Anim>
-        <Anim>PU_SoldierCavalry1_Idle1</Anim>
-        <Anim>PU_SoldierCavalry1_Idle2</Anim>
-        <Anim>PU_SoldierCavalry1_Idle3</Anim>
-        <Anim>PU_SoldierCavalry1_Idle4</Anim>
-        <Anim>PU_SoldierCavalry1_Idle5</Anim>
-        <Anim>PU_SoldierCavalry1_Idle6</Anim>
-        <Anim>PU_SoldierCavalry1_Attack1</Anim>
-        <Anim>PU_SoldierCavalry1_Dying1</Anim>
-        <Anim>PU_SoldierCavalry1_Hit</Anim>
+        <Anim>PU_LeaderCavalry1_Run1</Anim>
+        <Anim>PU_LeaderCavalry1_Idle1</Anim>
+        <Anim>PU_LeaderCavalry1_Idle2</Anim>
+        <Anim>PU_LeaderCavalry1_Idle3</Anim>
+        <Anim>PU_LeaderCavalry1_Idle4</Anim>
+        <Anim>PU_LeaderCavalry1_Idle5</Anim>
+        <Anim>PU_LeaderCavalry1_Idle6</Anim>
+        <Anim>PU_LeaderCavalry1_Attack1</Anim>
+        <Anim>PU_LeaderCavalry1_Dying1</Anim>
+        <Anim>PU_LeaderCavalry1_Hit</Anim>
 
     </Display>
     <Logic classname="GGL::CGLSettlerProps">
@@ -76,7 +76,7 @@
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
-            <SuspensionAnimation>PU_SoldierSword1_Idle1</SuspensionAnimation>
+            <SuspensionAnimation>PU_LeaderCavalry1_Idle1</SuspensionAnimation>
             <AnimSet>SET_SOLDIERCAVALRY1</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
@@ -89,7 +89,7 @@
             <Speed>570</Speed>
             <RotationSpeed>30</RotationSpeed>
             <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
-            <MoveIdleAnim>PU_SoldierCavalry1_Idle1</MoveIdleAnim>
+            <MoveIdleAnim>PU_LeaderCavalry1_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorMovement</Class>
@@ -99,14 +99,14 @@
         <Logic classname="GGL::CSoldierBehaviorProps">
             <Class>GGL::CSoldierBehavior</Class>
             <BattleTaskList>TL_BATTLE_BOW</BattleTaskList>
-            <NormalAttackAnim1>PU_SoldierCavalry1_Attack1</NormalAttackAnim1>
-            <NormalAttackAnim2>PU_SoldierCavalry1_Attack1</NormalAttackAnim2>
-            <CounterAttackAnim>PU_SoldierCavalry1_Attack1</CounterAttackAnim>
-            <FinishingMoveAnim>PU_SoldierCavalry1_Attack1</FinishingMoveAnim>
-            <MissAttackAnim>PU_SoldierCavalry1_Idle1</MissAttackAnim>
-            <BattleIdleAnim>PU_SoldierCavalry1_Idle1</BattleIdleAnim>
-            <BattleWalkAnim>PU_SoldierCavalry1_Run1</BattleWalkAnim>
-            <HitAnim>PU_SoldierCavalry1_Hit</HitAnim>
+            <NormalAttackAnim1>PU_LeaderCavalry1_Attack1</NormalAttackAnim1>
+            <NormalAttackAnim2>PU_LeaderCavalry1_Attack1</NormalAttackAnim2>
+            <CounterAttackAnim>PU_LeaderCavalry1_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_LeaderCavalry1_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_LeaderCavalry1_Idle1</MissAttackAnim>
+            <BattleIdleAnim>PU_LeaderCavalry1_Idle1</BattleIdleAnim>
+            <BattleWalkAnim>PU_LeaderCavalry1_Run1</BattleWalkAnim>
+            <HitAnim>PU_LeaderCavalry1_Hit</HitAnim>
 
             <DamageClass>DC_Arrow</DamageClass>
             <DamageAmount>24</DamageAmount>
@@ -125,27 +125,27 @@
         <Logic classname="GGL::CFormationBehaviorProperties">
             <Class>GGL::CFormationBehavior</Class>
             <IdleAnim>
-                <AnimID>PU_SoldierCavalry1_Idle1</AnimID>
+                <AnimID>PU_LeaderCavalry1_Idle1</AnimID>
                 <Frequency>5</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>PU_SoldierCavalry1_Idle2</AnimID>
+                <AnimID>PU_LeaderCavalry1_Idle2</AnimID>
                 <Frequency>1</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>PU_SoldierCavalry1_Idle1</AnimID>
+                <AnimID>PU_LeaderCavalry1_Idle1</AnimID>
                 <Frequency>1</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>PU_SoldierCavalry1_Idle2</AnimID>
+                <AnimID>PU_LeaderCavalry1_Idle2</AnimID>
                 <Frequency>1</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>PU_SoldierCavalry1_Idle2</AnimID>
+                <AnimID>PU_LeaderCavalry1_Idle2</AnimID>
                 <Frequency>1</Frequency>
             </IdleAnim>
             <IdleAnim>
-                <AnimID>PU_SoldierCavalry1_Idle1</AnimID>
+                <AnimID>PU_LeaderCavalry1_Idle1</AnimID>
                 <Frequency>1</Frequency>
             </IdleAnim>
 
