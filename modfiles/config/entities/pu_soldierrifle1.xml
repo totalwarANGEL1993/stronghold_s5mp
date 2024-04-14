@@ -39,10 +39,10 @@
         <Category>LongRange</Category>
         <Cost>
             <Silver>0</Silver>
-            <Gold>125</Gold>
+            <Gold>95</Gold>
             <Wood>0</Wood>
             <Iron>65</Iron>
-            <Sulfur>100</Sulfur>
+            <Sulfur>80</Sulfur>
         </Cost>
         <Upgrade>
             <Category>SoldierRifle1</Category>
