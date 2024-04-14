@@ -76,13 +76,20 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>1150</Thousandths>
+        <Thousandths>650</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
         <TaskType>TASK_SET_ANIM</TaskType>
         <AnimID>PU_Sawmillworker_Work1</AnimID>
         <Category></Category>
         <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>

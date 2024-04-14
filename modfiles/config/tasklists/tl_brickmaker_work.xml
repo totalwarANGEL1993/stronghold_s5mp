@@ -95,7 +95,14 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>400</Thousandths>
+        <Thousandths>500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>500</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>
@@ -105,7 +112,7 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>1130</Thousandths>
+        <Thousandths>530</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgsSubAnim" classid="0x23f8242d">
         <TaskType>TASK_SET_ANIM_AT_WORKPLACE</TaskType>
@@ -123,14 +130,21 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>750</Thousandths>
+        <Thousandths>500</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>750</Thousandths>
+        <Thousandths>500</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_REFINE_RESOURCE</TaskType>
+    </Task>
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>500</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>
