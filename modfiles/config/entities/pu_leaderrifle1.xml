@@ -38,10 +38,10 @@
         <Category>LongRange</Category>
         <Cost>
             <Silver>16</Silver>
-            <Gold>340</Gold>
+            <Gold>300</Gold>
             <Wood>0</Wood>
             <Iron>90</Iron>
-            <Sulfur>150</Sulfur>
+            <Sulfur>120</Sulfur>
         </Cost>
         <Upgrade>
             <Category>LeaderRifle1</Category>
