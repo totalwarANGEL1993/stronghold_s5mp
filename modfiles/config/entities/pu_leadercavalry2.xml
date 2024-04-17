@@ -36,7 +36,7 @@
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>28</Exploration>
-        <ArmorClass>ArmorClassNone</ArmorClass>
+        <ArmorClass>ArmorClassIron</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <DodgeChance>15</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
