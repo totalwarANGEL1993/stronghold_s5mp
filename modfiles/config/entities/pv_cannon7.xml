@@ -100,9 +100,9 @@
             <DamageClass>DC_TroopCannon</DamageClass>
             <DamageAmount>30</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>500</DamageRange>
+            <DamageRange>400</DamageRange>
 
-            <BattleWaitUntil>2000</BattleWaitUntil>
+            <BattleWaitUntil>1750</BattleWaitUntil>
 
             <ProjectileEffectID>FXCannonBallShrapnel</ProjectileEffectID>
             <MaxRange>2200</MaxRange>

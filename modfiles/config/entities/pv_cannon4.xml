@@ -26,7 +26,7 @@
         <Category>Cannon</Category>
         <Category>SplashDamage</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>800</MaxHealth>
+        <MaxHealth>1200</MaxHealth>
         <Exploration>35</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <ArmorAmount>8</ArmorAmount>
