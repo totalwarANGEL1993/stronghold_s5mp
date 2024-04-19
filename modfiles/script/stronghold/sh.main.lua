@@ -401,7 +401,10 @@ function Stronghold:StartTriggers()
     end);
 
     Job.Hurt(function()
-        Stronghold:OnEntityHurtEntity();
+        local Attacker = Event.GetEntityID1();
+        local Attacked = Event.GetEntityID2();
+        Stronghold:OnEntityHurtEntity(Attacker, Attacked);
+        Stronghold.Unit:OnEntityHurt(Attacker, Attacked);
     end);
 
     Job.Diplomacy(function()
@@ -412,16 +415,14 @@ function Stronghold:StartTriggers()
     end);
 end
 
-function Stronghold:OnEntityHurtEntity()
-    local Attacker = Event.GetEntityID1();
-    local AttackerPlayer = Logic.EntityGetPlayer(Attacker);
-    local AttackerType = Logic.GetEntityType(Attacker);
-    local Attacked = Event.GetEntityID2();
-    local AttackedPlayer = Logic.EntityGetPlayer(Attacked);
-    local AttackedType = Logic.GetEntityType(Attacked);
-    if Attacker and Attacked then
+function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
+    local AttackerPlayer = Logic.EntityGetPlayer(_AttackerID);
+    local AttackerType = Logic.GetEntityType(_AttackerID);
+    local AttackedPlayer = Logic.EntityGetPlayer(_AttackedID);
+    local AttackedType = Logic.GetEntityType(_AttackedID);
+    if _AttackerID and _AttackedID then
         -- Get attacker ID
-        local ID = Attacked;
+        local ID = _AttackedID;
         if Logic.IsEntityInCategory(ID, EntityCategories.Leader) == 1 then
             local Soldiers = {Logic.GetSoldiersAttachedToLeader(ID)};
             if Soldiers[1] > 0 then
@@ -430,21 +431,21 @@ function Stronghold:OnEntityHurtEntity()
         end
         if Logic.GetEntityHealth(ID) > 0 then
             -- Save in attack memory
-            Stronghold.Player:RegisterAttack(AttackedPlayer, Attacked, Attacker, 15);
+            Stronghold.Player:RegisterAttack(AttackedPlayer, _AttackedID, _AttackerID, 15);
             local Damage = CEntity.HurtTrigger.GetDamage();
             local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
             -- Vigilante
-            if Logic.IsBuilding(Attacker) == 1 then
+            if Logic.IsBuilding(_AttackerID) == 1 then
                 if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then
                     Damage = Damage * 3;
                 end
             end
             -- External
-            Damage = GameCallback_SH_Calculate_BattleDamage(Attacker, Attacked, Damage);
+            Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
             -- prevent eco harrasment
             if DamageClass == 0 or DamageClass == 1 then
-                if Logic.IsEntityInCategory(Attacked, EntityCategories.Worker) == 1
-                or Logic.IsEntityInCategory(Attacked, EntityCategories.Workplace) == 1
+                if Logic.IsEntityInCategory(_AttackedID, EntityCategories.Worker) == 1
+                or Logic.IsEntityInCategory(_AttackedID, EntityCategories.Workplace) == 1
                 or AttackedType == Entities.PU_Serf then
                     Damage = 1;
                 end

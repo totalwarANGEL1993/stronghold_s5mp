@@ -455,11 +455,24 @@ Stronghold.Unit.Config.LeaderToSoldierMap = {
     [Entities.PU_LeaderSword4] = Entities.PU_SoldierSword4,
 };
 
-Stronghold.Unit.Config.EntitySelfheal = {
-    Serf = 2
-};
-
-Stronghold.Unit.Config.FearmongerChance = {
-    Evil = 5
-};
+Stronghold.Unit.Config.Passive = {
+    Selfheal = {
+        Serf = 2,
+    },
+    Fear = {
+        EvilChance = 5,
+    },
+    Bleeding = {
+        [Entities.PU_LeaderSword4] = {
+            Chance = 5,
+            Duration = 30,
+            Factor = 0.06,
+        },
+        [Entities.PU_SoldierSword4] = {
+            Chance = 5,
+            Duration = 30,
+            Factor = 0.06,
+        },
+    },
+}
 
