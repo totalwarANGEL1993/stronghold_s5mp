@@ -38,10 +38,10 @@
         <Category>EvilLeader</Category>
         <Category>LongRange</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <MaxHealth>100</MaxHealth>
+        <MaxHealth>75</MaxHealth>
         <Exploration>22</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
+        <ArmorAmount>2</ArmorAmount>
         <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
@@ -165,6 +165,19 @@
     </Behavior>
 
     <Behavior>
+        <Logic classname="GGL::CInflictFearAbilityProps">
+            <Class>GGL::CInflictFearAbility</Class>
+            <RechargeTimeSeconds>5</RechargeTimeSeconds>
+            <TaskList>TL_BATTLE_SPECIAL</TaskList>
+            <Animation>CU_Evil_LeaderBearman1_Finish</Animation>
+            <Range>500.0</Range>
+            <FlightDistance>1500.0</FlightDistance>
+            <FlightDuration>30</FlightDuration>
+            <Effect>CU_Evil_LeaderSkirmisher1_IdleAttack1</Effect>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
         <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
             <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
@@ -180,8 +193,6 @@
             <DyingTaskList>TL_DIE</DyingTaskList>
         </Logic>
     </Behavior>
-
-
 
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">

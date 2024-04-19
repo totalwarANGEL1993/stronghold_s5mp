@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>100</MaxHealth>
+        <MaxHealth>75</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Fearless>true</Fearless>
@@ -43,7 +43,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
-        <ArmorAmount>6</ArmorAmount>
+        <ArmorAmount>3</ArmorAmount>
         <DodgeChance>20</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>35</ExperiencePoints>
@@ -134,6 +134,19 @@
             <HealingSeconds>10</HealingSeconds>
 
             <UpkeepCost>50</UpkeepCost>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CInflictFearAbilityProps">
+            <Class>GGL::CInflictFearAbility</Class>
+            <RechargeTimeSeconds>5</RechargeTimeSeconds>
+            <TaskList>TL_BATTLE_SPECIAL</TaskList>
+            <Animation>CU_Evil_LeaderBearman1_IdleAttack1</Animation>
+            <Range>500.0</Range>
+            <FlightDistance>1500.0</FlightDistance>
+            <FlightDuration>30</FlightDuration>
+            <Effect>FXExtractStone</Effect>
         </Logic>
     </Behavior>
 
