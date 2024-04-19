@@ -15,7 +15,9 @@ Stronghold.Unit = {
 
 function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
-        self.Data[i] = {};
+        self.Data[i] = {
+            Intoxicated = {},
+        };
     end
     self:OverwriteScoutFindResources();
 end
@@ -35,6 +37,13 @@ function Stronghold.Unit:OncePerSecond(_PlayerID)
     self:SelfhealEntitiesJob(_PlayerID);
     -- Scare enemies
     self:FearmongerJob(_PlayerID);
+    -- Intoxication
+    self:IntoxicationControllerJob(_PlayerID);
+end
+
+function Stronghold.Unit:OnEntityHurt(_AttackerID, _AttackedID)
+    -- Intoxication
+    self:IntoxicateUnit(_AttackerID, _AttackedID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -186,7 +195,7 @@ function Stronghold.Unit:SelfhealEntitiesJob(_PlayerID)
             local Health = Logic.GetEntityHealth(EntityID);
             local Task = Logic.GetCurrentTaskList(EntityID);
             if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.EntitySelfheal.Serf));
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.Passive.Selfheal.Serf));
             end
         end
         -- Heal militia
@@ -195,7 +204,7 @@ function Stronghold.Unit:SelfhealEntitiesJob(_PlayerID)
             local Health = Logic.GetEntityHealth(EntityID);
             local Task = Logic.GetCurrentTaskList(EntityID);
             if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.EntitySelfheal.Serf));
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.Passive.Selfheal.Serf));
             end
         end
     end
@@ -208,7 +217,7 @@ function Stronghold.Unit:FearmongerJob(_PlayerID)
     -- Bearmen
     for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Evil_LeaderBearman1)) do
         local Chance = math.random(1, 100);
-        if Chance <= self.Config.FearmongerChance.Evil then
+        if Chance <= self.Config.Passive.Fear.EvilChance then
             local Task = Logic.GetCurrentTaskList(EntityID);
             if (not Task or not string.find(Task, "DIE")) then
                 self:FearmongerJobInflictFear(EntityID);
@@ -218,7 +227,7 @@ function Stronghold.Unit:FearmongerJob(_PlayerID)
     -- Skirmishers
     for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Evil_LeaderSkirmisher1)) do
         local Chance = math.random(1, 100);
-        if Chance <= self.Config.FearmongerChance.Evil then
+        if Chance <= self.Config.Passive.Fear.EvilChance then
             local Task = Logic.GetCurrentTaskList(EntityID);
             if (not Task or not string.find(Task, "DIE")) then
                 self:FearmongerJobInflictFear(EntityID);
@@ -242,6 +251,52 @@ function Stronghold.Unit:FearmongerJobInflictFear(_LeaderID)
         return;
     end
     GUI.SettlerInflictFear(_LeaderID);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Intoxication
+
+function Stronghold.Unit:IntoxicationControllerJob(_PlayerID)
+    for EntityID, Data in pairs(self.Data[_PlayerID].Intoxicated) do
+        if Data[1] <= 0 or not IsExisting(EntityID) then
+            self.Data[_PlayerID].Intoxicated[EntityID] = nil;
+        else
+            local TargetID = EntityID;
+            if Logic.IsLeader(EntityID) == 1 then
+                local _, SoldierID = Logic.GetSoldiersAttachedToLeader(EntityID);
+                TargetID = (SoldierID and SoldierID) or TargetID;
+            end
+            if IsExisting(TargetID) then
+                local Health = Logic.GetEntityHealth(TargetID);
+                local MaxHealth = Logic.GetEntityMaxHealth(TargetID);
+                local Factor = self.Config.Passive.Bleeding[Data[2]].Factor;
+                if Health > 0 then
+                    local Damage = math.ceil(MaxHealth * Factor);
+                    Logic.HurtEntity(TargetID, math.min(Health, Damage));
+                end
+                self.Data[_PlayerID].Intoxicated[EntityID][1] = Data[1] -1;
+            else
+                self.Data[_PlayerID].Intoxicated[EntityID] = nil;
+            end
+        end
+    end
+end
+
+function Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID)
+    local AttackerType = Logic.GetEntityType(_AttackerID);
+    local AttackedOwner = Logic.EntityGetPlayer(_AttackedID);
+    if self.Config.Passive.Bleeding[AttackerType] then
+        local TargetID = _AttackedID;
+        if Logic.IsEntityInCategory(TargetID, EntityCategories.Soldier) == 1 then
+            local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
+            TargetID = (LeaderID and LeaderID) or TargetID;
+        end
+        if  math.random(1, 100) <= self.Config.Passive.Bleeding[AttackerType].Chance
+        and not self.Data[AttackedOwner].Intoxicated[TargetID] then
+            local Time = self.Config.Passive.Bleeding[AttackerType].Duration;
+            self.Data[AttackedOwner].Intoxicated[TargetID] = {Time, AttackerType};
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --

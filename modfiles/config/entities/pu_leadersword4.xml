@@ -117,8 +117,8 @@
             <HitAnim>PU_LeaderSword4_Hit</HitAnim>
 
             <DamageClass>DC_Slash</DamageClass>
-            <DamageAmount>36</DamageAmount>
-            <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
+            <DamageAmount>32</DamageAmount>
+            <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 
