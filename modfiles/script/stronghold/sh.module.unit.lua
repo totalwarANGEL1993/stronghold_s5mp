@@ -17,7 +17,6 @@ function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
     end
-    self:StartSerfHealingJob();
     self:OverwriteScoutFindResources();
 end
 
@@ -32,8 +31,10 @@ function Stronghold.Unit:OnEntityCreated(_EntityID)
 end
 
 function Stronghold.Unit:OncePerSecond(_PlayerID)
-    -- Heal entities
-    self:StartSerfHealingJob(_PlayerID);
+    -- Heal serfs
+    self:SelfhealEntitiesJob(_PlayerID);
+    -- Scare enemies
+    self:FearmongerJob(_PlayerID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -177,7 +178,7 @@ end
 -- -------------------------------------------------------------------------- --
 -- Heal units
 
-function Stronghold.Unit:StartSerfHealingJob(_PlayerID)
+function Stronghold.Unit:SelfhealEntitiesJob(_PlayerID)
     if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PublicRecovery) == 1 then
         -- Heal sefs
         for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.PU_Serf)) do
@@ -185,7 +186,7 @@ function Stronghold.Unit:StartSerfHealingJob(_PlayerID)
             local Health = Logic.GetEntityHealth(EntityID);
             local Task = Logic.GetCurrentTaskList(EntityID);
             if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.EntitySelfheal.Serf));
             end
         end
         -- Heal militia
@@ -194,10 +195,53 @@ function Stronghold.Unit:StartSerfHealingJob(_PlayerID)
             local Health = Logic.GetEntityHealth(EntityID);
             local Task = Logic.GetCurrentTaskList(EntityID);
             if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, 2));
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.EntitySelfheal.Serf));
             end
         end
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Fearmonger
+
+function Stronghold.Unit:FearmongerJob(_PlayerID)
+    -- Bearmen
+    for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Evil_LeaderBearman1)) do
+        local Chance = math.random(1, 100);
+        if Chance <= self.Config.FearmongerChance.Evil then
+            local Task = Logic.GetCurrentTaskList(EntityID);
+            if (not Task or not string.find(Task, "DIE")) then
+                self:FearmongerJobInflictFear(EntityID);
+            end
+        end
+    end
+    -- Skirmishers
+    for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Evil_LeaderSkirmisher1)) do
+        local Chance = math.random(1, 100);
+        if Chance <= self.Config.FearmongerChance.Evil then
+            local Task = Logic.GetCurrentTaskList(EntityID);
+            if (not Task or not string.find(Task, "DIE")) then
+                self:FearmongerJobInflictFear(EntityID);
+            end
+        end
+    end
+end
+
+function Stronghold.Unit:FearmongerJobInflictFear(_LeaderID)
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_LeaderID, Abilities.AbilityInflictFear);
+    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_LeaderID, Abilities.AbilityInflictFear);
+    if TimeLeft ~= RechargeTime then
+        return;
+    end
+    local PlayerID = Logic.EntityGetPlayer(_LeaderID);
+    if not AreEnemiesInArea(PlayerID, GetPosition(_LeaderID), 500) then
+        return;
+    end
+    if XNetwork.Manager_DoesExist() == 1 and SendEvent then
+        SendEvent.SettlerInflictFear(_LeaderID);
+        return;
+    end
+    GUI.SettlerInflictFear(_LeaderID);
 end
 
 -- -------------------------------------------------------------------------- --

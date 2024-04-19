@@ -455,3 +455,11 @@ Stronghold.Unit.Config.LeaderToSoldierMap = {
     [Entities.PU_LeaderSword4] = Entities.PU_SoldierSword4,
 };
 
+Stronghold.Unit.Config.EntitySelfheal = {
+    Serf = 2
+};
+
+Stronghold.Unit.Config.FearmongerChance = {
+    Evil = 5
+};
+
