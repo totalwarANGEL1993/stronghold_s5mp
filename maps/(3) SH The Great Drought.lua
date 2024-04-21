@@ -107,14 +107,59 @@ function CreateSulfurRobbers()
 
         DelinquentsCampAddSpawner(
             CampID, "RobbersTower" ..Index, 60, 3,
+            unpack(GetSulfurRobbersTroopTypes())
+        );
+    end
+end
+
+function GetSulfurRobbersTroopTypes()
+    local PeaceTimeSelected = GetSelectedPeacetime();
+    if PeaceTimeSelected == 1 or PeaceTimeSelected == 6 then
+        return {
+            Entities.PU_LeaderSword1,
+            Entities.PU_LeaderPoleArm1,
+            Entities.PU_LeaderBow1,
+            Entities.PU_LeaderPoleArm1,
+            Entities.PU_LeaderBow1
+        };
+    end
+    if PeaceTimeSelected == 2 or PeaceTimeSelected == 7 then
+        return {
+            Entities.PU_LeaderSword1,
+            Entities.PU_LeaderPoleArm2,
+            Entities.PU_LeaderBow2,
+            Entities.PU_LeaderPoleArm2,
+            Entities.PU_LeaderBow2
+        };
+    end
+    if PeaceTimeSelected == 3 or PeaceTimeSelected == 8 then
+        return {
+            Entities.PU_LeaderSword2,
+            Entities.PV_Cannon1,
+            Entities.PU_LeaderBow3,
+            Entities.PU_LeaderPoleArm3,
+            Entities.PU_LeaderBow3,
+            Entities.PU_LeaderPoleArm2
+        };
+    end
+    if PeaceTimeSelected == 4 or PeaceTimeSelected == 9 then
+        return {
             Entities.PU_LeaderSword3,
             Entities.PU_LeaderRifle1,
             Entities.PV_Cannon1,
             Entities.PU_LeaderBow3,
-            Entities.PU_LeaderSword3,
-            Entities.PU_LeaderBow3
-        );
+            Entities.PU_LeaderPoleArm3,
+            Entities.PV_Cannon1
+        };
     end
+    return {
+        Entities.PU_LeaderSword4,
+        Entities.PU_LeaderRifle2,
+        Entities.PV_Cannon3,
+        Entities.PU_LeaderPoleArm4,
+        Entities.PU_LeaderRifle2,
+        Entities.PV_Cannon3
+    };
 end
 
 -- -------------------------------------------------------------------------- --
