@@ -291,7 +291,8 @@ function Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID)
             local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
             TargetID = (LeaderID and LeaderID) or TargetID;
         end
-        if  math.random(1, 100) <= self.Config.Passive.Bleeding[AttackerType].Chance
+        if  Logic.IsHero(TargetID) == 0
+        and math.random(1, 100) <= self.Config.Passive.Bleeding[AttackerType].Chance
         and not self.Data[AttackedOwner].Intoxicated[TargetID] then
             local Time = self.Config.Passive.Bleeding[AttackerType].Duration;
             self.Data[AttackedOwner].Intoxicated[TargetID] = {Time, AttackerType};

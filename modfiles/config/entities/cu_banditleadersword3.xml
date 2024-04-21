@@ -30,6 +30,7 @@
         <Category>Leader</Category>
         <Category>Melee</Category>
         <Category>Sword</Category>
+        <Category>Wall</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <ArmorClass>ArmorClassLeather</ArmorClass>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
