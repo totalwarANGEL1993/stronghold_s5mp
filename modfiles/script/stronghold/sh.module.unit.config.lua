@@ -483,14 +483,14 @@ Stronghold.Unit.Config.Passive = {
     },
     Bleeding = {
         [Entities.PU_LeaderSword4] = {
-            Modulo = 10, -- 10%
+            Modulo = 15, -- ~7%
             Duration = 30,
-            Factor = 0.06,
+            Factor = 0.04,
         },
         [Entities.PU_SoldierSword4] = {
-            Modulo = 10, -- 10%
+            Modulo = 15, -- ~7%
             Duration = 30,
-            Factor = 0.06,
+            Factor = 0.04,
         },
     },
     Assassination = {
