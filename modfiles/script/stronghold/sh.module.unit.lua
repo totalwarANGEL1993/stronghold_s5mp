@@ -9,18 +9,18 @@
 Stronghold = Stronghold or {};
 
 Stronghold.Unit = {
-    Data = {},
+    Data = {
+        Intoxicated = {},
+    },
     Config = {},
 }
 
 function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
-        self.Data[i] = {
-            Intoxicated = {},
-            Assassinated = {},
-        };
+        self.Data[i] = {};
     end
     self:OverwriteScoutFindResources();
+    self:OverwriteGameCallbacks();
 end
 
 function Stronghold.Unit:OnSaveGameLoaded()
@@ -35,8 +35,6 @@ function Stronghold.Unit:OnEntityCreated(_EntityID)
 end
 
 function Stronghold.Unit:OnEveryTurn(_PlayerID)
-    -- Assassination
-    self:AssassinationControllerJob(_PlayerID);
 end
 
 function Stronghold.Unit:OncePerSecond(_PlayerID)
@@ -44,15 +42,18 @@ function Stronghold.Unit:OncePerSecond(_PlayerID)
     self:SelfhealEntitiesJob(_PlayerID);
     -- Scare enemies
     self:FearmongerJob(_PlayerID);
-    -- Intoxication
-    self:IntoxicationControllerJob(_PlayerID);
 end
 
 function Stronghold.Unit:OnEntityHurt(_AttackerID, _AttackedID)
-    -- Intoxication
-    self:IntoxicateUnit(_AttackerID, _AttackedID);
-    -- Assassination
-    self:AssassinateUnit(_AttackerID, _AttackedID);
+end
+
+function Stronghold.Unit:OverwriteGameCallbacks()
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_BattleDamage", function(_AttackerID, _AttackedID, _Damage)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID, _Damage);
+        return CurrentAmount;
+    end);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -274,99 +275,62 @@ end
 
 -- Intoxication --
 
-function Stronghold.Unit:IntoxicationControllerJob(_PlayerID)
-    for EntityID, Data in pairs(self.Data[_PlayerID].Intoxicated) do
-        if Data[1] <= 0 or not IsExisting(EntityID) then
-            self.Data[_PlayerID].Intoxicated[EntityID] = nil;
+function Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
+    local CurrentTurn = Logic.GetCurrentTurn();
+    local AttackerType = Logic.GetEntityType(_AttackerID);
+    -- Get leader
+    local TargetID = _AttackedID;
+    if Logic.IsEntityInCategory(TargetID, EntityCategories.Soldier) == 1 then
+        local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
+        TargetID = (LeaderID and LeaderID) or TargetID;
+    end
+    -- Apply condition
+    if self.Config.Passive.Cripple[AttackerType] then
+        local Modul = self.Config.Passive.Cripple[AttackerType].Modulo;
+        if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
+        --- @diagnostic disable-next-line: undefined-field
+        and math.mod(TargetID, Modul) == math.mod(CurrentTurn, Modul)
+        and not self.Data.Intoxicated[TargetID] then
+            local Time = self.Config.Passive.Cripple[AttackerType].Duration;
+            self.Data.Intoxicated[_AttackedID] = {Time, Logic.GetTime(), AttackerType};
+        end
+    end
+    -- Manipulate damage
+    if self.Data.Intoxicated[_AttackedID] then
+        local Data = self.Data.Intoxicated[_AttackedID];
+        if Logic.GetTime() > Data[1] + Data[2] then
+            self.Data.Intoxicated[TargetID] = nil;
         else
-            local TargetID = EntityID;
-            if Logic.IsLeader(EntityID) == 1 then
-                local _, SoldierID = Logic.GetSoldiersAttachedToLeader(EntityID);
-                TargetID = (SoldierID and SoldierID) or TargetID;
-            end
-            if IsExisting(TargetID) then
-                local Health = Logic.GetEntityHealth(TargetID);
-                local MaxHealth = Logic.GetEntityMaxHealth(TargetID);
-                local Factor = self.Config.Passive.Bleeding[Data[2]].Factor;
-                if IsValidEntity(TargetID) then
-                    local Damage = math.ceil(MaxHealth * Factor);
-                    Logic.HurtEntity(TargetID, math.min(Health, Damage));
-                end
-                self.Data[_PlayerID].Intoxicated[EntityID][1] = Data[1] -1;
-            else
-                self.Data[_PlayerID].Intoxicated[EntityID] = nil;
+            if self.Config.Passive.Cripple[Data[3]] then
+                local Factor = self.Config.Passive.Cripple[Data[3]].Factor;
+                Damage = Damage * Factor;
             end
         end
     end
+    return Damage;
 end
 
-function Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID)
+-- Sneak Attack --
+
+function Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
     local CurrentTurn = Logic.GetCurrentTurn();
     local AttackerType = Logic.GetEntityType(_AttackerID);
-    local AttackerOwner = Logic.EntityGetPlayer(_AttackerID);
-    if IsPlayer(AttackerOwner) then
-        if self.Config.Passive.Bleeding[AttackerType] then
-            local TargetID = _AttackedID;
-            if Logic.IsEntityInCategory(TargetID, EntityCategories.Soldier) == 1 then
-                local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
-                TargetID = (LeaderID and LeaderID) or TargetID;
-            end
-            local Modul = self.Config.Passive.Bleeding[AttackerType].Modulo;
-            if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
-            --- @diagnostic disable-next-line: undefined-field
-            and math.mod(TargetID, Modul) == math.mod(CurrentTurn, Modul)
-            and not self.Data[AttackerOwner].Intoxicated[TargetID] then
-                local Time = self.Config.Passive.Bleeding[AttackerType].Duration;
-                self.Data[AttackerOwner].Intoxicated[TargetID] = {Time, AttackerType};
-            end
+    if self.Config.Passive.Sneak[AttackerType] then
+        local Orientation1 = Logic.GetEntityOrientation(_AttackerID);
+        local Orientation2 = Logic.GetEntityOrientation(_AttackedID);
+        local AngleDelta = self.Config.Passive.Sneak[AttackerType].Angle;
+        local Modul = self.Config.Passive.Sneak[AttackerType].Modulo;
+        if  (Logic.IsHero(_AttackedID) == 0 and Logic.IsBuilding(_AttackedID) == 0)
+        and math.abs(Orientation1 - Orientation2) <= AngleDelta
+        --- @diagnostic disable-next-line: undefined-field
+        and math.mod(_AttackerID, Modul) == math.mod(CurrentTurn, Modul)
+        and IsValidEntity(_AttackedID) then
+            Damage = Damage * self.Config.Passive.Sneak[AttackerType].Factor;
         end
     end
-end
-
--- Assassination --
-
-function Stronghold.Unit:AssassinationControllerJob(_PlayerID)
-    for EntityID, Data in pairs(self.Data[_PlayerID].Assassinated) do
-        if IsValidEntity(EntityID) then
-            local Factor = self.Config.Passive.Assassination[Data[2]].Factor;
-            local Health = Logic.GetEntityHealth(EntityID);
-            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
-            local Damage = math.min(Health, MaxHealth * Factor);
-            Logic.HurtEntity(EntityID, math.min(Health, Damage));
-            self.Data[_PlayerID].Assassinated[EntityID] = nil;
-        end
-    end
-end
-
-function Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID)
-    local CurrentTurn = Logic.GetCurrentTurn();
-    local AttackerType = Logic.GetEntityType(_AttackerID);
-    local AttackerOwner = Logic.EntityGetPlayer(_AttackerID);
-    if IsPlayer(AttackerOwner) then
-        if self.Config.Passive.Assassination[AttackerType] then
-            local Orientation1 = Logic.GetEntityOrientation(_AttackerID);
-            local Orientation2 = Logic.GetEntityOrientation(_AttackedID);
-            local TargetID = _AttackedID;
-            if Logic.IsEntityInCategory(TargetID, EntityCategories.Soldier) == 1 then
-                local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
-                TargetID = (LeaderID and LeaderID) or TargetID;
-            end
-            local AngleDelta = self.Config.Passive.Assassination[AttackerType].Angle;
-            if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
-            and math.abs(Orientation1 - Orientation2) <= AngleDelta then
-                local _, SoldierID = Logic.GetSoldiersAttachedToLeader(TargetID);
-                if IsExisting(SoldierID) then
-                    TargetID = SoldierID;
-                end
-                local Modul = self.Config.Passive.Assassination[AttackerType].Modulo;
-                --- @diagnostic disable-next-line: undefined-field
-                if  math.mod(TargetID, Modul) == math.mod(CurrentTurn, Modul)
-                and IsValidEntity(TargetID) then
-                    self.Data[AttackerOwner].Assassinated[TargetID] = {_AttackerID, AttackerType};
-                end
-            end
-        end
-    end
+    return Damage;
 end
 
 -- -------------------------------------------------------------------------- --

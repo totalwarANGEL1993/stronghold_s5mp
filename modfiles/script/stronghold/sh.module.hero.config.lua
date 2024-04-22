@@ -35,9 +35,8 @@ Stronghold.Hero.Config.Hero4 = {
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
-    MinerMineralChance = 5,
-    SerfMineralFrequency = 5,
-    SerfMineralChance = 10,
+    MinerMineralModulo = 20, -- 5%
+    SerfMineralModulo = 10,  -- 10%
     SerfWoodBonus = 1,
 }
 -- Hero 6 properties

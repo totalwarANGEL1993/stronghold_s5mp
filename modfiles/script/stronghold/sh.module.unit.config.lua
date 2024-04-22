@@ -481,28 +481,28 @@ Stronghold.Unit.Config.Passive = {
             Modulo = 10, -- 10%
         },
     },
-    Bleeding = {
+    Cripple = {
         [Entities.PU_LeaderSword4] = {
             Modulo = 15, -- ~7%
             Duration = 30,
-            Factor = 0.04,
+            Factor = 1.25,
         },
         [Entities.PU_SoldierSword4] = {
             Modulo = 15, -- ~7%
             Duration = 30,
-            Factor = 0.04,
+            Factor = 1.25,
         },
     },
-    Assassination = {
+    Sneak = {
         [Entities.CU_AssassinLeaderSword1] = {
-            Modulo = 20, -- 5%
-            Factor = 1.00,
-            Angle  = 20,
+            Modulo = 4, -- ~25%
+            Factor = 6.00,
+            Angle  = 90,
         },
         [Entities.CU_AssassinSoldierSword1] = {
-            Modulo = 20, -- 5%
-            Factor = 1.00,
-            Angle  = 20,
+            Modulo = 4, -- ~25%
+            Factor = 6.00,
+            Angle  = 90,
         },
     },
 }

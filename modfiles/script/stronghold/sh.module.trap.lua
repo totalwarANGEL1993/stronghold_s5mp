@@ -228,9 +228,9 @@ function Stronghold.Trap:OnPitchpitTriggered(_PlayerID, _TrapID)
         local Duration = 30;
         local x, y, z = Logic.EntityGetPos(_TrapID);
         local DamageDealerID = Logic.CreateEntity(Entities.XD_ScriptEntity, x, y, 0, _PlayerID);
-        Logic.SetModelAndAnimSet(ID, Models.Effects_XF_HouseFire);
-        SVLib.SetEntitySize(ID, 0.5);
-        SVLib.SetInvisibility(ID, false);
+        Logic.SetModelAndAnimSet(DamageDealerID, Models.Effects_XF_HouseFire);
+        SVLib.SetEntitySize(DamageDealerID, 0.5);
+        SVLib.SetInvisibility(DamageDealerID, false);
         Sound.Play2DSound(Sounds.AmbientSounds_campfire_rnd_1, 0, 127);
         SetHealth(_TrapID, 0);
         self.Data.TrapRemains[DamageDealerID] = {Duration};

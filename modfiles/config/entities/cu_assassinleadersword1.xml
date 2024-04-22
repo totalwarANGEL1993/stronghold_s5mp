@@ -138,7 +138,7 @@
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
 
-            <UpkeepCost>100</UpkeepCost>
+            <UpkeepCost>80</UpkeepCost>
         </Logic>
     </Behavior>
 
