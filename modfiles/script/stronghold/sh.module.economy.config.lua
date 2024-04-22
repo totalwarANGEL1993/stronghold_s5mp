@@ -200,6 +200,7 @@ Stronghold.Economy.Config.SelectCategoryMapping = {
         Entities.PU_Scout,
     },
     [UpgradeCategories.Thief] = {
+        Entities.CU_AssassinLeaderSword1,
         Entities.PU_Thief,
     },
     [UpgradeCategories.Cannon1] = {

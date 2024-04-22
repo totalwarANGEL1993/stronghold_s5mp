@@ -142,7 +142,6 @@
         </Display>
     </Behavior>
 
-
     <Behavior>
         <Logic classname="GGL::CSummonBehaviorProps">
             <Class>GGL::CSummonBehavior</Class>

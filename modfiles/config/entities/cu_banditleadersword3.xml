@@ -19,6 +19,7 @@
 		<Anim>CU_BanditLeaderSword1_Hit</Anim>		
 		<Anim>CU_BanditLeaderSword1_Dying1</Anim>
     </Display>
+    
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>

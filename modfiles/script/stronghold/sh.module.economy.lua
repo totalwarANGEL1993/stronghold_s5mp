@@ -1357,9 +1357,12 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle2] or 0);
     elseif _Key == "AOMenuTop/Find_scout" then
-        Upkeep = self.Data[_PlayerID].UpkeepDetails[Entities.PU_Scout] or 0;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_Scout] or 0);
     elseif _Key == "AOMenuTop/Find_Thief" then
-        Upkeep = self.Data[_PlayerID].UpkeepDetails[Entities.PU_Thief] or 0;
+        Upkeep = Upkeep +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_AssassinLeaderSword1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_Thief] or 0);
     else
         return false;
     end

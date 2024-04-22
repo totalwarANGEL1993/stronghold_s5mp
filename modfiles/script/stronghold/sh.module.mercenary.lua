@@ -483,6 +483,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero1(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -526,6 +527,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero2(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -569,6 +571,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero3(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -612,6 +615,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero4(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -655,6 +659,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero5(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -698,6 +703,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero6(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -741,6 +747,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero7(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -784,6 +791,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero8(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -827,6 +835,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero9(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -870,6 +879,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero10(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -913,6 +923,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero11(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 
@@ -956,6 +967,7 @@ function Stronghold.Mercenary:InitMercenaryRosterHero12(_PlayerID)
         -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
         table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderSword1);
     end
 end
 

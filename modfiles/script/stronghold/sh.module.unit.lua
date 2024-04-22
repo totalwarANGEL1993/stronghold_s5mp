@@ -17,6 +17,7 @@ function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             Intoxicated = {},
+            Assassinated = {},
         };
     end
     self:OverwriteScoutFindResources();
@@ -29,7 +30,13 @@ function Stronghold.Unit:OnEntityCreated(_EntityID)
     -- Change formation
     if Logic.IsLeader(_EntityID) == 1 then
         Stronghold.Unit:SetFormationOnCreate(_EntityID);
+        Stronghold.Unit:SetOverheadOnCreate(_EntityID);
     end
+end
+
+function Stronghold.Unit:OnEveryTurn(_PlayerID)
+    -- Assassination
+    self:AssassinationControllerJob(_PlayerID);
 end
 
 function Stronghold.Unit:OncePerSecond(_PlayerID)
@@ -44,6 +51,8 @@ end
 function Stronghold.Unit:OnEntityHurt(_AttackerID, _AttackedID)
     -- Intoxication
     self:IntoxicateUnit(_AttackerID, _AttackedID);
+    -- Assassination
+    self:AssassinateUnit(_AttackerID, _AttackedID);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -131,6 +140,8 @@ GetUpgradeCategoryByEntityType_CategoryMap = {
     [Entities.PU_LeaderPoleArm4] = UpgradeCategories.LeaderPoleArm4,
     [Entities.PU_SoldierPoleArm4] = UpgradeCategories.SoldierPoleArm4,
     -- Sword
+    [Entities.CU_AssassinLeaderSword1] = UpgradeCategories.AssassinLeaderSword1,
+    [Entities.CU_AssassinSoldierSword1] = UpgradeCategories.AssassinSoldierSword1,
     [Entities.CU_BanditLeaderSword3] = UpgradeCategories.BanditLeaderSword1,
     [Entities.CU_BanditSoldierSword3] = UpgradeCategories.BanditSoldierSword1,
     [Entities.PU_LeaderSword1] = UpgradeCategories.LeaderSword1,
@@ -152,7 +163,8 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
     end
 
     -- Line formation
-    if Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
+    if Logic.GetEntityType(_ID) == Entities.CU_AssassinLeaderSword1
+    or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
     or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace2
     or Logic.GetEntityType(_ID) == Entities.CU_TemplarLeaderCavalry1
     or Logic.GetEntityType(_ID) == Entities.CU_TemplarLeaderHeavyCavalry1
@@ -185,52 +197,59 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Heal units
+-- Overhead widget
 
-function Stronghold.Unit:SelfhealEntitiesJob(_PlayerID)
-    if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PublicRecovery) == 1 then
-        -- Heal sefs
-        for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.PU_Serf)) do
-            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
-            local Health = Logic.GetEntityHealth(EntityID);
-            local Task = Logic.GetCurrentTaskList(EntityID);
-            if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.Passive.Selfheal.Serf));
-            end
-        end
-        -- Heal militia
-        for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.PU_BattleSerf)) do
-            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
-            local Health = Logic.GetEntityHealth(EntityID);
-            local Task = Logic.GetCurrentTaskList(EntityID);
-            if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
-                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, self.Config.Passive.Selfheal.Serf));
-            end
+function Stronghold.Unit:SetOverheadOnCreate(_ID)
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(_ID);
+    if Logic.GetEntityType(_ID) == Entities.CU_AssassinLeaderSword1 then
+        if GuiPlayer ~= PlayerID and GuiPlayer ~= 17 then
+            Logic.SetEntityScriptingValue(_ID, 72, 4);
         end
     end
 end
 
 -- -------------------------------------------------------------------------- --
--- Fearmonger
+-- Unit Skills
 
-function Stronghold.Unit:FearmongerJob(_PlayerID)
-    -- Bearmen
-    for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Evil_LeaderBearman1)) do
-        local Chance = math.random(1, 100);
-        if Chance <= self.Config.Passive.Fear.EvilChance then
+-- Heal units --
+
+function Stronghold.Unit:SelfhealEntitiesJob(_PlayerID)
+    if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PublicRecovery) == 1 then
+        -- Heal sefs
+        for _, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.PU_Serf)) do
+            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
+            local Health = Logic.GetEntityHealth(EntityID);
             local Task = Logic.GetCurrentTaskList(EntityID);
-            if (not Task or not string.find(Task, "DIE")) then
-                self:FearmongerJobInflictFear(EntityID);
+            if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
+                local Healing = self.Config.Passive.Selfheal[Entities.PU_Serf].Healing;
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, Healing));
+            end
+        end
+        -- Heal militia
+        for _, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.PU_BattleSerf)) do
+            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
+            local Health = Logic.GetEntityHealth(EntityID);
+            local Task = Logic.GetCurrentTaskList(EntityID);
+            if Health > 0 and Health < MaxHealth and (not Task or not string.find(Task, "DIE")) then
+                local Healing = self.Config.Passive.Selfheal[Entities.PU_BattleSerf].Healing;
+                Logic.HealEntity(EntityID, math.min(MaxHealth-Health, Healing));
             end
         end
     end
-    -- Skirmishers
-    for k, EntityID in pairs(GetPlayerEntities(_PlayerID, Entities.CU_Evil_LeaderSkirmisher1)) do
-        local Chance = math.random(1, 100);
-        if Chance <= self.Config.Passive.Fear.EvilChance then
-            local Task = Logic.GetCurrentTaskList(EntityID);
-            if (not Task or not string.find(Task, "DIE")) then
-                self:FearmongerJobInflictFear(EntityID);
+end
+
+-- Fearmonger --
+
+function Stronghold.Unit:FearmongerJob(_PlayerID)
+    local CurrentTurn = Logic.GetCurrentTurn();
+    for Type, Data in pairs(self.Config.Passive.Fear) do
+        for _, EntityID in pairs(GetPlayerEntities(_PlayerID, Type)) do
+            --- @diagnostic disable-next-line: undefined-field
+            if math.mod(EntityID, Data.Modulo) == math.mod(CurrentTurn, Data.Modulo) then
+                if IsValidEntity(EntityID) then
+                    self:FearmongerJobInflictFear(EntityID);
+                end
             end
         end
     end
@@ -253,8 +272,7 @@ function Stronghold.Unit:FearmongerJobInflictFear(_LeaderID)
     GUI.SettlerInflictFear(_LeaderID);
 end
 
--- -------------------------------------------------------------------------- --
--- Intoxication
+-- Intoxication --
 
 function Stronghold.Unit:IntoxicationControllerJob(_PlayerID)
     for EntityID, Data in pairs(self.Data[_PlayerID].Intoxicated) do
@@ -270,7 +288,7 @@ function Stronghold.Unit:IntoxicationControllerJob(_PlayerID)
                 local Health = Logic.GetEntityHealth(TargetID);
                 local MaxHealth = Logic.GetEntityMaxHealth(TargetID);
                 local Factor = self.Config.Passive.Bleeding[Data[2]].Factor;
-                if Health > 0 then
+                if IsValidEntity(TargetID) then
                     local Damage = math.ceil(MaxHealth * Factor);
                     Logic.HurtEntity(TargetID, math.min(Health, Damage));
                 end
@@ -283,19 +301,70 @@ function Stronghold.Unit:IntoxicationControllerJob(_PlayerID)
 end
 
 function Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID)
+    local CurrentTurn = Logic.GetCurrentTurn();
     local AttackerType = Logic.GetEntityType(_AttackerID);
-    local AttackedOwner = Logic.EntityGetPlayer(_AttackedID);
-    if self.Config.Passive.Bleeding[AttackerType] then
-        local TargetID = _AttackedID;
-        if Logic.IsEntityInCategory(TargetID, EntityCategories.Soldier) == 1 then
-            local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
-            TargetID = (LeaderID and LeaderID) or TargetID;
+    local AttackerOwner = Logic.EntityGetPlayer(_AttackerID);
+    if IsPlayer(AttackerOwner) then
+        if self.Config.Passive.Bleeding[AttackerType] then
+            local TargetID = _AttackedID;
+            if Logic.IsEntityInCategory(TargetID, EntityCategories.Soldier) == 1 then
+                local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
+                TargetID = (LeaderID and LeaderID) or TargetID;
+            end
+            local Modul = self.Config.Passive.Bleeding[AttackerType].Modulo;
+            if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
+            --- @diagnostic disable-next-line: undefined-field
+            and math.mod(TargetID, Modul) == math.mod(CurrentTurn, Modul)
+            and not self.Data[AttackerOwner].Intoxicated[TargetID] then
+                local Time = self.Config.Passive.Bleeding[AttackerType].Duration;
+                self.Data[AttackerOwner].Intoxicated[TargetID] = {Time, AttackerType};
+            end
         end
-        if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
-        and math.random(1, 100) <= self.Config.Passive.Bleeding[AttackerType].Chance
-        and not self.Data[AttackedOwner].Intoxicated[TargetID] then
-            local Time = self.Config.Passive.Bleeding[AttackerType].Duration;
-            self.Data[AttackedOwner].Intoxicated[TargetID] = {Time, AttackerType};
+    end
+end
+
+-- Assassination --
+
+function Stronghold.Unit:AssassinationControllerJob(_PlayerID)
+    for EntityID, Data in pairs(self.Data[_PlayerID].Assassinated) do
+        if IsValidEntity(EntityID) then
+            local Factor = self.Config.Passive.Assassination[Data[2]].Factor;
+            local Health = Logic.GetEntityHealth(EntityID);
+            local MaxHealth = Logic.GetEntityMaxHealth(EntityID);
+            local Damage = math.min(Health, MaxHealth * Factor);
+            Logic.HurtEntity(EntityID, math.min(Health, Damage));
+            self.Data[_PlayerID].Assassinated[EntityID] = nil;
+        end
+    end
+end
+
+function Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID)
+    local CurrentTurn = Logic.GetCurrentTurn();
+    local AttackerType = Logic.GetEntityType(_AttackerID);
+    local AttackerOwner = Logic.EntityGetPlayer(_AttackerID);
+    if IsPlayer(AttackerOwner) then
+        if self.Config.Passive.Assassination[AttackerType] then
+            local Orientation1 = Logic.GetEntityOrientation(_AttackerID);
+            local Orientation2 = Logic.GetEntityOrientation(_AttackedID);
+            local TargetID = _AttackedID;
+            if Logic.IsEntityInCategory(TargetID, EntityCategories.Soldier) == 1 then
+                local LeaderID = SVLib.GetLeaderOfSoldier(TargetID);
+                TargetID = (LeaderID and LeaderID) or TargetID;
+            end
+            local AngleDelta = self.Config.Passive.Assassination[AttackerType].Angle;
+            if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
+            and math.abs(Orientation1 - Orientation2) <= AngleDelta then
+                local _, SoldierID = Logic.GetSoldiersAttachedToLeader(TargetID);
+                if IsExisting(SoldierID) then
+                    TargetID = SoldierID;
+                end
+                local Modul = self.Config.Passive.Assassination[AttackerType].Modulo;
+                --- @diagnostic disable-next-line: undefined-field
+                if  math.mod(TargetID, Modul) == math.mod(CurrentTurn, Modul)
+                and IsValidEntity(TargetID) then
+                    self.Data[AttackerOwner].Assassinated[TargetID] = {_AttackerID, AttackerType};
+                end
+            end
         end
     end
 end

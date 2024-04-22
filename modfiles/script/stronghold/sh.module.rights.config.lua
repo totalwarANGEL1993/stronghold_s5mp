@@ -202,6 +202,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.BerserkStrong,
                 PlayerRight.BarbarianStrong,
                 PlayerRight.BlackKnightStrong,
+                PlayerRight.Assassin,
                 ---
                 PlayerRight.CavalryCrossbow,
                 PlayerRight.CavalryCrusader,
