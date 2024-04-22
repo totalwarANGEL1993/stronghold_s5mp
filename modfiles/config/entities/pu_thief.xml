@@ -105,7 +105,7 @@
 
             <DamageClass>DC_Hero</DamageClass>
             <DamageAmount>5</DamageAmount>
-            <MaxRandomDamageBonus>50</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>2</MaxRandomDamageBonus>
 
             <BattleWaitUntil>1500</BattleWaitUntil>
 

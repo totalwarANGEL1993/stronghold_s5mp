@@ -91,6 +91,7 @@ PlayerRight = {
     Traphole = 246,
     PitchPit = 247,
     SpearTemplar = 248,
+    Assassin = 249,
 
     -- Buildings
     BallistaTower = 300,

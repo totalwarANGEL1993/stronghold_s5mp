@@ -351,6 +351,7 @@ function Stronghold:StartTriggers()
             Stronghold.Mercenary:OnEveryTurn(PlayerID);
             Stronghold.Rights:OnEveryTurn(PlayerID);
             Stronghold.Recruit:OnEveryTurn(PlayerID);
+            Stronghold.Unit:OnEveryTurn(PlayerID);
         end
         Stronghold.AI:OnEveryTurnNoPlayer();
 

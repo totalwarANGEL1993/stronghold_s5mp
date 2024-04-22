@@ -1236,6 +1236,16 @@
 	    <FirstSettler>CU_TemplarSoldierHeavyCavalry1</FirstSettler>
 	</SettlerUpgrade>
 
+    <SettlerUpgrade>
+	    <Category>AssassinLeaderSword1</Category>
+	    <FirstSettler>CU_AssassinLeaderSword1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>AssassinSoldierSword1</Category>
+	    <FirstSettler>CU_AssassinSoldierSword1</FirstSettler>
+	</SettlerUpgrade>
+
     <!-- Other -->
 
     <BuildingUpgrade>

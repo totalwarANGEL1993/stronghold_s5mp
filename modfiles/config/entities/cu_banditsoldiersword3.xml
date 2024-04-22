@@ -32,7 +32,6 @@
         <Category>Soldier</Category>
         <Category>Melee</Category>
         <Category>Sword</Category>
-        <Category>Wall</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorAmount>3</ArmorAmount>
@@ -125,6 +124,7 @@
             <BattleWaitUntil>2000</BattleWaitUntil>
         </Logic>
     </Behavior>
+    
     <Behavior>
         <Logic classname="GGL::CFormationBehaviorProperties">
             <Class>GGL::CFormationBehavior</Class>

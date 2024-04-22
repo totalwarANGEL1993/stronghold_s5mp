@@ -607,6 +607,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         Stronghold.Recruit.Data[_PlayerID].Roster.Melee[6] = UpgradeCategories.BlackKnightLeader1;
     elseif _Type == Entities.CU_Mary_de_Mortfichet then
         Stronghold.Recruit.Data[_PlayerID].Roster.Ranged[4] = UpgradeCategories.LeaderBow4;
+        Stronghold.Recruit.Data[_PlayerID].Roster.Tavern[3] = UpgradeCategories.AssassinLeaderSword1;
         ResearchTechnology(Technologies.T_ThiefSabotage, _PlayerID);
         local RankScout = GetRankRequired(_PlayerID, PlayerRight.Scout);
         local RightsAndDuties = Stronghold.Rights.Data[_PlayerID].Titles;
