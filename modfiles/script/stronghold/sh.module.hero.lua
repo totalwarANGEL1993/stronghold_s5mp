@@ -1116,7 +1116,10 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
         end
     end
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        if math.random(1,100) <= self.Config.Hero5.MinerMineralChance then
+        local Modul = self.Config.Hero5.MinerMineralModulo;
+        local Turn = Logic.GetCurrentTurn();
+        --- @diagnostic disable-next-line: undefined-field
+        if math.mod(_BuildingID, Modul) == math.mod(Turn, Modul) then
             ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
         end
     end
@@ -1129,7 +1132,10 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type ~= ResourceType.WoodRaw then
-            if math.random(1,100) <= self.Config.Hero5.SerfMineralChance then
+            local Modul = self.Config.Hero5.SerfMineralModulo;
+            local Turn = Logic.GetCurrentTurn();
+            --- @diagnostic disable-next-line: undefined-field
+            if math.mod(_SerfID, Modul) == math.mod(Turn, Modul) then
                 ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
             end
         else
