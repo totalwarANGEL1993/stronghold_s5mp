@@ -123,7 +123,7 @@
             <HitAnim>PU_LeaderRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>40</DamageAmount>
+            <DamageAmount>44</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
 
