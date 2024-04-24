@@ -115,7 +115,7 @@
             <HitAnim>PU_SoldierRifle1_Hit</HitAnim>
 
             <DamageClass>DC_Bullet</DamageClass>
-            <DamageAmount>40</DamageAmount>
+            <DamageAmount>44</DamageAmount>
             <MaxRandomDamageBonus>4</MaxRandomDamageBonus>
 
             <AutoAttackRange>2300</AutoAttackRange>
