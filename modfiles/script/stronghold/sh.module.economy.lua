@@ -335,6 +335,8 @@ function Stronghold.Economy:OncePerSecond(_PlayerID)
     self:CalculateReputationDecrease(_PlayerID);
     -- Honor
     self:CalculateHonorIncome(_PlayerID);
+    -- Upkeep
+    self:UpdateFindViewAmount(_PlayerID)
 end
 
 function Stronghold.Economy:OncePerTurn(_PlayerID)
@@ -1372,6 +1374,19 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;
+end
+
+function Stronghold.Economy:UpdateFindViewAmount(_PlayerID)
+    for _, TypeList in pairs(self.Config.SelectCategoryMapping) do
+        for _, Type in pairs(TypeList) do
+            local Costs = 0;
+            local Leaders = GetLeadersOfType(_PlayerID, Type);
+            if Leaders[1] > 0 then
+                Costs = Logic.LeaderGetUpkeepCost(Leaders[2]) * Leaders[1];
+            end
+            self.Data[_PlayerID].UpkeepDetails[Type] = Costs;
+        end
+    end
 end
 
 function Stronghold.Economy:OverrideSelectUnitCallbacks()
