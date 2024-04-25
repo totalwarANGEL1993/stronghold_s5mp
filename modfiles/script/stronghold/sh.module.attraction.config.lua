@@ -63,7 +63,7 @@ Stronghold.Attraction.Config.UsedSpace = {
     ---
     [Entities.PU_Scout] = 1,
     [Entities.PU_Thief] = 5,
-    [Entities.CU_AssassinLeaderSword1] = 2,
+    [Entities.CU_Assassin_LeaderKnife1] = 2,
     ---
     [Entities.PU_BattleSerf] = 1,
     [Entities.PU_Serf] = 1,

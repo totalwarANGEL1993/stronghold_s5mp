@@ -1057,8 +1057,8 @@
         <Entity>PB_ExecutionerPlace1</Entity>
 
         <!-- Units -->
-        <Entity>CU_AssassinLeaderSword1</Entity>
-        <Entity>CU_AssassinSoldierSword1</Entity>
+        <Entity>CU_Assassin_LeaderKnife1</Entity>
+        <Entity>CU_Assassin_SoldierKnife1</Entity>
         <Entity>CU_BanditLeaderCavalry1</Entity>
         <Entity>CU_BanditSoldierCavalry1</Entity>
         <Entity>CU_BanditLeaderSword3</Entity>

@@ -258,7 +258,7 @@ Stronghold.Unit.Config.Troops = {
         RecruiterBuilding = {Entities.PB_Headquarters1, Entities.PB_Headquarters2, Entities.PB_Headquarters3},
         ProviderBuilding  = {},
     },
-    [Entities.CU_AssassinLeaderSword1]      = {
+    [Entities.CU_Assassin_LeaderKnife1]      = {
         Button            = "Buy_Thief",
         Right             = PlayerRight.Assassin,
         IsCivil           = false,
@@ -456,7 +456,7 @@ Stronghold.Unit.Config.LeaderToSoldierMap = {
     [Entities.PU_LeaderPoleArm3] = Entities.PU_SoldierPoleArm3,
     [Entities.PU_LeaderPoleArm4] = Entities.PU_SoldierPoleArm4,
     -- Sword
-    [Entities.CU_AssassinLeaderSword1] = Entities.CU_AssassinSoldierSword1,
+    [Entities.CU_Assassin_LeaderKnife1] = Entities.CU_Assassin_SoldierKnife1,
     [Entities.CU_BanditLeaderSword3] = Entities.CU_BanditSoldierSword3,
     [Entities.PU_LeaderSword1] = Entities.PU_SoldierSword1,
     [Entities.PU_LeaderSword2] = Entities.PU_SoldierSword2,
@@ -494,12 +494,12 @@ Stronghold.Unit.Config.Passive = {
         },
     },
     Sneak = {
-        [Entities.CU_AssassinLeaderSword1] = {
+        [Entities.CU_Assassin_LeaderKnife1] = {
             Modulo = 4, -- ~25%
             Factor = 6.00,
             Angle  = 90,
         },
-        [Entities.CU_AssassinSoldierSword1] = {
+        [Entities.CU_Assassin_SoldierKnife1] = {
             Modulo = 4, -- ~25%
             Factor = 6.00,
             Angle  = 90,

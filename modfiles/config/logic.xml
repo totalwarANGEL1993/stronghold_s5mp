@@ -1237,13 +1237,13 @@
 	</SettlerUpgrade>
 
     <SettlerUpgrade>
-	    <Category>AssassinLeaderSword1</Category>
-	    <FirstSettler>CU_AssassinLeaderSword1</FirstSettler>
+	    <Category>AssassinLeaderKnife1</Category>
+	    <FirstSettler>CU_Assassin_LeaderKnife1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
-	    <Category>AssassinSoldierSword1</Category>
-	    <FirstSettler>CU_AssassinSoldierSword1</FirstSettler>
+	    <Category>AssassinSoldierKnife1</Category>
+	    <FirstSettler>CU_Assassin_SoldierKnife1</FirstSettler>
 	</SettlerUpgrade>
 
     <!-- Other -->
