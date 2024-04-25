@@ -141,8 +141,8 @@ GetUpgradeCategoryByEntityType_CategoryMap = {
     [Entities.PU_LeaderPoleArm4] = UpgradeCategories.LeaderPoleArm4,
     [Entities.PU_SoldierPoleArm4] = UpgradeCategories.SoldierPoleArm4,
     -- Sword
-    [Entities.CU_AssassinLeaderSword1] = UpgradeCategories.AssassinLeaderSword1,
-    [Entities.CU_AssassinSoldierSword1] = UpgradeCategories.AssassinSoldierSword1,
+    [Entities.CU_Assassin_LeaderKnife1] = UpgradeCategories.AssassinLeaderKnife1,
+    [Entities.CU_Assassin_SoldierKnife1] = UpgradeCategories.AssassinSoldierKnife1,
     [Entities.CU_BanditLeaderSword3] = UpgradeCategories.BanditLeaderSword1,
     [Entities.CU_BanditSoldierSword3] = UpgradeCategories.BanditSoldierSword1,
     [Entities.PU_LeaderSword1] = UpgradeCategories.LeaderSword1,
@@ -164,8 +164,7 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
     end
 
     -- Line formation
-    if Logic.GetEntityType(_ID) == Entities.CU_AssassinLeaderSword1
-    or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
+    if Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace1
     or Logic.GetEntityType(_ID) == Entities.CU_BlackKnight_LeaderMace2
     or Logic.GetEntityType(_ID) == Entities.CU_TemplarLeaderCavalry1
     or Logic.GetEntityType(_ID) == Entities.CU_TemplarLeaderHeavyCavalry1
@@ -203,7 +202,7 @@ end
 function Stronghold.Unit:SetOverheadOnCreate(_ID)
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(_ID);
-    if Logic.GetEntityType(_ID) == Entities.CU_AssassinLeaderSword1 then
+    if Logic.GetEntityType(_ID) == Entities.CU_Assassin_LeaderKnife1 then
         if GuiPlayer ~= PlayerID and GuiPlayer ~= 17 then
             Logic.SetEntityScriptingValue(_ID, 72, 4);
         end

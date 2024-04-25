@@ -147,7 +147,7 @@ Stronghold.Mercenary.Config = {
             RefillTime = 30,
             MaxAmount  = 6,
         },
-        [Entities.CU_AssassinLeaderSword1]      = {
+        [Entities.CU_Assassin_LeaderKnife1]      = {
             Button     = "Buy_Thief",
             RefillTime = 30,
             MaxAmount  = 2,
