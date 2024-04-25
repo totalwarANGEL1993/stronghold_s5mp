@@ -505,5 +505,23 @@ Stronghold.Unit.Config.Passive = {
             Angle  = 90,
         },
     },
+    Circle = {
+        [Entities.PU_LeaderPoleArm2] = {
+            Melee = 0.5,
+            Ranged = 1.25,
+        },
+        [Entities.PU_SoldierPoleArm2] = {
+            Melee = 0.5,
+            Ranged = 1.25,
+        },
+        [Entities.PU_LeaderPoleArm4] = {
+            Melee = 0.5,
+            Ranged = 1.25,
+        },
+        [Entities.PU_SoldierPoleArm4] = {
+            Melee = 0.5,
+            Ranged = 1.25,
+        },
+    },
 }
 

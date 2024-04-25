@@ -52,6 +52,7 @@ function Stronghold.Unit:OverwriteGameCallbacks()
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID, _Damage);
         CurrentAmount = Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:CircleFormation(_AttackerID, _AttackedID, _Damage);
         return CurrentAmount;
     end);
 end
@@ -177,7 +178,6 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderRifle1
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderRifle2
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderPoleArm3
-    or Logic.GetEntityType(_ID) == Entities.PU_LeaderPoleArm4
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderBow3
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderBow4
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderCavalry1
@@ -190,6 +190,13 @@ function Stronghold.Unit:SetFormationOnCreate(_ID)
     if Logic.GetEntityType(_ID) == Entities.PU_LeaderHeavyCavalry1
     or Logic.GetEntityType(_ID) == Entities.PU_LeaderHeavyCavalry2 then
         Logic.LeaderChangeFormationType(_ID, 6);
+        return;
+    end
+
+    -- Circle Formation
+    if Logic.GetEntityType(_ID) == Entities.PU_LeaderPoleArm2
+    or Logic.GetEntityType(_ID) == Entities.PU_LeaderPoleArm4 then
+        Logic.LeaderChangeFormationType(_ID, 5);
         return;
     end
 
@@ -328,6 +335,33 @@ function Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID, _Damage)
         and math.mod(_AttackerID, Modul) == math.mod(CurrentTurn, Modul)
         and IsValidEntity(_AttackedID) then
             Damage = Damage * self.Config.Passive.Sneak[AttackerType].Factor;
+        end
+    end
+    return Damage;
+end
+
+-- Circle Formation --
+
+function Stronghold.Unit:CircleFormation(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
+    local AttackerType = Logic.GetEntityType(_AttackerID);
+    local AttackedType = Logic.GetEntityType(_AttackedID);
+    if self.Config.Passive.Circle[AttackedType] then
+        local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+        -- Melee Damage
+        if DamageClass == DamageClasses.DC_Pole
+        or DamageClass == DamageClasses.DC_Halberd
+        or DamageClass == DamageClasses.DC_Slash
+        or DamageClass == DamageClasses.DC_Mace
+        or DamageClass == DamageClasses.DC_Club
+        or DamageClass == DamageClasses.DC_Strike
+        or DamageClass == DamageClasses.DC_Evil then
+            Damage = Damage * self.Config.Passive.Circle[AttackedType].Melee;
+        -- Ranged Damage
+        elseif DamageClass ~= DamageClasses.DC_Beast
+        or     DamageClass ~= DamageClasses.DC_HeroCircularAttack
+        or     DamageClass ~= DamageClasses.DC_Hero then
+            Damage = Damage * self.Config.Passive.Circle[AttackedType].Ranged;
         end
     end
     return Damage;
