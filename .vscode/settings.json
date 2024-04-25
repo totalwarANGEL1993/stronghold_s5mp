@@ -266,7 +266,8 @@
         "MP_DiplomacyWindow",
         "CWidget",
         "SetPlayerName",
-        "GroupSelection_EntityIDChanged"
+        "GroupSelection_EntityIDChanged",
+        "DamageClasses"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",
