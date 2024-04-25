@@ -482,6 +482,26 @@ Stronghold.Unit.Config.Passive = {
         },
     },
     Cripple = {
+        [Entities.CU_BanditLeaderSword1] = {
+            Modulo = 15, -- ~7%
+            Duration = 30,
+            Factor = 1.25,
+        },
+        [Entities.CU_BanditSoldierSword1] = {
+            Modulo = 15, -- ~7%
+            Duration = 30,
+            Factor = 1.25,
+        },
+        [Entities.CU_BanditLeaderSword2] = {
+            Modulo = 15, -- ~7%
+            Duration = 30,
+            Factor = 1.25,
+        },
+        [Entities.CU_BanditSoldierSword2] = {
+            Modulo = 15, -- ~7%
+            Duration = 30,
+            Factor = 1.25,
+        },
         [Entities.PU_LeaderSword4] = {
             Modulo = 15, -- ~7%
             Duration = 30,
@@ -521,6 +541,26 @@ Stronghold.Unit.Config.Passive = {
         [Entities.PU_SoldierPoleArm4] = {
             Melee = 0.5,
             Ranged = 1.25,
+        },
+    },
+    Refund = {
+        [Entities.PU_LeaderSword1] = {
+            Refund = 0.5
+        },
+        [Entities.PU_SoldierSword1] = {
+            Refund = 0.5
+        },
+        [Entities.PU_LeaderBow2] = {
+            Refund = 0.5
+        },
+        [Entities.PU_SoldierBow2] = {
+            Refund = 0.5
+        },
+        [Entities.PU_LeaderBow4] = {
+            Refund = 0.5
+        },
+        [Entities.PU_SoldierBow4] = {
+            Refund = 0.5
         },
     },
 }

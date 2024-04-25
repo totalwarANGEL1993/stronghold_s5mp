@@ -34,7 +34,9 @@ function Stronghold.Unit:OnEntityCreated(_EntityID)
     end
 end
 
-function Stronghold.Unit:OnEveryTurn(_PlayerID)
+function Stronghold.Unit:OnEntityDestroyed(_EntityID)
+    -- Refund
+    self:RefundKilledUnit(_EntityID);
 end
 
 function Stronghold.Unit:OncePerSecond(_PlayerID)
@@ -365,6 +367,36 @@ function Stronghold.Unit:CircleFormation(_AttackerID, _AttackedID, _Damage)
         end
     end
     return Damage;
+end
+
+-- Circle Formation --
+
+function Stronghold.Unit:RefundKilledUnit(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Type = Logic.GetEntityType(_EntityID);
+    if self.Config.Passive.Refund[Type] then
+        local Task = Logic.GetCurrentTaskList(_EntityID);
+        if Task and string.find(Task, "TL_DIE") then
+            -- Get costs
+            local Costs = {};
+            UpgradeCategory = GetUpgradeCategoryByEntityType(Type);
+            if Logic.IsEntityInCategory(_EntityID, EntityCategories.Soldier) == 1 then
+                Logic.FillSoldierCostsTable(PlayerID, UpgradeCategory, Costs);
+            elseif Logic.IsLeader(_EntityID) == 1 then
+                Logic.FillLeaderCostsTable(PlayerID, UpgradeCategory, Costs);
+            end
+            -- Calculate refund
+            Costs[ResourceType.Gold]   = math.ceil(Costs[ResourceType.Gold]   * self.Config.Passive.Refund[Type].Refund);
+            Costs[ResourceType.Clay]   = math.ceil(Costs[ResourceType.Clay]   * self.Config.Passive.Refund[Type].Refund);
+            Costs[ResourceType.Wood]   = math.ceil(Costs[ResourceType.Wood]   * self.Config.Passive.Refund[Type].Refund);
+            Costs[ResourceType.Stone]  = math.ceil(Costs[ResourceType.Stone]  * self.Config.Passive.Refund[Type].Refund);
+            Costs[ResourceType.Iron]   = math.ceil(Costs[ResourceType.Iron]   * self.Config.Passive.Refund[Type].Refund);
+            Costs[ResourceType.Sulfur] = math.ceil(Costs[ResourceType.Sulfur] * self.Config.Passive.Refund[Type].Refund);
+            Costs[ResourceType.Silver] = 0;
+            -- Refund unit
+            AddResourcesToPlayer(PlayerID, Costs);
+        end
+    end
 end
 
 -- -------------------------------------------------------------------------- --

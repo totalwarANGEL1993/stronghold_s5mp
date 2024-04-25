@@ -351,7 +351,6 @@ function Stronghold:StartTriggers()
             Stronghold.Mercenary:OnEveryTurn(PlayerID);
             Stronghold.Rights:OnEveryTurn(PlayerID);
             Stronghold.Recruit:OnEveryTurn(PlayerID);
-            Stronghold.Unit:OnEveryTurn(PlayerID);
         end
         Stronghold.AI:OnEveryTurnNoPlayer();
 
@@ -394,6 +393,7 @@ function Stronghold:StartTriggers()
         Stronghold.Populace:OnEntityDestroyed(EntityID);
         Stronghold.Building:OnEntityDestroyed(EntityID);
         Stronghold.Construction:OnEntityDestroyed(EntityID);
+        Stronghold.Unit:OnEntityDestroyed(EntityID);
         Stronghold.Wall:OnEntityDestroyed(EntityID);
     end);
 
