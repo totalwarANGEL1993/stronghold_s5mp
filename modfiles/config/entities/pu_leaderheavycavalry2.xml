@@ -19,7 +19,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>400</MaxHealth>
+        <MaxHealth>450</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -115,7 +115,7 @@
             <HitAnim>PU_LeaderCavalry4_Hit</HitAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>40</DamageAmount>
+            <DamageAmount>38</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
