@@ -11,6 +11,7 @@ Stronghold = Stronghold or {};
 Stronghold.Unit = {
     Data = {
         Intoxicated = {},
+        ComboStar = {},
     },
     Config = {},
 }
@@ -52,9 +53,10 @@ end
 function Stronghold.Unit:OverwriteGameCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_BattleDamage", function(_AttackerID, _AttackedID, _Damage)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:CircleFormation(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:IntoxicationCalculateDamage(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:AssassinationCalculateDamage(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, _Damage);
         return CurrentAmount;
     end);
 end
@@ -252,11 +254,9 @@ end
 -- Fearmonger --
 
 function Stronghold.Unit:FearmongerJob(_PlayerID)
-    local CurrentTurn = Logic.GetCurrentTurn();
     for Type, Data in pairs(self.Config.Passive.Fear) do
         for _, EntityID in pairs(GetPlayerEntities(_PlayerID, Type)) do
-            --- @diagnostic disable-next-line: undefined-field
-            if math.mod(EntityID, Data.Modulo) == math.mod(CurrentTurn, Data.Modulo) then
+            if RandomNumber(EntityID) <= Data.Chance then
                 if IsValidEntity(EntityID) then
                     self:FearmongerJobInflictFear(EntityID);
                 end
@@ -284,7 +284,7 @@ end
 
 -- Intoxication --
 
-function Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID, _Damage)
+function Stronghold.Unit:IntoxicationCalculateDamage(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
     local CurrentTurn = Logic.GetCurrentTurn();
     local AttackerType = Logic.GetEntityType(_AttackerID);
@@ -296,10 +296,9 @@ function Stronghold.Unit:IntoxicateUnit(_AttackerID, _AttackedID, _Damage)
     end
     -- Apply condition
     if self.Config.Passive.Cripple[AttackerType] then
-        local Modul = self.Config.Passive.Cripple[AttackerType].Modulo;
+        local Chance = self.Config.Passive.Cripple[AttackerType].Chance;
         if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
-        --- @diagnostic disable-next-line: undefined-field
-        and math.mod(TargetID, Modul) == math.mod(CurrentTurn, Modul)
+        and RandomNumber(TargetID) <= Chance
         and not self.Data.Intoxicated[TargetID] then
             local Time = self.Config.Passive.Cripple[AttackerType].Duration;
             self.Data.Intoxicated[_AttackedID] = {Time, Logic.GetTime(), AttackerType};
@@ -322,19 +321,17 @@ end
 
 -- Sneak Attack --
 
-function Stronghold.Unit:AssassinateUnit(_AttackerID, _AttackedID, _Damage)
+function Stronghold.Unit:AssassinationCalculateDamage(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
-    local CurrentTurn = Logic.GetCurrentTurn();
     local AttackerType = Logic.GetEntityType(_AttackerID);
     if self.Config.Passive.Sneak[AttackerType] then
         local Orientation1 = Logic.GetEntityOrientation(_AttackerID);
         local Orientation2 = Logic.GetEntityOrientation(_AttackedID);
         local AngleDelta = self.Config.Passive.Sneak[AttackerType].Angle;
-        local Modul = self.Config.Passive.Sneak[AttackerType].Modulo;
+        local Chance = self.Config.Passive.Sneak[AttackerType].Chance;
         if  (Logic.IsHero(_AttackedID) == 0 and Logic.IsBuilding(_AttackedID) == 0)
         and math.abs(Orientation1 - Orientation2) <= AngleDelta
-        --- @diagnostic disable-next-line: undefined-field
-        and math.mod(_AttackerID, Modul) == math.mod(CurrentTurn, Modul)
+        and RandomNumber(_AttackerID) <= Chance
         and IsValidEntity(_AttackedID) then
             Damage = Damage * self.Config.Passive.Sneak[AttackerType].Factor;
         end
@@ -344,7 +341,7 @@ end
 
 -- Circle Formation --
 
-function Stronghold.Unit:CircleFormation(_AttackerID, _AttackedID, _Damage)
+function Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
     local AttackerType = Logic.GetEntityType(_AttackerID);
     local AttackedType = Logic.GetEntityType(_AttackedID);
@@ -397,6 +394,37 @@ function Stronghold.Unit:RefundKilledUnit(_EntityID)
             AddResourcesToPlayer(PlayerID, Costs);
         end
     end
+end
+
+-- Combo star --
+
+function Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
+    local CurrentTurn = Logic.GetCurrentTurn();
+    local AttackerType = Logic.GetEntityType(_AttackerID);
+    if self.Config.Passive.ComboStar[AttackerType] then
+        -- Get leader
+        local LeaderID = _AttackerID;
+        if Logic.IsEntityInCategory(LeaderID, EntityCategories.Soldier) == 1 then
+            LeaderID = SVLib.GetLeaderOfSoldier(LeaderID) or LeaderID;
+        end
+        -- Calculate extra Damage
+        local Config = self.Config.Passive.ComboStar[AttackerType];
+        local Data = self.Data.ComboStar[LeaderID] or {};
+        local Factor = 1;
+        for i= table.getn(Data), 1, -1 do
+            if Data[i][1] + Config.MaxTime > CurrentTurn then
+                Factor = Factor + Data[i][2];
+            else
+                table.remove(Data, i);
+            end
+        end
+        Damage = Damage * Factor;
+        -- Add hit to register
+        table.insert(Data, {CurrentTurn, Config.Bonus});
+        self.Data.ComboStar[LeaderID] = Data;
+    end
+    return Damage;
 end
 
 -- -------------------------------------------------------------------------- --

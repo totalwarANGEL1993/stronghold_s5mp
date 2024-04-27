@@ -475,52 +475,52 @@ Stronghold.Unit.Config.Passive = {
     },
     Fear = {
         [Entities.CU_Evil_LeaderBearman1] = {
-            Modulo = 10, -- 10%
+            Chance = 10,
         },
         [Entities.CU_Evil_LeaderSkirmisher1] = {
-            Modulo = 10, -- 10%
+            Chance = 10,
         },
     },
     Cripple = {
         [Entities.CU_BanditLeaderSword1] = {
-            Modulo = 15, -- ~7%
+            Chance = 7,
             Duration = 30,
             Factor = 1.25,
         },
         [Entities.CU_BanditSoldierSword1] = {
-            Modulo = 15, -- ~7%
+            Chance = 7,
             Duration = 30,
             Factor = 1.25,
         },
         [Entities.CU_BanditLeaderSword2] = {
-            Modulo = 15, -- ~7%
+            Chance = 7,
             Duration = 30,
             Factor = 1.25,
         },
         [Entities.CU_BanditSoldierSword2] = {
-            Modulo = 15, -- ~7%
+            Chance = 7,
             Duration = 30,
             Factor = 1.25,
         },
         [Entities.PU_LeaderSword4] = {
-            Modulo = 15, -- ~7%
+            Chance = 7,
             Duration = 30,
             Factor = 1.25,
         },
         [Entities.PU_SoldierSword4] = {
-            Modulo = 15, -- ~7%
+            Chance = 7,
             Duration = 30,
             Factor = 1.25,
         },
     },
     Sneak = {
         [Entities.CU_Assassin_LeaderKnife1] = {
-            Modulo = 4, -- ~25%
+            Chance = 25,
             Factor = 6.00,
             Angle  = 90,
         },
         [Entities.CU_Assassin_SoldierKnife1] = {
-            Modulo = 4, -- ~25%
+            Chance = 25,
             Factor = 6.00,
             Angle  = 90,
         },
@@ -561,6 +561,24 @@ Stronghold.Unit.Config.Passive = {
         },
         [Entities.PU_SoldierBow4] = {
             Refund = 0.5
+        },
+    },
+    ComboStar = {
+        [Entities.PU_LeaderCavalry2] = {
+            MaxTime = 100,
+            Bonus = 0.015,
+        },
+        [Entities.PU_SoldierCavalry2] = {
+            MaxTime = 100,
+            Bonus = 0.015,
+        },
+        [Entities.PU_LeaderHeavyCavalry2] = {
+            MaxTime = 100,
+            Bonus = 0.015,
+        },
+        [Entities.PU_SoldierHeavyCavalry2] = {
+            MaxTime = 100,
+            Bonus = 0.015,
         },
     },
 }

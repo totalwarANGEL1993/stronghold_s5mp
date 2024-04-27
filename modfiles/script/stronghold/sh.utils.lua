@@ -9,6 +9,21 @@ Stronghold = Stronghold or {};
 Stronghold.Utils = {};
 
 -- -------------------------------------------------------------------------- --
+-- Random
+
+--- Returns a random integer based on the ID of the entity.
+--- @param _Entity any Scriptname or ID
+--- @return integer Random Random integer
+function RandomNumber(_Entity)
+    local EntityID = GetID(_Entity);
+    --- @diagnostic disable-next-line: undefined-field
+    local TurnMod = math.mod(Logic.GetCurrentTurn(), 100) +1;
+    --- @diagnostic disable-next-line: undefined-field
+    local IDMod = math.mod(EntityID, 100);
+    return math.max(1, math.abs(TurnMod - IDMod));
+end
+
+-- -------------------------------------------------------------------------- --
 -- Behavior hacks
 
 function GetEntityBehavior(_EntityID, _Behavior)

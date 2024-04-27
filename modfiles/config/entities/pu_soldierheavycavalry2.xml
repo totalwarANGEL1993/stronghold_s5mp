@@ -19,7 +19,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>400</MaxHealth>
+        <MaxHealth>450</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -97,15 +97,15 @@
             <BattleTaskList>TL_BATTLE</BattleTaskList>
             <NormalAttackAnim1>PU_SoldierCavalry4_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_SoldierCavalry4_Attack1</NormalAttackAnim2>
-            <CounterAttackAnim>PU_SoldierCavalry4_Idle1</CounterAttackAnim>
-            <FinishingMoveAnim>PU_SoldierCavalry4_Idle1</FinishingMoveAnim>
-            <MissAttackAnim>PU_SoldierCavalry4_Idle1</MissAttackAnim>
+            <CounterAttackAnim>PU_SoldierCavalry4_Attack1</CounterAttackAnim>
+            <FinishingMoveAnim>PU_SoldierCavalry4_Attack1</FinishingMoveAnim>
+            <MissAttackAnim>PU_SoldierCavalry4_Attack1</MissAttackAnim>
             <BattleIdleAnim>PU_SoldierCavalry4_Idle1</BattleIdleAnim>
             <BattleWalkAnim>PU_SoldierCavalry4_Run1</BattleWalkAnim>
             <HitAnim>PU_SoldierCavalry4_Hit</HitAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>40</DamageAmount>
+            <DamageAmount>38</DamageAmount>
             <MaxRandomDamageBonus>6</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>
