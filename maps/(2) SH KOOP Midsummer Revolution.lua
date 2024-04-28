@@ -279,22 +279,114 @@ end
 -- #                                 ENEMY                                  # --
 -- ########################################################################## --
 
--- Player 2 --------------------------------------------------------------------
+-- Player 6 --------------------------------------------------------------------
 
-function Enemy_InitPlayer2()
+function Enemy_InitPlayer6()
 
 end
 
 -- Player 3 --------------------------------------------------------------------
 
 function Enemy_InitPlayer3()
+    local Strength = 10 + (6 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
+    local AllowedUnitsBastille = {
+        Entities.CU_Barbarian_LeaderClub2,
+        Entities.PU_LeaderPoleArm3,
+        Entities.PU_LeaderBow3,
+        Entities.CU_Barbarian_LeaderClub2,
+        Entities.PU_LeaderBow3
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedUnitsBastille = {
+            Entities.PU_LeaderPoleArm4,
+            Entities.CU_Barbarian_LeaderClub1,
+            Entities.PU_LeaderBow4,
+            Entities.CU_Barbarian_LeaderClub1,
+            Entities.PU_LeaderBow4,
+        };
+    end
+
+    local AllowedUnitsHQ = {
+        Entities.PU_LeaderCavalry1,
+        Entities.PU_LeaderHeavyCavalry1,
+        Entities.PV_Cannon3,
+        Entities.PU_LeaderCavalry1,
+        Entities.PV_Cannon4
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedUnitsHQ = {
+            Entities.PU_LeaderCavalry2,
+            Entities.PV_Cannon7,
+            Entities.PU_LeaderHeavyCavalry2,
+            Entities.PV_Cannon8
+        };
+    end
+
+    Enemy_Player3Camp1 = DelinquentsCampCreate {
+        PlayerID     = 3,
+        HomePosition = "P3DefPos1",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player3Camp1, "P3Bastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player3Camp1, "P3Bastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player3Camp1, "P3Bastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player3Camp1, "HQ3", RespawnTime, 4, unpack(AllowedUnitsHQ));
+    DelinquentsCampAddGuardPositions(Enemy_Player3Camp1, "P3DefPos1", "P3DefPos2");
+    DelinquentsCampAddTarget(Enemy_Player3Camp1, "SBWP1", "SWP1", "SWP2", "SWP3", "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home");
 end
 
 -- Player 4 --------------------------------------------------------------------
 
 function Enemy_InitPlayer4()
+    local Strength = 10 + (6 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
+    local AllowedUnitsBastille = {
+        Entities.PU_LeaderPoleArm3,
+        Entities.PU_LeaderSword3,
+        Entities.PU_LeaderBow3,
+        Entities.PU_LeaderPoleArm3,
+        Entities.PU_LeaderRifle1
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedUnitsBastille = {
+            Entities.PU_LeaderPoleArm4,
+            Entities.PU_LeaderSword4,
+            Entities.PU_LeaderBow4,
+            Entities.PU_LeaderSword4,
+            Entities.PU_LeaderRifle2
+        };
+    end
+
+    local AllowedUnitsHQ = {
+        Entities.PU_LeaderCavalry1,
+        Entities.PU_LeaderHeavyCavalry1,
+        Entities.PV_Cannon3,
+        Entities.PU_LeaderCavalry1,
+        Entities.PV_Cannon4
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedUnitsHQ = {
+            Entities.PU_LeaderCavalry2,
+            Entities.PV_Cannon7,
+            Entities.PU_LeaderHeavyCavalry2,
+            Entities.PV_Cannon8
+        };
+    end
+
+    Enemy_Player4Camp1 = DelinquentsCampCreate {
+        PlayerID     = 4,
+        HomePosition = "P4DefPos1",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player4Camp1, "P4Bastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player4Camp1, "P4Bastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player4Camp1, "P4Bastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player4Camp1, "HQ4", RespawnTime, 4, unpack(AllowedUnitsHQ));
+    DelinquentsCampAddGuardPositions(Enemy_Player4Camp1, "P4DefPos1", "P4DefPos2");
+    DelinquentsCampAddTarget(Enemy_Player4Camp1, "NBWP1", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5", "Player1Home");
 end
 
 -- Player 5 --------------------------------------------------------------------
@@ -302,8 +394,6 @@ end
 Enemy_Player5_BuildingPositions = {};
 Enemy_Player5_IsDefeated = 0;
 
--- Player 5 is not supposed to be the real meat and because I am as lazy as a
--- human being can get, I will use the bandit stuff for them too.
 function Enemy_Player5_Init()
     local Strength = 10 + (6 * (Difficulty_Selected -1));
     local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
@@ -375,6 +465,9 @@ function Enemy_Player5_RestoreSpawnersInFog()
     if (not IsExisting("ImposterMayor5")) then
         DelinquentsCampDestroy(Enemy_Player5Camp1);
         DelinquentsCampDestroy(Enemy_Player5Camp2);
+        for ScriptName, _ in pairs(Enemy_Player5_BuildingPositions) do
+            DestroyEntity(ScriptName);
+        end
         Enemy_Player5_IsDefeated = 1;
         return true;
     end
@@ -399,8 +492,6 @@ end
 
 -- Player 7 --------------------------------------------------------------------
 
--- Player 7 is a normal bandit enemy so we do not need to put a lot of effort
--- into them to make them truly stand out.
 function Enemy_Player7_Init()
     local Strength = 4 + (2 * (Difficulty_Selected -1));
     local Respawn = math.ceil(180 / (Difficulty_Selected ^ (1.3)));
@@ -447,7 +538,8 @@ end
 
 function Main1Quest_IsPlayer5Defeated()
     if Enemy_Player5_IsDefeated == 1 then
-        Message("Debug: Test successful");
+        MainQuest_ReleaseTheBishop();
+        MainQuest_JournalStage2();
         return true;
     end
 end
@@ -486,15 +578,87 @@ function MainQuest_PeaceTimeOver()
     SetHostile(2, 5);
 end
 
+function MainQuest_ReleaseTheBishop()
+    local Position = GetPosition("BishopPos1");
+    local ID = Logic.CreateEntity(Entities.CU_BishopIdle, Position.X, Position.Y, 0, 8);
+    Logic.SetEntityName(ID, "Bishop");
+    Move("Bishop", "BishopPos2");
+    Job.Second(function()
+        if IsNear("Bishof", "BishopPos2", 50) then
+            MainQuest_CreateBishop1Npc1();
+            return true;
+        end
+    end);
+end
+
+function MainQuest_CreateBishop1Npc1()
+    NonPlayerCharacter.Create {
+        ScriptName = "Bishop",
+        Callback   = MainQuest_BriefingBishop1,
+    }
+    NonPlayerCharacter.Activate("Bishop");
+end
+
+function MainQuest_MakeFinalEnemyHostile()
+    MainQuest_RevealEnemyCoalition();
+
+    ChangePlayer("P3Bastille1", 3);
+    ChangePlayer("P3Bastille2", 3);
+    ChangePlayer("P3Bastille3", 3);
+    Enemy_InitPlayer3();
+
+    ChangePlayer("P4Bastille1", 4);
+    ChangePlayer("P4Bastille2", 4);
+    ChangePlayer("P4Bastille3", 4);
+    Enemy_InitPlayer4();
+
+    ReplaceEntity("P3LG1", Entities.XD_DarkWallStraightGate);
+    ReplaceEntity("P4RG1", Entities.XD_DarkWallStraightGate);
+    SetHostile(1,3);
+    SetHostile(1,4);
+    SetHostile(2,3);
+    SetHostile(2,4);
+end
+
 function MainQuest_RevealEnemyCoalition()
-    SetPlayerName(2, "Erzherzog Dovbar");
-    SetPlayerName(3, "Dovbars linke Hand");
-    SetPlayerName(4, "Dovbars rechte Hand");
+    SetPlayerName(6, "Dovbar, der Teufel");
+    SetPlayerName(3, "Des Teufels linke Hand");
+    SetPlayerName(4, "Des Teufels rechte Hand");
 end
 
 function MainQuest_JournalStage1()
-    local Title = "Der Aufstand";
+    local Title = "Vom Teufel berührt";
     local Text  = "Der Bischof hat sich von einem demütigen Diener Gottes zu einem bösartigen Tyrann entwickelt. Ihr und Euer Verbündeter habt Euch erhoben, um Euch dem Unrecht entgegenzustellen. Etwas muss für die Änderung seines Charakter verantwortlich sein. Ihr müsst es herausfinden! {cr}{cr}- Besiegt die Truppen des Bishof";
+    for PlayerID = 1, 2 do
+        Logic.AddQuest(
+            PlayerID,
+            MainQuest_ID,
+            MAINQUEST_OPEN,
+            Placeholder.Replace(Title),
+            Placeholder.Replace(Text),
+            1
+        );
+    end
+end
+
+function MainQuest_JournalStage2()
+    local Title = "Vom Teufel berührt";
+    local Text  = "Der Bischof wurde offenbar von einem unbekannten Feind ausgetauscht. Ihr und Euer Verbündeter habt den Handlanger erschlagen. Sprecht mit dem Bischof und erfahrt, was hinter allem steckt. {cr}{cr}- Sprecht mit dem Bischof";
+    for PlayerID = 1, 2 do
+        Logic.AddQuest(
+            PlayerID,
+            MainQuest_ID,
+            MAINQUEST_OPEN,
+            Placeholder.Replace(Title),
+            Placeholder.Replace(Text),
+            1
+        );
+    end
+end
+
+function MainQuest_JournalStage3()
+    local Title = "Vom Teufel berührt";
+    local Text  = "Ein Mann namens Dovbar scheint die Fäden in der Hand zu halten. Im festen Glauben, für etwas Größeres vorgesehen gewesen zu sein und seines Geburtsrechtes beraupt, schickt er sich an, Rache zu nehmen. Ihr seid der festen Überzeugung, dass dieser Wahnsinnige aufgehalten werden muss. {cr}{cr}- Besiegt die rechte Hand des Teufels {cr}- Besiegt die linke Hand des Teufels {cr}- Besiegt Erzherzog Dovbar";
     for PlayerID = 1, 2 do
         Logic.AddQuest(
             PlayerID,
@@ -535,6 +699,82 @@ function MainQuest_BriefingIntro()
         StartCountdown(Difficulty_InitialPeaceTime, MainQuest_PeaceTimeOver, true);
     end
     BriefingSystem.Start(PlayerID, "BriefingIntro", Briefing);
+end
+
+function MainQuest_BriefingBishop1(_Npc, _HeroID)
+    local PlayerID = Logic.EntityGetPlayer(_HeroID);
+    local HeroType = Logic.GetEntityType(_HeroID);
+    local TypeName = Logic.GetEntityTypeName(HeroType);
+    local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
+
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
+
+    AP {
+        Title       = "Bischof Murmelwanzt",
+        Text        = "Der Gnade des Herrn und aller seiner Engel zum Dank! Endlich bin ich wieder frei.",
+        Target      = "Bishop",
+        CloseUp     = true,
+    }
+    AP {
+        Title       = HeroName,
+        Text        = "Jemand hatte Euren Platz eingenommen, Eure Eminenz! Welch ein Frevel! Das ganze Land denkt, Ihr seid verrückt geworden. Ein Glück, dass der Spuk nun ein Ende hat.",
+        Target      = _HeroID,
+        CloseUp     = true,
+    }
+    AP {
+        Title       = "Bischof Murmelwanzt",
+        Text        = "Mit nichten, mein Kind, mit nichten! Dieser Schurke war nichts als ein Handlanger. Die Gefahr ist noch nicht gebannt. Wer immer hinter dieser Intrige steckt, ist noch nicht fertig mit seinem Plan. Oh, ich spüre die Hand des Teufels in meinem... ähm Nacken. Sie wird nicht ablassen von mir und vor diesem Land!",
+        Target      = "Bishop",
+        CloseUp     = true,
+    }
+    AP {
+        Title       = HeroName,
+        Text        = "Dann werden wir dem Teufel die Hand abschlagen!",
+        Target      = _HeroID,
+        CloseUp     = true,
+    }
+    AP {
+        Title       = "Bischof Murmelwanzt",
+        Text        = "Euer Mut ehrt Euch, mein Kind. Doch glaubet nicht, dass es so einfach wird! Die mächte des Bösen sind stets in der Überzahl!",
+        Target      = "Bishop",
+        CloseUp     = true,
+    }
+    AP {
+        Title       = HeroName,
+        Text        = "Lass das ruhig meine Sorge sein. Sag, wer ist unser Feind?",
+        Target      = _HeroID,
+        CloseUp     = true,
+    }
+    AP {
+        Title       = "Bischof Murmelwanzt",
+        Text        = "Es handelt sich um Erzherzog Dovbar. Er glaubt, er sei einst führ größeres Vorgesehen gewesen und will nun Rache nehmen. Und er hat andere um sich geschart, die mindestens so voller Hass sind, wie er selbst!",
+        Target      = "Bishop",
+        CloseUp     = true,
+    }
+    AP {
+        Title       = "Bischof Murmelwanzt",
+        Text        = "Wenn Ihr gegen ihn und seine Herrscharen eine Chance wollt, solltet Ihr Euch meiner Soldner bedienen. Sprecht mit meinem Vertrauten, er wird Euch ein Angebot machen.",
+        Target      = "Garek1",
+        CloseUp     = true,
+    }
+    AP {
+        Title       = HeroName,
+        Text        = "Habt Dank, Eure Eminenz. Mit Gottes Hilfe und der Eurer Söldner werden wir diese Aufgabe meistern.",
+        Target      = _HeroID,
+        CloseUp     = true,
+    }
+
+    Briefing.Finished = function()
+        MainQuest_JournalStage3();
+        MainQuest_MakeFinalEnemyHostile();
+        Trader_CreateNpcTrader3();
+    end
+    BriefingSystem.Start(PlayerID, "BriefingBishop1", Briefing);
 end
 
 -- ########################################################################## --
