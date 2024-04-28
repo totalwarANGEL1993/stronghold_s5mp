@@ -98,9 +98,9 @@
             <BattleWalkAnim>PV_Cannon1_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>30</DamageAmount>
+            <DamageAmount>45</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
-            <DamageRange>400</DamageRange>
+            <DamageRange>500</DamageRange>
 
             <BattleWaitUntil>1750</BattleWaitUntil>
 
