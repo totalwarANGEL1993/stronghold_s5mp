@@ -6,6 +6,7 @@
 Stronghold.Hero.Config.Hero1 = {
     InfluenceFactor = 1.5,
     MilitaryFactor = 1.1,
+    TradeBonusFactor = 0.5,
 }
 -- Hero 2 properties
 Stronghold.Hero.Config.Hero2 = {
@@ -16,7 +17,8 @@ Stronghold.Hero.Config.Hero2 = {
 -- Hero 3 properties
 Stronghold.Hero.Config.Hero3 = {
     CannonPlaceReduction = 2,
-    KnowledgeFactor = 1.30,
+    MercenaryFactor = 1,
+    TrainExperience = 0,
     CannonTypes = {
         Entities.CV_Cannon1,
         Entities.CV_Cannon2,
@@ -30,18 +32,20 @@ Stronghold.Hero.Config.Hero3 = {
 }
 -- Hero 4 properties
 Stronghold.Hero.Config.Hero4 = {
-    TrainExperience = 200,
+    TrainExperience = 400,
+    BonusSlaves = 2,
 }
 -- Hero 5 properties
 Stronghold.Hero.Config.Hero5 = {
     TaxIncomeFactor = 1.3,
-    MinerMineralModulo = 20, -- 5%
-    SerfMineralModulo = 10,  -- 10%
+    MinerMineralChance = 10,
+    SerfMineralChance = 20,
     SerfWoodBonus = 1,
 }
 -- Hero 6 properties
 Stronghold.Hero.Config.Hero6 = {
     CrimeRateFactor = 0.85,
+    FilthRateFactor = 0.85,
     SermonHonorBonus = 3,
     SermonReputationBonus = 3,
     ConversionFrequency = 400,
@@ -55,17 +59,18 @@ Stronghold.Hero.Config.Hero7 = {
 -- Hero 8 properties
 Stronghold.Hero.Config.Hero8 = {
     UpkeepFactor = 0.5,
-    BonusSlaves = 2,
 }
 -- Hero 9 properties
 Stronghold.Hero.Config.Hero9 = {
     TavernEfficiency = 1.5,
     WolfHonorRate = 0.08,
+    MilitaryFactor = 1.1,
 }
 -- Hero 10 properties
 Stronghold.Hero.Config.Hero10 = {
-    UpkeepFactor = 0.8,
+    UpkeepFactor = 0.70,
     RefiningBonus = 1,
+    BonusSlaves = 2,
 }
 -- Hero 11 properties
 Stronghold.Hero.Config.Hero11 = {

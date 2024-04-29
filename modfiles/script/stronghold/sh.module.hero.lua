@@ -153,6 +153,13 @@ function Stronghold.Hero:OnEntityCreated(_EntityID)
     if Logic.IsSettler(_EntityID) == 1 then
         self:ConfigureSummonedEntities(_EntityID);
     end
+    -- Experience
+    if Logic.IsSettler(_EntityID) == 1 then
+        local Amount = CEntity.GetLeaderExperience(_EntityID) or 0;
+        local PlayerID = Logic.EntityGetPlayer(_EntityID);
+        Amount = self:ApplyExperiencePassiveAbility(PlayerID, _EntityID, Amount);
+        CEntity.SetLeaderExperience(_EntityID, Amount);
+    end
 end
 
 function Stronghold.Hero:OncePerSecond(_PlayerID)
@@ -988,6 +995,18 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CurrentAmount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MercenaryCostFactor", function(_PlayerID, _Factor)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyMercenaryCostInflationFactor(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_MercenaryExperience", function(_PlayerID, _Amount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero:ApplyMercenaryExperienceBonus(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
     -- Money --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_TotalPaydayIncome", function(_PlayerID, _CurrentAmount)
@@ -1054,6 +1073,12 @@ function Stronghold.Hero:OverrideCalculationCallbacks()
         return CrimeRate;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_FilthRate", function(_PlayerID, _Rate)
+        local FilthRate = Overwrite.CallOriginal();
+        FilthRate = Stronghold.Hero:ApplyFilthRatePassiveAbility(_PlayerID, FilthRate);
+        return FilthRate;
+    end);
+
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorFromSermon", function(_PlayerID, _BlessCategory, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero:ApplyHonorSermonPassiveAbility(_PlayerID, _BlessCategory, CurrentAmount);
@@ -1116,10 +1141,9 @@ function Stronghold.Hero:ResourceProductionBonus(_PlayerID, _BuildingID, _Source
         end
     end
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
-        local Modul = self.Config.Hero5.MinerMineralModulo;
-        local Turn = Logic.GetCurrentTurn();
+        local Chance = self.Config.Hero5.MinerMineralChance;
         --- @diagnostic disable-next-line: undefined-field
-        if math.mod(_BuildingID, Modul) == math.mod(Turn, Modul) then
+        if RandomNumber(_BuildingID) <= Chance then
             ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
         end
     end
@@ -1132,10 +1156,9 @@ function Stronghold.Hero:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _Typ
     local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero5) then
         if _Type ~= ResourceType.WoodRaw then
-            local Modul = self.Config.Hero5.SerfMineralModulo;
-            local Turn = Logic.GetCurrentTurn();
+            local Chance = self.Config.Hero5.SerfMineralChance;
             --- @diagnostic disable-next-line: undefined-field
-            if math.mod(_SerfID, Modul) == math.mod(Turn, Modul) then
+            if RandomNumber(_SerfID) <= Chance then
                 ResourceRemaining = ResourceRemaining + math.max(Amount -1, 1);
             end
         else
@@ -1188,8 +1211,11 @@ end
 -- Passive Ability: Increase of max serf attraction
 function Stronghold.Hero:ApplyMaxSlaveAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
-        Value = Value + (self.Config.Hero8.BonusSlaves * GetRank(_PlayerID));
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
+        Value = Value + (self.Config.Hero4.BonusSlaves * GetRank(_PlayerID));
+    end
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero10) then
+        Value = Value + (self.Config.Hero10.BonusSlaves * GetRank(_PlayerID));
     end
     return Value;
 end
@@ -1243,7 +1269,8 @@ end
 -- Passive Ability: Increase of max military attraction
 function Stronghold.Hero:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
+    if self:HasValidLordOfType(_PlayerID, "^PU_Hero1[abc]+$")
+    or self:HasValidLordOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
         Value = Value * self.Config.Hero1.MilitaryFactor;
     end
     return Value;
@@ -1356,6 +1383,15 @@ function Stronghold.Hero:ApplyCrimeRatePassiveAbility(_PlayerID, _Value)
     return Value;
 end
 
+-- Passive Ability: Change factor of becoming a criminal
+function Stronghold.Hero:ApplyFilthRatePassiveAbility(_PlayerID, _Value)
+    local Value = _Value;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero6) then
+        Value = Value * self.Config.Hero6.FilthRateFactor;
+    end
+    return Value;
+end
+
 -- Passive Ability: Chance the chance of becoming a criminal
 function Stronghold.Hero:ApplyCrimeChancePassiveAbility(_PlayerID, _Chance)
     local Value = _Chance;
@@ -1368,9 +1404,7 @@ end
 -- Passive Ability: Generating knowledge points
 function Stronghold.Hero:ApplyKnowledgePassiveAbility(_PlayerID, _Value)
     local Value = _Value;
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
-        Value = Value * self.Config.Hero3.KnowledgeFactor;
-    end
+    -- Nothing to do
     return Value;
 end
 
@@ -1380,7 +1414,8 @@ function Stronghold.Hero:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _BuyTy
     local Bonus = 0;
     local ResourceName = GetResourceName(_BuyType);
     local Text = XGUIEng.GetStringTableText("SH_Text/GUI_TradeBonus");
-    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero11) then
+    if self:HasValidLordOfType(_PlayerID, "^PU_Hero1[abc]+$")
+    or self:HasValidLordOfType(_PlayerID, Entities.PU_Hero11) then
         Bonus = math.ceil(_BuyAmount * self.Config.Hero11.TradeBonusFactor);
     end
     if Bonus > 0 then
@@ -1428,14 +1463,35 @@ function Stronghold.Hero:ApplyCalculateBattleDamage(_AttackerID, _AttackedID, _D
     return Amount;
 end
 
+-- Passive Ability: Training experience
 function Stronghold.Hero:ApplyExperiencePassiveAbility(_PlayerID, _EntityID, _Amount)
-    local Amount = 0;
+    local Amount = _Amount;
     if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero4) then
         if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 0
         and Logic.IsEntityInCategory(_EntityID, EntityCategories.Scout) == 0
         and Logic.IsEntityInCategory(_EntityID, EntityCategories.Thief) == 0 then
-            Amount = self.Config.Hero4.TrainExperience;
+            if Amount < self.Config.Hero4.TrainExperience then
+                Amount = self.Config.Hero4.TrainExperience;
+            end
         end
+    end
+    return Amount;
+end
+
+-- PassiveAbility: Mercenary costs
+function Stronghold.Hero:ApplyMercenaryCostInflationFactor(_PlayerID, _Factor)
+    local Factor = _Factor;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+        return self.Config.Hero3.MercenaryFactor;
+    end
+    return Factor;
+end
+
+-- PassiveAbility: Mercenary Experience
+function Stronghold.Hero:ApplyMercenaryExperienceBonus(_PlayerID, _Amount)
+    local Amount = _Amount;
+    if self:HasValidLordOfType(_PlayerID, Entities.PU_Hero3) then
+        Amount = self.Config.Hero3.TrainExperience;
     end
     return Amount;
 end

@@ -60,6 +60,17 @@ function GetMercenaryUnitCosts(_PlayerID, _Type, _Soldiers)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Game Callback
+
+function GameCallback_SH_Calculate_MercenaryCostFactor(_PlayerID, _Factor)
+    return _Factor;
+end
+
+function GameCallback_SH_Calculate_MercenaryExperience(_PlayerID, _Amount)
+    return _Amount;
+end
+
+-- -------------------------------------------------------------------------- --
 -- Main
 
 function Stronghold.Mercenary:Install()
@@ -359,8 +370,10 @@ function Stronghold.Mercenary:BuyMercenaryOffer(_PlayerID, _Index, _Type, _Soldi
             end
             local Position = GetCirclePosition(_BuildingID, 600, 180);
             local ID = AI.Entity_CreateFormation(
-                _PlayerID, _Type, nil, _Soldiers, Position.X, Position.Y, 0, 0, 3, 0
+                _PlayerID, _Type, nil, _Soldiers, Position.X, Position.Y, 0, 0, 0, 0
             );
+            local Experience = GameCallback_SH_Calculate_MercenaryExperience(_PlayerID, 1000);
+            CEntity.SetLeaderExperience(ID, Experience);
             self.Data[_PlayerID].Contingent[_Type].Amount = Contingent.Amount - 1;
             Logic.MoveSettler(ID, Position.X, Position.Y, -1);
             RemoveResourcesFromPlayer(_PlayerID, Costs);
@@ -399,6 +412,7 @@ end
 
 function Stronghold.Mercenary:GetInflatedUnitCosts(_PlayerID, _Type, _Soldiers)
     local CostFactor = self.Config.CostFactor;
+    CostFactor = GameCallback_SH_Calculate_MercenaryCostFactor(_PlayerID, CostFactor);
     local Costs = GetLeaderCosts(_PlayerID, _Type, _Soldiers);
     Costs[ResourceType.Silver] = (Costs[ResourceType.Silver] or 0);
     Costs[ResourceType.Gold]   = math.floor((Costs[ResourceType.Gold] or 0) * CostFactor);
