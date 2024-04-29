@@ -31,8 +31,9 @@ function Stronghold.Unit:OnEntityCreated(_EntityID)
     -- Change formation
     if Logic.IsLeader(_EntityID) == 1 then
         Stronghold.Unit:SetFormationOnCreate(_EntityID);
-        Stronghold.Unit:SetOverheadOnCreate(_EntityID);
     end
+    -- Change tab visibility
+    Stronghold.Unit:SetOverheadOnCreate(_EntityID);
 end
 
 function Stronghold.Unit:OnEntityDestroyed(_EntityID)
@@ -216,7 +217,13 @@ function Stronghold.Unit:SetOverheadOnCreate(_ID)
     local PlayerID = Logic.EntityGetPlayer(_ID);
     if Logic.GetEntityType(_ID) == Entities.CU_Assassin_LeaderKnife1 then
         if GuiPlayer ~= PlayerID and GuiPlayer ~= 17 then
-            Logic.SetEntityScriptingValue(_ID, 72, 4);
+            -- Unfortunately, this needs some delay to work.
+            Job.Turn(function(_EntityID, _Turn)
+                if _Turn + 5 < Logic.GetCurrentTurn() then
+                    Logic.SetEntityScriptingValue(_EntityID, 72, 4);
+                    return true;
+                end
+            end, _ID, Logic.GetCurrentTurn());
         end
     end
 end

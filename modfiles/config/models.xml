@@ -3638,6 +3638,11 @@
         <OcclusionReceiver>True</OcclusionReceiver>
     </Model>
 
+    <Model id="CU_Assassin_Camouflage">
+        <Effect>SettlerPlayerColorSnowAlternate</Effect>
+        <OcclusionReceiver>True</OcclusionReceiver>
+    </Model>
+
     <Model id="CU_Assassin_LeaderKnife1">
         <Effect>SettlerPlayerColor</Effect>
         <OcclusionReceiver>True</OcclusionReceiver>
