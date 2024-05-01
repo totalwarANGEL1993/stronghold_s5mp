@@ -1092,6 +1092,7 @@ function Stronghold.Economy:OverrideFindViewUpdate()
         GUIUpdate_SocialResource(1);
         GUIUpdate_SocialResource(2);
         GUIUpdate_SocialResource(3);
+        -- GUIUpdate_SocialResource(4);
     end);
 end
 
@@ -1160,6 +1161,14 @@ function Stronghold.Economy:HonorMenuInit()
     XGUIEng.SetWidgetPositionAndSize("SocialResource3_Tooltip", 0, 4, 60, 13);
     XGUIEng.SetWidgetPositionAndSize("SocialResource3_Icon", 0, 4, 18, 18);
     XGUIEng.SetWidgetPositionAndSize("SocialResource3_Text", 30 + TextPos[1], 4 + TextPos[2], 37 + TextWidth[1], 18 + TextWidth[2]);
+
+    -- Authority
+    XGUIEng.ShowWidget("SocialResource4_Icon", 0);
+	XGUIEng.ShowWidget("SocialResource4_Text", 0);
+	XGUIEng.ShowWidget("SocialResource4_Tooltip", 0);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource4_Tooltip", 75, 22, 53, 13);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource4_Icon", 75, 19, 18, 18);
+    XGUIEng.SetWidgetPositionAndSize("SocialResource4_Text", 89 + TextPos[1], 19 + TextPos[2], 26 + TextWidth[1], 18 + TextWidth[2]);
 end
 
 GUIUpdate_SocialResource = function(_Index)
@@ -1185,6 +1194,13 @@ GUIUpdate_SocialResource = function(_Index)
         XGUIEng.SetTextColor("SocialResource3_Text", 178, 178, 178);
         if Honor == 0 then
             XGUIEng.SetTextColor("SocialResource3_Text", 255, 120, 120);
+        end
+    elseif _Index == 4 then
+        local Authority = GetAuthority(PlayerID);
+        XGUIEng.SetText("SocialResource4_Text", " @ra " ..Authority);
+        XGUIEng.SetTextColor("SocialResource4_Text", 178, 178, 178);
+        if Authority == 0 then
+            XGUIEng.SetTextColor("SocialResource4_Text", 255, 120, 120);
         end
     end
 end
