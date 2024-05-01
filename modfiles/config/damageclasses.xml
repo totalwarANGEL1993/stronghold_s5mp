@@ -86,13 +86,13 @@
     <!-- Black Knights -->
     <DamageClass id="DC_Mace">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.4</ArmorClassNoneFactor>
+            <ArmorClassNoneFactor>1.8</ArmorClassNoneFactor>
             <ArmorClassJerkinFactor>0.5</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>2.0</ArmorClassLeatherFactor>
+            <ArmorClassLeatherFactor>2.2</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>0.5</ArmorClassIronFactor>
-            <ArmorClassFortificationFactor>1.6</ArmorClassFortificationFactor>
+            <ArmorClassFortificationFactor>1.0</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>1.0</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>0.05</ArmorClassFurFactor>
+            <ArmorClassFurFactor>0.2</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Barbarians -->
@@ -134,13 +134,13 @@
     <!-- Troop cannons, bombs -->
     <DamageClass id="DC_TroopCannon">
         <Logic classname="GGL::CDamageClassProps">
-            <ArmorClassNoneFactor>1.5</ArmorClassNoneFactor>
-            <ArmorClassJerkinFactor>1.5</ArmorClassJerkinFactor>
-            <ArmorClassLeatherFactor>1.5</ArmorClassLeatherFactor>
+            <ArmorClassNoneFactor>1.0</ArmorClassNoneFactor>
+            <ArmorClassJerkinFactor>1.0</ArmorClassJerkinFactor>
+            <ArmorClassLeatherFactor>1.0</ArmorClassLeatherFactor>
             <ArmorClassIronFactor>1.0</ArmorClassIronFactor>
             <ArmorClassFortificationFactor>0.1</ArmorClassFortificationFactor>
             <ArmorClassHeroFactor>1.0</ArmorClassHeroFactor>    
-            <ArmorClassFurFactor>1.5</ArmorClassFurFactor>
+            <ArmorClassFurFactor>1.0</ArmorClassFurFactor>
         </Logic>
     </DamageClass>
     <!-- Siege cannons -->

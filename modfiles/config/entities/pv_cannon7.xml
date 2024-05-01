@@ -16,11 +16,11 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
         <Cost>
-            <Silver>10</Silver>
-            <Gold>450</Gold>
+            <Silver>20</Silver>
+            <Gold>600</Gold>
             <Wood>0</Wood>
-            <Iron>200</Iron>
-            <Sulfur>350</Sulfur>
+            <Iron>300</Iron>
+            <Sulfur>400</Sulfur>
         </Cost>
         <Category>Military</Category>
         <Category>Cannon</Category>
@@ -98,7 +98,7 @@
             <BattleWalkAnim>PV_Cannon1_Drive</BattleWalkAnim>
 
             <DamageClass>DC_TroopCannon</DamageClass>
-            <DamageAmount>45</DamageAmount>
+            <DamageAmount>25</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>500</DamageRange>
 
