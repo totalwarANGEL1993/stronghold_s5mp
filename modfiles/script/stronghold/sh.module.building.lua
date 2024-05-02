@@ -940,11 +940,18 @@ function Stronghold.Building:OnAlchemistSelected(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Tavern
+-- Workplace
 
-function Stronghold.Building:OnTavernSelected(_EntityID)
-    if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Farm) == 1
-    and Logic.IsConstructionComplete(_EntityID) == 1 then
+function Stronghold.Building:OnWorkplaceSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    local TypeName = Logic.GetEntityTypeName(Type);
+    if string.format(TypeName, "Mine") then
+        XGUIEng.ShowWidget("Research_SustainableClayMining", 0);
+        XGUIEng.ShowWidget("Research_SustainableStoneMining", 0);
+        XGUIEng.ShowWidget("Research_SustainableIronMining", 0);
+        XGUIEng.ShowWidget("Research_SustainableSulfurMining", 0);
+    end
+    if string.format(TypeName, "Tavern") then
         XGUIEng.ShowWidget("BuildingTabs", 1);
     end
 end
