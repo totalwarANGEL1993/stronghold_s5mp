@@ -10,6 +10,7 @@ Stronghold.Hero = Stronghold.Hero or {};
 Stronghold.Hero.Perk = {
     Data = {
         ConvertBlacklist = {},
+        ScoutBombs = {},
     },
     Config = {},
     Text = {},
@@ -69,6 +70,20 @@ function Stronghold.Hero.Perk:OnEntityCreated(_EntityID)
         Amount = self:ApplyExperiencePassiveAbility(PlayerID, _EntityID, Amount);
         CEntity.SetLeaderExperience(_EntityID, Amount);
     end
+    -- Track Scout bombs
+    if Logic.GetEntityType(_EntityID) == Entities.XD_Bomb1 then
+        local PlayerID = Logic.EntityGetPlayer(_EntityID);
+        if IsPlayer(PlayerID) then
+            local x, y, z = Logic.EntityGetPos(_EntityID);
+            self.Data[PlayerID].ScoutBombs[_EntityID] = {Logic.GetCurrentTurn(), x, y};
+        end
+    end
+    -- Pit amount
+    local Amount = Logic.GetResourceDoodadGoodAmount(_EntityID);
+    if Amount > 0 then
+        Amount = self:ApplyMineAmountPassiveAbility(_EntityID, Amount);
+        Logic.SetResourceDoodadGoodAmount(_EntityID, math.ceil(Amount));
+    end
 end
 
 function Stronghold.Hero.Perk:OncePerSecond(_PlayerID)
@@ -100,9 +115,9 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Lancer);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Axemen);
             -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_DefenceMaster);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_FortressMaster);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_ExtractResources);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_TradeMaster);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_Demolitionist);
         end
         if _Type == Entities.PU_Hero3 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_Ability);
@@ -110,7 +125,7 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Cannons);
             -- Remove this after skilltree implementation:
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_AtileryExperte);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_KnowledgeBoost);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_MasterOfArts);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_MercenaryCost);
         end
         if _Type == Entities.PU_Hero4 then
@@ -120,15 +135,15 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
             -- Remove this after skilltree implementation:
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_GrandMaster);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_ExperiencedInstructor);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_SlaveMaster);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_Marschall);
         end
         if _Type == Entities.PU_Hero5 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Bandits);
             -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_WoodChopping);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_ChildOfNature);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_TaxBonus);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_ExtractResources);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_HubertusBlessing);
         end
         if _Type == Entities.PU_Hero6 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero6_Ability);
@@ -172,7 +187,7 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
             -- Remove this after skilltree implementation:
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_SlaveMaster);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_GunManufacturer);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_SlaveMaster);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_MusketeersOath);
         end
         if _Type == Entities.PU_Hero11 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero11_Ability);
@@ -566,36 +581,22 @@ function Stronghold.Hero.Perk:ResourceProductionBonus(_PlayerID, _BuildingID, _S
     local CurrentAmount, RemainingAmount = _CurrentAmount, _RemainingAmount;
     -- Hero 2: Extract Resources
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero2_ExtractResources) then
-        if  self:RollDiceForPerk(HeroPerks.Hero2_ExtractResources, _BuildingID)
-        and _ResourceType ~= ResourceType.WoodRaw then
+        if _ResourceType ~= ResourceType.WoodRaw then
             local Data = self.Config.Perks[HeroPerks.Hero2_ExtractResources].Data;
             CurrentAmount = CurrentAmount + Data.Amount;
         end
     end
-    -- Hero 5: Extract Resources
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_ExtractResources) then
-        if _ResourceType ~= ResourceType.WoodRaw then
-            local Data = self.Config.Perks[HeroPerks.Hero5_ExtractResources].Data;
-            RemainingAmount = math.max(_CurrentAmount - Data.SerfPreservation, 1);
-        end
-    end
-    return CurrentAmount, RemainingAmount;
 end
 
 function Stronghold.Hero.Perk:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _ResourceType, _CurrentAmount, _RemainingAmount)
     local CurrentAmount, RemainingAmount = _CurrentAmount, _RemainingAmount;
     -- Hero 5: Wood Chopping
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_WoodChopping) then
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_ChildOfNature) then
+        local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
         if _ResourceType == ResourceType.WoodRaw then
-            local Data = self.Config.Perks[HeroPerks.Hero5_WoodChopping].Data;
-            CurrentAmount = CurrentAmount + Data.Amount;
-        end
-    end
-    -- Hero 5: Extract Resources
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_ExtractResources) then
-        if _ResourceType ~= ResourceType.WoodRaw then
-            local Data = self.Config.Perks[HeroPerks.Hero5_ExtractResources].Data;
-            RemainingAmount = math.max(RemainingAmount - Data.SerfPreservation, 0);
+            Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Wood, Data.WoodBonus);
+        elseif RandomNumber(_SerfID) <= Data.PreservationChance then
+            RemainingAmount = RemainingAmount + Data.SerfPreservation;
         end
     end
     return CurrentAmount, RemainingAmount;
@@ -607,8 +608,7 @@ function Stronghold.Hero.Perk:ResourceRefiningBonus(_PlayerID, _BuildingID, _Res
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero10_GunManufacturer) then
         local Data = self.Config.Perks[HeroPerks.Hero10_GunManufacturer].Data;
         local BuildingType = Logic.GetEntityType(_BuildingID);
-        if  (BuildingType == Entities.PB_GunsmithWorkshop1 or BuildingType == Entities.PB_GunsmithWorkshop2)
-        and _ResourceType == ResourceType.Sulfur then
+        if Data.EntityTypes[BuildingType] and Data.ResourceTypes[_ResourceType] then
             CurrentAmount = CurrentAmount + Data.Bonus;
         end
     end
@@ -618,8 +618,8 @@ end
 function Stronghold.Hero.Perk:ApplyKnowledgePassiveAbility(_PlayerID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
     -- Hero 3: Knowledge Boost
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero3_KnowledgeBoost) then
-        local Data = self.Config.Perks[HeroPerks.Hero3_KnowledgeBoost].Data;
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero3_MasterOfArts) then
+        local Data = self.Config.Perks[HeroPerks.Hero3_MasterOfArts].Data;
         CurrentAmount = CurrentAmount * Data.Factor;
     end
     return CurrentAmount;
@@ -631,15 +631,11 @@ function Stronghold.Hero.Perk:ApplyTradePassiveAbility(_PlayerID, _BuildingID, _
     local ResourceName = GetResourceName(_BuyType);
     local Text = XGUIEng.GetStringTableText("SH_Text/GUI_TradeBonus");
 
-    -- Hero 2: Defence Master
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero2_TradeMaster) then
-        local Data = self.Config.Perks[HeroPerks.Hero2_TradeMaster].Data;
-        Bonus = math.ceil(_BuyAmount * Data.Factor);
-    end
     -- Hero 11: Trade Master
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero11_TradeMaster) then
         local Data = self.Config.Perks[HeroPerks.Hero11_TradeMaster].Data;
-        Bonus = math.ceil(_BuyAmount * Data.Factor);
+        local Factor = 1.0 + (Data.FactorBonus * (_BuyAmount / Data.FactorDiv));
+        Bonus = math.ceil(_BuyAmount * Factor);
     end
 
     if Bonus > 0 then
@@ -653,8 +649,8 @@ end
 function Stronghold.Hero.Perk:ApplyTowerDistancePassiveAbility(_PlayerID, _UpgradeCategory, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
     -- Hero 2: Defence Master
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero2_DefenceMaster) then
-        local Data = self.Config.Perks[HeroPerks.Hero2_DefenceMaster].Data;
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero2_FortressMaster) then
+        local Data = self.Config.Perks[HeroPerks.Hero2_FortressMaster].Data;
         CurrentAmount = CurrentAmount * Data.Factor;
     end
     return CurrentAmount;
@@ -672,45 +668,50 @@ function Stronghold.Hero.Perk:ApplyCalculateBattleDamage(_AttackerID, _AttackedI
     -- Hero 8: Assassin Master
     if self:IsPerkTriggered(AttackerPlayerID, HeroPerks.Hero8_AssassinMaster) then
         local Data = self.Config.Perks[HeroPerks.Hero8_AssassinMaster].Data;
-        if AttackerType == Entities.CU_Assassin_LeaderKnife1
-        or AttackerType == Entities.CU_Assassin_SoldierKnife1 then
+        if Data.EntityTypes[AttackerType] then
             CurrentAmount = CurrentAmount * Data.DamageDeltFactor;
         end
     end
     -- Hero 9: Berserker Rage
     if self:IsPerkTriggered(AttackerPlayerID, HeroPerks.Hero9_BerserkerRage) then
         local Data = self.Config.Perks[HeroPerks.Hero9_BerserkerRage].Data;
-        if AttackerType == Entities.CU_Barbarian_LeaderClub1
-        or AttackerType == Entities.CU_Barbarian_SoldierClub1
-        or AttackerType == Entities.CU_Barbarian_LeaderClub2
-        or AttackerType == Entities.CU_Barbarian_SoldierClub2 then
+        if Data.EntityTypes[AttackedType] then
             CurrentAmount = CurrentAmount * Data.DamageDeltFactor;
         end
     end
 
     -- Damage taken --
 
+    -- Hero 4: Marschall
+    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero4_Marschall) then
+        local Data = self.Config.Perks[HeroPerks.Hero4_Marschall].Data;
+        if Data.EntityTypes[AttackedType] then
+            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+            if Data.DamageClasses[DamageClass] then
+                CurrentAmount = CurrentAmount * Data.Factor;
+            end
+        end
+    end
+    -- Hero 4: Hubertus Blessing
+    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero5_HubertusBlessing) then
+        local Data = self.Config.Perks[HeroPerks.Hero5_HubertusBlessing].Data;
+        if Data.EntityTypes[AttackedType] then
+            CurrentAmount = CurrentAmount * Data.Factor;
+        end
+    end
     -- Hero 9: Berserker Rage
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero9_BerserkerRage) then
         local Data = self.Config.Perks[HeroPerks.Hero9_BerserkerRage].Data;
-        if AttackedType == Entities.CU_Barbarian_LeaderClub1
-        or AttackedType == Entities.CU_Barbarian_SoldierClub1
-        or AttackedType == Entities.CU_Barbarian_LeaderClub2
-        or AttackedType == Entities.CU_Barbarian_SoldierClub2 then
+        if Data.EntityTypes[AttackedType] then
             CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
         end
     end
     -- Hero 12: Mothers Comfort
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero12_MothersComfort) then
         local Data = self.Config.Perks[HeroPerks.Hero12_MothersComfort].Data;
-        if AttackedType == Entities.CU_Evil_LeaderBearman1
-        or AttackedType == Entities.CU_Evil_SoldierBearman1
-        or AttackedType == Entities.CU_Evil_LeaderSkirmisher1
-        or AttackedType == Entities.CU_Evil_SoldierSkirmisher1 then
+        if Data.EntityTypes[AttackedType] then
             local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
-            if DamageClass == DamageClasses.TroopCannon
-            or DamageClass == DamageClasses.Turret
-            or DamageClass == DamageClasses.Bullet then
+            if Data.DamageClasses[DamageClass] then
                 CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
             end
         end
@@ -721,17 +722,15 @@ end
 
 function Stronghold.Hero.Perk:ApplyMaxReputationPassiveAbility(_PlayerID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
-    if IsPlayer(_PlayerID) then
-        -- Hero 7: Tyrant
-        if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Hero7_Tyrant] then
-            local Data = self.Config.Perks[HeroPerks.Hero7_Tyrant].Data;
-            CurrentAmount = Data.MaxReputation;
-        end
-        -- Hero 11: Land of the Smile
-        if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Hero11_LandOfTheSmile] then
-            local Data = self.Config.Perks[HeroPerks.Hero11_LandOfTheSmile].Data;
-            CurrentAmount = Data.MaxReputation;
-        end
+    -- Hero 7: Tyrant
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero7_Tyrant) then
+        local Data = self.Config.Perks[HeroPerks.Hero7_Tyrant].Data;
+        CurrentAmount = Data.MaxReputation;
+    end
+    -- Hero 11: Land of the Smile
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero11_LandOfTheSmile) then
+        local Data = self.Config.Perks[HeroPerks.Hero11_LandOfTheSmile].Data;
+        CurrentAmount = Data.MaxReputation;
     end
     return CurrentAmount;
 end
@@ -755,6 +754,13 @@ end
 
 function Stronghold.Hero.Perk:ApplyReputationDecreasePassiveAbility(_PlayerID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
+    -- Hero 7: Tyrant
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero7_Tyrant) then
+        if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Hero7_Tyrant] then
+            local Data = self.Config.Perks[HeroPerks.Hero7_Tyrant].Data;
+            CurrentAmount = CurrentAmount * Data.Factor;
+        end
+    end
     return CurrentAmount;
 end
 
@@ -802,18 +808,18 @@ end
 
 function Stronghold.Hero.Perk:ApplyExperiencePassiveAbility(_PlayerID, _EntityID, _Amount)
     local Amount = _Amount;
+    local Type = Logic.GetEntityType(_EntityID);
     -- Hero 4: Experienced Instructor
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero4_ExperiencedInstructor) then
         local Data = self.Config.Perks[HeroPerks.Hero4_ExperiencedInstructor].Data;
-        CurrentAmount = CurrentAmount + Data.Amount;
+        if Data.EntityTypes[Type] then
+            CurrentAmount = CurrentAmount + Data.Amount;
+        end
     end
     -- Hero 4: Grand Master
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero4_GrandMaster) then
-        local Type = Logic.GetEntityType(_EntityID);
-        if Type == Entities.CU_TemplarLeaderHeavyCavalry1
-        or Type == Entities.PU_LeaderHeavyCavalry1
-        or Type == Entities.PU_LeaderHeavyCavalry2 then
-            local Data = self.Config.Perks[HeroPerks.Hero4_GrandMaster].Data;
+        local Data = self.Config.Perks[HeroPerks.Hero4_GrandMaster].Data;
+        if Data.EntityTypes[Type] then
             CurrentAmount = CurrentAmount + Data.Amount;
         end
     end
@@ -845,27 +851,21 @@ function Stronghold.Hero.Perk:ApplyUnitUpkeepDiscountPassiveAbility(_PlayerID, _
     -- Hero 7: Army of Darkness
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero7_ArmyOfDarkness) then
         local Data = self.Config.Perks[HeroPerks.Hero7_ArmyOfDarkness].Data;
-        if _UnitType == Entities.CU_BlackKnight_LeaderMace1
-        or _UnitType == Entities.CU_BlackKnight_SoldierMace1
-        or _UnitType == Entities.CU_BlackKnight_LeaderMace2
-        or _UnitType == Entities.CU_BlackKnight_SoldierMace2
-        then
+        if Data.EntityTypes[_UnitType] then
             CurrentAmount = CurrentAmount * Data.Factor;
         end
     end
     -- Hero 8: Agent Master
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero8_AgentMaster) then
         local Data = self.Config.Perks[HeroPerks.Hero8_AgentMaster].Data;
-        if _UnitType == Entities.PU_Scout
-        or _UnitType == Entities.PU_Thief
-        then
+        if Data.EntityTypes[_UnitType] then
             CurrentAmount = CurrentAmount * Data.Factor;
         end
     end
     -- Hero 10: Musketeers Oath
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero10_MusketeersOath) then
         local Data = self.Config.Perks[HeroPerks.Hero10_MusketeersOath].Data;
-        if _UnitType == Entities.PU_LeaderRifle1 
+        if _UnitType == Entities.PU_LeaderRifle1
         or _UnitType == Entities.PU_LeaderRifle2
         then
             CurrentAmount = CurrentAmount * Data.Factor;
@@ -950,11 +950,6 @@ end
 
 function Stronghold.Hero.Perk:ApplyMaxSlaveAttractionPassiveAbility(_PlayerID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
-    -- Hero 4: Slave Master
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero4_SlaveMaster) then
-        local Data = self.Config.Perks[HeroPerks.Hero4_SlaveMaster].Data;
-        CurrentAmount = CurrentAmount + (Data.Amount * GetRank(_PlayerID));
-    end
     -- Hero 8: Slave Master
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero8_SlaveMaster) then
         local Data = self.Config.Perks[HeroPerks.Hero8_SlaveMaster].Data;
@@ -1018,5 +1013,28 @@ function Stronghold.Hero.Perk:ApplyReputationSermonPassiveAbility(_PlayerID, _Bl
     return CurrentAmount;
 end
 
-
+function Stronghold.Hero.Perk:ApplyMineAmountPassiveAbility(_EntityID, _Amount)
+    local Amount = _Amount or 0;
+    local ResourceType = Logic.GetResourceDoodadGoodType(_EntityID);
+    local ResourceAmount = Logic.GetResourceDoodadGoodAmount(_EntityID);
+    local x1,y1,z1 = Logic.EntityGetPos(_EntityID);
+    if ResourceAmount > 0 then
+        for PlayerID = 1, GetMaxPlayers() do
+            if IsPlayer(PlayerID) then
+                for BombID, BombData in pairs(self.Data[PlayerID].ScoutBombs) do
+                    if GetDistance({X= x1, Y= y1}, {X= BombData[2], Y= BombData[3]}) < 1000 then
+                        if self:IsPerkTriggered(PlayerID, HeroPerks.Hero2_Demolitionist) then
+                            local Data = self.Config.Perks[HeroPerks.Hero2_Demolitionist];
+                            local Percent = RandomNumber(_EntityID, Data.MinResource, Data.MaxResource);
+                            Amount = Amount * (Percent/100);
+                        end
+                        self.Data[PlayerID].ScoutBombs[BombID] = nil;
+                        break;
+                    end
+                end
+            end
+        end
+    end
+    return Amount;
+end
 

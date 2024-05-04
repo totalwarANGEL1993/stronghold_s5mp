@@ -160,6 +160,16 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     -- Hero 1 --
 
+    [HeroPerks.Hero1_SocialCare] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            HonorFactor = 1.1,
+            TaxFactor = 0.8,
+        }
+    },
     [HeroPerks.Hero1_SolemnAuthority] = {
         Icon = "",
         Text = "",
@@ -178,29 +188,20 @@ Stronghold.Hero.Perk.Config.Perks = {
             Factor = 1.2,
         }
     },
-    [HeroPerks.Hero1_SocialCare] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            HonorFactor = 1.1,
-            TaxFactor = 0.8,
-        }
-    },
 
     -- Hero 2 --
 
-    [HeroPerks.Hero2_TradeMaster] = {
+    [HeroPerks.Hero2_Demolitionist] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
-            Factor = 1.5,
+            MinResource = 10,
+            MaxResource = 30,
         }
     },
-    [HeroPerks.Hero2_DefenceMaster] = {
+    [HeroPerks.Hero2_FortressMaster] = {
         Icon = "",
         Text = "",
         Data = {
@@ -215,13 +216,22 @@ Stronghold.Hero.Perk.Config.Perks = {
         Data = {
             Cost = 1,
             Rank = 0,
-            Chance = 40,
+            Chance = 50,
             Amount = 2,
         }
     },
 
     -- Hero 3 --
 
+    [HeroPerks.Hero3_MasterOfArts] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 1.3,
+        }
+    },
     [HeroPerks.Hero3_AtileryExperte] = {
         Icon = "",
         Text = "",
@@ -241,15 +251,6 @@ Stronghold.Hero.Perk.Config.Perks = {
             FactorOverwrite = 1,
         }
     },
-    [HeroPerks.Hero3_KnowledgeBoost] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            Factor = 1.3,
-        }
-    },
 
     -- Hero 4 --
 
@@ -260,15 +261,24 @@ Stronghold.Hero.Perk.Config.Perks = {
             Cost = 1,
             Rank = 0,
             Amount = 400,
-        }
-    },
-    [HeroPerks.Hero4_SlaveMaster] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            Amount = 2,
+            EntityTypes = {
+                [Entities.CU_BanditLeaderSword1] = true,
+                [Entities.CU_BanditLeaderSword2] = true,
+                [Entities.CU_BanditLeaderSword3] = true,
+                [Entities.CU_Barbarian_LeaderClub1] = true,
+                [Entities.CU_Barbarian_LeaderClub2] = true,
+                [Entities.CU_BlackKnight_LeaderMace1] = true,
+                [Entities.CU_BlackKnight_LeaderMace2] = true,
+                [Entities.CU_Evil_LeaderBearman1] = true,
+                [Entities.PU_LeaderPoleArm1] = true,
+                [Entities.PU_LeaderPoleArm2] = true,
+                [Entities.PU_LeaderPoleArm3] = true,
+                [Entities.PU_LeaderPoleArm4] = true,
+                [Entities.PU_LeaderSword1] = true,
+                [Entities.PU_LeaderSword2] = true,
+                [Entities.PU_LeaderSword3] = true,
+                [Entities.PU_LeaderSword4] = true,
+            },
         }
     },
     [HeroPerks.Hero4_GrandMaster] = {
@@ -277,29 +287,44 @@ Stronghold.Hero.Perk.Config.Perks = {
         Data = {
             Cost = 1,
             Rank = 0,
-            Amount = 400,
+            Amount = 200,
+            EntityTypes = {
+                [Entities.CU_TemplarLeaderHeavyCavalry1] = true,
+                [Entities.PU_LeaderHeavyCavalry1] = true,
+                [Entities.PU_LeaderHeavyCavalry2] = true,
+            },
+        }
+    },
+    [HeroPerks.Hero4_Marschall] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 0.5,
+            EntityTypes = {
+                [Entities.CU_TemplarLeaderHeavyCavalry1] = true,
+                [Entities.PU_LeaderHeavyCavalry1] = true,
+                [Entities.PU_LeaderHeavyCavalry2] = true,
+            },
+            DamageClasses = {
+                [DamageClasses.DC_Halberd] = true,
+                [DamageClasses.DC_Pole] = true,
+            }
         }
     },
 
     -- Hero 5 --
 
-    [HeroPerks.Hero5_WoodChopping] = {
+    [HeroPerks.Hero5_ChildOfNature] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
-            Amount = 1,
-        }
-    },
-    [HeroPerks.Hero5_ExtractResources] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            MinerPreservation = 1,
-            SerfPreservation = 1,
+            PreservationChance = 10,
+            PreservationAmount = 1,
+            WoodBonus = 1,
         }
     },
     [HeroPerks.Hero5_TaxBonus] = {
@@ -311,19 +336,23 @@ Stronghold.Hero.Perk.Config.Perks = {
             Bonus = 1.3,
         }
     },
-
-    -- Hero 6 --
-
-    [HeroPerks.Hero6_ConvertSettler] = {
+    [HeroPerks.Hero5_HubertusBlessing] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
-            Chance = 4,
-            Area = 600,
+            Factor = 0.8,
+            EntityTypes = {
+                [Entities.CU_BanditLeaderBow1] = true,
+                [Entities.CU_BanditLeaderCavalry1] = true,
+                [Entities.CU_BanditLeaderSword3] = true,
+            }
         }
     },
+
+    -- Hero 6 --
+
     [HeroPerks.Hero6_Confessor] = {
         Icon = "",
         Text = "",
@@ -343,24 +372,35 @@ Stronghold.Hero.Perk.Config.Perks = {
             Bonus = 3,
         }
     },
-
-    -- Hero 7 --
-
-    [HeroPerks.Hero7_Tyrant] = {
+    [HeroPerks.Hero6_ConvertSettler] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
-            MaxReputation = 175;
+            Chance = 4,
+            Area = 600,
         }
     },
+
+    -- Hero 7 --
+
     [HeroPerks.Hero7_Moloch] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
+        }
+    },
+    [HeroPerks.Hero7_Tyrant] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            MaxReputation = 175,
+            Factor = 0.8,
         }
     },
     [HeroPerks.Hero7_ArmyOfDarkness] = {
@@ -370,6 +410,10 @@ Stronghold.Hero.Perk.Config.Perks = {
             Cost = 1,
             Rank = 0,
             Factor = 0.7,
+            EntityTypes = {
+                [Entities.CU_BlackKnight_LeaderMace1] = true,
+                [Entities.CU_BlackKnight_LeaderMace2] = true,
+            },
         }
     },
     -- This one can not be unlocked because it's hardcoded!
@@ -381,15 +425,6 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     -- Hero 8 --
 
-    [HeroPerks.Hero8_AgentMaster] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            Factor = 0.5,
-        }
-    },
     [HeroPerks.Hero8_SlaveMaster] = {
         Icon = "",
         Text = "",
@@ -399,6 +434,19 @@ Stronghold.Hero.Perk.Config.Perks = {
             Amount = 2,
         }
     },
+    [HeroPerks.Hero8_AgentMaster] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 0.5,
+            EntityTypes = {
+                [Entities.PU_Scout] = true,
+                [Entities.PU_Thief] = true,
+            },
+        }
+    },
     [HeroPerks.Hero8_AssassinMaster] = {
         Icon = "",
         Text = "",
@@ -406,6 +454,10 @@ Stronghold.Hero.Perk.Config.Perks = {
             Cost = 1,
             Rank = 0,
             DamageDeltFactor = 1.5,
+            EntityTypes = {
+                [Entities.CU_Assassin_LeaderKnife1] = true,
+                [Entities.CU_Assassin_SoldierKnife1] = true,
+            },
         }
     },
     -- This one can not be unlocked because it's hardcoded!
@@ -427,15 +479,6 @@ Stronghold.Hero.Perk.Config.Perks = {
             HonorFactor = 1.5,
         }
     },
-    [HeroPerks.Hero9_Mobilization] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            Factor = 1.2,
-        }
-    },
     [HeroPerks.Hero9_BerserkerRage] = {
         Icon = "",
         Text = "",
@@ -444,6 +487,21 @@ Stronghold.Hero.Perk.Config.Perks = {
             Rank = 0,
             DamageTakenFactor = 1.1,
             DamageDeltFactor = 1.25,
+            EntityTypes = {
+                [Entities.CU_Barbarian_LeaderClub1] = true,
+                [Entities.CU_Barbarian_SoldierClub1] = true,
+                [Entities.CU_Barbarian_LeaderClub2] = true,
+                [Entities.CU_Barbarian_SoldierClub2] = true,
+            },
+        }
+    },
+    [HeroPerks.Hero9_Mobilization] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 1.2,
         }
     },
 
@@ -474,20 +532,18 @@ Stronghold.Hero.Perk.Config.Perks = {
             Cost = 1,
             Rank = 0,
             Bonus = 3,
+            EntityTypes = {
+                Entities.PB_GunsmithWorkshop1,
+                Entities.PB_GunsmithWorkshop2
+            },
+            ResourceTypes = {
+                ResourceType.Sulfur
+            },
         }
     },
 
     -- Hero 11 --
 
-    [HeroPerks.Hero11_UseShuriken] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            Chance = 8,
-        }
-    },
     [HeroPerks.Hero11_LandOfTheSmile] = {
         Icon = "",
         Text = "",
@@ -498,13 +554,23 @@ Stronghold.Hero.Perk.Config.Perks = {
             Reputation = 25,
         }
     },
+    [HeroPerks.Hero11_UseShuriken] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Chance = 8,
+        }
+    },
     [HeroPerks.Hero11_TradeMaster] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
-            Factor = 1.5,
+            FactorBonus = 0.015,
+            FactorDiv = 1000
         }
     },
 
@@ -534,6 +600,18 @@ Stronghold.Hero.Perk.Config.Perks = {
             Cost = 1,
             Rank = 0,
             DamageTakenFactor = 0.5,
+            EntityTypes = {
+                [Entities.CU_Evil_LeaderBearman1] = true,
+                [Entities.CU_Evil_SoldierBearman1] = true,
+                [Entities.CU_Evil_LeaderSkirmisher1] = true,
+                [Entities.CU_Evil_SoldierSkirmisher1] = true,
+            },
+            DamageClasses = {
+                [DamageClasses.DC_TroopCannon] = true,
+                [DamageClasses.DC_SiegeCannon] = true,
+                [DamageClasses.DC_Turret] = true,
+                [DamageClasses.DC_Bullet] = true,
+            }
         }
     },
 }

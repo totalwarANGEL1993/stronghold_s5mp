@@ -13,14 +13,20 @@ Stronghold.Utils = {};
 
 --- Returns a random integer based on the ID of the entity.
 --- @param _Entity any Scriptname or ID
+--- @param _Min? integer Scriptname or ID
+--- @param _Max? integer Scriptname or ID
 --- @return integer Random Random integer
-function RandomNumber(_Entity)
+function RandomNumber(_Entity, _Min, _Max)
+    _Min = math.floor(_Min + 0.5) or 1;
+    _Max = math.floor(_Max + 0.5) or 100;
+    assert(_Min < _Max);
+
     local EntityID = GetID(_Entity);
-    --- @diagnostic disable-next-line: undefined-field
-    local TurnMod = math.mod(Logic.GetCurrentTurn(), 100) +1;
-    --- @diagnostic disable-next-line: undefined-field
+    local TurnMod = math.mod(Logic.GetCurrentTurn(), 100) + 1;
     local IDMod = math.mod(EntityID, 100);
-    return math.max(1, math.abs(TurnMod - IDMod));
+    local Result = math.abs(TurnMod - IDMod);
+    Result = Result * ((_Max - _Min) / 99 + _Min);
+    return math.floor(Result + 0.5);
 end
 
 -- -------------------------------------------------------------------------- --
