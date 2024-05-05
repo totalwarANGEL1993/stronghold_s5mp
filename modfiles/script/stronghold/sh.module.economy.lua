@@ -259,6 +259,14 @@ function GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
+function GameCallback_SH_Calculate_HungerPenalty(_PlayerID, _Amount)
+    return _Amount;
+end
+
+function GameCallback_SH_Calculate_SleepPenalty(_PlayerID, _Amount)
+    return _Amount;
+end
+
 -- -------------------------------------------------------------------------- --
 -- Internal
 
@@ -555,12 +563,14 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             local HunFact = self.Config.Income.HungerFactor;
             local HunMult = self.Config.Income.HungerMultiplier;
             local HungerPenalty = HunMult * ((HunFact ^ NoFarm) -1);
+            HungerPenalty = GameCallback_SH_Calculate_HungerPenalty(_PlayerID, HungerPenalty);
             self.Data[_PlayerID].ReputationDetails.Hunger = HungerPenalty;
             -- Penalty for no house
             local NoHouse = self:GetNumberOfWorkerWithoutHouse(_PlayerID);
             local InsFact = self.Config.Income.InsomniaFactor;
             local InsMult = self.Config.Income.InsomniaMultiplier;
             local SleepPenalty = InsMult * ((InsFact ^ NoHouse) -1);
+            SleepPenalty = GameCallback_SH_Calculate_SleepPenalty(_PlayerID, HungerPenalty);
             self.Data[_PlayerID].ReputationDetails.Homelessness = SleepPenalty;
         else
             -- Reset all caches

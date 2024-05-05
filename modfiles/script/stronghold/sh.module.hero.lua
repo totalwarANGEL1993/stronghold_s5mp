@@ -158,6 +158,11 @@ function Stronghold.Hero:OnEntityCreated(_EntityID)
     self.Perk:OnEntityCreated(_EntityID);
 end
 
+function Stronghold.Hero:OnEntityDestroyed(_EntityID)
+    -- Perks
+    self.Perk:OnEntityDestroyed(_EntityID);
+end
+
 function Stronghold.Hero:OncePerSecond(_PlayerID)
     -- Configure summons
     self:VargWolvesController(_PlayerID);

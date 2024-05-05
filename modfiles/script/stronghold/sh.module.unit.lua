@@ -373,7 +373,7 @@ function Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID
     return Damage;
 end
 
--- Circle Formation --
+-- Refund --
 
 function Stronghold.Unit:RefundKilledUnit(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);

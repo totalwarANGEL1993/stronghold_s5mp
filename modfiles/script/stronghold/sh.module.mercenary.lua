@@ -6,7 +6,9 @@ Stronghold = Stronghold or {};
 
 Stronghold.Mercenary = Stronghold.Mercenary or {
     SyncEvents = {},
-    Data = {},
+    Data = {
+        BoughtMercenaries = {}
+    },
     Config = {},
     Text = {},
 }
@@ -59,11 +61,27 @@ function GetMercenaryUnitCosts(_PlayerID, _Type, _Soldiers)
     return Stronghold.Mercenary:GetInflatedUnitCosts(_PlayerID, _Type, _Soldiers);
 end
 
+function IsMercenaryUnit(_Entity)
+    return Stronghold.Mercenary:IsMercenaryUnit(_Entity);
+end
+
+function SetMercenaryUnit(_Entity, _Flag)
+    return Stronghold.Mercenary:SetMercenaryUnit(_Entity, _Flag);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callback
 
 function GameCallback_SH_Calculate_MercenaryCostFactor(_PlayerID, _Type, _Factor)
     return _Factor;
+end
+
+function GameCallback_SH_Calculate_MercenaryCapacityFactor(_PlayerID, _Amount)
+    return _Amount;
+end
+
+function GameCallback_SH_Calculate_MercenaryRechargeTimer(_PlayerID, _Recharge)
+    return _Recharge;
 end
 
 function GameCallback_SH_Calculate_MercenaryExperience(_PlayerID, _Type, _Amount)
@@ -337,7 +355,9 @@ function Stronghold.Mercenary:GetMaxMercenaryContingent(_PlayerID, _Type)
     if IsPlayer(_PlayerID) then
         local Data = self.Data[_PlayerID].Contingent[_Type];
         if Data then
-            return Data.MaxAmount;
+            local MaxAmount = Data.MaxAmount;
+            MaxAmount = GameCallback_SH_Calculate_MercenaryCapacityFactor(_PlayerID, MaxAmount);
+            return MaxAmount;
         end
     end
     return 0;
@@ -377,6 +397,7 @@ function Stronghold.Mercenary:BuyMercenaryOffer(_PlayerID, _Index, _Type, _Soldi
             self.Data[_PlayerID].Contingent[_Type].Amount = Contingent.Amount - 1;
             Logic.MoveSettler(ID, Position.X, Position.Y, -1);
             RemoveResourcesFromPlayer(_PlayerID, Costs);
+            self:SetMercenaryUnit(ID, true);
         end
     end
     -- Force UI update
@@ -385,6 +406,16 @@ function Stronghold.Mercenary:BuyMercenaryOffer(_PlayerID, _Index, _Type, _Soldi
             GUIUpdate_BuyMercenaryUnit(_Index);
         end
     end
+end
+
+function Stronghold.Mercenary:SetMercenaryUnit(_Entity, _Flag)
+    local ID = GetID(_Entity);
+    self.Data.BoughtMercenaries[ID] = _Flag;
+end
+
+function Stronghold.Mercenary:IsMercenaryUnit(_Entity)
+    local ID = GetID(_Entity);
+    return self.Data.BoughtMercenaries[ID] == true;
 end
 
 function Stronghold.Mercenary:RefillMercenaryOffers(_PlayerID)
@@ -396,10 +427,13 @@ function Stronghold.Mercenary:RefillMercenaryOffers(_PlayerID)
                 assert(Config ~= nil);
                 local MaxAmountBase = Config.MaxAmount;
                 local MaxAmountBonus = math.max(MercenaryCamps[1] -1, 0) * self.Config.QuantityFactor;
-                local MaxAmount = math.floor(MaxAmountBase + (MaxAmountBase * MaxAmountBonus));
-                self.Data[_PlayerID].Contingent[Type].MaxAmount = MaxAmount;
+                local MaxAmount = MaxAmountBase + (MaxAmountBase * MaxAmountBonus);
+                MaxAmount = GameCallback_SH_Calculate_MercenaryCapacityFactor(_PlayerID, MaxAmount);
+                self.Data[_PlayerID].Contingent[Type].MaxAmount = math.floor(MaxAmount);
                 if Data.Amount < MaxAmount then
-                    self.Data[_PlayerID].Contingent[Type].RefillTimer = Data.RefillTimer + 1;
+                    local Recharge = 1;
+                    Recharge = GameCallback_SH_Calculate_MercenaryRechargeTimer(_PlayerID, Recharge);
+                    self.Data[_PlayerID].Contingent[Type].RefillTimer = Data.RefillTimer + Recharge;
                     if Data.RefillTimer >= Config.RefillTime then
                         self.Data[_PlayerID].Contingent[Type].Amount = Data.Amount + 1;
                         self.Data[_PlayerID].Contingent[Type].RefillTimer = 0;

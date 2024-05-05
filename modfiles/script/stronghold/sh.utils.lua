@@ -9,6 +9,19 @@ Stronghold = Stronghold or {};
 Stronghold.Utils = {};
 
 -- -------------------------------------------------------------------------- --
+-- Battle Damage
+
+function IsAttackerAlarmDefender(_Entity)
+    local ID = GetID(_Entity);
+    if Logic.IsBuilding(ID) == 1 then
+        if Logic.IsEntityInCategory(ID, EntityCategories.MilitaryBuilding) == 0 then
+            return true;
+        end
+    end
+    return false;
+end
+
+-- -------------------------------------------------------------------------- --
 -- Random
 
 --- Returns a random integer based on the ID of the entity.

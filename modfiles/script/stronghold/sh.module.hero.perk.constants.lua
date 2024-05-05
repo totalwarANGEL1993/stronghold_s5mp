@@ -21,18 +21,18 @@ HeroPerks = {
 
     Hero1_Ability = 210,
     Hero1_SolemnAuthority = 211,
-    Hero1_Mobilization = 212,
-    Hero1_SocialCare = 213,
+    Hero1_SocialCare = 212,
+    Hero1_Mobilization = 213,
     --
     Hero2_Ability = 220,
-    Hero2_ExtractResources = 221,
-    Hero2_Demolitionist = 222,
+    Hero2_Demolitionist = 221,
+    Hero2_ExtractResources = 222,
     Hero2_FortressMaster = 223,
     --
     Hero3_Ability = 230,
     Hero3_MasterOfArts = 231,
     Hero3_AtileryExperte = 232,
-    Hero3_MercenaryCost = 233,
+    Hero3_MercenaryBoost = 233,
     --
     Hero4_Ability = 240,
     Hero4_ExperiencedInstructor = 241,
@@ -50,9 +50,9 @@ HeroPerks = {
     Hero6_ConvertSettler = 263,
     --
     Hero7_Ability = 270,
-    Hero7_Moloch = 271,
+    Hero7_Paranoid = 271,
     Hero7_Tyrant = 272,
-    Hero7_Paranoid = 273,
+    Hero7_Moloch = 273,
     Hero7_ArmyOfDarkness = 274,
     --
     Hero8_Ability = 280,
@@ -77,8 +77,38 @@ HeroPerks = {
     Hero11_TradeMaster = 313,
     --
     Hero12_Ability = 320,
-    Hero12_Moloch = 321,
-    Hero12_FertilityIcon = 322,
+    Hero12_FertilityIcon = 321,
+    Hero12_Moloch = 322,
     Hero12_MothersComfort = 323,
+
+    Generic_MineSupervisor = 400,
+    Generic_TightBelt = 401,
+    Generic_Educated = 402,
+    Generic_HouseTax = 403,
+    Generic_FarmTax = 404,
+    Generic_AlarmBoost = 405,
+    Generic_InspiringPresence = 406,
+    Generic_MoodCannon = 407,
+    Generic_Pyrotechnican = 408,
+    --
+    Generic_MiddleClassLover = 430,
+    Generic_QuantityDiscount = 431,
+    Generic_ConstructionIndustry = 432,
+    Generic_PhilosophersStone = 433,
+    Generic_Bureaucrat = 434,
+    Generic_Benefactor = 435,
+    Generic_BeastMaster = 436,
+    Generic_Convocation = 437,
+    Generic_ForeignLegion = 438,
+    --
+    Generic_ManFlayer = 460,
+    Generic_NumberJuggler = 461,
+    Generic_HonorTheFallen = 462,
+    Generic_EfficiencyStrategist = 463,
+    Generic_BelieverInScience = 464,
+    Generic_WarScars = 465,
+    Generic_Haggler = 466,
+    Generic_ExperienceValue = 467,
+    Generic_Shielded = 468,
 }
 

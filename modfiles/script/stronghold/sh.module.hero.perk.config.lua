@@ -158,8 +158,289 @@ Stronghold.Hero.Perk.Config.Perks = {
         Data = {}
     },
 
+    -- Generic Tier 1 --
+
+    [HeroPerks.Generic_MineSupervisor] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Amount = 1,
+        }
+    },
+    [HeroPerks.Generic_TightBelt] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 0.9,
+        }
+    },
+    [HeroPerks.Generic_Educated] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 1.1,
+        }
+    },
+    [HeroPerks.Generic_HouseTax] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Bonus = 1,
+        }
+    },
+    [HeroPerks.Generic_FarmTax] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Bonus = 1,
+        }
+    },
+    [HeroPerks.Generic_AlarmBoost] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            DamageFactor = 1.3,
+        }
+    },
+    [HeroPerks.Generic_InspiringPresence] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            DamageFactor = 1.1,
+        }
+    },
+    [HeroPerks.Generic_MoodCannon] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 1.01,
+        }
+    },
+    [HeroPerks.Generic_Pyrotechnican] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            MinResource = 10,
+            MaxResource = 25,
+        }
+    },
+
+    -- Generic Tier 2 --
+
+    [HeroPerks.Generic_MiddleClassLover] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Bonus = 1,
+        }
+    },
+    [HeroPerks.Generic_QuantityDiscount] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 1.2,
+        }
+    },
+    [HeroPerks.Generic_ConstructionIndustry] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Bonus = 2,
+            ResourceTypes = {
+                [ResourceType.Clay] = true,
+                [ResourceType.Stone] = true,
+            }
+        }
+    },
+    [HeroPerks.Generic_PhilosophersStone] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Bonus = 1,
+            ResourceTypes = {
+                [ResourceType.Iron] = true,
+                [ResourceType.Sulfur] = true,
+            }
+        }
+    },
+    [HeroPerks.Generic_Bureaucrat] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            ReputationFactor = 1.05,
+            TaxFactor = 1.1,
+        }
+    },
+    [HeroPerks.Generic_Benefactor] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            HonorFactor = 1.05,
+            TaxFactor = 0.9,
+        }
+    },
+    [HeroPerks.Generic_BeastMaster] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            DamageTakenFactor = 0.8,
+            DamageDeltFactor = 1.2,
+            EntityTypes = {
+                [Entities.PU_Bear_Cage] = true,
+                [Entities.PU_Dog_Cage] = true,
+            },
+        }
+    },
+    [HeroPerks.Generic_ForeignLegion] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            RechargeFactor = 1.3,
+            CostFactor = 1.15,
+        }
+    },
+
+    -- Generic Tier 3 --
+
+    [HeroPerks.Generic_ManFlayer] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            BonusFactor = 2.0,
+            MalusFactor = 0.5,
+        }
+    },
+    [HeroPerks.Generic_NumberJuggler] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Gross = 4,
+            ResourceTypes = {
+                [ResourceType.Gold] = true,
+            }
+        }
+    },
+    [HeroPerks.Generic_HonorTheFallen] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 0.5,
+        }
+    },
+    [HeroPerks.Generic_EfficiencyStrategist] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Chance = 10,
+            Refine = -1,
+            Resource = 1,
+        }
+    },
+    [HeroPerks.Generic_BelieverInScience] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Chance = 10,
+            Faith = 3,
+        }
+    },
+    [HeroPerks.Generic_WarScars] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 0.7,
+        }
+    },
+    [HeroPerks.Generic_Haggler] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 0.7,
+        }
+    },
+    [HeroPerks.Generic_ExperienceValue] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            GrossFactor = 0.05,
+        }
+    },
+    [HeroPerks.Generic_Shielded] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            DamageFactor = 0.7,
+            DamageClasses = {
+                [DamageClasses.DC_TroopCannon] = true,
+                [DamageClasses.DC_SiegeCannon] = true,
+                [DamageClasses.DC_Turret] = true,
+            },
+        }
+    },
+
     -- Hero 1 --
 
+    [HeroPerks.Hero1_SolemnAuthority] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Factor = 1.5,
+        }
+    },
     [HeroPerks.Hero1_SocialCare] = {
         Icon = "",
         Text = "",
@@ -170,22 +451,14 @@ Stronghold.Hero.Perk.Config.Perks = {
             TaxFactor = 0.8,
         }
     },
-    [HeroPerks.Hero1_SolemnAuthority] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            Factor = 1.5,
-        }
-    },
     [HeroPerks.Hero1_Mobilization] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
-            Factor = 1.2,
+            MilitaryFactor = 1.2,
+            PopulationFactor = 0.8,
         }
     },
 
@@ -197,8 +470,17 @@ Stronghold.Hero.Perk.Config.Perks = {
         Data = {
             Cost = 1,
             Rank = 0,
-            MinResource = 10,
-            MaxResource = 30,
+            MinResource = 25,
+            MaxResource = 50,
+        }
+    },
+    [HeroPerks.Hero2_ExtractResources] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
+            Amount = 2,
         }
     },
     [HeroPerks.Hero2_FortressMaster] = {
@@ -208,16 +490,6 @@ Stronghold.Hero.Perk.Config.Perks = {
             Cost = 1,
             Rank = 0,
             Factor = 0.8,
-        }
-    },
-    [HeroPerks.Hero2_ExtractResources] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-            Chance = 50,
-            Amount = 2,
         }
     },
 
@@ -241,12 +513,13 @@ Stronghold.Hero.Perk.Config.Perks = {
             Amount = 2,
         }
     },
-    [HeroPerks.Hero3_MercenaryCost] = {
+    [HeroPerks.Hero3_MercenaryBoost] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
+            CapactyFactor = 1.2,
             ExperienceOverwrite = 0,
             FactorOverwrite = 1,
         }
@@ -342,7 +615,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Data = {
             Cost = 1,
             Rank = 0,
-            Factor = 0.8,
+            DamageFactor = 0.7,
             EntityTypes = {
                 [Entities.CU_BanditLeaderBow1] = true,
                 [Entities.CU_BanditLeaderCavalry1] = true,
@@ -385,14 +658,6 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     -- Hero 7 --
 
-    [HeroPerks.Hero7_Moloch] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-        }
-    },
     [HeroPerks.Hero7_Tyrant] = {
         Icon = "",
         Text = "",
@@ -401,6 +666,14 @@ Stronghold.Hero.Perk.Config.Perks = {
             Rank = 0,
             MaxReputation = 175,
             Factor = 0.8,
+        }
+    },
+    [HeroPerks.Hero7_Moloch] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
         }
     },
     [HeroPerks.Hero7_ArmyOfDarkness] = {
@@ -501,7 +774,8 @@ Stronghold.Hero.Perk.Config.Perks = {
         Data = {
             Cost = 1,
             Rank = 0,
-            Factor = 1.2,
+            MilitaryFactor = 1.2,
+            DamageTakenFactor = 1.05,
         }
     },
 
@@ -533,11 +807,11 @@ Stronghold.Hero.Perk.Config.Perks = {
             Rank = 0,
             Bonus = 3,
             EntityTypes = {
-                Entities.PB_GunsmithWorkshop1,
-                Entities.PB_GunsmithWorkshop2
+                [Entities.PB_GunsmithWorkshop1] = true,
+                [Entities.PB_GunsmithWorkshop2] = true
             },
             ResourceTypes = {
-                ResourceType.Sulfur
+                [ResourceType.Sulfur] = true,
             },
         }
     },
@@ -576,21 +850,22 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     -- Hero 12 --
 
-    [HeroPerks.Hero12_Moloch] = {
-        Icon = "",
-        Text = "",
-        Data = {
-            Cost = 1,
-            Rank = 0,
-        }
-    },
     [HeroPerks.Hero12_FertilityIcon] = {
         Icon = "",
         Text = "",
         Data = {
             Cost = 1,
             Rank = 0,
-            Factor = 1.2,
+            PopulationFactor = 1.2,
+            TaxFactor = 0.8,
+        }
+    },
+    [HeroPerks.Hero12_Moloch] = {
+        Icon = "",
+        Text = "",
+        Data = {
+            Cost = 1,
+            Rank = 0,
         }
     },
     [HeroPerks.Hero12_MothersComfort] = {
@@ -611,7 +886,7 @@ Stronghold.Hero.Perk.Config.Perks = {
                 [DamageClasses.DC_SiegeCannon] = true,
                 [DamageClasses.DC_Turret] = true,
                 [DamageClasses.DC_Bullet] = true,
-            }
+            },
         }
     },
 }
