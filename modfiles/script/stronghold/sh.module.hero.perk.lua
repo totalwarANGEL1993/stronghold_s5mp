@@ -27,18 +27,6 @@ function UnlockPerkForPlayer(_PlayerID, _Perk)
     Stronghold.Hero.Perk:UnlockPerkForPlayer(_PlayerID, _Perk)
 end
 
-function AddAuthority(_PlayerID, _Amount)
-    Stronghold.Hero.Perk:AddPlayerAuthority(_PlayerID, _Amount);
-end
-
-function GetAuthority(_PlayerID)
-    return Stronghold.Hero.Perk:GetPlayerAuthority(_PlayerID);
-end
-
-function GetAuthorityForRank(_PlayerID, _Rank)
-    return Stronghold.Hero.Perk:GetGrantedAuthorityForRank(_PlayerID, _Rank);
-end
-
 -- -------------------------------------------------------------------------- --
 -- Game Callback
 
@@ -52,7 +40,6 @@ function Stronghold.Hero.Perk:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             UnlockedPerks = {},
-            Authority = 0,
         };
     end
     self:OverwriteGameCallbacks();
@@ -100,13 +87,6 @@ end
 
 function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
     if IsPlayer(_PlayerID) then
-        -- Authority
-        for Rank = 1, GetRank(_PlayerID) do
-            local Authority = self.Data[_PlayerID].Authority;
-            local Gain = self.Config.Skill.GainedPoints[Rank];
-            self.Data[_PlayerID].Authority = Authority + Gain;
-        end
-
         -- Perks
         self.Data[_PlayerID].UnlockedPerks = {};
         if PlayerHasLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
@@ -280,28 +260,6 @@ function Stronghold.Hero.Perk:UnlockPerkForPlayer(_PlayerID, _Perk)
     end
 end
 
-function Stronghold.Hero.Perk:GetPlayerAuthority(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        return self.Data[_PlayerID].Authority;
-    end
-    return 0;
-end
-
-function Stronghold.Hero.Perk:GetGrantedAuthorityForRank(_PlayerID, _Rank)
-    if IsPlayer(_PlayerID) then
-        -- TODO: Add perks that increase points?
-        return self.Config.Skill.GainedPoints[_Rank] or 0;
-    end
-    return 0;
-end
-
-function Stronghold.Hero.Perk:AddPlayerAuthority(_PlayerID, _Amount)
-    if IsPlayer(_PlayerID) then
-        local CurrentAmount = self.Data[_PlayerID].Authority;
-        self.Data[_PlayerID].Authority = CurrentAmount + _Amount;
-    end
-end
-
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Hero.Perk:OwerwriteAdditionalGameCallbacks()
@@ -309,11 +267,6 @@ function Stronghold.Hero.Perk:OwerwriteAdditionalGameCallbacks()
         Overwrite.CallOriginal();
         Stronghold.Hero.Perk:HeliasConvertController(_PlayerID, _AttackedID, _AttackerID);
         Stronghold.Hero.Perk:YukiShurikenConterController(_PlayerID, _AttackedID, _AttackerID);
-    end);
-
-    Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
-        Overwrite.CallOriginal();
-        Stronghold.Hero.Perk:OnPlayerPromoted(_PlayerID, _OldRank, _NewRank);
     end);
 end
 
@@ -382,12 +335,6 @@ function Stronghold.Hero.Perk:YukiShurikenConterController(_PlayerID, _AttackedI
                 end
             end
         end
-    end
-end
-
-function Stronghold.Hero.Perk:OnPlayerPromoted(_PlayerID, _OldRank, _NewRank)
-    if IsPlayer(_PlayerID) and GetNobleID(_PlayerID) ~= 0 then
-        AddAuthority(_PlayerID, GetAuthorityForRank(_PlayerID, _NewRank));
     end
 end
 
