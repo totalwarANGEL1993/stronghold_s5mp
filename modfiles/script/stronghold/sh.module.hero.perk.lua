@@ -1063,6 +1063,11 @@ end
 
 function Stronghold.Hero.Perk:ApplyMaxCivilAttractionPassiveAbility(_PlayerID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
+    -- Generic T2: Convocation
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Generic_Convocation) then
+        local Data = self.Config.Perks[HeroPerks.Generic_Convocation].Data;
+        CurrentAmount = CurrentAmount * Data.PopulationFactor;
+    end
     -- Hero 1: Mobilization
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero1_Mobilization) then
         local Data = self.Config.Perks[HeroPerks.Hero1_Mobilization].Data;
@@ -1083,6 +1088,11 @@ end
 
 function Stronghold.Hero.Perk:ApplyMaxMilitaryAttractionPassiveAbility(_PlayerID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
+    -- Generic T2: Convocation
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Generic_Convocation) then
+        local Data = self.Config.Perks[HeroPerks.Generic_Convocation].Data;
+        CurrentAmount = CurrentAmount * Data.MilitaryFactor;
+    end
     -- Hero 1: Mobilization
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero1_Mobilization) then
         local Data = self.Config.Perks[HeroPerks.Hero1_Mobilization].Data;
