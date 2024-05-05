@@ -164,8 +164,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Amount = 1,
         }
     },
@@ -173,8 +172,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Factor = 0.9,
         }
     },
@@ -182,8 +180,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Factor = 1.1,
         }
     },
@@ -191,8 +188,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Bonus = 1,
         }
     },
@@ -200,8 +196,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Bonus = 1,
         }
     },
@@ -209,8 +204,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             DamageFactor = 1.3,
         }
     },
@@ -218,8 +212,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             DamageFactor = 1.1,
         }
     },
@@ -227,8 +220,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Factor = 1.01,
         }
     },
@@ -236,8 +228,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             MinResource = 10,
             MaxResource = 25,
         }
@@ -249,8 +240,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Bonus = 1,
         }
     },
@@ -258,8 +248,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 0,
             Factor = 1.2,
         }
     },
@@ -267,8 +256,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Bonus = 2,
             ResourceTypes = {
                 [ResourceType.Clay] = true,
@@ -280,8 +268,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Bonus = 1,
             ResourceTypes = {
                 [ResourceType.Iron] = true,
@@ -293,8 +280,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             ReputationFactor = 1.05,
             TaxFactor = 1.1,
         }
@@ -303,8 +289,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             HonorFactor = 1.05,
             TaxFactor = 0.9,
         }
@@ -313,8 +298,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             DamageTakenFactor = 0.8,
             DamageDeltFactor = 1.2,
             EntityTypes = {
@@ -327,8 +311,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             RechargeFactor = 1.3,
             CostFactor = 1.15,
         }
@@ -340,8 +323,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             BonusFactor = 2.0,
             MalusFactor = 0.5,
         }
@@ -350,8 +332,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Gross = 4,
             ResourceTypes = {
                 [ResourceType.Gold] = true,
@@ -362,8 +343,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Factor = 0.5,
         }
     },
@@ -371,8 +351,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Chance = 10,
             Refine = -1,
             Resource = 1,
@@ -382,8 +361,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Chance = 10,
             Faith = 3,
         }
@@ -392,8 +370,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Factor = 0.7,
         }
     },
@@ -401,8 +378,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Factor = 0.7,
         }
     },
@@ -410,8 +386,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             GrossFactor = 0.05,
         }
     },
@@ -419,8 +394,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             DamageFactor = 0.7,
             DamageClasses = {
                 [DamageClasses.DC_TroopCannon] = true,
@@ -436,8 +410,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Factor = 1.5,
         }
     },
@@ -445,8 +418,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             HonorFactor = 1.1,
             TaxFactor = 0.8,
         }
@@ -455,8 +427,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             MilitaryFactor = 1.2,
             PopulationFactor = 0.8,
         }
@@ -468,8 +439,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             MinResource = 25,
             MaxResource = 50,
         }
@@ -478,8 +448,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Amount = 2,
         }
     },
@@ -487,8 +456,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Factor = 0.8,
         }
     },
@@ -499,8 +467,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Factor = 1.3,
         }
     },
@@ -508,8 +475,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Amount = 2,
         }
     },
@@ -517,8 +483,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             CapactyFactor = 1.2,
             ExperienceOverwrite = 0,
             FactorOverwrite = 1,
@@ -531,8 +496,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Amount = 400,
             EntityTypes = {
                 [Entities.CU_BanditLeaderSword1] = true,
@@ -558,8 +522,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Amount = 200,
             EntityTypes = {
                 [Entities.CU_TemplarLeaderHeavyCavalry1] = true,
@@ -572,8 +535,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Factor = 0.5,
             EntityTypes = {
                 [Entities.CU_TemplarLeaderHeavyCavalry1] = true,
@@ -593,8 +555,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             PreservationChance = 10,
             PreservationAmount = 1,
             WoodBonus = 1,
@@ -604,8 +565,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Bonus = 1.3,
         }
     },
@@ -613,8 +573,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             DamageFactor = 0.7,
             EntityTypes = {
                 [Entities.CU_BanditLeaderBow1] = true,
@@ -630,8 +589,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             CrimeFactor = 0.7,
             FilthFactor = 0.7,
         }
@@ -640,8 +598,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Bonus = 3,
         }
     },
@@ -649,8 +606,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Chance = 4,
             Area = 600,
         }
@@ -662,8 +618,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             MaxReputation = 175,
             Factor = 0.8,
         }
@@ -672,16 +627,14 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
         }
     },
     [HeroPerks.Hero7_ArmyOfDarkness] = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Factor = 0.7,
             EntityTypes = {
                 [Entities.CU_BlackKnight_LeaderMace1] = true,
@@ -702,8 +655,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Amount = 2,
         }
     },
@@ -711,8 +663,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Factor = 0.5,
             EntityTypes = {
                 [Entities.PU_Scout] = true,
@@ -724,8 +675,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             DamageDeltFactor = 1.5,
             EntityTypes = {
                 [Entities.CU_Assassin_LeaderKnife1] = true,
@@ -746,8 +696,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             ReputationFactor = 1.5,
             HonorFactor = 1.5,
         }
@@ -756,8 +705,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             DamageTakenFactor = 1.1,
             DamageDeltFactor = 1.25,
             EntityTypes = {
@@ -772,8 +720,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             MilitaryFactor = 1.2,
             DamageTakenFactor = 1.05,
         }
@@ -785,8 +732,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             Amount = 2,
         }
     },
@@ -794,8 +740,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Factor = 0.7,
         }
     },
@@ -803,8 +748,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             Bonus = 3,
             EntityTypes = {
                 [Entities.PB_GunsmithWorkshop1] = true,
@@ -822,8 +766,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             MaxReputation = 300;
             Reputation = 25,
         }
@@ -832,8 +775,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
             Chance = 8,
         }
     },
@@ -841,8 +783,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             FactorBonus = 0.015,
             FactorDiv = 1000
         }
@@ -854,8 +795,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 1,
             PopulationFactor = 1.2,
             TaxFactor = 0.8,
         }
@@ -864,16 +804,14 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 4,
         }
     },
     [HeroPerks.Hero12_MothersComfort] = {
         Icon = "",
         Text = "",
         Data = {
-            Cost = 1,
-            Rank = 0,
+            RequiredRank = 7,
             DamageTakenFactor = 0.5,
             EntityTypes = {
                 [Entities.CU_Evil_LeaderBearman1] = true,
@@ -894,8 +832,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 function Stronghold.Hero.Perk.Config:GetPerkConfig(_Perk)
     if self.Perks[_Perk] then
         local Config = self.Perks[_Perk];
-        Config.Cost = Config.Cost or 0;
-        Config.Rank = Config.Rank or 0;
+        Config.RequiredRank = Config.RequiredRank or 0;
         return Config
     end
     return nil;
