@@ -40,13 +40,33 @@ function Stronghold.Hero.Perk:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             UnlockedPerks = {},
+            BuyPerkLock = false,
+            -- GUI
+            PerkAssignmentList = {},
+            PerkOpenList = {},
+            PerkClosedLookup = {},
         };
     end
+    self:CreateBuildingButtonHandlers();
     self:OverwriteGameCallbacks();
     self:OwerwriteAdditionalGameCallbacks();
 end
 
 function Stronghold.Hero.Perk:OnSaveGameLoaded()
+end
+
+function Stronghold.Hero.Perk:CreateBuildingButtonHandlers()
+    self.SyncEvents = {
+        SelectPerk = 1,
+    };
+
+    self.NetworkCall = Syncer.CreateEvent(
+        function(_PlayerID, _Action, ...)
+            if _Action == Stronghold.Hero.Perk.SyncEvents.SelectPerk then
+                Stronghold.Hero.Perk:OnPerkSelected(_PlayerID, arg[1], arg[2]);
+            end
+        end
+    );
 end
 
 function Stronghold.Hero.Perk:OnEntityCreated(_EntityID)
@@ -84,6 +104,197 @@ function Stronghold.Hero.Perk:OncePerSecond(_PlayerID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- GUI
+
+function Stronghold.Hero.Perk:PerkWindowOnShow()
+    local PlayerID = GetLocalPlayerID();
+    if not IsPlayer(PlayerID) then
+        return;
+    end
+    XGUIEng.ShowWidget("HeroPerkWindow", 1);
+    XGUIEng.ShowAllSubWidgets("HeroPerkInitialPerksRow", 1);
+    XGUIEng.ShowAllSubWidgets("HeroPerkTier1PerksRow", 1);
+    XGUIEng.ShowAllSubWidgets("HeroPerkTier2PerksRow", 1);
+    XGUIEng.ShowAllSubWidgets("HeroPerkTier3PerksRow", 1);
+end
+
+function Stronghold.Hero.Perk:PerkWindowUnlockPerkAction(_RowID, _ColumnID)
+    local PlayerID = GetLocalPlayerID();
+    if _RowID == 1 or not IsPlayer(PlayerID) then
+        return;
+    end
+
+    local PerkID = self.Data[PlayerID].PerkAssignmentList[_RowID][_ColumnID];
+    if PerkID then
+        local PerkConfig = self.Config:GetPerkConfig(PerkID);
+        assert(PerkConfig ~= nil);
+        if  not self:HasPlayerUnlockedPerk(PlayerID, PerkID)
+        and not self.Data[PlayerID].PerkClosedLookup[PerkID]
+        and PerkConfig.Data.RequiredRank <= GetRank(PlayerID) then
+            -- Send event
+            Syncer.InvokeEvent(
+                Stronghold.Hero.Perk.NetworkCall,
+                Stronghold.Hero.Perk.SyncEvents.SelectPerk,
+                _RowID,
+                PerkID
+            );
+            -- Lock selection for 1 second
+            self.Data[PlayerID].BuyPerkLock = true;
+            Job.Turn(function(_PlayerID, _StartTurn)
+                if _StartTurn + 10 < Logic.GetCurrentTurn() then
+                    Stronghold.Hero.Perk.Data[_PlayerID].BuyPerkLock = false;
+                    return true;
+                end
+            end, PlayerID, Logic.GetCurrentTurn());
+        end
+    end
+end
+
+function Stronghold.Hero.Perk:PerkWindowUnlockPerkTooltip(_RowID, _ColumnID)
+    local PlayerID = GetLocalPlayerID();
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
+    if not IsPlayer(PlayerID) then
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, "");
+        XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+        return;
+    end
+
+    local PerkID = self.Data[PlayerID].PerkAssignmentList[_RowID][_ColumnID];
+    local TooltipText = "";
+    if PerkID then
+        local PerkConfig = self.Config:GetPerkConfig(PerkID);
+        assert(PerkConfig ~= nil);
+        TooltipText = XGUIEng.GetStringTableText(PerkConfig.Text);
+        if PerkConfig.Data.RequiredRank > GetRank(PlayerID) then
+            TooltipText = XGUIEng.GetStringTableText("sh_perks/unknown");
+        end
+    end
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(TooltipText));
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+end
+
+function Stronghold.Hero.Perk:PerkWindowUnlockPerkUpdate(_RowID, _ColumnID)
+    local PlayerID = GetLocalPlayerID();
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
+    if not IsPlayer(PlayerID) then
+        XGUIEng.TransferMaterials("HeroPerkMiscButtonSource1", WidgetID);
+        XGUIEng.DisableButton(WidgetID, 0);
+        XGUIEng.HighLightButton(WidgetID, 0);
+        return;
+    end
+
+    local ButtonDisabled = 0;
+    local ButtonHighlighted = 0;
+    local ButtonVisible = 1;
+    local IconTexture = "HeroPerkMiscButtonSource1";
+    local PerkID = self.Data[PlayerID].PerkAssignmentList[_RowID][_ColumnID];
+    if PerkID then
+        if _RowID > 1 then
+            local PerkConfig = self.Config:GetPerkConfig(PerkID);
+            assert(PerkConfig ~= nil);
+            if PerkConfig.Data.RequiredRank > GetRank(PlayerID) then
+                IconTexture = "HeroPerkMiscButtonSource2";
+                ButtonDisabled = 1;
+            elseif self.Data[PlayerID].PerkClosedLookup[PerkID] then
+                IconTexture = PerkConfig.Icon;
+                ButtonDisabled = 1;
+            elseif self:HasPlayerUnlockedPerk(PlayerID, PerkID) then
+                IconTexture = PerkConfig.Icon;
+                ButtonHighlighted = 1;
+            end
+        else
+            local Width = 370;
+            local ButtonWith = 32 + 6;
+            local Size = math.min(table.getn(self.Data[PlayerID].PerkAssignmentList[_RowID]), 10);
+            local XHalf = math.max((Width / 2) - ((ButtonWith * Size) / 2), 0);
+            XGUIEng.SetWidgetPosition(WidgetID, XHalf + ((_ColumnID -1) * ButtonWith), 0);
+        end
+        if self.Data[PlayerID].BuyPerkLock then
+            ButtonDisabled = 1;
+            ButtonHighlighted = 0;
+        end
+    else
+        ButtonVisible = 0;
+    end
+    XGUIEng.TransferMaterials(IconTexture, WidgetID);
+    XGUIEng.ShowWidget(WidgetID, ButtonVisible);
+    XGUIEng.DisableButton(WidgetID, ButtonDisabled);
+    XGUIEng.HighLightButton(WidgetID, ButtonHighlighted);
+end
+
+function Stronghold.Hero.Perk:PerkWindowUpdateHeadline()
+    local PlayerID = GetLocalPlayerID();
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
+    local Text = "Names/PU_Hero1";
+    if IsPlayer(PlayerID) then
+        local HeroID = GetNobleID(PlayerID);
+        local HeroType = Logic.GetEntityType(HeroID);
+        local TypeName = Logic.GetEntityTypeName(HeroType);
+        Text = XGUIEng.GetStringTableText("Names/" ..TypeName) or "";
+    end
+    XGUIEng.SetText(WidgetID, Placeholder.Replace("@center " ..Text));
+end
+
+function Stronghold.Hero.Perk:PerkWindowUpdateFlavorText()
+    local PlayerID = GetLocalPlayerID();
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
+    local Text = self.Config.UI.FlavorText[Entities.PU_Hero1];
+    if IsPlayer(PlayerID) then
+        local HeroID = GetNobleID(PlayerID);
+        local HeroType = Logic.GetEntityType(HeroID);
+        Text = XGUIEng.GetStringTableText(self.Config.UI.FlavorText[HeroType]) or "";
+    end
+    XGUIEng.SetText(WidgetID, Placeholder.Replace("{grey}" ..Text));
+end
+
+function Stronghold.Hero.Perk:PerkWindowUpdatePortrait()
+    local PlayerID = GetLocalPlayerID();
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
+    local Image = self.Config.UI.Portraits[Entities.PU_Hero1];
+    if IsPlayer(PlayerID) then
+        local HeroID = GetNobleID(PlayerID);
+        local HeroType = Logic.GetEntityType(HeroID);
+        Image = self.Config.UI.Portraits[HeroType] or "";
+    end
+    XGUIEng.SetMaterialTexture(WidgetID, 0, Image);
+end
+
+function GUIAction_HeroPerkUnlockPerk(_RowID, _ColumnID)
+    Stronghold.Hero.Perk:PerkWindowUnlockPerkAction(_RowID, _ColumnID);
+end
+
+function GUITooltip_HeroPerkUnlockPerk(_RowID, _ColumnID)
+    Stronghold.Hero.Perk:PerkWindowUnlockPerkTooltip(_RowID, _ColumnID);
+end
+
+function GUIUpdate_HeroPerkUnlockPerk(_RowID, _ColumnID)
+    Stronghold.Hero.Perk:PerkWindowUnlockPerkUpdate(_RowID, _ColumnID);
+end
+
+function GUIUpdate_HeroPerkUpdateHeadline()
+    Stronghold.Hero.Perk:PerkWindowUpdateHeadline();
+end
+
+function GUIUpdate_HeroPerkUpdateFlavorText()
+    Stronghold.Hero.Perk:PerkWindowUpdateFlavorText();
+end
+
+function GUIUpdate_HeroPerkUpdatePortrait()
+    Stronghold.Hero.Perk:PerkWindowUpdatePortrait();
+end
+
+-- -------------------------------------------------------------------------- --
+-- Logic
+
+function Stronghold.Hero.Perk:ResetPerksForPlayer(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].PerkAssignmentList = {[1] = {}, [2] = {}, [3] = {}, [4] = {}};
+        self.Data[_PlayerID].PerkOpenList = {[1] = {}, [2] = {}, [3] = {}, [4] = {}};
+        self.Data[_PlayerID].PerkClosedLookup = {};
+    end
+end
 
 function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
     if IsPlayer(_PlayerID) then
@@ -92,107 +303,246 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
         if PlayerHasLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero1_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Kingsguard);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero1_Mobilization);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero1_SocialCare);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero1_SolemnAuthority);
         end
         if _Type == Entities.PU_Hero2 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Lancer);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Axemen);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_FortressMaster);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_ExtractResources);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_Demolitionist);
         end
         if _Type == Entities.PU_Hero3 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Lancer);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Cannons);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_AtileryExperte);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_MasterOfArts);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_MercenaryBoost);
         end
         if _Type == Entities.PU_Hero4 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteLongbow);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteCavalry);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_GrandMaster);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_ExperiencedInstructor);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_Marschall);
         end
         if _Type == Entities.PU_Hero5 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Bandits);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_ChildOfNature);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_TaxBonus);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_HubertusBlessing);
         end
         if _Type == Entities.PU_Hero6 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero6_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Templars);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero6_Confessor);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero6_ConvertSettler);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero6_Preacher);
         end
         if _Type == Entities.CU_BlackKnight then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero7_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero7_Paranoid);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_BlackKnights);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero7_Moloch);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero7_ArmyOfDarkness);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero7_Tyrant);
         end
         if _Type == Entities.CU_Mary_de_Mortfichet then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero8_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero8_Underhanded);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteCavalry);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteCrossbow);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Assassins);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero8_AgentMaster);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero8_AssassinMaster);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero8_SlaveMaster);
         end
         if _Type == Entities.CU_Barbarian_Hero then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero9_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Barbarians);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero9_BerserkerRage);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero9_CriticalDrinker);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero9_Mobilization);
         end
         if _Type == Entities.PU_Hero10 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Lancer);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteRifle);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_SlaveMaster);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_GunManufacturer);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_MusketeersOath);
         end
         if _Type == Entities.PU_Hero11 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero11_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteLongbow);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteRifle);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero11_TradeMaster);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero11_LandOfTheSmile);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero11_UseShuriken);
         end
         if _Type == Entities.CU_Evil_Queen then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero12_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteLongbow);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Evil);
-            -- Remove this after skilltree implementation:
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero12_FertilityIcon);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero12_Moloch);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero12_MothersComfort);
+        end
+    end
+end
+
+function Stronghold.Hero.Perk:SetupUnlockablePerksForPlayerHero(_PlayerID, _Type)
+    if IsPlayer(_PlayerID) then
+        -- Fill generic perks
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_MineSupervisor);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_TightBelt);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Educated);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_HouseTax);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_FarmTax);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_AlarmBoost);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_InspiringPresence);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_MoodCannon);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Pyrotechnican);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_MiddleClassLover);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_ConstructionIndustry);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_PhilosophersStone);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Bureaucrat);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Benefactor);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_BeastMaster);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Convocation);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_ForeignLegion);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_ManFlayer);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_HonorTheFallen);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_EfficiencyStrategist);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_BelieverInScience);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_WarScars);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Haggler);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_ExperienceValue);
+        self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Shielded);
+
+        -- Fill personal perks
+        if PlayerHasLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Benefactor);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Convocation);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero1_Mobilization);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero1_SocialCare);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero1_SolemnAuthority);
+        end
+        if _Type == Entities.PU_Hero2 then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_MineSupervisor);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Pyrotechnican);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero2_Demolitionist);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero2_ExtractResources);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero2_FortressMaster);
+        end
+        if _Type == Entities.PU_Hero3 then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Haggler);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Educated);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Shielded);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero3_AtileryExperte);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero3_MasterOfArts);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero3_MercenaryBoost);
+        end
+        if _Type == Entities.PU_Hero4 then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_ExperienceValue);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero4_ExperiencedInstructor);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero4_GrandMaster);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero4_Marschall);
+        end
+        if _Type == Entities.PU_Hero5 then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_HouseTax);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_FarmTax);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_NumberJuggler);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero5_ChildOfNature);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero5_HubertusBlessing);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero5_TaxBonus);
+        end
+        if _Type == Entities.PU_Hero6 then
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero6_Confessor);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero6_ConvertSettler);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero6_Preacher);
+        end
+        if _Type == Entities.CU_BlackKnight then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_TightBelt);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero7_ArmyOfDarkness);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero7_Moloch);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero7_Tyrant);
+        end
+        if _Type == Entities.CU_Mary_de_Mortfichet then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_HonorTheFallen);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero8_AgentMaster);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero8_AssassinMaster);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero8_SlaveMaster);
+        end
+        if _Type == Entities.CU_Barbarian_Hero then
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero9_BerserkerRage);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero9_CriticalDrinker);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero9_Mobilization);
+        end
+        if _Type == Entities.PU_Hero10 then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_PhilosophersStone);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero10_GunManufacturer);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero10_MusketeersOath);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero10_SlaveMaster);
+        end
+        if _Type == Entities.PU_Hero11 then
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_MoodCannon);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_QuantityDiscount);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_ManFlayer);
+
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero11_LandOfTheSmile);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero11_TradeMaster);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero11_UseShuriken);
+        end
+        if _Type == Entities.CU_Evil_Queen then
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero12_FertilityIcon);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero12_Moloch);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero12_MothersComfort);
+        end
+    end
+end
+
+function Stronghold.Hero.Perk:RandomizeChoosablePerks(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        -- Personal perks
+        local PerkClosedLookup = {};
+        local PerkID1 = self.Data[_PlayerID].PerkOpenList[2][1];
+        table.insert(self.Data[_PlayerID].PerkAssignmentList[2], PerkID1);
+        PerkClosedLookup[PerkID1] = true;
+        local PerkID2 = self.Data[_PlayerID].PerkOpenList[3][1];
+        table.insert(self.Data[_PlayerID].PerkAssignmentList[3], PerkID2);
+        PerkClosedLookup[PerkID2] = true;
+        local PerkID3 = self.Data[_PlayerID].PerkOpenList[4][1];
+        table.insert(self.Data[_PlayerID].PerkAssignmentList[4], PerkID3);
+        PerkClosedLookup[PerkID3] = true;
+
+        -- Generic perks
+        for i= 2, 4 do
+            local NotEnough = true;
+            while (NotEnough) do
+                local MaxSize = table.getn(self.Data[_PlayerID].PerkOpenList[i]);
+                local Random = math.random(1, MaxSize);
+                local PerkID = self.Data[_PlayerID].PerkOpenList[i][Random];
+                if not PerkClosedLookup[PerkID] then
+                    local PerkConfig = self.Config:GetPerkConfig(PerkID);
+                    assert(PerkConfig ~= nil);
+                    local Row = self.Config.UI.RankToRow[PerkConfig.Data.RequiredRank];
+                    if table.getn(self.Data[_PlayerID].PerkAssignmentList[Row]) < 3 then
+                        table.insert(self.Data[_PlayerID].PerkAssignmentList[Row], PerkID);
+                        PerkClosedLookup[PerkID] = true;
+                    end
+                end
+                if  table.getn(self.Data[_PlayerID].PerkAssignmentList[i]) >= 3 then
+                    NotEnough = false;
+                end
+            end
+        end
+    end
+end
+
+function Stronghold.Hero.Perk:SortAssignmentPerksList(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        local GetPerkValue = function(_Name)
+            if string.find(_Name, "/Hero") then
+                return 1;
+            elseif string.find(_Name, "_Ability") then
+                return 2;
+            elseif string.find(_Name, "/Unit") then
+                return 3;
+            end
+            return 4;
+        end
+
+        local Comperator = function(a, b)
+            local Perk1Config = self.Config:GetPerkConfig(a);
+            local Perk2Config = self.Config:GetPerkConfig(a);
+            if Perk1Config and Perk2Config then
+                local Value1 = GetPerkValue(Perk1Config.Text);
+                local Value2 = GetPerkValue(Perk2Config.Text);
+                return Value1 > Value2;
+            end
+            return false;
+        end
+
+        for i = 1, 4 do
+            table.sort(self.Data[_PlayerID].PerkAssignmentList[i], Comperator);
         end
     end
 end
@@ -239,24 +589,50 @@ function Stronghold.Hero.Perk:IsPerkTriggered(_PlayerID, _Perk)
     return false;
 end
 
-function Stronghold.Hero.Perk:RollDiceForPerk(_Perk, _EntityID)
-    return false;
-end
-
-function Stronghold.Hero.Perk:HasPlayerUnlockedPerk(_PlayerID, _Perk)
+function Stronghold.Hero.Perk:HasPlayerUnlockedPerk(_PlayerID, _PerkID)
     if IsPlayer(_PlayerID) then
-        return self.Data[_PlayerID].UnlockedPerks[_Perk] == true;
+        return self.Data[_PlayerID].UnlockedPerks[_PerkID] == true;
     end
     return false;
 end
 
-function Stronghold.Hero.Perk:UnlockPerkForPlayer(_PlayerID, _Perk)
+function Stronghold.Hero.Perk:UnlockPerkForPlayer(_PlayerID, _PerkID)
     if IsPlayer(_PlayerID) then
-        if not self.Data[_PlayerID].UnlockedPerks[_Perk] then
-            self.Data[_PlayerID].UnlockedPerks[_Perk] = true;
-            self:OnPerkUnlockedSpecialAction(_PlayerID, _Perk);
-            GameCallback_SH_Logic_OnPerkUnlocked(_PlayerID, _Perk);
+        if not self.Data[_PlayerID].UnlockedPerks[_PerkID] then
+            self.Data[_PlayerID].UnlockedPerks[_PerkID] = true;
+            table.insert(self.Data[_PlayerID].PerkAssignmentList[1], _PerkID);
+            self:OnPerkUnlockedSpecialAction(_PlayerID, _PerkID);
+            GameCallback_SH_Logic_OnPerkUnlocked(_PlayerID, _PerkID);
         end
+    end
+end
+
+function Stronghold.Hero.Perk:AllowPerkForPlayerInSelection(_PlayerID, _PerkID)
+    if IsPlayer(_PlayerID) then
+        local PerkConfig = self.Config:GetPerkConfig(_PerkID);
+        assert(PerkConfig ~= nil);
+        local Row = self.Config.UI.RankToRow[PerkConfig.Data.RequiredRank];
+        table.insert(self.Data[_PlayerID].PerkOpenList[Row], _PerkID);
+        table.sort(self.Data[_PlayerID].PerkOpenList[Row]);
+    end
+end
+
+function Stronghold.Hero.Perk:ClosePerkForPlayerInSelection(_PlayerID, _PerkID)
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].PerkClosedLookup[_PerkID] = true;
+    end
+end
+
+function Stronghold.Hero.Perk:OnPerkSelected(_PlayerID, _RowID, _PerkID)
+    if IsPlayer(_PlayerID) then
+        for _, Perk in pairs(self.Data[_PlayerID].PerkAssignmentList[_RowID]) do
+            if _PerkID ~= Perk then
+                self:ClosePerkForPlayerInSelection(_PlayerID, Perk);
+            end
+        end
+        self:UnlockPerkForPlayer(_PlayerID, _PerkID);
+        self:SortAssignmentPerksList(_PlayerID);
+        self:PerkWindowOnShow();
     end
 end
 

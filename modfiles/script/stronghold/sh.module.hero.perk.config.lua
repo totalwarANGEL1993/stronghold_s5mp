@@ -4,15 +4,47 @@
 
 Stronghold.Hero.Perk.Config = {}
 
-Stronghold.Hero.Perk.Config.Skill = {
-    GainedPoints = {
-        [1] = 10,
-        [2] = 20,
-        [3] = 30,
-        [4] = 40,
-        [5] = 50,
-        [6] = 60,
-        [7] = 70,
+Stronghold.Hero.Perk.Config.UI = {
+    FlavorText = {
+        [Entities.PU_Hero1]              = "sh_text/Biography_PU_Hero1c",
+        [Entities.PU_Hero1a]             = "sh_text/Biography_PU_Hero1c",
+        [Entities.PU_Hero1b]             = "sh_text/Biography_PU_Hero1c",
+        [Entities.PU_Hero1c]             = "sh_text/Biography_PU_Hero1c",
+        [Entities.PU_Hero2]              = "sh_text/Biography_PU_Hero2",
+        [Entities.PU_Hero3]              = "sh_text/Biography_PU_Hero3",
+        [Entities.PU_Hero4]              = "sh_text/Biography_PU_Hero4",
+        [Entities.PU_Hero5]              = "sh_text/Biography_PU_Hero5",
+        [Entities.PU_Hero6]              = "sh_text/Biography_PU_Hero6",
+        [Entities.CU_BlackKnight]        = "sh_text/Biography_CU_BlackKnight",
+        [Entities.CU_Mary_de_Mortfichet] = "sh_text/Biography_CU_Mary_de_Mortfichet",
+        [Entities.CU_Barbarian_Hero]     = "sh_text/Biography_CU_Barbarian_Hero",
+        [Entities.PU_Hero10]             = "sh_text/Biography_PU_Hero10",
+        [Entities.PU_Hero11]             = "sh_text/Biography_PU_Hero11",
+        [Entities.CU_Evil_Queen]         = "sh_text/Biography_CU_Evil_Queen",
+    },
+    Portraits = {
+        [Entities.PU_Hero1]              = "graphics/textures/gui/hero_sel_dario.png",
+        [Entities.PU_Hero1a]             = "graphics/textures/gui/hero_sel_dario.png",
+        [Entities.PU_Hero1b]             = "graphics/textures/gui/hero_sel_dario.png",
+        [Entities.PU_Hero1c]             = "graphics/textures/gui/hero_sel_dario.png",
+        [Entities.PU_Hero2]              = "graphics/textures/gui/hero_sel_pilgrim.png",
+        [Entities.PU_Hero3]              = "graphics/textures/gui/hero_sel_salim.png",
+        [Entities.PU_Hero4]              = "graphics/textures/gui/hero_sel_erek.png",
+        [Entities.PU_Hero5]              = "graphics/textures/gui/hero_sel_ari.png",
+        [Entities.PU_Hero6]              = "graphics/textures/gui/hero_sel_helias.png",
+        [Entities.CU_BlackKnight]        = "graphics/textures/gui/hero_sel_kerb.png",
+        [Entities.CU_Mary_de_Mortfichet] = "graphics/textures/gui/hero_sel_mort.png",
+        [Entities.CU_Barbarian_Hero]     = "graphics/textures/gui/hero_sel_varg.png",
+        [Entities.PU_Hero10]             = "graphics/textures/gui/hero_sel_drake.png",
+        [Entities.PU_Hero11]             = "graphics/textures/gui/hero_sel_yuki.png",
+        [Entities.CU_Evil_Queen]         = "graphics/textures/gui/hero_sel_kala.png",
+    },
+
+    RankToRow = {
+        [0] = 1,
+        [1] = 2,
+        [4] = 3,
+        [7] = 4
     },
 }
 
@@ -248,7 +280,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Icon = "",
         Text = "sh_perks/Generic_Tier2_Perk2",
         Data = {
-            RequiredRank = 0,
+            RequiredRank = 4,
             Factor = 1.2,
         }
     },
@@ -603,21 +635,21 @@ Stronghold.Hero.Perk.Config.Perks = {
             FilthFactor = 0.7,
         }
     },
-    [HeroPerks.Hero6_Preacher] = {
-        Icon = "",
-        Text = "sh_perks/Hero6_Perk2",
-        Data = {
-            RequiredRank = 4,
-            Bonus = 3,
-        }
-    },
     [HeroPerks.Hero6_ConvertSettler] = {
         Icon = "",
         Text = "sh_perks/Hero6_Perk3",
         Data = {
-            RequiredRank = 7,
+            RequiredRank = 4,
             Chance = 4,
             Area = 600,
+        }
+    },
+    [HeroPerks.Hero6_Preacher] = {
+        Icon = "",
+        Text = "sh_perks/Hero6_Perk2",
+        Data = {
+            RequiredRank = 7,
+            Bonus = 6,
         }
     },
 
@@ -771,21 +803,21 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     -- Hero 11 --
 
-    [HeroPerks.Hero11_LandOfTheSmile] = {
-        Icon = "",
-        Text = "sh_perks/Hero11_Perk1",
-        Data = {
-            RequiredRank = 1,
-            MaxReputation = 300;
-            Reputation = 25,
-        }
-    },
     [HeroPerks.Hero11_UseShuriken] = {
         Icon = "",
         Text = "sh_perks/Hero11_Perk2",
         Data = {
-            RequiredRank = 4,
+            RequiredRank = 1,
             Chance = 8,
+        }
+    },
+    [HeroPerks.Hero11_LandOfTheSmile] = {
+        Icon = "",
+        Text = "sh_perks/Hero11_Perk1",
+        Data = {
+            RequiredRank = 4,
+            MaxReputation = 300;
+            Reputation = 25,
         }
     },
     [HeroPerks.Hero11_TradeMaster] = {
@@ -841,7 +873,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 function Stronghold.Hero.Perk.Config:GetPerkConfig(_Perk)
     if self.Perks[_Perk] then
         local Config = self.Perks[_Perk];
-        Config.RequiredRank = Config.RequiredRank or 0;
+        Config.Data.RequiredRank = Config.Data.RequiredRank or 0;
         return Config
     end
     return nil;

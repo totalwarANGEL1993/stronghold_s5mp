@@ -244,6 +244,7 @@ function Stronghold.Building:OverrideHeadquarterButtons()
     end
 
     GUIAction_BackToWork = function()
+        Stronghold.Hero.Perk:PerkWindowOnShow();
     end
 end
 
@@ -337,13 +338,19 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         Index = 5;
     elseif _Key == "sh_menuheadquarter/CallMilitia" then
         Index = 0;
+    elseif _Key == "sh_menuheadquarter/BackToWork" then
+        Index = 6;
     else
         return false;
     end
 
     -- Set Text
     local Text = XGUIEng.GetStringTableText(_Key);
-    if Index > 0 then
+    if Index == 0 then
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_hero");
+    elseif Index == 6 then
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_perk");
+    elseif Index > 0 then
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[Index];
         local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
         if Effects.Reputation ~= 0 then
@@ -362,8 +369,6 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
             EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit;
         end
         Text = string.format(Text, EffectText);
-    elseif Index == 0 then
-        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_hero");
     end
 
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
@@ -388,12 +393,12 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     XGUIEng.ShowWidget("HQ_Militia", 1);
     XGUIEng.SetWidgetPosition("HQ_Militia", 35, 0);
     XGUIEng.TransferMaterials("Buy_Hero", "HQ_CallMilitia");
-    XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "HQ_BackToWork");
+    XGUIEng.TransferMaterials("Buy_Hero", "HQ_BackToWork");
 
     -- TODO: Proper disable in singleplayer!
     -- local ShowBuyHero = XNetwork.Manager_DoesExist() == 1
-    XGUIEng.ShowWidget("HQ_CallMilitia", 1);
-    XGUIEng.ShowWidget("HQ_BackToWork", 0);
+    XGUIEng.ShowWidget("HQ_CallMilitia", (GetNobleID(_PlayerID) == 0 and 1) or 0);
+    XGUIEng.ShowWidget("HQ_BackToWork", (GetNobleID(_PlayerID) ~= 0 and 1) or 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
 
     gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;

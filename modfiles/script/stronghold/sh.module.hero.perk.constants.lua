@@ -46,8 +46,8 @@ HeroPerks = {
     --
     Hero6_Ability = 260,
     Hero6_Confessor = 261,
-    Hero6_Preacher = 262,
-    Hero6_ConvertSettler = 263,
+    Hero6_ConvertSettler = 262,
+    Hero6_Preacher = 263,
     --
     Hero7_Ability = 270,
     Hero7_Paranoid = 271,
@@ -72,8 +72,8 @@ HeroPerks = {
     Hero10_GunManufacturer = 303,
     --
     Hero11_Ability = 310,
-    Hero11_LandOfTheSmile = 311,
-    Hero11_UseShuriken = 312,
+    Hero11_UseShuriken = 311,
+    Hero11_LandOfTheSmile = 312,
     Hero11_TradeMaster = 313,
     --
     Hero12_Ability = 320,

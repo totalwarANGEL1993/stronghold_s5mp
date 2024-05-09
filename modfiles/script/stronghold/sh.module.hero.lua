@@ -455,6 +455,13 @@ function Stronghold.Hero:ConfigureBuyHero()
         end
         return Overwrite.CallOriginal();
     end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
+        Overwrite.CallOriginal();
+        if XGUIEng.IsWidgetShown("HeroPerkWindow") == 1 then
+            Stronghold.Hero.Perk:PerkWindowOnShow();
+        end
+    end);
 end
 
 function Stronghold.Hero:BuyHeroCreateNoble(_PlayerID, _Type, _Position)
@@ -552,8 +559,12 @@ function Stronghold.Hero:PlayFunnyComment(_PlayerID)
     Sound.PlayQueuedFeedbackSound(FunnyComment, 100);
 end
 
-function Stronghold.Hero:InitSpecialAbilities(_PlayerID, _Type)
-    self.Perk:SetupPerksForPlayerHero(_PlayerID, _Type);
+function Stronghold.Hero:InitSpecialAbilities(_PlayerID, _HeroType)
+    self.Perk:ResetPerksForPlayer(_PlayerID);
+    self.Perk:SetupPerksForPlayerHero(_PlayerID, _HeroType);
+    self.Perk:SetupUnlockablePerksForPlayerHero(_PlayerID, _HeroType);
+    self.Perk:RandomizeChoosablePerks(_PlayerID);
+    self.Perk:SortAssignmentPerksList(_PlayerID);
 end
 
 function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
