@@ -82,7 +82,7 @@ function Stronghold.Hero.Perk:OnEntityCreated(_EntityID)
         local PlayerID = Logic.EntityGetPlayer(_EntityID);
         if IsPlayer(PlayerID) then
             local x, y, z = Logic.EntityGetPos(_EntityID);
-            self.Data[PlayerID].ScoutBombs[_EntityID] = {Logic.GetCurrentTurn(), x, y};
+            self.Data.ScoutBombs[_EntityID] = {Logic.GetCurrentTurn(), x, y};
         end
     end
     -- Pit amount
@@ -1614,7 +1614,7 @@ function Stronghold.Hero.Perk:ApplyMineAmountPassiveAbility(_EntityID, _Amount)
     if ResourceAmount > 0 then
         for PlayerID = 1, GetMaxPlayers() do
             if IsPlayer(PlayerID) then
-                for BombID, BombData in pairs(self.Data[PlayerID].ScoutBombs) do
+                for BombID, BombData in pairs(self.Data.ScoutBombs) do
                     if GetDistance({X= x1, Y= y1}, {X= BombData[2], Y= BombData[3]}) < 1000 then
                         -- Generic T1: Pyrotechnican
                         if self:IsPerkTriggered(PlayerID, HeroPerks.Generic_Pyrotechnican) then
@@ -1628,7 +1628,7 @@ function Stronghold.Hero.Perk:ApplyMineAmountPassiveAbility(_EntityID, _Amount)
                             local Percent = math.random(Data.MinResource, Data.MaxResource);
                             Amount = Amount * (Percent/100);
                         end
-                        self.Data[PlayerID].ScoutBombs[BombID] = nil;
+                        self.Data.ScoutBombs[BombID] = nil;
                         break;
                     end
                 end
@@ -1672,7 +1672,7 @@ function Stronghold.Hero.Perk:ApplyEnduranceRegenerationPassiveAbility(_PlayerID
                 if Logic.IsSettlerAtWork(WorkerList[i]) == 1 then
                     local Stamina = CEntity.GetCurrentStamina(WorkerList[i]);
                     local MaxStamina = CEntity.GetMaxStamina(WorkerList[i]);
-                    Stamina = math.min(Stamina * Data.Factor, MaxStamina);
+                    Stamina = math.min(Stamina + (MaxStamina * Data.Factor), MaxStamina);
                     SetEntityStamina(WorkerList[i], math.ceil(Stamina));
                 end
             end

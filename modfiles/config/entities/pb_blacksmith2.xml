@@ -12,11 +12,10 @@
         <Category>DefendableBuilding</Category>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <UpgradeSite>ZB_UpgradeSiteBlacksmith1</UpgradeSite>
         <MaxHealth>1700</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
         <Exploration>30</Exploration>
+        <ArmorAmount>3</ArmorAmount>
 
 
         <ModifyArmor>
@@ -27,7 +26,7 @@
             <Technology>T_TownGuard</Technology>
         </ModifyExploration>
 
-
+        
         <Worker>PU_Smith</Worker>
         <MaxWorkers>3</MaxWorkers>
         <InitialMaxWorkers>3</InitialMaxWorkers>
@@ -44,6 +43,7 @@
             <Work>TL_SMITH_WORK_INSIDE</Work>
         </WorkTaskList>
 
+
         <Upgrade>
             <Category>Blacksmith</Category>
             <Time>60.0</Time>
@@ -57,6 +57,7 @@
             </Cost>
             <Type>PB_Blacksmith3</Type>
         </Upgrade>
+        <UpgradeSite>ZB_UpgradeSiteBlacksmith1</UpgradeSite>
 
         <ConstructionInfo>
             <BuilderSlot>

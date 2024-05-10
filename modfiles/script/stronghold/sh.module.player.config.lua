@@ -20,8 +20,8 @@ Stronghold.Player.Config = {
     },
 
     Payday = {
-        Base = 900,
-        Improved = 810,
+        Base = 1200,
+        Improved = 1080,
     },
 }
 

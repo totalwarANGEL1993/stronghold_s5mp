@@ -10,7 +10,6 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <UpgradeSite>ZB_UpgradeSite1</UpgradeSite>
         <Category>Workplace</Category>
         <Category>DefendableBuilding</Category>
         <MaxHealth>1200</MaxHealth>
@@ -39,6 +38,7 @@
             <Work>TL_GUNSMITH_WORK_INSIDE</Work>
         </WorkTaskList>
 
+
         <Upgrade>
             <Category>GunsmithWorkshop</Category>
             <Time>40.0</Time>
@@ -52,6 +52,7 @@
             </Cost>
             <Type>PB_GunsmithWorkshop2</Type>
         </Upgrade>
+        <UpgradeSite>ZB_UpgradeSite1</UpgradeSite>
 
         <ConstructionInfo>
             <Time>110</Time>
@@ -125,9 +126,8 @@
             <X>600</X>
             <Y>600</Y>
         </TerrainPos2>
-
-
     </Logic>
+
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>EGL::GLEBehaviorMultiSubAnims</Class>
@@ -136,6 +136,7 @@
             <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
@@ -144,8 +145,6 @@
             <SupplierCategory>SulfurSupplier</SupplierCategory>
         </Logic>
     </Behavior>
-
-
 
     <!--AnSu: I will test if it is better to have all buildings as defender buildings-->
     <Behavior>

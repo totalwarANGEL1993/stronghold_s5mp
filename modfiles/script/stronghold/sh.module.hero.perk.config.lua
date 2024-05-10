@@ -253,7 +253,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Generic_Tier1_Perk8",
         Data = {
             RequiredRank = 1,
-            Factor = 1.01,
+            Factor = 0.01,
         }
     },
     [HeroPerks.Generic_Pyrotechnican] = {
