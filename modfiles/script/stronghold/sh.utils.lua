@@ -24,7 +24,11 @@ end
 -- -------------------------------------------------------------------------- --
 -- Random
 
---- Returns a random integer based on the ID of the entity.
+--- Returns a random integer based on the ID of the entity and the current turn.
+---
+--- Be careful when using in loops! With the same entity ID the result will
+--- always the same number inside the loop.
+--- 
 --- @param _Entity any Scriptname or ID
 --- @param _Min? integer Scriptname or ID
 --- @param _Max? integer Scriptname or ID

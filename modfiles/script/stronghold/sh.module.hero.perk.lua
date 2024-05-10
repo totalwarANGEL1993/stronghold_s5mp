@@ -1597,6 +1597,11 @@ end
 
 function Stronghold.Hero.Perk:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCategory, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
+    -- Hero 6: Preacher
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero6_Preacher) then
+        local Data = self.Config.Perks[HeroPerks.Hero6_Preacher].Data;
+        CurrentAmount = CurrentAmount + Data.Bonus;
+    end
     return CurrentAmount;
 end
 

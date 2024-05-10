@@ -707,6 +707,7 @@ Stronghold.Hero.Perk.Config.Perks = {
             RequiredRank = 4,
             Factor = 0.5,
             EntityTypes = {
+                [Entities.CU_Assassin_LeaderKnife1] = true,
                 [Entities.PU_Scout] = true,
                 [Entities.PU_Thief] = true,
             },
