@@ -489,16 +489,16 @@ end
 function Stronghold.Hero.Perk:RandomizeChoosablePerks(_PlayerID)
     if IsPlayer(_PlayerID) then
         -- Personal perks
-        local PerkClosedLookup = {};
+        local ClosedLookup = {};
         local PerkID1 = self.Data[_PlayerID].PerkOpenList[2][1];
         table.insert(self.Data[_PlayerID].PerkAssignmentList[2], PerkID1);
-        PerkClosedLookup[PerkID1] = true;
+        ClosedLookup[PerkID1] = true;
         local PerkID2 = self.Data[_PlayerID].PerkOpenList[3][1];
         table.insert(self.Data[_PlayerID].PerkAssignmentList[3], PerkID2);
-        PerkClosedLookup[PerkID2] = true;
+        ClosedLookup[PerkID2] = true;
         local PerkID3 = self.Data[_PlayerID].PerkOpenList[4][1];
         table.insert(self.Data[_PlayerID].PerkAssignmentList[4], PerkID3);
-        PerkClosedLookup[PerkID3] = true;
+        ClosedLookup[PerkID3] = true;
 
         -- Generic perks
         for i= 2, 4 do
@@ -507,13 +507,14 @@ function Stronghold.Hero.Perk:RandomizeChoosablePerks(_PlayerID)
                 local MaxSize = table.getn(self.Data[_PlayerID].PerkOpenList[i]);
                 local Random = math.random(1, MaxSize);
                 local PerkID = self.Data[_PlayerID].PerkOpenList[i][Random];
-                if not PerkClosedLookup[PerkID] then
+                if  not self.Data[_PlayerID].PerkClosedLookup[PerkID]
+                and not ClosedLookup[PerkID] then
                     local PerkConfig = self.Config:GetPerkConfig(PerkID);
                     assert(PerkConfig ~= nil);
                     local Row = self.Config.UI.RankToRow[PerkConfig.Data.RequiredRank];
                     if table.getn(self.Data[_PlayerID].PerkAssignmentList[Row]) < 3 then
                         table.insert(self.Data[_PlayerID].PerkAssignmentList[Row], PerkID);
-                        PerkClosedLookup[PerkID] = true;
+                        ClosedLookup[PerkID] = true;
                     end
                 end
                 if  table.getn(self.Data[_PlayerID].PerkAssignmentList[i]) >= 3 then
@@ -588,8 +589,8 @@ function Stronghold.Hero.Perk:IsPerkTriggered(_PlayerID, _Perk)
         local Config = self.Config:GetPerkConfig(_Perk);
         local HeroID = GetNobleID(_PlayerID);
         if Config and IsValidEntity(HeroID) and self:HasPlayerUnlockedPerk(_PlayerID, _Perk) then
-            if Config.Chance and Config.Chance < 100 then
-                return RandomNumber(HeroID) <= Config.Chance;
+            if Config.Data.Chance and Config.Data.Chance < 100 then
+                return math.random(1, 100) <= Config.Data.Chance;
             end
             return true;
         end
@@ -967,7 +968,7 @@ function Stronghold.Hero.Perk:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID,
         local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
         if _ResourceType == ResourceType.WoodRaw then
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Wood, Data.WoodBonus);
-        elseif RandomNumber(_SerfID) <= Data.PreservationChance then
+        elseif math.random(1, 100) <= Data.PreservationChance then
             RemainingAmount = RemainingAmount + Data.SerfPreservation;
         end
     end
@@ -1618,13 +1619,13 @@ function Stronghold.Hero.Perk:ApplyMineAmountPassiveAbility(_EntityID, _Amount)
                         -- Generic T1: Pyrotechnican
                         if self:IsPerkTriggered(PlayerID, HeroPerks.Generic_Pyrotechnican) then
                             local Data = self.Config.Perks[HeroPerks.Generic_Pyrotechnican];
-                            local Percent = RandomNumber(_EntityID, Data.MinResource, Data.MaxResource);
+                            local Percent = math.random(Data.MinResource, Data.MaxResource);
                             Amount = Amount * (Percent/100);
                         end
                         -- Hero 2: Demolitionist
                         if self:IsPerkTriggered(PlayerID, HeroPerks.Hero2_Demolitionist) then
                             local Data = self.Config.Perks[HeroPerks.Hero2_Demolitionist];
-                            local Percent = RandomNumber(_EntityID, Data.MinResource, Data.MaxResource);
+                            local Percent = math.random(Data.MinResource, Data.MaxResource);
                             Amount = Amount * (Percent/100);
                         end
                         self.Data[PlayerID].ScoutBombs[BombID] = nil;

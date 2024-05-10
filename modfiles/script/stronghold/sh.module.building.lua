@@ -364,7 +364,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
             EffectText = EffectText.. Operator ..ReputationEffect.. " " ..Unit.. " ";
         end
         if Effects.Honor ~= 0 then
-            local Unit = XGUIEng.GetStringTableText("sh_names/Silver");
+            local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
             local Operator = (Effects.Honor >= 0 and "+") or "";
             EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit;
         end
@@ -583,7 +583,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             EffectText = EffectText .. Operator .. math.floor((Reputation * Factor) + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor ~= 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Silver");
+            local Name = XGUIEng.GetStringTableText("sh_text/Silver");
             local Operator = (Effects.Honor >= 0 and "+") or "";
             local Honor = Effects.Honor;
             local Factor = 1.0;
@@ -903,7 +903,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             EffectText = EffectText.. "+" ..math.floor(Reputation + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor > 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Silver");
+            local Name = XGUIEng.GetStringTableText("sh_text/Silver");
             local Factor = 1;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Factor = Factor + self.Config.Monastery.SundayAssemblyHonorBonus;

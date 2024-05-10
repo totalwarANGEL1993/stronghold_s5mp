@@ -349,7 +349,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         }
     },
     [HeroPerks.Generic_ForeignLegion] = {
-        Icon = "HeroPerkTier1ButtonSource3",
+        Icon = "HeroPerkTier1ButtonSource2",
         Text = "sh_windowperks/Generic_Tier2_Perk9",
         Data = {
             RequiredRank = 4,
@@ -403,7 +403,6 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Generic_Tier3_Perk5",
         Data = {
             RequiredRank = 7,
-            Chance = 10,
             Faith = 3,
         }
     },

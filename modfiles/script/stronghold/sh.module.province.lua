@@ -403,7 +403,7 @@ function Stronghold.Province:CreateProvinceEffectMessage(_ID, _PlayerID, _Buildi
 
         if self.Data.Provinces[_ID].Type == ProvinceType.Honor then
             Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Bonus");
-            local ResourceName = XGUIEng.GetStringTableText("sh_names/Silver");
+            local ResourceName = XGUIEng.GetStringTableText("sh_text/Silver");
             Text = self:GetProvinceRevenue(_ID, _PlayerID).. " " ..ResourceName;
         elseif self.Data.Provinces[_ID].Type == ProvinceType.Reputation then
             Template = XGUIEng.GetStringTableText("sh_text/Province_Revenue_Bonus");
