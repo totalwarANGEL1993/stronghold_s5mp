@@ -138,14 +138,16 @@ function Stronghold.Hero.Perk:PerkWindowUnlockPerkAction(_RowID, _ColumnID)
                 _RowID,
                 PerkID
             );
-            -- Lock selection for 1 second
-            self.Data[PlayerID].BuyPerkLock = true;
-            Job.Turn(function(_PlayerID, _StartTurn)
-                if _StartTurn + 10 < Logic.GetCurrentTurn() then
-                    Stronghold.Hero.Perk.Data[_PlayerID].BuyPerkLock = false;
-                    return true;
-                end
-            end, PlayerID, Logic.GetCurrentTurn());
+            -- Lock selection for 1 second in Multiplayer
+            if XNetwork.Manager_DoesExist() == 1 then
+                self.Data[PlayerID].BuyPerkLock = true;
+                Job.Turn(function(_PlayerID, _StartTurn)
+                    if _StartTurn + 10 < Logic.GetCurrentTurn() then
+                        Stronghold.Hero.Perk.Data[_PlayerID].BuyPerkLock = false;
+                        return true;
+                    end
+                end, PlayerID, Logic.GetCurrentTurn());
+            end
         end
     end
 end
@@ -203,6 +205,12 @@ function Stronghold.Hero.Perk:PerkWindowUnlockPerkUpdate(_RowID, _ColumnID)
             elseif self:HasPlayerUnlockedPerk(PlayerID, PerkID) then
                 IconTexture = PerkConfig.Icon;
                 ButtonHighlighted = 1;
+            else
+                IconTexture = PerkConfig.Icon;
+            end
+            if self.Data[PlayerID].BuyPerkLock then
+                ButtonDisabled = 1;
+                ButtonHighlighted = 0;
             end
         else
             local Width = 370;
@@ -210,10 +218,9 @@ function Stronghold.Hero.Perk:PerkWindowUnlockPerkUpdate(_RowID, _ColumnID)
             local Size = math.min(table.getn(self.Data[PlayerID].PerkAssignmentList[_RowID]), 10);
             local XHalf = math.max((Width / 2) - ((ButtonWith * Size) / 2), 0);
             XGUIEng.SetWidgetPosition(WidgetID, XHalf + ((_ColumnID -1) * ButtonWith), 0);
-        end
-        if self.Data[PlayerID].BuyPerkLock then
-            ButtonDisabled = 1;
-            ButtonHighlighted = 0;
+            local PerkConfig = self.Config:GetPerkConfig(PerkID);
+            assert(PerkConfig ~= nil);
+            IconTexture = PerkConfig.Icon;
         end
     else
         ButtonVisible = 0;
@@ -520,11 +527,12 @@ end
 function Stronghold.Hero.Perk:SortAssignmentPerksList(_PlayerID)
     if IsPlayer(_PlayerID) then
         local GetPerkValue = function(_Name)
-            if string.find(_Name, "/Hero") then
+            if string.find(_Name, "/command_") 
+            or string.find(_Name, "/Skill_") then
                 return 1;
-            elseif string.find(_Name, "_Ability") then
+            elseif string.find(_Name, "/Hero") then
                 return 2;
-            elseif string.find(_Name, "/Unit") then
+            elseif string.find(_Name, "/Unit_") then
                 return 3;
             end
             return 4;
@@ -532,11 +540,11 @@ function Stronghold.Hero.Perk:SortAssignmentPerksList(_PlayerID)
 
         local Comperator = function(a, b)
             local Perk1Config = self.Config:GetPerkConfig(a);
-            local Perk2Config = self.Config:GetPerkConfig(a);
+            local Perk2Config = self.Config:GetPerkConfig(b);
             if Perk1Config and Perk2Config then
                 local Value1 = GetPerkValue(Perk1Config.Text);
                 local Value2 = GetPerkValue(Perk2Config.Text);
-                return Value1 > Value2;
+                return Value1 < Value2;
             end
             return false;
         end
@@ -949,6 +957,7 @@ function Stronghold.Hero.Perk:ResourceProductionBonus(_PlayerID, _BuildingID, _S
             CurrentAmount = CurrentAmount + Data.Amount;
         end
     end
+    return CurrentAmount, RemainingAmount;
 end
 
 function Stronghold.Hero.Perk:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _ResourceType, _CurrentAmount, _RemainingAmount)
