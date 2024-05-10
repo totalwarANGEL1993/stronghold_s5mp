@@ -377,7 +377,7 @@ function FormatCostString(_PlayerID, _Costs)
 
 	if _Costs[ResourceType.Silver] ~= nil
     and _Costs[ResourceType.Silver] ~= 0 then
-		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Silver") .. ": ";
+		CostString = CostString .. XGUIEng.GetStringTableText("sh_text/Silver") .. ": ";
 		if Honor >= _Costs[ResourceType.Silver] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
@@ -388,7 +388,7 @@ function FormatCostString(_PlayerID, _Costs)
 
 	if  _Costs[ResourceType.Knowledge] ~= nil
     and _Costs[ResourceType.Knowledge] ~= 0 then
-		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Knowledge") .. ": ";
+		CostString = CostString .. XGUIEng.GetStringTableText("sh_text/Knowledge") .. ": ";
 		if Knowledge >= _Costs[ResourceType.Knowledge] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else

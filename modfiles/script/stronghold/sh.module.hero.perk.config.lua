@@ -6,21 +6,21 @@ Stronghold.Hero.Perk.Config = {}
 
 Stronghold.Hero.Perk.Config.UI = {
     FlavorText = {
-        [Entities.PU_Hero1]              = "sh_text/Biography_PU_Hero1c",
-        [Entities.PU_Hero1a]             = "sh_text/Biography_PU_Hero1c",
-        [Entities.PU_Hero1b]             = "sh_text/Biography_PU_Hero1c",
-        [Entities.PU_Hero1c]             = "sh_text/Biography_PU_Hero1c",
-        [Entities.PU_Hero2]              = "sh_text/Biography_PU_Hero2",
-        [Entities.PU_Hero3]              = "sh_text/Biography_PU_Hero3",
-        [Entities.PU_Hero4]              = "sh_text/Biography_PU_Hero4",
-        [Entities.PU_Hero5]              = "sh_text/Biography_PU_Hero5",
-        [Entities.PU_Hero6]              = "sh_text/Biography_PU_Hero6",
-        [Entities.CU_BlackKnight]        = "sh_text/Biography_CU_BlackKnight",
-        [Entities.CU_Mary_de_Mortfichet] = "sh_text/Biography_CU_Mary_de_Mortfichet",
-        [Entities.CU_Barbarian_Hero]     = "sh_text/Biography_CU_Barbarian_Hero",
-        [Entities.PU_Hero10]             = "sh_text/Biography_PU_Hero10",
-        [Entities.PU_Hero11]             = "sh_text/Biography_PU_Hero11",
-        [Entities.CU_Evil_Queen]         = "sh_text/Biography_CU_Evil_Queen",
+        [Entities.PU_Hero1]              = "sh_windowhero/Biography_PU_Hero1c",
+        [Entities.PU_Hero1a]             = "sh_windowhero/Biography_PU_Hero1c",
+        [Entities.PU_Hero1b]             = "sh_windowhero/Biography_PU_Hero1c",
+        [Entities.PU_Hero1c]             = "sh_windowhero/Biography_PU_Hero1c",
+        [Entities.PU_Hero2]              = "sh_windowhero/Biography_PU_Hero2",
+        [Entities.PU_Hero3]              = "sh_windowhero/Biography_PU_Hero3",
+        [Entities.PU_Hero4]              = "sh_windowhero/Biography_PU_Hero4",
+        [Entities.PU_Hero5]              = "sh_windowhero/Biography_PU_Hero5",
+        [Entities.PU_Hero6]              = "sh_windowhero/Biography_PU_Hero6",
+        [Entities.CU_BlackKnight]        = "sh_windowhero/Biography_CU_BlackKnight",
+        [Entities.CU_Mary_de_Mortfichet] = "sh_windowhero/Biography_CU_Mary_de_Mortfichet",
+        [Entities.CU_Barbarian_Hero]     = "sh_windowhero/Biography_CU_Barbarian_Hero",
+        [Entities.PU_Hero10]             = "sh_windowhero/Biography_PU_Hero10",
+        [Entities.PU_Hero11]             = "sh_windowhero/Biography_PU_Hero11",
+        [Entities.CU_Evil_Queen]         = "sh_windowhero/Biography_CU_Evil_Queen",
     },
     Portraits = {
         [Entities.PU_Hero1]              = "graphics/textures/gui/hero_sel_dario.png",
@@ -53,77 +53,77 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Unit_Bandits] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Bandits",
+        Text = "sh_windowperks/Unit_Bandits",
         Data = {}
     },
     [HeroPerks.Unit_Kingsguard] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Kingsguard",
+        Text = "sh_windowperks/Unit_Kingsguard",
         Data = {}
     },
     [HeroPerks.Unit_Cannons] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Cannons",
+        Text = "sh_windowperks/Unit_Cannons",
         Data = {}
     },
     [HeroPerks.Unit_EliteCavalry] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_EliteCavalry",
+        Text = "sh_windowperks/Unit_EliteCavalry",
         Data = {}
     },
     [HeroPerks.Unit_Templars] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Templars",
+        Text = "sh_windowperks/Unit_Templars",
         Data = {}
     },
     [HeroPerks.Unit_Barbarians] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Barbarians",
+        Text = "sh_windowperks/Unit_Barbarians",
         Data = {}
     },
     [HeroPerks.Unit_Evil] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Evil",
+        Text = "sh_windowperks/Unit_Evil",
         Data = {}
     },
     [HeroPerks.Unit_EliteLongbow] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_EliteLongbow",
+        Text = "sh_windowperks/Unit_EliteLongbow",
         Data = {}
     },
     [HeroPerks.Unit_EliteCrossbow] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_EliteCrossbow",
+        Text = "sh_windowperks/Unit_EliteCrossbow",
         Data = {}
     },
     [HeroPerks.Unit_SwordMilitia] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_SwordMilitia",
+        Text = "sh_windowperks/Unit_SwordMilitia",
         Data = {}
     },
     [HeroPerks.Unit_Lancer] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Lancer",
+        Text = "sh_windowperks/Unit_Lancer",
         Data = {}
     },
     [HeroPerks.Unit_Axemen] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Axemen",
+        Text = "sh_windowperks/Unit_Axemen",
         Data = {}
     },
     [HeroPerks.Unit_BlackKnights] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_BlackKnights",
+        Text = "sh_windowperks/Unit_BlackKnights",
         Data = {}
     },
     [HeroPerks.Unit_EliteRifle] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_EliteRifle",
+        Text = "sh_windowperks/Unit_EliteRifle",
         Data = {}
     },
     [HeroPerks.Unit_Assassins] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_perks/Unit_Assassins",
+        Text = "sh_windowperks/Unit_Assassins",
         Data = {}
     },
 
@@ -194,7 +194,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Generic_MineSupervisor] = {
         Icon = "HeroPerkTier1ButtonSource4",
-        Text = "sh_perks/Generic_Tier1_Perk1",
+        Text = "sh_windowperks/Generic_Tier1_Perk1",
         Data = {
             RequiredRank = 1,
             Amount = 1,
@@ -202,7 +202,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_TightBelt] = {
         Icon = "HeroPerkTier2ButtonSource6",
-        Text = "sh_perks/Generic_Tier1_Perk2",
+        Text = "sh_windowperks/Generic_Tier1_Perk2",
         Data = {
             RequiredRank = 1,
             Factor = 0.9,
@@ -210,7 +210,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_Educated] = {
         Icon = "HeroPerkTier1ButtonSource9",
-        Text = "sh_perks/Generic_Tier1_Perk3",
+        Text = "sh_windowperks/Generic_Tier1_Perk3",
         Data = {
             RequiredRank = 1,
             Factor = 1.1,
@@ -218,7 +218,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_HouseTax] = {
         Icon = "HeroPerkTier1ButtonSource6",
-        Text = "sh_perks/Generic_Tier1_Perk4",
+        Text = "sh_windowperks/Generic_Tier1_Perk4",
         Data = {
             RequiredRank = 1,
             Bonus = 1,
@@ -226,7 +226,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_FarmTax] = {
         Icon = "HeroPerkTier1ButtonSource6",
-        Text = "sh_perks/Generic_Tier1_Perk5",
+        Text = "sh_windowperks/Generic_Tier1_Perk5",
         Data = {
             RequiredRank = 1,
             Bonus = 1,
@@ -234,7 +234,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_AlarmBoost] = {
         Icon = "HeroPerkTier1ButtonSource7",
-        Text = "sh_perks/Generic_Tier1_Perk6",
+        Text = "sh_windowperks/Generic_Tier1_Perk6",
         Data = {
             RequiredRank = 1,
             DamageFactor = 1.3,
@@ -242,7 +242,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_InspiringPresence] = {
         Icon = "HeroPerkTier1ButtonSource7",
-        Text = "sh_perks/Generic_Tier1_Perk7",
+        Text = "sh_windowperks/Generic_Tier1_Perk7",
         Data = {
             RequiredRank = 1,
             DamageFactor = 1.1,
@@ -250,7 +250,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_MoodCannon] = {
         Icon = "HeroPerkTier2ButtonSource5",
-        Text = "sh_perks/Generic_Tier1_Perk8",
+        Text = "sh_windowperks/Generic_Tier1_Perk8",
         Data = {
             RequiredRank = 1,
             Factor = 1.01,
@@ -258,7 +258,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_Pyrotechnican] = {
         Icon = "HeroPerkTier1ButtonSource4",
-        Text = "sh_perks/Generic_Tier1_Perk9",
+        Text = "sh_windowperks/Generic_Tier1_Perk9",
         Data = {
             RequiredRank = 1,
             MinResource = 10,
@@ -270,7 +270,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Generic_MiddleClassLover] = {
         Icon = "HeroPerkTier1ButtonSource5",
-        Text = "sh_perks/Generic_Tier2_Perk1",
+        Text = "sh_windowperks/Generic_Tier2_Perk1",
         Data = {
             RequiredRank = 4,
             Bonus = 1,
@@ -278,7 +278,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_QuantityDiscount] = {
         Icon = "HeroPerkTier1ButtonSource2",
-        Text = "sh_perks/Generic_Tier2_Perk2",
+        Text = "sh_windowperks/Generic_Tier2_Perk2",
         Data = {
             RequiredRank = 4,
             Factor = 1.2,
@@ -286,7 +286,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_ConstructionIndustry] = {
         Icon = "HeroPerkTier1ButtonSource5",
-        Text = "sh_perks/Generic_Tier2_Perk3",
+        Text = "sh_windowperks/Generic_Tier2_Perk3",
         Data = {
             RequiredRank = 4,
             Bonus = 2,
@@ -298,7 +298,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_PhilosophersStone] = {
         Icon = "HeroPerkTier1ButtonSource5",
-        Text = "sh_perks/Generic_Tier2_Perk4",
+        Text = "sh_windowperks/Generic_Tier2_Perk4",
         Data = {
             RequiredRank = 4,
             Bonus = 1,
@@ -310,7 +310,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_Bureaucrat] = {
         Icon = "HeroPerkTier1ButtonSource6",
-        Text = "sh_perks/Generic_Tier2_Perk5",
+        Text = "sh_windowperks/Generic_Tier2_Perk5",
         Data = {
             RequiredRank = 4,
             ReputationFactor = 1.05,
@@ -319,7 +319,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_Benefactor] = {
         Icon = "HeroPerkTier2ButtonSource2",
-        Text = "sh_perks/Generic_Tier2_Perk6",
+        Text = "sh_windowperks/Generic_Tier2_Perk6",
         Data = {
             RequiredRank = 4,
             HonorFactor = 1.05,
@@ -328,7 +328,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_BeastMaster] = {
         Icon = "HeroPerkTier2ButtonSource7",
-        Text = "sh_perks/Generic_Tier2_Perk7",
+        Text = "sh_windowperks/Generic_Tier2_Perk7",
         Data = {
             RequiredRank = 4,
             DamageTakenFactor = 0.8,
@@ -341,7 +341,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_Convocation] = {
         Icon = "HeroPerkTier2ButtonSource4",
-        Text = "sh_perks/Generic_Tier2_Perk8",
+        Text = "sh_windowperks/Generic_Tier2_Perk8",
         Data = {
             RequiredRank = 4,
             MilitaryFactor = 1.1,
@@ -350,7 +350,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_ForeignLegion] = {
         Icon = "HeroPerkTier1ButtonSource3",
-        Text = "sh_perks/Generic_Tier2_Perk9",
+        Text = "sh_windowperks/Generic_Tier2_Perk9",
         Data = {
             RequiredRank = 4,
             RechargeFactor = 1.3,
@@ -362,7 +362,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Generic_ManFlayer] = {
         Icon = "HeroPerkTier2ButtonSource3",
-        Text = "sh_perks/Generic_Tier3_Perk1",
+        Text = "sh_windowperks/Generic_Tier3_Perk1",
         Data = {
             RequiredRank = 7,
             BonusFactor = 2.0,
@@ -371,7 +371,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_NumberJuggler] = {
         Icon = "HeroPerkTier1ButtonSource6",
-        Text = "sh_perks/Generic_Tier3_Perk2",
+        Text = "sh_windowperks/Generic_Tier3_Perk2",
         Data = {
             RequiredRank = 7,
             Gross = 4,
@@ -382,7 +382,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_HonorTheFallen] = {
         Icon = "HeroPerkTier1ButtonSource10",
-        Text = "sh_perks/Generic_Tier3_Perk3",
+        Text = "sh_windowperks/Generic_Tier3_Perk3",
         Data = {
             RequiredRank = 7,
             Factor = 0.5,
@@ -390,7 +390,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_EfficiencyStrategist] = {
         Icon = "HeroPerkTier2ButtonSource3",
-        Text = "sh_perks/Generic_Tier3_Perk4",
+        Text = "sh_windowperks/Generic_Tier3_Perk4",
         Data = {
             RequiredRank = 7,
             Chance = 10,
@@ -400,7 +400,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_BelieverInScience] = {
         Icon = "HeroPerkTier1ButtonSource9",
-        Text = "sh_perks/Generic_Tier3_Perk5",
+        Text = "sh_windowperks/Generic_Tier3_Perk5",
         Data = {
             RequiredRank = 7,
             Chance = 10,
@@ -409,7 +409,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_WarScars] = {
         Icon = "HeroPerkTier1ButtonSource3",
-        Text = "sh_perks/Generic_Tier3_Perk6",
+        Text = "sh_windowperks/Generic_Tier3_Perk6",
         Data = {
             RequiredRank = 7,
             Factor = 0.7,
@@ -417,7 +417,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_Haggler] = {
         Icon = "HeroPerkTier1ButtonSource2",
-        Text = "sh_perks/Generic_Tier3_Perk7",
+        Text = "sh_windowperks/Generic_Tier3_Perk7",
         Data = {
             RequiredRank = 7,
             Factor = 0.7,
@@ -425,7 +425,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_ExperienceValue] = {
         Icon = "HeroPerkTier1ButtonSource8",
-        Text = "sh_perks/Generic_Tier3_Perk8",
+        Text = "sh_windowperks/Generic_Tier3_Perk8",
         Data = {
             RequiredRank = 7,
             GrossFactor = 0.05,
@@ -433,7 +433,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Generic_Shielded] = {
         Icon = "HeroPerkTier1ButtonSource8",
-        Text = "sh_perks/Generic_Tier3_Perk9",
+        Text = "sh_windowperks/Generic_Tier3_Perk9",
         Data = {
             RequiredRank = 7,
             DamageFactor = 0.7,
@@ -449,7 +449,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero1_SolemnAuthority] = {
         Icon = "HeroPerkHeroButtonSource1",
-        Text = "sh_perks/Hero1_Perk1",
+        Text = "sh_windowperks/Hero1_Perk1",
         Data = {
             RequiredRank = 1,
             Factor = 1.5,
@@ -457,7 +457,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero1_SocialCare] = {
         Icon = "HeroPerkHeroButtonSource1",
-        Text = "sh_perks/Hero1_Perk2",
+        Text = "sh_windowperks/Hero1_Perk2",
         Data = {
             RequiredRank = 4,
             HonorFactor = 1.1,
@@ -466,7 +466,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero1_Mobilization] = {
         Icon = "HeroPerkHeroButtonSource1",
-        Text = "sh_perks/Hero1_Perk3",
+        Text = "sh_windowperks/Hero1_Perk3",
         Data = {
             RequiredRank = 7,
             MilitaryFactor = 1.2,
@@ -478,7 +478,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero2_Demolitionist] = {
         Icon = "HeroPerkHeroButtonSource5",
-        Text = "sh_perks/Hero2_Perk1",
+        Text = "sh_windowperks/Hero2_Perk1",
         Data = {
             RequiredRank = 1,
             MinResource = 25,
@@ -487,7 +487,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero2_ExtractResources] = {
         Icon = "HeroPerkHeroButtonSource5",
-        Text = "sh_perks/Hero2_Perk2",
+        Text = "sh_windowperks/Hero2_Perk2",
         Data = {
             RequiredRank = 4,
             Amount = 2,
@@ -495,7 +495,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero2_FortressMaster] = {
         Icon = "HeroPerkHeroButtonSource5",
-        Text = "sh_perks/Hero2_Perk3",
+        Text = "sh_windowperks/Hero2_Perk3",
         Data = {
             RequiredRank = 7,
             Factor = 0.8,
@@ -506,7 +506,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero3_MasterOfArts] = {
         Icon = "HeroPerkHeroButtonSource2",
-        Text = "sh_perks/Hero3_Perk1",
+        Text = "sh_windowperks/Hero3_Perk1",
         Data = {
             RequiredRank = 1,
             Factor = 1.3,
@@ -514,7 +514,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero3_AtileryExperte] = {
         Icon = "HeroPerkHeroButtonSource2",
-        Text = "sh_perks/Hero3_Perk2",
+        Text = "sh_windowperks/Hero3_Perk2",
         Data = {
             RequiredRank = 4,
             Amount = 2,
@@ -522,7 +522,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero3_MercenaryBoost] = {
         Icon = "HeroPerkHeroButtonSource2",
-        Text = "sh_perks/Hero3_Perk3",
+        Text = "sh_windowperks/Hero3_Perk3",
         Data = {
             RequiredRank = 7,
             CapactyFactor = 1.2,
@@ -535,7 +535,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero4_ExperiencedInstructor] = {
         Icon = "HeroPerkHeroButtonSource3",
-        Text = "sh_perks/Hero3_Perk1",
+        Text = "sh_windowperks/Hero3_Perk1",
         Data = {
             RequiredRank = 1,
             Amount = 400,
@@ -561,7 +561,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero4_GrandMaster] = {
         Icon = "HeroPerkHeroButtonSource3",
-        Text = "sh_perks/Hero3_Perk2",
+        Text = "sh_windowperks/Hero3_Perk2",
         Data = {
             RequiredRank = 4,
             Amount = 200,
@@ -574,7 +574,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero4_Marschall] = {
         Icon = "HeroPerkHeroButtonSource3",
-        Text = "sh_perks/Hero3_Perk3",
+        Text = "sh_windowperks/Hero3_Perk3",
         Data = {
             RequiredRank = 7,
             Factor = 0.5,
@@ -594,7 +594,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero5_ChildOfNature] = {
         Icon = "HeroPerkHeroButtonSource6",
-        Text = "sh_perks/Hero5_Perk1",
+        Text = "sh_windowperks/Hero5_Perk1",
         Data = {
             RequiredRank = 1,
             PreservationChance = 10,
@@ -604,7 +604,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero5_TaxBonus] = {
         Icon = "HeroPerkHeroButtonSource6",
-        Text = "sh_perks/Hero5_Perk2",
+        Text = "sh_windowperks/Hero5_Perk2",
         Data = {
             RequiredRank = 4,
             Bonus = 1.3,
@@ -612,7 +612,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero5_HubertusBlessing] = {
         Icon = "HeroPerkHeroButtonSource6",
-        Text = "sh_perks/Hero5_Perk3",
+        Text = "sh_windowperks/Hero5_Perk3",
         Data = {
             RequiredRank = 7,
             DamageFactor = 0.7,
@@ -628,7 +628,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero6_Confessor] = {
         Icon = "HeroPerkHeroButtonSource4",
-        Text = "sh_perks/Hero6_Perk1",
+        Text = "sh_windowperks/Hero6_Perk1",
         Data = {
             RequiredRank = 1,
             CrimeFactor = 0.7,
@@ -637,7 +637,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero6_ConvertSettler] = {
         Icon = "HeroPerkHeroButtonSource4",
-        Text = "sh_perks/Hero6_Perk3",
+        Text = "sh_windowperks/Hero6_Perk3",
         Data = {
             RequiredRank = 4,
             Chance = 4,
@@ -646,7 +646,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero6_Preacher] = {
         Icon = "HeroPerkHeroButtonSource4",
-        Text = "sh_perks/Hero6_Perk2",
+        Text = "sh_windowperks/Hero6_Perk2",
         Data = {
             RequiredRank = 7,
             Bonus = 6,
@@ -657,7 +657,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero7_Tyrant] = {
         Icon = "HeroPerkHeroButtonSource9",
-        Text = "sh_perks/Hero7_Perk1",
+        Text = "sh_windowperks/Hero7_Perk1",
         Data = {
             RequiredRank = 1,
             MaxReputation = 175,
@@ -666,14 +666,14 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero7_Moloch] = {
         Icon = "HeroPerkHeroButtonSource9",
-        Text = "sh_perks/Hero7_Perk2",
+        Text = "sh_windowperks/Hero7_Perk2",
         Data = {
             RequiredRank = 4,
         }
     },
     [HeroPerks.Hero7_ArmyOfDarkness] = {
         Icon = "HeroPerkHeroButtonSource9",
-        Text = "sh_perks/Hero7_Perk3",
+        Text = "sh_windowperks/Hero7_Perk3",
         Data = {
             RequiredRank = 7,
             Factor = 0.7,
@@ -686,7 +686,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     -- This one can not be unlocked because it's hardcoded!
     [HeroPerks.Hero7_Paranoid] = {
         Icon = "HeroPerkHeroButtonSource9",
-        Text = "sh_perks/Hero7_Perk0",
+        Text = "sh_windowperks/Hero7_Perk0",
         Data = {}
     },
 
@@ -694,7 +694,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero8_SlaveMaster] = {
         Icon = "HeroPerkHeroButtonSource7",
-        Text = "sh_perks/Hero8_Perk1",
+        Text = "sh_windowperks/Hero8_Perk1",
         Data = {
             RequiredRank = 1,
             Amount = 2,
@@ -702,7 +702,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero8_AgentMaster] = {
         Icon = "HeroPerkHeroButtonSource7",
-        Text = "sh_perks/Hero8_Perk2",
+        Text = "sh_windowperks/Hero8_Perk2",
         Data = {
             RequiredRank = 4,
             Factor = 0.5,
@@ -715,7 +715,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero8_AssassinMaster] = {
         Icon = "HeroPerkHeroButtonSource7",
-        Text = "sh_perks/Hero8_Perk3",
+        Text = "sh_windowperks/Hero8_Perk3",
         Data = {
             RequiredRank = 7,
             DamageDeltFactor = 1.5,
@@ -728,7 +728,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     -- This one can not be unlocked because it's hardcoded!
     [HeroPerks.Hero8_Underhanded] = {
         Icon = "HeroPerkHeroButtonSource7",
-        Text = "sh_perks/Hero8_Perk0",
+        Text = "sh_windowperks/Hero8_Perk0",
         Data = {}
     },
 
@@ -736,7 +736,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero9_CriticalDrinker] = {
         Icon = "HeroPerkHeroButtonSource8",
-        Text = "sh_perks/Hero9_Perk1",
+        Text = "sh_windowperks/Hero9_Perk1",
         Data = {
             RequiredRank = 1,
             ReputationFactor = 1.5,
@@ -745,7 +745,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero9_BerserkerRage] = {
         Icon = "HeroPerkHeroButtonSource8",
-        Text = "sh_perks/Hero9_Perk2",
+        Text = "sh_windowperks/Hero9_Perk2",
         Data = {
             RequiredRank = 4,
             DamageTakenFactor = 1.1,
@@ -760,7 +760,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero9_Mobilization] = {
         Icon = "HeroPerkHeroButtonSource8",
-        Text = "sh_perks/Hero9_Perk3",
+        Text = "sh_windowperks/Hero9_Perk3",
         Data = {
             RequiredRank = 7,
             MilitaryFactor = 1.2,
@@ -772,7 +772,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero10_SlaveMaster] = {
         Icon = "HeroPerkHeroButtonSource10",
-        Text = "sh_perks/Hero10_Perk1",
+        Text = "sh_windowperks/Hero10_Perk1",
         Data = {
             RequiredRank = 1,
             Amount = 2,
@@ -780,7 +780,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero10_MusketeersOath] = {
         Icon = "HeroPerkHeroButtonSource10",
-        Text = "sh_perks/Hero10_Perk2",
+        Text = "sh_windowperks/Hero10_Perk2",
         Data = {
             RequiredRank = 4,
             Factor = 0.7,
@@ -788,7 +788,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero10_GunManufacturer] = {
         Icon = "HeroPerkHeroButtonSource10",
-        Text = "sh_perks/Hero10_Perk3",
+        Text = "sh_windowperks/Hero10_Perk3",
         Data = {
             RequiredRank = 7,
             Bonus = 3,
@@ -806,7 +806,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero11_UseShuriken] = {
         Icon = "HeroPerkHeroButtonSource11",
-        Text = "sh_perks/Hero11_Perk2",
+        Text = "sh_windowperks/Hero11_Perk2",
         Data = {
             RequiredRank = 1,
             Chance = 8,
@@ -814,7 +814,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero11_LandOfTheSmile] = {
         Icon = "HeroPerkHeroButtonSource11",
-        Text = "sh_perks/Hero11_Perk1",
+        Text = "sh_windowperks/Hero11_Perk1",
         Data = {
             RequiredRank = 4,
             MaxReputation = 300;
@@ -823,7 +823,7 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero11_TradeMaster] = {
         Icon = "HeroPerkHeroButtonSource11",
-        Text = "sh_perks/Hero11_Perk3",
+        Text = "sh_windowperks/Hero11_Perk3",
         Data = {
             RequiredRank = 7,
             FactorBonus = 0.015,
@@ -835,7 +835,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero12_FertilityIcon] = {
         Icon = "HeroPerkHeroButtonSource12",
-        Text = "sh_perks/Hero12_Perk1",
+        Text = "sh_windowperks/Hero12_Perk1",
         Data = {
             RequiredRank = 1,
             PopulationFactor = 1.2,
@@ -844,14 +844,14 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero12_Moloch] = {
         Icon = "HeroPerkHeroButtonSource12",
-        Text = "sh_perks/Hero12_Perk2",
+        Text = "sh_windowperks/Hero12_Perk2",
         Data = {
             RequiredRank = 4,
         }
     },
     [HeroPerks.Hero12_MothersComfort] = {
         Icon = "HeroPerkHeroButtonSource12",
-        Text = "sh_perks/Hero12_Perk3",
+        Text = "sh_windowperks/Hero12_Perk3",
         Data = {
             RequiredRank = 7,
             DamageTakenFactor = 0.5,

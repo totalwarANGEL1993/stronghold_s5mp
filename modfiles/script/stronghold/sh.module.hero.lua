@@ -416,7 +416,7 @@ function Stronghold.Hero:ConfigureBuyHero()
             local TypeName = Logic.GetEntityTypeName(_Type);
 
             -- Displayed name
-            local DisplayName = XGUIEng.GetStringTableText("sh_names/Name_" ..TypeName);
+            local DisplayName = XGUIEng.GetStringTableText("sh_windowhero/Name_" ..TypeName);
             if Stronghold.Hero.Config.Hero.Name[_Type] then
                 if type(Stronghold.Hero.Config.Hero.Name[_Type]) == "table" then
                     DisplayName = Stronghold.Hero.Config.Hero.Name[_Type][Lang];
@@ -425,7 +425,7 @@ function Stronghold.Hero:ConfigureBuyHero()
                 end
             end
             -- Displayed biography
-            local Biography = XGUIEng.GetStringTableText("sh_text/Biography_" ..TypeName);
+            local Biography = XGUIEng.GetStringTableText("sh_windowhero/Biography_" ..TypeName);
             if Stronghold.Hero.Config.Hero.Biography[_Type] then
                 if type(Stronghold.Hero.Config.Hero.Biography[_Type]) == "table" then
                     Biography = Stronghold.Hero.Config.Hero.Biography[_Type][Lang];
@@ -434,7 +434,7 @@ function Stronghold.Hero:ConfigureBuyHero()
                 end
             end
             -- Displayed skills
-            local Description = XGUIEng.GetStringTableText("sh_text/Effects_" ..TypeName);
+            local Description = XGUIEng.GetStringTableText("sh_windowhero/Effects_" ..TypeName);
             -- Line breaks in string tables are NOT ignored!
             Description = string.gsub(Description, "\r\n", "");
             Description = string.gsub(Description, "\n", "");
@@ -732,7 +732,7 @@ function Stronghold.Hero:OverrideHero5AbilityArrowRain()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "AOMenuHero5/command_poisonarrows" then
-            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_PU_Hero5");
+            local Text = XGUIEng.GetStringTableText("sh_windowhero/Skill_1_PU_Hero5");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 
@@ -752,7 +752,7 @@ function Stronghold.Hero:OverrideHero7AbilityMadness()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "MenuHero7/command_madness" then
-            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_CU_BlackKnight");
+            local Text = XGUIEng.GetStringTableText("sh_windowhero/Skill_1_CU_BlackKnight");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 
@@ -772,7 +772,7 @@ function Stronghold.Hero:OverrideHero8AbilityMoralDamage()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "MenuHero8/command_moraledamage" then
-            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_CU_Mary_de_Mortfichet");
+            local Text = XGUIEng.GetStringTableText("sh_windowhero/Skill_1_CU_Mary_de_Mortfichet");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 

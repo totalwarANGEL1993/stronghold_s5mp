@@ -449,7 +449,7 @@ function Stronghold.Multiplayer:Configure()
                 local Check = Stronghold.Multiplayer:CheckVersions();
                 if Check == 0 then
                     Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-                    Message(XGUIEng.GetStringTableText("sh_shs5mp/rulesset"));
+                    Message(XGUIEng.GetStringTableText("sh_windowrules/rulesset"));
                     Stronghold.Multiplayer:HideRuleTimer();
                     Stronghold.Multiplayer:ResumePlayers();
                     Stronghold.Multiplayer:OnGameModeSet();
@@ -556,7 +556,7 @@ function Stronghold.Multiplayer:ShowRuleSelection()
     GUI.ClearSelection();
     local PlayerID = GUI.GetPlayerID();
     if PlayerID == 17 or self:HaveRulesBeenConfigured() then
-        local Text = XGUIEng.GetStringTableText("sh_shs5mp/button_close");
+        local Text = XGUIEng.GetStringTableText("sh_windowrules/button_close");
         XGUIEng.SetText("SHS5MP_ControlsConfirm", Text);
     end
     XGUIEng.SetWidgetPosition("Windows", 64, 148);
@@ -1206,7 +1206,7 @@ end
 
 function GUITooltip_SHMP_Config_SetHeroAllowed(_Type)
     local TypeName = Logic.GetEntityTypeName(_Type);
-    local Text = XGUIEng.GetStringTableText("sh_shs5mp/hero_" ..TypeName);
+    local Text = XGUIEng.GetStringTableText("sh_windowrules/hero_" ..TypeName);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");

@@ -354,7 +354,7 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[Index];
         local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
         if Effects.Reputation ~= 0 then
-            local Unit = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
             local ReputationEffect = Effects.Reputation;
             local Operator = "+";
             if Effects.Reputation < 0 then
@@ -565,7 +565,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
         local EffectText = "";
         local Effects = Stronghold.Building.Config.Headquarters[BlessCategory];
         if Effects.Reputation ~= 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Name = XGUIEng.GetStringTableText("sh_text/Reputation");
             local Operator = (Effects.Reputation >= 0 and "+") or "";
             local Reputation = Effects.Reputation;
             local Factor = 1.0;
@@ -887,7 +887,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         local EffectText = "";
         local Effects = Stronghold.Building.Config.Monastery[BlessCategory];
         if Effects.Reputation > 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Name = XGUIEng.GetStringTableText("sh_text/Reputation");
             local Factor = 1;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Factor = Factor + self.Config.Monastery.SundayAssemblyReputationBonus;

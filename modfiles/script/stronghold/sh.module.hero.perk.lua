@@ -169,7 +169,7 @@ function Stronghold.Hero.Perk:PerkWindowUnlockPerkTooltip(_RowID, _ColumnID)
         assert(PerkConfig ~= nil);
         TooltipText = XGUIEng.GetStringTableText(PerkConfig.Text);
         if PerkConfig.Data.RequiredRank > GetRank(PlayerID) then
-            TooltipText = XGUIEng.GetStringTableText("sh_perks/unknown");
+            TooltipText = XGUIEng.GetStringTableText("sh_windowperks/unknown");
         end
     end
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
