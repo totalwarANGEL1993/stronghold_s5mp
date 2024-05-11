@@ -165,6 +165,14 @@ function Tutorial_OverwriteCallbacks()
             gvTutorial_OnEnemyTrapActivated = true;
         end
     end);
+
+    -- For when player selects a perk
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_OnPerkUnlocked", function(_PlayerID, _PerkID)
+        Overwrite.CallOriginal();
+        if gvTutorial_PlayerCanChoosePerk then
+            gvTutorial_OnPlayerChosePerk = true;
+        end
+    end);
 end
 
 function Tutorial_CreateProvince()
@@ -333,17 +341,26 @@ function Tutorial_AddCastleInterfaceSection()
         Text         = "sh_tutorial/ExplainCastle_3",
         ClickCatcher = true,
         Arrow        = ArrowPos_Treasury,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainCastle_5",
         ClickCatcher = true,
         ArrowWidget  = "TutorialArrowUp",
         Arrow        = ArrowPos_Tax,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainCastle_6",
         ClickCatcher = true,
         Arrow        = ArrowPos_RallyPoint,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainCastle_7",
@@ -364,12 +381,18 @@ function Tutorial_AddCastleInterfaceSection()
         ClickCatcher = true,
         ArrowWidget  = "TutorialArrowUp",
         Arrow        = ArrowPos_BuyNoble,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainCastle_11",
         ClickCatcher = true,
         ArrowWidget  = "TutorialArrowUp",
         Arrow        = ArrowPos_BuyNoble,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
         Condition    = function(_Data)
             return gvTutorial_HeroSelected;
         end
@@ -385,10 +408,16 @@ function Tutorial_AddCastleInterfaceSection()
         Text         = "sh_tutorial/ExplainCastle_4",
         ClickCatcher = true,
         Arrow        = ArrowPos_Measure,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainCastle_13",
         Arrow        = ArrowPos_Measure,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
         ClickCatcher = true,
         Condition    = function(_Data)
             local WidgetID = Stronghold.Building:GetLastSelectedHeadquarterTab(1);
@@ -398,11 +427,17 @@ function Tutorial_AddCastleInterfaceSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainCastle_14",
         Arrow        = ArrowPos_Measures_Row,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
         ClickCatcher = true,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainCastle_15",
         Arrow        = ArrowPos_Measures_Bar,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
         ClickCatcher = true,
     }
 end
@@ -456,56 +491,85 @@ function Tutorial_AddUnitSelectionSection()
         ClickCatcher = true,
         ArrowWidget  = "TutorialArrowUp",
         Arrow        = ArrowPos_Commands,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_4",
         ClickCatcher = true,
         Arrow        = ArrowPos_BuySoldier,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_5",
         ClickCatcher = true,
         Arrow        = ArrowPos_Health,
         ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_6",
         ClickCatcher = true,
         Arrow        = ArrowPos_Experience,
         ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_7",
         ClickCatcher = true,
         Arrow        = ArrowPos_TroopSize,
         ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_8",
         ClickCatcher = true,
         Arrow        = ArrowPos_Armor,
         ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_9",
         ClickCatcher = true,
         Arrow        = ArrowPos_Damage,
         ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_10",
         ClickCatcher = true,
         Arrow        = ArrowPos_Upkeep,
         ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_11",
         ClickCatcher = true,
         Arrow        = ArrowPos_Expel,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
     }
 end
 
 function Tutorial_AddProvisionSection()
+    local ArrowPos_BuyNoble = {350, 700};
+
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainManage_1",
         ClickCatcher = true,
@@ -576,6 +640,7 @@ function Tutorial_AddProvisionSection()
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_10",
         Action      = function(_Data)
+            gvTutorial_PlayerCanChoosePerk = true;
             LockRank(1, 8);
         end,
         Condition   = function(_Data)
@@ -584,9 +649,21 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_11",
+        Action      = function(_Data)
+            GUI.SelectEntity(GetHeadquarterID(1));
+        end,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_12",
+        Arrow       = ArrowPos_BuyNoble,
+        ArrowWidget  = "TutorialArrowUp",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected(GetHeadquarterID(1));
+        end,
+        Condition   = function(_Data)
+            return XGUIEng.IsWidgetShown("HeroPerkWindow") == 0 and
+                   gvTutorial_OnPlayerChosePerk == true
+        end
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_13",
@@ -596,6 +673,12 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_15",
+    }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/ExplainManage_16",
+    }
+    Tutorial.AddMessage {
+        Text        = "sh_tutorial/ExplainManage_17",
         Condition   = function(_Data)
             local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_Monastery1, 1);
             local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_Monastery2, 1);
@@ -606,13 +689,13 @@ function Tutorial_AddProvisionSection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_16",
+        Text        = "sh_tutorial/ExplainManage_18",
         Condition   = function(_Data)
             return GetRank(1) >= 2;
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_17",
+        Text        = "sh_tutorial/ExplainManage_19",
         Condition   = function(_Data)
             local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_Headquarters2, 1);
             local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_Headquarters3, 1);
@@ -621,7 +704,7 @@ function Tutorial_AddProvisionSection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_18",
+        Text        = "sh_tutorial/ExplainManage_20",
         Condition   = function(_Data)
             local _, ID1 = Logic.GetPlayerEntities(1, Entities.PB_University1, 1);
             local _, ID2 = Logic.GetPlayerEntities(1, Entities.PB_University2, 1);
@@ -630,7 +713,7 @@ function Tutorial_AddProvisionSection()
         end
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_19",
+        Text        = "sh_tutorial/ExplainManage_21",
         Action      = function(_Data)
             local Position = GetPosition("P2AttackPath3");
             Tools.ExploreArea(Position.X, Position.Y, 10);
@@ -638,7 +721,7 @@ function Tutorial_AddProvisionSection()
         end,
     }
     Tutorial.AddMessage {
-        Text        = "sh_tutorial/ExplainManage_20",
+        Text        = "sh_tutorial/ExplainManage_22",
     }
 end
 

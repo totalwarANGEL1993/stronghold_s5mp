@@ -77,6 +77,12 @@ function SetHeroSelectionDescription(_Type, _Text)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Game Callbacks
+
+function GameCallback_SH_Logic_OnNobleDefeated(_PlayerID, _NobleID, _AttackerID)
+end
+
+-- -------------------------------------------------------------------------- --
 -- Internal
 
 function Stronghold.Hero:Install()
@@ -630,7 +636,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Ranged, UpgradeCategories.LeaderRifle2);
     end
     -- Add Kingsguard
-    if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Kingsguard) then
+    if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteSpear) then
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Melee, UpgradeCategories.LeaderPoleArm4);
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Melee, UpgradeCategories.LeaderSword4);
     end
@@ -661,11 +667,11 @@ end
 function Stronghold.Hero:OverwriteAttackMemoryRegister()
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_OnAttackRegisterIteration", function(_PlayerID, _AttackedID, _AttackerID, _TimeRemaining)
         Overwrite.CallOriginal();
-        Stronghold.Hero:HeroTeleportController(_PlayerID, _AttackedID);
+        Stronghold.Hero:HeroTeleportController(_PlayerID, _AttackedID, _AttackerID);
     end);
 end
 
-function Stronghold.Hero:HeroTeleportController(_PlayerID, _EntityID)
+function Stronghold.Hero:HeroTeleportController(_PlayerID, _EntityID, _AttackerID)
     if Logic.IsHero(_EntityID) == 1 and Logic.GetEntityHealth(_EntityID) == 0 then
         local EntityType = Logic.GetEntityType(_EntityID);
         if Stronghold.Populace.Config.FakeHeroTypes[EntityType] then
@@ -683,6 +689,7 @@ function Stronghold.Hero:HeroTeleportController(_PlayerID, _EntityID)
                     Logic.LeaderChangeFormationType(ID, 1);
                 end
                 Logic.HurtEntity(ID, Logic.GetEntityHealth(ID));
+                GameCallback_SH_Logic_OnNobleDefeated(_PlayerID, ID, _AttackerID);
             end
         end
     end
@@ -732,7 +739,7 @@ function Stronghold.Hero:OverrideHero5AbilityArrowRain()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "AOMenuHero5/command_poisonarrows" then
-            local Text = XGUIEng.GetStringTableText("sh_windowhero/Skill_1_PU_Hero5");
+            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_PU_Hero5");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 
@@ -752,7 +759,7 @@ function Stronghold.Hero:OverrideHero7AbilityMadness()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "MenuHero7/command_madness" then
-            local Text = XGUIEng.GetStringTableText("sh_windowhero/Skill_1_CU_BlackKnight");
+            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_CU_BlackKnight");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 
@@ -772,7 +779,7 @@ function Stronghold.Hero:OverrideHero8AbilityMoralDamage()
     Overwrite.CreateOverwrite("GUITooltip_NormalButton", function(_TextKey, _ShortCut)
         Overwrite.CallOriginal();
         if _TextKey == "MenuHero8/command_moraledamage" then
-            local Text = XGUIEng.GetStringTableText("sh_windowhero/Skill_1_CU_Mary_de_Mortfichet");
+            local Text = XGUIEng.GetStringTableText("sh_text/Skill_1_CU_Mary_de_Mortfichet");
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]";
 

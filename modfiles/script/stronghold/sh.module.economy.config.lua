@@ -58,9 +58,9 @@ Stronghold.Economy.Config.Resource = {
 
 Stronghold.Economy.Config.Income = {
     MaxReputation = 200,
-    HungerFactor = 1.0115,
+    HungerFactor = 1.0125,
     HungerMultiplier = 10,
-    InsomniaFactor = 1.0105,
+    InsomniaFactor = 1.0115,
     InsomniaMultiplier = 15,
     --
     MaxKnowledgePoints = 5000,
@@ -75,12 +75,12 @@ Stronghold.Economy.Config.Income = {
     --
     TaxEffect = {
         [1] = {Honor = 4, Reputation = 10,},
-        [2] = {Honor = 2, Reputation = -1,},
-        [3] = {Honor = 1, Reputation = -2,},
-        [4] = {Honor = 0, Reputation = -4,},
+        [2] = {Honor = 2, Reputation = -2,},
+        [3] = {Honor = 1, Reputation = -4,},
+        [4] = {Honor = 0, Reputation = -6,},
         [5] = {Honor = 0, Reputation = -8,},
-        WorkerFactor = 0.021,
-        RankFactor = 1.05,
+        WorkerFactor = 0.018,
+        RankFactor = 1.06,
     },
     TaxPerWorker = 5,
     ScaleBonusFactor = 1.15,

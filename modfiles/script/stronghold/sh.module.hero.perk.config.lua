@@ -56,9 +56,9 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Unit_Bandits",
         Data = {}
     },
-    [HeroPerks.Unit_Kingsguard] = {
+    [HeroPerks.Unit_EliteSpear] = {
         Icon = "HeroPerkTier1ButtonSource1",
-        Text = "sh_windowperks/Unit_Kingsguard",
+        Text = "sh_windowperks/Unit_EliteSpear",
         Data = {}
     },
     [HeroPerks.Unit_Cannons] = {
@@ -124,6 +124,11 @@ Stronghold.Hero.Perk.Config.Perks = {
     [HeroPerks.Unit_Assassins] = {
         Icon = "HeroPerkTier1ButtonSource1",
         Text = "sh_windowperks/Unit_Assassins",
+        Data = {}
+    },
+    [HeroPerks.Unit_EliteSword] = {
+        Icon = "HeroPerkTier1ButtonSource1",
+        Text = "sh_windowperks/Unit_EliteSword",
         Data = {}
     },
 
@@ -253,7 +258,8 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Generic_Tier1_Perk8",
         Data = {
             RequiredRank = 1,
-            Factor = 0.01,
+            Factor = 0.02,
+            AreaSize = 1500,
         }
     },
     [HeroPerks.Generic_Pyrotechnican] = {
@@ -273,7 +279,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Generic_Tier2_Perk1",
         Data = {
             RequiredRank = 4,
-            Bonus = 1,
+            Bonus = 2,
         }
     },
     [HeroPerks.Generic_QuantityDiscount] = {
@@ -597,8 +603,10 @@ Stronghold.Hero.Perk.Config.Perks = {
         Data = {
             RequiredRank = 1,
             PreservationChance = 10,
-            PreservationAmount = 1,
-            WoodBonus = 1,
+            MinerPreservation = 1,
+            SerfPreservation = 1,
+            RawWoodBonus = 1,
+            RefinedWoodBonus = 1,
         }
     },
     [HeroPerks.Hero5_TaxBonus] = {
@@ -724,7 +732,7 @@ Stronghold.Hero.Perk.Config.Perks = {
             },
         }
     },
-    -- This one can not be unlocked because it's hardcoded!
+    -- This one can not be unlocked because I say so
     [HeroPerks.Hero8_Underhanded] = {
         Icon = "HeroPerkHeroButtonSource7",
         Text = "sh_windowperks/Hero8_Perk0",
@@ -828,6 +836,12 @@ Stronghold.Hero.Perk.Config.Perks = {
             FactorBonus = 0.015,
             FactorDiv = 1000
         }
+    },
+    -- This one can not be unlocked because I say so
+    [HeroPerks.Hero11_TraditionalMedicine] = {
+        Icon = "HeroPerkHeroButtonSource11",
+        Text = "sh_windowperks/Hero11_Perk0",
+        Data = {}
     },
 
     -- Hero 12 --

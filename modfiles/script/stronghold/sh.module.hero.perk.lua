@@ -40,6 +40,8 @@ function Stronghold.Hero.Perk:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
             UnlockedPerks = {},
+            LastTaxLevel = 4,
+            NobleKillerEntityID = 0,
             BuyPerkLock = false,
             -- GUI
             PerkAssignmentList = {},
@@ -309,21 +311,19 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
         self.Data[_PlayerID].UnlockedPerks = {};
         if PlayerHasLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero1_Ability);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Kingsguard);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteSpear);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteSword);
         end
         if _Type == Entities.PU_Hero2 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero2_Ability);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Lancer);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Axemen);
         end
         if _Type == Entities.PU_Hero3 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero3_Ability);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Lancer);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Cannons);
         end
         if _Type == Entities.PU_Hero4 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_Ability);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteLongbow);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteCavalry);
         end
         if _Type == Entities.PU_Hero5 then
@@ -351,17 +351,15 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
         end
         if _Type == Entities.PU_Hero10 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero10_Ability);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Lancer);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteRifle);
         end
         if _Type == Entities.PU_Hero11 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero11_Ability);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteLongbow);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero11_TraditionalMedicine);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteRifle);
         end
         if _Type == Entities.CU_Evil_Queen then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero12_Ability);
-            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteLongbow);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_Evil);
         end
     end
@@ -424,6 +422,7 @@ function Stronghold.Hero.Perk:SetupUnlockablePerksForPlayerHero(_PlayerID, _Type
         end
         if _Type == Entities.PU_Hero4 then
             self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_ExperienceValue);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_InspiringPresence);
 
             self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero4_ExperiencedInstructor);
             self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero4_GrandMaster);
@@ -432,7 +431,7 @@ function Stronghold.Hero.Perk:SetupUnlockablePerksForPlayerHero(_PlayerID, _Type
         if _Type == Entities.PU_Hero5 then
             self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_HouseTax);
             self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_FarmTax);
-            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_NumberJuggler);
+            self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_Bureaucrat);
 
             self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero5_ChildOfNature);
             self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero5_HubertusBlessing);
@@ -725,24 +724,40 @@ end
 
 -- -------------------------------------------------------------------------- --
 
+function Stronghold.Hero.Perk:OnPlayerPayday(_PlayerID, _CurrentAmount)
+    if IsPlayer(_PlayerID) then
+        -- Save last tax level
+        self.Data[_PlayerID].LastTaxLevel = GetTaxHeight(_PlayerID) -1;
+    end
+end
+
+function Stronghold.Hero.Perk:OnNobleDefeated(_PlayerID, _NobleID, _AttackerID)
+    if IsPlayer(_PlayerID) then
+        -- Save entity that defeated the Noble
+        self.Data[_PlayerID].NobleKillerEntityID = _AttackerID;
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+
 function Stronghold.Hero.Perk:OverwriteGameCallbacks()
     -- Generic --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceMined", function(_PlayerID, _BuildingID, _SourceID, _ResourceType, _Amount, _Remaining)
         local CurrentAmount, RemainingAmount = Overwrite.CallOriginal();
-        CurrentAmount, ResourceRemaining = Stronghold.Hero.Perk:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _ResourceType, CurrentAmount, RemainingAmount);
+        CurrentAmount, ResourceRemaining = Stronghold.Hero.Perk:ApplyResourceProductionBonusAbility(_PlayerID, _BuildingID, _SourceID, _ResourceType, CurrentAmount, RemainingAmount);
         return CurrentAmount, ResourceRemaining;
     end);
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_SerfExtraction", function(_PlayerID, _SerfID, _SourceID, _ResourceType, _Amount, _Remaining)
         local CurrentAmount, RemainingAmount = Overwrite.CallOriginal();
-        CurrentAmount, ResourceRemaining = Stronghold.Hero.Perk:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _ResourceType, CurrentAmount, RemainingAmount);
+        CurrentAmount, ResourceRemaining = Stronghold.Hero.Perk:ApplySerfExtractionBonusAbility(_PlayerID, _SerfID, _SourceID, _ResourceType, CurrentAmount, RemainingAmount);
         return CurrentAmount, ResourceRemaining;
     end);
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ResourceRefined", function(_PlayerID, _BuildingID, _ResourceType, Amount)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero.Perk:ResourceRefiningBonus(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
+        CurrentAmount = Stronghold.Hero.Perk:ApplyResourceRefiningBonusAbility(_PlayerID, _BuildingID, _ResourceType, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -767,6 +782,10 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _AttackedID, _Damage);
         return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_OnNobleDefeated", function(_PlayerID, _NobleID, _AttackerID)
+        Stronghold.Hero.Perk:OnNobleDefeated(_PlayerID, _NobleID, _AttackerID);
     end);
 
     -- Noble --
@@ -863,6 +882,12 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         return CurrentAmount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        Stronghold.Hero.Perk:OnPlayerPayday(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
     -- Attraction --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_CivilAttrationLimit", function(_PlayerID, _CurrentAmount)
@@ -942,7 +967,7 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function Stronghold.Hero.Perk:ResourceProductionBonus(_PlayerID, _BuildingID, _SourceID, _ResourceType, _CurrentAmount, _RemainingAmount)
+function Stronghold.Hero.Perk:ApplyResourceProductionBonusAbility(_PlayerID, _BuildingID, _SourceID, _ResourceType, _CurrentAmount, _RemainingAmount)
     local CurrentAmount, RemainingAmount = _CurrentAmount, _RemainingAmount;
     -- Generic T1: Mine Supervisor
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Generic_MineSupervisor) then
@@ -958,16 +983,24 @@ function Stronghold.Hero.Perk:ResourceProductionBonus(_PlayerID, _BuildingID, _S
             CurrentAmount = CurrentAmount + Data.Amount;
         end
     end
+    -- Hero 5: Child of Nature
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_ChildOfNature) then
+        local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
+        if  math.random(1, 100) <= Data.PreservationChance
+        and _ResourceType ~= ResourceType.WoodRaw then
+            RemainingAmount = RemainingAmount + Data.MinerPreservation;
+        end
+    end
     return CurrentAmount, RemainingAmount;
 end
 
-function Stronghold.Hero.Perk:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID, _ResourceType, _CurrentAmount, _RemainingAmount)
+function Stronghold.Hero.Perk:ApplySerfExtractionBonusAbility(_PlayerID, _SerfID, _SourceID, _ResourceType, _CurrentAmount, _RemainingAmount)
     local CurrentAmount, RemainingAmount = _CurrentAmount, _RemainingAmount;
-    -- Hero 5: Wood Chopping
+    -- Hero 5: Child of Nature
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_ChildOfNature) then
         local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
         if _ResourceType == ResourceType.WoodRaw then
-            Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.Wood, Data.WoodBonus);
+            Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Data.RawWoodBonus);
         elseif math.random(1, 100) <= Data.PreservationChance then
             RemainingAmount = RemainingAmount + Data.SerfPreservation;
         end
@@ -975,7 +1008,7 @@ function Stronghold.Hero.Perk:SerfExtractionBonus(_PlayerID, _SerfID, _SourceID,
     return CurrentAmount, RemainingAmount;
 end
 
-function Stronghold.Hero.Perk:ResourceRefiningBonus(_PlayerID, _BuildingID, _ResourceType, _CurrentAmount)
+function Stronghold.Hero.Perk:ApplyResourceRefiningBonusAbility(_PlayerID, _BuildingID, _ResourceType, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
     -- Generic T2: Middleclass Lover
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Generic_MiddleClassLover) then
@@ -1011,7 +1044,7 @@ function Stronghold.Hero.Perk:ResourceRefiningBonus(_PlayerID, _BuildingID, _Res
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Generic_NumberJuggler) then
         local Data = self.Config.Perks[HeroPerks.Generic_NumberJuggler].Data;
         if Data.ResourceTypes[_ResourceType] then
-            local TaxHeight = GetTaxHeight(_PlayerID) -1;
+            local TaxHeight = self.Data[_PlayerID].LastTaxLevel;
             CurrentAmount = CurrentAmount + (Data.Gross - TaxHeight);
         end
     end
@@ -1020,6 +1053,13 @@ function Stronghold.Hero.Perk:ResourceRefiningBonus(_PlayerID, _BuildingID, _Res
         local Data = self.Config.Perks[HeroPerks.Generic_EfficiencyStrategist].Data;
         Logic.AddToPlayersGlobalResource(_PlayerID, _ResourceType +1, Data.Resource);
         CurrentAmount = math.max(CurrentAmount + Data.Refine, 1);
+    end
+    -- Hero 5: Child of Nature
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_ChildOfNature) then
+        local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
+        if _ResourceType == ResourceType.Wood then
+            CurrentAmount = CurrentAmount + Data.RefinedWoodBonus;
+        end
     end
     -- Hero 10: Gun Manufacturer
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero10_GunManufacturer) then
@@ -1197,6 +1237,22 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero9_Mobilization) then
         local Data = self.Config.Perks[HeroPerks.Hero9_Mobilization].Data;
         CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
+    end
+    -- Hero 11: Traditional Medicine
+    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero11_TraditionalMedicine) then
+        if AttackedType == Entities.PU_Hero11 then
+            local Health = Logic.GetEntityHealth(_AttackedID);
+            local MaxHealth = Logic.GetEntityMaxHealth(_AttackedID);
+            if IsPlayer(AttackedPlayerID) and Health - CurrentAmount <= 0 then
+                if self.Data[AttackedPlayerID].NobleKillerEntityID then
+                    self.Data[AttackedPlayerID].NobleKillerEntityID = nil;
+                    CurrentAmount = 0;
+                    local x,y,z = Logic.EntityGetPos(_AttackedID);
+                    Logic.CreateEffect(GGL_Effects.FXSalimHeal, x, y, 0);
+                    Logic.HealEntity(_AttackedID, MaxHealth - Health);
+                end
+            end
+        end
     end
     -- Hero 12: Mothers Comfort
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero12_MothersComfort) then
@@ -1665,15 +1721,22 @@ end
 function Stronghold.Hero.Perk:ApplyEnduranceRegenerationPassiveAbility(_PlayerID)
     -- Generic T1: Mood Cannon
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Generic_MoodCannon) then
-        if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Generic_MoodCannon] then
-            local Data = self.Config.Perks[HeroPerks.Generic_MoodCannon].Data;
-            local WorkerList = GetWorkersOfType(_PlayerID, 0);
-            for i= 2, WorkerList[1] do
-                if Logic.IsSettlerAtWork(WorkerList[i]) == 1 then
-                    local Stamina = CEntity.GetCurrentStamina(WorkerList[i]);
-                    local MaxStamina = CEntity.GetMaxStamina(WorkerList[i]);
-                    Stamina = math.min(Stamina + (MaxStamina * Data.Factor), MaxStamina);
-                    SetEntityStamina(WorkerList[i], math.ceil(Stamina));
+        local Data = self.Config.Perks[HeroPerks.Generic_MoodCannon].Data;
+        local NobleID = GetNobleID(_PlayerID);
+        local x,y,z = Logic.EntityGetPos(NobleID);
+        local BuildingList = {Logic.GetPlayerEntitiesInArea(_PlayerID, 0, x, y, Data.AreaSize, 16, 8)};
+        for i= 2, BuildingList[1] +1 do
+            if Logic.IsConstructionComplete(BuildingList[i]) == 1 then
+                local WorkerList = {Logic.GetAttachedWorkersToBuilding(BuildingList[i])};
+                for j= 2, WorkerList[1] +1 do
+                    if Logic.IsSettlerAtWork(WorkerList[j]) == 1 then
+                        local Stamina = CEntity.GetCurrentStamina(WorkerList[j]);
+                        local MaxStamina = CEntity.GetMaxStamina(WorkerList[j]);
+                        if Stamina / MaxStamina >= 0.05 then
+                            Stamina = math.min(Stamina + (MaxStamina * Data.Factor), MaxStamina);
+                            SetEntityStamina(WorkerList[j], math.ceil(Stamina));
+                        end
+                    end
                 end
             end
         end

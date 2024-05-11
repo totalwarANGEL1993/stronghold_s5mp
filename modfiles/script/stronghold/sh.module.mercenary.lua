@@ -499,7 +499,7 @@ function Stronghold.Mercenary:InitMercenaryRoster(_PlayerID)
         if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteRifle) then
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
         end
-        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Kingsguard) then
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteSpear) then
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
         end

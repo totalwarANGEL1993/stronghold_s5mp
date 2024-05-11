@@ -4,7 +4,7 @@
 
 HeroPerks = {
     Unit_Bandits = 100,
-    Unit_Kingsguard = 101,
+    Unit_EliteSpear = 101,
     Unit_Cannons = 102,
     Unit_EliteCavalry = 103,
     Unit_Templars = 104,
@@ -18,6 +18,7 @@ HeroPerks = {
     Unit_BlackKnights = 113,
     Unit_EliteRifle = 114,
     Unit_Assassins = 115,
+    Unit_EliteSword = 116,
 
     Hero1_Ability = 210,
     Hero1_SolemnAuthority = 211,
@@ -75,6 +76,7 @@ HeroPerks = {
     Hero11_UseShuriken = 311,
     Hero11_LandOfTheSmile = 312,
     Hero11_TradeMaster = 313,
+    Hero11_TraditionalMedicine = 314,
     --
     Hero12_Ability = 320,
     Hero12_FertilityIcon = 321,
