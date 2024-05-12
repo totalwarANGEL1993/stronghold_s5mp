@@ -550,12 +550,6 @@ Stronghold.Unit.Config.Passive = {
         [Entities.PU_SoldierSword1] = {
             Refund = 0.5
         },
-        [Entities.PU_LeaderBow2] = {
-            Refund = 0.5
-        },
-        [Entities.PU_SoldierBow2] = {
-            Refund = 0.5
-        },
         [Entities.PU_LeaderBow4] = {
             Refund = 0.5
         },

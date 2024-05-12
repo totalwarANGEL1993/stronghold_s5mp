@@ -393,6 +393,7 @@ function Stronghold:StartTriggers()
         Stronghold.Populace:OnEntityDestroyed(EntityID);
         Stronghold.Building:OnEntityDestroyed(EntityID);
         Stronghold.Construction:OnEntityDestroyed(EntityID);
+        Stronghold.Hero:OnEntityDestroyed(EntityID);
         Stronghold.Unit:OnEntityDestroyed(EntityID);
         Stronghold.Wall:OnEntityDestroyed(EntityID);
     end);
@@ -436,7 +437,7 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             local Damage = CEntity.HurtTrigger.GetDamage();
             local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
             -- Vigilante
-            if Logic.IsBuilding(_AttackerID) == 1 then
+            if IsAttackerAlarmDefender(_AttackerID) then
                 if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then
                     Damage = Damage * 3;
                 end
@@ -797,7 +798,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnMonasterySelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
-        self.Building:OnTavernSelected(EntityID);
+        self.Building:OnWorkplaceSelected(EntityID);
         self.Trap:OnTrapSelected(EntityID);
         self.Wall:OnWallSelected(EntityID);
 

@@ -431,8 +431,8 @@ function Stronghold.Attraction:GetRequiredSpaceForUnitType(_PlayerID, _Type, _Am
     if self.Config.UsedSpace[_Type] then
         local SpaceUsed = self.Config.UsedSpace[_Type];
         -- Apply unit places hero ability
-        SpaceUsed = Stronghold.Hero:ApplyUnitAttractionPassiveAbility(_PlayerID, _Type, SpaceUsed);
-        return SpaceUsed * (_Amount or 1);
+        SpaceUsed = Stronghold.Hero.Perk:ApplyUnitTypeAttractionPassiveAbility(_PlayerID, _Type, SpaceUsed);
+        return math.ceil(SpaceUsed * (_Amount or 1));
     end
     return 0;
 end
@@ -461,7 +461,7 @@ function Stronghold.Attraction:GetMillitarySize(_PlayerID)
     for Type, Places in pairs(self.Config.UsedSpace) do
         local Config = Stronghold.Unit.Config.Troops:GetConfig(Type, _PlayerID);
         if not Config or Config.IsCivil ~= true then
-            Places = Stronghold.Hero:ApplyUnitAttractionPassiveAbility(_PlayerID, Type, Places);
+            Places = self.Config.UsedSpace[Type] or 0;
             local UnitList = GetLeadersOfType(_PlayerID, Type);
             for i= 2, UnitList[1] +1 do
                 local Usage = Places;

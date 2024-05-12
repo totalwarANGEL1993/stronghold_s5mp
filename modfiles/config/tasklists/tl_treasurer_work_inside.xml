@@ -36,7 +36,6 @@
         <TaskType>TASK_WAIT</TaskType>
         <Thousandths>2000</Thousandths>
     </Task>
-
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>
     </Task>

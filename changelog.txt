@@ -2,14 +2,14 @@
 
 __Spielmodus__
 
-Es gibt nun 3 verschiedene Spielmodi für die Standardsiegbedingung. Als Standard
-ist "Todesurteil" festgelegt.
+Es gibt nun 3 verschiedene Spielmodus für die Standardsiegbedingung. Als 
+Standard ist "Königsmacher" festgelegt.
 
-- Königsmacher:
+- Konservativ:
   * Die Burg eines Spielers muss zerstört werden
   * Adlige können wiederbelebt werden
   * Burgen sind unverwundbar, solange der Adlige nahe ist
-- Todesurteil:
+- Königsmacher:
   * Die Burg und der Adlige müssen beseitigt werden
   * Adlige können wiederbelebt werden
   * Adlige ohne Burg erleiden kontinuierlich Schaden
@@ -22,24 +22,21 @@ ist "Todesurteil" festgelegt.
 __Bevölkerung__
 
 Das Soldatenlimit wird nicht mehr durch das ausbauen von Militärgebäuden erhöht,
-sondern stattdessen durch das Besetzen von Burgen. Eine zusätzliche Burg kann
-durch Bauen von Außenposten besetzt werden.
+sondern stattdessen durch das Besetzen von Burgen. Eine Burgruineg kann durch 
+Bauen von Außenposten besetzt werden.
 
 - Bevölkerung:
-  * Haupthaus: 50, 75, 100
-  * Dorfzentrum: 45, 65, 85
-  * +20% (Kala)
+  * Haupthaus: 60, 95, 130
+  * Dorfzentrum: 40, 65, 90
 - Knechte:
   * Knechte zählen nun auch zur Bevölkerung!
-  * Initial 24 maximale Knechte
+  * Initial 30 maximale Knechte
   * +6 maximale Knechte für jeden Rangaufstieg
-  * +2 maximale Knechte für jeden Rangaufstieg (Marie)
 - Soldaten:
   * Soldaten können auch mit besiegtem Adligen rekrutiert werden
-    (Ausnahme: Spielmodus Königsmacher)
-  * Haupthaus: 75, 100, 125
+    (Ausnahme: Spielmodus Konservativ)
+  * Haupthaus: 80, 130, 180
   * Außenposten: 40, 65, 90
-  * +10% (Dario)
 
 __Einheiten__
 
@@ -55,7 +52,6 @@ länger. Als Ausgleich benötigen sie nun wesentlich mehr Platz.
 
 - Klein (Bombarde, Große Bombarde, Bronzekanone): 8
 - Groß (Eisenkanone, Dschihad, Belagerungskanone): 16
-- -2 Plätze pro Kanone (Salim)
 
 __Gebäude__
 
@@ -67,16 +63,17 @@ Beim Gebäudebau hat sich einiges verändert.
   * Ballistatürme können weiterhin zu Kanonentürmen ausgebaut werden
   * Wachtürme werden zu Falknertürmen ausgebaut
   * Mauern können nicht gebaut werden, wenn Feinde nahe sind
-  * Es gibt nun ein Söldnerlager, in dem Spezialeinheten gekauf werden können
+  * Es gibt nun ein Söldnerlager, in dem Spezialeinheten gekauft werden können
   * Es gibt nun einen Henkerplatz, der Verbrechen senkt
   * Es gibt nun vier neue Verteidigungsfallen
 
 __Verteidigungsfallen__
 
-Zusätzlich zur Sprengfalle (Salim) kann nun jeder Adlige Fallen bauen. Knechte
+Zusätzlich zu Salims Sprengfalle kann nun jeder Adlige Fallen bauen. Knechte
 bauen diese Verteidigungsfallen wie gewöhnliche Gebäude.
 
-- Fallen sind nach Fertigstellung unsichtbar für den Gegner
+- Fallen sind nach Fertigstellung unsichtbar für den Gegner (allerdings auf
+  der Minimap sichtbar)
 - Diebe können feindliche Fallen dauerhaft aufdecken
 - Fallen können nicht gebaut werden, wenn Feinde nahe sind
 - Fallenarten:
@@ -89,6 +86,7 @@ __Wirtschaft__
 
 Bezüglich der Wirtschaft gab es einige kleinere und größere Anpassungen.
 
+- Ausgebaute Gebäude produzieren mehr Rohstoffe
 - Es ist wesentlich einfacher die Beliebtheit aufrecht zu erhalten
 - Verbrecher
   * Türme haben nun einen Wachmann, der aktiv Verbrecher jagd
@@ -101,20 +99,11 @@ Bezüglich der Wirtschaft gab es einige kleinere und größere Anpassungen.
 
 __Heldenfähigkeiten__
 
-- Pilgrim:
-  * Türme können näher beieinander platziert werden
-- Salim:
-  * Kanonen belegen 2 Plätze weniger
-  * Gelehrte erlangen nun 30% schneller Wissen
-- Ari:
-  * Waldläufer (Armbrustschützen) wurden entfernt
-  * Vogelfreie können nun mit Armbrustschützen mithalten
-- Kerberos:
-  * Aura der Furcht hat zusätzlich einen Paralyseeffekt
-- Marie:
-  * 2 zusätzlich mögliche Knechte bei jedem Stufenaufstieg
-- Drake:
-  * Sold von Schafschützen wird nur noch um 20% reduziert
+- Adlige haben nicht mehr sofort alle ihre Fähigkeiten
+- Fähigkeiten sind an bestimmte Ränge gekoppelt und werden ausgewählt
+- In der Burg kann nach der Heldenwahl das Fähigkeitsfenster geöffnet werden 
+- Neben den "typischen" Fähigkeiten können mit entsprechenden Rang auch aus 
+  jeweils 2 alternativen Fähigkeiten gewählt werden.
 
 __Quality of Life__
 

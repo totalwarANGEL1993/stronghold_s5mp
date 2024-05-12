@@ -244,6 +244,7 @@ function Stronghold.Building:OverrideHeadquarterButtons()
     end
 
     GUIAction_BackToWork = function()
+        Stronghold.Hero.Perk:PerkWindowOnShow();
     end
 end
 
@@ -337,17 +338,23 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
         Index = 5;
     elseif _Key == "sh_menuheadquarter/CallMilitia" then
         Index = 0;
+    elseif _Key == "sh_menuheadquarter/BackToWork" then
+        Index = 6;
     else
         return false;
     end
 
     -- Set Text
     local Text = XGUIEng.GetStringTableText(_Key);
-    if Index > 0 then
+    if Index == 0 then
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_hero");
+    elseif Index == 6 then
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_perk");
+    elseif Index > 0 then
         local Effects = Stronghold.Economy.Config.Income.TaxEffect[Index];
         local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
         if Effects.Reputation ~= 0 then
-            local Unit = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
             local ReputationEffect = Effects.Reputation;
             local Operator = "+";
             if Effects.Reputation < 0 then
@@ -357,13 +364,11 @@ function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _Enti
             EffectText = EffectText.. Operator ..ReputationEffect.. " " ..Unit.. " ";
         end
         if Effects.Honor ~= 0 then
-            local Unit = XGUIEng.GetStringTableText("sh_names/Silver");
+            local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
             local Operator = (Effects.Honor >= 0 and "+") or "";
             EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit;
         end
         Text = string.format(Text, EffectText);
-    elseif Index == 0 then
-        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_hero");
     end
 
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
@@ -388,12 +393,12 @@ function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID
     XGUIEng.ShowWidget("HQ_Militia", 1);
     XGUIEng.SetWidgetPosition("HQ_Militia", 35, 0);
     XGUIEng.TransferMaterials("Buy_Hero", "HQ_CallMilitia");
-    XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "HQ_BackToWork");
+    XGUIEng.TransferMaterials("Buy_Hero", "HQ_BackToWork");
 
     -- TODO: Proper disable in singleplayer!
     -- local ShowBuyHero = XNetwork.Manager_DoesExist() == 1
-    XGUIEng.ShowWidget("HQ_CallMilitia", 1);
-    XGUIEng.ShowWidget("HQ_BackToWork", 0);
+    XGUIEng.ShowWidget("HQ_CallMilitia", (GetNobleID(_PlayerID) == 0 and 1) or 0);
+    XGUIEng.ShowWidget("HQ_BackToWork", (GetNobleID(_PlayerID) ~= 0 and 1) or 0);
     XGUIEng.ShowWidget("RallyPoint", 1);
 
     gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
@@ -560,7 +565,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
         local EffectText = "";
         local Effects = Stronghold.Building.Config.Headquarters[BlessCategory];
         if Effects.Reputation ~= 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Name = XGUIEng.GetStringTableText("sh_text/Reputation");
             local Operator = (Effects.Reputation >= 0 and "+") or "";
             local Reputation = Effects.Reputation;
             local Factor = 1.0;
@@ -578,7 +583,7 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _Ent
             EffectText = EffectText .. Operator .. math.floor((Reputation * Factor) + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor ~= 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Silver");
+            local Name = XGUIEng.GetStringTableText("sh_text/Silver");
             local Operator = (Effects.Honor >= 0 and "+") or "";
             local Honor = Effects.Honor;
             local Factor = 1.0;
@@ -882,7 +887,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
         local EffectText = "";
         local Effects = Stronghold.Building.Config.Monastery[BlessCategory];
         if Effects.Reputation > 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Reputation");
+            local Name = XGUIEng.GetStringTableText("sh_text/Reputation");
             local Factor = 1;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Factor = Factor + self.Config.Monastery.SundayAssemblyReputationBonus;
@@ -898,7 +903,7 @@ function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _Entity
             EffectText = EffectText.. "+" ..math.floor(Reputation + 0.5).. " " ..Name.. " ";
         end
         if Effects.Honor > 0 then
-            local Name = XGUIEng.GetStringTableText("sh_names/Silver");
+            local Name = XGUIEng.GetStringTableText("sh_text/Silver");
             local Factor = 1;
             if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
                 Factor = Factor + self.Config.Monastery.SundayAssemblyHonorBonus;
@@ -940,11 +945,18 @@ function Stronghold.Building:OnAlchemistSelected(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Tavern
+-- Workplace
 
-function Stronghold.Building:OnTavernSelected(_EntityID)
-    if  Logic.IsEntityInCategory(_EntityID, EntityCategories.Farm) == 1
-    and Logic.IsConstructionComplete(_EntityID) == 1 then
+function Stronghold.Building:OnWorkplaceSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    local TypeName = Logic.GetEntityTypeName(Type);
+    if string.format(TypeName, "Mine") then
+        XGUIEng.ShowWidget("Research_SustainableClayMining", 0);
+        XGUIEng.ShowWidget("Research_SustainableStoneMining", 0);
+        XGUIEng.ShowWidget("Research_SustainableIronMining", 0);
+        XGUIEng.ShowWidget("Research_SustainableSulfurMining", 0);
+    end
+    if string.format(TypeName, "Tavern") then
         XGUIEng.ShowWidget("BuildingTabs", 1);
     end
 end

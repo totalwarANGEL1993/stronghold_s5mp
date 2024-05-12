@@ -275,7 +275,7 @@ function Stronghold.Trap:OnPitchpitTriggered(_PlayerID, _TrapID)
             -- Does crash for some reason...
             -- CEntity.DealDamageInArea(_EntityID, _X, _Y, 300, 25);
             -- Workaround:
-            Logic.CreateEntity(Entities.XD_Bomb_Pitchpit, _X, _Y, 0, _PlayerID);
+            Logic.CreateEntity(Entities.XD_Bomb_PitchPit, _X, _Y, 0, _PlayerID);
 
             -- Ignite closeby
             local _, NearPitchID = Logic.GetPlayerEntitiesInArea(PlayerID, Entities.PB_PitchPit1, _X, _Y, 800, 1);

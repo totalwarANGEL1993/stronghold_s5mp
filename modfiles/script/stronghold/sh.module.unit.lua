@@ -263,7 +263,7 @@ end
 function Stronghold.Unit:FearmongerJob(_PlayerID)
     for Type, Data in pairs(self.Config.Passive.Fear) do
         for _, EntityID in pairs(GetPlayerEntities(_PlayerID, Type)) do
-            if RandomNumber(EntityID) <= Data.Chance then
+            if math.random(1, 100) <= Data.Chance then
                 if IsValidEntity(EntityID) then
                     self:FearmongerJobInflictFear(EntityID);
                 end
@@ -305,7 +305,7 @@ function Stronghold.Unit:IntoxicationCalculateDamage(_AttackerID, _AttackedID, _
     if self.Config.Passive.Cripple[AttackerType] then
         local Chance = self.Config.Passive.Cripple[AttackerType].Chance;
         if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
-        and RandomNumber(TargetID) <= Chance
+        and math.random(1, 100) <= Chance
         and not self.Data.Intoxicated[TargetID] then
             local Time = self.Config.Passive.Cripple[AttackerType].Duration;
             self.Data.Intoxicated[_AttackedID] = {Time, Logic.GetTime(), AttackerType};
@@ -338,7 +338,7 @@ function Stronghold.Unit:AssassinationCalculateDamage(_AttackerID, _AttackedID, 
         local Chance = self.Config.Passive.Sneak[AttackerType].Chance;
         if  (Logic.IsHero(_AttackedID) == 0 and Logic.IsBuilding(_AttackedID) == 0)
         and math.abs(Orientation1 - Orientation2) <= AngleDelta
-        and RandomNumber(_AttackerID) <= Chance
+        and math.random(1, 100) <= Chance
         and IsValidEntity(_AttackedID) then
             Damage = Damage * self.Config.Passive.Sneak[AttackerType].Factor;
         end
@@ -373,7 +373,7 @@ function Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID
     return Damage;
 end
 
--- Circle Formation --
+-- Refund --
 
 function Stronghold.Unit:RefundKilledUnit(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);

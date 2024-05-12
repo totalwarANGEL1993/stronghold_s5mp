@@ -112,14 +112,7 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>200</Thousandths>
-    </Task>
-    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
-        <TaskType>TASK_REFINE_RESOURCE</TaskType>
-    </Task>
-    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
-        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>500</Thousandths>
+        <Thousandths>700</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>
@@ -159,14 +152,7 @@
     </Task>
     <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
         <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>200</Thousandths>
-    </Task>
-    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
-        <TaskType>TASK_REFINE_RESOURCE</TaskType>
-    </Task>
-    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
-        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
-        <Thousandths>500</Thousandths>
+        <Thousandths>700</Thousandths>
     </Task>
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_REFINE_RESOURCE</TaskType>

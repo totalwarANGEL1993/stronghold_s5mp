@@ -439,22 +439,23 @@ function Stronghold.Multiplayer:Configure()
                 end
             end);
         else
-            local Timer = 10;
-            local Turns = Timer * 10;
-            self.Data.StartGameTimer = Timer;
-            self.Data.RulesConfirmedTime = Logic.GetTime();
+            self.Data.StartGameTimer = 10 * 10;
             self:ShowRuleTimer();
             -- Start the delay
-            Delay.Turn(Turns, function()
-                local Check = Stronghold.Multiplayer:CheckVersions();
-                if Check == 0 then
-                    Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-                    Message(XGUIEng.GetStringTableText("sh_shs5mp/rulesset"));
-                    Stronghold.Multiplayer:HideRuleTimer();
-                    Stronghold.Multiplayer:ResumePlayers();
-                    Stronghold.Multiplayer:OnGameModeSet();
-                else
-                    Stronghold.Multiplayer:OnVersionsDiffer();
+            Job.Turn(function()
+                self.Data.StartGameTimer = self.Data.StartGameTimer - 1;
+                if self.Data.StartGameTimer <= 0 then
+                    local Check = Stronghold.Multiplayer:CheckVersions();
+                    if Check == 0 then
+                        Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                        Message(XGUIEng.GetStringTableText("sh_windowrules/rulesset"));
+                        Stronghold.Multiplayer:HideRuleTimer();
+                        Stronghold.Multiplayer:ResumePlayers();
+                        Stronghold.Multiplayer:OnGameModeSet();
+                    else
+                        Stronghold.Multiplayer:OnVersionsDiffer();
+                    end
+                    return true;
                 end
             end);
         end
@@ -556,7 +557,7 @@ function Stronghold.Multiplayer:ShowRuleSelection()
     GUI.ClearSelection();
     local PlayerID = GUI.GetPlayerID();
     if PlayerID == 17 or self:HaveRulesBeenConfigured() then
-        local Text = XGUIEng.GetStringTableText("sh_shs5mp/button_close");
+        local Text = XGUIEng.GetStringTableText("sh_windowrules/button_close");
         XGUIEng.SetText("SHS5MP_ControlsConfirm", Text);
     end
     XGUIEng.SetWidgetPosition("Windows", 64, 148);
@@ -1206,7 +1207,7 @@ end
 
 function GUITooltip_SHMP_Config_SetHeroAllowed(_Type)
     local TypeName = Logic.GetEntityTypeName(_Type);
-    local Text = XGUIEng.GetStringTableText("sh_shs5mp/hero_" ..TypeName);
+    local Text = XGUIEng.GetStringTableText("sh_windowrules/hero_" ..TypeName);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
@@ -1304,21 +1305,18 @@ function GUIUpdate_SHMP_Config_Reset(_Widget)
 end
 
 function GUIUpdate_SHMP_Config_Confirm(_Widget)
+    local PlayerID = GUI.GetPlayerID();
+    local IsConfigured = Stronghold.Multiplayer:HaveRulesBeenConfigured();
     -- Only show for host and if not already configured
-    if  not Stronghold.Multiplayer:HaveRulesBeenConfigured()
-    and GUI.GetPlayerID() ~= Syncer.GetHostPlayerID()
-    and GUI.GetPlayerID() ~= 17 then
-        XGUIEng.ShowWidget(_Widget, 0);
-    else
+    if IsConfigured or PlayerID == Syncer.GetHostPlayerID() then
         XGUIEng.ShowWidget(_Widget, 1);
+    else
+        XGUIEng.ShowWidget(_Widget, 0);
     end
 end
 
 function GUIUpdate_SHMP_TimerText()
-    local TimerBase = math.floor(Stronghold.Multiplayer.Data.StartGameTimer or 0);
-    local ConfirmTime = math.floor(Stronghold.Multiplayer.Data.RulesConfirmedTime or 0);
-
-    local Timer = TimerBase - (math.floor(Logic.GetTime()) - ConfirmTime);
+    local Timer = math.ceil(Stronghold.Multiplayer.Data.StartGameTimer / 10);
     if Timer < 0 then
         XGUIEng.ShowWidget("SHS5MP_Counter", 0);
         return;
