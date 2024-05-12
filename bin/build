@@ -9,7 +9,7 @@ echo "Compile archive..."
 # pre build cleanup
 rm -rf var
 
-# fill editor archives
+# fill editor archive
 mkdir -p var/stronghold_s5mp/sh_editor.bba.unpacked
 cp -r modfiles/graphics var/stronghold_s5mp/sh_editor.bba.unpacked
 rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked/graphics/textureslow
@@ -80,6 +80,7 @@ echo "Create release..."
 mkdir -p "release/stronghold_s5mp/version/$currentVersion"
 mkdir -p release/stronghold_s5mp/mapping
 cp -r var/stronghold_s5mp/* "release/stronghold_s5mp/version/$currentVersion"
+cp changelog.txt release/stronghold_s5mp/version
 mv var/stronghold_s5mp/sh_editor.bba release/stronghold_s5mp/mapping
 cp modloader/callbacks.lua release/stronghold_s5mp/mapping
 cp dev/mapconfig.lua release/stronghold_s5mp/mapping
