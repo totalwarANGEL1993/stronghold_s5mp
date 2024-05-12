@@ -94,11 +94,11 @@ function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(_Type);
         if Effects then
             if Effects.Reputation > 0 then
-                local ReputationText = XGUIEng.GetStringTableText("sh_names/Reputation");
+                local ReputationText = XGUIEng.GetStringTableText("sh_text/Reputation");
                 EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..ReputationText .. " ";
             end
             if Effects.Honor > 0 then
-                local HonorText = XGUIEng.GetStringTableText("sh_names/Silver");
+                local HonorText = XGUIEng.GetStringTableText("sh_text/Silver");
                 EffectText = EffectText.. "+" ..Effects.Honor.. " " ..HonorText;
             end
             if EffectText ~= "" then
@@ -192,10 +192,9 @@ end
 -- infamos "BB-Logic".... To avoid boilerplate we outsource the changes.
 function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Button, _Technology)
     -- Kerberos/Kala hack
-    local HeroID = GetNobleID(_PlayerID);
-    local HeroType = Logic.GetEntityType(HeroID);
     local Technology = _Technology;
-    if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
+    if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Hero7_Moloch)
+    or HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Hero12_Moloch) then
         if self.Config.TechnologyAlternateHack[Technology] then
             Technology = self.Config.TechnologyAlternateHack[Technology];
         end

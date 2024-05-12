@@ -785,17 +785,17 @@ end
 -- Payday
 
 function Stronghold.Player:SetupPaydayForAllPlayers()
-    for i= 1, GetMaxPlayers() do
-        CUtil.Payday_SetActive(i, true);
+    for PlayerID = 1, GetMaxPlayers() do
+        CUtil.Payday_SetActive(PlayerID, true);
     end
 end
 
 function Stronghold.Player:ConfigurePaydayForAllPlayers()
-    for i= 1, GetMaxPlayers() do
-        if Logic.IsTechnologyResearched(i,Technologies.T_BookKeeping) == 0 then
-            CUtil.Payday_SetFrequency(i, self.Config.Payday.Base);
+    for PlayerID = 1, GetMaxPlayers() do
+        if Logic.IsTechnologyResearched(PlayerID, Technologies.T_BookKeeping) == 0 then
+            CUtil.Payday_SetFrequency(PlayerID, self.Config.Payday.Base);
         else
-            CUtil.Payday_SetFrequency(i, self.Config.Payday.Improved);
+            CUtil.Payday_SetFrequency(PlayerID, self.Config.Payday.Improved);
         end
     end
 end

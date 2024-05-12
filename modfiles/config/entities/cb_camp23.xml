@@ -60,6 +60,5 @@
 		  <NumDamageEffects>4</NumDamageEffects>
 		  <NumDestroyEffects>5</NumDestroyEffects>
 		</Display>
-
 	</Behavior>
 </root>

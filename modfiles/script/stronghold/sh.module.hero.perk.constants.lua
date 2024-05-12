@@ -1,0 +1,116 @@
+--- 
+--- Constants for heroe perks
+--- 
+
+HeroPerks = {
+    Unit_Bandits = 100,
+    Unit_EliteSpear = 101,
+    Unit_Cannons = 102,
+    Unit_EliteCavalry = 103,
+    Unit_Templars = 104,
+    Unit_Barbarians = 105,
+    Unit_Evil = 106,
+    Unit_EliteLongbow = 107,
+    Unit_EliteCrossbow = 108,
+    Unit_SwordMilitia = 109,
+    Unit_Lancer = 111,
+    Unit_Axemen = 112,
+    Unit_BlackKnights = 113,
+    Unit_EliteRifle = 114,
+    Unit_Assassins = 115,
+    Unit_EliteSword = 116,
+
+    Hero1_Ability = 210,
+    Hero1_SolemnAuthority = 211,
+    Hero1_SocialCare = 212,
+    Hero1_Mobilization = 213,
+    --
+    Hero2_Ability = 220,
+    Hero2_Demolitionist = 221,
+    Hero2_ExtractResources = 222,
+    Hero2_FortressMaster = 223,
+    --
+    Hero3_Ability = 230,
+    Hero3_MasterOfArts = 231,
+    Hero3_AtileryExperte = 232,
+    Hero3_MercenaryBoost = 233,
+    --
+    Hero4_Ability = 240,
+    Hero4_ExperiencedInstructor = 241,
+    Hero4_GrandMaster = 242,
+    Hero4_Marschall = 243,
+    --
+    Hero5_ChildOfNature = 250,
+    Hero5_HubertusBlessing = 251,
+    Hero5_TaxBonus = 252,
+    Hero5_Ability = 253,
+    --
+    Hero6_Ability = 260,
+    Hero6_Confessor = 261,
+    Hero6_ConvertSettler = 262,
+    Hero6_Preacher = 263,
+    --
+    Hero7_Ability = 270,
+    Hero7_Paranoid = 271,
+    Hero7_Tyrant = 272,
+    Hero7_Moloch = 273,
+    Hero7_ArmyOfDarkness = 274,
+    --
+    Hero8_Ability = 280,
+    Hero8_Underhanded = 281,
+    Hero8_SlaveMaster = 282,
+    Hero8_AgentMaster = 283,
+    Hero8_AssassinMaster = 284,
+    --
+    Hero9_Ability = 290,
+    Hero9_CriticalDrinker = 291,
+    Hero9_BerserkerRage = 292,
+    Hero9_Mobilization = 293,
+    --
+    Hero10_Ability = 300,
+    Hero10_MusketeersOath = 301,
+    Hero10_SlaveMaster = 302,
+    Hero10_GunManufacturer = 303,
+    --
+    Hero11_Ability = 310,
+    Hero11_UseShuriken = 311,
+    Hero11_LandOfTheSmile = 312,
+    Hero11_TradeMaster = 313,
+    Hero11_TraditionalMedicine = 314,
+    --
+    Hero12_Ability = 320,
+    Hero12_FertilityIcon = 321,
+    Hero12_Moloch = 322,
+    Hero12_MothersComfort = 323,
+
+    Generic_MineSupervisor = 400,
+    Generic_TightBelt = 401,
+    Generic_Educated = 402,
+    Generic_HouseTax = 403,
+    Generic_FarmTax = 404,
+    Generic_AlarmBoost = 405,
+    Generic_InspiringPresence = 406,
+    Generic_MoodCannon = 407,
+    Generic_Pyrotechnican = 408,
+    --
+    Generic_MiddleClassLover = 430,
+    Generic_QuantityDiscount = 431,
+    Generic_ConstructionIndustry = 432,
+    Generic_PhilosophersStone = 433,
+    Generic_Bureaucrat = 434,
+    Generic_Benefactor = 435,
+    Generic_BeastMaster = 436,
+    Generic_Convocation = 437,
+    Generic_ForeignLegion = 438,
+    --
+    Generic_ManFlayer = 460,
+    Generic_NumberJuggler = 461,
+    Generic_HonorTheFallen = 462,
+    Generic_EfficiencyStrategist = 463,
+    Generic_BelieverInScience = 464,
+    Generic_WarScars = 465,
+    Generic_Haggler = 466,
+    Generic_ExperienceValue = 467,
+    Generic_Shielded = 468,
+}
+

@@ -6,7 +6,9 @@ Stronghold = Stronghold or {};
 
 Stronghold.Mercenary = Stronghold.Mercenary or {
     SyncEvents = {},
-    Data = {},
+    Data = {
+        BoughtMercenaries = {}
+    },
     Config = {},
     Text = {},
 }
@@ -59,14 +61,30 @@ function GetMercenaryUnitCosts(_PlayerID, _Type, _Soldiers)
     return Stronghold.Mercenary:GetInflatedUnitCosts(_PlayerID, _Type, _Soldiers);
 end
 
+function IsMercenaryUnit(_Entity)
+    return Stronghold.Mercenary:IsMercenaryUnit(_Entity);
+end
+
+function SetMercenaryUnit(_Entity, _Flag)
+    return Stronghold.Mercenary:SetMercenaryUnit(_Entity, _Flag);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callback
 
-function GameCallback_SH_Calculate_MercenaryCostFactor(_PlayerID, _Factor)
+function GameCallback_SH_Calculate_MercenaryCostFactor(_PlayerID, _Type, _Factor)
     return _Factor;
 end
 
-function GameCallback_SH_Calculate_MercenaryExperience(_PlayerID, _Amount)
+function GameCallback_SH_Calculate_MercenaryCapacityFactor(_PlayerID, _Amount)
+    return _Amount;
+end
+
+function GameCallback_SH_Calculate_MercenaryRechargeTimer(_PlayerID, _Recharge)
+    return _Recharge;
+end
+
+function GameCallback_SH_Calculate_MercenaryExperience(_PlayerID, _Type, _Amount)
     return _Amount;
 end
 
@@ -337,7 +355,9 @@ function Stronghold.Mercenary:GetMaxMercenaryContingent(_PlayerID, _Type)
     if IsPlayer(_PlayerID) then
         local Data = self.Data[_PlayerID].Contingent[_Type];
         if Data then
-            return Data.MaxAmount;
+            local MaxAmount = Data.MaxAmount;
+            MaxAmount = GameCallback_SH_Calculate_MercenaryCapacityFactor(_PlayerID, MaxAmount);
+            return MaxAmount;
         end
     end
     return 0;
@@ -372,11 +392,12 @@ function Stronghold.Mercenary:BuyMercenaryOffer(_PlayerID, _Index, _Type, _Soldi
             local ID = AI.Entity_CreateFormation(
                 _PlayerID, _Type, nil, _Soldiers, Position.X, Position.Y, 0, 0, 0, 0
             );
-            local Experience = GameCallback_SH_Calculate_MercenaryExperience(_PlayerID, 1000);
+            local Experience = GameCallback_SH_Calculate_MercenaryExperience(_PlayerID, _Type, 1000);
             CEntity.SetLeaderExperience(ID, Experience);
             self.Data[_PlayerID].Contingent[_Type].Amount = Contingent.Amount - 1;
             Logic.MoveSettler(ID, Position.X, Position.Y, -1);
             RemoveResourcesFromPlayer(_PlayerID, Costs);
+            self:SetMercenaryUnit(ID, true);
         end
     end
     -- Force UI update
@@ -385,6 +406,16 @@ function Stronghold.Mercenary:BuyMercenaryOffer(_PlayerID, _Index, _Type, _Soldi
             GUIUpdate_BuyMercenaryUnit(_Index);
         end
     end
+end
+
+function Stronghold.Mercenary:SetMercenaryUnit(_Entity, _Flag)
+    local ID = GetID(_Entity);
+    self.Data.BoughtMercenaries[ID] = _Flag;
+end
+
+function Stronghold.Mercenary:IsMercenaryUnit(_Entity)
+    local ID = GetID(_Entity);
+    return self.Data.BoughtMercenaries[ID] == true;
 end
 
 function Stronghold.Mercenary:RefillMercenaryOffers(_PlayerID)
@@ -396,10 +427,13 @@ function Stronghold.Mercenary:RefillMercenaryOffers(_PlayerID)
                 assert(Config ~= nil);
                 local MaxAmountBase = Config.MaxAmount;
                 local MaxAmountBonus = math.max(MercenaryCamps[1] -1, 0) * self.Config.QuantityFactor;
-                local MaxAmount = math.floor(MaxAmountBase + (MaxAmountBase * MaxAmountBonus));
-                self.Data[_PlayerID].Contingent[Type].MaxAmount = MaxAmount;
+                local MaxAmount = MaxAmountBase + (MaxAmountBase * MaxAmountBonus);
+                MaxAmount = GameCallback_SH_Calculate_MercenaryCapacityFactor(_PlayerID, MaxAmount);
+                self.Data[_PlayerID].Contingent[Type].MaxAmount = math.floor(MaxAmount);
                 if Data.Amount < MaxAmount then
-                    self.Data[_PlayerID].Contingent[Type].RefillTimer = Data.RefillTimer + 1;
+                    local Recharge = 1;
+                    Recharge = GameCallback_SH_Calculate_MercenaryRechargeTimer(_PlayerID, Recharge);
+                    self.Data[_PlayerID].Contingent[Type].RefillTimer = Data.RefillTimer + Recharge;
                     if Data.RefillTimer >= Config.RefillTime then
                         self.Data[_PlayerID].Contingent[Type].Amount = Data.Amount + 1;
                         self.Data[_PlayerID].Contingent[Type].RefillTimer = 0;
@@ -412,7 +446,7 @@ end
 
 function Stronghold.Mercenary:GetInflatedUnitCosts(_PlayerID, _Type, _Soldiers)
     local CostFactor = self.Config.CostFactor;
-    CostFactor = GameCallback_SH_Calculate_MercenaryCostFactor(_PlayerID, CostFactor);
+    CostFactor = GameCallback_SH_Calculate_MercenaryCostFactor(_PlayerID, _Type, CostFactor);
     local Costs = GetLeaderCosts(_PlayerID, _Type, _Soldiers);
     Costs[ResourceType.Silver] = (Costs[ResourceType.Silver] or 0);
     Costs[ResourceType.Gold]   = math.floor((Costs[ResourceType.Gold] or 0) * CostFactor);
@@ -428,18 +462,62 @@ function Stronghold.Mercenary:InitMercenaryRoster(_PlayerID)
     if IsPlayer(_PlayerID) then
         -- Init mercenary roster
         self.Data[_PlayerID].Roster = {};
-        self:InitMercenaryRosterHero1(_PlayerID);
-        self:InitMercenaryRosterHero2(_PlayerID);
-        self:InitMercenaryRosterHero3(_PlayerID);
-        self:InitMercenaryRosterHero4(_PlayerID);
-        self:InitMercenaryRosterHero5(_PlayerID);
-        self:InitMercenaryRosterHero6(_PlayerID);
-        self:InitMercenaryRosterHero7(_PlayerID);
-        self:InitMercenaryRosterHero8(_PlayerID);
-        self:InitMercenaryRosterHero9(_PlayerID);
-        self:InitMercenaryRosterHero10(_PlayerID);
-        self:InitMercenaryRosterHero11(_PlayerID);
-        self:InitMercenaryRosterHero12(_PlayerID);
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Assassins) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Axemen) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Bandits) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Templars) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_BlackKnights) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Cannons) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteCavalry) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteCrossbow) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteLongbow) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteRifle) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteSpear) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Lancer) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Evil) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Templars) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_SwordMilitia) then
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
+        end
 
         -- Init mercenary contingent
         self.Data[_PlayerID].Contingent = {};
@@ -454,534 +532,6 @@ function Stronghold.Mercenary:InitMercenaryRoster(_PlayerID)
                 };
             end
         end
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero1(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, "^PU_Hero1[abc]+$") then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero2(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.PU_Hero2) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero3(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.PU_Hero3) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero4(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.PU_Hero4) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero5(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.PU_Hero5) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero6(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.PU_Hero6) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero7(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.CU_BlackKnight) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero8(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.CU_Mary_de_Mortfichet) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero9(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.CU_Barbarian_Hero) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero10(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.PU_Hero10) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero11(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.PU_Hero11) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
-    end
-end
-
-function Stronghold.Mercenary:InitMercenaryRosterHero12(_PlayerID)
-    if IsPlayer(_PlayerID) and PlayerHasLordOfType(_PlayerID, Entities.CU_Evil_Queen) then
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderPoleArm1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BlackKnightLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BearmanLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow3);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderBow4);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.SkirmisherLeader1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderRifle2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderHeavyCavalry2);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderCavalry1);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.TemplarLeaderHeavyCavalry1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon1);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon2);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon3);
-        -- table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon4);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon5);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.Cannon6);
-        table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.AssassinLeaderKnife1);
     end
 end
 

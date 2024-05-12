@@ -9,18 +9,16 @@ Stronghold = Stronghold or {};
 Stronghold.Utils = {};
 
 -- -------------------------------------------------------------------------- --
--- Random
+-- Battle Damage
 
---- Returns a random integer based on the ID of the entity.
---- @param _Entity any Scriptname or ID
---- @return integer Random Random integer
-function RandomNumber(_Entity)
-    local EntityID = GetID(_Entity);
-    --- @diagnostic disable-next-line: undefined-field
-    local TurnMod = math.mod(Logic.GetCurrentTurn(), 100) +1;
-    --- @diagnostic disable-next-line: undefined-field
-    local IDMod = math.mod(EntityID, 100);
-    return math.max(1, math.abs(TurnMod - IDMod));
+function IsAttackerAlarmDefender(_Entity)
+    local ID = GetID(_Entity);
+    if Logic.IsBuilding(ID) == 1 then
+        if Logic.IsEntityInCategory(ID, EntityCategories.MilitaryBuilding) == 0 then
+            return true;
+        end
+    end
+    return false;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -209,7 +207,7 @@ function Stronghold.Utils:OverwriteInterfaceTools()
     GetResourceName = function(_ResourceType)
         local GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameMoney");
         if _ResourceType == ResourceType.Silver then
-            GoodName = XGUIEng.GetStringTableText("sh_names/Silver");
+            GoodName = XGUIEng.GetStringTableText("sh_text/Silver");
         elseif _ResourceType == ResourceType.Clay or _ResourceType == ResourceType.ClayRaw then
             GoodName = XGUIEng.GetStringTableText("InGameMessages/GUI_NameClay");
         elseif _ResourceType == ResourceType.Wood or _ResourceType == ResourceType.WoodRaw then
@@ -354,7 +352,7 @@ function FormatCostString(_PlayerID, _Costs)
 
 	if _Costs[ResourceType.Silver] ~= nil
     and _Costs[ResourceType.Silver] ~= 0 then
-		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Silver") .. ": ";
+		CostString = CostString .. XGUIEng.GetStringTableText("sh_text/Silver") .. ": ";
 		if Honor >= _Costs[ResourceType.Silver] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
@@ -365,7 +363,7 @@ function FormatCostString(_PlayerID, _Costs)
 
 	if  _Costs[ResourceType.Knowledge] ~= nil
     and _Costs[ResourceType.Knowledge] ~= 0 then
-		CostString = CostString .. XGUIEng.GetStringTableText("sh_names/Knowledge") .. ": ";
+		CostString = CostString .. XGUIEng.GetStringTableText("sh_text/Knowledge") .. ": ";
 		if Knowledge >= _Costs[ResourceType.Knowledge] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else

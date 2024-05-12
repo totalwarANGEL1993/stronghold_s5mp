@@ -239,7 +239,7 @@ function Stronghold.Rights:GetPlayerRankName(_Rank, _PlayerID)
         return "-";
     end
     local Key = "Rank" ..CurrentRank.. "_" ..((Gender == 1 and "Male") or "Female");
-    return XGUIEng.GetStringTableText("sh_rights/" ..Key);
+    return XGUIEng.GetStringTableText("sh_menurights/" ..Key);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -360,9 +360,9 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Index, _Type, ...)
     local Lang = GetLanguage();
     local Text = "";
     if _Type == PlayerDuty.Headquarters then
-        Text = XGUIEng.GetStringTableText("sh_rights/Require_Headquarters" ..(arg[1] +1));
+        Text = XGUIEng.GetStringTableText("sh_menurights/Require_Headquarters" ..(arg[1] +1));
     elseif _Type == PlayerDuty.Cathedral then
-        Text = XGUIEng.GetStringTableText("sh_rights/Require_Monastery" ..(arg[1] +1));
+        Text = XGUIEng.GetStringTableText("sh_menurights/Require_Monastery" ..(arg[1] +1));
     elseif _Type == PlayerDuty.Settlers then
         if arg[1] == 1 then
             local TypeName = Logic.GetEntityTypeName(arg[2]);
@@ -371,24 +371,24 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Index, _Type, ...)
             Text = string.format("%d/%d %s", Amount, arg[3], Name);
         else
             local Amount = self:GetWorkerAmountInSettlement(_PlayerID);
-            Text = XGUIEng.GetStringTableText("sh_rights/Require_Worker");
+            Text = XGUIEng.GetStringTableText("sh_menurights/Require_Worker");
             Text = string.format("%d/%d %s", Amount, arg[2], Text);
         end
     elseif _Type == PlayerDuty.Beautification then
         if arg[1] == 1 then
             local Amount = self:GetBeautificationAmountInSettlement(_PlayerID);
-            Text = XGUIEng.GetStringTableText("sh_rights/Require_Beautification");
+            Text = XGUIEng.GetStringTableText("sh_menurights/Require_Beautification");
             Text = string.format("%d/%d %s", Amount, arg[2], Text);
         else
-            Text = XGUIEng.GetStringTableText("sh_rights/Require_Beautifications");
+            Text = XGUIEng.GetStringTableText("sh_menurights/Require_Beautifications");
         end
     elseif _Type == PlayerDuty.Soldiers then
         local Amount = self:GetSoldierAmountInSettlement(_PlayerID);
-        Text = XGUIEng.GetStringTableText("sh_rights/Require_Soldiers");
+        Text = XGUIEng.GetStringTableText("sh_menurights/Require_Soldiers");
         Text = string.format("%d/%d %s", Amount, arg[1], Text);
     elseif _Type == PlayerDuty.Workplaces then
         local Amount = self:GetWorkplaceAmountInSettlement(_PlayerID);
-        Text = XGUIEng.GetStringTableText("sh_rights/Require_Workplaces");
+        Text = XGUIEng.GetStringTableText("sh_menurights/Require_Workplaces");
         Text = string.format("%d/%d %s", Amount, arg[1], Text);
     elseif _Type == PlayerDuty.Technology then
         local TechnologyKey = KeyOf(arg[1], Technologies);
@@ -400,7 +400,7 @@ function Stronghold.Rights:GetDutyDescription(_PlayerID, _Index, _Type, ...)
             Text = Amount.. "/" ..Required.. " " ..Text;
         end
     elseif _Type == PlayerDuty.Noble then
-        Text = XGUIEng.GetStringTableText("sh_rights/Require_Noble");
+        Text = XGUIEng.GetStringTableText("sh_menurights/Require_Noble");
     end
     return Text;
 end
@@ -595,9 +595,9 @@ function Stronghold.Rights:OnlineHelpAction()
         if GUI.GetPlayerID() == PlayerID then
             Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
             if not IsExisting(GetNobleID(PlayerID)) then
-                Message(XGUIEng.GetStringTableText("sh_rights/PromoteHero"));
+                Message(XGUIEng.GetStringTableText("sh_menurights/PromoteHero"));
             else
-                Message(XGUIEng.GetStringTableText("sh_rights/PromoteLocked"));
+                Message(XGUIEng.GetStringTableText("sh_menurights/PromoteLocked"));
             end
         end
     end
@@ -617,13 +617,13 @@ function Stronghold.Rights:OnlineHelpTooltip(_Key)
             local Config = self.Config.Titles[NextRank];
             local Costs = CreateCostTable(unpack(Config.Costs));
             Text = string.format(
-                XGUIEng.GetStringTableText("sh_rights/NewRank"),
+                XGUIEng.GetStringTableText("sh_menurights/NewRank"),
                 GetRankName(NextRank, PlayerID),
                 self:GetDutiesDescription(PlayerID, NextRank)
             );
             CostText = FormatCostString(PlayerID, Costs);
         else
-            Text = XGUIEng.GetStringTableText("sh_rights/FinalRank");
+            Text = XGUIEng.GetStringTableText("sh_menurights/FinalRank");
         end
 
         XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
@@ -675,13 +675,13 @@ function Stronghold.Rights:PromotePlayer(_PlayerID, _IgnoreDuties, _Verbose)
         -- Info message
         if _Verbose then
             local MsgText = string.format(
-                XGUIEng.GetStringTableText("sh_rights/PromoteSelf"),
+                XGUIEng.GetStringTableText("sh_menurights/PromoteSelf"),
                 GetRankName(CurrentRank +1, _PlayerID)
             );
             if GUI.GetPlayerID() == _PlayerID then
                 Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
             else
-                MsgText = XGUIEng.GetStringTableText("sh_rights/PromoteOther");
+                MsgText = XGUIEng.GetStringTableText("sh_menurights/PromoteOther");
             end
             Message(MsgText);
         end
