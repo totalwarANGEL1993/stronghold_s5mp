@@ -11,7 +11,7 @@ Stronghold.Populace.Config.CivilDuties = {
         CatchChance = 10,
         MaxPerCycle = 5,
         TimeBetween = 12,
-        ReputationDamage = 2,
+        ReputationDamage = 1,
     },
     Crime = {
         TowerVisionArea = 5000,
@@ -22,7 +22,7 @@ Stronghold.Populace.Config.CivilDuties = {
         MaxPerCycle = 3,
         TimeBetween = 20,
         TheftAmount = {Min = 25, Max = 75},
-        ReputationDamage = 2,
+        ReputationDamage = 1,
     },
 }
 
