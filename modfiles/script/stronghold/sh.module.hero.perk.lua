@@ -802,7 +802,7 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicReputationIncrease", function(_PlayerID, _Type, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ServiceReputationIncrease", function(_PlayerID, _Type, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero.Perk:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _Type, CurrentAmount);
         return CurrentAmount;
@@ -820,7 +820,7 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_DynamicHonorIncrease", function(_PlayerID, _Type, _CurrentAmount)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ServiceHonorIncrease", function(_PlayerID, _Type, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         CurrentAmount = Stronghold.Hero.Perk:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Type, CurrentAmount);
         return CurrentAmount;
