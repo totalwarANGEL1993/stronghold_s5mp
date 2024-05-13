@@ -746,8 +746,15 @@ function Stronghold:GetSettlersOfType(_PlayerID, _Type, _Group)
                 if _Type == 0 or Type == _Type then
                     if string.find(TypeName, "CU_") or string.find(TypeName, "CV_")
                     or string.find(TypeName, "PU_") or string.find(TypeName, "PV_") then
-                        table.insert(List, ID);
-                        List[1] = List[1] + 1;
+                        if Logic.IsWorker(ID) == 1 then
+                            if Logic.GetSettlersWorkBuilding(ID) ~= 0 then
+                                table.insert(List, ID);
+                                List[1] = List[1] + 1;
+                            end
+                        else
+                            table.insert(List, ID);
+                            List[1] = List[1] + 1;
+                        end
                     end
                 end
             end

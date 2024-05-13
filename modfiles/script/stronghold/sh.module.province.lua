@@ -222,13 +222,13 @@ function Stronghold.Province:OerwriteGameCallbacks()
         return Amount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorIncreaseExternal", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ExternalHonorIncrease", function(_PlayerID)
         local Amount = Overwrite.CallOriginal();
         Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Honor, _PlayerID);
         return Amount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationIncreaseExternal", function(_PlayerID)
+    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ExternalReputationIncrease", function(_PlayerID)
         local Amount = Overwrite.CallOriginal();
         Amount = Amount + Stronghold.Province:GetSumOfProvincesRevenue(ProvinceType.Reputation, _PlayerID);
         return Amount;
