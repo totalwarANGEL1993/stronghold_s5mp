@@ -212,6 +212,34 @@ function IsGameModeCustom()
            not IsGameModeAnnihilation();
 end
 
+--- Returns the ration level of all workers.
+--- @param _PlayerID integer ID of player
+--- @return integer Ration level
+function GetRationLevel(_PlayerID)
+    return Stronghold.Player:GetRationLevel(_PlayerID);
+end
+
+--- Changes the ration level of all workers.
+--- @param _PlayerID integer ID of player
+--- @param _Level integer Ration level
+function SetRationLevel(_PlayerID, _Level)
+    Stronghold.Player:SetRationLevel(_PlayerID, _Level);
+end
+
+--- Returns the sleep time level of all workers.
+--- @param _PlayerID integer ID of player
+--- @return integer Sleep time level
+function GetSleepTimeLevel(_PlayerID)
+    return Stronghold.Player:GetSleepTimeLevel(_PlayerID);
+end
+
+--- Changes the sleep time level of all workers.
+--- @param _PlayerID integer ID of player
+--- @param _Level integer Sleep time level
+function SetSleepTimeLevel(_PlayerID, _Level)
+    Stronghold.Player:SetSleepTimeLevel(_PlayerID, _Level);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Callbacks
 
@@ -317,11 +345,14 @@ function Stronghold.Player:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
         IsAI = _IsAI == true,
         LordScriptName = LordName,
         HQScriptName = HQName,
-        DoorPos = nil;
-        CampPos = nil;
+        DoorPos = nil,
+        CampPos = nil,
 
         ReputationLimit = 200,
         Reputation = 100,
+
+        Rations = 2,
+        SleepTime = 2,
 
         InvulnerabilityInfoShown = false,
         VulnerabilityInfoShown = true,
@@ -747,6 +778,32 @@ end
 function Stronghold.Player:SetMaxAmountOfHumanPlayersPossible(_Max)
     assert(_Max <= 14 and self.Config.Base.MaxPossiblePlayers - _Max >= 2);
     self.Config.Base.MaxHumanPlayers = _Max;
+end
+
+function Stronghold.Player:GetRationLevel(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].Player.Rations;
+    end
+    return 2;
+end
+
+function Stronghold.Player:SetRationLevel(_PlayerID, _Level)
+    if self:IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].Player.Rations = _Level;
+    end
+end
+
+function Stronghold.Player:GetSleepTimeLevel(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].Player.SleepTime;
+    end
+    return 2;
+end
+
+function Stronghold.Player:SetSleepTimeLevel(_PlayerID, _Level)
+    if self:IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].Player.SleepTime = _Level;
+    end
 end
 
 -- -------------------------------------------------------------------------- --

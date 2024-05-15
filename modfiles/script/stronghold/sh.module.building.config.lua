@@ -85,6 +85,23 @@ Stronghold.Building.Config.Monastery = {
     },
 }
 
+Stronghold.Building.Config.Civil = {
+    RationButtons = {
+        [0] = "SetVeryLowRations",
+        [1] = "SetLowRations",
+        [2] = "SetNormalRations",
+        [3] = "SetHighRations",
+        [4] = "SetVeryHighRations",
+    },
+    SleepButtons = {
+        [0] = "SetVeryLowSleep",
+        [1] = "SetLowSleep",
+        [2] = "SetNormalSleep",
+        [3] = "SetHighSleep",
+        [4] = "SetVeryHighSleep",
+    },
+}
+
 Stronghold.Building.Config.WeatherChange = {
     TimeBetweenChanges = 5 * 60,
     Technologies = {
