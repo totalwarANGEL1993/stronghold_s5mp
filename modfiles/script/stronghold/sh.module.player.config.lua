@@ -11,6 +11,8 @@ Stronghold.Player.Config = {
         MaxRank = 7,
         StartingSerfs = 9,
         MaxHonor = 5000,
+        SleepPlaceLimit = 4,
+        RationLimit = 4,
     },
 
     DefeatModes = {

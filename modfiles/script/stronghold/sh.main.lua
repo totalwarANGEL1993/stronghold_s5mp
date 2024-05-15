@@ -498,8 +498,8 @@ end
 -- Entity Record
 
 function Stronghold:InitPlayerEntityRecord()
-    for i= 1, GetMaxPlayers() do
-        self.Record[i] = {
+    for PlayerID = 1, GetMaxPlayers() do
+        self.Record[PlayerID] = {
             Cache = {},
             --
             All = {},
@@ -515,8 +515,8 @@ function Stronghold:InitPlayerEntityRecord()
             Worker = {},
         };
 
-        for k,v in pairs(GetPlayerEntities(i, 0)) do
-            self:AddEntityToPlayerRecordOnCreate(v);
+        for k_, EntityID in pairs(GetPlayerEntities(PlayerID, 0)) do
+            self:AddEntityToPlayerRecordOnCreate(EntityID);
         end
     end
 end
@@ -806,6 +806,8 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
         self.Building:OnWorkplaceSelected(EntityID);
+        self.Building:OnFarmSelected(EntityID);
+        self.Building:OnResidenceSelected(EntityID);
         self.Trap:OnTrapSelected(EntityID);
         self.Wall:OnWallSelected(EntityID);
 
