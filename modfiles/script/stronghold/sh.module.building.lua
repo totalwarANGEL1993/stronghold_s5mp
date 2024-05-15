@@ -89,6 +89,8 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         MeasureTaken = 3,
         RallyPoint = 4,
         ChangeWeather = 5,
+        ChangeRations = 6,
+        ChangeSleepTime = 7,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -108,6 +110,14 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             if _Action == Stronghold.Building.SyncEvents.ChangeWeather then
                 local State = Logic.GetWeatherState();
                 Stronghold.Building:OnWeatherStateChanged(_PlayerID, State, arg[1]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.ChangeRations then
+                --- @diagnostic disable-next-line: param-type-mismatch
+                SetRationLevel(_PlayerID, arg[1]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.ChangeSleepTime then
+                --- @diagnostic disable-next-line: param-type-mismatch
+                SetSleepTimeLevel(_PlayerID, arg[1]);
             end
         end
     );
@@ -980,6 +990,74 @@ function Stronghold.Building:OnTowerSelected(_EntityID)
             GUIUpdate_UpgradeButtons("Upgrade_Tower2", Technologies.UP2_Tower);
         end
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Farm
+
+function Stronghold.Building:OnFarmSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    XGUIEng.ShowWidget("FarmRations", 0);
+    if Type == Entities.PB_Farm1
+    or Type == Entities.PB_Farm2
+    or Type == Entities.PB_Farm3 then
+        XGUIEng.ShowWidget("FarmRations", 1);
+    end
+end
+
+GUIAction_SetRations = function(_Level)
+    local BuildingID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(BuildingID);
+    if GuiPlayer == PlayerID then
+        Syncer.InvokeEvent(
+            Stronghold.Building.NetworkCall,
+            Stronghold.Building.SyncEvents.ChangeRations,
+            _Level
+        );
+    end
+end
+
+GUIUpdate_RationsButtons = function()
+    local PlayerID = GUI.GetPlayerID();
+    local Level = GetRationLevel(PlayerID);
+    XGUIEng.UnHighLightGroup("InGame", "rationsgroup");
+    local WidgetID = Stronghold.Building.Config.Civil.RationButtons[Level];
+	XGUIEng.HighLightButton(WidgetID, 1);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Residence
+
+function Stronghold.Building:OnResidenceSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    XGUIEng.ShowWidget("ResidenceSleepTime", 0);
+    if Type == Entities.PB_Residence1
+    or Type == Entities.PB_Residence2
+    or Type == Entities.PB_Residence3 then
+        XGUIEng.ShowWidget("ResidenceSleepTime", 1);
+    end
+end
+
+GUIAction_SetSleeptime = function(_Level)
+    local BuildingID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(BuildingID);
+    if GuiPlayer == PlayerID then
+        Syncer.InvokeEvent(
+            Stronghold.Building.NetworkCall,
+            Stronghold.Building.SyncEvents.ChangeSleepTime,
+            _Level
+        );
+    end
+end
+
+GUIUpdate_SleeptimeButtons = function()
+    local PlayerID = GUI.GetPlayerID();
+    local Level = GetSleepTimeLevel(PlayerID);
+    XGUIEng.UnHighLightGroup("InGame", "sleeptimegroup");
+    local WidgetID = Stronghold.Building.Config.Civil.SleepButtons[Level];
+	XGUIEng.HighLightButton(WidgetID, 1);
 end
 
 -- -------------------------------------------------------------------------- --
