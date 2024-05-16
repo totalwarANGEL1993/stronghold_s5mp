@@ -873,6 +873,14 @@ function Stronghold:OverwriteCommonCallbacks()
     GUIUpdate_RecruitQueueButton = function(_Button, _Technology)
     end
 
+    GameCallback_UnknownTask = function(_EntityID)
+        local AdvanceType;
+        if AdvanceType == nil then
+            AdvanceType = Stronghold.Economy:OnUnknownTask(_EntityID);
+        end
+        return AdvanceType;
+    end
+
     ---
 
 	self.Orig_Mission_OnSaveGameLoaded = Mission_OnSaveGameLoaded;
@@ -978,6 +986,15 @@ function Stronghold:OverrideWidgetTooltips()
         end
         if not TooltipSet then
             TooltipSet = Stronghold.Building:HeadquartersBuildingTabsGuiTooltip(PlayerID, EntityID, _Key);
+        end
+        if not TooltipSet then
+            TooltipSet = Stronghold.Building:PrintFarmRationButtonsTooltip(PlayerID, EntityID, _Key);
+        end
+        if not TooltipSet then
+            TooltipSet = Stronghold.Building:PrintTavernBeverageButtonsTooltip(PlayerID, EntityID, _Key);
+        end
+        if not TooltipSet then
+            TooltipSet = Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(PlayerID, EntityID, _Key);
         end
         if not TooltipSet then
             TooltipSet = Stronghold.Rights:OnlineHelpTooltip(_Key);
