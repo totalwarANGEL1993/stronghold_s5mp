@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CTasksList>
+    <PrincipalTask>Eat</PrincipalTask>
+    
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_FEAR</TaskType>
+    </Task>
+    
+	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+		<TaskType>TASK_RESET_TASK_LIST_TIMER</TaskType>
+	</Task>
+	
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_VANISH</TaskType>
+    </Task>
+
+	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+		<TaskType>TASK_EAT_WAIT</TaskType>		
+	</Task>
+	
+	<!--
+    <Task classname="EGL::CTaskArgsFloat" classid="0xa2787eed">
+	    <TaskType>TASK_CHANGE_WORK_TIME_RELATIVE</TaskType>
+	    <Value>0.5</Value>
+	</Task>
+    -->
+	
+    <!--
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+	    <TaskType>TASK_CHANGE_WORK_TIME_FARM</TaskType>
+	</Task>
+    -->
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+		<TaskType>TASK_PSEUDO_WORK_TIME_FARM</TaskType>
+	</Task>
+
+	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+		<TaskType>TASK_ADVANCE_IN_CYCLE</TaskType>
+	</Task>
+</CTasksList>

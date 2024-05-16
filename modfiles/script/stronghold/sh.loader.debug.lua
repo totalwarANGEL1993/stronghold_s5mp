@@ -104,6 +104,7 @@ end
 -- (A nightmarish orgy of cross-dependencies...)
 
 Script.Load(gvStronghold_Path.. "sh.main.lua");
+Script.Load(gvStronghold_Path.. "sh.main.constants.lua");
 Script.Load(gvStronghold_Path.. "sh.main.config.lua");
 Script.Load(gvStronghold_Path.. "sh.utils.lua");
 ---

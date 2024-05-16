@@ -91,6 +91,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         ChangeWeather = 5,
         ChangeRations = 6,
         ChangeSleepTime = 7,
+        ChangeBeverage = 7,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -118,6 +119,10 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             if _Action == Stronghold.Building.SyncEvents.ChangeSleepTime then
                 --- @diagnostic disable-next-line: param-type-mismatch
                 SetSleepTimeLevel(_PlayerID, arg[1]);
+            end
+            if _Action == Stronghold.Building.SyncEvents.ChangeBeverage then
+                --- @diagnostic disable-next-line: param-type-mismatch
+                SetBeverageLevel(_PlayerID, arg[1]);
             end
         end
     );
@@ -1005,6 +1010,48 @@ function Stronghold.Building:OnFarmSelected(_EntityID)
     end
 end
 
+function Stronghold.Building:PrintFarmRationButtonsTooltip(_PlayerID, _EntityID, _Key)
+    if  Logic.GetEntityType(_EntityID) ~= Entities.PB_Farm1
+    and Logic.GetEntityType(_EntityID) ~= Entities.PB_Farm2
+    and Logic.GetEntityType(_EntityID) ~= Entities.PB_Farm3 then
+        return false;
+    end
+
+    local Level = -1;
+    if _Key == "sh_menufarm/SetVeryLowRations" then
+        Level = 0;
+    elseif _Key == "sh_menufarm/SetLowRations" then
+        Level = 1;
+    elseif _Key == "sh_menufarm/SetNormalRations" then
+        Level = 2;
+    elseif _Key == "sh_menufarm/SetHighRations" then
+        Level = 3;
+    elseif _Key == "sh_menufarm/SetVeryHighRations" then
+        Level = 4;
+    else
+        return false;
+    end
+
+    local StringText = XGUIEng.GetStringTableText(_Key);
+    local Effects = Stronghold.Economy.Config.Income.Rations[Level];
+    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
+    if Effects.Reputation then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
+        local Operator = (Effects.Reputation >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+    end
+    if Effects.Honor then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
+        local Operator = (Effects.Honor >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+    end
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+    return true;
+end
+
 GUIAction_SetRations = function(_Level)
     local BuildingID = GUI.GetSelectedEntity();
     local GuiPlayer = GUI.GetPlayerID();
@@ -1021,6 +1068,7 @@ end
 GUIUpdate_RationsButtons = function()
     local PlayerID = GUI.GetPlayerID();
     local Level = GetRationLevel(PlayerID);
+    XGUIEng.SetWidgetPosition("FarmRations", 143, 5);
     XGUIEng.UnHighLightGroup("InGame", "rationsgroup");
     local WidgetID = Stronghold.Building.Config.Civil.RationButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
@@ -1039,6 +1087,48 @@ function Stronghold.Building:OnResidenceSelected(_EntityID)
     end
 end
 
+function Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(_PlayerID, _EntityID, _Key)
+    if  Logic.GetEntityType(_EntityID) ~= Entities.PB_Residence1
+    and Logic.GetEntityType(_EntityID) ~= Entities.PB_Residence2
+    and Logic.GetEntityType(_EntityID) ~= Entities.PB_Residence3 then
+        return false;
+    end
+
+    local Level = -1;
+    if _Key == "sh_menuresidence/SetVeryLowSleep" then
+        Level = 0;
+    elseif _Key == "sh_menuresidence/SetLowSleep" then
+        Level = 1;
+    elseif _Key == "sh_menuresidence/SetNormalSleep" then
+        Level = 2;
+    elseif _Key == "sh_menuresidence/SetHighSleep" then
+        Level = 3;
+    elseif _Key == "sh_menuresidence/SetVeryHighSleep" then
+        Level = 4;
+    else
+        return false;
+    end
+
+    local StringText = XGUIEng.GetStringTableText(_Key);
+    local Effects = Stronghold.Economy.Config.Income.SleepTime[Level];
+    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
+    if Effects.Reputation then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
+        local Operator = (Effects.Reputation >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+    end
+    if Effects.Honor then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
+        local Operator = (Effects.Honor >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+    end
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+    return true;
+end
+
 GUIAction_SetSleeptime = function(_Level)
     local BuildingID = GUI.GetSelectedEntity();
     local GuiPlayer = GUI.GetPlayerID();
@@ -1055,7 +1145,88 @@ end
 GUIUpdate_SleeptimeButtons = function()
     local PlayerID = GUI.GetPlayerID();
     local Level = GetSleepTimeLevel(PlayerID);
+    XGUIEng.SetWidgetPosition("ResidenceSleepTime", 143, 5);
     XGUIEng.UnHighLightGroup("InGame", "sleeptimegroup");
+    local WidgetID = Stronghold.Building.Config.Civil.SleepButtons[Level];
+	XGUIEng.HighLightButton(WidgetID, 1);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Tavern
+
+function Stronghold.Building:OnTavernSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    XGUIEng.ShowWidget("TavernBeverage", 0);
+    if Type == Entities.PB_Tavern1
+    or Type == Entities.PB_Tavern2 then
+        XGUIEng.ShowWidget("TavernBeverage", 1);
+    end
+end
+
+function Stronghold.Building:PrintTavernBeverageButtonsTooltip(_PlayerID, _EntityID, _Key)
+    if  Logic.GetEntityType(_EntityID) ~= Entities.PB_Tavern1
+    and Logic.GetEntityType(_EntityID) ~= Entities.PB_Tavern2 then
+        return false;
+    end
+
+    local Level = -1;
+    if _Key == "sh_menutavern/SetVeryLowBeverage" then
+        Level = 0;
+    elseif _Key == "sh_menutavern/SetLowBeverage" then
+        Level = 1;
+    elseif _Key == "sh_menutavern/SetNormalBeverage" then
+        Level = 2;
+    elseif _Key == "sh_menutavern/SetHighBeverage" then
+        Level = 3;
+    elseif _Key == "sh_menutavern/SetVeryHighBeverage" then
+        Level = 4;
+    else
+        return false;
+    end
+
+    local StringText = XGUIEng.GetStringTableText(_Key);
+    local Effects = Stronghold.Economy.Config.Income.Beverage[Level];
+    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
+    if Effects.Reputation then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
+        local Operator = (Effects.Reputation >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        -- (The tavern mirrors reputation onto honor if technology
+        --  T_Instruments is researched.)
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_Instruments) == 1 then
+            Effects.Honor = Effects.Reputation;
+        end
+    end
+    if Effects.Honor then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
+        local Operator = (Effects.Honor >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+    end
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+    return true;
+end
+
+GUIAction_SetBeverage = function(_Level)
+    local BuildingID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(BuildingID);
+    if GuiPlayer == PlayerID then
+        Syncer.InvokeEvent(
+            Stronghold.Building.NetworkCall,
+            Stronghold.Building.SyncEvents.ChangeBeverage,
+            _Level
+        );
+    end
+end
+
+GUIUpdate_BeverageButtons = function()
+    local PlayerID = GUI.GetPlayerID();
+    local Level = GetBeverageLevel(PlayerID);
+    XGUIEng.SetWidgetPosition("TavernBeverage", 143, 5);
+    XGUIEng.UnHighLightGroup("InGame", "beveragegroup");
     local WidgetID = Stronghold.Building.Config.Civil.SleepButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
 end

@@ -272,7 +272,10 @@ function Stronghold.Economy:Install()
             ReputationDetails = {
                 TaxBonus = 0,
                 Housing = 0,
+                HousingCounter = 0,
                 Providing = 0,
+                ProvidingCounter = 0,
+                BeverageCounter = 0,
                 Buildings = 0,
                 OtherBonus = 0,
                 TaxPenalty = 0,
@@ -287,7 +290,10 @@ function Stronghold.Economy:Install()
             HonorDetails = {
                 TaxBonus = 0,
                 Housing = 0,
+                HousingCounter = 0,
                 Providing = 0,
+                ProvidingCounter = 0,
+                BeverageCounter = 0,
                 Buildings = 0,
                 Criminals = 0,
                 OtherBonus = 0,
@@ -340,6 +346,19 @@ function Stronghold.Economy:OnEntityCreated(_EntityID)
     if Logic.IsWorker(_EntityID) == 1 then
         self:SetSettlersMotivation(_EntityID);
     end
+end
+
+function Stronghold.Economy:OnUnknownTask(_EntityID)
+    local AdvanceType;
+    AdvanceType = self:OnUnknownTaskInFarm(_EntityID);
+    if AdvanceType ~= nil then
+        return AdvanceType;
+    end
+    AdvanceType = self:OnUnknownTaskInHouse(_EntityID);
+    if AdvanceType ~= nil then
+        return AdvanceType;
+    end
+    return TaskAdvancementType.Immediately;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -430,8 +449,9 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
 
         self.Data[_PlayerID].IncomeMoney = Income;
         self.Data[_PlayerID].UpkeepMoney = Upkeep;
-        self.Data[_PlayerID].IncomeReputation = math.floor((ReputationPlus - ReputationMinus)+ 0.5);
-        self.Data[_PlayerID].IncomeHonor = math.floor(HonorPlus + 0.5);
+        local IncomeReputation = ReputationPlus - ReputationMinus;
+        self.Data[_PlayerID].IncomeReputation = math.floor(IncomeReputation);
+        self.Data[_PlayerID].IncomeHonor = math.floor(HonorPlus);
     end
 end
 
@@ -452,36 +472,19 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             end
 
             -- Feeding settlers
-            local FarmBonus = 0;
-            local FarmList = Stronghold:GetFarmsOfType(_PlayerID, 0, true)
-            for i= FarmList[1] +1, 2, -1 do
-                local Type = Logic.GetEntityType(FarmList[i]);
-                local Eaters = Logic.GetAttachedEaterToBuilding(FarmList[i]);
-                local Technology = self:CalculateReputationIncomeTechnologyBonus(_PlayerID, Type);
-                local UpgradeBonus = 0;
-                if self.Config.Income.Dynamic[Type].Reputation then
-                    UpgradeBonus = self.Config.Income.Dynamic[Type].Reputation or 0;
-                end
-                FarmBonus = FarmBonus + ((UpgradeBonus + Technology) * Eaters);
+            local FarmBonus = self.Data[_PlayerID].ReputationDetails.ProvidingCounter;
+            local TavernBonus = self.Data[_PlayerID].ReputationDetails.BeverageCounter;
+            local Providing = (FarmBonus + TavernBonus) / math.max(WorkerCount, 1);
+            if Providing >= 0 then
+                self.Data[_PlayerID].ReputationDetails.Providing = Providing;
             end
-            local Providing = FarmBonus / math.max(WorkerCount, 1);
-            self.Data[_PlayerID].ReputationDetails.Providing = Providing;
 
             -- Housing settlers
-            local HouseBonus = 0;
-            local HouseList = Stronghold:GetHousesOfType(_PlayerID, 0, true);
-            for i= HouseList[1] +1, 2, -1 do
-                local Type = Logic.GetEntityType(HouseList[i]);
-                local Sleepers = Logic.GetAttachedResidentsToBuilding(HouseList[i]);
-                local Technology = self:CalculateReputationIncomeTechnologyBonus(_PlayerID, Type);
-                local UpgradeBonus = 0;
-                if self.Config.Income.Dynamic[Type].Reputation then
-                    UpgradeBonus = self.Config.Income.Dynamic[Type].Reputation or 0;
-                end
-                HouseBonus = HouseBonus + ((UpgradeBonus + Technology) * Sleepers);
-            end
+            local HouseBonus = self.Data[_PlayerID].ReputationDetails.HousingCounter;
             local Housing = HouseBonus / math.max(WorkerCount, 1);
-            self.Data[_PlayerID].ReputationDetails.Housing = Housing;
+            if Housing >= 0 then
+                self.Data[_PlayerID].ReputationDetails.Housing = Housing;
+            end
 
             -- Building bonuses
             local Beauty = 0;
@@ -494,7 +497,10 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
         else
             -- Reset all caches
             self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;
+            self.Data[_PlayerID].ReputationDetails.ProvidingCounter = 0;
+            self.Data[_PlayerID].ReputationDetails.BeverageCounter = 0;
             self.Data[_PlayerID].ReputationDetails.Providing = 0;
+            self.Data[_PlayerID].ReputationDetails.HousingCounter = 0;
             self.Data[_PlayerID].ReputationDetails.Housing = 0;
             self.Data[_PlayerID].ReputationDetails.Buildings = 0;
             self.Data[_PlayerID].ReputationDetails.OtherBonus = 0;
@@ -502,18 +508,30 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     end
 end
 
-function Stronghold.Economy:CalculateReputationIncomeTechnologyBonus(_PlayerID, _Type)
-    local Bonus = 0;
+function Stronghold.Economy:CalculateReputationIncomeFactor(_PlayerID, _Type)
+    local Factor = 1.0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         if self.Config.Income.Dynamic[_Type] then
             for Technology, Data in pairs(self.Config.Income.TechnologyEffect) do
                 if Logic.IsTechnologyResearched(_PlayerID, Technology) == 1 then
                     if Data[_Type] then
-                        Bonus = Bonus + (Data[_Type].Reputation or 0);
+                        Factor = Factor + (Data[_Type].Reputation or 0);
                     end
                 end
             end
-            Bonus = GameCallback_SH_Calculate_ServiceReputationIncrease(_PlayerID, _Type, Bonus);
+        end
+        if self.Config.Income.Dynamic[_Type].Reputation then
+            Factor = Factor + (self.Config.Income.Dynamic[_Type].Reputation or 0);
+        end
+    end
+    return Factor;
+end
+
+function Stronghold.Economy:CalculateReputationIncomeUpgradeBonus(_PlayerID, _EntityType)
+    local Bonus = 0;
+    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        if self.Config.Income.Dynamic[_EntityType].Reputation then
+            Bonus = self.Config.Income.Dynamic[_EntityType].Reputation or 0;
         end
     end
     return Bonus;
@@ -536,16 +554,29 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
 
             local Rank = GetRank(_PlayerID) +1;
             local MaxRank = Stronghold.Player.Config.Base.MaxRank +1;
+
             -- Penalty for no food
             local NoFarm = self:GetNumberOfWorkerWithoutFarm(_PlayerID);
             local HungerPenalty = (NoFarm / WorkerCount) * self.Config.Income.HungerFactor;
-            HungerPenalty = HungerPenalty * (Rank / MaxRank);
+            local FarmBonus = self.Data[_PlayerID].ReputationDetails.ProvidingCounter;
+            if FarmBonus < 0 then
+                HungerPenalty = HungerPenalty + ((-1) * FarmBonus)
+            end
+            local TavernBonus = self.Data[_PlayerID].ReputationDetails.BeverageCounter;
+            if TavernBonus < 0 then
+                HungerPenalty = HungerPenalty + ((-1) * TavernBonus)
+            end
+            HungerPenalty = (HungerPenalty / WorkerCount) * (Rank / MaxRank);
             HungerPenalty = GameCallback_SH_Calculate_HungerPenalty(_PlayerID, HungerPenalty);
             self.Data[_PlayerID].ReputationDetails.Hunger = math.min(HungerPenalty, 16);
             -- Penalty for no house
             local NoHouse = self:GetNumberOfWorkerWithoutHouse(_PlayerID);
             local SleepPenalty = (NoHouse / WorkerCount) * self.Config.Income.InsomniaFactor;
-            SleepPenalty = SleepPenalty * (Rank / MaxRank);
+            local HouseBonus = self.Data[_PlayerID].ReputationDetails.HousingCounter;
+            if HouseBonus < 0 then
+                SleepPenalty = SleepPenalty + ((-1) * HouseBonus);
+            end
+            SleepPenalty = (SleepPenalty / WorkerCount) * (Rank / MaxRank);
             SleepPenalty = GameCallback_SH_Calculate_SleepPenalty(_PlayerID, SleepPenalty);
             self.Data[_PlayerID].ReputationDetails.Homelessness = math.min(SleepPenalty, 16);
         else
@@ -640,36 +671,19 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 self.Data[_PlayerID].HonorDetails.TaxBonus = TaxBonus;
 
                 -- Feeding settlers
-                local FarmBonus = 0;
-                local FarmList = Stronghold:GetFarmsOfType(_PlayerID, 0, true)
-                for i= FarmList[1] +1, 2, -1 do
-                    local Type = Logic.GetEntityType(FarmList[i]);
-                    local Eaters = Logic.GetAttachedEaterToBuilding(FarmList[i]);
-                    local Technology = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, Type);
-                    local UpgradeBonus = 0;
-                    if self.Config.Income.Dynamic[Type].Honor then
-                        UpgradeBonus = self.Config.Income.Dynamic[Type].Honor or 0;
-                    end
-                    FarmBonus = FarmBonus + ((UpgradeBonus + Technology) * Eaters);
+                local FarmBonus = self.Data[_PlayerID].HonorDetails.ProvidingCounter;
+                local TavernBonus = self.Data[_PlayerID].HonorDetails.BeverageCounter;
+                local Providing = (FarmBonus + TavernBonus) / math.max(WorkerCount, 1);
+                if Providing >= 0 then
+                    self.Data[_PlayerID].HonorDetails.Providing = Providing;
                 end
-                local Providing = FarmBonus / math.max(WorkerCount, 1);
-                self.Data[_PlayerID].HonorDetails.Providing = Providing;
 
                 -- Housing settlers
-                local HouseBonus = 0;
-                local HouseList = Stronghold:GetHousesOfType(_PlayerID, 0, true);
-                for i= HouseList[1] +1, 2, -1 do
-                    local Type = Logic.GetEntityType(HouseList[i]);
-                    local Sleepers = Logic.GetAttachedResidentsToBuilding(HouseList[i]);
-                    local Technology = self:CalculateHonorIncomeTechnologyBonus(_PlayerID, Type);
-                    local UpgradeBonus = 0;
-                    if self.Config.Income.Dynamic[Type].Honor then
-                        UpgradeBonus = self.Config.Income.Dynamic[Type].Honor or 0;
-                    end
-                    HouseBonus = HouseBonus + ((UpgradeBonus + Technology) * Sleepers);
-                end
+                local HouseBonus = self.Data[_PlayerID].HonorDetails.HousingCounter;
                 local Housing = HouseBonus / math.max(WorkerCount, 1);
-                self.Data[_PlayerID].HonorDetails.Housing = Housing;
+                if Housing >= 0 then
+                    self.Data[_PlayerID].HonorDetails.Housing = Housing;
+                end
 
                 -- Buildings bonuses
                 local Beauty = 0;
@@ -688,7 +702,10 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
                 -- Reset all caches
                 self.Data[_PlayerID].HonorDetails.Buildings = 0;
                 self.Data[_PlayerID].HonorDetails.TaxBonus = 0;
+                self.Data[_PlayerID].HonorDetails.HousingCounter = 0;
                 self.Data[_PlayerID].HonorDetails.Housing = 0;
+                self.Data[_PlayerID].HonorDetails.ProvidingCounter = 0;
+                self.Data[_PlayerID].HonorDetails.BeverageCounter = 0;
                 self.Data[_PlayerID].HonorDetails.Providing = 0;
                 self.Data[_PlayerID].HonorDetails.Criminals = 0;
                 self.Data[_PlayerID].HonorDetails.OtherBonus = 0;
@@ -697,21 +714,23 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
     end
 end
 
-function Stronghold.Economy:CalculateHonorIncomeTechnologyBonus(_PlayerID, _Type)
-    local Bonus = 0;
+function Stronghold.Economy:CalculateHonorIncomeFactor(_PlayerID, _Type)
+    local Factor = 1.0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         if self.Config.Income.Dynamic[_Type] then
             for Technology, Data in pairs(self.Config.Income.TechnologyEffect) do
                 if Logic.IsTechnologyResearched(_PlayerID, Technology) == 1 then
                     if Data[_Type] then
-                        Bonus = Bonus + (Data[_Type].Honor or 0);
+                        Factor = Factor + (Data[_Type].Honor or 0);
                     end
                 end
             end
-            Bonus = GameCallback_SH_Calculate_ServiceHonorIncrease(_PlayerID, _Type, Bonus);
+        end
+        if self.Config.Income.Dynamic[_Type].Honor then
+            Factor = Factor + (self.Config.Income.Dynamic[_Type].Honor or 0);
         end
     end
-    return Bonus;
+    return Factor;
 end
 
 -- Calculate tax income
@@ -817,6 +836,154 @@ function Stronghold.Economy:GainInfluencePoints(_PlayerID)
         end
         InfluencePoints = GameCallback_SH_Calculate_InfluenceIncrease(_PlayerID, InfluencePoints);
         self:AddPlayerInfluencePoints(_PlayerID, InfluencePoints);
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Stamina
+
+function Stronghold.Economy:OnUnknownTaskInFarm(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        if  Logic.IsSettler(_EntityID) == 1
+        and Logic.IsSettlerAtFarm(_EntityID) == 1 then
+            local RationLevel = GetRationLevel(PlayerID);
+            local BuildingID = Logic.GetSettlersFarm(_EntityID);
+            local EntityType = Logic.GetEntityType(BuildingID);
+            if EntityType == Entities.PB_Farm1
+            or EntityType == Entities.PB_Farm2
+            or EntityType == Entities.PB_Farm3 then
+                local BonusFactor, RationEffect, EaterCounter;
+
+                -- Reputation
+                BonusFactor = self:CalculateReputationIncomeFactor(PlayerID, EntityType);
+                RationEffect = self.Config.Income.Rations[RationLevel].Reputation or 0;
+                EaterCounter = 0;
+                if RationEffect ~= 0 then
+                    EaterCounter = self.Data[PlayerID].ReputationDetails.ProvidingCounter;
+                    EaterCounter = EaterCounter + (RationEffect * BonusFactor);
+                    EaterCounter = GameCallback_SH_Calculate_ServiceReputationIncrease(PlayerID, EntityType, EaterCounter);
+                end
+                self.Data[PlayerID].ReputationDetails.ProvidingCounter = EaterCounter;
+
+                -- Honor
+                BonusFactor = self:CalculateHonorIncomeFactor(PlayerID, EntityType);
+                RationEffect = (self.Config.Income.Rations[RationLevel].Honor or 0);
+                EaterCounter = 0;
+                if RationEffect ~= 0 then
+                    EaterCounter = self.Data[PlayerID].HonorDetails.ProvidingCounter;
+                    EaterCounter = EaterCounter + (RationEffect * BonusFactor);
+                    EaterCounter = GameCallback_SH_Calculate_ServiceHonorIncrease(PlayerID, EntityType, EaterCounter);
+                end
+                self.Data[PlayerID].HonorDetails.ProvidingCounter = EaterCounter;
+
+                -- Stamina
+                local Factor = self.Config.Income.Rations[RationLevel].Stamina or 0;
+                local MaxStamina = CEntity.GetMaxStamina(_EntityID);
+                local Stamina = CEntity.GetCurrentStamina(_EntityID);
+                SetEntityStamina(_EntityID, Stamina + (MaxStamina * Factor));
+
+                return TaskAdvancementType.Immediately;
+            end
+        end
+    end
+end
+
+function Stronghold.Economy:OnUnknownTaskInTavern(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        if  Logic.IsSettler(_EntityID) == 1
+        and Logic.IsSettlerAtFarm(_EntityID) == 1 then
+            local BeverageLevel = GetBeverageLevel(PlayerID);
+            local BuildingID = Logic.GetSettlersFarm(_EntityID);
+            local EntityType = Logic.GetEntityType(BuildingID);
+            if EntityType == Entities.PB_Tavern1
+            or EntityType == Entities.PB_Tavern2 then
+                local BonusFactor, BeverageEffect, DrinkerCounter;
+
+                -- Reputation
+                BonusFactor = self:CalculateReputationIncomeFactor(PlayerID, EntityType);
+                BeverageEffect = self.Config.Income.Beverages[BeverageLevel].Reputation or 0;
+                DrinkerCounter = 0;
+                if BeverageEffect ~= 0 then
+                    DrinkerCounter = self.Data[PlayerID].ReputationDetails.BeverageCounter;
+                    DrinkerCounter = DrinkerCounter + (BeverageEffect * BonusFactor);
+                    DrinkerCounter = GameCallback_SH_Calculate_ServiceReputationIncrease(PlayerID, EntityType, DrinkerCounter);
+                end
+                self.Data[PlayerID].ReputationDetails.BeverageCounter = DrinkerCounter;
+
+                -- Honor
+                BonusFactor = self:CalculateHonorIncomeFactor(PlayerID, EntityType);
+                BeverageEffect = 0;
+                DrinkerCounter = 0;
+                -- (The tavern mirrors reputation onto honor if technology
+                --  T_Instruments is researched.)
+                if Logic.IsTechnologyResearched(PlayerID, Technologies.T_Instruments) == 1 then
+                    BeverageEffect = self.Config.Income.Beverages[BeverageLevel].Reputation or 0;
+                end
+                if BeverageEffect ~= 0 then
+                    DrinkerCounter = self.Data[PlayerID].HonorDetails.BeverageCounter;
+                    DrinkerCounter = DrinkerCounter + (BeverageEffect * BonusFactor);
+                    DrinkerCounter = GameCallback_SH_Calculate_ServiceHonorIncrease(PlayerID, EntityType, DrinkerCounter);
+                end
+                self.Data[PlayerID].HonorDetails.BeverageCounter = DrinkerCounter;
+
+                -- Stamina
+                local Factor = self.Config.Income.Beverages[BeverageLevel].Stamina or 0;
+                local MaxStamina = CEntity.GetMaxStamina(_EntityID);
+                local Stamina = CEntity.GetCurrentStamina(_EntityID);
+                SetEntityStamina(_EntityID, Stamina + (MaxStamina * Factor));
+
+                return TaskAdvancementType.Immediately;
+            end
+        end
+    end
+end
+
+function Stronghold.Economy:OnUnknownTaskInHouse(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if IsPlayer(PlayerID) then
+        if  Logic.IsSettler(_EntityID) == 1
+        and Logic.IsSettlerAtResidence(_EntityID) == 1 then
+            local SleepTimeLevel = GetSleepTimeLevel(PlayerID);
+            local BuildingID = Logic.GetSettlersResidence(_EntityID);
+            local EntityType = Logic.GetEntityType(BuildingID);
+            if EntityType == Entities.PB_Residence1
+            or EntityType == Entities.PB_Residence2
+            or EntityType == Entities.PB_Residence3 then
+                local BonusFactor, SleepEffect, SleepCounter;
+
+                -- Reputation
+                BonusFactor = self:CalculateReputationIncomeFactor(PlayerID, EntityType);
+                SleepEffect = self.Config.Income.SleepTime[SleepTimeLevel].Reputation or 0;
+                SleepCounter = 0;
+                if SleepEffect ~= 0 then
+                    SleepCounter = self.Data[PlayerID].ReputationDetails.HousingCounter;
+                    SleepCounter = SleepCounter + (SleepEffect * BonusFactor);
+                    SleepCounter = GameCallback_SH_Calculate_ServiceReputationIncrease(PlayerID, EntityType, SleepCounter);
+                end
+                self.Data[PlayerID].ReputationDetails.HousingCounter = SleepCounter;
+
+                -- Honor
+                BonusFactor = self:CalculateHonorIncomeFactor(PlayerID, EntityType);
+                SleepEffect = self.Config.Income.SleepTime[SleepTimeLevel].Honor or 0;
+                SleepCounter = 0;
+                if SleepEffect ~= 0 then
+                    SleepCounter = self.Data[PlayerID].HonorDetails.HousingCounter;
+                    SleepCounter = SleepCounter + (SleepEffect * BonusFactor);
+                    SleepCounter = GameCallback_SH_Calculate_ServiceHonorIncrease(PlayerID, EntityType, SleepCounter);
+                end
+                self.Data[PlayerID].HonorDetails.HousingCounter = SleepCounter;
+
+                -- Stamina
+                local Factor = self.Config.Income.SleepTime[SleepTimeLevel].Stamina or 0;
+                local MaxStamina = CEntity.GetMaxStamina(_EntityID);
+                local Stamina = CEntity.GetCurrentStamina(_EntityID);
+                SetEntityStamina(_EntityID, Stamina + (MaxStamina * Factor));
+
+                return TaskAdvancementType.Immediately;
+            end
+        end
     end
 end
 
@@ -1165,8 +1332,14 @@ end
 function Stronghold.Economy:OverrideTaxAndPayStatistics()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _Amount)
         local Amount = Overwrite.CallOriginal();
-        -- Remove the one time bonuses
         if IsPlayer(_PlayerID) then
+            Stronghold.Economy.Data[_PlayerID].HonorDetails.ProvidingCounter = 0;
+            Stronghold.Economy.Data[_PlayerID].HonorDetails.BeverageCounter = 0;
+            Stronghold.Economy.Data[_PlayerID].HonorDetails.HousingCounter = 0;
+            Stronghold.Economy.Data[_PlayerID].ReputationDetails.ProvidingCounter = 0;
+            Stronghold.Economy.Data[_PlayerID].ReputationDetails.BeverageCounter = 0;
+            Stronghold.Economy.Data[_PlayerID].ReputationDetails.HousingCounter = 0;
+
             Stronghold.Economy.Data[_PlayerID].IncomeReputationSingle = 0;
             Stronghold.Economy.Data[_PlayerID].IncomeHonorSingle = 0;
             Stronghold.Economy.Data[_PlayerID].TemporaryFarm = 0;
