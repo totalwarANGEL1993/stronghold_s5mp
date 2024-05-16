@@ -240,6 +240,20 @@ function SetSleepTimeLevel(_PlayerID, _Level)
     Stronghold.Player:SetSleepTimeLevel(_PlayerID, _Level);
 end
 
+--- Returns the beverage level of all workers.
+--- @param _PlayerID integer ID of player
+--- @return integer Sleep time level
+function GetBeverageLevel(_PlayerID)
+    return Stronghold.Player:GetBeverageLevel(_PlayerID);
+end
+
+--- Changes the beverage level of all workers.
+--- @param _PlayerID integer ID of player
+--- @param _Level integer Sleep time level
+function SetBeverageLevel(_PlayerID, _Level)
+    Stronghold.Player:SetBeverageLevel(_PlayerID, _Level);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Callbacks
 
@@ -353,6 +367,7 @@ function Stronghold.Player:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
 
         Rations = 2,
         SleepTime = 2,
+        Beverage = 2,
 
         InvulnerabilityInfoShown = false,
         VulnerabilityInfoShown = true,
@@ -803,6 +818,19 @@ end
 function Stronghold.Player:SetSleepTimeLevel(_PlayerID, _Level)
     if self:IsPlayer(_PlayerID) then
         self.Data[_PlayerID].Player.SleepTime = _Level;
+    end
+end
+
+function Stronghold.Player:GetBeverageLevel(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].Player.Beverage;
+    end
+    return 2;
+end
+
+function Stronghold.Player:SetBeverageLevel(_PlayerID, _Level)
+    if self:IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].Player.Beverage = _Level;
     end
 end
 
