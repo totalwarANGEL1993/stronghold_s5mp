@@ -803,11 +803,14 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnSelectSerf(EntityID);
         self.Building:OnHeadquarterSelected(EntityID);
         self.Building:OnMonasterySelected(EntityID);
+        -- self.Building:OnKeepSelected(EntityID);
+        -- self.Building:OnCathedralSelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
         self.Building:OnWorkplaceSelected(EntityID);
         self.Building:OnFarmSelected(EntityID);
         self.Building:OnResidenceSelected(EntityID);
+        self.Building:OnTavernSelected(EntityID);
         self.Trap:OnTrapSelected(EntityID);
         self.Wall:OnWallSelected(EntityID);
 
@@ -995,6 +998,12 @@ function Stronghold:OverrideWidgetTooltips()
         end
         if not TooltipSet then
             TooltipSet = Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(PlayerID, EntityID, _Key);
+        end
+        if not TooltipSet then
+            TooltipSet = Stronghold.Building:PrintKeepFestivalButtonsTooltip(PlayerID, EntityID, _Key);
+        end
+        if not TooltipSet then
+            TooltipSet = Stronghold.Building:PrintCathedralSermonButtonsTooltip(PlayerID, EntityID, _Key);
         end
         if not TooltipSet then
             TooltipSet = Stronghold.Rights:OnlineHelpTooltip(_Key);

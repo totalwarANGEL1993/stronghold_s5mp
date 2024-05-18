@@ -367,7 +367,7 @@ function Stronghold.Player:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
 
         Rations = 2,
         SleepTime = 2,
-        Beverage = 2,
+        Beverage = 0,
 
         InvulnerabilityInfoShown = false,
         VulnerabilityInfoShown = true,
