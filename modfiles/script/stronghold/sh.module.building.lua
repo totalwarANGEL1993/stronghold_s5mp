@@ -91,7 +91,9 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         ChangeWeather = 5,
         ChangeRations = 6,
         ChangeSleepTime = 7,
-        ChangeBeverage = 7,
+        ChangeBeverage = 8,
+        ChangeFestival = 9,
+        ChangeSermon = 10,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -1007,6 +1009,8 @@ function Stronghold.Building:OnFarmSelected(_EntityID)
     or Type == Entities.PB_Farm2
     or Type == Entities.PB_Farm3 then
         XGUIEng.ShowWidget("FarmRations", 1);
+        XGUIEng.ShowWidget("FarmRationsLevel0", 0);
+        XGUIEng.ShowWidget("FarmRationsLevel1", 0);
     end
 end
 
@@ -1018,15 +1022,15 @@ function Stronghold.Building:PrintFarmRationButtonsTooltip(_PlayerID, _EntityID,
     end
 
     local Level = -1;
-    if _Key == "sh_menufarm/SetVeryLowRations" then
+    if _Key == "sh_menufarm/FarmRationsLevel0" then
         Level = 0;
-    elseif _Key == "sh_menufarm/SetLowRations" then
+    elseif _Key == "sh_menufarm/FarmRationsLevel1" then
         Level = 1;
-    elseif _Key == "sh_menufarm/SetNormalRations" then
+    elseif _Key == "sh_menufarm/FarmRationsLevel2" then
         Level = 2;
-    elseif _Key == "sh_menufarm/SetHighRations" then
+    elseif _Key == "sh_menufarm/FarmRationsLevel3" then
         Level = 3;
-    elseif _Key == "sh_menufarm/SetVeryHighRations" then
+    elseif _Key == "sh_menufarm/FarmRationsLevel4" then
         Level = 4;
     else
         return false;
@@ -1068,7 +1072,7 @@ end
 GUIUpdate_RationsButtons = function()
     local PlayerID = GUI.GetPlayerID();
     local Level = GetRationLevel(PlayerID);
-    XGUIEng.SetWidgetPosition("FarmRations", 143, 5);
+    XGUIEng.SetWidgetPosition("FarmRations", 118, 5);
     XGUIEng.UnHighLightGroup("InGame", "rationsgroup");
     local WidgetID = Stronghold.Building.Config.Civil.RationButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
@@ -1084,6 +1088,8 @@ function Stronghold.Building:OnResidenceSelected(_EntityID)
     or Type == Entities.PB_Residence2
     or Type == Entities.PB_Residence3 then
         XGUIEng.ShowWidget("ResidenceSleepTime", 1);
+        XGUIEng.ShowWidget("ResidenceSleepLevel0", 0);
+        XGUIEng.ShowWidget("ResidenceSleepLevel1", 0);
     end
 end
 
@@ -1095,15 +1101,15 @@ function Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(_PlayerID, _E
     end
 
     local Level = -1;
-    if _Key == "sh_menuresidence/SetVeryLowSleep" then
+    if _Key == "sh_menuresidence/ResidenceSleepLevel0" then
         Level = 0;
-    elseif _Key == "sh_menuresidence/SetLowSleep" then
+    elseif _Key == "sh_menuresidence/ResidenceSleepLevel1" then
         Level = 1;
-    elseif _Key == "sh_menuresidence/SetNormalSleep" then
+    elseif _Key == "sh_menuresidence/ResidenceSleepLevel2" then
         Level = 2;
-    elseif _Key == "sh_menuresidence/SetHighSleep" then
+    elseif _Key == "sh_menuresidence/ResidenceSleepLevel3" then
         Level = 3;
-    elseif _Key == "sh_menuresidence/SetVeryHighSleep" then
+    elseif _Key == "sh_menuresidence/ResidenceSleepLevel4" then
         Level = 4;
     else
         return false;
@@ -1145,7 +1151,7 @@ end
 GUIUpdate_SleeptimeButtons = function()
     local PlayerID = GUI.GetPlayerID();
     local Level = GetSleepTimeLevel(PlayerID);
-    XGUIEng.SetWidgetPosition("ResidenceSleepTime", 143, 5);
+    XGUIEng.SetWidgetPosition("ResidenceSleepTime", 118, 5);
     XGUIEng.UnHighLightGroup("InGame", "sleeptimegroup");
     local WidgetID = Stronghold.Building.Config.Civil.SleepButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
@@ -1170,15 +1176,15 @@ function Stronghold.Building:PrintTavernBeverageButtonsTooltip(_PlayerID, _Entit
     end
 
     local Level = -1;
-    if _Key == "sh_menutavern/SetVeryLowBeverage" then
+    if _Key == "sh_menutavern/TavernBeverageLevel0" then
         Level = 0;
-    elseif _Key == "sh_menutavern/SetLowBeverage" then
+    elseif _Key == "sh_menutavern/TavernBeverageLevel1" then
         Level = 1;
-    elseif _Key == "sh_menutavern/SetNormalBeverage" then
+    elseif _Key == "sh_menutavern/TavernBeverageLevel2" then
         Level = 2;
-    elseif _Key == "sh_menutavern/SetHighBeverage" then
+    elseif _Key == "sh_menutavern/TavernBeverageLevel3" then
         Level = 3;
-    elseif _Key == "sh_menutavern/SetVeryHighBeverage" then
+    elseif _Key == "sh_menutavern/TavernBeverageLevel4" then
         Level = 4;
     else
         return false;
@@ -1227,7 +1233,143 @@ GUIUpdate_BeverageButtons = function()
     local Level = GetBeverageLevel(PlayerID);
     XGUIEng.SetWidgetPosition("TavernBeverage", 143, 5);
     XGUIEng.UnHighLightGroup("InGame", "beveragegroup");
-    local WidgetID = Stronghold.Building.Config.Civil.SleepButtons[Level];
+    local WidgetID = Stronghold.Building.Config.Civil.BeverageButtons[Level];
+	XGUIEng.HighLightButton(WidgetID, 1);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Keep Festival
+
+function Stronghold.Building:OnKeepSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    XGUIEng.ShowWidget("KeepFestivals", 0);
+    if Type == Entities.PB_Headquarters1
+    or Type == Entities.PB_Headquarters2
+    or Type == Entities.PB_Headquarters3 then
+        XGUIEng.ShowWidget("KeepFestivals", 1);
+    end
+end
+
+function Stronghold.Building:PrintKeepFestivalButtonsTooltip(_PlayerID, _EntityID, _Key)
+    local Type = Logic.GetEntityType(_EntityID);
+    if  Type ~= Entities.PB_Headquarters1
+    and Type ~= Entities.PB_Headquarters2
+    and Type ~= Entities.PB_Headquarters3 then
+        return false;
+    end
+
+    local Level = -1;
+    if _Key == "sh_menuheadquarter/SetFestivalLevel0" then
+        Level = 0;
+    elseif _Key == "sh_menuheadquarter/SetFestivalLevel1" then
+        Level = 1;
+    elseif _Key == "sh_menuheadquarter/SetFestivalLevel2" then
+        Level = 2;
+    elseif _Key == "sh_menuheadquarter/SetFestivalLevel3" then
+        Level = 3;
+    elseif _Key == "sh_menuheadquarter/SetFestivalLevel4" then
+        Level = 4;
+    elseif _Key == "sh_menuheadquarter/SetFestivalLevel5" then
+        Level = 5;
+    elseif _Key == "sh_menuheadquarter/SetFestivalLevel6" then
+        Level = 6;
+    else
+        return false;
+    end
+
+    local StringText = XGUIEng.GetStringTableText(_Key);
+    local Effects = Stronghold.Economy.Config.Income.Festival[Level];
+    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
+    -- ...
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+    return true;
+end
+
+GUIAction_KeepFestival = function(_Level)
+    local BuildingID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(BuildingID);
+    if GuiPlayer == PlayerID then
+        -- ...
+    end
+end
+
+GUIUpdate_KeepFestivalButtons = function()
+    local PlayerID = GUI.GetPlayerID();
+    local Level = GetBeverageLevel(PlayerID);
+    XGUIEng.UnHighLightGroup("InGame", "festivalgroup");
+    local WidgetID = Stronghold.Building.Config.Civil.FestivalButtons[Level];
+	XGUIEng.HighLightButton(WidgetID, 1);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Church Sermon
+
+function Stronghold.Building:OnCathedralSelected(_EntityID)
+    local Type = Logic.GetEntityType(_EntityID);
+    XGUIEng.ShowWidget("CathedralService", 0);
+    if Type == Entities.PB_Monastery1
+    or Type == Entities.PB_Monastery2
+    or Type == Entities.PB_Monastery3 then
+        XGUIEng.ShowWidget("CathedralService", 1);
+    end
+end
+
+function Stronghold.Building:PrintCathedralSermonButtonsTooltip(_PlayerID, _EntityID, _Key)
+    local Type = Logic.GetEntityType(_EntityID);
+    if  Type ~= Entities.PB_Monastery1
+    and Type ~= Entities.PB_Monastery2
+    and Type ~= Entities.PB_Monastery3 then
+        return false;
+    end
+
+    local Level = -1;
+    if _Key == "sh_menumonastery/SetServiceLevel0" then
+        Level = 0;
+    elseif _Key == "sh_menumonastery/SetServiceLevel1" then
+        Level = 1;
+    elseif _Key == "sh_menumonastery/SetServiceLevel2" then
+        Level = 2;
+    elseif _Key == "sh_menumonastery/SetServiceLevel3" then
+        Level = 3;
+    elseif _Key == "sh_menumonastery/SetServiceLevel4" then
+        Level = 4;
+    elseif _Key == "sh_menumonastery/SetServiceLevel5" then
+        Level = 5;
+    elseif _Key == "sh_menumonastery/SetServiceLevel6" then
+        Level = 6;
+    else
+        return false;
+    end
+
+    local StringText = XGUIEng.GetStringTableText(_Key);
+    local Effects = Stronghold.Economy.Config.Income.Sermon[Level];
+    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
+    -- ...
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+    return true;
+end
+
+GUIAction_SetChurchService = function(_Level)
+    local BuildingID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(BuildingID);
+    if GuiPlayer == PlayerID then
+        -- ...
+    end
+end
+
+GUIUpdate_ChurchServiceButtons = function()
+    local PlayerID = GUI.GetPlayerID();
+    local Level = GetBeverageLevel(PlayerID);
+    XGUIEng.UnHighLightGroup("InGame", "sermongroup");
+    local WidgetID = Stronghold.Building.Config.Civil.SermonButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
 end
 

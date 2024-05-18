@@ -87,18 +87,41 @@ Stronghold.Building.Config.Monastery = {
 
 Stronghold.Building.Config.Civil = {
     RationButtons = {
-        [0] = "SetVeryLowRations",
-        [1] = "SetLowRations",
-        [2] = "SetNormalRations",
-        [3] = "SetHighRations",
-        [4] = "SetVeryHighRations",
+        [2] = "FarmRationsLevel2",
+        [3] = "FarmRationsLevel3",
+        [4] = "FarmRationsLevel4",
+        -- deprecated
+        [0] = "FarmRationsLevel0",
+        [1] = "FarmRationsLevel1",
     },
     SleepButtons = {
-        [0] = "SetVeryLowSleep",
-        [1] = "SetLowSleep",
-        [2] = "SetNormalSleep",
-        [3] = "SetHighSleep",
-        [4] = "SetVeryHighSleep",
+        [2] = "ResidenceSleepLevel2",
+        [3] = "ResidenceSleepLevel3",
+        [4] = "ResidenceSleepLevel4",
+        -- deprecated
+        [0] = "ResidenceSleepLevel0",
+        [1] = "ResidenceSleepLevel1",
+    },
+    BeverageButtons = {
+        [0] = "TavernBeverageLevel0",
+        [1] = "TavernBeverageLevel1",
+        [2] = "TavernBeverageLevel2",
+        [3] = "TavernBeverageLevel3",
+        [4] = "TavernBeverageLevel4",
+    },
+    FestivalButtons = {
+        [0] = "KeepFestivalLevel0",
+        [1] = "KeepFestivalLevel1",
+        [2] = "KeepFestivalLevel2",
+        [3] = "KeepFestivalLevel3",
+        [4] = "KeepFestivalLevel4",
+    },
+    SermonButtons = {
+        [0] = "CathedralServiceLevel0",
+        [1] = "CathedralServiceLevel1",
+        [2] = "CathedralServiceLevel2",
+        [3] = "CathedralServiceLevel3",
+        [4] = "CathedralServiceLevel4",
     },
 }
 
