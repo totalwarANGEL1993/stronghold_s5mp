@@ -604,7 +604,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry, UpgradeCategories.BanditLeaderCavalry1);
     end
     -- Add Barbarians
-    if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Templars) then
+    if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Barbarians) then
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Melee, UpgradeCategories.BarbarianLeader2);
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Melee, UpgradeCategories.BarbarianLeader1);
     end
