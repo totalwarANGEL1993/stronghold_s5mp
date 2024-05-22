@@ -474,7 +474,7 @@ function Stronghold.Mercenary:InitMercenaryRoster(_PlayerID)
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderBow1);
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderCavalry1);
         end
-        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Templars) then
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Barbarians) then
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader2);
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BarbarianLeader1);
         end
