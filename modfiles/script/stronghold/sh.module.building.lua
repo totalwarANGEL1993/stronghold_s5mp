@@ -60,7 +60,7 @@ function Stronghold.Building:Install()
     end
 
     self:CreateBuildingButtonHandlers();
-    self:OverrideHeadquarterButtons();
+    self:OverrideKeepButtons();
     self:OverrideManualButtonUpdate();
     self:OverrideSellBuildingAction();
     self:OverrideShiftRightClick();
@@ -99,13 +99,7 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Building.SyncEvents.ChangeTax then
-                Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, arg[1]);
-            end
-            if _Action == Stronghold.Building.SyncEvents.BlessSettlers then
-                Stronghold.Building:MonasteryBlessSettlers(_PlayerID, arg[1]);
-            end
-            if _Action == Stronghold.Building.SyncEvents.MeasureTaken then
-                Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, arg[1]);
+                Stronghold.Building:KeepButtonChangeTax(_PlayerID, arg[1]);
             end
             if _Action == Stronghold.Building.SyncEvents.RallyPoint then
                 Stronghold.Building:PlaceRallyPoint(_PlayerID, arg[1], arg[2], arg[3], arg[4]);
@@ -213,13 +207,7 @@ function Stronghold.Building:InitalizeSerfBuildingTabs()
 end
 
 -- -------------------------------------------------------------------------- --
--- Headquarters
-
-function Stronghold.Building:HeadquartersButtonChangeTax(_PlayerID, _Level)
-    if IsPlayer(_PlayerID) then
-        SetTaxHeight(_PlayerID, math.min(math.max(_Level +1, 1), 5));
-    end
-end
+-- Building Technology
 
 function Stronghold.Building:CheckBuildingTechnologyConditions(_PlayerID)
     local WorkplaceList = GetWorkplacesOfType(_PlayerID, 0, true);
@@ -250,707 +238,6 @@ function Stronghold.Building:CheckBuildingTechnologyConditions(_PlayerID)
             Logic.SetTechnologyState(_PlayerID, Technologies.UP2_Headquarter, 2);
         end
     end
-end
-
--- Regular Headquarters
-
-function Stronghold.Building:OverrideHeadquarterButtons()
-    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
-
-    Overwrite.CreateOverwrite("GUIAction_SetTaxes", function(_Level)
-        Stronghold.Building:AdjustTax(_Level);
-    end);
-
-    Overwrite.CreateOverwrite("GUIUpdate_TaxesButtons", function()
-        local PlayerID = GetLocalPlayerID();
-        if PlayerID == 17 then
-            return;
-        end
-        local TaxLevel = GetTaxHeight(PlayerID) -1;
-        XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
-        XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
-    end);
-
-    GUIAction_CallMilitia = function()
-        XGUIEng.ShowWidget("BuyHeroWindow", 1);
-    end
-
-    GUIAction_BackToWork = function()
-        Stronghold.Hero.Perk:PerkWindowOnShow();
-    end
-end
-
-function Stronghold.Building:GetLastSelectedHeadquarterTab(_PlayerID)
-    if IsPlayer(_PlayerID) then
-        return gvStronghold_LastSelectedHQMenu or gvGUI_WidgetID.ToBuildingCommandMenu;
-    end
-    return 0;
-end
-
-function Stronghold.Building:AdjustTax(_Level)
-    local PlayerID = GetLocalPlayerID();
-    if not IsPlayer(PlayerID) or GUI.GetPlayerID() == 17 then
-        return false;
-    end
-    Syncer.InvokeEvent(
-        Stronghold.Building.NetworkCall,
-        Stronghold.Building.SyncEvents.ChangeTax,
-        _Level
-    );
-    return true;
-end
-
-function Stronghold.Building:OnHeadquarterSelected(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsPlayer(PlayerID) then
-        return;
-    end
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
-        if Logic.IsConstructionComplete(_EntityID) == 1 then
-            local Type = Logic.GetEntityType(_EntityID);
-            local TypeName = Logic.GetEntityTypeName(Type);
-            local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil);
-            XGUIEng.ShowWidget("BuildingTabs", (IsOutpost and 0) or 1);
-            XGUIEng.ShowWidget("RallyPoint", 1);
-            XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
-            GUIUpdate_BuySerf();
-            GUIUpdate_PlaceRallyPoint();
-            local WidgetID = gvStronghold_LastSelectedHQMenu;
-            self:HeadquartersChangeBuildingTabsGuiAction(PlayerID, _EntityID, WidgetID);
-            -- Upgrade buttons
-            XGUIEng.ShowWidget("Upgrade_Headquarter1", 0);
-            XGUIEng.ShowWidget("Upgrade_Headquarter2", 0);
-            XGUIEng.ShowWidget("Upgrade_Outpost1", 0);
-            XGUIEng.ShowWidget("Upgrade_Outpost2", 0);
-            if Logic.IsConstructionComplete(_EntityID) == 1 then
-                if Type == Entities.PB_Headquarters1 then
-                    XGUIEng.ShowWidget("Upgrade_Headquarter1", 1);
-                elseif Type == Entities.PB_Headquarters2 then
-                    XGUIEng.ShowWidget("Upgrade_Headquarter2", 1);
-                elseif Type == Entities.PB_Outpost1 then
-                    XGUIEng.ShowWidget("Upgrade_Outpost1", 1);
-                elseif Type == Entities.PB_Outpost2 then
-                    XGUIEng.ShowWidget("Upgrade_Outpost2", 1);
-                end
-            end
-            GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
-            GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP2_Outpost);
-                -- Tracking
-            if IsOutpost then
-                GUIUpdate_GlobalTechnologiesButtons("Research_Tracking", Technologies.T_Tracking, Entities.PB_Outpost1);
-            end
-        else
-            XGUIEng.ShowWidget("Headquarter", 0);
-            XGUIEng.ShowWidget("Monastery", 0);
-        end
-    else
-        gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
-    end
-end
-
-function Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(_PlayerID, _EntityID, _Key)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
-        return false;
-    end
-    if GetLocalPlayerID() ~= _PlayerID then
-        return false;
-    end
-
-    -- Map index
-    local Index = -1;
-    if _Key == "sh_menuheadquarter/SetVeryLowTaxes" then
-        Index = 1;
-    elseif _Key == "sh_menuheadquarter/SetLowTaxes" then
-        Index = 2;
-    elseif _Key == "sh_menuheadquarter/SetNormalTaxes" then
-        Index = 3;
-    elseif _Key == "sh_menuheadquarter/SetHighTaxes" then
-        Index = 4;
-    elseif _Key == "sh_menuheadquarter/SetVeryHighTaxes" then
-        Index = 5;
-    elseif _Key == "sh_menuheadquarter/CallMilitia" then
-        Index = 0;
-    elseif _Key == "sh_menuheadquarter/BackToWork" then
-        Index = 6;
-    else
-        return false;
-    end
-
-    -- Set Text
-    local Text = XGUIEng.GetStringTableText(_Key);
-    if Index == 0 then
-        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_hero");
-    elseif Index == 6 then
-        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/buy_perk");
-    elseif Index > 0 then
-        local Effects = Stronghold.Economy.Config.Income.TaxEffect[Index];
-        local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-        if Effects.Reputation ~= 0 then
-            local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
-            local ReputationEffect = Effects.Reputation;
-            local Operator = "+";
-            if Effects.Reputation < 0 then
-                Operator = "";
-                ReputationEffect = (-1) * GetPlayerTaxPenalty(_PlayerID, Index);
-            end
-            EffectText = EffectText.. Operator ..ReputationEffect.. " " ..Unit.. " ";
-        end
-        if Effects.Honor ~= 0 then
-            local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
-            local Operator = (Effects.Honor >= 0 and "+") or "";
-            EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit;
-        end
-        Text = string.format(Text, EffectText);
-    end
-
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
-    return true;
-end
-
-function Stronghold.Building:HeadquartersShowNormalControls(_PlayerID, _EntityID, _WidgetID)
-    XGUIEng.HighLightButton("ToBuildingCommandMenu", 0);
-    XGUIEng.HighLightButton("ToBuildingSettlersMenu", 1);
-    XGUIEng.ShowWidget("Headquarter", 1);
-    XGUIEng.ShowWidget("Monastery", 0);
-    XGUIEng.ShowWidget("WorkerInBuilding", 0);
-
-    XGUIEng.ShowWidget("HQTaxes", 1);
-    XGUIEng.ShowAllSubWidgets("HQTaxes", 1);
-    XGUIEng.SetWidgetPosition("TaxesAndPayStatistics", 105, 35);
-    XGUIEng.SetWidgetPosition("HQTaxes", 143, 5);
-
-    XGUIEng.ShowWidget("Buy_Hero", 0);
-    XGUIEng.ShowWidget("HQ_Militia", 1);
-    XGUIEng.SetWidgetPosition("HQ_Militia", 35, 0);
-    XGUIEng.TransferMaterials("Buy_Hero", "HQ_CallMilitia");
-    XGUIEng.TransferMaterials("Buy_Hero", "HQ_BackToWork");
-
-    -- TODO: Proper disable in singleplayer!
-    -- local ShowBuyHero = XNetwork.Manager_DoesExist() == 1
-    XGUIEng.ShowWidget("HQ_CallMilitia", (GetNobleID(_PlayerID) == 0 and 1) or 0);
-    XGUIEng.ShowWidget("HQ_BackToWork", (GetNobleID(_PlayerID) ~= 0 and 1) or 0);
-    XGUIEng.ShowWidget("RallyPoint", 1);
-
-    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
-    GUIUpdate_PlaceRallyPoint();
-end
-
--- Mesures (Blessings)
-
-function Stronghold.Building:HeadquartersBlessSettlers(_PlayerID, _BlessCategory)
-    local GuiPlayer = GUI.GetPlayerID();
-    local InfluencePoints = Stronghold.Economy:GetPlayerInfluencePoints(_PlayerID);
-    -- Prevent click spamming
-    if InfluencePoints == 0 then
-        return;
-    end
-
-    -- Remove all influence points
-    Stronghold.Economy:AddPlayerInfluencePoints(_PlayerID, (-1) * InfluencePoints);
-    -- Update recharge factor
-    local CurrentRank = math.max(GetRank(_PlayerID), 1);
-    -- Show message
-    if GuiPlayer == _PlayerID then
-        local Language = GetLanguage();
-        local TextKey = self.Config.Headquarters[_BlessCategory].Text;
-        Message(XGUIEng.GetStringTableText(TextKey.. "_message"));
-    end
-
-    -- Execute effects
-    local Effects = Stronghold.Building.Config.Headquarters[_BlessCategory];
-    local Reputation = Effects.Reputation;
-    if Reputation > 0 then
-        local Factor = 1.0;
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
-            Factor = Factor + self.Config.Headquarters.DraconicPunishmentReputationBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-            Factor = Factor + self.Config.Headquarters.DecorativeSkullReputationBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            Factor = Factor + self.Config.Headquarters.TjostingArmorHonorBonus;
-        end
-        Reputation = Reputation * Factor;
-    end
-    local Honor = Effects.Honor;
-    if Honor > 0 then
-        local Factor = 1.0;
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
-            Factor = Factor + self.Config.Headquarters.DraconicPunishmentHonorBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-            Factor = Factor + self.Config.Headquarters.DecorativeSkullHonorBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
-            Factor = Factor + self.Config.Headquarters.TjostingArmorHonorBonus;
-        end
-        Honor = Honor * Factor;
-    end
-    Stronghold.Economy:AddOneTimeReputation(_PlayerID, Reputation);
-    Stronghold.Economy:AddOneTimeHonor(_PlayerID, Honor);
-
-    if _BlessCategory == BlessCategories.Construction then
-        local MsgText = XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers1_message_2");
-        local RandomTax, AmountPerSettler = 0, 5;
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
-            AmountPerSettler = AmountPerSettler + 1;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-            AmountPerSettler = AmountPerSettler + 1;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            AmountPerSettler = AmountPerSettler + 1;
-        end
-        RandomTax = AmountPerSettler * Logic.GetNumberOfAttractedWorker(_PlayerID);
-        if GuiPlayer == _PlayerID then
-            Message(string.format(MsgText, RandomTax));
-            Sound.PlayGUISound(Sounds.LevyTaxes, 100);
-        end
-        AddGold(_PlayerID, RandomTax);
-
-    elseif _BlessCategory == BlessCategories.Weapons then
-        -- Change stamina of workers
-        local StanimaBonus = 0.5;
-        local Workplaces = GetWorkplacesOfType(_PlayerID, 0, true);
-        for i= 2, Workplaces[1] +1 do
-            local Workers = {Logic.GetAttachedWorkersToBuilding(Workplaces[i])};
-            if Workers[1] > 0 and Logic.IsConstructionComplete(Workplaces[i]) == 1 then
-                for j= 2, Workers[1] +1 do
-                    local Stamina = CEntity.GetCurrentStamina(Workers[j]);
-                    local MaxStamina = CEntity.GetMaxStamina(Workers[j]);
-                    SetEntityStamina(Workers[j], math.min(Stamina + (MaxStamina * StanimaBonus), MaxStamina));
-                end
-            end
-        end
-        -- create fireworks
-        local CastleID = GetHeadquarterID(_PlayerID);
-        local x,y,z = Logic.EntityGetPos(CastleID);
-        Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
-
-    elseif _BlessCategory == BlessCategories.Financial then
-        -- Reduce hungry citizen amount
-        local NoFood = Stronghold.Economy:GetNumberOfWorkerWithoutFarm(_PlayerID);
-        local NoFoodFactor = self.Config.Headquarters.AlmsFarmFactor;
-        Stronghold.Economy:AddTemporaryEatingPlace(_PlayerID, math.floor(NoFood * NoFoodFactor));
-        -- Reduce sleepy citizen amount
-        local NoBeds = Stronghold.Economy:GetNumberOfWorkerWithoutHouse(_PlayerID);
-        local NoHouseFactor = self.Config.Headquarters.AlmsHouseFactor;
-        Stronghold.Economy:AddTemporarySleepingPlace(_PlayerID, math.floor(NoBeds * NoHouseFactor));
-    end
-end
-
-function Stronghold.Building:HeadquartersBlessSettlersGuiAction(_PlayerID, _EntityID, _BlessCategory)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
-        return false;
-    end
-    if Stronghold.Economy:GetPlayerInfluencePoints(_PlayerID) < GetPlayerMaxInfluencePoints(_PlayerID) then
-        Sound.PlayQueuedFeedbackSound(Sounds.VoicesMentor_COMMENT_BadPlay_rnd_01, 100);
-        Message(XGUIEng.GetStringTableText("sh_menuheadquarter/blesssettlers_error"));
-        return true;
-    end
-    -- Dirty Fix: Prevent player from wasting influence
-    if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
-        return true;
-    end
-
-    Syncer.InvokeEvent(
-        Stronghold.Building.NetworkCall,
-        Stronghold.Building.SyncEvents.MeasureTaken,
-        _BlessCategory
-    );
-    return true;
-end
-
-function Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(_PlayerID, _EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
-        return false;
-    end
-
-    -- Map technology and bless category
-    local BlessCategory = -1;
-    local Right = -1;
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers1_normal" then
-        BlessCategory = BlessCategories.Construction;
-        Right = PlayerRight.MeasureLevyTax;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
-        BlessCategory = BlessCategories.Research;
-        Right = PlayerRight.MeasureLawAndOrder;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
-        BlessCategory = BlessCategories.Weapons;
-        Right = PlayerRight.MeasureFoodDistribution;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
-        BlessCategory = BlessCategories.Financial;
-        Right = PlayerRight.MeasureFolkloreFeast;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
-        BlessCategory = BlessCategories.Canonisation;
-        Right = PlayerRight.MeasureOrgy;
-    else
-        return false;
-    end
-
-    local Text = "";
-    if not IsRightUnlockable(_PlayerID, Right) or IsRightLockedForPlayer(_PlayerID, Right) then
-        Text = XGUIEng.GetStringTableText("MenuGeneric/TechnologyNotAvailable");
-    else
-        local EffectText = "";
-        local Effects = Stronghold.Building.Config.Headquarters[BlessCategory];
-        if Effects.Reputation ~= 0 then
-            local Name = XGUIEng.GetStringTableText("sh_text/Reputation");
-            local Operator = (Effects.Reputation >= 0 and "+") or "";
-            local Reputation = Effects.Reputation;
-            local Factor = 1.0;
-            if Reputation > 0 then
-                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
-                    Factor = Factor + self.Config.Headquarters.DraconicPunishmentReputationBonus;
-                end
-                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-                    Factor = Factor + self.Config.Headquarters.DecorativeSkullReputationBonus;
-                end
-                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
-                    Factor = Factor + self.Config.Headquarters.TjostingArmorReputationBonus;
-                end
-            end
-            EffectText = EffectText .. Operator .. math.floor((Reputation * Factor) + 0.5).. " " ..Name.. " ";
-        end
-        if Effects.Honor ~= 0 then
-            local Name = XGUIEng.GetStringTableText("sh_text/Silver");
-            local Operator = (Effects.Honor >= 0 and "+") or "";
-            local Honor = Effects.Honor;
-            local Factor = 1.0;
-            if Honor > 0 then
-                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1 then
-                    Factor = Factor + self.Config.Headquarters.DraconicPunishmentHonorBonus;
-                end
-                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1 then
-                    Factor = Factor + self.Config.Headquarters.DecorativeSkullHonorBonus;
-                end
-                if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_TjostingArmor) == 1 then
-                    Factor = Factor + self.Config.Headquarters.TjostingArmorHonorBonus;
-                end
-            end
-            EffectText = EffectText .. Operator .. math.floor((Honor * Factor) + 0.5).. " " ..Name;
-        end
-
-        local MainKey = self.Config.Headquarters[BlessCategory].Text;
-        local TextKey = MainKey.. "_normal";
-        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-            TextKey = MainKey.. "_disabled";
-        end
-        Text = string.format(XGUIEng.GetStringTableText(TextKey), EffectText);
-    end
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
-    return true;
-end
-
-function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, _Button)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
-        return false;
-    end
-    local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
-    local ButtonDisabled = 0;
-    if _Button == "BlessSettlers1" then
-        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLevyTax)
-        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureLevyTax) then
-            ButtonDisabled = 1;
-        end
-    elseif _Button == "BlessSettlers2" then
-        if Level < 0 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureLawAndOrder)
-        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureLawAndOrder) then
-            ButtonDisabled = 1;
-        end
-    elseif _Button == "BlessSettlers3" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFolkloreFeast)
-        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureFolkloreFeast) then
-            ButtonDisabled = 1;
-        end
-    elseif _Button == "BlessSettlers4" then
-        if Level < 1 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureFoodDistribution)
-        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureFoodDistribution) then
-            ButtonDisabled = 1;
-        end
-    elseif _Button == "BlessSettlers5" then
-        if Level < 2 or not IsRightUnlockable(_PlayerID, PlayerRight.MeasureOrgy)
-        or IsRightLockedForPlayer(_PlayerID, PlayerRight.MeasureOrgy) then
-            ButtonDisabled = 1;
-        end
-    elseif _Button == "Research_DraconicPunishment" then
-        local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_DraconicPunishment);
-        if Level < 0 or TechState == 0 then
-            ButtonDisabled = 1;
-        end
-    elseif _Button == "Research_DecorativeSkull" then
-        local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_DecorativeSkull);
-        local Required = Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DraconicPunishment) == 1;
-        if Level < 1 or TechState == 0 or not Required then
-            ButtonDisabled = 1;
-        end
-    elseif _Button == "Research_TjostingArmor" then
-        local TechState = Logic.GetTechnologyState(_PlayerID, Technologies.T_TjostingArmor);
-        local Required = Logic.IsTechnologyResearched(_PlayerID, Technologies.T_DecorativeSkull) == 1;
-        if Level < 2 or TechState == 0 or not Required then
-            ButtonDisabled = 1;
-        end
-    end
-    XGUIEng.DisableButton(_Button, ButtonDisabled);
-    return true;
-end
-
-function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _EntityID, _WidgetID)
-    XGUIEng.HighLightButton("ToBuildingCommandMenu", 1);
-    XGUIEng.HighLightButton("ToBuildingSettlersMenu", 0);
-    XGUIEng.ShowWidget("Headquarter", 0);
-    XGUIEng.ShowWidget("RallyPoint", 0);
-    XGUIEng.ShowWidget("Monastery", 1);
-    XGUIEng.ShowWidget("WorkerInBuilding", 0);
-    XGUIEng.ShowWidget("Upgrade_Monastery1", 0);
-    XGUIEng.ShowWidget("Upgrade_Monastery2", 0);
-    XGUIEng.ShowWidget("Research_SundayAssembly", 0);
-    XGUIEng.ShowWidget("Research_HolyRelics", 0);
-    XGUIEng.ShowWidget("Research_PopalBlessing", 0);
-    XGUIEng.ShowWidget("Research_DraconicPunishment", 1);
-    XGUIEng.ShowWidget("Research_DecorativeSkull", 1);
-    XGUIEng.ShowWidget("Research_TjostingArmor", 1);
-
-    XGUIEng.TransferMaterials("Levy_Duties", "BlessSettlers1");
-    XGUIEng.TransferMaterials("Research_Laws", "BlessSettlers2");
-    XGUIEng.TransferMaterials("Statistics_SubSettlers_Motivation", "BlessSettlers3");
-    XGUIEng.TransferMaterials("Alms_Source", "BlessSettlers4");
-    XGUIEng.TransferMaterials("Build_Tavern", "BlessSettlers5");
-
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers1");
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers2");
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers3");
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers4");
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "BlessSettlers5");
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_DraconicPunishment");
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_DecorativeSkull");
-    self:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _EntityID, "Research_TjostingArmor");
-
-    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingSettlersMenu;
-    GUIUpdate_PlaceRallyPoint();
-end
-
--- Sub menu
-
-function Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(_PlayerID, _EntityID, _WidgetID)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
-        return false;
-    end
-
-    local WidgetID = _WidgetID;
-    if not WidgetID then
-        WidgetID = gvStronghold_LastSelectedHQMenu;
-    end
-    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID));
-    if TypeName and string.find(TypeName, "PB_Outpost") then
-        WidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
-    end
-
-    if WidgetID == gvGUI_WidgetID.ToBuildingCommandMenu then
-        self:HeadquartersShowNormalControls(_PlayerID, _EntityID, _WidgetID);
-    elseif WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu then
-        gvStronghold_LastSelectedHQMenu = WidgetID;
-        self:OnKeepSelected(_EntityID);
-    end
-    return true;
-end
-
-function Stronghold.Building:HeadquartersBuildingTabsGuiTooltip(_PlayerID, _EntityID, _Key)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
-        return false;
-    end
-    local Text = "";
-    if _Key == "MenuBuildingGeneric/ToBuildingcommandmenu" then
-        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/submenu_treasury");
-    elseif _Key == "MenuBuildingGeneric/tobuildingsettlersmenu" then
-        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/submenu_administration");
-    else
-        return false;
-    end
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
-    return true;
-end
-
--- -------------------------------------------------------------------------- --
--- Monastery
-
-function Stronghold.Building:MonasteryBlessSettlers(_PlayerID, _BlessCategory)
-    local CurrentFaith = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Faith);
-    Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Faith, CurrentFaith);
-
-    local BlessData = self.Config.Monastery[_BlessCategory];
-    if BlessData.Reputation > 0 then
-        local Factor = 1;
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-            Factor = Factor + self.Config.Monastery.SundayAssemblyReputationBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-            Factor = Factor + self.Config.Monastery.HolyRelicsReputationBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            Factor = Factor + self.Config.Monastery.PopalBlessingReputationBonus;
-        end
-        local Reputation = BlessData.Reputation * Factor;
-        Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, _BlessCategory, Reputation);
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, math.floor(Reputation + 0.5));
-    end
-    if BlessData.Honor > 0 then
-        local Factor = 1;
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-            Factor = Factor + self.Config.Monastery.SundayAssemblyHonorBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-            Factor = Factor + self.Config.Monastery.HolyRelicsHonorBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-            Factor = Factor + self.Config.Monastery.PopalBlessingHonorBonus;
-        end
-        local Honor = BlessData.Honor * Factor;
-        Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, _BlessCategory, Honor);
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, math.floor(Honor + 0.5));
-    end
-
-    if GUI.GetPlayerID() == _PlayerID then
-        local TextKey = self.Config.Monastery[_BlessCategory].Text;
-        Message(XGUIEng.GetStringTableText(TextKey.. "_message"));
-        Sound.PlayGUISound(Sounds.Buildings_Monastery, 0);
-        Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_SettlersBlessed_rnd_01, 100);
-    end
-end
-
-function Stronghold.Building:OnMonasterySelected(_EntityID)
-    local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if not IsPlayer(PlayerID) then
-        return;
-    end
-    local Type = Logic.GetEntityType(_EntityID);
-    if Logic.GetUpgradeCategoryByBuildingType(Type) == UpgradeCategories.Monastery then
-        local Level = Logic.GetUpgradeLevelForBuilding(_EntityID);
-        if Level == 1 then
-            XGUIEng.ShowWidget("Upgrade_Monastery2", 1);
-        end
-        if Level == 0 then
-            XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
-        end
-        XGUIEng.ShowWidget("Research_SundayAssembly", 1);
-        XGUIEng.ShowWidget("Research_HolyRelics", 1);
-        XGUIEng.ShowWidget("Research_PopalBlessing", 1);
-        XGUIEng.ShowWidget("Research_DraconicPunishment", 0);
-        XGUIEng.ShowWidget("Research_DecorativeSkull", 0);
-        XGUIEng.ShowWidget("Research_TjostingArmor", 0);
-        XGUIEng.TransferMaterials("BlessSettlers1Source", "BlessSettlers1");
-        XGUIEng.TransferMaterials("BlessSettlers2Source", "BlessSettlers2");
-        XGUIEng.TransferMaterials("BlessSettlers3Source", "BlessSettlers3");
-        XGUIEng.TransferMaterials("BlessSettlers4Source", "BlessSettlers4");
-        XGUIEng.TransferMaterials("BlessSettlers5Source", "BlessSettlers5");
-    end
-end
-
-function Stronghold.Building:MonasteryBlessSettlersGuiAction(_PlayerID, _EntityID, _BlessCategory)
-    local Type = Logic.GetEntityType(_EntityID);
-    if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
-        return false;
-    end
-    local CurrentFaith = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Faith);
-    local BlessCosts = Logic.GetBlessCostByBlessCategory(_BlessCategory);
-    if BlessCosts > CurrentFaith then
-        GUI.AddNote(XGUIEng.GetStringTableText("InGameMessages/GUI_NotEnoughFaith"));
-        Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_MonksNeedMoreTime_rnd_01, 100);
-        return true;
-    end
-    -- Dirty Fix: Prevent player from wasting faith
-    if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
-        return true;
-    end
-
-    Syncer.InvokeEvent(
-        Stronghold.Building.NetworkCall,
-        Stronghold.Building.SyncEvents.BlessSettlers,
-        _BlessCategory
-    );
-    return true;
-end
-
-function Stronghold.Building:MonasteryBlessSettlersGuiTooltip(_PlayerID, _EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-    local Type = Logic.GetEntityType(_EntityID);
-    if Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.Monastery then
-        return false;
-    end
-
-    -- Map technology and bless category
-    local BlessCategory = -1;
-    local Technology = -1;
-    if _TooltipNormal == "sh_menumonastery/BlessSettlers1_normal" then
-        BlessCategory = BlessCategories.Construction;
-        Technology = Technologies.T_BlessSettlers1;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers2_normal" then
-        BlessCategory = BlessCategories.Research;
-        Technology = Technologies.T_BlessSettlers2;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers3_normal" then
-        BlessCategory = BlessCategories.Weapons;
-        Technology = Technologies.T_BlessSettlers3;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers4_normal" then
-        BlessCategory = BlessCategories.Financial;
-        Technology = Technologies.T_BlessSettlers4;
-    elseif _TooltipNormal == "sh_menumonastery/BlessSettlers5_normal" then
-        BlessCategory = BlessCategories.Canonisation;
-        Technology = Technologies.T_BlessSettlers5;
-    else
-        return false;
-    end
-
-    local Text = "";
-    if Logic.GetTechnologyState(_PlayerID, Technology) == 0 then
-        Text = XGUIEng.GetStringTableText("MenuGeneric/TechnologyNotAvailable");
-    else
-        local EffectText = "";
-        local Effects = Stronghold.Building.Config.Monastery[BlessCategory];
-        if Effects.Reputation > 0 then
-            local Name = XGUIEng.GetStringTableText("sh_text/Reputation");
-            local Factor = 1;
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-                Factor = Factor + self.Config.Monastery.SundayAssemblyReputationBonus;
-            end
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-                Factor = Factor + self.Config.Monastery.HolyRelicsReputationBonus;
-            end
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-                Factor = Factor + self.Config.Monastery.PopalBlessingReputationBonus;
-            end
-            local Reputation = Effects.Reputation * Factor;
-            Reputation = GameCallback_SH_Calculate_ReputationFromSermon(_PlayerID, BlessCategory, Reputation);
-            EffectText = EffectText.. "+" ..math.floor(Reputation + 0.5).. " " ..Name.. " ";
-        end
-        if Effects.Honor > 0 then
-            local Name = XGUIEng.GetStringTableText("sh_text/Silver");
-            local Factor = 1;
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SundayAssembly) == 1 then
-                Factor = Factor + self.Config.Monastery.SundayAssemblyHonorBonus;
-            end
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HolyRelics) == 1 then
-                Factor = Factor + self.Config.Monastery.HolyRelicsHonorBonus;
-            end
-            if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PopalBlessing) == 1 then
-                Factor = Factor + self.Config.Monastery.PopalBlessingHonorBonus;
-            end
-            local Honor = Effects.Honor * Factor;
-            Honor = GameCallback_SH_Calculate_HonorFromSermon(_PlayerID, BlessCategory, Honor);
-            EffectText = EffectText.. "+" ..math.floor(Honor + 0.5).. " " ..Name;
-        end
-
-        local MainKey = self.Config.Monastery[BlessCategory].Text;
-        local TextKey = MainKey.. "_normal";
-        if XGUIEng.IsButtonDisabled(XGUIEng.GetCurrentWidgetID()) == 1 then
-            TextKey = MainKey.. "_disabled";
-        end
-        Text = string.format(XGUIEng.GetStringTableText(TextKey), EffectText);
-    end
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Placeholder.Replace(Text));
-    return true;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -1244,7 +531,41 @@ GUIUpdate_BeverageButtons = function()
 end
 
 -- -------------------------------------------------------------------------- --
--- Keep Festival
+-- Keep
+
+function Stronghold.Building:OverrideKeepButtons()
+    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
+
+    Overwrite.CreateOverwrite("GUIAction_SetTaxes", function(_Level)
+        local PlayerID = GetLocalPlayerID();
+        if not IsPlayer(PlayerID) or GUI.GetPlayerID() == 17 then
+            return false;
+        end
+        Syncer.InvokeEvent(
+            Stronghold.Building.NetworkCall,
+            Stronghold.Building.SyncEvents.ChangeTax,
+            _Level
+        );
+    end);
+
+    Overwrite.CreateOverwrite("GUIUpdate_TaxesButtons", function()
+        local PlayerID = GetLocalPlayerID();
+        if PlayerID == 17 then
+            return;
+        end
+        local TaxLevel = GetTaxHeight(PlayerID) -1;
+        XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "taxesgroup");
+        XGUIEng.HighLightButton(gvGUI_WidgetID.TaxesButtons[TaxLevel], 1);
+    end);
+
+    GUIAction_CallMilitia = function()
+        XGUIEng.ShowWidget("BuyHeroWindow", 1);
+    end
+
+    GUIAction_BackToWork = function()
+        Stronghold.Hero.Perk:PerkWindowOnShow();
+    end
+end
 
 function Stronghold.Building:ControlKeepFestival(_PlayerID)
     if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
@@ -1285,6 +606,30 @@ function Stronghold.Building:ControlKeepFestival(_PlayerID)
             local x,y,z = Logic.EntityGetPos(GetHeadquarterID(_PlayerID));
             Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
         end
+    end
+end
+
+function Stronghold.Building:KeepBuildingTabsGuiTooltip(_PlayerID, _EntityID, _Key)
+    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
+        return false;
+    end
+    local Text = "";
+    if _Key == "MenuBuildingGeneric/ToBuildingcommandmenu" then
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/submenu_treasury");
+    elseif _Key == "MenuBuildingGeneric/tobuildingsettlersmenu" then
+        Text = XGUIEng.GetStringTableText("sh_menuheadquarter/submenu_administration");
+    else
+        return false;
+    end
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+    return true;
+end
+
+function Stronghold.Building:KeepButtonChangeTax(_PlayerID, _Level)
+    if IsPlayer(_PlayerID) then
+        SetTaxHeight(_PlayerID, math.min(math.max(_Level +1, 1), 5));
     end
 end
 
@@ -1534,7 +879,7 @@ function GUIUpdate_InfluenceProgress()
 end
 
 -- -------------------------------------------------------------------------- --
--- Church Sermon
+-- Church
 
 function Stronghold.Building:ControlChurchService(_PlayerID)
     if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
