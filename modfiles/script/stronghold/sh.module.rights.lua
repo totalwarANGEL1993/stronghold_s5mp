@@ -679,7 +679,7 @@ function Stronghold.Rights:PromotePlayer(_PlayerID, _IgnoreDuties, _Verbose)
                 GetRankName(CurrentRank +1, _PlayerID)
             );
             if GUI.GetPlayerID() == _PlayerID then
-                Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 100);
+                Sound.PlayGUISound(Sounds.OnKlick_Select_dario, 100);
             else
                 MsgText = XGUIEng.GetStringTableText("sh_menurights/PromoteOther");
             end

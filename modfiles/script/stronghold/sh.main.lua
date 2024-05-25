@@ -802,9 +802,9 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
 
     if EntityID then
         self.Building:OnSelectSerf(EntityID);
-        self.Building:OnHeadquarterSelected(EntityID);
+        -- self.Building:OnHeadquarterSelected(EntityID);
         -- self.Building:OnMonasterySelected(EntityID);
-        -- self.Building:OnKeepSelected(EntityID);
+        self.Building:OnKeepSelected(EntityID);
         self.Building:OnCathedralSelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
@@ -909,7 +909,7 @@ function Stronghold:OverrideWidgetActions()
     Overwrite.CreateOverwrite("GUIAction_ChangeBuildingMenu", function(_WidgetID)
         local EntityID = GUI.GetSelectedEntity();
         local PlayerID = GetLocalPlayerID();
-        if not Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(PlayerID, EntityID, _WidgetID) then
+        if not Stronghold.Building:KeepChangeBuildingTabsGuiAction(PlayerID, EntityID, _WidgetID) then
             Overwrite.CallOriginal();
         end
     end);
@@ -1049,14 +1049,6 @@ function Stronghold:OverrideWidgetUpdates()
     Overwrite.CreateOverwrite("GUIUpdate_BuySoldierButton", function()
         Overwrite.CallOriginal();
         return Stronghold.Unit:BuySoldierButtonUpdate();
-    end);
-
-    Overwrite.CreateOverwrite("GUIUpdate_FaithProgress", function()
-        local WidgetID = XGUIEng.GetCurrentWidgetID();
-        local PlayerID = GetLocalPlayerID();
-        local EntityID = GUI.GetSelectedEntity();
-        Overwrite.CallOriginal();
-        Stronghold.Building:HeadquartersFaithProgressGuiUpdate(PlayerID, EntityID, WidgetID);
     end);
 end
 

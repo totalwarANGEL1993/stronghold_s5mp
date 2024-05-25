@@ -254,21 +254,43 @@ function SetBeverageLevel(_PlayerID, _Level)
     Stronghold.Player:SetBeverageLevel(_PlayerID, _Level);
 end
 
---- Returns the sermon level of all workers.
+--- Returns the festival level in the keep
+--- @param _PlayerID integer ID of player
+--- @return integer Level Sermon level
+function GetFestivalLevel(_PlayerID)
+    return Stronghold.Player:GetFestivalLevel(_PlayerID);
+end
+
+--- Changes the festival level in the keep
+--- @param _PlayerID integer ID of player
+--- @param _Level integer Sermon level
+function SetFestivalLevel(_PlayerID, _Level)
+    Stronghold.Player:SetFestivalLevel(_PlayerID, _Level);
+end
+
+--- Returns the costs of the festival level in the keep.
+--- @param _PlayerID integer ID of player
+--- @param _Level integer Sermon level
+--- @return table Costs Costs table
+function GetFestivalCosts(_PlayerID, _Level)
+    return Stronghold.Player:GetFestivalCosts(_PlayerID, _Level);
+end
+
+--- Returns the sermon level in the church.
 --- @param _PlayerID integer ID of player
 --- @return integer Level Sermon level
 function GetSermonLevel(_PlayerID)
     return Stronghold.Player:GetSermonLevel(_PlayerID);
 end
 
---- Changes the sermon level of all workers.
+--- Changes the sermon level in the church.
 --- @param _PlayerID integer ID of player
 --- @param _Level integer Sermon level
 function SetSermonLevel(_PlayerID, _Level)
     Stronghold.Player:SetSermonLevel(_PlayerID, _Level);
 end
 
---- Returns the costs of the sermon level for the player.
+--- Returns the costs of the sermon level in the church.
 --- @param _PlayerID integer ID of player
 --- @param _Level integer Sermon level
 --- @return table Costs Costs table
@@ -312,6 +334,22 @@ end
 --- @param _AttackerID integer ID of attacking entity
 --- @param _TimeRemaining integer Time until entry is removed
 function GameCallback_SH_Logic_OnAttackRegisterIteration(_PlayerID, _AttackedID, _AttackerID, _TimeRemaining)
+end
+
+--- Calculates the costs for the festival.
+--- @param _PlayerID integer ID of player
+--- @param _MoneyCost integer Money cost
+--- @return integer Money Altered money Cost
+function GameCallback_SH_CalculateFestivalCosts(_PlayerID, _MoneyCost)
+    return _MoneyCost;
+end
+
+--- Calculates the costs for the sermon.
+--- @param _PlayerID integer ID of player
+--- @param _MoneyCost integer Money cost
+--- @return integer Money Altered money Cost
+function GameCallback_SH_CalculateSermonCosts(_PlayerID, _MoneyCost)
+    return _MoneyCost;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -858,6 +896,32 @@ function Stronghold.Player:SetBeverageLevel(_PlayerID, _Level)
     end
 end
 
+function Stronghold.Player:GetFestivalLevel(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].Player.Festival;
+    end
+    return 2;
+end
+
+function Stronghold.Player:SetFestivalLevel(_PlayerID, _Level)
+    if self:IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].Player.Festival = _Level;
+    end
+end
+
+function Stronghold.Player:GetFestivalCosts(_PlayerID, _Level)
+    local Costs = {};
+    if self:IsPlayer(_PlayerID) then
+        local Effects = Stronghold.Economy.Config.Income.Festival[_Level];
+        local BaseCost = (Effects and Effects.BaseCost) or 0;
+        local Honor = 1; -- math.max(self:GetPlayerHonor(_PlayerID) / 250, 1);
+        local MoneyCost = math.ceil(BaseCost * Honor);
+        MoneyCost = GameCallback_SH_CalculateFestivalCosts(_PlayerID, MoneyCost);
+        Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
+    end
+    return Costs;
+end
+
 function Stronghold.Player:GetSermonLevel(_PlayerID)
     if self:IsPlayer(_PlayerID) then
         return self.Data[_PlayerID].Player.Sermon;
@@ -872,12 +936,15 @@ function Stronghold.Player:SetSermonLevel(_PlayerID, _Level)
 end
 
 function Stronghold.Player:GetSermonCosts(_PlayerID, _Level)
-    local Effects = Stronghold.Economy.Config.Income.Sermon[_Level];
-    local CostFactor = (Effects and Effects.CostFactor) or 0;
-    local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-    local MoneyCost = math.ceil(WorkerCount * CostFactor);
-    -- TODO: Add calculation callback
-    local Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
+    local Costs = {};
+    if self:IsPlayer(_PlayerID) then
+        local Effects = Stronghold.Economy.Config.Income.Sermon[_Level];
+        local CostFactor = (Effects and Effects.CostFactor) or 0;
+        local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
+        local MoneyCost = math.ceil(WorkerCount * CostFactor);
+        MoneyCost = GameCallback_SH_CalculateSermonCosts(_PlayerID, MoneyCost);
+        Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
+    end
     return Costs;
 end
 
