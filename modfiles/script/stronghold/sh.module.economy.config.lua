@@ -21,10 +21,6 @@ Stronghold.Economy.Config.Resource = {
         PickaxeStoneBonus = 1,
         PickaxeIronBonus = 1,
         PickaxeSulfurBonus = 1,
-        SustainableClayMining = 1,
-        SustainableStoneMining = 1,
-        SustainableIronMining = 1,
-        SustainableSulfurMining = 1,
     },
     Refining = {
         [Entities.PB_Bank1] = 2,
@@ -50,9 +46,6 @@ Stronghold.Economy.Config.Resource = {
         [ResourceType.StoneRaw] = 2,
         [ResourceType.IronRaw] = 2,
         [ResourceType.SulfurRaw] = 2,
-
-        SharpAxeBonus = 1,
-        HardHandleBonus = 1,
     },
 }
 

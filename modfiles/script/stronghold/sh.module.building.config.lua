@@ -3,13 +3,6 @@
 --- 
 
 Stronghold.Building.Config.Headquarters = {
-    DraconicPunishmentHonorBonus = 0.20,
-    DraconicPunishmentReputationBonus = 0.20,
-    DecorativeSkullHonorBonus = 0.20,
-    DecorativeSkullReputationBonus = 0.20,
-    TjostingArmorHonorBonus = 0.20,
-    TjostingArmorReputationBonus = 0.20,
-
     AlmsFarmFactor = 0.75,
     AlmsHouseFactor = 0.75,
 
@@ -46,13 +39,6 @@ Stronghold.Building.Config.Headquarters = {
 }
 
 Stronghold.Building.Config.Monastery = {
-    SundayAssemblyHonorBonus = 0.25,
-    SundayAssemblyReputationBonus = 0.25,
-    HolyRelicsHonorBonus = 0.25,
-    HolyRelicsReputationBonus = 0.25,
-    PopalBlessingHonorBonus = 0.25,
-    PopalBlessingReputationBonus = 0.25,
-
     [BlessCategories.Construction] = {
         Reputation = 8,
         Honor = 0,

@@ -1162,20 +1162,6 @@ function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceI
     local ResourceAmount = Logic.GetResourceDoodadGoodAmount(_SourceID);
     local Remaining = ResourceAmount;
 
-    -- Sharp axes
-    if _ResourceType == ResourceType.WoodRaw then
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SharpAxes) == 1 then
-            Amount = Amount + self.Config.Resource.Extracting.SharpAxeBonus;
-        end
-    end
-    -- Hard handle
-    if _ResourceType == ResourceType.ClayRaw or _ResourceType == ResourceType.StoneRaw
-    or _ResourceType == ResourceType.IronRaw or _ResourceType == ResourceType.SulfurRaw then
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_HardHandle) == 1 then
-            Amount = Amount + self.Config.Resource.Extracting.HardHandleBonus;
-        end
-    end
-
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, Amount, Remaining);
     if Remaining > ResourceAmount then
@@ -1194,17 +1180,11 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeClay) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeClayBonus;
         end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableClayMining) == 1 then
-            Remaining = Remaining + self.Config.Resource.Mining.SustainableClayMining;
-        end
     end
 
     if _ResourceType == ResourceType.IronRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeIron) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeIronBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableIronMining) == 1 then
-            Remaining = Remaining + self.Config.Resource.Mining.SustainableIronMining;
         end
     end
 
@@ -1212,17 +1192,11 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeStone) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeStoneBonus;
         end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableStoneMining) == 1 then
-            Remaining = Remaining + self.Config.Resource.Mining.SustainableStoneMining;
-        end
     end
 
     if _ResourceType == ResourceType.SulfurRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeSulfurBonus;
-        end
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SustainableSulfurMining) == 1 then
-            Remaining = Remaining + self.Config.Resource.Mining.SustainableSulfurMining;
         end
     end
 

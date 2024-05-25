@@ -260,12 +260,6 @@ end
 function Stronghold.Building:OnWorkplaceSelected(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
     local TypeName = Logic.GetEntityTypeName(Type);
-    if string.format(TypeName, "Mine") then
-        XGUIEng.ShowWidget("Research_SustainableClayMining", 0);
-        XGUIEng.ShowWidget("Research_SustainableStoneMining", 0);
-        XGUIEng.ShowWidget("Research_SustainableIronMining", 0);
-        XGUIEng.ShowWidget("Research_SustainableSulfurMining", 0);
-    end
     if string.format(TypeName, "Tavern") then
         XGUIEng.ShowWidget("BuildingTabs", 1);
     end
@@ -744,14 +738,6 @@ function Stronghold.Building:KeepOnToggleInfluenceCommands(_PlayerID, _EntityID,
         XGUIEng.ShowWidget("Keep", 1);
         XGUIEng.ShowWidget("Commands_Keep", 1);
         XGUIEng.ShowWidget("KeepFestivals", 1);
-        -- TODO: Remove technologies?
-        XGUIEng.ShowWidget("Research_DraconicPunishment", 1);
-        XGUIEng.ShowWidget("Research_DecorativeSkull", 1);
-        XGUIEng.ShowWidget("Research_TjostingArmor", 1);
-
-        GUIUpdate_GlobalTechnologiesButtons("Research_DraconicPunishment", Technologies.T_DraconicPunishment, Entities.PB_Headquarter1);
-        GUIUpdate_GlobalTechnologiesButtons("Research_DecorativeSkull", Technologies.T_DecorativeSkull, Entities.PB_Headquarter2);
-        GUIUpdate_GlobalTechnologiesButtons("Research_TjostingArmor", Technologies.T_TjostingArmor, Entities.PB_Headquarter3);
 
         GUIUpdate_UpgradeButtons("Upgrade_Keep1", Technologies.UP1_Headquarter);
         GUIUpdate_UpgradeButtons("Upgrade_Keep2", Technologies.UP2_Headquarter);
@@ -937,14 +923,6 @@ function Stronghold.Building:OnCathedralSelected(_EntityID)
         XGUIEng.ShowWidget("Cathedral", 1);
         XGUIEng.ShowWidget("Commands_Cathedral", 1);
         XGUIEng.ShowWidget("CathedralService", 1);
-        -- TODO: Remove technologies?
-        XGUIEng.ShowWidget("Research_SundayAssembly", 1);
-        XGUIEng.ShowWidget("Research_HolyRelics", 1);
-        XGUIEng.ShowWidget("Research_PopalBlessing", 1);
-
-        GUIUpdate_GlobalTechnologiesButtons("Research_SundayAssembly", Technologies.T_SundayAssembly, Entities.PB_Monastery1);
-        GUIUpdate_GlobalTechnologiesButtons("Research_HolyRelics", Technologies.T_HolyRelics, Entities.PB_Monastery2);
-        GUIUpdate_GlobalTechnologiesButtons("Research_PopalBlessing", Technologies.T_PopalBlessing, Entities.PB_Monastery3);
 
         GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP1_Monastery);
         GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP2_Monastery);

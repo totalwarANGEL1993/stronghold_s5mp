@@ -379,12 +379,6 @@
     <Technology>T_PickAxeIron</Technology>
     <Technology>T_PickAxeStone</Technology>
     <Technology>T_PickAxeSulfur</Technology>
-    <Technology>T_SharpAxes</Technology>
-    <Technology>T_HardHandle</Technology>
-    <Technology>T_SustainableClayMining</Technology>
-    <Technology>T_SustainableIronMining</Technology>
-    <Technology>T_SustainableStoneMining</Technology>
-    <Technology>T_SustainableSulfurMining</Technology>
 
     <!-- Units -->
     <Technology>T_AutoRepair</Technology>
@@ -394,12 +388,6 @@
     <Technology>T_Spice</Technology>
     <Technology>T_Hearthfire</Technology>
     <Technology>T_RoomKeys</Technology>
-    <Technology>T_SundayAssembly</Technology>
-    <Technology>T_HolyRelics</Technology>
-    <Technology>T_PopalBlessing</Technology>
-    <Technology>T_DraconicPunishment</Technology>
-    <Technology>T_DecorativeSkull</Technology>
-    <Technology>T_TjostingArmor</Technology>
 
     <!-- University studies -->
     <Technology>T_BetterStudies</Technology>
