@@ -53,6 +53,21 @@ länger. Als Ausgleich benötigen sie nun wesentlich mehr Platz.
 - Klein (Bombarde, Große Bombarde, Bronzekanone): 8
 - Groß (Eisenkanone, Dschihad, Belagerungskanone): 16
 
+__Technologien__
+
+Folgende Technologien wurden entfernt:
+- Arbeitsschutz
+- Heilige Relikte
+- Gehärteter Griff
+- Gezielte Sprengungen
+- Grubenlogistik
+- Naturschutz
+- Päpstlicher Segen
+- Scharfe Axt
+- Sonntagsmesse
+- Schöner Schädel
+- Turnierrüstung
+
 __Gebäude__
 
 Beim Gebäudebau hat sich einiges verändert.
