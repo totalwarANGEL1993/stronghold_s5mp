@@ -347,6 +347,7 @@ function Stronghold:StartTriggers()
         for PlayerID = 1, Players do
             Stronghold.AI:OnEveryTurn(PlayerID);
             Stronghold.Attraction:OnEveryTurn(PlayerID);
+            Stronghold.Building:OnEveryTurn(PlayerID);
             Stronghold.Economy:OncePerTurn(PlayerID);
             Stronghold.Mercenary:OnEveryTurn(PlayerID);
             Stronghold.Rights:OnEveryTurn(PlayerID);
@@ -802,9 +803,9 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
     if EntityID then
         self.Building:OnSelectSerf(EntityID);
         self.Building:OnHeadquarterSelected(EntityID);
-        self.Building:OnMonasterySelected(EntityID);
+        -- self.Building:OnMonasterySelected(EntityID);
         -- self.Building:OnKeepSelected(EntityID);
-        -- self.Building:OnCathedralSelected(EntityID);
+        self.Building:OnCathedralSelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
         self.Building:OnWorkplaceSelected(EntityID);
