@@ -802,8 +802,6 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
 
     if EntityID then
         self.Building:OnSelectSerf(EntityID);
-        -- self.Building:OnHeadquarterSelected(EntityID);
-        -- self.Building:OnMonasterySelected(EntityID);
         self.Building:OnKeepSelected(EntityID);
         self.Building:OnCathedralSelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
@@ -913,24 +911,6 @@ function Stronghold:OverrideWidgetActions()
             Overwrite.CallOriginal();
         end
     end);
-
-    Overwrite.CreateOverwrite("GUIAction_BlessSettlers", function(_BlessCategory)
-        local GuiPlayer = GetLocalPlayerID();
-        local EntityID = GUI.GetSelectedEntity();
-        if InterfaceTool_IsBuildingDoingSomething(EntityID) == true then
-            return true;
-        end
-        local ActionCalled = false;
-        if not ActionCalled then
-            ActionCalled = Stronghold.Building:HeadquartersBlessSettlersGuiAction(GuiPlayer, EntityID, _BlessCategory);
-        end
-        if not ActionCalled then
-            ActionCalled = Stronghold.Building:MonasteryBlessSettlersGuiAction(GuiPlayer, EntityID, _BlessCategory);
-        end
-        if not ActionCalled then
-            Overwrite.CallOriginal();
-        end
-    end);
 end
 
 -- Button Tooltip Generic Override
@@ -938,14 +918,6 @@ function Stronghold:OverrideWidgetTooltips()
     Overwrite.CreateOverwrite("GUITooltip_BuySoldier", function(_KeyNormal, _KeyDisabled, _ShortCut)
         Overwrite.CallOriginal();
         Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _ShortCut);
-    end);
-
-    Overwrite.CreateOverwrite("GUITooltip_BlessSettlers", function(_TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut)
-        local GuiPlayer = GetLocalPlayerID();
-        local EntityID = GUI.GetSelectedEntity();
-        Overwrite.CallOriginal();
-        Stronghold.Building:MonasteryBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
-        Stronghold.Building:HeadquartersBlessSettlersGuiTooltip(GuiPlayer, EntityID, _TooltipDisabled, _TooltipNormal, _TooltipResearched, _ShortCut);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_ConstructBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
@@ -986,10 +958,7 @@ function Stronghold:OverrideWidgetTooltips()
             TooltipSet = Stronghold.Economy:PrintTooltipGenericForEcoGeneral(PlayerID, _Key);
         end
         if not TooltipSet then
-            TooltipSet = Stronghold.Building:PrintHeadquartersTaxButtonsTooltip(PlayerID, EntityID, _Key);
-        end
-        if not TooltipSet then
-            TooltipSet = Stronghold.Building:HeadquartersBuildingTabsGuiTooltip(PlayerID, EntityID, _Key);
+            TooltipSet = Stronghold.Building:KeepBuildingTabsGuiTooltip(PlayerID, EntityID, _Key);
         end
         if not TooltipSet then
             TooltipSet = Stronghold.Building:PrintFarmRationButtonsTooltip(PlayerID, EntityID, _Key);
@@ -1024,7 +993,6 @@ function Stronghold:OverrideWidgetUpdates()
         Stronghold.Rights:OnlineHelpUpdate(PlayerID, _Button, _Technology);
         Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
         Stronghold.Building:OnAlchemistSelected(EntityID);
-        Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(PlayerID, EntityID, _Button);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_UpgradeBuilding", function(_Type, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
