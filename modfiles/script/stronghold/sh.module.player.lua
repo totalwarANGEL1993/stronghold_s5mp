@@ -214,7 +214,7 @@ end
 
 --- Returns the ration level of all workers.
 --- @param _PlayerID integer ID of player
---- @return integer Ration level
+--- @return integer Level Ration level
 function GetRationLevel(_PlayerID)
     return Stronghold.Player:GetRationLevel(_PlayerID);
 end
@@ -228,7 +228,7 @@ end
 
 --- Returns the sleep time level of all workers.
 --- @param _PlayerID integer ID of player
---- @return integer Sleep time level
+--- @return integer Level Sleep time level
 function GetSleepTimeLevel(_PlayerID)
     return Stronghold.Player:GetSleepTimeLevel(_PlayerID);
 end
@@ -242,16 +242,38 @@ end
 
 --- Returns the beverage level of all workers.
 --- @param _PlayerID integer ID of player
---- @return integer Sleep time level
+--- @return integer Level Beverage level
 function GetBeverageLevel(_PlayerID)
     return Stronghold.Player:GetBeverageLevel(_PlayerID);
 end
 
 --- Changes the beverage level of all workers.
 --- @param _PlayerID integer ID of player
---- @param _Level integer Sleep time level
+--- @param _Level integer Beverage level
 function SetBeverageLevel(_PlayerID, _Level)
     Stronghold.Player:SetBeverageLevel(_PlayerID, _Level);
+end
+
+--- Returns the sermon level of all workers.
+--- @param _PlayerID integer ID of player
+--- @return integer Level Sermon level
+function GetSermonLevel(_PlayerID)
+    return Stronghold.Player:GetSermonLevel(_PlayerID);
+end
+
+--- Changes the sermon level of all workers.
+--- @param _PlayerID integer ID of player
+--- @param _Level integer Sermon level
+function SetSermonLevel(_PlayerID, _Level)
+    Stronghold.Player:SetSermonLevel(_PlayerID, _Level);
+end
+
+--- Returns the costs of the sermon level for the player.
+--- @param _PlayerID integer ID of player
+--- @param _Level integer Sermon level
+--- @return table Costs Costs table
+function GetSermonCosts(_PlayerID, _Level)
+    return Stronghold.Player:GetSermonCosts(_PlayerID, _Level);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -368,6 +390,8 @@ function Stronghold.Player:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
         Rations = 2,
         SleepTime = 2,
         Beverage = 0,
+        Sermon = 0,
+        Festival = 0,
 
         InvulnerabilityInfoShown = false,
         VulnerabilityInfoShown = true,
@@ -832,6 +856,29 @@ function Stronghold.Player:SetBeverageLevel(_PlayerID, _Level)
     if self:IsPlayer(_PlayerID) then
         self.Data[_PlayerID].Player.Beverage = _Level;
     end
+end
+
+function Stronghold.Player:GetSermonLevel(_PlayerID)
+    if self:IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].Player.Sermon;
+    end
+    return 2;
+end
+
+function Stronghold.Player:SetSermonLevel(_PlayerID, _Level)
+    if self:IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].Player.Sermon = _Level;
+    end
+end
+
+function Stronghold.Player:GetSermonCosts(_PlayerID, _Level)
+    local Effects = Stronghold.Economy.Config.Income.Sermon[_Level];
+    local CostFactor = (Effects and Effects.CostFactor) or 0;
+    local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
+    local MoneyCost = math.ceil(WorkerCount * CostFactor);
+    -- TODO: Add calculation callback
+    local Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
+    return Costs;
 end
 
 -- -------------------------------------------------------------------------- --

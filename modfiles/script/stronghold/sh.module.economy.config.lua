@@ -112,13 +112,17 @@ Stronghold.Economy.Config.Income = {
         [2] = {Honor = 2, Reputation = nil, CostFactor = 0.04,},
         [3] = {Honor = 3, Reputation = nil, CostFactor = 0.06,},
         [4] = {Honor = 4, Reputation = nil, CostFactor = 0.08,},
+        [5] = {Honor = 5, Reputation = nil, CostFactor = 0.06,},
+        [6] = {Honor = 6, Reputation = nil, CostFactor = 0.08,},
     },
     Sermon = {
         [0] = {Honor = nil, Reputation = 0, CostFactor =    0,},
-        [1] = {Honor = nil, Reputation = 1, CostFactor = 0.02,},
-        [2] = {Honor = nil, Reputation = 2, CostFactor = 0.04,},
-        [3] = {Honor = nil, Reputation = 3, CostFactor = 0.06,},
-        [4] = {Honor = nil, Reputation = 4, CostFactor = 0.08,},
+        [1] = {Honor = nil, Reputation = 1, CostFactor = 1.00,},
+        [2] = {Honor = nil, Reputation = 2, CostFactor = 1.50,},
+        [3] = {Honor = nil, Reputation = 3, CostFactor = 2.00,},
+        [4] = {Honor = nil, Reputation = 4, CostFactor = 2.50,},
+        [5] = {Honor = nil, Reputation = 5, CostFactor = 3.00,},
+        [6] = {Honor = nil, Reputation = 6, CostFactor = 3.50,},
     },
 
     TechnologyEffect = {
