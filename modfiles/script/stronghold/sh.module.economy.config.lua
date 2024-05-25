@@ -66,10 +66,10 @@ Stronghold.Economy.Config.Income = {
     BetterStudiesFactor = 1.200,
     --
     MaxInfluencePoints = 5000,
-    InfluenceWorkerFactor = 0.965,
+    InfluenceWorkerFactor = 1,
     InfluenceHardCap = 18,
-    InfluenceBase = 12,
-    InfluenceRank = 3,
+    InfluenceBase = 6,
+    InfluenceRank = 1,
     --
     TaxEffect = {
         [1] = {Honor = 4, Reputation =  1,},
@@ -107,13 +107,13 @@ Stronghold.Economy.Config.Income = {
         [4] = {Honor = nil, Reputation = 5, Stamina = 0.10},
     },
     Festival = {
-        [0] = {Honor = 0, Reputation = nil, CostFactor =    0,},
-        [1] = {Honor = 1, Reputation = nil, CostFactor = 0.02,},
-        [2] = {Honor = 2, Reputation = nil, CostFactor = 0.04,},
-        [3] = {Honor = 3, Reputation = nil, CostFactor = 0.06,},
-        [4] = {Honor = 4, Reputation = nil, CostFactor = 0.08,},
-        [5] = {Honor = 5, Reputation = nil, CostFactor = 0.06,},
-        [6] = {Honor = 6, Reputation = nil, CostFactor = 0.08,},
+        [0] = {Honor =  0, Reputation = nil, BaseCost =   0,},
+        [1] = {Honor =  5, Reputation = nil, BaseCost =  25,},
+        [2] = {Honor = 10, Reputation = nil, BaseCost =  50,},
+        [3] = {Honor = 20, Reputation = nil, BaseCost = 100,},
+        [4] = {Honor = 30, Reputation = nil, BaseCost = 150,},
+        [5] = {Honor = 40, Reputation = nil, BaseCost = 200,},
+        [6] = {Honor = 50, Reputation = nil, BaseCost = 250,},
     },
     Sermon = {
         [0] = {Honor = nil, Reputation = 0, CostFactor =    0,},
