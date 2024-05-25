@@ -882,6 +882,18 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         return CurrentAmount;
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_CalculateFestivalCosts", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        Stronghold.Hero.Perk:ApplyFestivalCostsDiscountPassiveAbility(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_CalculateSermonCosts", function(_PlayerID, _CurrentAmount)
+        local CurrentAmount = Overwrite.CallOriginal();
+        Stronghold.Hero.Perk:ApplySermonCostsDiscountPassiveAbility(_PlayerID, CurrentAmount);
+        return CurrentAmount;
+    end);
+
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_Payday", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
         Stronghold.Hero.Perk:OnPlayerPayday(_PlayerID, CurrentAmount);
@@ -950,18 +962,6 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         local FilthRate = Overwrite.CallOriginal();
         FilthRate = Stronghold.Hero.Perk:ApplyFilthRatePassiveAbility(_PlayerID, FilthRate);
         return FilthRate;
-    end);
-
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_HonorFromSermon", function(_PlayerID, _BlessCategory, _CurrentAmount)
-        local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero.Perk:ApplyHonorSermonPassiveAbility(_PlayerID, _BlessCategory, CurrentAmount);
-        return CurrentAmount;
-    end);
-
-    Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationFromSermon", function(_PlayerID, _BlessCategory, _CurrentAmount)
-        local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero.Perk:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCategory, CurrentAmount);
-        return CurrentAmount;
     end);
 end
 
@@ -1642,26 +1642,6 @@ function Stronghold.Hero.Perk:ApplyFilthRatePassiveAbility(_PlayerID, _CurrentAm
     return CurrentAmount;
 end
 
-function Stronghold.Hero.Perk:ApplyHonorSermonPassiveAbility(_PlayerID, _BlessCategory, _CurrentAmount)
-    local CurrentAmount = _CurrentAmount;
-    -- Hero 6: Preacher
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero6_Preacher) then
-        local Data = self.Config.Perks[HeroPerks.Hero6_Preacher].Data;
-        CurrentAmount = CurrentAmount + Data.Bonus;
-    end
-    return CurrentAmount;
-end
-
-function Stronghold.Hero.Perk:ApplyReputationSermonPassiveAbility(_PlayerID, _BlessCategory, _CurrentAmount)
-    local CurrentAmount = _CurrentAmount;
-    -- Hero 6: Preacher
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero6_Preacher) then
-        local Data = self.Config.Perks[HeroPerks.Hero6_Preacher].Data;
-        CurrentAmount = CurrentAmount + Data.Bonus;
-    end
-    return CurrentAmount;
-end
-
 function Stronghold.Hero.Perk:ApplyMineAmountPassiveAbility(_EntityID, _Amount)
     local Amount = _Amount or 0;
     local ResourceType = Logic.GetResourceDoodadGoodType(_EntityID);
@@ -1755,5 +1735,21 @@ function Stronghold.Hero.Perk:ApplyRefundUnitPassiveAbility(_PlayerID, _EntityID
             end
         end
     end
+end
+
+function Stronghold.Hero.Perk:ApplyFestivalCostsDiscountPassiveAbility(_PlayerID, _CurrentAmount)
+    local CurrentAmount = _CurrentAmount;
+    -- ...
+    return CurrentAmount;
+end
+
+function Stronghold.Hero.Perk:ApplySermonCostsDiscountPassiveAbility(_PlayerID, _CurrentAmount)
+    local CurrentAmount = _CurrentAmount;
+    -- Hero 6: Preacher
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero6_Preacher) then
+        local Data = self.Config.Perks[HeroPerks.Hero6_Preacher].Data;
+        CurrentAmount = math.ceil(CurrentAmount * Data.CostFactor);
+    end
+    return CurrentAmount;
 end
 
