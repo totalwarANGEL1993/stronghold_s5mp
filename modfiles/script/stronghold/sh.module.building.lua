@@ -126,8 +126,17 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
                 --- @diagnostic disable-next-line: param-type-mismatch
                 SetBeverageLevel(_PlayerID, arg[1]);
             end
+            if _Action == Stronghold.Building.SyncEvents.ChangeSermon then
+                --- @diagnostic disable-next-line: param-type-mismatch
+                SetSermonLevel(_PlayerID, arg[1]);
+            end
         end
     );
+end
+
+function Stronghold.Building:OnEveryTurn(_PlayerID)
+    -- Church service
+    self:ControlChurchService(_PlayerID);
 end
 
 function Stronghold.Building:OncePerSecond(_PlayerID)
@@ -1269,10 +1278,6 @@ function Stronghold.Building:PrintKeepFestivalButtonsTooltip(_PlayerID, _EntityI
         Level = 3;
     elseif _Key == "sh_menuheadquarter/SetFestivalLevel4" then
         Level = 4;
-    elseif _Key == "sh_menuheadquarter/SetFestivalLevel5" then
-        Level = 5;
-    elseif _Key == "sh_menuheadquarter/SetFestivalLevel6" then
-        Level = 6;
     else
         return false;
     end
@@ -1308,13 +1313,74 @@ end
 -- -------------------------------------------------------------------------- --
 -- Church Sermon
 
+function Stronghold.Building:ControlChurchService(_PlayerID)
+    if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
+        return;
+    end
+
+    local CurrentFaith = Logic.GetPlayersGlobalResource(_PlayerID, ResourceType.Faith);
+    local RequiredFaith = Logic.GetBlessCostByBlessCategory(BlessCategories.Canonisation);
+
+    local SermonLevel = GetSermonLevel(_PlayerID);
+    if SermonLevel == 0 then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Faith, CurrentFaith);
+        return;
+    end
+
+    local Level3 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery3, true);
+    if Level3[1] == 0 and SermonLevel > 4 then
+        SetSermonLevel(_PlayerID, 4);
+        return;
+    end
+    local Level2 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
+    if Level2[1] == 0 and SermonLevel > 2 then
+        SetSermonLevel(_PlayerID, 2);
+        return;
+    end
+    local Level1 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
+    if Level1[1] == 0 and SermonLevel > 0 then
+        SetSermonLevel(_PlayerID, 0);
+        return;
+    end
+
+    local Costs = GetSermonCosts(_PlayerID, SermonLevel);
+    local Config = Stronghold.Economy.Config.Income.Sermon[SermonLevel];
+    if HasEnoughResources(_PlayerID, Costs) and CurrentFaith >= RequiredFaith then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Faith, CurrentFaith);
+        RemoveResourcesFromPlayer(_PlayerID, Costs);
+        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Config.Reputation or 0);
+        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Config.Honor or 0);
+
+        if GUI.GetPlayerID() == _PlayerID then
+            Message(XGUIEng.GetStringTableText("sh_menucathedral/Message_ServiceLevel" ..SermonLevel));
+            Sound.PlayGUISound(Sounds.Buildings_Monastery, 0);
+            Sound.PlayFeedbackSound(Sounds.VoicesMentor_INFO_SettlersBlessed_rnd_01, 100);
+        end
+    end
+end
+
 function Stronghold.Building:OnCathedralSelected(_EntityID)
     local Type = Logic.GetEntityType(_EntityID);
     XGUIEng.ShowWidget("CathedralService", 0);
     if Type == Entities.PB_Monastery1
     or Type == Entities.PB_Monastery2
     or Type == Entities.PB_Monastery3 then
+        XGUIEng.ShowWidget("Monastery", 0);
+        XGUIEng.ShowWidget("Commands_Monastery", 0);
+        XGUIEng.ShowWidget("Cathedral", 1);
+        XGUIEng.ShowWidget("Commands_Cathedral", 1);
         XGUIEng.ShowWidget("CathedralService", 1);
+        -- TODO: Remove technologies?
+        XGUIEng.ShowWidget("Research_SundayAssembly", 0);
+        XGUIEng.ShowWidget("Research_HolyRelics", 0);
+        XGUIEng.ShowWidget("Research_PopalBlessing", 0);
+
+        GUIUpdate_GlobalTechnologiesButtons("Research_SundayAssembly", Technologies.T_SundayAssembly, Entities.PB_Monastery1);
+        GUIUpdate_GlobalTechnologiesButtons("Research_HolyRelics", Technologies.T_HolyRelics, Entities.PB_Monastery2);
+        GUIUpdate_GlobalTechnologiesButtons("Research_PopalBlessing", Technologies.T_PopalBlessing, Entities.PB_Monastery3);
+
+        GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP1_Monastery);
+        GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP2_Monastery);
     end
 end
 
@@ -1327,31 +1393,54 @@ function Stronghold.Building:PrintCathedralSermonButtonsTooltip(_PlayerID, _Enti
     end
 
     local Level = -1;
-    if _Key == "sh_menumonastery/SetServiceLevel0" then
+    local Button = nil;
+    if _Key == "sh_menucathedral/SetServiceLevel0" then
+        Button = "CathedralServiceLevel0";
         Level = 0;
-    elseif _Key == "sh_menumonastery/SetServiceLevel1" then
+    elseif _Key == "sh_menucathedral/SetServiceLevel1" then
+        Button = "CathedralServiceLevel1";
         Level = 1;
-    elseif _Key == "sh_menumonastery/SetServiceLevel2" then
+    elseif _Key == "sh_menucathedral/SetServiceLevel2" then
+        Button = "CathedralServiceLevel2";
         Level = 2;
-    elseif _Key == "sh_menumonastery/SetServiceLevel3" then
+    elseif _Key == "sh_menucathedral/SetServiceLevel3" then
+        Button = "CathedralServiceLevel3";
         Level = 3;
-    elseif _Key == "sh_menumonastery/SetServiceLevel4" then
+    elseif _Key == "sh_menucathedral/SetServiceLevel4" then
+        Button = "CathedralServiceLevel4";
         Level = 4;
-    elseif _Key == "sh_menumonastery/SetServiceLevel5" then
+    elseif _Key == "sh_menucathedral/SetServiceLevel5" then
+        Button = "CathedralServiceLevel5";
         Level = 5;
-    elseif _Key == "sh_menumonastery/SetServiceLevel6" then
+    elseif _Key == "sh_menucathedral/SetServiceLevel6" then
+        Button = "CathedralServiceLevel6";
         Level = 6;
     else
         return false;
     end
 
     local StringText = XGUIEng.GetStringTableText(_Key);
+    local CostText = FormatCostString(_PlayerID, GetSermonCosts(_PlayerID, Level));
     local Effects = Stronghold.Economy.Config.Income.Sermon[Level];
     local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    -- ...
+    if Effects.Reputation then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
+        local Operator = (Effects.Reputation >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+    end
+    if Effects.Honor then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
+        local Operator = (Effects.Honor >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+    end
 
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    local ButtonText = StringText .. EffectText;
+    if XGUIEng.IsButtonDisabled(Button) == 1 then
+        ButtonText = ButtonText.. " @cr " .. XGUIEng.GetStringTableText(_Key.. "_disabled");
+    end
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, ButtonText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;
 end
@@ -1361,16 +1450,42 @@ GUIAction_SetChurchService = function(_Level)
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(BuildingID);
     if GuiPlayer == PlayerID then
-        -- ...
+        Syncer.InvokeEvent(
+            Stronghold.Building.NetworkCall,
+            Stronghold.Building.SyncEvents.ChangeSermon,
+            _Level
+        );
     end
 end
 
 GUIUpdate_ChurchServiceButtons = function()
-    local PlayerID = GUI.GetPlayerID();
-    local Level = GetBeverageLevel(PlayerID);
+    local BuildingID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(BuildingID);
+    local Level = GetSermonLevel(PlayerID);
     XGUIEng.UnHighLightGroup("InGame", "sermongroup");
     local WidgetID = Stronghold.Building.Config.Civil.SermonButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
+
+    local Level3 = GetBuildingsOfType(PlayerID, Entities.PB_Monastery3, true);
+    local Level2 = GetBuildingsOfType(PlayerID, Entities.PB_Monastery2, true);
+    local Level1 = GetBuildingsOfType(PlayerID, Entities.PB_Monastery1, true);
+
+    XGUIEng.DisableButton("CathedralServiceLevel0", (Level1[1]+Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("CathedralServiceLevel1", (Level1[1]+Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("CathedralServiceLevel2", (Level1[1]+Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("CathedralServiceLevel3", (Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("CathedralServiceLevel4", (Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("CathedralServiceLevel5", (Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("CathedralServiceLevel6", (Level3[1] == 0 and 1) or 0);
+
+    local Upgrade = Logic.GetUpgradeLevelForBuilding(BuildingID);
+    if Upgrade == 1 then
+        XGUIEng.ShowWidget("Upgrade_Monastery2", 1);
+    end
+    if Upgrade == 0 then
+        XGUIEng.ShowWidget("Upgrade_Monastery1", 1);
+    end
 end
 
 -- -------------------------------------------------------------------------- --
