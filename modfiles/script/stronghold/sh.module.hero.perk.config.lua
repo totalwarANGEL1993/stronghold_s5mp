@@ -635,7 +635,7 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     [HeroPerks.Hero6_Confessor] = {
         Icon = "HeroPerkHeroButtonSource4",
-        Text = "sh_windowperks/Hero6_Perk1",
+        Text = "sh_windowperks/Hero6_Perk2",
         Data = {
             RequiredRank = 1,
             CrimeFactor = 0.7,
@@ -653,10 +653,11 @@ Stronghold.Hero.Perk.Config.Perks = {
     },
     [HeroPerks.Hero6_Preacher] = {
         Icon = "HeroPerkHeroButtonSource4",
-        Text = "sh_windowperks/Hero6_Perk2",
+        Text = "sh_windowperks/Hero6_Perk1",
         Data = {
             RequiredRank = 7,
             Bonus = 6,
+            CostFactor = 0.5,
         }
     },
 
