@@ -241,10 +241,18 @@ function GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates the hunger penalty
+--- @param _PlayerID integer ID of player
+--- @param _Amount number Current penalty
+--- @return number Adjusted Adjusted penalty
 function GameCallback_SH_Calculate_HungerPenalty(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Calculates the homlessness penalty.
+--- @param _PlayerID integer ID of player
+--- @param _Amount number Current penalty
+--- @return number Adjusted Adjusted penalty
 function GameCallback_SH_Calculate_SleepPenalty(_PlayerID, _Amount)
     return _Amount;
 end
@@ -832,21 +840,27 @@ function Stronghold.Economy:GainInfluencePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local InfluencePoints = 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
+        local FestivalLevel = GetFestivalLevel(_PlayerID);
+        local NobleID = GetNobleID(_PlayerID);
         if WorkerCount > 0 then
-            local Reputation = GetReputation(_PlayerID);
-            local Rank = GetRank(_PlayerID);
-            local BaseInfluence = self.Config.Income.InfluenceBase;
-            local RankInfluence = self.Config.Income.InfluenceRank * Rank;
-            local WorkerFactor = self.Config.Income.InfluenceWorkerFactor;
-            local Influence = BaseInfluence + (RankInfluence * Rank);
-            for i= 1, WorkerCount do
-                Influence = Influence * WorkerFactor;
+            if NobleID ~= 0 and FestivalLevel > 0 then
+                local Reputation = GetReputation(_PlayerID);
+                local Rank = GetRank(_PlayerID);
+                local BaseInfluence = self.Config.Income.InfluenceBase;
+                local RankInfluence = self.Config.Income.InfluenceRank * Rank;
+                local WorkerFactor = self.Config.Income.InfluenceWorkerFactor;
+                local Influence = BaseInfluence + (RankInfluence * Rank);
+                for i= 1, WorkerCount do
+                    Influence = Influence * WorkerFactor;
+                end
+                -- Hard cap influence base groth
+                if Influence > self.Config.Income.InfluenceHardCap then
+                    Influence = self.Config.Income.InfluenceHardCap;
+                end
+                InfluencePoints = Influence * math.log(12 * Reputation);
+            else
+                self.Data[_PlayerID].InfluencePoints = 0;
             end
-            -- Hard cap influence base groth
-            if Influence > self.Config.Income.InfluenceHardCap then
-                Influence = self.Config.Income.InfluenceHardCap;
-            end
-            InfluencePoints = Influence * math.log(12 * Reputation);
         end
         InfluencePoints = GameCallback_SH_Calculate_InfluenceIncrease(_PlayerID, InfluencePoints);
         self:AddPlayerInfluencePoints(_PlayerID, InfluencePoints);

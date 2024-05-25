@@ -503,7 +503,7 @@ function Stronghold.Hero:BuyHeroSetupNoble(_PlayerID, _ID, _Type, _Silent)
 
         -- Call hero selected callbacks
         if _PlayerID == GUI.GetPlayerID() or GUI.GetPlayerID() == 17 then
-            Stronghold.Building:OnHeadquarterSelected(GUI.GetSelectedEntity());
+            Stronghold.Building:OnKeepSelected(GUI.GetSelectedEntity());
         end
     end
 end

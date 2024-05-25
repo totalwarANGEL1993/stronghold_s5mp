@@ -126,6 +126,10 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
                 --- @diagnostic disable-next-line: param-type-mismatch
                 SetBeverageLevel(_PlayerID, arg[1]);
             end
+            if _Action == Stronghold.Building.SyncEvents.ChangeFestival then
+                --- @diagnostic disable-next-line: param-type-mismatch
+                SetFestivalLevel(_PlayerID, arg[1]);
+            end
             if _Action == Stronghold.Building.SyncEvents.ChangeSermon then
                 --- @diagnostic disable-next-line: param-type-mismatch
                 SetSermonLevel(_PlayerID, arg[1]);
@@ -137,6 +141,8 @@ end
 function Stronghold.Building:OnEveryTurn(_PlayerID)
     -- Church service
     self:ControlChurchService(_PlayerID);
+    -- Keep festival
+    self:ControlKeepFestival(_PlayerID);
 end
 
 function Stronghold.Building:OncePerSecond(_PlayerID)
@@ -691,16 +697,6 @@ function Stronghold.Building:HeadquartersBlessSettlersGuiUpdate(_PlayerID, _Enti
     return true;
 end
 
-function Stronghold.Building:HeadquartersFaithProgressGuiUpdate(_PlayerID, _EntityID, _WidgetID)
-    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
-        return false;
-    end
-    local ValueMax = GetPlayerMaxInfluencePoints(_PlayerID);
-    local Value = Stronghold.Economy:GetPlayerInfluencePoints(_PlayerID);
-    XGUIEng.SetProgressBarValues(_WidgetID, Value, ValueMax);
-    return true;
-end
-
 function Stronghold.Building:HeadquartersShowMonasteryControls(_PlayerID, _EntityID, _WidgetID)
     XGUIEng.HighLightButton("ToBuildingCommandMenu", 1);
     XGUIEng.HighLightButton("ToBuildingSettlersMenu", 0);
@@ -755,7 +751,8 @@ function Stronghold.Building:HeadquartersChangeBuildingTabsGuiAction(_PlayerID, 
     if WidgetID == gvGUI_WidgetID.ToBuildingCommandMenu then
         self:HeadquartersShowNormalControls(_PlayerID, _EntityID, _WidgetID);
     elseif WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu then
-        self:HeadquartersShowMonasteryControls(_PlayerID, _EntityID, _WidgetID);
+        gvStronghold_LastSelectedHQMenu = WidgetID;
+        self:OnKeepSelected(_EntityID);
     end
     return true;
 end
@@ -1249,13 +1246,173 @@ end
 -- -------------------------------------------------------------------------- --
 -- Keep Festival
 
+function Stronghold.Building:ControlKeepFestival(_PlayerID)
+    if Logic.GetPlayerPaydayTimeLeft(_PlayerID) < 2000 then
+        return;
+    end
+
+    local FestivalLevel = GetFestivalLevel(_PlayerID);
+    local Level3 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters3, true);
+    if Level3[1] == 0 and FestivalLevel > 4 then
+        SetFestivalLevel(_PlayerID, 4);
+        return;
+    end
+    local Level2 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters2, true);
+    if Level2[1] == 0 and FestivalLevel > 2 then
+        SetFestivalLevel(_PlayerID, 2);
+        return;
+    end
+    local Level1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
+    if Level1[1] == 0 and FestivalLevel > 0 then
+        SetFestivalLevel(_PlayerID, 0);
+        return;
+    end
+
+    local CurrentInfluence = GetPlayerInfluence(_PlayerID);
+    local RequiredInfluence = GetPlayerMaxInfluencePoints(_PlayerID);
+
+    local Costs = GetFestivalCosts(_PlayerID, FestivalLevel);
+    local Config = Stronghold.Economy.Config.Income.Festival[FestivalLevel];
+    if HasEnoughResources(_PlayerID, Costs) and CurrentInfluence >= RequiredInfluence then
+        AddPlayerInfluence(_PlayerID, (-1) * CurrentInfluence);
+        RemoveResourcesFromPlayer(_PlayerID, Costs);
+        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Config.Reputation or 0);
+        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Config.Honor or 0);
+
+        if GUI.GetPlayerID() == _PlayerID then
+            Message(XGUIEng.GetStringTableText("sh_menukeep/Message_FestivalLevel" ..FestivalLevel));
+            Sound.PlayGUISound(Sounds.OnKlick_Select_pilgrim, 0);
+            local x,y,z = Logic.EntityGetPos(GetHeadquarterID(_PlayerID));
+            Logic.CreateEffect(GGL_Effects.FXYukiFireworksJoy, x, y, 0);
+        end
+    end
+end
+
 function Stronghold.Building:OnKeepSelected(_EntityID)
-    local Type = Logic.GetEntityType(_EntityID);
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if not IsPlayer(PlayerID) then
+        return;
+    end
+    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
+        if Logic.IsConstructionComplete(_EntityID) == 1 then
+            local Type = Logic.GetEntityType(_EntityID);
+            local TypeName = Logic.GetEntityTypeName(Type);
+            local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil);
+            XGUIEng.ShowWidget("BuildingTabs", (IsOutpost and 0) or 1);
+            XGUIEng.ShowWidget("RallyPoint", 1);
+            XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);
+            GUIUpdate_BuySerf();
+            GUIUpdate_PlaceRallyPoint();
+            local WidgetID = gvStronghold_LastSelectedHQMenu;
+            self:KeepChangeBuildingTabsGuiAction(PlayerID, _EntityID, WidgetID);
+            -- Upgrade buttons
+            XGUIEng.ShowWidget("Upgrade_Headquarter1", 0);
+            XGUIEng.ShowWidget("Upgrade_Headquarter2", 0);
+            XGUIEng.ShowWidget("Upgrade_Outpost1", 0);
+            XGUIEng.ShowWidget("Upgrade_Outpost2", 0);
+            if Logic.IsConstructionComplete(_EntityID) == 1 then
+                if Type == Entities.PB_Headquarters1 then
+                    XGUIEng.ShowWidget("Upgrade_Headquarter1", 1);
+                elseif Type == Entities.PB_Headquarters2 then
+                    XGUIEng.ShowWidget("Upgrade_Headquarter2", 1);
+                elseif Type == Entities.PB_Outpost1 then
+                    XGUIEng.ShowWidget("Upgrade_Outpost1", 1);
+                elseif Type == Entities.PB_Outpost2 then
+                    XGUIEng.ShowWidget("Upgrade_Outpost2", 1);
+                end
+            end
+            GUIUpdate_UpgradeButtons("Upgrade_Outpost1", Technologies.UP1_Outpost);
+            GUIUpdate_UpgradeButtons("Upgrade_Outpost2", Technologies.UP2_Outpost);
+            -- Tracking
+            if IsOutpost then
+                GUIUpdate_GlobalTechnologiesButtons("Research_Tracking", Technologies.T_Tracking, Entities.PB_Outpost1);
+            end
+        else
+            XGUIEng.ShowWidget("Headquarter", 0);
+            XGUIEng.ShowWidget("Keep", 0);
+        end
+    else
+        gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
+    end
+end
+
+function Stronghold.Building:KeepChangeBuildingTabsGuiAction(_PlayerID, _EntityID, _WidgetID)
+    if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
+        return false;
+    end
+
+    local WidgetID = _WidgetID;
+    if not WidgetID then
+        WidgetID = gvStronghold_LastSelectedHQMenu;
+    end
+    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_EntityID));
+    if TypeName and string.find(TypeName, "PB_Outpost") then
+        WidgetID = gvGUI_WidgetID.ToBuildingCommandMenu;
+    end
+
+    if WidgetID == gvGUI_WidgetID.ToBuildingCommandMenu then
+        self:KeepOnToggleHeadquartersCommands(_PlayerID, _EntityID, _WidgetID);
+    elseif WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu then
+        gvStronghold_LastSelectedHQMenu = WidgetID;
+        self:KeepOnToggleInfluenceCommands(_PlayerID, _EntityID, _WidgetID);
+    end
+    return true;
+end
+
+function Stronghold.Building:KeepOnToggleHeadquartersCommands(_PlayerID, _EntityID, _WidgetID)
+    XGUIEng.HighLightButton("ToBuildingCommandMenu", 0);
+    XGUIEng.HighLightButton("ToBuildingSettlersMenu", 1);
+    XGUIEng.ShowWidget("Keep", 0);
+    XGUIEng.ShowWidget("Headquarter", 1);
+    XGUIEng.ShowWidget("WorkerInBuilding", 0);
+
+    XGUIEng.ShowWidget("HQTaxes", 1);
+    XGUIEng.ShowAllSubWidgets("HQTaxes", 1);
+    XGUIEng.SetWidgetPosition("TaxesAndPayStatistics", 105, 35);
+    XGUIEng.SetWidgetPosition("HQTaxes", 143, 5);
+
+    XGUIEng.ShowWidget("Buy_Hero", 0);
+    XGUIEng.ShowWidget("HQ_Militia", 1);
+    XGUIEng.SetWidgetPosition("HQ_Militia", 35, 0);
+    XGUIEng.TransferMaterials("Buy_Hero", "HQ_CallMilitia");
+    XGUIEng.TransferMaterials("Buy_Hero", "HQ_BackToWork");
+
+    -- TODO: Proper disable in singleplayer!
+    -- local ShowBuyHero = XNetwork.Manager_DoesExist() == 1
+    XGUIEng.ShowWidget("HQ_CallMilitia", (GetNobleID(_PlayerID) == 0 and 1) or 0);
+    XGUIEng.ShowWidget("HQ_BackToWork", (GetNobleID(_PlayerID) ~= 0 and 1) or 0);
+    XGUIEng.ShowWidget("RallyPoint", 1);
+
+    gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
+    GUIUpdate_PlaceRallyPoint();
+end
+
+function Stronghold.Building:KeepOnToggleInfluenceCommands(_PlayerID, _EntityID, _WidgetID)
+    XGUIEng.HighLightButton("ToBuildingCommandMenu", 1);
+    XGUIEng.HighLightButton("ToBuildingSettlersMenu", 0);
     XGUIEng.ShowWidget("KeepFestivals", 0);
+    local Type = Logic.GetEntityType(_EntityID);
     if Type == Entities.PB_Headquarters1
     or Type == Entities.PB_Headquarters2
     or Type == Entities.PB_Headquarters3 then
+        XGUIEng.ShowWidget("Headquarter", 0);
+        XGUIEng.ShowWidget("Keep", 1);
+        XGUIEng.ShowWidget("Commands_Keep", 1);
         XGUIEng.ShowWidget("KeepFestivals", 1);
+        -- TODO: Remove technologies?
+        XGUIEng.ShowWidget("Research_DraconicPunishment", 1);
+        XGUIEng.ShowWidget("Research_DecorativeSkull", 1);
+        XGUIEng.ShowWidget("Research_TjostingArmor", 1);
+
+        GUIUpdate_GlobalTechnologiesButtons("Research_DraconicPunishment", Technologies.T_DraconicPunishment, Entities.PB_Headquarter1);
+        GUIUpdate_GlobalTechnologiesButtons("Research_DecorativeSkull", Technologies.T_DecorativeSkull, Entities.PB_Headquarter2);
+        GUIUpdate_GlobalTechnologiesButtons("Research_TjostingArmor", Technologies.T_TjostingArmor, Entities.PB_Headquarter3);
+
+        GUIUpdate_UpgradeButtons("Upgrade_Keep1", Technologies.UP1_Headquarter);
+        GUIUpdate_UpgradeButtons("Upgrade_Keep2", Technologies.UP2_Headquarter);
+
+        XGUIEng.ShowWidget("RallyPoint", 0);
+        GUIUpdate_PlaceRallyPoint();
     end
 end
 
@@ -1268,27 +1425,54 @@ function Stronghold.Building:PrintKeepFestivalButtonsTooltip(_PlayerID, _EntityI
     end
 
     local Level = -1;
-    if _Key == "sh_menuheadquarter/SetFestivalLevel0" then
+    local Button = nil;
+    if _Key == "sh_menukeep/SetFestivalLevel0" then
+        Button = "KeepFestivalLevel0";
         Level = 0;
-    elseif _Key == "sh_menuheadquarter/SetFestivalLevel1" then
+    elseif _Key == "sh_menukeep/SetFestivalLevel1" then
+        Button = "KeepFestivalLevel1";
         Level = 1;
-    elseif _Key == "sh_menuheadquarter/SetFestivalLevel2" then
+    elseif _Key == "sh_menukeep/SetFestivalLevel2" then
+        Button = "KeepFestivalLevel2";
         Level = 2;
-    elseif _Key == "sh_menuheadquarter/SetFestivalLevel3" then
+    elseif _Key == "sh_menukeep/SetFestivalLevel3" then
+        Button = "KeepFestivalLevel3";
         Level = 3;
-    elseif _Key == "sh_menuheadquarter/SetFestivalLevel4" then
+    elseif _Key == "sh_menukeep/SetFestivalLevel4" then
+        Button = "KeepFestivalLevel4";
         Level = 4;
+    elseif _Key == "sh_menukeep/SetFestivalLevel5" then
+        Button = "KeepFestivalLevel5";
+        Level = 5;
+    elseif _Key == "sh_menukeep/SetFestivalLevel6" then
+        Button = "KeepFestivalLevel6";
+        Level = 6;
     else
         return false;
     end
 
     local StringText = XGUIEng.GetStringTableText(_Key);
+    local CostText = FormatCostString(_PlayerID, GetFestivalCosts(_PlayerID, Level));
     local Effects = Stronghold.Economy.Config.Income.Festival[Level];
     local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    -- ...
+    if Effects.Reputation then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
+        local Operator = (Effects.Reputation >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+    end
+    if Effects.Honor then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
+        local Operator = (Effects.Honor >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+    end
 
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
-    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    local ButtonText = StringText .. EffectText;
+    if XGUIEng.IsButtonDisabled(Button) == 1 then
+        ButtonText = ButtonText.. " @cr " .. XGUIEng.GetStringTableText(_Key.. "_disabled");
+    end
+
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, ButtonText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;
 end
@@ -1298,16 +1482,55 @@ GUIAction_KeepFestival = function(_Level)
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(BuildingID);
     if GuiPlayer == PlayerID then
-        -- ...
+        Syncer.InvokeEvent(
+            Stronghold.Building.NetworkCall,
+            Stronghold.Building.SyncEvents.ChangeFestival,
+            _Level
+        );
     end
 end
 
 GUIUpdate_KeepFestivalButtons = function()
-    local PlayerID = GUI.GetPlayerID();
-    local Level = GetBeverageLevel(PlayerID);
+    local BuildingID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(BuildingID);
+    local Level = GetFestivalLevel(PlayerID);
     XGUIEng.UnHighLightGroup("InGame", "festivalgroup");
     local WidgetID = Stronghold.Building.Config.Civil.FestivalButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
+
+    local Level3 = GetBuildingsOfType(PlayerID, Entities.PB_Headquarters3, true);
+    local Level2 = GetBuildingsOfType(PlayerID, Entities.PB_Headquarters2, true);
+    local Level1 = GetBuildingsOfType(PlayerID, Entities.PB_Headquarters1, true);
+
+    XGUIEng.DisableButton("KeepFestivalLevel0", (Level1[1]+Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("KeepFestivalLevel1", (Level1[1]+Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("KeepFestivalLevel2", (Level1[1]+Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("KeepFestivalLevel3", (Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("KeepFestivalLevel4", (Level2[1]+Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("KeepFestivalLevel5", (Level3[1] == 0 and 1) or 0);
+    XGUIEng.DisableButton("KeepFestivalLevel6", (Level3[1] == 0 and 1) or 0);
+
+    local Upgrade = Logic.GetUpgradeLevelForBuilding(BuildingID);
+    if Upgrade == 1 then
+        XGUIEng.ShowWidget("Upgrade_Keep2", 1);
+    elseif Upgrade == 0 then
+        XGUIEng.ShowWidget("Upgrade_Keep1", 1);
+    else
+        XGUIEng.ShowWidget("Upgrade_Keep1", 0);
+        XGUIEng.ShowWidget("Upgrade_Keep2", 0);
+    end
+end
+
+function GUIUpdate_InfluenceProgress()
+    local WidgetID = XGUIEng.GetCurrentWidgetID();
+    local PlayerID = GetLocalPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    if Logic.IsEntityInCategory(EntityID, EntityCategories.Headquarters) == 0 then
+        return false;
+    end
+    local ValueMax = GetPlayerMaxInfluencePoints(PlayerID);
+    local Value = Stronghold.Economy:GetPlayerInfluencePoints(PlayerID);
+    XGUIEng.SetProgressBarValues(WidgetID, Value, ValueMax);
 end
 
 -- -------------------------------------------------------------------------- --
@@ -1366,14 +1589,13 @@ function Stronghold.Building:OnCathedralSelected(_EntityID)
     or Type == Entities.PB_Monastery2
     or Type == Entities.PB_Monastery3 then
         XGUIEng.ShowWidget("Monastery", 0);
-        XGUIEng.ShowWidget("Commands_Monastery", 0);
         XGUIEng.ShowWidget("Cathedral", 1);
         XGUIEng.ShowWidget("Commands_Cathedral", 1);
         XGUIEng.ShowWidget("CathedralService", 1);
         -- TODO: Remove technologies?
-        XGUIEng.ShowWidget("Research_SundayAssembly", 0);
-        XGUIEng.ShowWidget("Research_HolyRelics", 0);
-        XGUIEng.ShowWidget("Research_PopalBlessing", 0);
+        XGUIEng.ShowWidget("Research_SundayAssembly", 1);
+        XGUIEng.ShowWidget("Research_HolyRelics", 1);
+        XGUIEng.ShowWidget("Research_PopalBlessing", 1);
 
         GUIUpdate_GlobalTechnologiesButtons("Research_SundayAssembly", Technologies.T_SundayAssembly, Entities.PB_Monastery1);
         GUIUpdate_GlobalTechnologiesButtons("Research_HolyRelics", Technologies.T_HolyRelics, Entities.PB_Monastery2);
@@ -1460,7 +1682,6 @@ end
 
 GUIUpdate_ChurchServiceButtons = function()
     local BuildingID = GUI.GetSelectedEntity();
-    local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(BuildingID);
     local Level = GetSermonLevel(PlayerID);
     XGUIEng.UnHighLightGroup("InGame", "sermongroup");
