@@ -325,6 +325,7 @@ function Stronghold.Hero.Perk:SetupPerksForPlayerHero(_PlayerID, _Type)
         if _Type == Entities.PU_Hero4 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero4_Ability);
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteCavalry);
+            self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Unit_EliteKnight);
         end
         if _Type == Entities.PU_Hero5 then
             self:UnlockPerkForPlayer(_PlayerID, HeroPerks.Hero5_Ability);
@@ -1568,6 +1569,7 @@ function Stronghold.Hero.Perk:ApplyUnitTypeAttractionPassiveAbility(_PlayerID, _
         end
         -- Sharpshooters Malus
         if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_EliteCavalry]
+        or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_EliteKnight]
         or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Templars]
         or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Barbarians]
         or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Evil]

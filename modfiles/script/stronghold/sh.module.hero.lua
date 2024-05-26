@@ -621,6 +621,9 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     -- Add Elite Cavalry
     if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteCavalry) then
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry, UpgradeCategories.TemplarLeaderCavalry1);
+    end
+    -- Add Elite Knights
+    if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteKnight) then
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Cavalry, UpgradeCategories.TemplarLeaderHeavyCavalry1);
     end
     -- Add Elite Crossbow

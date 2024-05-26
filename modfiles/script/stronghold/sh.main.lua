@@ -970,6 +970,9 @@ function Stronghold:OverrideWidgetTooltips()
             TooltipSet = Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(PlayerID, EntityID, _Key);
         end
         if not TooltipSet then
+            TooltipSet = Stronghold.Building:PrintKeepTaxButtonsTooltip(PlayerID, EntityID, _Key);
+        end
+        if not TooltipSet then
             TooltipSet = Stronghold.Building:PrintKeepFestivalButtonsTooltip(PlayerID, EntityID, _Key);
         end
         if not TooltipSet then

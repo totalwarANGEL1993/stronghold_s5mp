@@ -24,8 +24,8 @@
             <Cost>
                 <Clay/>
                 <Wood/>
-                <Stone>400</Stone>
-                <Gold>600</Gold>
+                <Stone>200</Stone>
+                <Gold>200</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>

@@ -22,10 +22,10 @@
         <ConstructionInfo>
             <Time>10</Time>
             <Cost>
-                <Clay>100</Clay>
+                <Clay>200</Clay>
                 <Wood/>
                 <Stone>0</Stone>
-                <Gold>100</Gold>
+                <Gold>200</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>

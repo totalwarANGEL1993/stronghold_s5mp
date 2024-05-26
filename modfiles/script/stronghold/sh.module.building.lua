@@ -567,18 +567,18 @@ function Stronghold.Building:ControlKeepFestival(_PlayerID)
     end
 
     local FestivalLevel = GetFestivalLevel(_PlayerID);
+    local Level1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
+    local Level2 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters2, true);
     local Level3 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters3, true);
     if Level3[1] == 0 and FestivalLevel > 4 then
         SetFestivalLevel(_PlayerID, 4);
         return;
     end
-    local Level2 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters2, true);
-    if Level2[1] == 0 and FestivalLevel > 2 then
+    if Level2[1]+Level3[1] == 0 and FestivalLevel > 2 then
         SetFestivalLevel(_PlayerID, 2);
         return;
     end
-    local Level1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
-    if Level1[1] == 0 and FestivalLevel > 0 then
+    if Level1[1]+Level2[1]+Level3[1] == 0 and FestivalLevel > 0 then
         SetFestivalLevel(_PlayerID, 0);
         return;
     end
@@ -739,12 +739,68 @@ function Stronghold.Building:KeepOnToggleInfluenceCommands(_PlayerID, _EntityID,
         XGUIEng.ShowWidget("Commands_Keep", 1);
         XGUIEng.ShowWidget("KeepFestivals", 1);
 
-        GUIUpdate_UpgradeButtons("Upgrade_Keep1", Technologies.UP1_Headquarter);
-        GUIUpdate_UpgradeButtons("Upgrade_Keep2", Technologies.UP2_Headquarter);
+        -- This must be called here to update upgrade buttons properly!
+        local UpgradeCategory = Logic.GetUpgradeCategoryByBuildingType(Type);
+        InterfaceTool_UpdateUpgradeButtons(Type, UpgradeCategory, "Upgrade_Keep");
+
+        local Upgrade = Logic.GetUpgradeLevelForBuilding(_EntityID);
+        if Upgrade == 1 then
+            GUIUpdate_UpgradeButtons("Upgrade_Keep2", Technologies.UP2_Headquarter);
+        elseif Upgrade == 0 then
+            GUIUpdate_UpgradeButtons("Upgrade_Keep1", Technologies.UP1_Headquarter);
+        end
 
         XGUIEng.ShowWidget("RallyPoint", 0);
         GUIUpdate_PlaceRallyPoint();
     end
+end
+
+function Stronghold.Building:PrintKeepTaxButtonsTooltip(_PlayerID, _EntityID, _Key)
+    local Type = Logic.GetEntityType(_EntityID);
+    if  Type ~= Entities.PB_Headquarters1
+    and Type ~= Entities.PB_Headquarters2
+    and Type ~= Entities.PB_Headquarters3
+    and Type ~= Entities.PB_Outpost1
+    and Type ~= Entities.PB_Outpost2
+    and Type ~= Entities.PB_Outpost3 then
+        return false;
+    end
+
+    local Level = -1;
+    if _Key == "sh_menuheadquarter/SetVeryLowTaxes" then
+        Level = 1;
+    elseif _Key == "sh_menuheadquarter/SetLowTaxes" then
+        Level = 2;
+    elseif _Key == "sh_menuheadquarter/SetNormalTaxes" then
+        Level = 3;
+    elseif _Key == "sh_menuheadquarter/SetHighTaxes" then
+        Level = 4;
+    elseif _Key == "sh_menuheadquarter/SetVeryHighTaxes" then
+        Level = 5;
+    else
+        return false;
+    end
+
+    local Button = self.Config.Civil.TaxButtons[Level];
+    local StringText = XGUIEng.GetStringTableText(_Key);
+    local Effects = Stronghold.Economy.Config.Income.TaxEffect[Level];
+    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
+    if Effects.Reputation then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
+        local Operator = (Effects.Reputation >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+    end
+    if Effects.Honor then
+        local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
+        local Operator = (Effects.Honor >= 0 and "+") or "";
+        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+    end
+
+    local ButtonText = StringText .. EffectText;
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, ButtonText);
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
+    return true;
 end
 
 function Stronghold.Building:PrintKeepFestivalButtonsTooltip(_PlayerID, _EntityID, _Key)
@@ -756,32 +812,25 @@ function Stronghold.Building:PrintKeepFestivalButtonsTooltip(_PlayerID, _EntityI
     end
 
     local Level = -1;
-    local Button = nil;
     if _Key == "sh_menukeep/SetFestivalLevel0" then
-        Button = "KeepFestivalLevel0";
         Level = 0;
     elseif _Key == "sh_menukeep/SetFestivalLevel1" then
-        Button = "KeepFestivalLevel1";
         Level = 1;
     elseif _Key == "sh_menukeep/SetFestivalLevel2" then
-        Button = "KeepFestivalLevel2";
         Level = 2;
     elseif _Key == "sh_menukeep/SetFestivalLevel3" then
-        Button = "KeepFestivalLevel3";
         Level = 3;
     elseif _Key == "sh_menukeep/SetFestivalLevel4" then
-        Button = "KeepFestivalLevel4";
         Level = 4;
     elseif _Key == "sh_menukeep/SetFestivalLevel5" then
-        Button = "KeepFestivalLevel5";
         Level = 5;
     elseif _Key == "sh_menukeep/SetFestivalLevel6" then
-        Button = "KeepFestivalLevel6";
         Level = 6;
     else
         return false;
     end
 
+    local Button = self.Config.Civil.FestivalButtons[Level];
     local StringText = XGUIEng.GetStringTableText(_Key);
     local CostText = FormatCostString(_PlayerID, GetFestivalCosts(_PlayerID, Level));
     local Effects = Stronghold.Economy.Config.Income.Festival[Level];
@@ -840,16 +889,6 @@ GUIUpdate_KeepFestivalButtons = function()
     XGUIEng.DisableButton("KeepFestivalLevel4", (Level2[1]+Level3[1] == 0 and 1) or 0);
     XGUIEng.DisableButton("KeepFestivalLevel5", (Level3[1] == 0 and 1) or 0);
     XGUIEng.DisableButton("KeepFestivalLevel6", (Level3[1] == 0 and 1) or 0);
-
-    local Upgrade = Logic.GetUpgradeLevelForBuilding(BuildingID);
-    if Upgrade == 1 then
-        XGUIEng.ShowWidget("Upgrade_Keep2", 1);
-    elseif Upgrade == 0 then
-        XGUIEng.ShowWidget("Upgrade_Keep1", 1);
-    else
-        XGUIEng.ShowWidget("Upgrade_Keep1", 0);
-        XGUIEng.ShowWidget("Upgrade_Keep2", 0);
-    end
 end
 
 function GUIUpdate_InfluenceProgress()
@@ -881,18 +920,18 @@ function Stronghold.Building:ControlChurchService(_PlayerID)
         return;
     end
 
+    local Level1 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
+    local Level2 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
     local Level3 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery3, true);
     if Level3[1] == 0 and SermonLevel > 4 then
         SetSermonLevel(_PlayerID, 4);
         return;
     end
-    local Level2 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery2, true);
-    if Level2[1] == 0 and SermonLevel > 2 then
+    if Level2[1]+Level3[1] == 0 and SermonLevel > 2 then
         SetSermonLevel(_PlayerID, 2);
         return;
     end
-    local Level1 = GetBuildingsOfType(_PlayerID, Entities.PB_Monastery1, true);
-    if Level1[1] == 0 and SermonLevel > 0 then
+    if Level1[1]+Level2[1]+Level3[1] == 0 and SermonLevel > 0 then
         SetSermonLevel(_PlayerID, 0);
         return;
     end
@@ -924,8 +963,16 @@ function Stronghold.Building:OnCathedralSelected(_EntityID)
         XGUIEng.ShowWidget("Commands_Cathedral", 1);
         XGUIEng.ShowWidget("CathedralService", 1);
 
-        GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP1_Monastery);
-        GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP2_Monastery);
+        -- This must be called here to update upgrade buttons properly!
+        local UpgradeCategory = Logic.GetUpgradeCategoryByBuildingType(Type);
+        InterfaceTool_UpdateUpgradeButtons(Type, UpgradeCategory, "Upgrade_Cathedral");
+
+        local Upgrade = Logic.GetUpgradeLevelForBuilding(_EntityID);
+        if Upgrade == 1 then
+            GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP1_Monastery);
+        elseif Upgrade == 0 then
+            GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP2_Monastery);
+        end
     end
 end
 
@@ -938,32 +985,25 @@ function Stronghold.Building:PrintCathedralSermonButtonsTooltip(_PlayerID, _Enti
     end
 
     local Level = -1;
-    local Button = nil;
     if _Key == "sh_menucathedral/SetServiceLevel0" then
-        Button = "CathedralServiceLevel0";
         Level = 0;
     elseif _Key == "sh_menucathedral/SetServiceLevel1" then
-        Button = "CathedralServiceLevel1";
         Level = 1;
     elseif _Key == "sh_menucathedral/SetServiceLevel2" then
-        Button = "CathedralServiceLevel2";
         Level = 2;
     elseif _Key == "sh_menucathedral/SetServiceLevel3" then
-        Button = "CathedralServiceLevel3";
         Level = 3;
     elseif _Key == "sh_menucathedral/SetServiceLevel4" then
-        Button = "CathedralServiceLevel4";
         Level = 4;
     elseif _Key == "sh_menucathedral/SetServiceLevel5" then
-        Button = "CathedralServiceLevel5";
         Level = 5;
     elseif _Key == "sh_menucathedral/SetServiceLevel6" then
-        Button = "CathedralServiceLevel6";
         Level = 6;
     else
         return false;
     end
 
+    local Button = self.Config.Civil.SermonButtons[Level];
     local StringText = XGUIEng.GetStringTableText(_Key);
     local CostText = FormatCostString(_PlayerID, GetSermonCosts(_PlayerID, Level));
     local Effects = Stronghold.Economy.Config.Income.Sermon[Level];
