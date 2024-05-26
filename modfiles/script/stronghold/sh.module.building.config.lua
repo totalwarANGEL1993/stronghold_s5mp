@@ -2,76 +2,14 @@
 --- Configuration for the buildings
 --- 
 
-Stronghold.Building.Config.Headquarters = {
-    AlmsFarmFactor = 0.75,
-    AlmsHouseFactor = 0.75,
-
-    [BlessCategories.Construction] = {
-        Reputation = -15,
-        Honor = 0,
-
-        Text = "sh_menuheadquarter/blesssettlers1",
-    },
-    [BlessCategories.Research] = {
-        Reputation = 5,
-        Honor = 5,
-
-        Text = "sh_menuheadquarter/blesssettlers2",
-    },
-    [BlessCategories.Weapons] = {
-        Reputation = 0,
-        Honor = 15,
-
-        Text = "sh_menuheadquarter/blesssettlers3",
-    },
-    [BlessCategories.Financial] = {
-        Reputation = 15,
-        Honor = 0,
-
-        Text = "sh_menuheadquarter/blesssettlers4",
-    },
-    [BlessCategories.Canonisation] = {
-        Reputation = -25,
-        Honor = 60,
-
-        Text = "sh_menuheadquarter/blesssettlers5",
-    },
-}
-
-Stronghold.Building.Config.Monastery = {
-    [BlessCategories.Construction] = {
-        Reputation = 8,
-        Honor = 0,
-
-        Text = "sh_menumonastery/blesssettlers1",
-    },
-    [BlessCategories.Research] = {
-        Reputation = 0,
-        Honor = 8,
-
-        Text = "sh_menumonastery/blesssettlers2",
-    },
-    [BlessCategories.Weapons] = {
-        Reputation = 16,
-        Honor = 0,
-
-        Text = "sh_menumonastery/blesssettlers3",
-    },
-    [BlessCategories.Financial] = {
-        Reputation = 0,
-        Honor = 16,
-
-        Text = "sh_menumonastery/blesssettlers4",
-    },
-    [BlessCategories.Canonisation] = {
-        Reputation = 12,
-        Honor = 12,
-
-        Text = "sh_menumonastery/blesssettlers5",
-    },
-}
-
 Stronghold.Building.Config.Civil = {
+    TaxButtons = {
+        [0] = "SetVeryLowTaxes",
+        [1] = "SetLowTaxes",
+        [2] = "SetNormalTaxes",
+        [3] = "SetHighTaxes",
+        [4] = "SetVeryHighTaxes",
+    },
     RationButtons = {
         [2] = "FarmRationsLevel2",
         [3] = "FarmRationsLevel3",
@@ -101,6 +39,8 @@ Stronghold.Building.Config.Civil = {
         [2] = "KeepFestivalLevel2",
         [3] = "KeepFestivalLevel3",
         [4] = "KeepFestivalLevel4",
+        [5] = "KeepFestivalLevel5",
+        [6] = "KeepFestivalLevel6",
     },
     SermonButtons = {
         [0] = "CathedralServiceLevel0",
@@ -108,6 +48,8 @@ Stronghold.Building.Config.Civil = {
         [2] = "CathedralServiceLevel2",
         [3] = "CathedralServiceLevel3",
         [4] = "CathedralServiceLevel4",
+        [5] = "CathedralServiceLevel5",
+        [6] = "CathedralServiceLevel6",
     },
 }
 

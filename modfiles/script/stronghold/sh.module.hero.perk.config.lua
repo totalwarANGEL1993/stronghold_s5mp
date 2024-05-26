@@ -71,6 +71,11 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Unit_EliteCavalry",
         Data = {}
     },
+    [HeroPerks.Unit_EliteKnight] = {
+        Icon = "HeroPerkTier1ButtonSource1",
+        Text = "sh_windowperks/Unit_EliteKnight",
+        Data = {}
+    },
     [HeroPerks.Unit_Templars] = {
         Icon = "HeroPerkTier1ButtonSource1",
         Text = "sh_windowperks/Unit_Templars",

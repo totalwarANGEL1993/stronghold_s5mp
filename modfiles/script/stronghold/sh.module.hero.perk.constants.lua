@@ -19,6 +19,7 @@ HeroPerks = {
     Unit_EliteRifle = 114,
     Unit_Assassins = 115,
     Unit_EliteSword = 116,
+    Unit_EliteKnight = 117,
 
     Hero1_Ability = 210,
     Hero1_SolemnAuthority = 211,
