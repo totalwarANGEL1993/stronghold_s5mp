@@ -109,13 +109,13 @@ Stronghold.Economy.Config.Income = {
         [6] = {Honor = 50, Reputation = nil, BaseCost = 300,},
     },
     Sermon = {
-        [0] = {Honor = nil, Reputation =  0, CostFactor =    0,},
-        [1] = {Honor = nil, Reputation =  2, CostFactor = 0.25,},
-        [2] = {Honor = nil, Reputation =  4, CostFactor = 0.50,},
-        [3] = {Honor = nil, Reputation =  6, CostFactor = 0.75,},
-        [4] = {Honor = nil, Reputation =  8, CostFactor = 1.00,},
-        [5] = {Honor = nil, Reputation = 10, CostFactor = 1.25,},
-        [6] = {Honor = nil, Reputation = 12, CostFactor = 1.50,},
+        [0] = {Honor = nil, Reputation =  0, BaseCost =    0,},
+        [1] = {Honor = nil, Reputation =  2, BaseCost = 0.25,},
+        [2] = {Honor = nil, Reputation =  4, BaseCost = 0.50,},
+        [3] = {Honor = nil, Reputation =  6, BaseCost = 1.00,},
+        [4] = {Honor = nil, Reputation =  8, BaseCost = 1.50,},
+        [5] = {Honor = nil, Reputation = 10, BaseCost = 2.25,},
+        [6] = {Honor = nil, Reputation = 12, BaseCost = 3.00,},
     },
 
     TechnologyEffect = {
@@ -154,8 +154,8 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Residence2] = {Honor = 0, Reputation = 2.0,},
         [Entities.PB_Residence3] = {Honor = 0, Reputation = 2.5,},
         --
-        [Entities.PB_Tavern1]    = {Honor = 2.0, Reputation = 2.0,},
-        [Entities.PB_Tavern2]    = {Honor = 4.0, Reputation = 4.0,},
+        [Entities.PB_Tavern1]    = {Honor = 1.0, Reputation = 1.0,},
+        [Entities.PB_Tavern2]    = {Honor = 1.5, Reputation = 1.5,},
     },
     Static = {
         [Entities.PB_Beautification04]  = {Honor = 1, Reputation = 0,},

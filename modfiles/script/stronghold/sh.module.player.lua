@@ -866,6 +866,7 @@ end
 
 function Stronghold.Player:SetRationLevel(_PlayerID, _Level)
     if self:IsPlayer(_PlayerID) then
+        _Level = (_Level < 2 and 2) or _Level;
         self.Data[_PlayerID].Player.Rations = _Level;
     end
 end
@@ -879,6 +880,7 @@ end
 
 function Stronghold.Player:SetSleepTimeLevel(_PlayerID, _Level)
     if self:IsPlayer(_PlayerID) then
+        _Level = (_Level < 2 and 2) or _Level;
         self.Data[_PlayerID].Player.SleepTime = _Level;
     end
 end
@@ -914,9 +916,11 @@ function Stronghold.Player:GetFestivalCosts(_PlayerID, _Level)
     if self:IsPlayer(_PlayerID) then
         local Effects = Stronghold.Economy.Config.Income.Festival[_Level];
         local BaseCost = (Effects and Effects.BaseCost) or 0;
+        local Honor = GetHonor(_PlayerID);
+        local HonorFactor = Honor / self.Config.Base.FestivalHonorDivisor;
         local Soldiers = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
-        local Factor = Soldiers / self.Config.Base.FestivalSoldierDivisor;
-        local MoneyCost = math.ceil(BaseCost * (1 + Factor));
+        local SoldierFactor = Soldiers / self.Config.Base.FestivalSoldierDivisor;
+        local MoneyCost = math.floor(BaseCost * (1 + (SoldierFactor + HonorFactor)));
         MoneyCost = GameCallback_SH_CalculateFestivalCosts(_PlayerID, MoneyCost);
         Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
     end
@@ -940,9 +944,9 @@ function Stronghold.Player:GetSermonCosts(_PlayerID, _Level)
     local Costs = {};
     if self:IsPlayer(_PlayerID) then
         local Effects = Stronghold.Economy.Config.Income.Sermon[_Level];
-        local CostFactor = (Effects and Effects.CostFactor) or 0;
+        local BaseCost = (Effects and Effects.BaseCost) or 0;
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
-        local MoneyCost = math.ceil(WorkerCount * CostFactor);
+        local MoneyCost = math.ceil(WorkerCount * BaseCost);
         MoneyCost = GameCallback_SH_CalculateSermonCosts(_PlayerID, MoneyCost);
         Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
     end

@@ -14,6 +14,7 @@ Stronghold.Player.Config = {
         SleepPlaceLimit = 4,
         RationLimit = 4,
         FestivalSoldierDivisor = 150,
+        FestivalHonorDivisor = 300,
     },
 
     DefeatModes = {
