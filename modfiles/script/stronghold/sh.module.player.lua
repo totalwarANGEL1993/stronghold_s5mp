@@ -914,8 +914,9 @@ function Stronghold.Player:GetFestivalCosts(_PlayerID, _Level)
     if self:IsPlayer(_PlayerID) then
         local Effects = Stronghold.Economy.Config.Income.Festival[_Level];
         local BaseCost = (Effects and Effects.BaseCost) or 0;
-        local Honor = 1; -- math.max(self:GetPlayerHonor(_PlayerID) / 250, 1);
-        local MoneyCost = math.ceil(BaseCost * Honor);
+        local Soldiers = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
+        local Factor = Soldiers / self.Config.Base.FestivalSoldierDivisor;
+        local MoneyCost = math.ceil(BaseCost * (1 + Factor));
         MoneyCost = GameCallback_SH_CalculateFestivalCosts(_PlayerID, MoneyCost);
         Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
     end
