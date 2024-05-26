@@ -475,7 +475,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             self.Data[_PlayerID].ReputationDetails.TaxBonus = 0;
             if TaxtHeight == 1 then
                 local TaxEffect = self.Config.Income.TaxEffect;
-                local TaxBonus = TaxEffect[TaxtHeight].Reputation;
+                local TaxBonus = TaxEffect[TaxtHeight].Reputation or 0;
                 self.Data[_PlayerID].ReputationDetails.TaxBonus = TaxBonus;
             end
 
@@ -665,7 +665,7 @@ function Stronghold.Economy:CalculateReputationTaxPenaltyAmount(_PlayerID, _TaxH
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         local Penalty = 0;
         if _TaxHeight > 1 then
-            Penalty = self.Config.Income.TaxEffect[_TaxHeight].Reputation * -1;
+            Penalty = (self.Config.Income.TaxEffect[_TaxHeight].Reputation or 0) * -1;
         end
         return math.floor(Penalty);
     end
@@ -682,7 +682,7 @@ function Stronghold.Economy:CalculateHonorIncome(_PlayerID)
             if WorkerCount > 0 then
                 -- Tax height
                 local TaxHight = GetTaxHeight(_PlayerID);
-                local TaxBonus = self.Config.Income.TaxEffect[TaxHight].Honor;
+                local TaxBonus = (self.Config.Income.TaxEffect[TaxHight].Honor or 0);
                 self.Data[_PlayerID].HonorDetails.TaxBonus = TaxBonus;
 
                 -- Feeding settlers
@@ -842,12 +842,14 @@ function Stronghold.Economy:GainInfluencePoints(_PlayerID)
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local FestivalLevel = GetFestivalLevel(_PlayerID);
         local NobleID = GetNobleID(_PlayerID);
+        local CastleID = GetHeadquarterID(_PlayerID);
         if WorkerCount > 0 then
-            if NobleID ~= 0 and FestivalLevel > 0 then
+            if  (NobleID ~= 0 and CastleID ~= 0 and FestivalLevel > 0)
+            and not IsBuildingBeingUpgraded(CastleID) then
                 local Reputation = GetReputation(_PlayerID);
                 local Rank = GetRank(_PlayerID);
                 local BaseInfluence = self.Config.Income.InfluenceBase;
-                local RankInfluence = self.Config.Income.InfluenceRank * Rank;
+                local RankInfluence = self.Config.Income.InfluenceRank;
                 local WorkerFactor = self.Config.Income.InfluenceWorkerFactor;
                 local Influence = BaseInfluence + (RankInfluence * Rank);
                 for i= 1, WorkerCount do

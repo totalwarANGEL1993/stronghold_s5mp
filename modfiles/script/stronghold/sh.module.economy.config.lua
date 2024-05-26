@@ -41,11 +41,11 @@ Stronghold.Economy.Config.Resource = {
     },
     Extracting = {
         [ResourceType.GoldRaw] = 1,
-        [ResourceType.ClayRaw] = 2,
-        [ResourceType.WoodRaw] = 3,
-        [ResourceType.StoneRaw] = 2,
-        [ResourceType.IronRaw] = 2,
-        [ResourceType.SulfurRaw] = 2,
+        [ResourceType.ClayRaw] = 1,
+        [ResourceType.WoodRaw] = 2,
+        [ResourceType.StoneRaw] = 1,
+        [ResourceType.IronRaw] = 1,
+        [ResourceType.SulfurRaw] = 1,
     },
 }
 
@@ -60,16 +60,16 @@ Stronghold.Economy.Config.Income = {
     --
     MaxInfluencePoints = 5000,
     InfluenceWorkerFactor = 1,
-    InfluenceHardCap = 18,
+    InfluenceHardCap = 30,
     InfluenceBase = 6,
     InfluenceRank = 1,
     --
     TaxEffect = {
-        [1] = {Honor = 4, Reputation =  1,},
-        [2] = {Honor = 2, Reputation = -2,},
-        [3] = {Honor = 1, Reputation = -4,},
-        [4] = {Honor = 0, Reputation = -6,},
-        [5] = {Honor = 0, Reputation = -8,},
+        [1] = {Honor =   4, Reputation =  1,},
+        [2] = {Honor =   2, Reputation = -2,},
+        [3] = {Honor =   1, Reputation = -4,},
+        [4] = {Honor = nil, Reputation = -6,},
+        [5] = {Honor = nil, Reputation = -8,},
     },
     TaxPerWorker = 5,
     ScaleBonusFactor = 1.15,
@@ -78,16 +78,16 @@ Stronghold.Economy.Config.Income = {
 
     Rations = {
         [2] = {Honor = 0, Reputation = nil, Stamina = 0.50},
-        [3] = {Honor = 1, Reputation = nil, Stamina = 0.25},
-        [4] = {Honor = 2, Reputation = nil, Stamina = 0.10},
+        [3] = {Honor = 1, Reputation = nil, Stamina = 0.35},
+        [4] = {Honor = 2, Reputation = nil, Stamina = 0.25},
         -- deprecated
         [0] = {Honor = 0, Reputation = nil, Stamina = 0.50},
         [1] = {Honor = 0, Reputation = nil, Stamina = 0.50},
     },
     SleepTime = {
         [2] = {Honor = nil, Reputation = 0, Stamina = 0.50},
-        [3] = {Honor = nil, Reputation = 1, Stamina = 0.25},
-        [4] = {Honor = nil, Reputation = 2, Stamina = 0.10},
+        [3] = {Honor = nil, Reputation = 1, Stamina = 0.35},
+        [4] = {Honor = nil, Reputation = 2, Stamina = 0.25},
         -- deprecated
         [0] = {Honor = nil, Reputation = 0, Stamina = 0.50},
         [1] = {Honor = nil, Reputation = 0, Stamina = 0.50},
@@ -101,21 +101,21 @@ Stronghold.Economy.Config.Income = {
     },
     Festival = {
         [0] = {Honor =  0, Reputation = nil, BaseCost =   0,},
-        [1] = {Honor =  5, Reputation = nil, BaseCost =  25,},
-        [2] = {Honor = 10, Reputation = nil, BaseCost =  50,},
-        [3] = {Honor = 20, Reputation = nil, BaseCost = 100,},
-        [4] = {Honor = 30, Reputation = nil, BaseCost = 150,},
-        [5] = {Honor = 40, Reputation = nil, BaseCost = 200,},
-        [6] = {Honor = 50, Reputation = nil, BaseCost = 250,},
+        [1] = {Honor =  5, Reputation = nil, BaseCost =  30,},
+        [2] = {Honor = 10, Reputation = nil, BaseCost =  60,},
+        [3] = {Honor = 15, Reputation = nil, BaseCost =  90,},
+        [4] = {Honor = 25, Reputation = nil, BaseCost = 150,},
+        [5] = {Honor = 35, Reputation = nil, BaseCost = 210,},
+        [6] = {Honor = 50, Reputation = nil, BaseCost = 300,},
     },
     Sermon = {
-        [0] = {Honor = nil, Reputation = 0, CostFactor =    0,},
-        [1] = {Honor = nil, Reputation = 1, CostFactor = 1.00,},
-        [2] = {Honor = nil, Reputation = 2, CostFactor = 1.50,},
-        [3] = {Honor = nil, Reputation = 3, CostFactor = 2.00,},
-        [4] = {Honor = nil, Reputation = 4, CostFactor = 2.50,},
-        [5] = {Honor = nil, Reputation = 5, CostFactor = 3.00,},
-        [6] = {Honor = nil, Reputation = 6, CostFactor = 3.50,},
+        [0] = {Honor = nil, Reputation =  0, CostFactor =    0,},
+        [1] = {Honor = nil, Reputation =  2, CostFactor = 0.25,},
+        [2] = {Honor = nil, Reputation =  4, CostFactor = 0.50,},
+        [3] = {Honor = nil, Reputation =  6, CostFactor = 0.75,},
+        [4] = {Honor = nil, Reputation =  8, CostFactor = 1.00,},
+        [5] = {Honor = nil, Reputation = 10, CostFactor = 1.25,},
+        [6] = {Honor = nil, Reputation = 12, CostFactor = 1.50,},
     },
 
     TechnologyEffect = {
@@ -150,12 +150,12 @@ Stronghold.Economy.Config.Income = {
         [Entities.PB_Farm2]      = {Honor = 1.5, Reputation = 0,},
         [Entities.PB_Farm3]      = {Honor = 2.0, Reputation = 0,},
         --
-        [Entities.PB_Residence1] = {Honor = 0, Reputation = 1.0,},
-        [Entities.PB_Residence2] = {Honor = 0, Reputation = 1.5,},
-        [Entities.PB_Residence3] = {Honor = 0, Reputation = 2.0,},
+        [Entities.PB_Residence1] = {Honor = 0, Reputation = 1.5,},
+        [Entities.PB_Residence2] = {Honor = 0, Reputation = 2.0,},
+        [Entities.PB_Residence3] = {Honor = 0, Reputation = 2.5,},
         --
-        [Entities.PB_Tavern1]    = {Honor = 1.0, Reputation = 1.0,},
-        [Entities.PB_Tavern2]    = {Honor = 2.0, Reputation = 2.0,},
+        [Entities.PB_Tavern1]    = {Honor = 2.0, Reputation = 2.0,},
+        [Entities.PB_Tavern2]    = {Honor = 4.0, Reputation = 4.0,},
     },
     Static = {
         [Entities.PB_Beautification04]  = {Honor = 1, Reputation = 0,},
