@@ -23,7 +23,7 @@
 <string id="ExplainCastle_1">TOM SIMPKINS: Bitte selektiert nun die Burg!</string>
 <string id="ExplainCastle_2">TOM SIMPKINS: Die Burg besitzt nun zwei Ansichten. Neben der gewohnten gibt es auch eine zweite, die Euch in die Lage versetzt, Maßnahmen zu erlassen.</string>
 <string id="ExplainCastle_3">TOM SIMPKINS: Diese Registerkarte zeigt Eure Schatzkammer an. Hier stellt Ihr Steuern ein, kauft Knechte und erhaltet Auskunft über Einnahmen und Ausgaben.</string>
-<string id="ExplainCastle_4">TOM SIMPKINS: Diese Registerkarte wechselt zu den Maßnahmen. Mit ihnen könnt Ihr verschiedene Vorteile erhalten. Es funktioniert ähnlich wie die Kirche.</string>
+<string id="ExplainCastle_4">TOM SIMPKINS: Diese Registerkarte wechselt zu den Burgfesten. Feste zu feiern kostet Euch Gold, aber Ihr könnt durch sie an Ehre gewinnen.</string>
 <string id="ExplainCastle_5">TOM SIMPKINS: Anders als Ihr es gewohnt seid, könnt Ihr sofort die Steuern einstellen. Aber gebt acht, {scarlet}denn der Pöbel wird hohe Steuern nicht mögen!</string>
 <string id="ExplainCastle_6">TOM SIMPKINS: Dieser Button ermöglich Euch, {scarlet}Sammelpunkte {white} festzulegen. In Gebäuden produzierte Truppen werden zur Position laufen. Im Falle der Burg, werden Knechte {scarlet}automatisch Ressourcen abbauen.</string>
 <string id="ExplainCastle_7">TOM SIMPKINS: Ihr platziert einen Sammelpunkt, {scarlet}indem Ihr rechts auf die Spielwelt klickt, nachdem die Maus zu einer Hand mit einer Flagge wurde. {white} Das klappt nur, wenn die Position erreichbar ist.</string>
@@ -32,9 +32,9 @@
 <string id="ExplainCastle_10">TOM SIMPKINS: Nun ist es an der Zeit, Euren Adligen zu wählen. {scarlet} Ohne einen Adligen könnt Ihr keine Ränge aufsteigen! {white}Fällt der Adlige im Kampf, {scarlet}findet Ihr ihn oder sie vor Eurer Burg.</string>
 <string id="ExplainCastle_11">TOM SIMPKINS: Öffnet das Menü und sucht Euch einen Adligen aus! Für das Bestehen dieser Einführung ist es unherheblich, welchen Adligen Ihr wählt.</string>
 <string id="ExplainCastle_12">TOM SIMPKINS: Jeder Adlige besitzt andere Eigenschaften. Ihr tut gut daran, einen Adligen zu wählen, {scarlet}der zu Eurem Spielstil passt. {white} Jeder hat individuelle Vorteile gegenüber den anderen.</string>
-<string id="ExplainCastle_13">TOM SIMPKINS: Wechselt zu den Maßnahmen, damit ich sie Euch ebenfalls näher bringen kann.</string>
-<string id="ExplainCastle_14">TOM SIMPKINS: Dies sind die Maßnahmen, die Euch zur Verfügung stehen. Eine Maßnahme funktioniert ähnlich wie die Segnungen in der Kirche. Allerdings helfen Gebete nicht, Euren Einfluss zu mehren.</string>
-<string id="ExplainCastle_15">TOM SIMPKINS: Wie schnell Ihr Maßnahmen ergreifen könnt, wird von Eurem Einfluss bestimmt.{scarlet} Einfluss steigt mit jedem erreichten Titel aber sinkt je größer Euer Volk wird.{white} Ihr müsst die Balance finden, Sire!</string>
+<string id="ExplainCastle_13">TOM SIMPKINS: Wechselt zu den Burgfesten, damit ich sie Euch ebenfalls näher bringen kann.</string>
+<string id="ExplainCastle_14">TOM SIMPKINS: Dies sind die verschiedenen Stufen von Festen, die Euch zur Verfügung stehen. Sobald Ihr genug Einfluss gesammelt und Gold angehäuft habt, wird ein Fest veranstaltet und Eure Ehre gemehrt.</string>
+<string id="ExplainCastle_15">TOM SIMPKINS: Wie schnell Ihr Festivitäten ausrichten könnt, wird von Eurem Einfluss bestimmt.{scarlet} Einfluss steigt schneller mit jedem erreichten Titel.</string>
 <string id="ExplainCastle_16">TOM SIMPKINS: Wendet Euch nun %s zu und selektiert %s! Wir haben die Späher lang genug warten lassen!</string>
 
 <string id="ExplainUnit_1">TOM SIMPKINS: Ihr habt Euren ersten Hauptmann erhalten. Die leichte Kavallerie sollte man nicht unterschätzen!</string>
@@ -55,7 +55,7 @@
 <string id="ExplainManage_4">TOM SIMPKINS: Nicht weit von Euer Burg gibt es ein Lehmvorkommen. Beginnen wir damit, dass Ihr es abbaut. Baut eine Lehmgrube an der markierten Stelle!</string>
 <string id="ExplainManage_5">TOM SIMPKINS: Schaut, die Bergmänner kommen auf die Burg. Doch was ist das? Sie sind nicht zufrieden! Wenn das so weiter geht, werden sie sehr schnell wieder gehen! Macht nicht den Fehler den Pöbel zu unterschätzen!</string>
 <string id="ExplainManage_6">TOM SIMPKINS: Schnell, stellt ihnen Haus und Hof bereit! Wenn sie ihre Mägen füllen und ihre müden Knochen zur Ruhe betten können, sind sie zufriedener.</string>
-<string id="ExplainManage_7">TOM SIMPKINS: Das sieht schon besser aus! Allerdings wird dies noch nicht reichen. Ihr werdet schon mehr tun müssen. Ziergebäude bauen, Technologien erforschen.... Denkt an das, was ich Euch bereits beigebracht habe!</string>
+<string id="ExplainManage_7">TOM SIMPKINS: Das sieht schon besser aus! In Bauernhöfen, Tavernen und Wohnhäusern könnt Ihr Einstellungen vornehmen, {scarlet} welche Beliebtheit und Ehre beeinflussen, sich aber auch auf die Ausdauer der Arbeiter auswirken!</string>
 <string id="ExplainManage_8">TOM SIMPKINS: Versucht, die Abzüge auf die Beliebtheit am Zahltag auszugleichen und lockt insgesamt 15 Arbeiter (keine Knechte) an!</string>
 <string id="ExplainManage_9">TOM SIMPKINS: Die neuen Arbeiter spülen frisches Gold in Eurer Stadtsäckel. Fianzen, die Ihr bitter benötigen werdet, um Truppen auszuheben. Aber als herkömmlicher Adliger könnt Ihr nur Eure Knechte bewaffnen und Speerträger rekrutieren.</string>
 <string id="ExplainManage_10">TOM SIMPKINS: Erhebt Euren Adligen in den Rang eines Kastellan!</string>
@@ -65,7 +65,7 @@
 <string id="ExplainManage_14">TOM SIMPKINS: Arbeiter werden {scarlet}das Gesetz brechen. {white}Verbrecher nicht zu fangen, {scarlet}ruiniert schnell Euer Ansehen! {white}Versucht sie schnell zu fangen. {scarlet} Lasst dazu bewaffnete Knechte Wache schieben oder baut Aussichtstürme!</string>
 <string id="ExplainManage_15">TOM SIMPKINS: Auch der Adlige kann Verbrecher fangen. {scarlet}Dazu müsst ihr den Adligen entsenden, diese kriminellen Elemente zu jagen.</string>
 <string id="ExplainManage_16">TOM SIMPKINS: Um Ratten zu beseitigen, {scarlet}müsst Ihr Eure Aussichtstürme zu Falknerturmen ausbauen.{white} Ein Falke ist in der Lage, ein großes Gebiet um den Turm sauber zu halten.</string>
-<string id="ExplainManage_17">TOM SIMPKINS: Als nächstes solltet Ihr eine Kapelle errichten. Sie gewährt Euch sofort zusätzliche Beliebtheit und Ihr könnt zusätzlich Eure Arbeiter segnen.</string>
+<string id="ExplainManage_17">TOM SIMPKINS: Als nächstes solltet Ihr eine Kapelle errichten. In Gotteshäusern könnt Ihr Messen abhalten, {scarlet}die Euch Gold kosten, aber Eure Beliebtheit steigern!</string>
 <string id="ExplainManage_18">TOM SIMPKINS: Erhebt Euren Adligen nun in den nächsthöheren Stand.</string>
 <string id="ExplainManage_19">TOM SIMPKINS: Hochwohlgeboren, wenn wir so weiter machen, haben wir bald keinen Platz für weitere Untertanen. Ihr solltet als nächstes die Burg ausbauen!</string>
 <string id="ExplainManage_20">TOM SIMPKINS: Baut nun eine Hochschule. Wie ich Euch zuvor bereits erklärte, produzieren Gelehrte essentielles Wissen, ohne das Ihr nicht forschen könnt!</string>

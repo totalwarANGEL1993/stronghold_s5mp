@@ -675,6 +675,13 @@ function Stronghold.Building:OnKeepSelected(_EntityID)
     end
 end
 
+function Stronghold.Building:GetLastSelectedKeepTab(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        return gvStronghold_LastSelectedHQMenu or gvGUI_WidgetID.ToBuildingCommandMenu;
+    end
+    return 0;
+end
+
 function Stronghold.Building:KeepChangeBuildingTabsGuiAction(_PlayerID, _EntityID, _WidgetID)
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
@@ -969,9 +976,9 @@ function Stronghold.Building:OnCathedralSelected(_EntityID)
 
         local Upgrade = Logic.GetUpgradeLevelForBuilding(_EntityID);
         if Upgrade == 1 then
-            GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP1_Monastery);
+            GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP2_Monastery);
         elseif Upgrade == 0 then
-            GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP2_Monastery);
+            GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP1_Monastery);
         end
     end
 end

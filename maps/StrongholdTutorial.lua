@@ -155,6 +155,8 @@ function Tutorial_OverwriteCallbacks()
         Overwrite.CallOriginal();
         if _PlayerID == 2 or _PlayerID == 3 then
             gvTutorial_OnEnemyTrapActivated = true;
+            gvTutorial_TrapX = _X;
+            gvTutorial_TrapY = _Y;
         end
     end);
 
@@ -163,6 +165,8 @@ function Tutorial_OverwriteCallbacks()
         Overwrite.CallOriginal();
         if _PlayerID == 2 or _PlayerID == 3 then
             gvTutorial_OnEnemyTrapActivated = true;
+            gvTutorial_TrapX = _X;
+            gvTutorial_TrapY = _Y;
         end
     end);
 
@@ -420,7 +424,7 @@ function Tutorial_AddCastleInterfaceSection()
         end,
         ClickCatcher = true,
         Condition    = function(_Data)
-            local WidgetID = Stronghold.Building:GetLastSelectedHeadquarterTab(1);
+            local WidgetID = Stronghold.Building:GetLastSelectedKeepTab(1);
             return WidgetID == gvGUI_WidgetID.ToBuildingSettlersMenu;
         end,
     }
@@ -611,6 +615,7 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_5",
+        SlowMotion  = true,
         Action      = function(_Data)
             Logic.DestroyEffect(gvTutorial_ClayMinePointer);
         end,
@@ -625,6 +630,7 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_7",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_8",
@@ -636,6 +642,7 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_9",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_10",
@@ -649,12 +656,11 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_11",
-        Action      = function(_Data)
-            GUI.SelectEntity(GetHeadquarterID(1));
-        end,
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_12",
+        SlowMotion  = true,
         Arrow       = ArrowPos_BuyNoble,
         ArrowWidget  = "TutorialArrowUp",
         ArrowUpdate = function(_Data)
@@ -667,15 +673,19 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_13",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_14",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_15",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_16",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_17",
@@ -714,6 +724,7 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_21",
+        SlowMotion  = true,
         Action      = function(_Data)
             local Position = GetPosition("P2AttackPath3");
             Tools.ExploreArea(Position.X, Position.Y, 10);
@@ -737,6 +748,7 @@ function Tutorial_AddExplainBarracks()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainRecruit_2",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainRecruit_3",
@@ -752,6 +764,7 @@ function Tutorial_AddExplainBarracks()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainRecruit_4",
+        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainRecruit_5",
@@ -775,6 +788,7 @@ function Tutorial_StartOutpost()
 
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainProvince_1",
+        SlowMotion  = true,
         Action      = function(_Data)
             local Position = GetPosition("VillagePos");
             Tools.ExploreArea(Position.X, Position.Y, 10);
@@ -783,6 +797,7 @@ function Tutorial_StartOutpost()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainProvince_2",
+        SlowMotion  = true,
     }
 
     Tutorial.Start();
@@ -805,9 +820,14 @@ function Tutorial_StartTrap()
 
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainTrap_1",
+        SlowMotion  = true,
+        Action      = function(_Data)
+            Camera.ScrollSetLookAt(gvTutorial_TrapX, gvTutorial_TrapY);
+        end,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainTrap_2",
+        SlowMotion  = true,
         Action      = function(_Data)
             gvTutorial_OnTrapTutorialOver = true;
         end,
@@ -832,6 +852,7 @@ function Tutorial_StartClosedPit()
 
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainScout_1",
+        SlowMotion  = true,
         Action      = function(_Data)
             local Position = GetPosition("ClosedPit1Pos");
             Tools.ExploreArea(Position.X, Position.Y, 10);
@@ -840,6 +861,7 @@ function Tutorial_StartClosedPit()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainScout_2",
+        SlowMotion  = true,
         Action      = function(_Data)
             gvTutorial_OnPitTutorialOver = true;
         end,
@@ -866,12 +888,14 @@ function Tutorial_Epiloge()
 
     Tutorial.AddMessage {
         Text        = "sh_tutorial/TutorialEnd_1",
+        SlowMotion  = true,
         Action      = function(_Data)
             ReplaceEntity("GateDude", Entities.CU_PoleArmIdle);
         end,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/TutorialEnd_2",
+        SlowMotion  = true,
     }
     Tutorial.Start();
 end
