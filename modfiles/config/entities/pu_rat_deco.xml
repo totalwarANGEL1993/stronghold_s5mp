@@ -27,13 +27,15 @@
         <Exploration>24</Exploration>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <AttractionSlots>0</AttractionSlots>
-        <Category>Hero</Category>
-        <Cost>
-            <Gold>0</Gold>
-        </Cost>
         <Convertible>false</Convertible>
         <ExperiencePoints>0</ExperiencePoints>
         <Fearless>true</Fearless>
+        <Cost>
+            <Gold>0</Gold>
+        </Cost>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Melee</Category>
         <!-- This is used to prevent units to automatically attack. -->
         <Category>Wall</Category>
     </Logic>
@@ -54,7 +56,7 @@
             <Class>GGL::CLeaderMovement</Class>
             <Speed>150</Speed>
             <RotationSpeed>30</RotationSpeed>
-            <MoveTaskList>TL_MILITARY_WALK</MoveTaskList>
+            <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Squirrel_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">
@@ -65,12 +67,6 @@
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CBehaviorWalkCommand</Class>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
-        <Logic classname="GGL::CHeroBehaviorProps">
-            <Class>GGL::CHeroBehavior</Class>
         </Logic>
     </Behavior>
 
@@ -93,34 +89,36 @@
             <DamageAmount>8</DamageAmount>
             <MaxRandomDamageBonus>1</MaxRandomDamageBonus>
 
+            <BattleWaitUntil>3000</BattleWaitUntil>
+
             <MaxRange>150</MaxRange>
             <MinRange>0.0f</MinRange>
             <AutoAttackRange>0</AutoAttackRange>
 
-            <BattleWaitUntil>3000</BattleWaitUntil>
-
             <HealingPoints>1</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
+
+            <UpkeepCost>0</UpkeepCost>
         </Logic>
     </Behavior>
 
     <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
             <Class>GGL::CGLBehaviorDying</Class>
-            <DyingTaskList>TL_DIE_HERO</DyingTaskList>
+            <DyingTaskList>TL_DIE</DyingTaskList>
         </Logic>
     </Behavior>
 
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
-            <Class>GGL::CWorkerEvadeBehavior</Class>
+            <Class>GGL::CLeaderEvadeBehavior</Class>
         </Logic>
     </Behavior>
 
     <Behavior>
         <Logic classname="GGL::CEvadeExecutionBehaviorProps">
             <Class>GGL::CEvadeExecutionBehavior</Class>
-            <BasePriority>500</BasePriority>
+            <BasePriority>400</BasePriority>
         </Logic>
     </Behavior>
 </root>

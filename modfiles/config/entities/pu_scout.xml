@@ -25,25 +25,10 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
+        <Hat/>
         <MaxHealth>200</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <Hat/>
-        <Cost>
-            <Silver>0</Silver>
-            <Gold>100</Gold>
-            <Wood>50</Wood>
-            <Iron>50</Iron>
-        </Cost>
-        <Upgrade>
-            <Category>Scout</Category>
-        </Upgrade>
-
-
-        <Category>Military</Category>
-        <Category>Leader</Category>
-        <Category>Melee</Category>
-        <Category>Scout</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>18</Exploration>
         <ArmorClass>ArmorClassHero</ArmorClass>
@@ -52,8 +37,21 @@
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>40</ExperiencePoints>
         <AttractionSlots>0</AttractionSlots>
-
+        <Cost>
+            <Silver>0</Silver>
+            <Gold>100</Gold>
+            <Wood>50</Wood>
+            <Iron>50</Iron>
+        </Cost>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>Melee</Category>
+        <Category>Scout</Category>
+        <Upgrade>
+            <Category>Scout</Category>
+        </Upgrade>
     </Logic>
+
     <Behavior>
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
@@ -64,6 +62,7 @@
             <Class>ED::CDisplayBehaviorAnimation</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
@@ -76,11 +75,13 @@
             <Class>ED::CDisplayBehaviorMovement</Class>
         </Display>
     </Behavior>
+
     <Behavior>
         <Logic classname="EGL::CGLEBehaviorProps">
             <Class>GGL::CBehaviorWalkCommand</Class>
         </Logic>
     </Behavior>
+
     <Behavior>
         <Logic classname="GGL::CLeaderBehaviorProps">
             <Class>GGL::CLeaderBehavior</Class>
@@ -114,8 +115,6 @@
             <UpkeepCost>25</UpkeepCost>
         </Logic>
     </Behavior>
-
-
 
     <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
@@ -169,7 +168,7 @@
         <Logic classname="GGL::CPointToResourceBehaviorProperties">
             <Class>GGL::CPointToResourceBehavior</Class>
             <TaskList>TL_POINT_TO_RESOURCE</TaskList>
-            <SearchRadius>6300.0f</SearchRadius>            <!-- This value may not exceed 6300!! -->
+            <SearchRadius>6300.0f</SearchRadius> <!-- This value must not exceed 6300!! -->
         </Logic>
     </Behavior>
 </root>

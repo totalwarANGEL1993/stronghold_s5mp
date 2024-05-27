@@ -466,8 +466,11 @@ function Stronghold.Rights:GetSoldierAmountInSettlement(_PlayerID)
     local Amount = Logic.GetNumberOfAttractedSoldiers(_PlayerID);
     -- Deco entities must be explicitly excluded
     Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Bear_Deco);
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Criminal_Deco);
     Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Dog_Deco);
     Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Hawk_Deco);
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Rat_Deco);
+    Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Watchman_Deco);
     -- Cage animals must be explicitly excluded
     Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Bear_Cage);
     Amount = Amount - Logic.GetNumberOfEntitiesOfTypeOfPlayer(_PlayerID, Entities.PU_Dog_Cage);
