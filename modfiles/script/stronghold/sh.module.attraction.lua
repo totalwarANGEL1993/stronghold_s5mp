@@ -401,7 +401,7 @@ end
 function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
     local Limit = 0;
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        if not Stronghold.Player.Config.DefeatModes.Kingsmaker
+        if not Stronghold.Player.Config.DefeatModes.Conservative
         or IsEntityValid(GetNobleID(_PlayerID)) then
             -- Headquarters
             local HQ1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);

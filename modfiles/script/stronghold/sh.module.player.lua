@@ -189,13 +189,13 @@ end
 --- Returns if the game mode is Conservative.
 --- @return boolean Mode Is game mode
 function IsGameModeConservative()
-    return Stronghold.Player.Config.DefeatModes.Kingsmaker;
+    return Stronghold.Player.Config.DefeatModes.Conservative;
 end
 
 --- Returns if the game mode is Kingsmaker.
 --- @return boolean Mode Is game mode
 function IsGameModeKingsmaker()
-    return Stronghold.Player.Config.DefeatModes.SuddenDeath;
+    return Stronghold.Player.Config.DefeatModes.Kingsmaker;
 end
 
 --- Returns if the game mode is Annihilation.
@@ -378,20 +378,20 @@ end
 -- Game Mode
 
 function Stronghold.Player:ActivateGameModeKingsmaker()
-    self.Config.DefeatModes.Kingsmaker = true;
-    self.Config.DefeatModes.SuddenDeath = false;
+    self.Config.DefeatModes.Conservative = true;
+    self.Config.DefeatModes.Kingsmaker = false;
     self.Config.DefeatModes.Annihilation = false;
 end
 
 function Stronghold.Player:ActivateGameModeSuddenDeath()
-    self.Config.DefeatModes.Kingsmaker = false;
-    self.Config.DefeatModes.SuddenDeath = true;
+    self.Config.DefeatModes.Conservative = false;
+    self.Config.DefeatModes.Kingsmaker = true;
     self.Config.DefeatModes.Annihilation = false;
 end
 
 function Stronghold.Player:ActivateGameModeAnnihilation()
+    self.Config.DefeatModes.Conservative = false;
     self.Config.DefeatModes.Kingsmaker = false;
-    self.Config.DefeatModes.SuddenDeath = false;
     self.Config.DefeatModes.Annihilation = true;
 end
 
@@ -700,7 +700,7 @@ end
 -- gradually loose health until they die or a headquarter is build.
 function Stronghold.Player:WaitForPlayersHeadquarterConstructed(_PlayerID)
     if self:IsPlayer(_PlayerID) then
-        if self.Config.DefeatModes.Kingsmaker then
+        if self.Config.DefeatModes.Conservative then
             return true;
         end
         if self.Data[_PlayerID].Player.IsDefeated then
@@ -737,8 +737,8 @@ end
 function Stronghold.Player:ResurrectPlayerLordForAnnihilation(_PlayerID)
     if self:IsPlayer(_PlayerID) then
         if self.Config.DefeatModes.Annihilation
-        or (not self.Config.DefeatModes.Kingsmaker and
-            not self.Config.DefeatModes.SuddenDeath) then
+        or (not self.Config.DefeatModes.Conservative and
+            not self.Config.DefeatModes.Kingsmaker) then
             local HeroID = GetNobleID(_PlayerID);
             local Health = Logic.GetEntityHealth(HeroID);
             if HeroID ~= 0 and Health == 0 then
@@ -756,7 +756,7 @@ end
 
 function Stronghold.Player:WaitForPlayerHeroSlowlyDies(_PlayerID)
     if self:IsPlayer(_PlayerID) then
-        if self.Config.DefeatModes.Kingsmaker then
+        if self.Config.DefeatModes.Conservative then
             return true;
         end
         if self.Config.DefeatModes.Annihilation then
@@ -1123,7 +1123,7 @@ function Stronghold.Player:PlayerDefeatCondition(_PlayerID)
     local CastleName = self.Data[_PlayerID].Player.HQScriptName;
 
     local PlayerIsDefeated = false;
-    if self.Config.DefeatModes.Kingsmaker then
+    if self.Config.DefeatModes.Conservative then
         local MaxDistance = self.Config.Base.MaxHeroDistance;
         local HeroAtCastle = false;
         if IsEntityValid(HeroName) and GetDistance(HeroName, CastleName) <= MaxDistance then
