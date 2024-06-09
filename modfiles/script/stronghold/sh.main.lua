@@ -208,6 +208,7 @@ function Stronghold:Init()
     end
 
     self:InitPlayerEntityRecord();
+    self:InitSingleplayerRandomSeed();
     Camera.ZoomSetFactorMax(2.0);
     GUI.ClearSelection();
 
@@ -776,6 +777,21 @@ end
 
 function Stronghold:GetWorkersOfType(_PlayerID, _Type)
     return self:GetSettlersOfType(_PlayerID, _Type, "Worker");
+end
+
+-- -------------------------------------------------------------------------- --
+-- Random Seed
+
+function Stronghold:InitSingleplayerRandomSeed()
+    if XNetwork.Manager_DoesExist() == 0 then
+        local SystemTimeString = Framework.GetSystemTimeDateString();
+        local Seed = 0;
+        for _, Value in pairs(string.slice(SystemTimeString, "-")) do
+            Seed = Seed + tonumber(Value);
+        end
+        LuaDebugger.Log("Random Seed: " ..Seed);
+        math.randomseed(Seed);
+    end
 end
 
 -- -------------------------------------------------------------------------- --
