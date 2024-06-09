@@ -19,9 +19,6 @@ Stronghold.Wall = Stronghold.Wall or {
 function Stronghold.Wall:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {
-            Measure = {},
-            RallyPoint = {},
-            UnitMover = {},
             Corners = {},
         };
     end

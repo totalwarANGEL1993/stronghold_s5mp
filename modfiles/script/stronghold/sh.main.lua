@@ -5,7 +5,7 @@
 ---
 
 Stronghold = {
-    Version = "0.7.5",
+    Version = "0.7.6",
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -304,27 +304,6 @@ function Stronghold:GetLocalPlayerID()
 end
 
 -- -------------------------------------------------------------------------- --
--- Logging
-
-function Stronghold:WriteToLog(_Msg, ...)
-    local LogMethod;
-    -- get log method
-    if CLogger then
-        LogMethod = CLogger.Log;
-    elseif LuaDebugger then
-        LogMethod = LuaDebugger.Log;
-    end
-    -- print log
-    if LogMethod then
-        if arg and arg[1] then
-            LogMethod(string.format(_Msg, unpack(arg)));
-        else
-            LogMethod(_Msg);
-        end
-    end
-end
-
--- -------------------------------------------------------------------------- --
 -- Trigger
 
 function Stronghold:StartTriggers()
@@ -543,7 +522,8 @@ function Stronghold:AddEntityToPlayerRecordOnCreate(_EntityID)
                 if Logic.IsEntityInCategory(_EntityID, EntityCategories.MilitaryBuilding) == 1 then
                     self.Record[PlayerID].Fortification[_EntityID] = true;
                 end
-                if Logic.GetBuildingWorkPlaceLimit(_EntityID) > 0 then
+                if  Logic.GetBuildingWorkPlaceLimit(_EntityID) > 0
+                and Logic.IsEntityInCategory(_EntityID, EntityCategories.Farm) == 0 then
                     self.Record[PlayerID].Workplace[_EntityID] = true;
                 end
                 if Logic.IsEntityInCategory(_EntityID, EntityCategories.Farm) == 1 then
@@ -822,7 +802,6 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnCathedralSelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
-        self.Building:OnWorkplaceSelected(EntityID);
         self.Building:OnFarmSelected(EntityID);
         self.Building:OnResidenceSelected(EntityID);
         self.Building:OnTavernSelected(EntityID);

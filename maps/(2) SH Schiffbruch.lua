@@ -124,7 +124,7 @@ function CreateBanditCamps()
 
         local CampID = DelinquentsCampCreate {
             HomePosition = "VCCamp" ..Index.. "Center",
-            Strength = 10,
+            Strength = 8,
         };
         _G["gvBanditCamp" ..Index] = CampID;
 

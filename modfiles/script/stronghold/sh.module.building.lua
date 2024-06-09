@@ -85,8 +85,6 @@ end
 function Stronghold.Building:CreateBuildingButtonHandlers()
     self.SyncEvents = {
         ChangeTax = 1,
-        BlessSettlers = 2,
-        MeasureTaken = 3,
         RallyPoint = 4,
         ChangeWeather = 5,
         ChangeRations = 6,
@@ -252,17 +250,6 @@ function Stronghold.Building:OnAlchemistSelected(_EntityID)
     end
     XGUIEng.ShowWidget("Research_WeatherForecast", 0);
     XGUIEng.ShowWidget("Research_ChangeWeather", 0);
-end
-
--- -------------------------------------------------------------------------- --
--- Workplace
-
-function Stronghold.Building:OnWorkplaceSelected(_EntityID)
-    local Type = Logic.GetEntityType(_EntityID);
-    local TypeName = Logic.GetEntityTypeName(Type);
-    if string.format(TypeName, "Tavern") then
-        XGUIEng.ShowWidget("BuildingTabs", 1);
-    end
 end
 
 -- -------------------------------------------------------------------------- --
@@ -453,6 +440,7 @@ function Stronghold.Building:OnTavernSelected(_EntityID)
     if Type == Entities.PB_Tavern1
     or Type == Entities.PB_Tavern2 then
         XGUIEng.ShowWidget("TavernBeverage", 1);
+        XGUIEng.ShowWidget("BuildingTabs", 1);
     end
 end
 
@@ -636,7 +624,7 @@ function Stronghold.Building:OnKeepSelected(_EntityID)
         if Logic.IsConstructionComplete(_EntityID) == 1 then
             local Type = Logic.GetEntityType(_EntityID);
             local TypeName = Logic.GetEntityTypeName(Type);
-            local IsOutpost = (TypeName and string.find(TypeName, "PB_Outpost") ~= nil);
+            local IsOutpost = string.find(TypeName or "", "PB_Outpost") ~= nil;
             XGUIEng.ShowWidget("BuildingTabs", (IsOutpost and 0) or 1);
             XGUIEng.ShowWidget("RallyPoint", 1);
             XGUIEng.ShowWidget("ActivateSetRallyPoint", 1);

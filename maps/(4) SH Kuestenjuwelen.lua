@@ -157,16 +157,13 @@ function CreateProvinces()
             {Entities.PU_LeaderBow2, 1},
             {Entities.PU_LeaderPoleArm2, 1},
             {Entities.PU_LeaderBow2, 1},
-            {Entities.PU_LeaderBow2, 1},
         }
     elseif PeaceTimeSelected == 3 or PeaceTimeSelected == 8 then
         Troops = {
             {Entities.PU_LeaderPoleArm2, 2},
             {Entities.PU_LeaderSword2, 2},
-            {Entities.PU_LeaderPoleArm2, 2},
             {Entities.PU_LeaderSword2, 2},
             {Entities.PU_LeaderBow2, 2},
-            {Entities.PU_LeaderRifle1, 2},
             {Entities.PU_LeaderPoleArm2, 2},
             {Entities.PU_LeaderRifle1, 2},
         }
@@ -176,9 +173,7 @@ function CreateProvinces()
             {Entities.PU_LeaderSword3, 2},
             {Entities.PV_Cannon1, 0},
             {Entities.PU_LeaderBow3, 2},
-            {Entities.PU_LeaderSword3, 2},
             {Entities.PU_LeaderBow3, 2},
-            {Entities.PV_Cannon1, 0},
             {Entities.PU_LeaderPoleArm3, 3},
             {Entities.PU_LeaderBow3, 2},
             {Entities.PV_Cannon1, 0},
@@ -187,7 +182,6 @@ function CreateProvinces()
         Troops = {
             {Entities.PU_LeaderPoleArm4, 3},
             {Entities.PU_LeaderSword4, 3},
-            {Entities.PU_LeaderPoleArm4, 3},
             {Entities.PV_Cannon3, 0},
             {Entities.PU_LeaderRifle2, 3},
             {Entities.PU_LeaderPoleArm4, 3},
@@ -196,7 +190,6 @@ function CreateProvinces()
             {Entities.PU_LeaderBow4, 3},
             {Entities.PU_LeaderRifle2, 3},
             {Entities.PU_LeaderSword4, 3},
-            {Entities.PU_LeaderRifle2, 3},
         }
     end
 

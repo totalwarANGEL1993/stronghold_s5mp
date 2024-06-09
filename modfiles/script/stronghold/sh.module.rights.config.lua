@@ -39,11 +39,6 @@ Stronghold.Rights.Config = {
             Duties = {},
             Rights = {
                 -- DO NOT MOVE THIS!!! --
-                PlayerRight.MeasureLevyTax,
-                PlayerRight.MeasureLawAndOrder,
-                PlayerRight.MeasureFoodDistribution,
-                PlayerRight.MeasureFolkloreFeast,
-                PlayerRight.MeasureOrgy,
                 PlayerRight.House,
                 PlayerRight.Farm,
                 PlayerRight.ClayPit,
@@ -180,7 +175,7 @@ Stronghold.Rights.Config = {
             Costs  = {100, 0, 0, 0, 0, 0, 0},
             Duties = {
                 {PlayerDuty.Workplaces, 12},
-                {PlayerDuty.Beautification, 1, 12},
+                {PlayerDuty.Beautification, 1, 6},
             },
             Rights = {
                 PlayerRight.University,

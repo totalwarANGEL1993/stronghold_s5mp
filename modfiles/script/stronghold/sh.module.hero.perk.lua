@@ -1557,28 +1557,6 @@ end
 function Stronghold.Hero.Perk:ApplyUnitTypeAttractionPassiveAbility(_PlayerID, _Type, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
     if IsPlayer(_PlayerID) then
-        -- Knights Malus
-        if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Bandits]
-        or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Cannons]
-        then
-            if _Type == Entities.CU_TemplarLeaderHeavyCavalry1
-            or _Type == Entities.PU_LeaderHeavyCavalry1
-            or _Type == Entities.PU_LeaderHeavyCavalry2 then
-                CurrentAmount = CurrentAmount + 1;
-            end
-        end
-        -- Sharpshooters Malus
-        if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_EliteCavalry]
-        or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_EliteKnight]
-        or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Templars]
-        or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Barbarians]
-        or self.Data[_PlayerID].UnlockedPerks[HeroPerks.Unit_Evil]
-        then
-            if _Type == Entities.PU_LeaderRifle1
-            or _Type == Entities.PU_LeaderRifle2 then
-                CurrentAmount = CurrentAmount + 1;
-            end
-        end
         -- Hero 3: Forge Master
         if self.Data[_PlayerID].UnlockedPerks[HeroPerks.Hero3_AtileryExperte] then
             if _Type == Entities.CV_Cannon1 or _Type == Entities.CV_Cannon2

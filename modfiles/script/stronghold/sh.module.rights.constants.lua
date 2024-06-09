@@ -35,13 +35,6 @@ PlayerDuty = {
 
 -- Rights for the player
 PlayerRight = {
-    -- Measures
-    MeasureLevyTax = 100,
-    MeasureLawAndOrder = 101,
-    MeasureFoodDistribution = 102,
-    MeasureFolkloreFeast = 103,
-    MeasureOrgy = 104,
-
     -- Units
     SwordMilitia = 200,
     SwordSquire = 201,

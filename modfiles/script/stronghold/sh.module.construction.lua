@@ -418,18 +418,18 @@ function Stronghold.Construction:InitBuildingLimits()
     EntityTracker.SetLimitOfType(Entities.PB_Headquarters3, 1);
 
     -- Beautifications
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification04, 2); -- 6
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification06, 2); -- 6
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification09, 2); -- 6
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification01, 2); -- 3
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification02, 2); -- 3
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification12, 2); -- 3
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification05, 2); -- 2
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification07, 2); -- 2
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification08, 2); -- 2
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification03, 2); -- 1
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification10, 2); -- 1
-    EntityTracker.SetLimitOfType(Entities.PB_Beautification11, 2); -- 1
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification04, 1); -- 6
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification06, 1); -- 6
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification09, 1); -- 6
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification01, 1); -- 3
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification02, 1); -- 3
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification12, 1); -- 3
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification05, 1); -- 2
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification07, 1); -- 2
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification08, 1); -- 2
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification03, 1); -- 1
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification10, 1); -- 1
+    EntityTracker.SetLimitOfType(Entities.PB_Beautification11, 1); -- 1
 
     -- Civil buildings
     EntityTracker.SetLimitOfType(Entities.PB_Monastery1, 1);

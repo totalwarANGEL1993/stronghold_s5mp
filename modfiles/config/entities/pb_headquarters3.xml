@@ -14,7 +14,7 @@
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>8</ArmorAmount>
         <Exploration>50</Exploration>
-        <NumberOfAttractableSettlers>130</NumberOfAttractableSettlers>
+        <NumberOfAttractableSettlers>85</NumberOfAttractableSettlers>
         <BuildOn>XD_KeepConstructionSite</BuildOn>
         <HideBase>true</HideBase>
         <CanBeSold>false</CanBeSold>

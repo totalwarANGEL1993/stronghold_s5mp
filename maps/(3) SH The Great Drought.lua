@@ -101,7 +101,7 @@ function CreateSulfurRobbers()
         local CampID = DelinquentsCampCreate {
             HomePosition = "RobbersCampPos" ..Index,
             RodeLength = 2700,
-            Strength = 9,
+            Strength = 6,
         };
         _G["gvBanditCamp" ..Index] = CampID;
 

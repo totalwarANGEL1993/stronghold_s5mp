@@ -266,7 +266,7 @@ function SetEasyDifficulty()
     gv_Difficulty.Level = 1;
     gv_Difficulty.PassiveTime = 50*60;
 
-    gv_Difficulty.Player2.ArmySize = 4;
+    gv_Difficulty.Player2.ArmySize = 3;
     gv_Difficulty.Player2.ArmyAmount = 3;
     gv_Difficulty.Player2.RespawnAmount = 1;
     gv_Difficulty.Player2.RespawnTime = 180;
@@ -292,7 +292,7 @@ function SetEasyDifficulty()
         {Entities.PU_LeaderBow1, 0},
     };
 
-    gv_Difficulty.Player5.ArmySize = 4;
+    gv_Difficulty.Player5.ArmySize = 3;
     gv_Difficulty.Player5.ArmyAmount = 3;
     gv_Difficulty.Player5.RespawnAmount = 1;
     gv_Difficulty.Player5.RespawnTime = 180;
@@ -324,7 +324,7 @@ function SetNormalDifficulty()
     gv_Difficulty.PassiveTime = 40*60;
 
     gv_Difficulty.Player2.ArmySize = 4;
-    gv_Difficulty.Player2.ArmyAmount = 4;
+    gv_Difficulty.Player2.ArmyAmount = 3;
     gv_Difficulty.Player2.RespawnAmount = 2;
     gv_Difficulty.Player2.RespawnTime = 135;
     gv_Difficulty.Player2.Types = {
@@ -351,7 +351,7 @@ function SetNormalDifficulty()
     };
 
     gv_Difficulty.Player5.ArmySize = 4;
-    gv_Difficulty.Player5.ArmyAmount = 4;
+    gv_Difficulty.Player5.ArmyAmount = 3;
     gv_Difficulty.Player5.RespawnAmount = 2;
     gv_Difficulty.Player5.RespawnTime = 135;
     gv_Difficulty.Player5.Types = {
@@ -383,7 +383,7 @@ function SetHardDifficulty()
     gv_Difficulty.PassiveTime = 35*60;
 
     gv_Difficulty.Player2.ArmySize = 6;
-    gv_Difficulty.Player2.ArmyAmount = 6;
+    gv_Difficulty.Player2.ArmyAmount = 5;
     gv_Difficulty.Player2.RespawnAmount = 3;
     gv_Difficulty.Player2.RespawnTime = 90;
     gv_Difficulty.Player2.Types = {
@@ -411,7 +411,7 @@ function SetHardDifficulty()
     };
 
     gv_Difficulty.Player5.ArmySize = 6;
-    gv_Difficulty.Player5.ArmyAmount = 6;
+    gv_Difficulty.Player5.ArmyAmount = 5;
     gv_Difficulty.Player5.RespawnAmount = 3;
     gv_Difficulty.Player5.RespawnTime = 90;
     gv_Difficulty.Player5.Types = {
@@ -444,7 +444,7 @@ function SetManiacDifficulty()
     gv_Difficulty.PassiveTime = 30*60;
 
     gv_Difficulty.Player2.ArmySize = 8;
-    gv_Difficulty.Player2.ArmyAmount = 8;
+    gv_Difficulty.Player2.ArmyAmount = 6;
     gv_Difficulty.Player2.RespawnAmount = 3;
     gv_Difficulty.Player2.RespawnTime = 45;
     gv_Difficulty.Player2.Types = {
@@ -473,7 +473,7 @@ function SetManiacDifficulty()
     };
 
     gv_Difficulty.Player5.ArmySize = 8;
-    gv_Difficulty.Player5.ArmyAmount = 8;
+    gv_Difficulty.Player5.ArmyAmount = 6;
     gv_Difficulty.Player5.RespawnAmount = 3;
     gv_Difficulty.Player5.RespawnTime = 45;
     gv_Difficulty.Player5.Types = {

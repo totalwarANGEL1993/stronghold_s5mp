@@ -1,4 +1,4 @@
-**Strongold Version 0.7.0**
+**Strongold Version 0.7.6**
 
 __Spielmodus__
 
@@ -22,21 +22,21 @@ Standard ist "Königsmacher" festgelegt.
 __Bevölkerung__
 
 Das Soldatenlimit wird nicht mehr durch das ausbauen von Militärgebäuden erhöht,
-sondern stattdessen durch das Besetzen von Burgen. Eine Burgruineg kann durch 
-Bauen von Außenposten besetzt werden.
+sondern stattdessen durch das Besetzen von Burgen. Eine Burgruine kann entweder 
+durch eine Burg oder einen Außenposten besetzt werden.
 
 - Bevölkerung:
-  * Haupthaus: 60, 95, 130
-  * Dorfzentrum: 40, 65, 90
+  * Haupthaus: 45, 65, 85
+  * Dorfzentrum: 90, 135, 180
 - Knechte:
   * Knechte zählen nun auch zur Bevölkerung!
   * Initial 30 maximale Knechte
   * +6 maximale Knechte für jeden Rangaufstieg
 - Soldaten:
   * Soldaten können auch mit besiegtem Adligen rekrutiert werden
-    (Ausnahme: Spielmodus Konservativ)
-  * Haupthaus: 80, 130, 180
-  * Außenposten: 40, 65, 90
+    (Ausnahme: Spielmodus "Konservativ")
+  * Haupthaus: 70, 100, 130
+  * Außenposten: 35, 50, 65
 
 __Einheiten__
 
@@ -70,7 +70,7 @@ Folgende Technologien wurden entfernt:
 
 __Gebäude__
 
-Beim Gebäudebau hat sich einiges verändert.
+Beim Gebäudebau hat sich ebenfalls einiges verändert.
 
 - Allgemein:
   * Es gibt nun 3 Tabs im Menü der Knechte
@@ -116,7 +116,7 @@ __Heldenfähigkeiten__
 
 - Adlige haben nicht mehr sofort alle ihre Fähigkeiten
 - Fähigkeiten sind an bestimmte Ränge gekoppelt und werden ausgewählt
-- In der Burg kann nach der Heldenwahl das Fähigkeitsfenster geöffnet werden 
+- Das Fähigkeitenfenster wird im Menü der Burg oder des Adligen geöffnet
 - Neben den "typischen" Fähigkeiten können mit entsprechenden Rang auch aus 
   jeweils 2 alternativen Fähigkeiten gewählt werden.
 
