@@ -156,6 +156,7 @@ Stronghold.Rights.Config = {
                 PlayerRight.Bank,
                 ---
                 PlayerRight.BallistaTower,
+                PlayerRight.FalconryTower,
                 ---
                 PlayerRight.Bearman,
                 PlayerRight.SpearHalberdier,
@@ -190,7 +191,6 @@ Stronghold.Rights.Config = {
                 PlayerRight.Estate,
                 ---
                 PlayerRight.Wall,
-                PlayerRight.FalconryTower,
                 PlayerRight.BearCage,
                 ---
                 PlayerRight.SwordLong,
