@@ -1,3 +1,16 @@
+**Strongold Version 0.7.7**
+
+__Statistik__
+
+- "Motivation" -> "Beliebtheit"
+
+__Endstatistik__
+
+- Zeigt erlangte Ehre an
+- Zeigt erlangte Beliebtheit an
+- Zeigt erlangtes Wissen an
+- "Motivation" -> "Beliebtheit"
+
 **Strongold Version 0.7.6**
 
 __Spielmodus__

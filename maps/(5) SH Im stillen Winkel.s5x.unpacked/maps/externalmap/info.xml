@@ -7,7 +7,7 @@
  <SizeX>769</SizeX>
  <SizeY>769</SizeY>
  <MPFlag>true</MPFlag>
- <MPPlayerCount>3</MPPlayerCount>
+ <MPPlayerCount>5</MPPlayerCount>
  <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>

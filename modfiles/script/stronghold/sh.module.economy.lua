@@ -257,6 +257,12 @@ function GameCallback_SH_Calculate_SleepPenalty(_PlayerID, _Amount)
     return _Amount;
 end
 
+--- Called whenever a player gained knowledge.
+--- @param _PlayerID integer ID of player
+--- @param _Amount integer Amount of knowledge
+function GameCallback_SH_Logic_KnowledgeGained(_PlayerID, _Amount)
+end
+
 -- -------------------------------------------------------------------------- --
 -- Internal
 
@@ -1032,6 +1038,7 @@ function Stronghold.Economy:AddPlayerKnowledge(_PlayerID, _Amount)
     elseif _Amount < 0 then
         Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Knowledge, _Amount);
     end
+    GameCallback_SH_Logic_KnowledgeGained(_PlayerID, _Amount);
 end
 
 function Stronghold.Economy:GetPlayerKnowledge(_PlayerID)
