@@ -15,7 +15,7 @@
 <string id="ExplainInterface_13">TOM SIMPKINS: Here you can see how strong your army is and how big it can still become. All agents, soldiers and cannons count as military. {scarlet} Expand the castle or build recruitment buildings,{white} to increase your army strength.</string>
 <string id="ExplainInterface_14">TOM SIMPKINS: The payday clock shows you how long you have to wait until the next money.</string>
 <string id="ExplainInterface_15">TOM SIMPKINS: It doesn't just tell the time until payday. Here you can also see {scarlet}how popularity and honor will change. {white} You can see more details if you hold down CTRL.</string>
-<string id="ExplainInterface_16">TOM SIMPKINS: Popularity and honor change {scarlet}never {white}immediately but {scarlet} only{white} on payday! The only exception is Yuki, who grants you a one-time bonus popularity.</string>
+<string id="ExplainInterface_16">TOM SIMPKINS: On {scarlet}payday{white} your popularity and honor will be calculated! Festivals, sermons and some constructed buildings will grant bonuses {scarlet}immedaitly{white} after.</string>
 <string id="ExplainInterface_17">TOM SIMPKINS: Here, as usual, you will find your idle servants.</string>
 <string id="ExplainInterface_18">TOM SIMPKINS: Likewise, you can also locate your troops. In addition, the tooltip of each button shows how much wages you spend on the unit type.</string>
 <string id="ExplainInterface_19">TOM SIMPKINS: Now let's take a look inside the castle.</string>

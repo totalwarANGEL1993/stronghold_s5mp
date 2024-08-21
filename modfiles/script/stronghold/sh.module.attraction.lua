@@ -202,7 +202,7 @@ function Stronghold.Attraction:InitLogicOverride()
         if Stronghold.Attraction.Data[_PlayerID] then
             Limit = math.max(Limit - Stronghold.Attraction.Data[_PlayerID].VirtualSettlers, 0);
         end
-        return Limit;
+        return math.ceil(Limit);
     end
 
     self.Orig_Logic_GetPlayerAttractionUsage = Logic.GetPlayerAttractionUsage;
@@ -212,7 +212,7 @@ function Stronghold.Attraction:InitLogicOverride()
         if Stronghold.Attraction.Data[_PlayerID] then
             Usage = math.max(Usage - Stronghold.Attraction.Data[_PlayerID].VirtualSettlers, 0);
         end
-        return Usage;
+        return math.floor(Usage);
     end
 end
 
@@ -256,7 +256,7 @@ GameCallback_BuyEntityAttractionLimitCheck = function(_PlayerID, _CanSpawn)
     return true;
 end
 
-function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount)
+function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amount, _Silent)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
         -- Update Motivation of workers
         local WorkerList = GetWorkersOfType(_PlayerID, 0);
@@ -267,7 +267,7 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
             and Logic.IsOvertimeActiveAtBuilding(WorkplaceID) == 0
             and Logic.IsAlarmModeActive(WorkplaceID) ~= true then
                 local OldMoti = Logic.GetSettlersMotivation(WorkerList[i]);
-                local NewMoti = math.floor((OldMoti * 100) + 0.5) + _Amount;
+                local NewMoti = math.floor((OldMoti * 100) + 0.5) + (_Amount or 0);
                 NewMoti = math.min(NewMoti, GetMaxReputation(_PlayerID));
                 NewMoti = math.min(NewMoti, GetReputation(_PlayerID));
                 NewMoti = math.max(NewMoti, 0);
@@ -278,7 +278,7 @@ function Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, _Amou
             end
         end
         -- Print worker leave message
-        if WorkerLeaves then
+        if WorkerLeaves and not _Silent then
             Message(XGUIEng.GetStringTableText("sh_text/UI_WorkerLeave"));
             Sound.PlayFeedbackSound(Sounds.VoicesMentor_LEAVE_Settler, 127);
         end
@@ -369,7 +369,7 @@ function Stronghold.Attraction:GetPlayerSlaveAttractionLimit(_PlayerID)
             Limit = GameCallback_SH_Calculate_SlaveAttrationLimit(_PlayerID, RawLimit);
         end
     end
-    return math.floor(Limit + 0.5);
+    return math.ceil(Limit);
 end
 
 function Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID)
@@ -381,7 +381,7 @@ function Stronghold.Attraction:GetPlayerSlaveAttractionUsage(_PlayerID)
         -- External
         Usage = GameCallback_SH_Calculate_SlaveAttrationUsage(_PlayerID, Usage);
     end
-    return math.floor(Usage + 0.5);
+    return math.floor(Usage);
 end
 
 function Stronghold.Attraction:HasPlayerSpaceForSlave(_PlayerID)
@@ -424,7 +424,7 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionLimit(_PlayerID)
             Limit = GameCallback_SH_Calculate_MilitaryAttrationLimit(_PlayerID, Limit);
         end
     end
-    return math.floor(Limit);
+    return math.ceil(Limit);
 end
 
 function Stronghold.Attraction:GetRequiredSpaceForUnitType(_PlayerID, _Type, _Amount)
@@ -444,7 +444,7 @@ function Stronghold.Attraction:GetPlayerMilitaryAttractionUsage(_PlayerID)
         -- External
         Usage = GameCallback_SH_Calculate_MilitaryAttrationUsage(_PlayerID, Usage);
     end
-    return math.floor(Usage + 0.5);
+    return math.floor(Usage);
 end
 
 function Stronghold.Attraction:HasPlayerSpaceForUnits(_PlayerID, _Amount)

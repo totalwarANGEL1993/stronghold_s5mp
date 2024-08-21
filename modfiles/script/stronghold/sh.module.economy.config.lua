@@ -5,25 +5,25 @@
 Stronghold.Economy.Config.Resource = {
     Extracting = {
         [ResourceType.GoldRaw] = 1,
-        [ResourceType.ClayRaw] = 1,
-        [ResourceType.WoodRaw] = 2,
-        [ResourceType.StoneRaw] = 1,
-        [ResourceType.IronRaw] = 1,
-        [ResourceType.SulfurRaw] = 1,
+        [ResourceType.ClayRaw] = 2,
+        [ResourceType.WoodRaw] = 3,
+        [ResourceType.StoneRaw] = 2,
+        [ResourceType.IronRaw] = 2,
+        [ResourceType.SulfurRaw] = 2,
     },
     Mining = {
-        [Entities.PB_ClayMine1] = 5,
-        [Entities.PB_ClayMine2] = 6,
-        [Entities.PB_ClayMine3] = 7,
-        [Entities.PB_IronMine1] = 4,
-        [Entities.PB_IronMine2] = 5,
-        [Entities.PB_IronMine3] = 6,
-        [Entities.PB_StoneMine1] = 5,
-        [Entities.PB_StoneMine2] = 6,
-        [Entities.PB_StoneMine3] = 7,
-        [Entities.PB_SulfurMine1] = 4,
-        [Entities.PB_SulfurMine2] = 5,
-        [Entities.PB_SulfurMine3] = 6,
+        [Entities.PB_ClayMine1] = 4,
+        [Entities.PB_ClayMine2] = 5,
+        [Entities.PB_ClayMine3] = 6,
+        [Entities.PB_IronMine1] = 3,
+        [Entities.PB_IronMine2] = 4,
+        [Entities.PB_IronMine3] = 5,
+        [Entities.PB_StoneMine1] = 4,
+        [Entities.PB_StoneMine2] = 5,
+        [Entities.PB_StoneMine3] = 6,
+        [Entities.PB_SulfurMine1] = 3,
+        [Entities.PB_SulfurMine2] = 4,
+        [Entities.PB_SulfurMine3] = 5,
 
         PickaxeClayBonus = 1,
         PickaxeStoneBonus = 1,
@@ -33,12 +33,12 @@ Stronghold.Economy.Config.Resource = {
     Refining = {
         [Entities.PB_Bank1] = 2,
         [Entities.PB_Bank2] = 3,
-        [Entities.PB_Brickworks1] = 5;
-        [Entities.PB_Brickworks2] = 6;
-        [Entities.PB_StoneMason1] = 5;
-        [Entities.PB_StoneMason2] = 6;
-        [Entities.PB_Sawmill1] = 5;
-        [Entities.PB_Sawmill2] = 6;
+        [Entities.PB_Brickworks1] = 4;
+        [Entities.PB_Brickworks2] = 5;
+        [Entities.PB_StoneMason1] = 4;
+        [Entities.PB_StoneMason2] = 5;
+        [Entities.PB_Sawmill1] = 4;
+        [Entities.PB_Sawmill2] = 5;
         [Entities.PB_Blacksmith1] = 3;
         [Entities.PB_Blacksmith2] = 3;
         [Entities.PB_Blacksmith3] = 4;
@@ -55,21 +55,20 @@ Stronghold.Economy.Config.Income = {
     InsomniaFactor = 16.000,
     --
     MaxKnowledgePoints = 5000,
-    KnowledgePointsPerWorker = 12,
+    KnowledgePointsPerWorker = 13.5,
     BetterStudiesFactor = 1.200,
     --
     MaxInfluencePoints = 5000,
-    InfluenceWorkerFactor = 1,
-    InfluenceHardCap = 30,
+    InfluenceRiseCap = 18,
     InfluenceBase = 6,
-    InfluenceRank = 1,
+    InfluenceRank = 0.7,
     --
     TaxEffect = {
-        [1] = {Honor =   4, Reputation =  1,},
-        [2] = {Honor =   2, Reputation = -2,},
-        [3] = {Honor =   1, Reputation = -4,},
-        [4] = {Honor = nil, Reputation = -6,},
-        [5] = {Honor = nil, Reputation = -8,},
+        [1] = {Honor = 4, Reputation =  1,},
+        [2] = {Honor = 2, Reputation = -2,},
+        [3] = {Honor = 1, Reputation = -4,},
+        [4] = {Honor = 0, Reputation = -6,},
+        [5] = {Honor = 0, Reputation = -8,},
     },
     TaxPerWorker = 5,
     ScaleBonusFactor = 1.15,
@@ -77,45 +76,45 @@ Stronghold.Economy.Config.Income = {
     CoinageBonus = 1,
 
     Rations = {
-        [2] = {Honor = 0, Reputation = nil, Stamina = 0.50},
-        [3] = {Honor = 1, Reputation = nil, Stamina = 0.35},
-        [4] = {Honor = 2, Reputation = nil, Stamina = 0.25},
+        [2] = {Honor = 0, Reputation = 0, Stamina = 0.50},
+        [3] = {Honor = 1, Reputation = 0, Stamina = 0.35},
+        [4] = {Honor = 2, Reputation = 0, Stamina = 0.25},
         -- deprecated
-        [0] = {Honor = 0, Reputation = nil, Stamina = 0.50},
-        [1] = {Honor = 0, Reputation = nil, Stamina = 0.50},
+        [0] = {Honor = 0, Reputation = 0, Stamina = 0.50},
+        [1] = {Honor = 0, Reputation = 0, Stamina = 0.50},
     },
     SleepTime = {
-        [2] = {Honor = nil, Reputation = 0, Stamina = 0.50},
-        [3] = {Honor = nil, Reputation = 1, Stamina = 0.35},
-        [4] = {Honor = nil, Reputation = 2, Stamina = 0.25},
+        [2] = {Honor = 0, Reputation = 0, Stamina = 0.50},
+        [3] = {Honor = 0, Reputation = 1, Stamina = 0.35},
+        [4] = {Honor = 0, Reputation = 2, Stamina = 0.25},
         -- deprecated
-        [0] = {Honor = nil, Reputation = 0, Stamina = 0.50},
-        [1] = {Honor = nil, Reputation = 0, Stamina = 0.50},
+        [0] = {Honor = 0, Reputation = 0, Stamina = 0.50},
+        [1] = {Honor = 0, Reputation = 0, Stamina = 0.50},
     },
     Beverage = {
-        [0] = {Honor = nil, Reputation = 1, Stamina = 0.50},
-        [1] = {Honor = nil, Reputation = 2, Stamina = 0.40},
-        [2] = {Honor = nil, Reputation = 3, Stamina = 0.30},
-        [3] = {Honor = nil, Reputation = 4, Stamina = 0.20},
-        [4] = {Honor = nil, Reputation = 5, Stamina = 0.10},
+        [0] = {Honor = 0, Reputation = 1, Stamina = 0.50},
+        [1] = {Honor = 0, Reputation = 2, Stamina = 0.40},
+        [2] = {Honor = 0, Reputation = 3, Stamina = 0.30},
+        [3] = {Honor = 0, Reputation = 4, Stamina = 0.20},
+        [4] = {Honor = 0, Reputation = 5, Stamina = 0.10},
     },
     Festival = {
-        [0] = {Honor =  0, Reputation = nil, BaseCost =   0,},
-        [1] = {Honor =  5, Reputation = nil, BaseCost =  30,},
-        [2] = {Honor = 10, Reputation = nil, BaseCost =  75,},
-        [3] = {Honor = 15, Reputation = nil, BaseCost = 110,},
-        [4] = {Honor = 25, Reputation = nil, BaseCost = 165,},
-        [5] = {Honor = 35, Reputation = nil, BaseCost = 250,},
-        [6] = {Honor = 50, Reputation = nil, BaseCost = 375,},
+        [0] = {Honor =  0, Reputation = 0, BaseCost =   0,},
+        [1] = {Honor =  5, Reputation = 0, BaseCost =  30,},
+        [2] = {Honor = 10, Reputation = 0, BaseCost =  75,},
+        [3] = {Honor = 15, Reputation = 0, BaseCost = 110,},
+        [4] = {Honor = 25, Reputation = 0, BaseCost = 165,},
+        [5] = {Honor = 35, Reputation = 0, BaseCost = 250,},
+        [6] = {Honor = 50, Reputation = 0, BaseCost = 375,},
     },
     Sermon = {
-        [0] = {Honor = nil, Reputation =  0, BaseCost =    0,},
-        [1] = {Honor = nil, Reputation =  2, BaseCost = 0.25,},
-        [2] = {Honor = nil, Reputation =  4, BaseCost = 0.50,},
-        [3] = {Honor = nil, Reputation =  6, BaseCost = 1.25,},
-        [4] = {Honor = nil, Reputation =  8, BaseCost = 2.00,},
-        [5] = {Honor = nil, Reputation = 10, BaseCost = 3.00,},
-        [6] = {Honor = nil, Reputation = 12, BaseCost = 4.50,},
+        [0] = {Honor = 0, Reputation =  0, BaseCost =    0,},
+        [1] = {Honor = 0, Reputation =  2, BaseCost = 0.25,},
+        [2] = {Honor = 0, Reputation =  4, BaseCost = 0.50,},
+        [3] = {Honor = 0, Reputation =  6, BaseCost = 1.25,},
+        [4] = {Honor = 0, Reputation =  8, BaseCost = 2.00,},
+        [5] = {Honor = 0, Reputation = 10, BaseCost = 3.00,},
+        [6] = {Honor = 0, Reputation = 12, BaseCost = 4.50,},
     },
 
     TechnologyEffect = {

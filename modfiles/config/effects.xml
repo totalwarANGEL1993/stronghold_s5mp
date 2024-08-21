@@ -349,12 +349,34 @@
 		</Display>
     </Effect>
     
-	<Effect id="FXLightning">
+    <Effect id="FXLightning">
 		<Logic classname="GGL::CGLEffectLightningProps">
 			<Class>GGL::CEffectLightning</Class>
 			<IgniteDelay>1</IgniteDelay>
 			<DestructionDelay>5</DestructionDelay>
 			<SpawnRadius>500</SpawnRadius>
+            <SoundID>Military\SO_Cannon_rnd_1</SoundID>
+			<SoundVolume>127</SoundVolume>
+			<SoundLooped>false</SoundLooped>
+		</Logic>
+		<Display classname="ED::CEffectProps">
+			<Class>GD::CDisplayEffectLightning</Class>
+			<Texture>Effects/Lightning_A1</Texture>
+			<Texture>Effects/Lightning_A2</Texture>
+			<Texture>Effects/Lightning_B1</Texture>
+			<Texture>Effects/Lightning_B2</Texture>
+			<Texture>Effects/Lightning_C1</Texture>
+			<Texture>Effects/Lightning_C2</Texture>
+		</Display>
+	</Effect>
+
+    <Effect id="FXLightningCs">
+	    <Logic classname="EGL::CGLEEffectProps">
+			<Class>EGL::CEffect</Class>
+			<Duration>1</Duration>
+            <SoundID>Military\SO_Cannon_rnd_1</SoundID>
+			<SoundVolume>127</SoundVolume>
+			<SoundLooped>false</SoundLooped>
 		</Logic>
 		<Display classname="ED::CEffectProps">
 			<Class>GD::CDisplayEffectLightning</Class>

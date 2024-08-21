@@ -15,7 +15,7 @@
 <string id="ExplainInterface_13">TOM SIMPKINS: Hier seht Ihr, wie stark Euer Heer ist und wie groß es noch werden kann. Alle Agenten, Soldaten und Kanonen zählen als Militär. {scarlet} Baut die Burg aus oder errichtet Außenposten,{white} um Eure Heeresstärke zu erhöhen.</string>
 <string id="ExplainInterface_14">TOM SIMPKINS: Die Zahltagsuhr zeigt Euch an, wie lange Ihr bis zum nächsten Geld warten müsst.</string>
 <string id="ExplainInterface_15">TOM SIMPKINS: Aber sie gibt nicht nur die Zeit bis zum Zahltag an. Hier seht Ihr auch, {scarlet}wie sich Beliebtheit und Ehre verändern werden. {white} Ihr könnt mehr Details sehen, wenn Ihr STRG gedrückt haltet.</string>
-<string id="ExplainInterface_16">TOM SIMPKINS: Beliebtheit und Ehre verändern sich {scarlet}niemals {white}sofort sondern {scarlet} ausschließlich{white} am Zahltag! Die einzige Außnahme ist Yuki, die Euch einmalig Bonusbeliebtheit gewährt.</string>
+<string id="ExplainInterface_16">TOM SIMPKINS: Beliebtheit und Ehre werden am {scarlet}Zahltag{white} verrechnet. Feste, Predigten und der Bau bestimmter Gebäude gewähren Euch {scarlet}sofort{white} Beliebtheit und Ehre.</string>
 <string id="ExplainInterface_17">TOM SIMPKINS: Hier findet Ihr, wie gewohnt, Eure untätigen Knechte.</string>
 <string id="ExplainInterface_18">TOM SIMPKINS: Ebenso könnt Ihr auch Eure Truppen ausfindig machen. Zusätzlich zeigt der Tooltip jedes Button an, wie viel Sold Ihr für die Einheitenart ausgebt.</string>
 <string id="ExplainInterface_19">TOM SIMPKINS: Lasst uns nun einen Blick in die Burg werfen.</string>

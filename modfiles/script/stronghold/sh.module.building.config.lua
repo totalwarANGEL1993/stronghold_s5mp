@@ -111,6 +111,28 @@ Stronghold.Building.Config.CastleBuildingUpgradeRequirements = {
     [Entities.PB_Sawmill2]                  = true,
 }
 
+-- Dictionary of building creation bonuses
+Stronghold.Building.Config.BuildingCreationBonus = {
+    [Entities.PB_Beautification01] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification02] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification03] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification04] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification05] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification06] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification07] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification08] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification09] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification10] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification11] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Beautification12] = {Honor = 0, Reputation = 2},
+    [Entities.PB_Headquarters1]    = {Honor = 0, Reputation = 0},
+    [Entities.PB_Headquarters2]    = {Honor = 0, Reputation = 0},
+    [Entities.PB_Headquarters3]    = {Honor = 0, Reputation = 0},
+    [Entities.PB_Monastery1]       = {Honor = 0, Reputation = 8},
+    [Entities.PB_Monastery2]       = {Honor = 0, Reputation = 12},
+    [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 16},
+}
+
 Stronghold.Building.Config.RecuitIndexRecuitShortcut = {
     [1]  = "A",
     [2]  = "S",

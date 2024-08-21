@@ -85,26 +85,47 @@ end
 -- Text
 
 function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
+    local PlayerID = GetLocalPlayerID();
     local EffectText = "";
     local TechnologyName = KeyOf(_Technology, Technologies);
     local EffectStringTable = XGUIEng.GetStringTableText("sh_effects/BuildingEffect_" ..TechnologyName);
     if EffectStringTable then
         EffectText = XGUIEng.GetStringTableText("sh_text/TooltipEffect") .. EffectStringTable;
     else
+        local ReputationText = XGUIEng.GetStringTableText("sh_text/Reputation");
+        local HonorText = XGUIEng.GetStringTableText("sh_text/Silver");
+        local TextInstantly = " " .. XGUIEng.GetStringTableText("sh_text/TooltipEffectInstantly");
+        local TextOngoing = " " .. XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
+
+        -- Info about single time bonuses
+        local Bonuses = Stronghold.Building.Config.BuildingCreationBonus[_Type];
+        local IsApplied = Stronghold.Building:IsBuildingCreationBonusApplied(PlayerID, _Type);
+        if Bonuses and not IsApplied then
+            if Bonuses.Reputation > 0 then
+                local Seperator = (EffectText ~= "" and ", ") or "";
+                EffectText = EffectText .. Seperator.. " +" ..Bonuses.Reputation.. " " ..ReputationText .. " " .. TextInstantly;
+            end
+            if Bonuses.Honor > 0 then
+                local Seperator = (EffectText ~= "" and ", ") or "";
+                EffectText = EffectText .. Seperator.. " +" ..Bonuses.Honor.. " " ..HonorText .. " " .. TextInstantly;
+            end
+        end
+        -- Info about ongoing production
         local Effects = Stronghold.Economy:GetStaticTypeConfiguration(_Type);
         if Effects then
             if Effects.Reputation > 0 then
-                local ReputationText = XGUIEng.GetStringTableText("sh_text/Reputation");
-                EffectText = EffectText.. "+" ..Effects.Reputation.. " " ..ReputationText .. " ";
+                local Seperator = (EffectText ~= "" and ", ") or "";
+                EffectText = EffectText .. Seperator.. " +" ..Effects.Reputation.. " " ..ReputationText .. " " .. TextOngoing;
             end
             if Effects.Honor > 0 then
-                local HonorText = XGUIEng.GetStringTableText("sh_text/Silver");
-                EffectText = EffectText.. "+" ..Effects.Honor.. " " ..HonorText;
+                local Seperator = (EffectText ~= "" and ", ") or "";
+                EffectText = EffectText .. Seperator .. " +" ..Effects.Honor.. " " ..HonorText .. " " .. TextOngoing;
             end
-            if EffectText ~= "" then
-                local EffectDesc = XGUIEng.GetStringTableText("sh_text/TooltipEffect");
-                EffectText = EffectDesc .. EffectText;
-            end
+        end
+
+        if EffectText ~= "" then
+            local EffectDesc = XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+            EffectText = EffectDesc .. EffectText;
         end
     end
     return EffectText;

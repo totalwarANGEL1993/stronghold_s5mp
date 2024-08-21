@@ -5,7 +5,7 @@
 ---
 
 Stronghold = {
-    Version = "0.7.7",
+    Version = "0.7.8",
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -845,9 +845,7 @@ function Stronghold:OverwriteCommonCallbacks()
         Overwrite.CallOriginal();
         local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
         Stronghold:OnSelectionMenuChanged(_EntityIDNew);
-        Stronghold.Building:SetIgnoreRallyPointSelectionCancel(PlayerID);
-        Stronghold.Building:DestroyTurretsOfBuilding(_EntityIDOld);
-        Stronghold.Building:CreateTurretsForBuilding(_EntityIDNew);
+        Stronghold.Building:OnBuildingUpgrade(_EntityIDNew, Logic.EntityGetPlayer(_EntityIDNew));
         Stronghold.Province:OnBuildingUpgraded(_EntityIDNew, PlayerID);
     end);
 

@@ -56,6 +56,7 @@ function Stronghold.Building:Install()
             RallyPoint = {},
             UnitMover = {},
             Corners = {},
+            CreationBonus = {},
         };
     end
 
@@ -165,6 +166,18 @@ end
 function Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID)
     -- Turrets
     self:CreateTurretsForBuilding(_EntityID);
+    -- Construction bonus
+    self:ApplyBuildingCreationBonus(_EntityID);
+    -- Rally point
+    self:SetIgnoreRallyPointSelectionCancel(_PlayerID);
+end
+
+function Stronghold.Building:OnBuildingUpgrade(_EntityID, _PlayerID)
+    -- Update turrets
+    self:DestroyTurretsOfBuilding(_EntityID);
+    self:CreateTurretsForBuilding(_EntityID);
+    -- Upgrade bonus
+    self:ApplyBuildingCreationBonus(_EntityID);
     -- Rally point
     self:SetIgnoreRallyPointSelectionCancel(_PlayerID);
 end
@@ -261,13 +274,17 @@ function Stronghold.Building:OnTowerSelected(_EntityID)
         if Type == Entities.PB_DarkTower1 or Type == Entities.PB_Tower1 then
             XGUIEng.ShowWidget("Tower", 1);
             XGUIEng.ShowWidget("Commands_Tower", 1);
+            XGUIEng.ShowWidget("Upgrade_Tower1", 0);
+            XGUIEng.ShowWidget("Upgrade_Tower2", 0);
             XGUIEng.ShowWidget("Upgrade_Tower3", 1);
             GUIUpdate_UpgradeButtons("Upgrade_Tower3", Technologies.UP3_Tower);
         end
         if Type == Entities.PB_DarkTower2 or Type == Entities.PB_Tower2 then
             XGUIEng.ShowWidget("Tower", 1);
             XGUIEng.ShowWidget("Commands_Tower", 1);
+            XGUIEng.ShowWidget("Upgrade_Tower1", 0);
             XGUIEng.ShowWidget("Upgrade_Tower2", 1);
+            XGUIEng.ShowWidget("Upgrade_Tower3", 0);
             GUIUpdate_UpgradeButtons("Upgrade_Tower2", Technologies.UP2_Tower);
         end
     end
@@ -312,17 +329,24 @@ function Stronghold.Building:PrintFarmRationButtonsTooltip(_PlayerID, _EntityID,
 
     local StringText = XGUIEng.GetStringTableText(_Key);
     local Effects = Stronghold.Economy.Config.Income.Rations[Level];
-    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    if Effects.Reputation then
+
+    local Seperate = false;
+    local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectText = "";
+    local OngoingText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
+    if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..OngoingText;
+        Seperate = true;
     end
-    if Effects.Honor then
+    if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+        local Seperator = (Seperate and ", ") or "";
+        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..OngoingText;
     end
+    EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
@@ -391,17 +415,24 @@ function Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(_PlayerID, _E
 
     local StringText = XGUIEng.GetStringTableText(_Key);
     local Effects = Stronghold.Economy.Config.Income.SleepTime[Level];
-    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    if Effects.Reputation then
+
+    local Seperate = false;
+    local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectText = "";
+    local OngoingText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
+    if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..OngoingText;
+        Seperate = true;
     end
-    if Effects.Honor then
+    if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+        local Seperator = (Seperate and ", ") or "";
+        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..OngoingText;
     end
+    EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
@@ -467,22 +498,29 @@ function Stronghold.Building:PrintTavernBeverageButtonsTooltip(_PlayerID, _Entit
 
     local StringText = XGUIEng.GetStringTableText(_Key);
     local Effects = Stronghold.Economy.Config.Income.Beverage[Level];
-    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    if Effects.Reputation then
+
+    local Seperate = false;
+    local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectText = "";
+    local OngoingText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
+    if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..OngoingText;
         -- (The tavern mirrors reputation onto honor if technology
         --  T_Instruments is researched.)
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_Instruments) == 1 then
             Effects.Honor = Effects.Reputation;
         end
+        Seperate = true;
     end
-    if Effects.Honor then
+    if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+        local Seperator = (Seperate and ", ") or "";
+        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..OngoingText;
     end
+    EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, StringText .. EffectText);
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
@@ -579,8 +617,11 @@ function Stronghold.Building:ControlKeepFestival(_PlayerID)
     if HasEnoughResources(_PlayerID, Costs) and CurrentInfluence >= RequiredInfluence then
         AddPlayerInfluence(_PlayerID, (-1) * CurrentInfluence);
         RemoveResourcesFromPlayer(_PlayerID, Costs);
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Config.Reputation or 0);
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Config.Honor or 0);
+        AddReputation(_PlayerID, Config.Reputation or 0);
+        AddHonor(_PlayerID, Config.Honor or 0);
+        Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(
+            _PlayerID, Config.Reputation or 0, true
+        );
 
         if GUI.GetPlayerID() == _PlayerID then
             Message(XGUIEng.GetStringTableText("sh_menukeep/Message_FestivalLevel" ..FestivalLevel));
@@ -776,20 +817,26 @@ function Stronghold.Building:PrintKeepTaxButtonsTooltip(_PlayerID, _EntityID, _K
         return false;
     end
 
-    local Button = self.Config.Civil.TaxButtons[Level];
     local StringText = XGUIEng.GetStringTableText(_Key);
     local Effects = Stronghold.Economy.Config.Income.TaxEffect[Level];
-    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    if Effects.Reputation then
+
+    local Seperate = false;
+    local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectText = "";
+    local OngoingText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
+    if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..OngoingText;
+        Seperate = true;
     end
-    if Effects.Honor then
+    if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+        local Seperator = (Seperate and ", ") or "";
+        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..OngoingText;
     end
+    EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
     local ButtonText = StringText .. EffectText;
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, ButtonText);
@@ -828,18 +875,25 @@ function Stronghold.Building:PrintKeepFestivalButtonsTooltip(_PlayerID, _EntityI
     local Button = self.Config.Civil.FestivalButtons[Level];
     local StringText = XGUIEng.GetStringTableText(_Key);
     local CostText = FormatCostString(_PlayerID, GetFestivalCosts(_PlayerID, Level));
+
+    local Seperate = false;
     local Effects = Stronghold.Economy.Config.Income.Festival[Level];
-    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    if Effects.Reputation then
+    local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectText = "";
+    local InstantlyText = XGUIEng.GetStringTableText("sh_text/TooltipEffectInstantly");
+    if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..InstantlyText;
+        Seperate = true;
     end
-    if Effects.Honor then
+    if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+        local Seperator = (Seperate and ", ") or "";
+        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..InstantlyText;
     end
+    EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
     local ButtonText = StringText .. EffectText;
     if XGUIEng.IsButtonDisabled(Button) == 1 then
@@ -936,8 +990,11 @@ function Stronghold.Building:ControlChurchService(_PlayerID)
     if HasEnoughResources(_PlayerID, Costs) and CurrentFaith >= RequiredFaith then
         Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.Faith, CurrentFaith);
         RemoveResourcesFromPlayer(_PlayerID, Costs);
-        Stronghold.Economy:AddOneTimeReputation(_PlayerID, Config.Reputation or 0);
-        Stronghold.Economy:AddOneTimeHonor(_PlayerID, Config.Honor or 0);
+        AddReputation(_PlayerID, Config.Reputation or 0);
+        AddHonor(_PlayerID, Config.Honor or 0);
+        Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(
+            _PlayerID, Config.Reputation or 0, true
+        );
 
         if GUI.GetPlayerID() == _PlayerID then
             Message(XGUIEng.GetStringTableText("sh_menucathedral/Message_ServiceLevel" ..SermonLevel));
@@ -1001,18 +1058,25 @@ function Stronghold.Building:PrintCathedralSermonButtonsTooltip(_PlayerID, _Enti
     local Button = self.Config.Civil.SermonButtons[Level];
     local StringText = XGUIEng.GetStringTableText(_Key);
     local CostText = FormatCostString(_PlayerID, GetSermonCosts(_PlayerID, Level));
+
+    local Seperate = false;
     local Effects = Stronghold.Economy.Config.Income.Sermon[Level];
-    local EffectText = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEnable");
-    if Effects.Reputation then
+    local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectText = "";
+    local InstantlyText = XGUIEng.GetStringTableText("sh_text/TooltipEffectInstantly");
+    if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " ";
+        EffectText = EffectText .. Operator .. Effects.Reputation.. " " .. Unit .. " " .. InstantlyText;
+        Seperate = true;
     end
-    if Effects.Honor then
+    if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Honor.. " " ..Unit.. " ";
+        local Seperator = (Seperate and ", ") or "";
+        EffectText = EffectText..Seperator.. Operator .. Effects.Honor .. " " .. Unit .. " " .. InstantlyText;
     end
+    EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
     local ButtonText = StringText .. EffectText;
     if XGUIEng.IsButtonDisabled(Button) == 1 then
@@ -1733,6 +1797,38 @@ function Stronghold.Building:ChangeWeatherUpdate(_Button, _Technology, _StateID)
     if LastChange > 0 and LastChange + ChangeFrequency >= CurrentTime then
         XGUIEng.DisableButton(_Button, 1);
     end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Creation bonus
+
+function Stronghold.Building:ApplyBuildingCreationBonus(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local BuildingType = Logic.GetEntityType(_EntityID);
+    if IsPlayer(PlayerID) then
+        local BonusConfig = self.Config.BuildingCreationBonus[BuildingType];
+        if BonusConfig and not self.Data[PlayerID].CreationBonus[BuildingType] then
+            self.Data[PlayerID].CreationBonus[BuildingType] = true;
+            AddReputation(PlayerID, BonusConfig.Reputation or 0);
+            AddHonor(PlayerID, BonusConfig.Honor or 0);
+            Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(
+                PlayerID, BonusConfig.Reputation or 0, true
+            );
+        end
+    end
+end
+
+function Stronghold.Building:ResetBuildingCreationBonus(_PlayerID)
+    if IsPlayer(_PlayerID) then
+        self.Data[_PlayerID].CreationBonus = {};
+    end
+end
+
+function Stronghold.Building:IsBuildingCreationBonusApplied(_PlayerID, _BuildingType)
+    if IsPlayer(_PlayerID) then
+        return self.Data[_PlayerID].CreationBonus[_BuildingType] ~= nil;
+    end
+    return false;
 end
 
 -- -------------------------------------------------------------------------- --

@@ -110,62 +110,62 @@
 
             <ExtractionInfo>
                 <ResourceEntityType>XD_Iron1</ResourceEntityType>
-                <Delay>6</Delay>
+                <Delay>7</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_Clay1</ResourceEntityType>
-                <Delay>3</Delay>
+                <Delay>4</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_Stone1</ResourceEntityType>
-                <Delay>3</Delay>
+                <Delay>4</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_Stone2</ResourceEntityType>
-                <Delay>3</Delay>
+                <Delay>4</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_Stone_BlockPath</ResourceEntityType>
-                <Delay>3</Delay>
+                <Delay>4</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_Sulfur1</ResourceEntityType>
-                <Delay>6</Delay>
+                <Delay>7</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_ClayPit1</ResourceEntityType>
-                <Delay>2</Delay>
+                <Delay>3</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_IronPit1</ResourceEntityType>
-                <Delay>5</Delay>
+                <Delay>6</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_StonePit1</ResourceEntityType>
-                <Delay>2</Delay>
+                <Delay>3</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_StonePit2</ResourceEntityType>
-                <Delay>2</Delay>
+                <Delay>3</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_SulfurPit1</ResourceEntityType>
-                <Delay>5</Delay>
+                <Delay>6</Delay>
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
                 <ResourceEntityType>XD_ResourceTree</ResourceEntityType>
-                <Delay>4</Delay>
+                <Delay>3</Delay>
                 <Amount>2</Amount>
             </ExtractionInfo>
         </Logic>

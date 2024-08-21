@@ -856,14 +856,10 @@ function Stronghold.Economy:GainInfluencePoints(_PlayerID)
                 local Rank = GetRank(_PlayerID);
                 local BaseInfluence = self.Config.Income.InfluenceBase;
                 local RankInfluence = self.Config.Income.InfluenceRank;
-                local WorkerFactor = self.Config.Income.InfluenceWorkerFactor;
                 local Influence = BaseInfluence + (RankInfluence * Rank);
-                for i= 1, WorkerCount do
-                    Influence = Influence * WorkerFactor;
-                end
                 -- Hard cap influence base groth
-                if Influence > self.Config.Income.InfluenceHardCap then
-                    Influence = self.Config.Income.InfluenceHardCap;
+                if Influence > self.Config.Income.InfluenceRiseCap then
+                    Influence = self.Config.Income.InfluenceRiseCap;
                 end
                 InfluencePoints = Influence * math.log(12 * Reputation);
             else

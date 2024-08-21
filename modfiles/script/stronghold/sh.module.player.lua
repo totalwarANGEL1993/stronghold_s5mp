@@ -22,6 +22,14 @@ function SetupPlayer(_PlayerID, _Serfs)
     end
 end
 
+--- Resets als caches of the player
+--- @param _PlayerID number  ID of player
+function ResetPlayer(_PlayerID, _Serfs)
+    if not IsPlayer(_PlayerID) then
+        Stronghold.Player:ResetPlayer(_PlayerID);
+    end
+end
+
 --- Returns if a player is an AI player.
 --- @param _PlayerID integer ID of player
 --- @return boolean IsPlayer Is AI player
@@ -439,6 +447,10 @@ function Stronghold.Player:AddPlayer(_PlayerID, _IsAI, _Serfs, _HeroType)
     Job.Turn(function(_PlayerID, _Serfs, _HeroType)
         return Stronghold.Player:WaitForInitalizePlayer(_PlayerID, _Serfs, _HeroType);
     end, _PlayerID, _Serfs, _HeroType);
+end
+
+function Stronghold.Player:ResetPlayer(_PlayerID)
+    Stronghold.Building:ResetBuildingCreationBonus(_PlayerID);
 end
 
 function Stronghold.Player:GetPlayer(_PlayerID)

@@ -1,3 +1,15 @@
+**Strongold Version 0.7.8**
+
+__Balancing__
+- Feste in der Burg wirken sich jetzt direkt auf die Ehre aus
+- Predigten in der Kirche wirken sich jetzt direkt auf die Beliebtheit aus
+- Kirche und Ziergebäude geben einmalig bei Fertigstellung/Ausbau Beliebtheit
+- Effekte sind entsprechend beschrieben als "einmalig" oder "laufend"
+- Abbau- und Veredelungsraten wurden angepasst
+
+__Bugfix__
+- Upgrade "Kanonenturm" und "Falknerturm" überlagern sich nicht mehr im UI
+
 **Strongold Version 0.7.7**
 
 __Statistik__
