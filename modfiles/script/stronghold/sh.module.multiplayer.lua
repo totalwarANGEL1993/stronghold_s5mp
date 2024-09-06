@@ -173,7 +173,7 @@ function Stronghold.Multiplayer:Install()
     self:ConfigureReset();
     self:CreateMultiplayerButtonHandlers();
     self:OverrideFunctions();
-    self:OnGameStart();
+    self:OnMapStart();
     self:InitQoLFunctions();
     self:InitQoLValues();
     self:InitQoLInterface();
@@ -790,7 +790,7 @@ end
 
 -- -------------------------------------------------------------------------- --
 
-function Stronghold.Multiplayer:OnGameStart()
+function Stronghold.Multiplayer:OnMapStart()
     -- Do it delayed by 1 turn just to be sure all went trought.
     Delay.Turn(1, function()
         GameCallback_SH_Logic_OnMapStart();
@@ -886,13 +886,13 @@ function Stronghold.Multiplayer:OverrideFunctions()
         self.Orig_MultiplayerTools_SetUpGameLogicOnMPGameConfig = MultiplayerTools.SetUpGameLogicOnMPGameConfig;
         MultiplayerTools.SetUpGameLogicOnMPGameConfig = function()
             Stronghold.Multiplayer.Orig_MultiplayerTools_SetUpGameLogicOnMPGameConfig();
-            Stronghold.Multiplayer:OnGameStart();
+            Stronghold.Multiplayer:OnMapStart();
         end
 
         MultiplayerTools.SetMPGameMode = function()
         end
     else
-        Stronghold.Multiplayer:OnGameStart();
+        Stronghold.Multiplayer:OnMapStart();
     end
 end
 

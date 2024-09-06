@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<!-- Difficulty selection -->
+
+<string id="BriefingSelectDifficulty_1_Title">Choosing Difficulty</string>
+<string id="BriefingSelectDifficulty_1_Text">Choose the difficulty you want to play at.</string>
+<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Comfortable</string>
+<string id="BriefingSelectDifficulty_1_Option_2">{yellow} @center Average</string>
+<string id="BriefingSelectDifficulty_1_Option_3">{orange} @center Challenging</string>
+<string id="BriefingSelectDifficulty_1_Option_4">{red} @center Maniac</string>
+<string id="BriefingSelectDifficulty_2_Title">Easy Difficulty</string>
+<string id="BriefingSelectDifficulty_2_Text">You have choosen the easy option. Don't you think you making it a bit too easy?</string>
+<string id="BriefingSelectDifficulty_4_Title">Normal Difficulty</string>
+<string id="BriefingSelectDifficulty_4_Text">You play at the normal difficulty. This is a resonable choice. Have fun while playing.</string>
+<string id="BriefingSelectDifficulty_6_Title">Hard Difficulty</string>
+<string id="BriefingSelectDifficulty_6_Text">You want a little challenge and play at higher difficulty. If you insist...</string>
+<string id="BriefingSelectDifficulty_8_Title">Maniac Difficulty</string>
+<string id="BriefingSelectDifficulty_8_Text">Wouldn't you rather consider going to therapy? So much self-hate is not healthy...</string>
+
+<string id="BriefingSelectDifficulty_Pal_1_Title">Choosing difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_1_Text">The host is choosing the difficulty. Please wait patiently...</string>
+<string id="BriefingSelectDifficulty_Pal_2_Title">Easy Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_2_Text">The host has selected easy difficulty. Prepare to be bored out of your mind!</string>
+<string id="BriefingSelectDifficulty_Pal_4_Title">Normal Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_4_Text">The host has selected normal difficulty. You will feel well entertained, but don't expect a challenge!</string>
+<string id="BriefingSelectDifficulty_Pal_6_Title">Hard Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_6_Text">The host has selected hard difficulty. The enemies are tough and you will have to do a little to win!</string>
+<string id="BriefingSelectDifficulty_Pal_8_Title">Maniac Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_8_Text">The host has selected maniac difficulty. You can thank them for that, because it won't be easy!</string>
+</stringtable>
