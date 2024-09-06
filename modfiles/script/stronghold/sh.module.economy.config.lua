@@ -5,11 +5,11 @@
 Stronghold.Economy.Config.Resource = {
     Extracting = {
         [ResourceType.GoldRaw] = 1,
-        [ResourceType.ClayRaw] = 2,
-        [ResourceType.WoodRaw] = 3,
-        [ResourceType.StoneRaw] = 2,
-        [ResourceType.IronRaw] = 2,
-        [ResourceType.SulfurRaw] = 2,
+        [ResourceType.ClayRaw] = 1,
+        [ResourceType.WoodRaw] = 2,
+        [ResourceType.StoneRaw] = 1,
+        [ResourceType.IronRaw] = 1,
+        [ResourceType.SulfurRaw] = 1,
     },
     Mining = {
         [Entities.PB_ClayMine1] = 4,

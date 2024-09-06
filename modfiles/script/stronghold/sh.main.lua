@@ -195,6 +195,7 @@ function Stronghold:Init()
     EntityTracker.Install();
     BuyHero.Install();
     Extension.Install();
+    NonPlayerMerchant.Install();
     FreeCam.SetToggleable(true);
 
     -- Player 0 building fix
@@ -818,6 +819,8 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Recruit:OnStableSelected(EntityID);
         self.Recruit:OnFoundrySelected(EntityID);
         self.Recruit:OnTavernSelected(EntityID);
+
+        self.Trade:OnMerchantSelected(EntityID);
 
         gvStronghold_LastSelectedEntity = EntityID;
     end

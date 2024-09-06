@@ -114,3 +114,20 @@ function Stronghold.Trade:ManipulateGoodSellPrice(_PlayerID, _Resource, _Price)
     Logic.SetCurrentPrice(_PlayerID, _Resource, math.max(math.min(_Price, MaxSellCap), MinSellCap));
 end
 
+-- -------------------------------------------------------------------------- --
+
+-- Restore last shown merchant offers
+function Stronghold.Trade:OnMerchantSelected(_EntityID)
+    local LastSelectedID = gvStronghold_LastSelectedEntity or 0;
+    if XGUIEng.IsWidgetShown(gvGUI_WidgetID.TroopMerchant) == 1 then
+        if LastSelectedID == _EntityID and Logic.IsHero(_EntityID) == 1 then
+            XGUIEng.ShowAllSubWidgets(gvGUI_WidgetID.SelectionView, 0);
+            XGUIEng.ShowWidget(gvGUI_WidgetID.SelectionGeneric, 1);
+            XGUIEng.ShowWidget(gvGUI_WidgetID.BackgroundFull, 1);
+            XGUIEng.ShowAllSubWidgets(gvGUI_WidgetID.SelectionBuilding, 0);
+            XGUIEng.ShowWidget(gvGUI_WidgetID.SelectionBuilding, 1);
+            XGUIEng.ShowWidget(gvGUI_WidgetID.TroopMerchant, 1);
+        end
+    end
+end
+
