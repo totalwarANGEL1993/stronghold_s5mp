@@ -1063,7 +1063,7 @@ function Stronghold.Building:PrintCathedralSermonButtonsTooltip(_PlayerID, _Enti
     local Effects = Stronghold.Economy.Config.Income.Sermon[Level];
     local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
     local EffectText = "";
-    local InstantlyText = XGUIEng.GetStringTableText("sh_text/TooltipEffectInstantly");
+    local InstantlyText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
     if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";

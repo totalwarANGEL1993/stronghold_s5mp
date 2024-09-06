@@ -67,6 +67,7 @@ Lib.Require("module/lua/Extension");
 Lib.Require("module/lua/Overwrite");
 Lib.Require("module/mp/BuyHero");
 Lib.Require("module/mp/Syncer");
+Lib.Require("module/io/NonPlayerMerchant");
 Lib.Require("module/trigger/Job");
 Lib.Require("module/trigger/Delay");
 Lib.Require("module/ui/Placeholder");
