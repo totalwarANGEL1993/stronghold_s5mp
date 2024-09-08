@@ -84,11 +84,12 @@ SHS5MP_RulesDefinition = {
         ReplaceEntity("Isabella1", Entities.XD_ScriptEntity);
         MakeInvulnerable(GetID("ImposterMayor5"));
 
+        Lib.Require("comfort/MoveAndVanish");
+        Lib.Require("comfort/StartCountdown");
         Lib.Require("module/entity/EntityMover");
         Lib.Require("module/cinematic/BriefingSystem");
         Lib.Require("module/io/NonPlayerCharacter");
         Lib.Require("module/io/NonPlayerMerchant");
-        Lib.Require("comfort/StartCountdown");
         BriefingSystem.SetMCButtonCount(8);
 
         Difficulty_Selected = 0;
@@ -99,8 +100,8 @@ SHS5MP_RulesDefinition = {
 
     -- Called after game start timer is over
     OnGameStart = function()
-        SetPlayerName(5, "Bishof");
-        SetPlayerName(7, "Räuber");
+        SetPlayerName(5, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player5Name"));
+        SetPlayerName(7, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player7Name"));
 
         ForbidTechnology(Technologies.B_Mercenary, 1);
         ForbidTechnology(Technologies.B_Mercenary, 2);
@@ -148,15 +149,16 @@ function Difficulty_SetEasy()
     AddHonor(2, 15);
     Tools.GiveResouces(2, 1000, 1200, 1500, 550, 300, 0);
 
-    Difficulty_InitialPeaceTime = 40*60;
-    Difficulty_Selected = 1;
+    -- For testing
+    -- Difficulty_InitialPeaceTime = 200*60;
+    -- Difficulty_Selected = 1;
 end
 
 function Difficulty_SetNormal()
     Tools.GiveResouces(1, 900, 1000, 1200, 550, 0, 0);
     Tools.GiveResouces(2, 900, 1000, 1200, 550, 0, 0);
 
-    Difficulty_InitialPeaceTime = 30*60;
+    Difficulty_InitialPeaceTime = 40*60;
     Difficulty_Selected = 2;
 end
 
@@ -164,7 +166,7 @@ function Difficulty_SetHard()
     Tools.GiveResouces(1, 750, 900, 1000, 0, 0, 0);
     Tools.GiveResouces(2, 750, 900, 1000, 0, 0, 0);
 
-    Difficulty_InitialPeaceTime = 20*60;
+    Difficulty_InitialPeaceTime = 30*60;
     Difficulty_Selected = 3;
 end
 
@@ -172,18 +174,12 @@ function Difficulty_SetManiac()
     Tools.GiveResouces(1, 600, 750, 900, 0, 0, 0);
     Tools.GiveResouces(2, 600, 750, 900, 0, 0, 0);
 
-    Difficulty_InitialPeaceTime = 20*60;
+    Difficulty_InitialPeaceTime = 30*60;
     Difficulty_Selected = 4;
 end
 
 function Difficulty_BriefingSelectDifficulty()
-    local PlayerID = GUI.GetPlayerID();
     local HostPlayerID = Syncer.GetHostPlayerID();
-    local PalPlayerID = (HostPlayerID == 1 and 2) or 1;
-    if PlayerID ~= HostPlayerID and PlayerID ~= PalPlayerID then
-        return;
-    end
-
     local Briefing = {
         RenderFoW = false,
         RenderSky = true,
@@ -194,6 +190,8 @@ function Difficulty_BriefingSelectDifficulty()
         Name        = "ChoicePage",
         Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Text",
+        TitleAlter  = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Title",
+        TextAlter   = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Text",
         Target      = "HQ1",
         MC          = {
             {"map_sh_midsummerrevolution/BriefingSelectDifficulty_1_Option_1", "ChoseEasy"},
@@ -207,6 +205,8 @@ function Difficulty_BriefingSelectDifficulty()
         Name        = "ChoseEasy",
         Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_2_Text",
+        TitleAlter  = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_2_Title",
+        TextAlter   = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_2_Text",
         Target      = "HQ1",
         NoSkip      = true,
         Duration    = 10,
@@ -217,6 +217,8 @@ function Difficulty_BriefingSelectDifficulty()
         Name        = "ChoseMedium",
         Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_4_Title",
         Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_4_Text",
+        TitleAlter  = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_4_Title",
+        TextAlter   = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_4_Text",
         Target      = "HQ1",
         NoSkip      = true,
         Duration    = 10,
@@ -227,6 +229,8 @@ function Difficulty_BriefingSelectDifficulty()
         Name        = "ChoseHard",
         Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_6_Title",
         Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_6_Text",
+        TitleAlter  = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_6_Title",
+        TextAlter   = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_6_Text",
         Target      = "HQ1",
         NoSkip      = true,
         Duration    = 10,
@@ -237,6 +241,8 @@ function Difficulty_BriefingSelectDifficulty()
         Name        = "ChoseManiac",
         Title       = "map_sh_midsummerrevolution/BriefingSelectDifficulty_8_Title",
         Text        = "map_sh_midsummerrevolution/BriefingSelectDifficulty_8_Text",
+        TitleAlter  = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Title",
+        TextAlter   = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Text",
         Target      = "HQ1",
         NoSkip      = true,
         Duration    = 10,
@@ -251,28 +257,10 @@ function Difficulty_BriefingSelectDifficulty()
     }
 
     Briefing.Finished = function()
-        if GUI.GetPlayerID() == Syncer.GetHostPlayerID() then
-            local Selected = BriefingSystem.GetSelectedAnswer("ChoicePage", 1);
-            Syncer.InvokeEvent(Difficulty_NetEvent, Selected);
-        end
+        local Selected = BriefingSystem.GetSelectedAnswer("ChoicePage", 1);
+        Syncer.InvokeEvent(Difficulty_NetEvent, Selected);
     end
-
-    -- Change briefing for the pal player
-    if PlayerID == PalPlayerID then
-        Briefing[1].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Title";
-        Briefing[1].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_1_Text";
-        Briefing[1].DisableSkipping = true;
-        Briefing[1].MC = nil;
-        Briefing[2].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_2_Title";
-        Briefing[2].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_2_Text";
-        Briefing[4].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_4_Title";
-        Briefing[4].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_4_Text";
-        Briefing[6].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_6_Title";
-        Briefing[6].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_6_Text";
-        Briefing[8].Title = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Title";
-        Briefing[8].Text = "map_sh_midsummerrevolution/BriefingSelectDifficulty_Pal_8_Text";
-    end
-    BriefingSystem.Start(PlayerID, "BriefingSelectDifficulty", Briefing);
+    BriefingSystem.Start(HostPlayerID, "BriefingSelectDifficulty", Briefing, 1, 2);
 end
 
 -- ########################################################################## --
@@ -395,7 +383,7 @@ Enemy_Player5_BuildingPositions = {};
 Enemy_Player5_IsDefeated = 0;
 
 function Enemy_Player5_Init()
-    local Strength = 10 + (6 * (Difficulty_Selected -1));
+    local Strength = 8 + (4 * (Difficulty_Selected -1));
     local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
     -- Select types
@@ -469,6 +457,7 @@ function Enemy_Player5_RestoreSpawnersInFog()
             DestroyEntity(ScriptName);
         end
         Enemy_Player5_IsDefeated = 1;
+        SetNeutral(1,5);
         return true;
     end
     -- Control imposter vulnerability
@@ -574,6 +563,8 @@ function MainQuest_PeaceTimeOver()
     DelinquentsCampActivateAttack(Enemy_Player5Camp2, true);
     ReplaceEntity("P5NG1", Entities.XD_WallStraightGate);
     ReplaceEntity("P5SG1", Entities.XD_WallStraightGate);
+    MakeVulnerable("P5NG1");
+    MakeVulnerable("P5SG1");
     SetHostile(1, 5);
     SetHostile(2, 5);
 end
@@ -584,7 +575,7 @@ function MainQuest_ReleaseTheBishop()
     Logic.SetEntityName(ID, "Bishop");
     Move("Bishop", "BishopPos2");
     Job.Second(function()
-        if IsNear("Bishof", "BishopPos2", 50) then
+        if IsNear("Bishop", "BishopPos2", 50) then
             MainQuest_CreateBishop1Npc1();
             return true;
         end
@@ -621,64 +612,34 @@ function MainQuest_MakeFinalEnemyHostile()
 end
 
 function MainQuest_RevealEnemyCoalition()
-    SetPlayerName(6, "Dovbar, der Teufel");
-    SetPlayerName(3, "Des Teufels linke Hand");
-    SetPlayerName(4, "Des Teufels rechte Hand");
+    SetPlayerName(6, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player3Name"));
+    SetPlayerName(3, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player4Name"));
+    SetPlayerName(4, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player6Name"));
 end
 
 function MainQuest_JournalStage1()
-    local Title = "Vom Teufel berührt";
-    local Text  = "Der Bischof hat sich von einem demütigen Diener Gottes zu einem bösartigen Tyrann entwickelt. Ihr und Euer Verbündeter habt Euch erhoben, um Euch dem Unrecht entgegenzustellen. Etwas muss für die Änderung seines Charakter verantwortlich sein. Ihr müsst es herausfinden! {cr}{cr}- Besiegt die Truppen des Bishof";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            MainQuest_ID,
-            MAINQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage1_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage1_Text");
+    Logic.AddQuest(1, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function MainQuest_JournalStage2()
-    local Title = "Vom Teufel berührt";
-    local Text  = "Der Bischof wurde offenbar von einem unbekannten Feind ausgetauscht. Ihr und Euer Verbündeter habt den Handlanger erschlagen. Sprecht mit dem Bischof und erfahrt, was hinter allem steckt. {cr}{cr}- Sprecht mit dem Bischof";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            MainQuest_ID,
-            MAINQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage2_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage2_Text");
+    Logic.AddQuest(1, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function MainQuest_JournalStage3()
-    local Title = "Vom Teufel berührt";
-    local Text  = "Ein Mann namens Dovbar scheint die Fäden in der Hand zu halten. Im festen Glauben, für etwas Größeres vorgesehen gewesen zu sein und seines Geburtsrechtes beraupt, schickt er sich an, Rache zu nehmen. Ihr seid der festen Überzeugung, dass dieser Wahnsinnige aufgehalten werden muss. {cr}{cr}- Besiegt die rechte Hand des Teufels {cr}- Besiegt die linke Hand des Teufels {cr}- Besiegt Erzherzog Dovbar";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            MainQuest_ID,
-            MAINQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage3_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage3_Text");
+    Logic.AddQuest(1, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function MainQuest_BriefingIntro()
-    local PlayerID = GUI.GetPlayerID();
     local HostPlayerID = Syncer.GetHostPlayerID();
-    local PalPlayerID = (HostPlayerID == 1 and 2) or 1;
-    if PlayerID ~= HostPlayerID and PlayerID ~= PalPlayerID then
-        return;
-    end
-
     local Briefing = {
         RenderFoW = false,
         RenderSky = true,
@@ -698,7 +659,7 @@ function MainQuest_BriefingIntro()
         MainQuest_JournalStage1();
         StartCountdown(Difficulty_InitialPeaceTime, MainQuest_PeaceTimeOver, true);
     end
-    BriefingSystem.Start(PlayerID, "BriefingIntro", Briefing);
+    BriefingSystem.Start(HostPlayerID, "BriefingIntro", Briefing, 1, 2);
 end
 
 function MainQuest_BriefingBishop1(_Npc, _HeroID)
@@ -715,56 +676,56 @@ function MainQuest_BriefingBishop1(_Npc, _HeroID)
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Title       = "Bischof Murmelwanzt",
-        Text        = "Der Gnade des Herrn und aller seiner Engel zum Dank! Endlich bin ich wieder frei.",
+        Title       = "map_sh_midsummerrevolution/BriefingBishop1_1_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_1_Text",
         Target      = "Bishop",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Jemand hatte Euren Platz eingenommen, Eure Eminenz! Welch ein Frevel! Das ganze Land denkt, Ihr seid verrückt geworden. Ein Glück, dass der Spuk nun ein Ende hat.",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_2_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Bischof Murmelwanzt",
-        Text        = "Mit nichten, mein Kind, mit nichten! Dieser Schurke war nichts als ein Handlanger. Die Gefahr ist noch nicht gebannt. Wer immer hinter dieser Intrige steckt, ist noch nicht fertig mit seinem Plan. Oh, ich spüre die Hand des Teufels in meinem... ähm Nacken. Sie wird nicht ablassen von mir und vor diesem Land!",
+        Title       = "map_sh_midsummerrevolution/BriefingBishop1_3_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_3_Text",
         Target      = "Bishop",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Dann werden wir dem Teufel die Hand abschlagen!",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_4_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Bischof Murmelwanzt",
-        Text        = "Euer Mut ehrt Euch, mein Kind. Doch glaubet nicht, dass es so einfach wird! Die mächte des Bösen sind stets in der Überzahl!",
+        Title       = "map_sh_midsummerrevolution/BriefingBishop1_5_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_5_Text",
         Target      = "Bishop",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Lass das ruhig meine Sorge sein. Sag, wer ist unser Feind?",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_6_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Bischof Murmelwanzt",
-        Text        = "Es handelt sich um Erzherzog Dovbar. Er glaubt, er sei einst führ größeres Vorgesehen gewesen und will nun Rache nehmen. Und er hat andere um sich geschart, die mindestens so voller Hass sind, wie er selbst!",
+        Title       = "map_sh_midsummerrevolution/BriefingBishop1_7_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_7_Text",
         Target      = "Bishop",
         CloseUp     = true,
     }
     AP {
-        Title       = "Bischof Murmelwanzt",
-        Text        = "Wenn Ihr gegen ihn und seine Herrscharen eine Chance wollt, solltet Ihr Euch meiner Soldner bedienen. Sprecht mit meinem Vertrauten, er wird Euch ein Angebot machen.",
+        Title       = "map_sh_midsummerrevolution/BriefingBishop1_8_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_8_Text",
         Target      = "Garek1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Habt Dank, Eure Eminenz. Mit Gottes Hilfe und der Eurer Söldner werden wir diese Aufgabe meistern.",
+        Text        = "map_sh_midsummerrevolution/BriefingBishop1_9_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
@@ -803,9 +764,10 @@ function Mayor1Quest_Done()
     if RescueWifeQuest_Done == 1 then
         AddGold(1, 5000);
         AddGold(2, 5000);
+        Move("Isabella1", "Isabella1Pos1");
         local PlayerID = GUI.GetPlayerID();
         if PlayerID == 1 or PlayerID == 2 then
-            local Msg = "Ihr habt 5000 Taler erhalten.";
+            local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestDustin_MsgReward");
             Message(Msg);
         end
     end
@@ -816,18 +778,10 @@ function Mayor1Quest_Done()
 end
 
 function Mayor1Quest_AddToJournal()
-    local Title = "Isabellas Verschwinden";
-    local Text  = "Die Frau von Dustin Ravage ist verschwunden. Mutmaßlich wurde sie entführt. Niemand weiß, wohin die Entführer geflohen sind. {cr}{cr}- Findet die Entführer von Isabella {cr}- Bringt Isabella zu Dustin zurück";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            Mayor1Quest_ID,
-            SUBQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestDustin_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestDustin_Text");
+    Logic.AddQuest(1, Mayor1Quest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, Mayor1Quest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function Mayor1Quest_CreateMayor1Npc1()
@@ -860,20 +814,20 @@ function Mayor1Quest_BriefingDustin1(_Npc, _HeroID)
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Title       = "Dustin Ravage",
-        Text        = "Ihr müsst mir helfen! Mein armes Weib wurde entführt. Sie kamen in der Nacht und haben sie mitgenommen! Bitte, rettet mein Weib!",
+        Title       = "map_sh_midsummerrevolution/BriefingDustin1_1_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingDustin1_1_Text",
         Target      = "Mayor1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Natürlich helfe ich Euch! In welche Richtung sind sie geflohen? Ich brauche Anhaltspunkte.",
+        Text        = "map_sh_midsummerrevolution/BriefingDustin1_2_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Dustin Ravage",
-        Text        = "Ich kann Euch nur sagen, dass sie in den Süden gegangen sind. Bitte, beeilt Euch und rettet Isabella!",
+        Title       = "map_sh_midsummerrevolution/BriefingDustin1_3_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingDustin1_3_Text",
         Target      = "Mayor1",
         CloseUp     = true,
     }
@@ -883,6 +837,8 @@ function Mayor1Quest_BriefingDustin1(_Npc, _HeroID)
         Mayor1Quest_WifeQuestStarted = 1;
         if TraitorRevengeQuest_IsDone == 1 then
             RescueWifeQuest_Init();
+            local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestDustin_MsgIsabella");
+            Message(Msg);
         end
     end
     BriefingSystem.Start(PlayerID, "BriefingDustin1", Briefing);
@@ -904,46 +860,46 @@ function Mayor1Quest_BriefingDustin2(_Npc, _HeroID)
     if RescueWifeQuest_IsDone == 1 then
         AP {
             Title       = HeroName,
-            Text        = "Ich habe Euch Euer Weib wiedergebracht.",
+            Text        = "map_sh_midsummerrevolution/BriefingDustin2_1a_Text",
             Target      = _HeroID,
             CloseUp     = true,
         }
         AP {
-            Title       = "Dustin Ravage",
-            Text        = "Wunderbar! Dafür sollt Ihr Reich belohnt werden!",
+            Title       = "map_sh_midsummerrevolution/BriefingDustin2_2a_Title",
+            Text        = "map_sh_midsummerrevolution/BriefingDustin2_2a_Text",
             Target      = "Mayor1",
             CloseUp     = true,
         }
         AP {
-            Title       = "Isabella",
-            Text        = "Mögt Ihr in der Hölle brennen, zusammen mit meinem Mann!",
+            Title       = "map_sh_midsummerrevolution/BriefingDustin2_3a_Title",
+            Text        = "map_sh_midsummerrevolution/BriefingDustin2_3a_Text",
             Target      = "Isabella1",
             CloseUp     = true,
         }
     else
         AP {
             Title       = HeroName,
-            Text        = "Ich muss Euch leider mitteilen, dass ich Isabella nicht mehr retten konnte.",
+            Text        = "map_sh_midsummerrevolution/BriefingDustin2_1b_Text",
             Target      = _HeroID,
             CloseUp     = true,
         }
         AP {
-            Title       = "Dustin Ravage",
-            Text        = "Was? Wie tragisch! Was ist denn mit ihr geschenen? Was haben diese Verbrecher ihr angetan?",
+            Title       = "map_sh_midsummerrevolution/BriefingDustin2_2b_Title",
+            Text        = "map_sh_midsummerrevolution/BriefingDustin2_2b_Text",
             Target      = "Mayor1",
             CloseUp     = true,
         }
         AP {
             Title       = HeroName,
-            Text        = "Glaubt mir, das wollt Ihr nicht wissen! Ich ließ sie im Meer bestatten.",
+            Text        = "map_sh_midsummerrevolution/BriefingDustin2_3b_Text",
             Target      = _HeroID,
             CloseUp     = true,
         }
     end
 
     AP {
-        Title       = "Dustin Ravage",
-        Text        = "Ihr solltet vielleicht meinen Markt aufsuchen. Vielleicht findet Ihr etwas Interessantes...",
+        Title       = "map_sh_midsummerrevolution/BriefingDustin2_4_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingDustin2_4_Text",
         Target      = "NPCTrader1",
         CloseUp     = true,
     }
@@ -965,7 +921,7 @@ function TraitorRevengeQuest_Init()
 end
 
 function TraitorRevengeQuest_Done()
-    -- make village center accessible
+    -- make castle ruin accessible
     ReplaceEntity("Traitor1", Entities.XD_ScriptEntity);
     ReplaceEntity("VC_Blockade", Entities.XD_ScriptEntity);
     -- make player 7 neutral to humans
@@ -977,8 +933,12 @@ function TraitorRevengeQuest_Done()
     end
     -- continue quests
     TraitorRevengeQuest_IsDone = 1;
+    Logic.SetQuestType(1, TraitorRevengeQuest_ID, SUBQUEST_CLOSED, 1);
+    Logic.SetQuestType(2, TraitorRevengeQuest_ID, SUBQUEST_CLOSED, 1);
     if Mayor1Quest_WifeQuestStarted == 1 then
         RescueWifeQuest_Init();
+        local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestTraitor_MsgIsabella");
+        Message(Msg);
     end
 end
 
@@ -998,18 +958,10 @@ function TraitorRevengeQuest_DestroyBanditsController()
 end
 
 function TraitorRevengeQuest_AddToJournal()
-    local Title = "Blutige Rache";
-    local Text  = "Ihr seid auf den ehemaligen Anführer einer Räuberbande gestoßen. Er wurde von seinen ehemaligen Kampfgefährten verraten und will nun Rache. Gewährt sie ihm und er wird Euch reichlich belohnen. {cr}{cr}- Vernichtet die Räuberbande";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            TraitorRevengeQuest_ID,
-            SUBQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestTraitor_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestTraitor_Text");
+    Logic.AddQuest(1, TraitorRevengeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, TraitorRevengeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function TraitorRevengeQuest_CreateTraitor1Npc1()
@@ -1043,25 +995,25 @@ function TraitorRevengeQuest_BriefingTraitor1(_Npc, _HeroID)
 
     AP {
         Title       = HeroName,
-        Text        = "Wieso steht ein bewaffneter Mann einfach so in der Gegend herum?",
+        Text        = "map_sh_midsummerrevolution/BriefingTraitor1_1_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Rachsüchtiger Hauptmann",
-        Text        = "Weil er von seinen eigenen Leuten verraten wurde!",
+        Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingTraitor1_2_Text",
         Target      = "Traitor1",
         CloseUp     = true,
     }
     AP {
-        Title       = "Rachsüchtiger Hauptmann",
-        Text        = "Diese verfluchten Hurensöhne haben mich verraten! Dafür will ich sie leiden sehen!",
+        Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingTraitor1_3_Text",
         Target      = "BanditTower1",
         CloseUp     = false,
     }
     AP {
-        Title       = "Rachsüchtiger Hauptmann",
-        Text        = "Wenn Ihr mir helft, werde ich diesen Steinschlag hinter mir wegräumen.",
+        Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingTraitor1_4_Text",
         Target      = "Traitor1",
         CloseUp     = true,
     }
@@ -1091,13 +1043,13 @@ function TraitorRevengeQuest_BriefingTraitor2(_Npc, _HeroID)
 
     AP {
         Title       = HeroName,
-        Text        = "Ich habe mich um Eure ehemalige Bande gekümmert.",
+        Text        = "map_sh_midsummerrevolution/BriefingTraitor2_1_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Rachsüchtiger Hauptmann",
-        Text        = "Ich hoffe, sie haben gelitten! Ich danke Euch. Nun werde ich meinen Teil unserer Abmachung erfüllen!",
+        Title       = "map_sh_midsummerrevolution/BriefingTraitor2_2_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingTraitor2_2_Text",
         Target      = "Traitor1",
         CloseUp     = true,
     }
@@ -1122,21 +1074,21 @@ end
 function RescueWifeQuest_Done()
     local PlayerID = GUI.GetPlayerID();
     if PlayerID == 1 or PlayerID == 2 then
-        local Msg = "Isabella ist sicher zu ihrem Ehemann zurückgekehrt.";
+        local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestIsabella_MsgSolveA");
         if RescueWifeQuest_IsDone == 2 then
-            Msg = "Isabella hat ein neues Leben angefangen! Ihr habt 150 Ehre erhalten.";
+            Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestIsabella_MsgSolveB");
         end
         Message(Msg);
     end
 
+    NonPlayerCharacter.Delete("Isabella1");
     if RescueWifeQuest_IsDone == 1 then
         Move("Isabella1", "Isabella1Pos1");
     else
         MoveAndVanish("Isabella1", "Isabella1Pos2");
-        AddHonor(1, 150);
-        AddHonor(2, 150);
+        AddHonor(1, 300);
+        AddHonor(2, 300);
     end
-    NonPlayerCharacter.Delete("Isabella1");
     Logic.SetQuestType(1, RescueWifeQuest_ID, SUBQUEST_CLOSED, 1);
     Logic.SetQuestType(2, RescueWifeQuest_ID, SUBQUEST_CLOSED, 1);
 end
@@ -1155,18 +1107,10 @@ function RescueWifeQuest_ArrivedController()
 end
 
 function RescueWifeQuest_AddToJournal()
-    local Title = "Eine unangenehme Wahrheit";
-    local Text  = "Nachdem Ihr die Entführer beseitigt habt, erfahrt Ihr die Wahrheit. Isabella wurde nicht entführt, sondern ist vor Dustin geflohen, weil sie seine Mishandlungen nicht mehr ertragen konnte. {cr}{cr}- Eskortiert Isabella in ein neues Leben {cr}- ODER bringt sie zu Dustin zurück";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            RescueWifeQuest_ID,
-            SUBQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestIsabella_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestIsabella_Text");
+    Logic.AddQuest(1, RescueWifeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, RescueWifeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function RescueWifeQuest_CreateIsabella1Npc1()
@@ -1187,7 +1131,7 @@ function RescueWifeQuest_CreateIsabella1Npc2()
         WayCallback = function(_Npc, _HeroID)
             local PlayerID = GUI.GetPlayerID();
             if PlayerID == 1 or PlayerID == 2 then
-                local Msg = "Ich vertraue Euch und Eurem Urteil.";
+                local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestIsabella_MsgTrust");
                 Message(Msg);
             end
         end,
@@ -1210,19 +1154,19 @@ function RescueWifeQuest_BriefingIsabella1(_Npc, _HeroID)
 
     AP {
         Title       = HeroName,
-        Text        = "Fürchtet Euch nicht, nun seid Ihr gerettet! Ich habe diese miesen Entführer beseitigt. Ihr könnt heimkehren.",
+        Text        = "map_sh_midsummerrevolution/BriefingIsabella1_1_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Isabella",
-        Text        = "Was habt Ihr getan?! Sie haben mich nicht entführt, ich habe sie angeheuert! Mein Ehemann ist ein brutales Schwein. Er schlägt mich, immer dann wenn etwas nicht nach seinem Plan läuft. Ich habe das nicht mehr ausgehalten! Bitte, bringt mich nicht zurück zu meinem Mann!",
+        Title       = "map_sh_midsummerrevolution/BriefingIsabella1_2_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingIsabella1_2_Text",
         Target      = "Isabella1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Was soll ich nur machen...",
+        Text        = "map_sh_midsummerrevolution/BriefingIsabella1_3_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
@@ -1236,7 +1180,7 @@ end
 
 -- Find Sheeps -------------------------------------------------------------- --
 
-FindSheepQuest_ID = 6;
+FindSheepQuest_ID = 3;
 FindSheepQuest_SheepArrivalCounter = 0;
 FindSheepQuest_IsDone = 0;
 
@@ -1253,7 +1197,7 @@ function FindSheepsQuest_Done()
 
     local PlayerID = GUI.GetPlayerID();
     if PlayerID == 1 or PlayerID == 2 then
-        local Msg = "Alle Schafe sind wieder in ihrem Gehege angekommen!";
+        local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestSheeps_MsgReady");
         Message(Msg);
     end
 end
@@ -1265,7 +1209,7 @@ function FindSheepsQuest_CreateEscapedSheepNpcs()
             Callback   = function(_Npc, _HeroID)
                 local PlayerID = GUI.GetPlayerID();
                 if PlayerID == 1 or PlayerID == 2 then
-                    local Msg = "Ein Schaf macht sich auf den Heimweg!";
+                    local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestSheeps_MsgFound");
                     Message(Msg);
                 end
                 Job.Second(function(_ScriptName)
@@ -1288,18 +1232,10 @@ function FindSheepsQuest_CreateEscapedSheepNpcs()
 end
 
 function FindSheepsQuest_AddToJournal()
-    local Title = "Entlaufene Schafe";
-    local Text  = "Ein Bauer ist außer sich vor Wut. Weil seine Knechte nicht aufgepasst haben, sind 5 seiner preisgekrönten Tiere entkommen. {cr}{cr}- Sucht die entlaufenen Schafe {cr}- Bringt die Schafe zurück in ihr Gehege";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            FindSheepQuest_ID,
-            SUBQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestSheeps_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestSheeps_Text");
+    Logic.AddQuest(1, FindSheepQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, FindSheepQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function FindSheepsQuest_CreateFarmer1Npc1()
@@ -1316,7 +1252,7 @@ function FindSheepsQuest_CreateFarmer1Npc2()
         Callback   = function (_Npc, _HeroID)
             local PlayerID = Logic.EntityGetPlayer(_HeroID);
             if PlayerID == GUI.GetPlayerID() then
-                local Msg = "Na wartet, ich knüpfe euch an euren Schnürschuhen auf, ihr Vollpfosten!";
+                local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestSheeps_MsgAngry");
                 Message(Msg);
             end
             FindSheepsQuest_CreateFarmer1Npc2();
@@ -1347,38 +1283,38 @@ function FindSheepsQuest_BriefingFarmer1(_Npc, _HeroID)
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Title       = "Erregter Bauer",
-        Text        = "Arrgh... diese Taugenichtse! Da passt man einmal nicht auf und dann das...",
+        Title       = "map_sh_midsummerrevolution/BriefingFarmer1_1_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer1_1_Text",
         Target      = "AngryFarmer1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Was ist denn geschehen? Wie kann ich helfen?",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer1_2_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Erregter Bauer",
-        Text        = "Diese Knechte sind dumm wie Bohnenstroh? Nichts als Durchzug zwischen den Ohren! Fünf meiner preisgekrönten Schafe sind abgehauen! Könnt Ihr Euch vorstellen, was das für ein Schaden ist?",
+        Title       = "map_sh_midsummerrevolution/BriefingFarmer1_3_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer1_3_Text",
         Target      = "AngryFarmer1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Ich werde Eure Schafe für Euch finden.",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer1_4_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Erregter Bauer",
-        Text        = "Denen werde ich die Ohren langziehen! Die gesamte Mannschaft war wohl wieder im Puff sich die Sorgen davonblasen lassen! Na wartet, ihr Dünnbrettbohrer, wenn ich mit euch fertig bin!",
+        Title       = "map_sh_midsummerrevolution/BriefingFarmer1_5_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer1_5_Text",
         Target      = "AngryFarmer1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Hm... der beruhigt sich bestimmt nicht so schnell...",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer1_6_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
@@ -1405,20 +1341,20 @@ function FindSheepsQuest_BriefingFarmer2(_Npc, _HeroID)
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Title       = "Glücklicher Bauer",
-        Text        = "Danke das Ihr meine Schafe zurückgebracht habt. Die Knechte haben übrigens ihre Lektion gelernt und werden in Zukunft besser aufpassen.",
+        Title       = "map_sh_midsummerrevolution/BriefingFarmer2_1_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer2_1_Text",
         Target      = "AngryFarmer1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Hab ich doch gern gemacht...",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer2_2_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Glücklicher Bauer",
-        Text        = "Ihr solltet vielleicht mit unserem Händler sprechen. Vielleicht findet Ihr etwas Interessantes...",
+        Title       = "map_sh_midsummerrevolution/BriefingFarmer2_3_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingFarmer2_3_Text",
         Target      = "NPCTrader2",
         CloseUp     = true,
     }
@@ -1443,22 +1379,22 @@ function DrawBridgeQuest_Init()
 end
 
 function DrawBridgeQuest_Done()
-    Logic.SetQuestType(1, RescueWifeQuest_ID, SUBQUEST_CLOSED, 1);
-    Logic.SetQuestType(2, RescueWifeQuest_ID, SUBQUEST_CLOSED, 1);
+    Logic.SetQuestType(1, DrawBridgeQuest_ID, SUBQUEST_CLOSED, 1);
+    Logic.SetQuestType(2, DrawBridgeQuest_ID, SUBQUEST_CLOSED, 1);
     ReplaceEntity("DrawBridge1", Entities.PB_DrawBridgeClosed1);
     DrawBridgeQuest_IsDone = 0;
 
     local PlayerID = GUI.GetPlayerID();
     if PlayerID == 1 or PlayerID == 2 then
         XGUIEng.ShowWidget("TradeWindow", 0);
-        local Msg = "Der Wächter hat die Brücke heruntergelassen.";
+        local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard_MsgBridge");
         Message(Msg);
     end
 end
 
 function DrawBridgeQuest_AddTribute()
     local Tribute = 2500 * Difficulty_Selected;
-    local Msg = "Bezahlt %d Taler, damit der Wächter die Brücke herunterlässt.";
+    local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard_Tribute");
     Logic.AddTribute(1, DrawBridgeQuest_Player1ID, 0, 0, string.format(Msg, Tribute), ResourceType.Gold, Tribute);
     Logic.AddTribute(2, DrawBridgeQuest_Player2ID, 0, 0, string.format(Msg, Tribute), ResourceType.Gold, Tribute);
 end
@@ -1480,18 +1416,10 @@ function DrawBridgeQuest_FulfillTribute()
 end
 
 function DrawBridgeQuest_AddToJournal()
-    local Title = "Ein raffgieriger Wächter";
-    local Text  = "Eine hochgezogene Brücke verwehrt Euch den Zugang zu wichtigen Resourcen. Ihr habt keine andere Wahl, Ihr müsst die Münzen sprechen lassen. {cr}{cr}- Bezahlt den Tribut, damit die Brücke heruntergelassen wird";
-    for PlayerID = 1, 2 do
-        Logic.AddQuest(
-            PlayerID,
-            DrawBridgeQuest_ID,
-            SUBQUEST_OPEN,
-            Placeholder.Replace(Title),
-            Placeholder.Replace(Text),
-            1
-        );
-    end
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard1_1_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard1_1_Text");
+    Logic.AddQuest(1, DrawBridgeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
+    Logic.AddQuest(2, DrawBridgeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
 function DrawBridgeQuest_CreateGuard1Npc1()
@@ -1516,20 +1444,20 @@ function DrawBridgeQuest_BriefingGuard1(_Npc, _HeroID)
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Title       = "Gieriger Wächter",
-        Text        = "Was wollt Ihr? Hier durch? Na das wird teuer!",
+        Title       = "map_sh_midsummerrevolution/BriefingGuard1_1_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingGuard1_1_Text",
         Target      = "BridgeGuard1",
         CloseUp     = true,
     }
     AP {
         Title       = HeroName,
-        Text        = "Orch nö, das ist doch so ein überstrapaziertes Klischee...",
+        Text        = "map_sh_midsummerrevolution/BriefingGuard1_2_Text",
         Target      = _HeroID,
         CloseUp     = true,
     }
     AP {
-        Title       = "Gieriger Wächter",
-        Text        = "Kann ich auch nicht ändern! Ich bin nur Statist.",
+        Title       = "map_sh_midsummerrevolution/BriefingGuard1_3_Title",
+        Text        = "map_sh_midsummerrevolution/BriefingGuard1_3_Text",
         Target      = "BridgeGuard1",
         CloseUp     = true,
     }
