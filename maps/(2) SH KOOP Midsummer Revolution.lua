@@ -118,13 +118,8 @@ SHS5MP_RulesDefinition = {
         SetNeutral(2, 7);
 
         Main1Quest_Init();
-        Mayor1Quest_Init();
-        TraitorRevengeQuest_Init();
-        FindSheepsQuest_Init();
-        DrawBridgeQuest_Init();
-
         Difficulty_BriefingSelectDifficulty();
-        MainQuest_BriefingIntro();
+        Main1Quest_BriefingIntro();
     end,
 
     -- Called after peacetime is over
@@ -269,13 +264,490 @@ end
 
 -- Player 6 --------------------------------------------------------------------
 
-function Enemy_InitPlayer6()
+Enemy_Player6_BuildingPositions = {};
+Enemy_Player6_Stage = 1;
 
+-- Spawners --
+
+-- Creates the first stage of the final enemy.
+function Enemy_InitPlayer6_1()
+    SetupAiPlayer(2, 0, 0);
+
+    Enemy_Player6_Stage = 1;
+
+    local Strength = 7 + (3 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(150 / (Difficulty_Selected ^ (1.2)));
+
+    local AllowedUnitsBastille = {
+        Entities.CU_BlackKnight_LeaderMace2,
+        Entities.PU_LeaderPoleArm3,
+        Entities.PV_Cannon2,
+        Entities.PU_LeaderBow3,
+        Entities.CU_BlackKnight_LeaderMace2,
+        Entities.PU_LeaderBow3
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedUnitsBastille = {
+            Entities.PU_LeaderPoleArm4,
+            Entities.CU_BlackKnight_LeaderMace1,
+            Entities.PV_Cannon2,
+            Entities.PU_LeaderBow4,
+            Entities.CU_BlackKnight_LeaderMace1,
+            Entities.PU_LeaderBow4,
+            Entities.PV_Cannon2,
+        };
+    end
+
+    Enemy_Player6Camp1 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "P6DefPos1",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6CTBastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6CTBastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6CTBastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6CTBastille4", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6CTBastille5", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp1, "P6DefPos1", "P6DefPos2");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp1,
+        "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2","SWP3", "SWP4", "SWP5",
+        "Player1Home", "NWP6", "NWP5", "Player2Home"
+    );
+
+    Enemy_Player6Camp2 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "P6DefPos2",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6CTBastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6CTBastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6CTBastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6CTBastille4", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6CTBastille5", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp2, "P6DefPos1", "P6DefPos2");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp2,
+        "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5",
+        "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5", "Player1Home"
+    );
+end
+
+-- Creates the second stage of the final enemy.
+function Enemy_InitPlayer6_2()
+    Enemy_Player6_Stage = 2;
+
+    local Strength = 5 + (3 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(150 / (Difficulty_Selected ^ (1.2)));
+
+    local AllowedUnitsBastille = {
+        Entities.CU_BlackKnight_LeaderMace2,
+        Entities.PU_LeaderPoleArm3,
+        Entities.PU_LeaderHeavyCavalry1,
+        Entities.PV_Cannon4,
+        Entities.PU_LeaderHeavyCavalry1,
+        Entities.PU_LeaderBow3,
+        Entities.CU_BlackKnight_LeaderMace2,
+        Entities.PU_LeaderBow3,
+        Entities.PV_Cannon3,
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedUnitsBastille = {
+            Entities.PU_LeaderPoleArm4,
+            Entities.CU_BlackKnight_LeaderMace1,
+            Entities.PU_LeaderHeavyCavalry2,
+            Entities.PV_Cannon4,
+            Entities.PU_LeaderBow4,
+            Entities.PU_LeaderHeavyCavalry2,
+            Entities.CU_BlackKnight_LeaderMace1,
+            Entities.PU_LeaderBow4,
+            Entities.CV_Cannon2
+        };
+    end
+
+    Enemy_Player6Camp1 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "P6DefPos3",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6LRBastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6LRBastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6LRBastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6LRBastille4", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6LRBastille5", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp1, "P2DefPos3", "P2DefPos4");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp1,
+        "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2", "SWP3",
+        "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
+    );
+
+    Enemy_Player6Camp2 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "P6DefPos4",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6LRBastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6LRBastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6LRBastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6LRBastille4", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6LRBastille5", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp2, "P2DefPos3", "P2DefPos4");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp2,
+        "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2", "SWP3",
+        "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
+    );
+
+    Enemy_Player6Camp3 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "P6DefPos5",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp3, "P6RRBastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp3, "P6RRBastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp3, "P6RRBastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp3, "P6RRBastille4", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp3, "P6RRBastille5", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp3, "P2DefPos5", "P2DefPos6");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp3,
+        "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1","NWP2", "NWP3",
+        "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
+        "Player1Home"
+    );
+
+    Enemy_Player6Camp4 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "P6DefPos6",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp4, "P6RRBastille1", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp4, "P6RRBastille2", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp4, "P6RRBastille3", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp4, "P6RRBastille4", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddSpawner(Enemy_Player6Camp4, "P6RRBastille5", RespawnTime, 2, unpack(AllowedUnitsBastille));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp4, "P2DefPos5", "P2DefPos6");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp4,
+        "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3",
+        "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
+        "Player1Home"
+    );
+
+    Job.Second(Enemy_Player6_StartFinalStage);
+    -- To make player 6 not too boring...
+    if Difficulty_Selected >= 2 then
+        Enemy_Player6_SaveSpawnerBuildings_2_1();
+        Job.Second(Enemy_Player6_RestoreSpawnersInFog_2_1);
+        Enemy_Player6_SaveSpawnerBuildings_2_2();
+        Job.Second(Enemy_Player6_RestoreSpawnersInFog_2_2);
+    end
+end
+
+-- Checks if the third stage of final enemy is started.
+function Enemy_Player6_StartFinalStage()
+    local IsFulfilled = true;
+    local Buildings = {
+        "P6LRBastille1", "P6LRBastille2", "P6LRBastille3", "P6LRBastille4", "P6LRBastille5",
+        "P6RRBastille1", "P6RRBastille2", "P6RRBastille3", "P6RRBastille4", "P6RRBastille5",
+    };
+    for _, ScriptName in pairs(Buildings) do
+        if IsExisting(ScriptName) then
+            IsFulfilled = false;
+            break;
+        end
+    end
+    if IsFulfilled then
+        Enemy_InitPlayer6_3();
+        return true;
+    end
+end
+
+-- Creates the third stage of the final enemy.
+function Enemy_InitPlayer6_3()
+    Enemy_Player6_Stage = 3;
+
+    local Strength = 7 + (3 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(150 / (Difficulty_Selected ^ (1.2)));
+
+    local AllowedUnitsCastle = {
+        Entities.CU_BlackKnight_LeaderMace2,
+        Entities.PU_LeaderPoleArm3,
+        Entities.PV_Cannon3,
+        Entities.PU_LeaderBow3,
+        Entities.PU_LeaderRifle1,
+        Entities.CU_BlackKnight_LeaderMace2,
+        Entities.PU_LeaderBow3,
+        Entities.PU_LeaderRifle1,
+        Entities.PV_Cannon3,
+    };
+    if Difficulty_Selected >= 3 then
+        AllowedUnitsCastle = {
+            Entities.PU_LeaderPoleArm4,
+            Entities.CU_BlackKnight_LeaderMace1,
+            Entities.CV_Cannon2,
+            Entities.PU_LeaderBow4,
+            Entities.PU_LeaderRifle2,
+            Entities.CU_BlackKnight_LeaderMace1,
+            Entities.PU_LeaderBow4,
+            Entities.PU_LeaderRifle2,
+            Entities.CV_Cannon2
+        };
+    end
+
+    Enemy_Player6Camp5 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "DoorP6",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp5, "HQ6", RespawnTime, 2, unpack(AllowedUnitsCastle));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp5, "DoorP6", "P6DefPos7");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp5,
+        "P2DefPos5", "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2",
+        "SWP3", "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
+    );
+
+    Enemy_Player6Camp6 = DelinquentsCampCreate {
+        PlayerID     = 6,
+        HomePosition = "DoorP6",
+        Strength     = Strength,
+    };
+    DelinquentsCampAddSpawner(Enemy_Player6Camp6, "HQ6", RespawnTime, 2, unpack(AllowedUnitsCastle));
+    DelinquentsCampAddGuardPositions(Enemy_Player6Camp6, "DoorP6", "P6DefPos8");
+    DelinquentsCampAddTarget(
+        Enemy_Player6Camp6,
+        "P2DefPos6", "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2",
+        "NWP3", "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
+        "Player1Home"
+    );
+
+    Job.Second(Enemy_Player6_CheckPlayerDefeated);
+    -- To make player 6 not too boring...
+    if Difficulty_Selected >= 1 then
+        Enemy_Player6_SaveSpawnerBuildings_2_3();
+        Job.Second(Enemy_Player6_RestoreSpawnersInFog_2_3);
+    end
+end
+
+-- Checks on HQ and deactivates final spawners.
+function Enemy_Player6_CheckPlayerDefeated()
+    if not IsExisting("HQ6") then
+        DelinquentsCampDestroy(Enemy_Player6Camp5);
+        DelinquentsCampDestroy(Enemy_Player6Camp6);
+        return true;
+    end
+end
+
+-- Stage Starters --
+
+function Enemy_Player6_StartStage1()
+    if Enemy_Player4_IsDefeated == 1 and Enemy_Player3_IsDefeated == 1 then
+        for i= 1, 5 do
+            ChangePlayer("P6CTBastille" ..i, 6);
+        end
+        for i= 1, 7 do
+            ChangePlayer("P6CTTower" ..i, 6);
+        end
+        Enemy_InitPlayer6_1();
+
+        for i= 1, 4 do
+            ReplaceEntity("P6MG" ..i, Entities.XD_DarkWallStraightGate);
+        end
+        SetHostile(1,6);
+        SetHostile(2,6);
+
+        Job.Second(Enemy_Player6_StartStage2);
+        return true;
+    end
+end
+
+function Enemy_Player6_StartStage2()
+    local Fulfulled = true;
+    for i= 1, 5 do
+        if IsExisting("P6CTBastille" ..i) then
+            Fulfulled = false;
+            break;
+        end
+    end
+    if Fulfulled then
+        for i= 1, 5 do
+            ChangePlayer("P6RRBastille" ..i, 6);
+            ChangePlayer("P6LRBastille" ..i, 6);
+        end
+        for i= 1, 8 do
+            ChangePlayer("P6RRTower" ..i, 6);
+            ChangePlayer("P6LRTower" ..i, 6);
+        end
+        Enemy_InitPlayer6_2();
+
+        ReplaceEntity("P6RG1", Entities.XD_DarkWallStraightGate);
+        ReplaceEntity("P6LG1", Entities.XD_DarkWallStraightGate);
+
+        Job.Second(Enemy_Player6_StartStage3);
+        return true;
+    end
+end
+
+function Enemy_Player6_StartStage3()
+    local Fulfulled = true;
+    for i= 1, 5 do
+        if IsExisting("P6RRBastille" ..i) or IsExisting("P6LRBastille" ..i) then
+            Fulfulled = false;
+            break;
+        end
+    end
+    if Fulfulled then
+        for i= 1, 16 do
+            ChangePlayer("P6FITower" ..i, 6);
+        end
+        Enemy_InitPlayer6_3();
+
+        ReplaceEntity("P6LG2", Entities.XD_DarkWallStraightGate);
+        ReplaceEntity("P6RG2", Entities.XD_DarkWallStraightGate);
+        ReplaceEntity("P6FG1", Entities.XD_DarkWallStraightGate);
+        ReplaceEntity("P6FG2", Entities.XD_DarkWallStraightGate);
+        return true;
+    end
+end
+
+-- Rebuilding --
+
+-- Saves the buildings of the left wing.
+function Enemy_Player6_SaveSpawnerBuildings_2_1()
+    local Buildings = {
+        "P6LRBastille1", "P6LRBastille2", "P6LRBastille3", "P6LRBastille4", "P6LRBastille5",
+        "P6LRTower1", "P6LRTower2", "P6LRTower3", "P6LRTower4", "P6LRTower5", "P6LRTower6",
+        "P6LRTower7", "P6LRTower8",
+    };
+
+    Enemy_Player6_BuildingPositions[1] = {};
+    for _,ScriptName in pairs(Buildings) do
+        local Position = GetPosition(ScriptName);
+        local Type = Logic.GetEntityType(GetID(ScriptName));
+        local Orientation = Logic.GetEntityOrientation(GetID(ScriptName));
+        Enemy_Player6_BuildingPositions[1][ScriptName] = {
+            Position.X, Position.Y, Type, Orientation
+        };
+    end
+end
+
+-- Restores the buildings of the left wing as long as HQ exists.
+function Enemy_Player6_RestoreSpawnersInFog_2_1()
+    -- End job after buildings are killed
+    if not IsExisting("HQ6") then
+        DelinquentsCampDestroy(Enemy_Player6Camp1);
+        DelinquentsCampDestroy(Enemy_Player6Camp2);
+        for ScriptName, _ in pairs(Enemy_Player6_BuildingPositions[1]) do
+            SetHealth(ScriptName, 0);
+        end
+        return true;
+    end
+    -- Restore buildings in fog
+    for ScriptName, Data in pairs(Enemy_Player6_BuildingPositions[1]) do
+        if not IsExisting(ScriptName) then
+            if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
+            and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                Logic.SetEntityName(ID, ScriptName);
+            end
+        end
+    end
+end
+
+-- Saves the buildings of the right wing.
+function Enemy_Player6_SaveSpawnerBuildings_2_2()
+    local Buildings = {
+        "P6RRBastille1", "P6RRBastille2", "P6RRBastille3", "P6RRBastille4", "P6RRBastille5",
+        "P6RRTower1", "P6RRTower2", "P6RRTower3", "P6RRTower4", "P6RRTower5", "P6RRTower6",
+        "P6RRTower7", "P6RRTower8",
+    };
+
+    Enemy_Player6_BuildingPositions[2] = {};
+    for _,ScriptName in pairs(Buildings) do
+        local Position = GetPosition(ScriptName);
+        local Type = Logic.GetEntityType(GetID(ScriptName));
+        local Orientation = Logic.GetEntityOrientation(GetID(ScriptName));
+        Enemy_Player6_BuildingPositions[2][ScriptName] = {
+            Position.X, Position.Y, Type, Orientation
+        };
+    end
+end
+
+-- Restores the buildings of the right wing as long as HQ exists.
+function Enemy_Player6_RestoreSpawnersInFog_2_2()
+    -- End job after buildings are killed
+    if not IsExisting("HQ6") then
+        DelinquentsCampDestroy(Enemy_Player6Camp3);
+        DelinquentsCampDestroy(Enemy_Player6Camp4);
+        for ScriptName, _ in pairs(Enemy_Player6_BuildingPositions[2]) do
+            SetHealth(ScriptName, 0);
+        end
+        return true;
+    end
+    -- Restore buildings in fog
+    for ScriptName, Data in pairs(Enemy_Player6_BuildingPositions[2]) do
+        if not IsExisting(ScriptName) then
+            if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
+            and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                Logic.SetEntityName(ID, ScriptName);
+            end
+        end
+    end
+end
+
+-- Saves the buildings of the right wing.
+function Enemy_Player6_SaveSpawnerBuildings_2_3()
+    local Buildings = {
+        "P6FITower1", "P6FITower2", "P6FITower3", "P6FITower4", "P6FITower5", "P6FITower6", 
+        "P6FITower7", "P6FITower8", "P6FITower9", "P6FITower10", "P6FITower11", "P6FITower12", 
+        "P6FITower13", "P6FITower14", "P6FITower15", "P6FITower16"
+    };
+
+    Enemy_Player6_BuildingPositions[3] = {};
+    for _,ScriptName in pairs(Buildings) do
+        local Position = GetPosition(ScriptName);
+        local Type = Logic.GetEntityType(GetID(ScriptName));
+        local Orientation = Logic.GetEntityOrientation(GetID(ScriptName));
+        Enemy_Player6_BuildingPositions[3][ScriptName] = {
+            Position.X, Position.Y, Type, Orientation
+        };
+    end
+end
+
+-- Restores the buildings of the right wing as long as HQ exists.
+function Enemy_Player6_RestoreSpawnersInFog_2_3()
+    -- End job after buildings are killed
+    if not IsExisting("HQ6") then
+        DelinquentsCampDestroy(Enemy_Player6Camp3);
+        DelinquentsCampDestroy(Enemy_Player6Camp4);
+        for ScriptName, _ in pairs(Enemy_Player6_BuildingPositions[2]) do
+            SetHealth(ScriptName, 0);
+        end
+        return true;
+    end
+    -- Restore buildings in fog
+    for ScriptName, Data in pairs(Enemy_Player6_BuildingPositions[2]) do
+        if not IsExisting(ScriptName) then
+            if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
+            and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                Logic.SetEntityName(ID, ScriptName);
+            end
+        end
+    end
 end
 
 -- Player 3 --------------------------------------------------------------------
 
+Enemy_Player3_BuildingPositions = {};
+Enemy_Player3_IsDefeated = 0;
+
 function Enemy_InitPlayer3()
+    SetupAiPlayer(3, 0, 0);
+
     local Strength = 10 + (6 * (Difficulty_Selected -1));
     local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
@@ -323,11 +795,69 @@ function Enemy_InitPlayer3()
     DelinquentsCampAddSpawner(Enemy_Player3Camp1, "HQ3", RespawnTime, 4, unpack(AllowedUnitsHQ));
     DelinquentsCampAddGuardPositions(Enemy_Player3Camp1, "P3DefPos1", "P3DefPos2");
     DelinquentsCampAddTarget(Enemy_Player3Camp1, "SBWP1", "SWP1", "SWP2", "SWP3", "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home");
+
+    -- To make player 3 not too boring...
+    if Difficulty_Selected >= 4 then
+        Enemy_Player3_SaveSpawnerBuildings();
+        Job.Second(Enemy_Player3_RestoreSpawnersInFog);
+    end
+end
+
+function Enemy_Player3_SaveSpawnerBuildings()
+    for _,ScriptName in pairs{"P3Bastille1","P3Bastille2","P3Bastille3"} do
+        local Position = GetPosition(ScriptName);
+        local Type = Logic.GetEntityType(GetID(ScriptName));
+        local Orientation = Logic.GetEntityOrientation(GetID(ScriptName));
+        Enemy_Player3_BuildingPositions[ScriptName] = {
+            Position.X, Position.Y, Type, Orientation
+        };
+    end
+end
+
+function Enemy_Player3_RestoreSpawnersInFog()
+    -- End job after HQ is killed
+    if (not IsExisting("HQ3")) then
+        DelinquentsCampDestroy(Enemy_Player3Camp1);
+        for ScriptName, _ in pairs(Enemy_Player3_BuildingPositions) do
+            SetHealth(ScriptName, 0);
+        end
+        Enemy_Player3_IsDefeated = 1;
+        return true;
+    end
+    -- Restore buildings in fog
+    for ScriptName, Data in pairs(Enemy_Player3_BuildingPositions) do
+        if not IsExisting(ScriptName) then
+            if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
+            and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                Logic.SetEntityName(ID, ScriptName);
+            end
+        end
+    end
+end
+
+function Enemy_Player3_State1()
+    for i= 1, 3 do
+        ChangePlayer("P3Bastille" ..i, 4);
+    end
+    for i= 1, 6 do
+        ChangePlayer("P3Tower" ..i, 4);
+    end
+    Enemy_InitPlayer3();
+
+    ReplaceEntity("P3LG1", Entities.XD_DarkWallStraightGate);
+    SetHostile(1,3);
+    SetHostile(2,3);
 end
 
 -- Player 4 --------------------------------------------------------------------
 
+Enemy_Player4_BuildingPositions = {};
+Enemy_Player4_IsDefeated = 0;
+
 function Enemy_InitPlayer4()
+    SetupAiPlayer(4, 0, 0);
+
     local Strength = 10 + (6 * (Difficulty_Selected -1));
     local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
@@ -375,6 +905,59 @@ function Enemy_InitPlayer4()
     DelinquentsCampAddSpawner(Enemy_Player4Camp1, "HQ4", RespawnTime, 4, unpack(AllowedUnitsHQ));
     DelinquentsCampAddGuardPositions(Enemy_Player4Camp1, "P4DefPos1", "P4DefPos2");
     DelinquentsCampAddTarget(Enemy_Player4Camp1, "NBWP1", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5", "Player1Home");
+
+    -- To make player 4 not too boring...
+    if Difficulty_Selected >= 4 then
+        Enemy_Player4_SaveSpawnerBuildings();
+        Job.Second(Enemy_Player4_SaveSpawnerBuildings);
+    end
+end
+
+function Enemy_Player4_SaveSpawnerBuildings()
+    for _,ScriptName in pairs{"P4Bastille1","P4Bastille2","P4Bastille3"} do
+        local Position = GetPosition(ScriptName);
+        local Type = Logic.GetEntityType(GetID(ScriptName));
+        local Orientation = Logic.GetEntityOrientation(GetID(ScriptName));
+        Enemy_Player4_BuildingPositions[ScriptName] = {
+            Position.X, Position.Y, Type, Orientation
+        };
+    end
+end
+
+function Enemy_Player4_RestoreSpawnersInFog()
+    -- End job after HQ is killed
+    if (not IsExisting("HQ4")) then
+        DelinquentsCampDestroy(Enemy_Player4Camp1);
+        for ScriptName, _ in pairs(Enemy_Player4_BuildingPositions) do
+            SetHealth(ScriptName, 0);
+        end
+        Enemy_Player4_IsDefeated = 1;
+        return true;
+    end
+    -- Restore buildings in fog
+    for ScriptName, Data in pairs(Enemy_Player4_BuildingPositions) do
+        if not IsExisting(ScriptName) then
+            if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
+            and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                Logic.SetEntityName(ID, ScriptName);
+            end
+        end
+    end
+end
+
+function Enemy_Player4_State1()
+    for i= 1, 3 do
+        ChangePlayer("P4Bastille" ..i, 4);
+    end
+    for i= 1, 6 do
+        ChangePlayer("P4Tower" ..i, 4);
+    end
+    Enemy_InitPlayer4();
+
+    ReplaceEntity("P4RG1", Entities.XD_DarkWallStraightGate);
+    SetHostile(1,4);
+    SetHostile(2,4);
 end
 
 -- Player 5 --------------------------------------------------------------------
@@ -410,10 +993,10 @@ function Enemy_Player5_Init()
         HomePosition = "P5DefPos2",
         Strength     = Strength,
     };
-    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_BC1", RespawnTime, 1, unpack(AllowedMelee));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_BC1", RespawnTime, 2, unpack(AllowedMelee));
     DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 2, unpack(AllowedCannons));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 2, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 1, unpack(AllowedCannons));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp1, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
     DelinquentsCampAddTarget(Enemy_Player5Camp1, "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
     DelinquentsCampAddTarget(Enemy_Player5Camp1, "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
@@ -424,17 +1007,19 @@ function Enemy_Player5_Init()
         HomePosition = "P5DefPos3",
         Strength     = Strength,
     };
-    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_BC1", RespawnTime, 1, unpack(AllowedMelee));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_FD1", RespawnTime, 2, unpack(AllowedCannons));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_BC1", RespawnTime, 2, unpack(AllowedMelee));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_FD1", RespawnTime, 1, unpack(AllowedCannons));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 2, unpack(AllowedCavalry));
     DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp2, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
     DelinquentsCampAddTarget(Enemy_Player5Camp2, "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
     DelinquentsCampAddTarget(Enemy_Player5Camp2, "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
 
     -- To make player 5 not too boring...
-    Enemy_Player5_SaveSpawnerBuildings();
-    Job.Second(Enemy_Player5_RestoreSpawnersInFog);
+    if Difficulty_Selected >= 4 then
+        Enemy_Player5_SaveSpawnerBuildings();
+        Job.Second(Enemy_Player5_RestoreSpawnersInFog);
+    end
 end
 
 function Enemy_Player5_SaveSpawnerBuildings()
@@ -454,7 +1039,7 @@ function Enemy_Player5_RestoreSpawnersInFog()
         DelinquentsCampDestroy(Enemy_Player5Camp1);
         DelinquentsCampDestroy(Enemy_Player5Camp2);
         for ScriptName, _ in pairs(Enemy_Player5_BuildingPositions) do
-            DestroyEntity(ScriptName);
+            SetHealth(ScriptName, 0);
         end
         Enemy_Player5_IsDefeated = 1;
         SetNeutral(1,5);
@@ -525,12 +1110,12 @@ function Main1Quest_Init()
     Job.Second(Main1Quest_IsPlayer5Defeated);
 end
 
-function Main1Quest_IsPlayer5Defeated()
-    if Enemy_Player5_IsDefeated == 1 then
-        MainQuest_ReleaseTheBishop();
-        MainQuest_JournalStage2();
-        return true;
-    end
+function Main1Quest_InitFinalEnemyMinions()
+    Main1Quest_JournalStage3();
+    Enemy_Player3_State1();
+    Enemy_Player4_State1();
+    Job.Second(Enemy_Player6_StartStage1);
+    Trader_CreateNpcTrader3();
 end
 
 function Main1Quest_WaitForDifficultySelection()
@@ -557,7 +1142,22 @@ function Main1Quest_WaitForDifficultySelection()
     end
 end
 
-function MainQuest_PeaceTimeOver()
+function Main1Quest_IsPlayer5Defeated()
+    if Enemy_Player5_IsDefeated == 1 then
+        Main1Quest_ReleaseTheBishop();
+        Main1Quest_JournalStage2();
+        return true;
+    end
+end
+
+function Main1Quest_IsPlayer6Defeated()
+    if not IsExisting("HQ6") then
+        Main1Quest_BriefingOutro();
+        return true;
+    end
+end
+
+function Main1Quest_PeaceTimeOver()
     -- Make player 5 aggressive
     DelinquentsCampActivateAttack(Enemy_Player5Camp1, true);
     DelinquentsCampActivateAttack(Enemy_Player5Camp2, true);
@@ -569,76 +1169,55 @@ function MainQuest_PeaceTimeOver()
     SetHostile(2, 5);
 end
 
-function MainQuest_ReleaseTheBishop()
+function Main1Quest_ReleaseTheBishop()
     local Position = GetPosition("BishopPos1");
     local ID = Logic.CreateEntity(Entities.CU_BishopIdle, Position.X, Position.Y, 0, 8);
     Logic.SetEntityName(ID, "Bishop");
     Move("Bishop", "BishopPos2");
     Job.Second(function()
         if IsNear("Bishop", "BishopPos2", 50) then
-            MainQuest_CreateBishop1Npc1();
+            Main1Quest_CreateBishop1Npc1();
             return true;
         end
     end);
 end
 
-function MainQuest_CreateBishop1Npc1()
+function Main1Quest_CreateBishop1Npc1()
     NonPlayerCharacter.Create {
         ScriptName = "Bishop",
-        Callback   = MainQuest_BriefingBishop1,
+        Callback   = Main1Quest_BriefingBishop1,
     }
     NonPlayerCharacter.Activate("Bishop");
 end
 
-function MainQuest_MakeFinalEnemyHostile()
-    MainQuest_RevealEnemyCoalition();
-
-    ChangePlayer("P3Bastille1", 3);
-    ChangePlayer("P3Bastille2", 3);
-    ChangePlayer("P3Bastille3", 3);
-    Enemy_InitPlayer3();
-
-    ChangePlayer("P4Bastille1", 4);
-    ChangePlayer("P4Bastille2", 4);
-    ChangePlayer("P4Bastille3", 4);
-    Enemy_InitPlayer4();
-
-    ReplaceEntity("P3LG1", Entities.XD_DarkWallStraightGate);
-    ReplaceEntity("P4RG1", Entities.XD_DarkWallStraightGate);
-    SetHostile(1,3);
-    SetHostile(1,4);
-    SetHostile(2,3);
-    SetHostile(2,4);
-end
-
-function MainQuest_RevealEnemyCoalition()
+function Main1Quest_RevealEnemyCoalition()
     SetPlayerName(6, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player3Name"));
     SetPlayerName(3, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player4Name"));
     SetPlayerName(4, XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player6Name"));
 end
 
-function MainQuest_JournalStage1()
+function Main1Quest_JournalStage1()
     local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage1_Title");
     local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage1_Text");
     Logic.AddQuest(1, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
     Logic.AddQuest(2, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
-function MainQuest_JournalStage2()
+function Main1Quest_JournalStage2()
     local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage2_Title");
     local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage2_Text");
     Logic.AddQuest(1, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
     Logic.AddQuest(2, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
-function MainQuest_JournalStage3()
+function Main1Quest_JournalStage3()
     local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage3_Title");
     local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/MainQuest_Stage3_Text");
     Logic.AddQuest(1, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
     Logic.AddQuest(2, MainQuest_ID, MAINQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
 
-function MainQuest_BriefingIntro()
+function Main1Quest_BriefingIntro()
     local HostPlayerID = Syncer.GetHostPlayerID();
     local Briefing = {
         RenderFoW = false,
@@ -656,13 +1235,43 @@ function MainQuest_BriefingIntro()
     }
 
     Briefing.Finished = function()
-        MainQuest_JournalStage1();
-        StartCountdown(Difficulty_InitialPeaceTime, MainQuest_PeaceTimeOver, true);
+        Main1Quest_JournalStage1();
+        StartCountdown(Difficulty_InitialPeaceTime, Main1Quest_PeaceTimeOver, true);
+
+        Mayor1Quest_Init();
+        TraitorRevengeQuest_Init();
+        FindSheepsQuest_Init();
+        DrawBridgeQuest_Init();
     end
     BriefingSystem.Start(HostPlayerID, "BriefingIntro", Briefing, 1, 2);
 end
 
-function MainQuest_BriefingBishop1(_Npc, _HeroID)
+function Main1Quest_BriefingOutro()
+    local MainPlayerID = (Logic.PlayerGetGameState(1) == 1 and 1) or 2;
+
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
+
+    AP {
+        Title       = "Outro",
+        Text        = "This will later be the outro!",
+        Target      = "BishopPos1",
+        NoSkip      = true,
+        Duration    = 10,
+    }
+
+    Briefing.Finished = function()
+        Logic.PlayerSetGameStateToWon(1);
+        Logic.PlayerSetGameStateToWon(2);
+    end
+    BriefingSystem.Start(MainPlayerID, "BriefingOutro", Briefing, 1, 2);
+end
+
+function Main1Quest_BriefingBishop1(_Npc, _HeroID)
     local PlayerID = Logic.EntityGetPlayer(_HeroID);
     local HeroType = Logic.GetEntityType(_HeroID);
     local TypeName = Logic.GetEntityTypeName(HeroType);
@@ -731,9 +1340,7 @@ function MainQuest_BriefingBishop1(_Npc, _HeroID)
     }
 
     Briefing.Finished = function()
-        MainQuest_JournalStage3();
-        MainQuest_MakeFinalEnemyHostile();
-        Trader_CreateNpcTrader3();
+        Main1Quest_InitFinalEnemyMinions();
     end
     BriefingSystem.Start(PlayerID, "BriefingBishop1", Briefing);
 end
