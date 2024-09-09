@@ -1253,24 +1253,7 @@ function Stronghold.Player:ForcedSelfDesctruct(_PlayerID)
         [Entities.PB_SulfurMine3] = true;
     };
 
-    local DestroyNeverTypes = {
-        [Entities.CU_Barbarian_Hero] = true;
-        [Entities.CU_BlackKnight] = true;
-        [Entities.CU_Evil_Queen] = true;
-        [Entities.CU_Mary_de_Mortfichet] = true;
-        [Entities.CU_Hero13] = true;
-        [Entities.PU_Hero1] = true;
-        [Entities.PU_Hero1a] = true;
-        [Entities.PU_Hero1b] = true;
-        [Entities.PU_Hero1c] = true;
-        [Entities.PU_Hero2] = true;
-        [Entities.PU_Hero3] = true;
-        [Entities.PU_Hero4] = true;
-        [Entities.PU_Hero5] = true;
-        [Entities.PU_Hero6] = true;
-        [Entities.PU_Hero10] = true;
-        [Entities.PU_Hero11] = true;
-    };
+    local DestroyNeverTypes = {};
 
     for _, Type in pairs(Entities) do
         if not DestroyLaterTypes[Type] and not DestroyNeverTypes[Type] then
