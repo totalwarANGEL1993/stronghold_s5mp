@@ -101,6 +101,8 @@ function Stronghold.AI:ControlAiPlayerHero(_PlayerID, _HeroID)
         self:ControlHero12DefendCastle(_PlayerID, _HeroID);
     elseif Type == Entities.CU_Hero13 then
         self:ControlHero13DefendCastle(_PlayerID, _HeroID);
+    elseif Type == Entities.CU_Hero14 then
+        self:ControlHero14DefendCastle(_PlayerID, _HeroID);
     end
 end
 
@@ -396,6 +398,12 @@ function Stronghold.AI:ControlHero13DefendCastle(_PlayerID, _HeroID)
     end
 end
 
+-- Hero 13
+
+function Stronghold.AI:ControlHero14DefendCastle(_PlayerID, _HeroID)
+    
+end
+
 -- Helper
 
 function Stronghold.AI:HeroTriggerAbilityInflictFear(_HeroID)
@@ -460,6 +468,42 @@ function Stronghold.AI:HeroTriggerAbilityShuriken(_HeroID, _TargetID)
         SendEvent.HeroShuriken(_HeroID, _TargetID);
         return;
     end
-    GUI.SettlerSummon(_HeroID, _TargetID);
+end
+
+function Stronghold.AI:HeroTriggerAbilityDancingAttack(_HeroID)
+    -- Check fake ability
+    local RechargeTime = Logic.HeroGetAbilityRechargeTime(_HeroID, Abilities.AbilityRangedEffect);
+    local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_HeroID, Abilities.AbilityRangedEffect);
+    if TimeLeft ~= RechargeTime then
+        return;
+    end
+
+    -- Unload fake ability
+    if XNetwork.Manager_DoesExist() == 1 and SendEvent then
+        SendEvent.SettlerAffectUnitsInArea(_HeroID);
+    else
+        GUI.SettlerAffectUnitsInArea(_HeroID);
+    end
+
+    -- Start ability execution
+    local StartTime = Logic.GetTimeMs();
+    Job.Turn(function(_EntityID, _StartTime)
+        if not IsExisting(_EntityID) or Logic.GetEntityHealth(_EntityID) == 0 then
+            return true;
+        end
+        if Logic.GetTimeMs() >= _StartTime + 6000 then
+            return true;
+        end
+
+        local RechargeTime = Logic.HeroGetAbilityRechargeTime(_EntityID, Abilities.AbilityCircularAttack);
+        local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_EntityID, Abilities.AbilityCircularAttack);
+        if TimeLeft == RechargeTime then
+            if XNetwork.Manager_DoesExist() == 1 and SendEvent then
+                SendEvent.SettlerCircularAttack(_EntityID);
+            else
+                GUI.SettlerCircularAttack(_EntityID);
+            end
+        end
+    end, _HeroID, StartTime);
 end
 
