@@ -146,7 +146,7 @@ function Difficulty_SetEasy()
 
     -- For testing
     -- Difficulty_InitialPeaceTime = 200*60;
-    -- Difficulty_Selected = 1;
+    ReplaceEntity("VC_Blockade", Entities.XD_ScriptEntity);
 end
 
 function Difficulty_SetNormal()
@@ -2023,8 +2023,8 @@ function DrawBridgeQuest_FulfillTribute()
 end
 
 function DrawBridgeQuest_AddToJournal()
-    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard1_1_Title");
-    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard1_1_Text");
+    local Title = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard_Title");
+    local Text  = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard_Text");
     Logic.AddQuest(1, DrawBridgeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
     Logic.AddQuest(2, DrawBridgeQuest_ID, SUBQUEST_OPEN, Placeholder.Replace(Title), Placeholder.Replace(Text), 1);
 end
