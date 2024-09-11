@@ -434,7 +434,7 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
                     Damage = 1;
                 end
             end
-            CEntity.HurtTrigger.SetDamage(math.ceil(Damage));
+            CEntity.HurtTrigger.SetDamage(math.max(math.ceil(Damage), 1));
         end
     end
 end

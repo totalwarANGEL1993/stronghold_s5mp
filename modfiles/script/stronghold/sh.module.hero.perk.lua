@@ -571,10 +571,6 @@ function Stronghold.Hero.Perk:OnPerkUnlockedSpecialAction(_PlayerID, _Perk)
             ExpectedSoftCap = self.Config.Perks[_Perk].Data.MaxReputation / 100;
             CUtil.AddToPlayersMotivationSoftcap(_PlayerID, ExpectedSoftCap - CurrentSoftCap);
         end
-        -- Hero 7: Moloch technology
-        if _Perk == HeroPerks.Hero7_Moloch then
-            ResearchTechnology(Technologies.T_Hero7_Masonry, _PlayerID);
-        end
         -- Hero 11: Update soft cap
         if _Perk == HeroPerks.Hero11_LandOfTheSmile then
             local RepuBonus = self.Config.Perks[_Perk].Data.Reputation;
@@ -584,10 +580,6 @@ function Stronghold.Hero.Perk:OnPerkUnlockedSpecialAction(_PlayerID, _Perk)
             CUtil.AddToPlayersMotivationSoftcap(_PlayerID, ExpectedSoftCap - CurrentSoftCap);
             Stronghold.Attraction:UpdateMotivationOfPlayersWorkers(_PlayerID, RepuBonus);
             Stronghold.Player:AddPlayerReputation(_PlayerID, RepuBonus);
-        end
-        -- Hero 12: Moloch technology
-        if _Perk == HeroPerks.Hero7_Moloch then
-            ResearchTechnology(Technologies.T_Hero12_Masonry, _PlayerID);
         end
     end
 end
@@ -1235,6 +1227,13 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
             CurrentAmount = CurrentAmount * Data.DamageFactor;
         end
     end
+    -- Hero 7: Moloch
+    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero7_Moloch) then
+        local Data = self.Config.Perks[HeroPerks.Hero7_Moloch].Data;
+        if Data.EntityTypes[AttackedType] then
+            CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
+        end
+    end
     -- Hero 9: Berserker Rage
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero9_BerserkerRage) then
         local Data = self.Config.Perks[HeroPerks.Hero9_BerserkerRage].Data;
@@ -1271,6 +1270,13 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
             if Data.DamageClasses[DamageClass] then
                 CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
             end
+        end
+    end
+    -- Hero 12: Moloch
+    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero12_Moloch) then
+        local Data = self.Config.Perks[HeroPerks.Hero12_Moloch].Data;
+        if Data.EntityTypes[AttackedType] then
+            CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
         end
     end
 

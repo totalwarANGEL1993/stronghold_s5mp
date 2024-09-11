@@ -374,10 +374,6 @@
     <Technology>UP3_Tower</Technology>
     <Technology>UP3_TowerDark</Technology>
 
-    <!-- Heroes -->
-    <Technology>T_Hero7_Masonry</Technology> 
-    <Technology>T_Hero12_Masonry</Technology> 
-
     <!-- Resources -->
     <Technology>T_PickAxeClay</Technology>
     <Technology>T_PickAxeIron</Technology>
