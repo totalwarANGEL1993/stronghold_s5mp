@@ -254,17 +254,15 @@ end
 function DelinquentsCampDestroy(_ID)
     if Stronghold.AI.Data.Delinquents[_ID] then
         local Data = Stronghold.AI.Data.Delinquents[_ID];
-        AiArmy.Delete(Data.AttackArmyID);
-        AiArmy.Delete(Data.DefendArmyID);
 
         local AttackArmy = AiArmy.Get(Data.AttackArmyID);
         if AttackArmy then
-            AttackArmy:Abadon(true);
+            AttackArmy:Abandon(true);
             AttackArmy:Dispose();
         end
         local DefendArmy = AiArmy.Get(Data.DefendArmyID);
         if DefendArmy then
-            DefendArmy:Abadon(true);
+            DefendArmy:Abandon(true);
             DefendArmy:Dispose();
         end
 
