@@ -9,7 +9,7 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <MaxHealth>900</MaxHealth>
+        <MaxHealth>800</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <Exploration>30</Exploration>
@@ -19,6 +19,12 @@
 
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+        <ModifyArmor>
+            <Technology>T_Hero7_Moloch</Technology>
+        </ModifyArmor>
+        <ModifyArmor>
+            <Technology>T_Hero12_Moloch</Technology>
         </ModifyArmor>
 
         <ModifyExploration>
