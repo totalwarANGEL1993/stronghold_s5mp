@@ -18,12 +18,6 @@
         <ModifyArmor>
             <Technology>T_Masonry</Technology>
         </ModifyArmor>
-        <ModifyArmor>
-            <Technology>T_Hero7_Moloch</Technology>
-        </ModifyArmor>
-        <ModifyArmor>
-            <Technology>T_Hero12_Moloch</Technology>
-        </ModifyArmor>
 
         <ModifyExploration>
             <Technology>T_TownGuard</Technology>

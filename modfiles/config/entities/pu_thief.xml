@@ -48,7 +48,7 @@
         <DodgeChance>0</DodgeChance>
         <IdleTaskList>TL_THIEF_IDLE</IdleTaskList>
         <ExperiencePoints>40</ExperiencePoints>
-        <AttractionSlots>5</AttractionSlots>
+        <AttractionSlots>0</AttractionSlots>
         <Fearless>true</Fearless>
         <Upgrade>
             <Category>Thief</Category>
