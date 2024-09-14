@@ -732,14 +732,16 @@ function Stronghold.Player:WaitForPlayersHeadquarterConstructed(_PlayerID)
             self:InitalizePlayersHeadquarter(_PlayerID);
             self:ResurrectPlayerLordForAnnihilation(_PlayerID);
 
-            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-            local PlayerName = UserTool_GetPlayerName(_PlayerID);
-            local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-            Message(string.format(
-                XGUIEng.GetStringTableText("sh_text/Player_CastleBuild"),
-                PlayerColor,
-                PlayerName
-            ));
+            if not self:IsAIPlayer(_PlayerID) then
+                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_CastleBuild"),
+                    PlayerColor,
+                    PlayerName
+                ));
+            end
             return true;
         end
     end
@@ -808,14 +810,16 @@ function Stronghold.Player:WaitForPlayersHeadquarterDestroyed(_PlayerID)
             DestroyEntity("DoorP" .._PlayerID);
             DestroyEntity("CampP" .._PlayerID);
 
-            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-            local PlayerName = UserTool_GetPlayerName(_PlayerID);
-            local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-            Message(string.format(
-                XGUIEng.GetStringTableText("sh_text/Player_CastleLost"),
-                PlayerColor,
-                PlayerName
-            ));
+            if not self:IsAIPlayer(_PlayerID) then
+                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_CastleLost"),
+                    PlayerColor,
+                    PlayerName
+                ));
+            end
             return true;
         end
     end
