@@ -5,8 +5,11 @@
 <string id="Player1Name"></string>
 <string id="Player2Name"></string>
 <string id="Player3Name">Des Teufels linke Hand</string>
+<string id="Player3Defeated">Die LINKE HAND DES TEUFELS wurde besiegt!</string>
 <string id="Player4Name">Des Teufels rechte Hand</string>
+<string id="Player4Defeated">Die RECHTE HAND DES TEUFELS wurde besiegt!</string>
 <string id="Player5Name">Bishof</string>
+<string id="Player5Defeated">Der Bischof wurde befreit.</string>
 <string id="Player6Name">Dovbar, der Teufel</string>
 <string id="Player7Name">Räuber</string>
 <string id="Player8Name"></string>
@@ -42,17 +45,31 @@
 <!-- Mainquest -->
 
 <string id="MainQuest_Stage1_Title">Vom Teufel berührt</string>
-<string id="MainQuest_Stage1_Text">Der Bischof hat sich von einem demütigen Diener Gottes zu einem bösartigen Tyrann entwickelt. Ihr und Euer Verbündeter habt Euch erhoben, um Euch dem Unrecht entgegenzustellen. Etwas muss für die Änderung seines Charakter verantwortlich sein. Ihr müsst es herausfinden! {cr}{cr}- Besiegt die Truppen des Bishof</string>
+<string id="MainQuest_Stage1_Text">Der Bischof hat sich von einem demütigen Diener Gottes zu einem bösartigen Tyrann entwickelt. Ihr und Euer Verbündeter habt Euch erhoben, um Euch dem Unrecht entgegenzustellen. Etwas muss für die Änderung seines Charakter verantwortlich sein. Ihr müsst es herausfinden! {cr}{cr}Auftrag: {cr}- Besiegt die Truppen des Bishof</string>
 <string id="MainQuest_Stage2_Title">Vom Teufel berührt</string>
-<string id="MainQuest_Stage2_Text">Der Bischof wurde offenbar von einem unbekannten Feind ausgetauscht. Ihr und Euer Verbündeter habt den Handlanger erschlagen. Sprecht mit dem Bischof und erfahrt, was hinter allem steckt. {cr}{cr}- Sprecht mit dem Bischof</string>
+<string id="MainQuest_Stage2_Text">Der Bischof wurde offenbar von einem unbekannten Feind ausgetauscht. Ihr und Euer Verbündeter habt den Handlanger erschlagen. Sprecht mit dem Bischof und erfahrt, was hinter allem steckt. {cr}{cr}Auftrag: {cr}- Sprecht mit dem Bischof</string>
 <string id="MainQuest_Stage3_Title">Vom Teufel berührt</string>
-<string id="MainQuest_Stage3_Text">Ein Mann namens Dovbar scheint die Fäden in der Hand zu halten. Im festen Glauben, für etwas Größeres vorgesehen gewesen zu sein und seines Geburtsrechtes beraupt, schickt er sich an, Rache zu nehmen. Ihr seid der festen Überzeugung, dass dieser Wahnsinnige aufgehalten werden muss. {cr}{cr}- Besiegt die rechte Hand des Teufels {cr}- Besiegt die linke Hand des Teufels {cr}- Besiegt Erzherzog Dovbar</string>
+<string id="MainQuest_Stage3_Text">Ein Mann namens Dovbar scheint die Fäden in der Hand zu halten. Im festen Glauben, für etwas Größeres vorgesehen gewesen zu sein und seines Geburtsrechtes beraupt, schickt er sich an, Rache zu nehmen. Ihr seid der festen Überzeugung, dass dieser Wahnsinnige aufgehalten werden muss. {cr}{cr}Auftrag: {cr}- Besiegt die rechte Hand des Teufels {cr}- Besiegt die linke Hand des Teufels {cr}- Besiegt Erzherzog Dovbar</string>
 
 <string id="BriefingIntro_1_Title"></string>
-<string id="BriefingIntro_1_Text"></string>
+<string id="BriefingIntro_1_Text">ERZÄHLER: Die Küstenlande. Auf den ersten Blick die friedlichste Provinz des Reiches...</string>
+<string id="BriefingIntro_2_Title"></string>
+<string id="BriefingIntro_2_Text">ERZÄHLER: Ein Ort, an dem die Siedler in Frieden ihrem Tagewerk nachgehen können...</string>
+<string id="BriefingIntro_3_Title"></string>
+<string id="BriefingIntro_3_Text">ERZÄHLER: Ein Ort für ein gutes Leben...</string>
+<string id="BriefingIntro_4_Title"></string>
+<string id="BriefingIntro_4_Text">ERZÄHLER: Bis eines Tages der Bischof offenbar dem Wahnsinn verfiel und begann, das Volk unter Druck zu setzen und zu tyranisieren.</string>
+<string id="BriefingIntro_5_Title"></string>
+<string id="BriefingIntro_5_Text">ERZÄHLER: Nun liegt es in der Hand mutiger Helden, die Wahrheit herauszufinden...</string>
 
 <string id="BriefingOutro_1_Title"></string>
-<string id="BriefingOutro_1_Text"></string>
+<string id="BriefingOutro_1_Text">ERZÄHLER: Mit dem Fall der schwarzen Festung war der Teufel besiegt und die Gefahr für das Volk gebannt.</string>
+<string id="BriefingOutro_2_Title"></string>
+<string id="BriefingOutro_2_Text">ERZÄHLER: Endlich zog der Frieden wieder ein in die Küstenlande...</string>
+<string id="BriefingOutro_3_Title"></string>
+<string id="BriefingOutro_3_Text">ERZÄHLER: ... und die Menschen konnten wieder gefahrlos ihrem täglichen Allerlei nachgehen.</string>
+<string id="BriefingOutro_4_Title"></string>
+<string id="BriefingOutro_4_Text">ERZÄHLER: Noch viele hundert Jahre später erinnerte man sich an die mutigen Helden, die den Teufel austrieben.</string>
 
 <string id="BriefingBishop1_1_Title">Bischof Murmelwanzt</string>
 <string id="BriefingBishop1_1_Text">Der Gnade des Herrn und aller seiner Engel zum Dank! Endlich bin ich wieder frei.</string>
@@ -76,7 +93,7 @@
 <!-- Subquest Dustin -->
 
 <string id="SubquestDustin_Title">Isabellas Verschwinden</string>
-<string id="SubquestDustin_Text">Die Frau von Dustin Ravage ist verschwunden. Mutmaßlich wurde sie entführt. Niemand weiß, wohin die Entführer geflohen sind. {cr}{cr}- Findet die Entführer von Isabella {cr}- Bringt Isabella zu Dustin zurück</string>
+<string id="SubquestDustin_Text">Die Frau von Dustin Ravage ist verschwunden. Mutmaßlich wurde sie entführt. Niemand weiß, wohin die Entführer geflohen sind. {cr}{cr}Auftrag: {cr}- Findet die Entführer von Isabella {cr}- Bringt Isabella zu Dustin zurück {cr}{cr}Belohnung: {cr}- Zugriff auf den örtlichen Kaufmann {cr}- Üppige Belohnung</string>
 <string id="SubquestDustin_MsgIsabella">Es sieht so aus, als habe die Räuberbande eine Gefangene gehabt!</string>
 <string id="SubquestDustin_MsgReward">Ihr habt 5000 Taler erhalten.</string>
 
@@ -105,7 +122,7 @@
 <!-- Subquest Traitor -->
 
 <string id="SubquestTraitor_Title">Blutige Rache</string>
-<string id="SubquestTraitor_Text">Ihr seid auf den ehemaligen Anführer einer Räuberbande gestoßen. Er wurde von seinen ehemaligen Kampfgefährten verraten und will nun Rache. Gewährt sie ihm und er wird Euch reichlich belohnen. {cr}{cr}- Vernichtet die Räuberbande</string>
+<string id="SubquestTraitor_Text">Ihr seid auf den ehemaligen Anführer einer Räuberbande gestoßen. Er wurde von seinen ehemaligen Kampfgefährten verraten und will nun Rache. Gewährt sie ihm und er wird Euch reichlich belohnen. {cr}{cr}Auftrag: {cr}- Vernichtet die Räuberbande {cr}{cr}Belohnung: {cr}- Zugang zu einem Dorfzentrum</string>
 <string id="SubquestTraitor_MsgIsabella">Es sieht so aus, als habe die Räuberbande eine Gefangene gehabt!</string>
 
 <string id="BriefingTraitor1_1_Title"></string>
@@ -125,7 +142,7 @@
 <!-- Subquest Isabella -->
 
 <string id="SubquestIsabella_Title">Eine unangenehme Wahrheit</string>
-<string id="SubquestIsabella_Text">Nachdem Ihr die Entführer beseitigt habt, erfahrt Ihr die Wahrheit. Isabella wurde nicht entführt, sondern ist vor Dustin geflohen, weil sie seine Mishandlungen nicht mehr ertragen konnte. {cr}{cr}- Eskortiert Isabella in ein neues Leben {cr}- ODER bringt sie zu Dustin zurück</string>
+<string id="SubquestIsabella_Text">Nachdem Ihr die Entführer beseitigt habt, erfahrt Ihr die Wahrheit. Isabella wurde nicht entführt, sondern ist vor Dustin geflohen, weil sie seine Mishandlungen nicht mehr ertragen konnte. {cr}{cr}Auftrag: {cr}- Eskortiert Isabella in ein neues Leben {cr}- ODER bringt sie zu Dustin zurück</string>
 <string id="SubquestIsabella_MsgTrust">Ich vertraue Euch und Eurem Urteil.</string>
 <string id="SubquestIsabella_MsgSolveA">Isabella ist zu ihrem Ehemann zurückgekehrt.</string>
 <string id="SubquestIsabella_MsgSolveB">Isabella hat ein neues Leben angefangen! Ihr habt 300 Ehre erhalten.</string>
@@ -140,7 +157,7 @@
 <!-- Subquest Farmer -->
 
 <string id="SubquestSheeps_Title">Entlaufene Schafe</string>
-<string id="SubquestSheeps_Text">Ein Bauer ist außer sich vor Wut. Weil seine Knechte nicht aufgepasst haben, sind 5 seiner preisgekrönten Tiere entkommen. {cr}{cr}- Sucht die entlaufenen Schafe {cr}- Bringt die Schafe zurück in ihr Gehege</string>
+<string id="SubquestSheeps_Text">Ein Bauer ist außer sich vor Wut. Weil seine Knechte nicht aufgepasst haben, sind 5 seiner preisgekrönten Tiere entkommen. {cr}{cr}Auftrag: {cr}- Sucht die entlaufenen Schafe {cr}- Bringt die Schafe zurück in ihr Gehege {cr}{cr}Belohnung: {cr}- Zugriff auf den örtlichen Kaufmann</string>
 <string id="SubquestSheeps_MsgAngry">Na wartet, ich knüpfe euch an euren Schnürschuhen auf, ihr Vollpfosten!</string>
 <string id="SubquestSheeps_MsgFound">Ein Schaf macht sich auf den Heimweg!</string>
 <string id="SubquestSheeps_MsgReady">Alle Schafe sind wieder in ihrem Gehege angekommen!</string>
@@ -150,7 +167,7 @@
 <string id="BriefingFarmer1_2_Title"></string>
 <string id="BriefingFarmer1_2_Text">Was ist denn geschehen? Wie kann ich helfen?</string>
 <string id="BriefingFarmer1_3_Title">Erregter Bauer</string>
-<string id="BriefingFarmer1_3_Text">Diese Knechte sind dumm wie Bohnenstroh1 Nichts als Durchzug zwischen den Ohren! Fünf meiner preisgekrönten Schafe sind abgehauen! Könnt Ihr Euch vorstellen, was das für ein Schaden ist?</string>
+<string id="BriefingFarmer1_3_Text">Diese Knechte sind dumm wie Bohnenstroh! Nichts als Durchzug zwischen den Ohren! Fünf meiner preisgekrönten Schafe sind abgehauen! Könnt Ihr Euch vorstellen, was das für ein Schaden ist?</string>
 <string id="BriefingFarmer1_4_Title"></string>
 <string id="BriefingFarmer1_4_Text">Ich werde Eure Schafe für Euch finden.</string>
 <string id="BriefingFarmer1_5_Title">Erregter Bauer</string>
@@ -168,7 +185,7 @@
 <!-- Subquest Guard -->
 
 <string id="SubquestGuard_Title">Ein raffgieriger Wächter</string>
-<string id="SubquestGuard_Text">Eine hochgezogene Brücke verwehrt Euch den Zugang zu wichtigen Resourcen. Ihr habt keine andere Wahl, Ihr müsst die Münzen sprechen lassen. {cr}{cr}- Bezahlt den Tribut, damit die Brücke heruntergelassen wird</string>
+<string id="SubquestGuard_Text">Eine hochgezogene Brücke verwehrt Euch den Zugang zu wichtigen Resourcen. Ihr habt keine andere Wahl, Ihr müsst die Münzen sprechen lassen. {cr}{cr}Auftrag: {cr}- Bezahlt den Tribut, damit die Brücke heruntergelassen wird {cr}{cr}Belohnung: {cr}- Zugang zu zwei Schwefelschächten</string>
 <string id="SubquestGuard_Tribute">Bezahlt %d Taler, damit der Wächter die Brücke herunterlässt.</string>
 <string id="SubquestGuard_MsgBridge">Der Wächter hat die Brücke heruntergelassen.</string>
 

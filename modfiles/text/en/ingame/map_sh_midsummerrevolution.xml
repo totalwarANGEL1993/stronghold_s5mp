@@ -5,9 +5,12 @@
 <string id="Player1Name"></string>
 <string id="Player2Name"></string>
 <string id="Player3Name">The Devil's left hand</string>
+<string id="Player3Defeated">The DEVIL'S LEFT HAND has been defeated!</string>
 <string id="Player4Name">The Devil's right hand</string>
+<string id="Player4Defeated">The DEVIL'S RIGHT HAND has been defeated!</string>
 <string id="Player5Name">Bishop</string>
 <string id="Player6Name">Dovbar, the Devil</string>
+<string id="Player5Defeated">The bishop has been freed.</string>
 <string id="Player7Name">Brigands</string>
 <string id="Player8Name"></string>
 
@@ -42,17 +45,31 @@
 <!-- Mainquest -->
 
 <string id="MainQuest_Stage1_Title">The devil's touch</string>
-<string id="MainQuest_Stage1_Text">The Bishop has gone from being a humble servant of God to a vicious tyrant. You and your ally have risen up to stand up against injustice. Something must be responsible for the change in his character. You must find out! {cr}{cr}- Defeat the Bishop's forces</string>
+<string id="MainQuest_Stage1_Text">The Bishop has gone from being a humble servant of God to a vicious tyrant. You and your ally have risen up to stand up against injustice. Something must be responsible for the change in his character. You must find out! {cr}{cr}Mission: {cr}- Defeat the Bishop's forces</string>
 <string id="MainQuest_Stage2_Title">The devil's touch</string>
-<string id="MainQuest_Stage2_Text">The bishop has apparently been replaced by an unknown enemy. You and your ally have killed the henchman. Talk to the bishop and find out what is behind everything. {cr}{cr}- Talk to the bishop</string>
+<string id="MainQuest_Stage2_Text">The bishop has apparently been replaced by an unknown enemy. You and your ally have killed the henchman. Talk to the bishop and find out what is behind everything. {cr}{cr}Mission: {cr}- Talk to the bishop</string>
 <string id="MainQuest_Stage3_Title">The devil's touch</string>
-<string id="MainQuest_Stage3_Text">A man named Dovbar seems to be pulling the strings. Believing he was destined for something greater and robbed of his birthright, he is out to take revenge. You are convinced that this madman must be stopped. {cr}{cr}- Defeat the Devil's Right Hand {cr}- Defeat the Devil's Left Hand {cr}- Defeat Archduke Dovbar</string>
+<string id="MainQuest_Stage3_Text">A man named Dovbar seems to be pulling the strings. Believing he was destined for something greater and robbed of his birthright, he is out to take revenge. You are convinced that this madman must be stopped. {cr}{cr}Mission: {cr}- Defeat the Devil's Right Hand {cr}- Defeat the Devil's Left Hand {cr}- Defeat Archduke Dovbar</string>
 
 <string id="BriefingIntro_1_Title"></string>
-<string id="BriefingIntro_1_Text"></string>
+<string id="BriefingIntro_1_Text">NARRATOR: The coastal lands. At first glance, the most peaceful province of the empire...</string>
+<string id="BriefingIntro_2_Title"></string>
+<string id="BriefingIntro_2_Text">NARRATOR: A place where settlers can peacefully go about their daily work...</string>
+<string id="BriefingIntro_3_Title"></string>
+<string id="BriefingIntro_3_Text">NARRATOR: A place for a good life...</string>
+<string id="BriefingIntro_4_Title"></string>
+<string id="BriefingIntro_4_Text">NARRATOR: Until one day the bishop apparently fell into madness and began to pressure and tyrannize the people.</string>
+<string id="BriefingIntro_5_Title"></string>
+<string id="BriefingIntro_5_Text">NARRATOR: Now it is in the hands of brave heroes to uncover the truth...</string>
 
 <string id="BriefingOutro_1_Title"></string>
-<string id="BriefingOutro_1_Text"></string>
+<string id="BriefingOutro_1_Text">NARRATOR: With the fall of the black fortress, the devil was defeated and the danger to the people was averted.</string>
+<string id="BriefingOutro_2_Title"></string>
+<string id="BriefingOutro_2_Text">NARRATOR: Finally, peace returned to the coastal lands...</string>
+<string id="BriefingOutro_3_Title"></string>
+<string id="BriefingOutro_3_Text">NARRATOR: ... and the people could once again safely go about their daily lives.</string>
+<string id="BriefingOutro_4_Title"></string>
+<string id="BriefingOutro_4_Text">NARRATOR: Even many hundreds of years later, people remembered the brave heroes who drove out the devil.</string>
 
 <string id="BriefingBishop1_1_Title">Bischop Murmurbulge</string>
 <string id="BriefingBishop1_1_Text">Thanks to the grace of the Lord and all his angels! I am finally free again.</string>
@@ -76,7 +93,7 @@
 <!-- Subquest Dustin -->
 
 <string id="SubquestDustin_Title">Isabella's disappearance</string>
-<string id="SubquestDustin_Text">Dustin Ravage's wife has disappeared. She is suspected to have been kidnapped. No one knows where the kidnappers fled to. {cr}{cr}- Find Isabella's kidnappers {cr}- Bring Isabella back to Dustin</string>
+<string id="SubquestDustin_Text">Dustin Ravage's wife has disappeared. She is suspected to have been kidnapped. No one knows where the kidnappers fled to. {cr}{cr}Mission: {cr}- Find Isabella's kidnappers {cr}- Bring Isabella back to Dustin {cr}{cr}Reward: {cr}- Trade contract with village {cr}- Generous payment</string>
 <string id="SubquestDustin_MsgIsabella">It looks like the gang of robbers had a prisoner!</string>
 <string id="SubquestDustin_MsgReward">You have obtained 5000 Thalers.</string>
 
@@ -105,7 +122,7 @@
 <!-- Subquest Traitor -->
 
 <string id="SubquestTraitor_Title">Bloody Vengeance</string>
-<string id="SubquestTraitor_Text">You have come across the former leader of a band of robbers. He was betrayed by his former comrades and now wants revenge. Grant him revenge and he will reward you handsomely. {cr}{cr}- Destroy the band of robbers</string>
+<string id="SubquestTraitor_Text">You have come across the former leader of a band of robbers. He was betrayed by his former comrades and now wants revenge. Grant him revenge and he will reward you handsomely. {cr}{cr}Mission: {cr}- Destroy the band of robbers {cr}{cr}Reward: {cr}- Access to village center</string>
 <string id="SubquestTraitor_MsgIsabella">It looks like the gang of robbers had a prisoner!</string>
 
 <string id="BriefingTraitor1_1_Title"></string>
@@ -125,7 +142,7 @@
 <!-- Subquest Isabella -->
 
 <string id="SubquestIsabella_Title">Uncomfortable truth</string>
-<string id="SubquestIsabella_Text">After you have eliminated the kidnappers, you will learn the truth. Isabella was not kidnapped, but fled from Dustin because she could no longer bear his mistreatment. {cr}{cr}- Escort Isabella to a new life {cr}- OR bring her back to Dustin</string>
+<string id="SubquestIsabella_Text">After you have eliminated the kidnappers, you will learn the truth. Isabella was not kidnapped, but fled from Dustin because she could no longer bear his mistreatment. {cr}{cr}Mission: {cr}- Escort Isabella to a new life {cr}- OR bring her back to Dustin</string>
 <string id="SubquestIsabella_MsgTrust">I trust you and your judgment.</string>
 <string id="SubquestIsabella_MsgSolveA">Isabella has returned to her loving husband.</string>
 <string id="SubquestIsabella_MsgSolveB">Isabella has started a new life! You have obtained 300 honor.</string>
@@ -140,7 +157,7 @@
 <!-- Subquest Farmer -->
 
 <string id="SubquestSheeps_Title">Sheeps on the run</string>
-<string id="SubquestSheeps_Text">A farmer is furious. Because his servants were not paying attention, 5 of his prize-winning animals have escaped. {cr}{cr}- Find the escaped sheep {cr}- Bring the sheep back to their enclosure</string>
+<string id="SubquestSheeps_Text">A farmer is furious. Because his servants were not paying attention, 5 of his prize-winning animals have escaped. {cr}{cr}Mission: {cr}- Find the escaped sheep {cr}- Bring the sheep back to their enclosure {cr}{cr}Reward: {cr}- Trade contract with village</string>
 <string id="SubquestSheeps_MsgAngry">Just wait, I'll hang you by your lace-up shoes, you idiots!</string>
 <string id="SubquestSheeps_MsgFound">A sheep makes its way home!</string>
 <string id="SubquestSheeps_MsgReady">All the sheep have returned to their enclosure!</string>
@@ -168,7 +185,7 @@
 <!-- Subquest Guard -->
 
 <string id="SubquestGuard_Title">A greedy watchman</string>
-<string id="SubquestGuard_Text">A raised bridge denies you access to important resources. You have no other choice, you have to let the coins do the talking. {cr}{cr}- Pay the tribute so that the bridge is lowered</string>
+<string id="SubquestGuard_Text">A raised bridge denies you access to important resources. You have no other choice, you have to let the coins do the talking. {cr}{cr}Mission: {cr}- Pay the tribute so that the bridge is lowered {cr}{cr}Reward: {cr}- Access to sulfur</string>
 <string id="SubquestGuard_Tribute">Pay %d Thalers so that the watchman will lower the bridge for you.</string>
 <string id="SubquestGuard_MsgBridge">The watchman has lowered the bridge</string>
 

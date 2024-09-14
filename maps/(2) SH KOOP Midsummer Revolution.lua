@@ -191,8 +191,8 @@ function Difficulty_SetEasy()
     Tools.GiveResouces(2, 1000, 1200, 1500, 550, 300, 0);
 
     -- For testing
-    Difficulty_InitialPeaceTime = 1*60;
-    ReplaceEntity("VC_Blockade", Entities.XD_ScriptEntity);
+    -- Difficulty_InitialPeaceTime = 1*60;
+    -- ReplaceEntity("VC_Blockade", Entities.XD_ScriptEntity);
 end
 
 function Difficulty_SetNormal()
@@ -322,7 +322,7 @@ function Enemy_InitPlayer6_1()
 
     Enemy_Player6_Stage = 1;
 
-    local Strength = 7 + (3 * (Difficulty_Selected -1));
+    local Strength = 6 + (3 * (Difficulty_Selected -1));
     local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsBastille = {
@@ -389,7 +389,7 @@ end
 function Enemy_InitPlayer6_2()
     Enemy_Player6_Stage = 2;
 
-    local Strength = 10 + (3 * (Difficulty_Selected -1));
+    local Strength = 6 + (2 * (Difficulty_Selected -1));
     local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsBastille = {
@@ -505,7 +505,7 @@ end
 function Enemy_InitPlayer6_3()
     Enemy_Player6_Stage = 3;
 
-    local Strength = 18 + (6 * (Difficulty_Selected -1));
+    local Strength = 16 + (4 * (Difficulty_Selected -1));
     local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsCastle = {
@@ -877,6 +877,10 @@ function Enemy_Player3_CheckIsDefeated()
         end
         DestroyEntity("LordP3");
         Enemy_Player3_IsDefeated = 1;
+
+        local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player3Defeated");
+        Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+        Message(Msg);
         return true;
     end
 end
@@ -1002,6 +1006,10 @@ function Enemy_Player4_CheckIsDefeated()
         end
         DestroyEntity("LordP4");
         Enemy_Player4_IsDefeated = 1;
+
+        local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player4Defeated");
+        Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+        Message(Msg);
         return true;
     end
 end
@@ -1072,8 +1080,8 @@ function Enemy_Player5_Init()
     };
     DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_BC1", RespawnTime, 2, unpack(AllowedMelee));
     DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 2, unpack(AllowedCavalry));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 1, unpack(AllowedCannons));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 2, unpack(AllowedCannons));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp1, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
     DelinquentsCampAddTarget(Enemy_Player5Camp1, "P5DefPos2", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
     DelinquentsCampAddTarget(Enemy_Player5Camp1, "P5DefPos1", "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
@@ -1086,8 +1094,8 @@ function Enemy_Player5_Init()
     };
     DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_BC1", RespawnTime, 2, unpack(AllowedMelee));
     DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_FD1", RespawnTime, 1, unpack(AllowedCannons));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 2, unpack(AllowedCavalry));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_AC1", RespawnTime, 2, unpack(AllowedRanged));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp2, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
     DelinquentsCampAddTarget(Enemy_Player5Camp2, "P5DefPos1", "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
     DelinquentsCampAddTarget(Enemy_Player5Camp2, "P5DefPos2", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
@@ -1141,6 +1149,10 @@ function Enemy_Player5_CheckIsDefeated()
         end
         Enemy_Player5_IsDefeated = 1;
         SetNeutral(1,5);
+
+        local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player5Defeated");
+        Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+        Message(Msg);
         return true;
     end
     -- Control imposter vulnerability
@@ -1311,16 +1323,102 @@ function Main1Quest_BriefingIntro()
     local Briefing = {
         RenderFoW = false,
         RenderSky = true,
-        ResetCamera = true,
+        ResetCamera = false,
     };
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Title       = "Intro",
-        Text        = "This will later be the intro!",
-        Target      = "HQ1",
         NoSkip      = true,
-        Duration    = 10,
+        Duration    = 0.1,
+        FaderAlpha  = 1,
+        Target      = "icam_5",
+        Rotation    = -115,
+        Distance    = 8000,
+        Angle       = 4,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingIntro_1_Text",
+        Flight      = true,
+        NoSkip      = true,
+        FadeIn      = 3,
+        Duration    = 23,
+        Target      = "icam_6",
+        Rotation    = -155,
+        Distance    = 6500,
+        Angle       = 8,
+    }
+    AP {
+        NoSkip      = true,
+        Duration    = 0,
+        Target      = "icam_8",
+        Rotation    = -120,
+        Distance    = 1700,
+        Angle       = 8,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingIntro_2_Text",
+        Flight      = true,
+        NoSkip      = true,
+        Duration    = 20,
+        Target      = "icam_7",
+        Rotation    = -80,
+        Distance    = 1500,
+        Angle       = 18,
+    }
+    AP {
+        NoSkip      = true,
+        Duration    = 0,
+        Target      = "icam_1",
+        Rotation    = 140,
+        Distance    = 2600,
+        Angle       = 22,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingIntro_3_Text",
+        Flight      = true,
+        NoSkip      = true,
+        Duration    = 20,
+        Target      = "icam_2",
+        Rotation    = 170,
+        Distance    = 2000,
+        Angle       = 11,
+    }
+    AP {
+        NoSkip      = true,
+        Duration    = 0,
+        Target      = "icam_4",
+        Rotation    = 135,
+        Distance    = 9500,
+        Angle       = 30,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingIntro_4_Text",
+        Flight      = true,
+        NoSkip      = true,
+        Duration    = 20,
+        Target      = "icam_4",
+        Rotation    = 135,
+        Distance    = 11500,
+        Angle       = 30,
+    }
+    AP {
+        NoSkip      = true,
+        Duration    = 0,
+        Target      = "icam_3",
+        Rotation    = -55,
+        Distance    = 10000,
+        Angle       = 8,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingIntro_5_Text",
+        Flight      = true,
+        NoSkip      = true,
+        FadeOut     = 3,
+        Duration    = 23,
+        Target      = "icam_3",
+        Rotation    = -35,
+        Distance    = 10000,
+        Angle       = 8,
     }
 
     Briefing.Finished = function()
@@ -1346,11 +1444,83 @@ function Main1Quest_BriefingOutro()
     local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Title       = "Outro",
-        Text        = "This will later be the outro!",
-        Target      = "BishopPos1",
         NoSkip      = true,
-        Duration    = 10,
+        Duration    = 0.1,
+        FaderAlpha  = 1,
+        Target      = "ocam_1",
+        Rotation    = -20,
+        Distance    = 11000,
+        Angle       = 4,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingOutro_1_Text",
+        Flight      = true,
+        NoSkip      = true,
+        FadeIn      = 3,
+        Duration    = 23,
+        Target      = "ocam_2",
+        Rotation    = -10,
+        Distance    = 10000,
+        Angle       = 8,
+    }
+    AP {
+        NoSkip      = true,
+        Duration    = 0,
+        Target      = "ocam_4",
+        Rotation    = -135,
+        Distance    = 4000,
+        Angle       = 24,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingOutro_2_Text",
+        Flight      = true,
+        NoSkip      = true,
+        Duration    = 20,
+        Target      = "ocam_3",
+        Rotation    = -45,
+        Distance    = 5000,
+        Angle       = 30,
+    }
+    AP {
+        NoSkip      = true,
+        Duration    = 0,
+        Target      = "ocam_5",
+        Rotation    = -75,
+        Distance    = 6000,
+        Height      = -2000,
+        Angle       = 24,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingOutro_3_Text",
+        Flight      = true,
+        NoSkip      = true,
+        Duration    = 20,
+        Target      = "ocam_6",
+        Rotation    = -25,
+        Distance    = 6000,
+        Height      = -4000,
+        Angle       = 19,
+    }
+    AP {
+        NoSkip      = true,
+        Duration    = 0,
+        Target      = "ocam_7",
+        Rotation    = 40,
+        Distance    = 24000,
+        Height      = -8000,
+        Angle       = 14,
+    }
+    AP {
+        Text        = "map_sh_midsummerrevolution/BriefingOutro_4_Text",
+        Flight      = true,
+        NoSkip      = true,
+        Duration    = 23,
+        FadeOut     = 3,
+        Target      = "ocam_7",
+        Rotation    = 40,
+        Distance    = 30000,
+        Height      = -4000,
+        Angle       = 18,
     }
 
     Briefing.Finished = function()
