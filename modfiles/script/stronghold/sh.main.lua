@@ -427,7 +427,7 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
             -- prevent eco harrasment
-            if DamageClass == 0 or DamageClass == 1 then
+            if DamageClass == 1 or DamageClass == 2 then
                 if Logic.IsEntityInCategory(_AttackedID, EntityCategories.Worker) == 1
                 or Logic.IsEntityInCategory(_AttackedID, EntityCategories.Workplace) == 1
                 or AttackedType == Entities.PU_Serf then
