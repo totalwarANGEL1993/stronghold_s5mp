@@ -417,7 +417,7 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             -- Save in attack memory
             Stronghold.Player:RegisterAttack(AttackedPlayer, _AttackedID, _AttackerID, 15);
             local Damage = CEntity.HurtTrigger.GetDamage();
-            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+            local DamageClass = GetEntityDamageClass(_AttackedID);
             -- Vigilante
             if IsAttackerAlarmDefender(_AttackerID) then
                 if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then

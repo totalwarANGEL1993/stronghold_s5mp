@@ -16,6 +16,19 @@ Stronghold.Unit = {
     Config = {},
 }
 
+-- -------------------------------------------------------------------------- --
+-- API
+
+--- Returns the damage class of the entity.
+--- @param _Entity any Entity
+--- @return integer DamageClass Damage class
+function GetEntityDamageClass(_Entity)
+    return Stronghold.Unit:GetEntityDamageClass(_Entity);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Main
+
 function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
@@ -63,6 +76,18 @@ function Stronghold.Unit:OverwriteGameCallbacks()
 end
 
 -- -------------------------------------------------------------------------- --
+-- Damage Classes
+
+function Stronghold.Unit:GetEntityDamageClass(_EntityID)
+    local EntityID = GetID(_EntityID);
+    if Logic.IsEntityInCategory(EntityID, EntityCategories.Soldier) == 1 then
+        EntityID = SVLib.GetLeaderOfSoldier(EntityID) or 0;
+    end
+    local EntityType = Logic.GetEntityType(EntityID);
+    return self.Config.EntityToDamageClassMap[EntityType] or 0;
+end
+
+-- -------------------------------------------------------------------------- --
 -- Scout
 
 function Stronghold.Unit:OverwriteScoutFindResources()
@@ -74,6 +99,7 @@ end
 -- -------------------------------------------------------------------------- --
 -- Category mapping
 
+-- Overwrite from Cerberus Library
 GetUpgradeCategoryByEntityType_CategoryMap = {
     -- Axe
     [Entities.CU_BanditLeaderSword1] = UpgradeCategories.LeaderAxe1,
@@ -353,7 +379,7 @@ function Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID
     local AttackerType = Logic.GetEntityType(_AttackerID);
     local AttackedType = Logic.GetEntityType(_AttackedID);
     if self.Config.Passive.Circle[AttackedType] then
-        local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+        local DamageClass = GetEntityDamageClass(_AttackedID);
         -- Melee Damage
         if DamageClass == DamageClasses.DC_Pole
         or DamageClass == DamageClasses.DC_Halberd

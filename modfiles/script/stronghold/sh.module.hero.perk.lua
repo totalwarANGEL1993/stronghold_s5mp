@@ -1205,7 +1205,7 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
     -- Generic T3: Shielded
     if self:IsPerkTriggered(AttackerPlayerID, HeroPerks.Generic_Shielded) then
         local Data = self.Config.Perks[HeroPerks.Generic_Shielded].Data;
-        local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+        local DamageClass = GetEntityDamageClass(_AttackedID);
         if Data.DamageClasses[DamageClass] then
             CurrentAmount = CurrentAmount * Data.DamageFactor;
         end
@@ -1214,7 +1214,7 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero4_Marschall) then
         local Data = self.Config.Perks[HeroPerks.Hero4_Marschall].Data;
         if Data.EntityTypes[AttackedType] then
-            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+            local DamageClass = GetEntityDamageClass(_AttackedID);
             if Data.DamageClasses[DamageClass] then
                 CurrentAmount = CurrentAmount * Data.Factor;
             end
@@ -1266,7 +1266,7 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero12_MothersComfort) then
         local Data = self.Config.Perks[HeroPerks.Hero12_MothersComfort].Data;
         if Data.EntityTypes[AttackedType] then
-            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+            local DamageClass = GetEntityDamageClass(_AttackedID);
             if Data.DamageClasses[DamageClass] then
                 CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
             end
