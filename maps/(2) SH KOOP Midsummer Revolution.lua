@@ -1236,7 +1236,6 @@ function Main1Quest_WaitForDifficultySelection()
             DestroyEntity("HQ2");
         end
 
-        -- TODO: Setup enemies here
         Enemy_Player5_Init();
         Enemy_Player7_Init();
         return true;
@@ -1333,7 +1332,7 @@ function Main1Quest_BriefingIntro()
         FaderAlpha  = 1,
         Target      = "icam_5",
         Rotation    = -115,
-        Distance    = 8000,
+        Distance    = 9000,
         Angle       = 4,
     }
     AP {
@@ -1344,7 +1343,7 @@ function Main1Quest_BriefingIntro()
         Duration    = 23,
         Target      = "icam_6",
         Rotation    = -155,
-        Distance    = 6500,
+        Distance    = 7500,
         Angle       = 8,
     }
     AP {
@@ -1388,7 +1387,7 @@ function Main1Quest_BriefingIntro()
         Duration    = 0,
         Target      = "icam_4",
         Rotation    = 135,
-        Distance    = 9500,
+        Distance    = 11500,
         Angle       = 30,
     }
     AP {
@@ -1398,7 +1397,7 @@ function Main1Quest_BriefingIntro()
         Duration    = 20,
         Target      = "icam_4",
         Rotation    = 135,
-        Distance    = 11500,
+        Distance    = 13500,
         Angle       = 30,
     }
     AP {
@@ -1406,7 +1405,7 @@ function Main1Quest_BriefingIntro()
         Duration    = 0,
         Target      = "icam_3",
         Rotation    = -55,
-        Distance    = 10000,
+        Distance    = 14000,
         Angle       = 8,
     }
     AP {
@@ -1417,7 +1416,7 @@ function Main1Quest_BriefingIntro()
         Duration    = 23,
         Target      = "icam_3",
         Rotation    = -35,
-        Distance    = 10000,
+        Distance    = 14000,
         Angle       = 8,
     }
 
@@ -1449,7 +1448,7 @@ function Main1Quest_BriefingOutro()
         FaderAlpha  = 1,
         Target      = "ocam_1",
         Rotation    = -20,
-        Distance    = 11000,
+        Distance    = 16000,
         Angle       = 4,
     }
     AP {
@@ -1460,7 +1459,7 @@ function Main1Quest_BriefingOutro()
         Duration    = 23,
         Target      = "ocam_2",
         Rotation    = -10,
-        Distance    = 10000,
+        Distance    = 15000,
         Angle       = 8,
     }
     AP {
@@ -1468,7 +1467,7 @@ function Main1Quest_BriefingOutro()
         Duration    = 0,
         Target      = "ocam_4",
         Rotation    = -135,
-        Distance    = 4000,
+        Distance    = 6000,
         Angle       = 24,
     }
     AP {
@@ -1478,7 +1477,7 @@ function Main1Quest_BriefingOutro()
         Duration    = 20,
         Target      = "ocam_3",
         Rotation    = -45,
-        Distance    = 5000,
+        Distance    = 7000,
         Angle       = 30,
     }
     AP {
@@ -1487,7 +1486,7 @@ function Main1Quest_BriefingOutro()
         Target      = "ocam_5",
         Rotation    = -75,
         Distance    = 6000,
-        Height      = -2000,
+        Height      = -3500,
         Angle       = 24,
     }
     AP {
@@ -1498,7 +1497,7 @@ function Main1Quest_BriefingOutro()
         Target      = "ocam_6",
         Rotation    = -25,
         Distance    = 6000,
-        Height      = -4000,
+        Height      = -5500,
         Angle       = 19,
     }
     AP {
@@ -1506,7 +1505,7 @@ function Main1Quest_BriefingOutro()
         Duration    = 0,
         Target      = "ocam_7",
         Rotation    = 40,
-        Distance    = 24000,
+        Distance    = 20000,
         Height      = -8000,
         Angle       = 14,
     }
@@ -1518,7 +1517,7 @@ function Main1Quest_BriefingOutro()
         FadeOut     = 3,
         Target      = "ocam_7",
         Rotation    = 40,
-        Distance    = 30000,
+        Distance    = 26000,
         Height      = -4000,
         Angle       = 18,
     }
