@@ -356,11 +356,12 @@ function Enemy_InitPlayer6_1()
     DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6CTBastille4", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player6Camp1, "P6CTBastille5", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp1, "P6DefPos1", "P6DefPos2");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp1,
-        "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2","SWP3", "SWP4", "SWP5",
-        "Player1Home", "NWP6", "NWP5", "Player2Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp1, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp1,
+    --     "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2","SWP3", "SWP4", "SWP5",
+    --     "Player1Home", "NWP6", "NWP5", "Player2Home"
+    -- );
 
     Enemy_Player6Camp2 = DelinquentsCampCreate {
         PlayerID     = 6,
@@ -373,11 +374,12 @@ function Enemy_InitPlayer6_1()
     DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6CTBastille4", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player6Camp2, "P6CTBastille5", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp2, "P6DefPos1", "P6DefPos2");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp2,
-        "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5",
-        "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5", "Player1Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp2, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp2,
+    --     "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5",
+    --     "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5", "Player1Home"
+    -- );
 
     DelinquentsCampActivateAttack(Enemy_Player6Camp1, true);
     DelinquentsCampActivateAttack(Enemy_Player6Camp2, true);
@@ -428,11 +430,12 @@ function Enemy_InitPlayer6_2()
     DelinquentsCampAddSpawner(Enemy_Player6Camp3, "P6LRBastille4", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player6Camp3, "P6LRBastille5", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp3, "P2DefPos3", "P2DefPos4");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp3,
-        "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2", "SWP3",
-        "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp3, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp3,
+    --     "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2", "SWP3",
+    --     "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
+    -- );
 
     Enemy_Player6Camp4 = DelinquentsCampCreate {
         PlayerID     = 6,
@@ -445,11 +448,12 @@ function Enemy_InitPlayer6_2()
     DelinquentsCampAddSpawner(Enemy_Player6Camp4, "P6LRBastille4", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player6Camp4, "P6LRBastille5", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp4, "P2DefPos3", "P2DefPos4");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp4,
-        "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2", "SWP3",
-        "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp4, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp4,
+    --     "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2", "SWP3",
+    --     "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
+    -- );
 
     Enemy_Player6Camp5 = DelinquentsCampCreate {
         PlayerID     = 6,
@@ -462,12 +466,13 @@ function Enemy_InitPlayer6_2()
     DelinquentsCampAddSpawner(Enemy_Player6Camp5, "P6RRBastille4", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player6Camp5, "P6RRBastille5", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp5, "P2DefPos5", "P2DefPos6");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp5,
-        "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1","NWP2", "NWP3",
-        "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
-        "Player1Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp5, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp5,
+    --     "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1","NWP2", "NWP3",
+    --     "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
+    --     "Player1Home"
+    -- );
 
     Enemy_Player6Camp6 = DelinquentsCampCreate {
         PlayerID     = 6,
@@ -480,12 +485,13 @@ function Enemy_InitPlayer6_2()
     DelinquentsCampAddSpawner(Enemy_Player6Camp6, "P6RRBastille4", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player6Camp6, "P6RRBastille5", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp6, "P2DefPos5", "P2DefPos6");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp6,
-        "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3",
-        "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
-        "Player1Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp6, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp6,
+    --     "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3",
+    --     "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
+    --     "Player1Home"
+    -- );
 
     DelinquentsCampActivateAttack(Enemy_Player6Camp3, true);
     DelinquentsCampActivateAttack(Enemy_Player6Camp4, true);
@@ -540,11 +546,12 @@ function Enemy_InitPlayer6_3()
     };
     DelinquentsCampAddSpawner(Enemy_Player6Camp7, "HQ6", RespawnTime, 2, unpack(AllowedUnitsCastle));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp7, "DoorP6", "P6DefPos7");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp7,
-        "P2DefPos5", "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2",
-        "SWP3", "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp7, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp7,
+    --     "P2DefPos5", "P2DefPos3", "SBWP2", "P3DefPos1", "SBWP1", "SWP1", "SWP2",
+    --     "SWP3", "SWP4", "SWP5", "Player1Home", "NWP6", "NWP5", "Player2Home"
+    -- );
 
     Enemy_Player6Camp8 = DelinquentsCampCreate {
         PlayerID     = 6,
@@ -553,12 +560,13 @@ function Enemy_InitPlayer6_3()
     };
     DelinquentsCampAddSpawner(Enemy_Player6Camp8, "HQ6", RespawnTime, 2, unpack(AllowedUnitsCastle));
     DelinquentsCampAddGuardPositions(Enemy_Player6Camp8, "DoorP6", "P6DefPos8");
-    DelinquentsCampAddTarget(
-        Enemy_Player6Camp8,
-        "P2DefPos6", "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2",
-        "NWP3", "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
-        "Player1Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player6Camp8, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player6Camp8,
+    --     "P2DefPos6", "P2DefPos5", "NBWP2", "P3DefPos2", "NBWP1", "NWP1", "NWP2",
+    --     "NWP3", "NWP4", "NWP5", "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5",
+    --     "Player1Home"
+    -- );
 
     DelinquentsCampActivateAttack(Enemy_Player6Camp7, true);
     DelinquentsCampActivateAttack(Enemy_Player6Camp8, true);
@@ -843,11 +851,12 @@ function Enemy_InitPlayer3()
     DelinquentsCampAddSpawner(Enemy_Player3Camp1, "P3Bastille3", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player3Camp1, "HQ3", RespawnTime, 3, unpack(AllowedUnitsHQ));
     DelinquentsCampAddGuardPositions(Enemy_Player3Camp1, "P3DefPos1", "P3DefPos2");
-    DelinquentsCampAddTarget(
-        Enemy_Player3Camp1,
-        "P3DefPos2", "SBWP1", "SWP1", "SWP2", "SWP3", "SWP4", "SWP5",
-        "Player1Home", "NWP6", "NWP5", "Player2Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player3Camp1, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player3Camp1,
+    --     "P3DefPos2", "SBWP1", "SWP1", "SWP2", "SWP3", "SWP4", "SWP5",
+    --     "Player1Home", "NWP6", "NWP5", "Player2Home"
+    -- );
     DelinquentsCampActivateAttack(Enemy_Player3Camp1, true);
 
     Job.Second(Enemy_Player3_CheckIsDefeated);
@@ -972,11 +981,12 @@ function Enemy_InitPlayer4()
     DelinquentsCampAddSpawner(Enemy_Player4Camp1, "P4Bastille3", RespawnTime, 1, unpack(AllowedUnitsBastille));
     DelinquentsCampAddSpawner(Enemy_Player4Camp1, "HQ4", RespawnTime, 3, unpack(AllowedUnitsHQ));
     DelinquentsCampAddGuardPositions(Enemy_Player4Camp1, "P4DefPos1", "P4DefPos2");
-    DelinquentsCampAddTarget(
-        Enemy_Player4Camp1,
-        "P4DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5",
-        "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5", "Player1Home"
-    );
+    DelinquentsCampAddTarget(Enemy_Player4Camp1, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(
+    --     Enemy_Player4Camp1,
+    --     "P4DefPos2", "NBWP1", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5",
+    --     "Player2Home", "NWP5", "NWP6", "SWP4", "SWP5", "Player1Home"
+    -- );
     DelinquentsCampActivateAttack(Enemy_Player4Camp1, true);
 
     Job.Second(Enemy_Player4_CheckIsDefeated);
@@ -1083,8 +1093,9 @@ function Enemy_Player5_Init()
     DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
     DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 2, unpack(AllowedCannons));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp1, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
-    DelinquentsCampAddTarget(Enemy_Player5Camp1, "P5DefPos2", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
-    DelinquentsCampAddTarget(Enemy_Player5Camp1, "P5DefPos1", "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
+    DelinquentsCampAddTarget(Enemy_Player5Camp1, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(Enemy_Player5Camp1, "P5DefPos2", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
+    -- DelinquentsCampAddTarget(Enemy_Player5Camp1, "P5DefPos1", "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
 
     -- Create enemies for player 2
     Enemy_Player5Camp2 = DelinquentsCampCreate {
@@ -1097,8 +1108,9 @@ function Enemy_Player5_Init()
     DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
     DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_AC1", RespawnTime, 2, unpack(AllowedRanged));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp2, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
-    DelinquentsCampAddTarget(Enemy_Player5Camp2, "P5DefPos1", "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
-    DelinquentsCampAddTarget(Enemy_Player5Camp2, "P5DefPos2", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
+    DelinquentsCampAddTarget(Enemy_Player5Camp2, "Player1Home", "Player2Home");
+    -- DelinquentsCampAddTarget(Enemy_Player5Camp2, "P5DefPos1", "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
+    -- DelinquentsCampAddTarget(Enemy_Player5Camp2, "P5DefPos2", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
 
     Enemy_Player5_SaveSpawnerBuildings();
     -- To make player 5 not too boring...
@@ -1192,8 +1204,7 @@ function Enemy_Player7_Init()
         Strength     = Strength,
     };
     DelinquentsCampAddSpawner(Enemy_Player7Camp1, "BanditTower1", Respawn, 2, unpack(AllowedTroops));
-    DelinquentsCampAddTarget(Enemy_Player7Camp1, "SSWP1", "SSWP2", "SWP4", "SWP5", "Player1Home");
-    DelinquentsCampAddTarget(Enemy_Player7Camp1, "SSWP1", "SSWP2", "SWP4", "SWP5", "NWP5", "NWP6", "Player2Home");
+    DelinquentsCampAddTarget(Enemy_Player7Camp1, "Player1Home", "Player2Home");
 end
 
 -- ########################################################################## --
