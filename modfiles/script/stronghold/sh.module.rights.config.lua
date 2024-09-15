@@ -31,6 +31,7 @@ Stronghold.Rights.Config = {
         [Entities.PU_Hero11]             = Gender.Female,
         [Entities.CU_Evil_Queen]         = Gender.Female,
         [Entities.CU_Hero13]             = Gender.Male,
+        [Entities.CU_Hero14]             = Gender.Female,
     },
 
     Titles = {

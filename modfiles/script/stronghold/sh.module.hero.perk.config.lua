@@ -682,6 +682,17 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Hero7_Perk2",
         Data = {
             RequiredRank = 4,
+            DamageTakenFactor = 0.5,
+            EntityTypes = {
+                [Entities.PB_DarkTower1] = true,
+                [Entities.PB_DarkTower2] = true,
+                [Entities.PB_DarkTower3] = true,
+                [Entities.PB_DarkTower4] = true,
+                [Entities.PB_DarkWallDistorted] = true,
+                [Entities.PB_DarkWallStraightGate] = true,
+                [Entities.PB_DarkWallStraightGate_Closed] = true,
+                [Entities.PB_DarkWallStraight] = true,
+            },
         }
     },
     [HeroPerks.Hero7_ArmyOfDarkness] = {
@@ -866,6 +877,17 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Hero12_Perk2",
         Data = {
             RequiredRank = 4,
+            DamageTakenFactor = 0.5,
+            EntityTypes = {
+                [Entities.PB_DarkTower1] = true,
+                [Entities.PB_DarkTower2] = true,
+                [Entities.PB_DarkTower3] = true,
+                [Entities.PB_DarkTower4] = true,
+                [Entities.PB_DarkWallDistorted] = true,
+                [Entities.PB_DarkWallStraightGate] = true,
+                [Entities.PB_DarkWallStraightGate_Closed] = true,
+                [Entities.PB_DarkWallStraight] = true,
+            },
         }
     },
     [HeroPerks.Hero12_MothersComfort] = {

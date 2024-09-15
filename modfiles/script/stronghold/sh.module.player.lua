@@ -732,14 +732,16 @@ function Stronghold.Player:WaitForPlayersHeadquarterConstructed(_PlayerID)
             self:InitalizePlayersHeadquarter(_PlayerID);
             self:ResurrectPlayerLordForAnnihilation(_PlayerID);
 
-            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-            local PlayerName = UserTool_GetPlayerName(_PlayerID);
-            local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-            Message(string.format(
-                XGUIEng.GetStringTableText("sh_text/Player_CastleBuild"),
-                PlayerColor,
-                PlayerName
-            ));
+            if not self:IsAIPlayer(_PlayerID) then
+                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_CastleBuild"),
+                    PlayerColor,
+                    PlayerName
+                ));
+            end
             return true;
         end
     end
@@ -808,14 +810,16 @@ function Stronghold.Player:WaitForPlayersHeadquarterDestroyed(_PlayerID)
             DestroyEntity("DoorP" .._PlayerID);
             DestroyEntity("CampP" .._PlayerID);
 
-            Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
-            local PlayerName = UserTool_GetPlayerName(_PlayerID);
-            local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
-            Message(string.format(
-                XGUIEng.GetStringTableText("sh_text/Player_CastleLost"),
-                PlayerColor,
-                PlayerName
-            ));
+            if not self:IsAIPlayer(_PlayerID) then
+                Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
+                local PlayerName = UserTool_GetPlayerName(_PlayerID);
+                local PlayerColor = "@color:"..table.concat({GUI.GetPlayerColor(_PlayerID)}, ",");
+                Message(string.format(
+                    XGUIEng.GetStringTableText("sh_text/Player_CastleLost"),
+                    PlayerColor,
+                    PlayerName
+                ));
+            end
             return true;
         end
     end
@@ -1253,24 +1257,7 @@ function Stronghold.Player:ForcedSelfDesctruct(_PlayerID)
         [Entities.PB_SulfurMine3] = true;
     };
 
-    local DestroyNeverTypes = {
-        [Entities.CU_Barbarian_Hero] = true;
-        [Entities.CU_BlackKnight] = true;
-        [Entities.CU_Evil_Queen] = true;
-        [Entities.CU_Mary_de_Mortfichet] = true;
-        [Entities.CU_Hero13] = true;
-        [Entities.PU_Hero1] = true;
-        [Entities.PU_Hero1a] = true;
-        [Entities.PU_Hero1b] = true;
-        [Entities.PU_Hero1c] = true;
-        [Entities.PU_Hero2] = true;
-        [Entities.PU_Hero3] = true;
-        [Entities.PU_Hero4] = true;
-        [Entities.PU_Hero5] = true;
-        [Entities.PU_Hero6] = true;
-        [Entities.PU_Hero10] = true;
-        [Entities.PU_Hero11] = true;
-    };
+    local DestroyNeverTypes = {};
 
     for _, Type in pairs(Entities) do
         if not DestroyLaterTypes[Type] and not DestroyNeverTypes[Type] then

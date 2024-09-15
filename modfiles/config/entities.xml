@@ -1066,6 +1066,7 @@
         <Entity>CU_BlackKnight_Bodyguard</Entity>
         <Entity>CU_Hero13</Entity>
         <Entity>CU_Hero13_Summon</Entity>
+        <Entity>CU_Hero14</Entity>
         <Entity>CU_TemplarLeaderCavalry1</Entity>
         <Entity>CU_TemplarSoldierCavalry1</Entity>
         <Entity>CU_TemplarLeaderHeavyCavalry1</Entity>

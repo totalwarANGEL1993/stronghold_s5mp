@@ -267,7 +267,8 @@
         "CWidget",
         "SetPlayerName",
         "GroupSelection_EntityIDChanged",
-        "DamageClasses"
+        "DamageClasses",
+        "AddPeriodicWinter"
     ],
     "Lua.diagnostics.disable": [
         "deprecated",

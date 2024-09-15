@@ -8,8 +8,8 @@
     <Logic classname="GGL::CGLBuildingProps">
         <Class>GGL::CBuilding</Class>
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
-        <MaxHealth>4000</MaxHealth>
-        <ArmorAmount>9</ArmorAmount>
+        <MaxHealth>3500</MaxHealth>
+        <ArmorAmount>8</ArmorAmount>
         <Exploration>10</Exploration>
 
         <Category>Wall</Category>

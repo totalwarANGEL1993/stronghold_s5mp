@@ -24,7 +24,7 @@
             <RotationSpeed>7</RotationSpeed>
             <CannonBallEffectType>FXCannonTowerBall</CannonBallEffectType>
             <ProjectileOffsetFront>100</ProjectileOffsetFront>
-            <ReloadTime>8000</ReloadTime>
+            <ReloadTime>6500</ReloadTime>
             <MaxAttackRange>3000.0f</MaxAttackRange>
             <MinRange>0</MinRange>
             <DamageClass>DC_Turret</DamageClass>

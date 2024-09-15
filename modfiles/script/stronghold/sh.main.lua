@@ -5,7 +5,7 @@
 ---
 
 Stronghold = {
-    Version = "0.7.8",
+    Version = "0.7.9",
     Shared = {
         DelayedAction = {},
         HQInfo = {},
@@ -195,6 +195,7 @@ function Stronghold:Init()
     EntityTracker.Install();
     BuyHero.Install();
     Extension.Install();
+    NonPlayerMerchant.Install();
     FreeCam.SetToggleable(true);
 
     -- Player 0 building fix
@@ -416,7 +417,7 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             -- Save in attack memory
             Stronghold.Player:RegisterAttack(AttackedPlayer, _AttackedID, _AttackerID, 15);
             local Damage = CEntity.HurtTrigger.GetDamage();
-            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+            local DamageClass = GetEntityDamageClass(_AttackedID);
             -- Vigilante
             if IsAttackerAlarmDefender(_AttackerID) then
                 if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then
@@ -426,14 +427,14 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
             -- prevent eco harrasment
-            if DamageClass == 0 or DamageClass == 1 then
+            if DamageClass == 1 or DamageClass == 2 then
                 if Logic.IsEntityInCategory(_AttackedID, EntityCategories.Worker) == 1
                 or Logic.IsEntityInCategory(_AttackedID, EntityCategories.Workplace) == 1
                 or AttackedType == Entities.PU_Serf then
                     Damage = 1;
                 end
             end
-            CEntity.HurtTrigger.SetDamage(math.ceil(Damage));
+            CEntity.HurtTrigger.SetDamage(math.max(math.ceil(Damage), 1));
         end
     end
 end
@@ -818,6 +819,8 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Recruit:OnStableSelected(EntityID);
         self.Recruit:OnFoundrySelected(EntityID);
         self.Recruit:OnTavernSelected(EntityID);
+
+        self.Trade:OnMerchantSelected(EntityID);
 
         gvStronghold_LastSelectedEntity = EntityID;
     end

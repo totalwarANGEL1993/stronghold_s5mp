@@ -1205,7 +1205,7 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
     -- Generic T3: Shielded
     if self:IsPerkTriggered(AttackerPlayerID, HeroPerks.Generic_Shielded) then
         local Data = self.Config.Perks[HeroPerks.Generic_Shielded].Data;
-        local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+        local DamageClass = GetEntityDamageClass(_AttackedID);
         if Data.DamageClasses[DamageClass] then
             CurrentAmount = CurrentAmount * Data.DamageFactor;
         end
@@ -1214,7 +1214,7 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero4_Marschall) then
         local Data = self.Config.Perks[HeroPerks.Hero4_Marschall].Data;
         if Data.EntityTypes[AttackedType] then
-            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+            local DamageClass = GetEntityDamageClass(_AttackedID);
             if Data.DamageClasses[DamageClass] then
                 CurrentAmount = CurrentAmount * Data.Factor;
             end
@@ -1225,6 +1225,13 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
         local Data = self.Config.Perks[HeroPerks.Hero5_HubertusBlessing].Data;
         if Data.EntityTypes[AttackedType] then
             CurrentAmount = CurrentAmount * Data.DamageFactor;
+        end
+    end
+    -- Hero 7: Moloch
+    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero7_Moloch) then
+        local Data = self.Config.Perks[HeroPerks.Hero7_Moloch].Data;
+        if Data.EntityTypes[AttackedType] then
+            CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
         end
     end
     -- Hero 9: Berserker Rage
@@ -1259,10 +1266,17 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
     if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero12_MothersComfort) then
         local Data = self.Config.Perks[HeroPerks.Hero12_MothersComfort].Data;
         if Data.EntityTypes[AttackedType] then
-            local DamageClass = CInterface.Logic.GetEntityTypeDamageClass(AttackerType);
+            local DamageClass = GetEntityDamageClass(_AttackedID);
             if Data.DamageClasses[DamageClass] then
                 CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
             end
+        end
+    end
+    -- Hero 12: Moloch
+    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero12_Moloch) then
+        local Data = self.Config.Perks[HeroPerks.Hero12_Moloch].Data;
+        if Data.EntityTypes[AttackedType] then
+            CurrentAmount = CurrentAmount * Data.DamageTakenFactor;
         end
     end
 
@@ -1298,7 +1312,7 @@ function Stronghold.Hero.Perk:ApplyDynamicReputationBonusPassiveAbility(_PlayerI
             CurrentAmount = CurrentAmount * Data.ReputationFactor;
         end
     end
-    return CurrentAmount;
+    return math.floor(CurrentAmount + 0.5);
 end
 
 function Stronghold.Hero.Perk:ApplyReputationDecreasePassiveAbility(_PlayerID, _CurrentAmount)
@@ -1315,7 +1329,7 @@ function Stronghold.Hero.Perk:ApplyReputationDecreasePassiveAbility(_PlayerID, _
             CurrentAmount = CurrentAmount * Data.Factor;
         end
     end
-    return CurrentAmount;
+    return math.floor(CurrentAmount + 0.5);
 end
 
 function Stronghold.Hero.Perk:ApplyHonorBonusPassiveAbility(_PlayerID, _CurrentAmount)
@@ -1330,7 +1344,7 @@ function Stronghold.Hero.Perk:ApplyHonorBonusPassiveAbility(_PlayerID, _CurrentA
         local Data = self.Config.Perks[HeroPerks.Hero1_SocialCare].Data;
         CurrentAmount = CurrentAmount * Data.HonorFactor;
     end
-    return CurrentAmount;
+    return math.floor(CurrentAmount + 0.5);
 end
 
 function Stronghold.Hero.Perk:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Type, _CurrentAmount)
@@ -1342,7 +1356,7 @@ function Stronghold.Hero.Perk:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _T
             CurrentAmount = CurrentAmount * Data.HonorFactor;
         end
     end
-    return CurrentAmount;
+    return math.floor(CurrentAmount + 0.5);
 end
 
 function Stronghold.Hero.Perk:ApplyMercenaryCostPassiveAbility(_PlayerID, _Type, _CurrentAmount)

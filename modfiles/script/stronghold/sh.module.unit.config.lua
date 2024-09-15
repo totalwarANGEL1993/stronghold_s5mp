@@ -399,7 +399,7 @@ Stronghold.Unit.Config.Troops = {
 
     -- Kerberos Bodyguard --
 
-    [Entities.CU_BlackKnight]              = {
+    [Entities.CU_BlackKnight]               = {
         Button            = "Buy_LeaderSword",
         Right             = PlayerRight.BlackKnightGuard,
         IsCivil           = false,
@@ -415,6 +415,109 @@ function Stronghold.Unit.Config.Troops:GetConfig(_Type, _PlayerID)
     end
     return Stronghold.Recruit.Data[_PlayerID].Config[_Type];
 end
+
+-- Soldier to leader assignment
+Stronghold.Unit.Config.EntityToDamageClassMap = {
+    -- Animals
+    [Entities.CU_AggressiveWolf] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveBear1] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveDog1] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveLion1] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveLion2] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveTiger1] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveWolf1] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveWolf2] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveWolf3] = DamageClasses.DC_Beast,
+    [Entities.CU_AggressiveWolf4] = DamageClasses.DC_Beast,
+    [Entities.PU_Bear_Cage] = DamageClasses.DC_Beast,
+    [Entities.PU_Dog_Cage] = DamageClasses.DC_Beast,
+    -- Heroes
+    [Entities.PU_Hero1] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero1a] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero1b] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero1c] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero2] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero3] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero4] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero5] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero6] = DamageClasses.DC_Hero,
+    [Entities.CU_BlackKnight] = DamageClasses.DC_Hero,
+    [Entities.CU_Mary_de_Mortfichet] = DamageClasses.DC_Hero,
+    [Entities.CU_Barbarian_Hero] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero10] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero11] = DamageClasses.DC_Hero,
+    [Entities.CU_Evil_Queen] = DamageClasses.DC_Hero,
+    [Entities.CU_Hero13] = DamageClasses.DC_Hero,
+    [Entities.CU_Hero14] = DamageClasses.DC_Hero,
+    -- Summons
+    [Entities.CU_Barbarian_Hero_wolf] = DamageClasses.DC_Hero,
+    [Entities.CU_Hero13_Summon] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero2_Cannon1] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero3_TrapCannon] = DamageClasses.DC_Hero,
+    [Entities.PU_Hero5_Outlaw] = DamageClasses.DC_Hero,
+    -- Specialists
+    [Entities.PU_Serf] = DamageClasses.DC_Strike,
+    [Entities.PU_Scout] = DamageClasses.DC_Hero,
+    [Entities.PU_Thief] = DamageClasses.DC_Hero,
+    -- Units
+    [Entities.CU_Assassin_LeaderKnife1] = DamageClasses.DC_Slash,
+    [Entities.CU_BanditLeaderCavalry1] = DamageClasses.DC_Arrow,
+    [Entities.CU_BanditLeaderSword1] = DamageClasses.DC_Strike,
+    [Entities.CU_BanditLeaderSword2] = DamageClasses.DC_Strike,
+    [Entities.CU_BanditLeaderSword3] = DamageClasses.DC_Slash,
+    [Entities.CU_BanditLeaderBow1] = DamageClasses.DC_Arrow,
+    [Entities.CU_Barbarian_LeaderClub1] = DamageClasses.DC_Club,
+    [Entities.CU_Barbarian_LeaderClub2] = DamageClasses.DC_Club,
+    [Entities.CU_BlackKnight_LeaderMace1] = DamageClasses.DC_Mace,
+    [Entities.CU_BlackKnight_LeaderMace2] = DamageClasses.DC_Mace,
+    [Entities.CU_Evil_LeaderBearman1] = DamageClasses.DC_Evil,
+    [Entities.CU_Evil_LeaderSkirmisher1] = DamageClasses.DC_Javelin,
+    [Entities.CU_TemplarLeaderCavalry1] = DamageClasses.DC_Bolt,
+    [Entities.CU_TemplarLeaderHeavyCavalry1] = DamageClasses.DC_Strike,
+    [Entities.CU_TemplarLeaderPoleArm1] = DamageClasses.DC_Pole,
+    [Entities.CU_VeteranCaptain] = DamageClasses.DC_Strike,
+    [Entities.CU_VeteranLieutenant] = DamageClasses.DC_Strike,
+    [Entities.CU_VeteranMajor] = DamageClasses.DC_Strike,
+    [Entities.PU_LeaderBow1] = DamageClasses.DC_Arrow,
+    [Entities.PU_LeaderBow2] = DamageClasses.DC_Arrow,
+    [Entities.PU_LeaderBow3] = DamageClasses.DC_Bolt,
+    [Entities.PU_LeaderBow4] = DamageClasses.DC_Bolt,
+    [Entities.PU_LeaderCavalry1] = DamageClasses.DC_Arrow,
+    [Entities.PU_LeaderCavalry2] = DamageClasses.DC_Bolt,
+    [Entities.PU_LeaderHeavyCavalry1] = DamageClasses.DC_Strike,
+    [Entities.PU_LeaderHeavyCavalry2] = DamageClasses.DC_Strike,
+    [Entities.PU_LeaderPoleArm1] = DamageClasses.DC_Pole,
+    [Entities.PU_LeaderPoleArm2] = DamageClasses.DC_Pole,
+    [Entities.PU_LeaderPoleArm3] = DamageClasses.DC_Pole,
+    [Entities.PU_LeaderPoleArm4] = DamageClasses.DC_Pole,
+    [Entities.PU_LeaderRifle1] = DamageClasses.DC_Bullet,
+    [Entities.PU_LeaderRifle2] = DamageClasses.DC_Bullet,
+    [Entities.PU_LeaderSword1] = DamageClasses.DC_Slash,
+    [Entities.PU_LeaderSword2] = DamageClasses.DC_Slash,
+    [Entities.PU_LeaderSword3] = DamageClasses.DC_Slash,
+    [Entities.PU_LeaderSword4] = DamageClasses.DC_Slash,
+    -- Turrets
+    [Entities.CB_Evil_Tower1_ArrowLauncher] = DamageClasses.DC_Arrow,
+    [Entities.CB_Turret1_ArrowLauncher] = DamageClasses.DC_Arrow,
+    [Entities.CB_Turret2_Ballista] = DamageClasses.DC_Turret,
+    [Entities.CB_Turret3_Cannon] = DamageClasses.DC_Turret,
+    [Entities.PB_DarkTower1_ArrowLauncher] = DamageClasses.DC_Arrow,
+    [Entities.PB_DarkTower2_Ballista] = DamageClasses.DC_Turret,
+    [Entities.PB_DarkTower3_Cannon] = DamageClasses.DC_Turret,
+    [Entities.PB_Tower1_ArrowLauncher] = DamageClasses.DC_Arrow,
+    [Entities.PB_Tower2_Ballista] = DamageClasses.DC_Turret,
+    [Entities.PB_Tower3_Cannon] = DamageClasses.DC_Turret,
+    -- Cannons
+    [Entities.CV_Cannon_TEST] = DamageClasses.DC_TroopCannon,
+    [Entities.CV_Cannon1] = DamageClasses.DC_Artillery,
+    [Entities.CV_Cannon2] = DamageClasses.DC_TroopCannon,
+    [Entities.PV_Cannon1] = DamageClasses.DC_TroopCannon,
+    [Entities.PV_Cannon2] = DamageClasses.DC_SiegeCannon,
+    [Entities.PV_Cannon3] = DamageClasses.DC_TroopCannon,
+    [Entities.PV_Cannon4] = DamageClasses.DC_SiegeCannon,
+    [Entities.PV_Cannon7] = DamageClasses.DC_TroopCannon,
+    [Entities.PV_Cannon8] = DamageClasses.DC_TroopCannon,
+}
 
 -- Soldier to leader assignment
 Stronghold.Unit.Config.LeaderToSoldierMap = {
@@ -464,6 +567,7 @@ Stronghold.Unit.Config.LeaderToSoldierMap = {
     [Entities.PU_LeaderSword4] = Entities.PU_SoldierSword4,
 };
 
+-- Passive abilities of units
 Stronghold.Unit.Config.Passive = {
     Selfheal = {
         [Entities.PU_BattleSerf] = {

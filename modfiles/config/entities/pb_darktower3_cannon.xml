@@ -11,7 +11,7 @@
 		<DoNotExecute>false</DoNotExecute>
 		<ForceNoPlayer>false</ForceNoPlayer>
 		<Exploration>34</Exploration>	
-    <Category>MilitaryBuilding</Category>
+        <Category>MilitaryBuilding</Category>
 		<Category>Military</Category> 
 		<Category>Cannon</Category> 	
 		<Category>SplashDamage</Category>
@@ -26,13 +26,13 @@
     	    <RotationSpeed>7</RotationSpeed>
     	    <CannonBallEffectType>FXCannonTowerBall</CannonBallEffectType>
   			<ProjectileOffsetFront>100</ProjectileOffsetFront>
-    	    <ReloadTime>7000</ReloadTime>
-    	    <MaxAttackRange>3200.0f</MaxAttackRange>
+    	    <ReloadTime>6500</ReloadTime>
+    	    <MaxAttackRange>3000.0f</MaxAttackRange>
     	    <MinRange>500</MinRange>
     	    <DamageClass>DC_Turret</DamageClass>
-    	    <DamageAmount>45</DamageAmount>
+    	    <DamageAmount>40</DamageAmount>
     	    <DamageRange>700</DamageRange>
-    	    <AutoAttackRange>3200</AutoAttackRange>
+    	    <AutoAttackRange>3000</AutoAttackRange>
     	    <BattleTaskList>TL_BATTLE_CANNONTOWER</BattleTaskList>
     	</Logic>
 		<Display classname="ED::CBehaviorProps">
