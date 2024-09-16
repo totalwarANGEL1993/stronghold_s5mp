@@ -15,223 +15,161 @@ Stronghold.AI = {
     Config = {},
 };
 
-function Stronghold.AI:Install()
-    Display.SetPlayerColorMapping(GetVagabondPlayerID(), GetVagabondPlayerColor());
-    Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
-    for PlayerID = 1, GetMaxHumanPlayers() do
-        SetHostile(PlayerID, GetVagabondPlayerID());
-        SetNeutral(PlayerID, GetNeutralPlayerID());
+-- -------------------------------------------------------------------------- --
+-- API
+
+-- Armies --
+
+--- Creates an battalion.
+---
+--- #### Configuration
+--- * `PlayerID`     - ID of player
+--- * `HomePosition` - Position of home
+--- * `Strength`     - Strength of battalion
+--- * `RodeLength`   - Action radius
+---
+--- @param _Data table Battalion configuration
+--- @return integer ID ID of battalion
+function BattalionCreate(_Data)
+    return Stronghold.AI:BattalionCreate(_Data);
+end
+
+--- Deletes the battalion and kills all troops.
+--- @param _ID integer ID of battalion
+function BattalionDestroy(_ID)
+    Stronghold.AI:BattalionDestroy(_ID)
+end
+
+--- Changes the player of the battalion and all attached refillers.
+--- @param _ID integer       ID of battalion
+--- @param _PlayerID integer New player ID
+function BattalionChangePlayer(_ID, _PlayerID)
+    Stronghold.AI:BattalionChangePlayer(_ID, _PlayerID)
+end
+
+--- Adds a troop to the battalion.
+--- @param _ID integer        ID of battalion
+--- @param _TroopID integer   ID of troop
+--- @param _Reinforce boolean Add as reinforcement
+--- @return boolean Added Refiller was added
+function BattalionAddTroop(_ID, _TroopID, _Reinforce)
+    return Stronghold.AI:BattalionAddTroop(_ID, _TroopID, _Reinforce);
+end
+
+--- Kills all troops of the battalion.
+--- @param _ID integer ID of battalion
+--- @return boolean Removed Troops were removed
+function BattalionClearTroops(_ID)
+    return Stronghold.AI:BattalionClearTroops(_ID);
+end
+
+--- Creates a refiller that spawns troops and add it to the battalion.
+--- 
+--- A refiller can have a seperate spawnpoint which must be named after the
+--- scriptname of the spawner (e.g. "[Scriptname]Spawn").
+--- 
+--- @param _ID integer        ID of battalion
+--- @param _ScriptName string Scriptname of spawner
+--- @param _Respawn integer   Time between spawn cycles
+--- @param _Amount integer    Troops spawned per cycle
+--- @param ... any            List of troop types
+--- @return integer ID ID of refiller
+function BattalionCreateSpawningRefiller(_ID, _ScriptName, _Respawn, _Amount, ...)
+    local RefillerID = Stronghold.AI:BattalionCreateSpawningRefiller(_ID, _ScriptName, _Respawn, _Amount, unpack(arg));
+    if RefillerID ~= 0 then
+        BattalionAddRefiller(_ID, RefillerID);
     end
-
-    self:OverwriteAiTargetConfig();
-    self:OverwriteAiSpeedConfig();
-    self:InitMigratoryAnimals();
-
-    Job.Second(function()
-        Stronghold.AI:ControlAiPlayerHeroes();
-    end);
+    return RefillerID;
 end
 
-function Stronghold.AI:OnSaveGameLoaded()
-    Display.SetPlayerColorMapping(GetVagabondPlayerID(), GetVagabondPlayerColor());
-    Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
+function BattalionCreateRecruitingRefiller(_ID, ...)
+    assert(false, "Not implemented");
 end
 
-function Stronghold.AI:OnEveryTurn(_PlayerID)
+--- Adds an refiller to the battalion.
+--- @param _ID integer         ID of battalion
+--- @param _RefillerID integer ID of refiller
+--- @return boolean Added Refiller was added
+function BattalionAddRefiller(_ID, _RefillerID)
+    return Stronghold.AI:BattalionAddRefiller(_ID, _RefillerID);
 end
 
-function Stronghold.AI:OnEveryTurnNoPlayer()
-    -- Control animals
-    self:ControlMigratoryAnimal();
+--- Removes all refiller from the army.
+--- @param _ID integer ID of battalion
+--- @return boolean Removed Refillers were removed
+function BattalionClearRefiller(_ID)
+    return Stronghold.AI:BattalionClearRefiller(_ID);
 end
 
--- -------------------------------------------------------------------------- --
--- Player config
-
---- Returns the player ID reserved for the vagabond player.
---- @return integer PlayerID ID of enemy player
-function GetVagabondPlayerID()
-    return Stronghold.AI.Config.VagabondPlayerID;
+--- Returns if the battalion is existing.
+--- @param _ID integer ID of battalion
+--- @return boolean IsExisting Battalion is existing
+function BattalionIsExisting(_ID)
+    return Stronghold.AI:BattalionIsExisting(_ID) ~= nil;
 end
 
---- Returns the player color of the bandit player.
---- @return integer ColorID ID of color
-function GetVagabondPlayerColor()
-    return Stronghold.AI.Config.VagabondPlayerColor;
+--- Returns if the battalion is alive.
+--- @param _ID integer ID of battalion
+--- @return boolean IsAlive Battalion is alive
+function BattalionIsAlive(_ID)
+    return Stronghold.AI:BattalionIsAlive(_ID);
 end
 
---- Changes the bandit player. The passive player must be Max Human Player + 1.
---- @param _PlayerID integer ID of player
-function SetVagabondPlayerID(_PlayerID)
-    local MaxHumanPlayers = GetMaxHumanPlayers();
-    assert(_PlayerID == MaxHumanPlayers +1, "Enemy player must be " ..(MaxHumanPlayers +1).. "!");
-    Stronghold.AI.Config.VagabondPlayerID = _PlayerID;
+--- Returns the plan currently active for the battalion.
+--- @param _ID integer ID of battalion
+--- @return integer Plan Active plan
+function BattalionGetPlan(_ID)
+    return Stronghold.AI:BattalionGetPlan(_ID);
 end
 
---- Changes the bandit player color.
---- @param _ColorID integer ID of color
-function SetVagabondPlayerColor(_ColorID)
-    Stronghold.AI.Config.VagabondPlayerColor = _ColorID;
-    Display.SetPlayerColorMapping(GetVagabondPlayerID(), _ColorID);
+--- Cancels the current plan of the battalion.
+--- @param _ID integer ID of battalion
+function BattalionCancelPlan(_ID)
+    Stronghold.AI:BattalionCancelPlan(_ID);
 end
 
---- Returns the player ID reserved for the passive player.
---- @return integer PlayerID ID of neutral player
-function GetNeutralPlayerID()
-    return Stronghold.AI.Config.NeutralPlayerID;
+--- Activates the plan to retreat home.
+--- @param _ID integer ID of battalion
+function BattalionPlanRetreat(_ID)
+    Stronghold.AI:BattalionPlanRetreat(_ID);
 end
 
---- Returns the neutral player color.
---- @return integer ColorID ID of color
-function GetNeutralPlayerColor()
-    return Stronghold.AI.Config.NeutralPlayerColor;
+--- Activates the plan to advance to the position.
+--- @param _ID integer   ID of battalion
+--- @param _Target table Advance target
+function BattalionPlanAdvance(_ID, _Target)
+    Stronghold.AI:BattalionPlanAdvance(_ID, _Target);
 end
 
---- Changes the passive player. The passive player must be Max Human Player + 2.
---- @param _PlayerID integer ID of player
-function SetNeutralPlayerID(_PlayerID)
-    local MaxHumanPlayers = GetMaxHumanPlayers();
-    assert(_PlayerID == MaxHumanPlayers +2, "Neutral player must be " ..(MaxHumanPlayers +2).. "!");
-    Stronghold.AI.Config.NeutralPlayerID = _PlayerID;
+--- Activates the plan to attack the target.
+--- @param _ID integer   ID of battalion
+--- @param _Target table Attack target
+function BattalionPlanAttack(_ID, _Target)
+    Stronghold.AI:BattalionPlanAttack(_ID, _Target);
 end
 
---- Changes the neutral player color.
---- @param _ColorID integer ID of color
-function SetNeutralPlayerColor(_ColorID)
-    Stronghold.AI.Config.NeutralPlayerColor = _ColorID;
-    Display.SetPlayerColorMapping(GetNeutralPlayerColor(), _ColorID);
+--- Activates the plan to attack any of the targets in order.
+--- @param _ID integer    ID of battalion
+--- @param _Targets table List of targets
+function BattalionPlanAttackMove(_ID, _Targets)
+    Stronghold.AI:BattalionPlanAttackMove(_ID, _Targets);
 end
 
--- -------------------------------------------------------------------------- --
--- Army config
-
-function Stronghold.AI:OverwriteAiTargetConfig()
-    for Type,_ in pairs(self.Config.AttackTargetBlacklist) do
-        GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Type] = true;
-    end
-
-    AiArmyTargetingConfig.Spear = {
-        ["CavalryHeavy"] = 40,
-        ["CavalryLight"] = 30,
-        ["EvilLeader"] = 30,
-        ["Hero"] = 20,
-        ["MilitaryBuilding"] = 10,
-        ["DefendableBuilding"] = 0,
-        ["Sword"] = 0,
-        ["Cannon"] = 0,
-    }
-    AiArmyTargetingConfig.CavalryLight = {
-        [Entities.CU_Barbarian_LeaderClub1] = 40,
-        [Entities.CU_Barbarian_LeaderClub2] = 40,
-
-        ["Cannon"] = 30,
-        ["Spear"] = 20,
-        ["Sword"] = 20,
-        ["Hero"] = 10,
-        ["DefendableBuilding"] = 0,
-        ["CavalryHeavy"] = 0,
-        ["CavalryLight"] = 0,
-        ["Rifle"] = 0,
-    }
-    AiArmyTargetingConfig.Bow = {
-        [Entities.CU_Barbarian_LeaderClub1] = 40,
-        [Entities.CU_Barbarian_LeaderClub2] = 40,
-
-        ["MilitaryBuilding"] = 40,
-        ["Cannon"] = 40,
-        ["CavalryHeavy"] = 30,
-        ["CavalryLight"] = 20,
-        ["Spear"] = 20,
-        ["Hero"] = 10,
-        ["DefendableBuilding"] = 0,
-        ["Rifle"] = 0,
-        ["Sword"] = 0,
-    }
-    AiArmyTargetingConfig.Rifle = {
-        [Entities.CU_Barbarian_LeaderClub1] = 40,
-        [Entities.CU_Barbarian_LeaderClub2] = 40,
-
-        ["Cannon"] = 50,
-        ["EvilLeader"] = 50,
-        ["LongRange"] = 40,
-        ["Spear"] = 30,
-        ["Hero"] = 20,
-        ["CavalryHeavy"] = 10,
-        ["Sword"] = 10,
-        ["DefendableBuilding"] = 0,
-        ["MilitaryBuilding"] = 0,
-    }
-    AiArmyTargetingConfig.Mace = {
-        ["MilitaryBuilding"] = 30,
-        ["CavalryHeavy"] = 30,
-        ["Sword"] = 20,
-        ["DefendableBuilding"] = 10,
-        ["Cannon"] = 10,
-        ["Rifle"] = 0,
-        ["Spear"] = 0,
-    }
-
-    AiArmyTargetingTypeMapping = {
-        [Entities.CU_Barbarian_LeaderClub1] = AiArmyTargetingConfig.Mace,
-        [Entities.CU_Barbarian_LeaderClub2] = AiArmyTargetingConfig.Mace,
-        [Entities.CU_BlackKnight_LeaderMace1] = AiArmyTargetingConfig.Mace,
-        [Entities.CU_BlackKnight_LeaderMace2] = AiArmyTargetingConfig.Mace,
-        [Entities.CU_BanditLeaderSword1] = AiArmyTargetingConfig.CavalryHeavy,
-        [Entities.CU_BanditLeaderSword2] = AiArmyTargetingConfig.CavalryHeavy,
-        [Entities.CV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
-        [Entities.CV_Cannon2] = AiArmyTargetingConfig.TroopCannon,
-        [Entities.PV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
-        [Entities.PV_Cannon2] = AiArmyTargetingConfig.BuildingCannon,
-        [Entities.PV_Cannon3] = AiArmyTargetingConfig.TroopCannon,
-        [Entities.PV_Cannon4] = AiArmyTargetingConfig.BuildingCannon,
-        [Entities.PV_Cannon7] = AiArmyTargetingConfig.TroopCannon,
-        [Entities.PV_Cannon8] = AiArmyTargetingConfig.TroopCannon,
-    }
+--- Activates the plan to raid locations for the army.
+--- @param _ID integer    ID of battalion
+--- @param _Targets table List of targets
+function BattalionPlanRaid(_ID, _Targets)
+    Stronghold.AI:BattalionPlanRaid(_ID, _Targets);
 end
 
-function Stronghold.AI:OverwriteAiSpeedConfig()
-    AiArmyConstants.BaseSpeed = {
-        ["Bow"] = 360,
-        ["CavalryLight"] = 570,
-        ["CavalryHeavy"] = 520,
-        ["Hero"] = 400,
-        ["Rifle"] = 360,
-
-        [Entities.CU_Barbarian_LeaderClub1] = 400,
-        [Entities.CU_Barbarian_LeaderClub2] = 400,
-        [Entities.CV_Cannon1] = 345,
-        [Entities.CV_Cannon2] = 345,
-        [Entities.PV_Cannon1] = 300,
-        [Entities.PV_Cannon2] = 250,
-        [Entities.PV_Cannon3] = 200,
-        [Entities.PV_Cannon4] = 150,
-        [Entities.PV_Cannon7] = 300,
-        [Entities.PV_Cannon8] = 345,
-
-        ["_Others"] = 360,
-    };
-
-    AiArmyConstants.SpeedWeighting = {
-        ["CavalryLight"] = 0.4,
-        ["CavalryHeavy"] = 0.4,
-
-        [Entities.CU_Barbarian_LeaderClub1] = 0.9,
-        [Entities.CU_Barbarian_LeaderClub2] = 0.9,
-        [Entities.CV_Cannon1] = 0.6,
-        [Entities.CV_Cannon2] = 0.6,
-        [Entities.PV_Cannon1] = 0.6,
-        [Entities.PV_Cannon2] = 0.5,
-        [Entities.PV_Cannon3] = 0.3,
-        [Entities.PV_Cannon4] = 0.2,
-        [Entities.PV_Cannon7] = 0.6,
-        [Entities.PV_Cannon8] = 0.6,
-
-        ["_Others"] = 1.0
-    };
+--- Activates the plan to patrol between targets for the army.
+--- @param _ID integer    ID of battalion
+--- @param _Targets table List of targets
+function BattalionPlanPatrol(_ID, _Targets)
+    Stronghold.AI:BattalionPlanPatrol(_ID, _Targets);
 end
 
--- -------------------------------------------------------------------------- --
--- Delinquents
+-- Delinquents --
 
 --- Creates a camp.
 ---
@@ -437,6 +375,506 @@ function DelinquentsCampActivateAttack(_ID, _Flag)
     end
 end
 
+-- -------------------------------------------------------------------------- --
+-- Internal
+
+function Stronghold.AI:Install()
+    Display.SetPlayerColorMapping(GetVagabondPlayerID(), GetVagabondPlayerColor());
+    Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
+    for PlayerID = 1, GetMaxHumanPlayers() do
+        SetHostile(PlayerID, GetVagabondPlayerID());
+        SetNeutral(PlayerID, GetNeutralPlayerID());
+    end
+
+    self:OverwriteAiTargetConfig();
+    self:OverwriteAiSpeedConfig();
+    self:InitMigratoryAnimals();
+
+    Job.Second(function()
+        Stronghold.AI:ControlAiPlayerHeroes();
+    end);
+end
+
+function Stronghold.AI:OnSaveGameLoaded()
+    Display.SetPlayerColorMapping(GetVagabondPlayerID(), GetVagabondPlayerColor());
+    Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
+end
+
+function Stronghold.AI:OnEveryTurn(_PlayerID)
+end
+
+function Stronghold.AI:OnEveryTurnNoPlayer()
+    -- Control animals
+    self:ControlMigratoryAnimal();
+end
+
+-- -------------------------------------------------------------------------- --
+-- Player config
+
+--- Returns the player ID reserved for the vagabond player.
+--- @return integer PlayerID ID of enemy player
+function GetVagabondPlayerID()
+    return Stronghold.AI.Config.VagabondPlayerID;
+end
+
+--- Returns the player color of the bandit player.
+--- @return integer ColorID ID of color
+function GetVagabondPlayerColor()
+    return Stronghold.AI.Config.VagabondPlayerColor;
+end
+
+--- Changes the bandit player. The passive player must be Max Human Player + 1.
+--- @param _PlayerID integer ID of player
+function SetVagabondPlayerID(_PlayerID)
+    local MaxHumanPlayers = GetMaxHumanPlayers();
+    assert(_PlayerID == MaxHumanPlayers +1, "Enemy player must be " ..(MaxHumanPlayers +1).. "!");
+    Stronghold.AI.Config.VagabondPlayerID = _PlayerID;
+end
+
+--- Changes the bandit player color.
+--- @param _ColorID integer ID of color
+function SetVagabondPlayerColor(_ColorID)
+    Stronghold.AI.Config.VagabondPlayerColor = _ColorID;
+    Display.SetPlayerColorMapping(GetVagabondPlayerID(), _ColorID);
+end
+
+--- Returns the player ID reserved for the passive player.
+--- @return integer PlayerID ID of neutral player
+function GetNeutralPlayerID()
+    return Stronghold.AI.Config.NeutralPlayerID;
+end
+
+--- Returns the neutral player color.
+--- @return integer ColorID ID of color
+function GetNeutralPlayerColor()
+    return Stronghold.AI.Config.NeutralPlayerColor;
+end
+
+--- Changes the passive player. The passive player must be Max Human Player + 2.
+--- @param _PlayerID integer ID of player
+function SetNeutralPlayerID(_PlayerID)
+    local MaxHumanPlayers = GetMaxHumanPlayers();
+    assert(_PlayerID == MaxHumanPlayers +2, "Neutral player must be " ..(MaxHumanPlayers +2).. "!");
+    Stronghold.AI.Config.NeutralPlayerID = _PlayerID;
+end
+
+--- Changes the neutral player color.
+--- @param _ColorID integer ID of color
+function SetNeutralPlayerColor(_ColorID)
+    Stronghold.AI.Config.NeutralPlayerColor = _ColorID;
+    Display.SetPlayerColorMapping(GetNeutralPlayerColor(), _ColorID);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Army config
+
+function Stronghold.AI:OverwriteAiTargetConfig()
+    for Type,_ in pairs(self.Config.AttackTargetBlacklist) do
+        GetEntitiesOfDiplomacyStateInArea_BlacklistedTypes[Type] = true;
+    end
+
+    AiArmyTargetingConfig.Spear = {
+        ["CavalryHeavy"] = 40,
+        ["CavalryLight"] = 30,
+        ["EvilLeader"] = 30,
+        ["Hero"] = 20,
+        ["MilitaryBuilding"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["Sword"] = 0,
+        ["Cannon"] = 0,
+    }
+    AiArmyTargetingConfig.CavalryLight = {
+        [Entities.CU_Barbarian_LeaderClub1] = 40,
+        [Entities.CU_Barbarian_LeaderClub2] = 40,
+
+        ["Cannon"] = 30,
+        ["Spear"] = 20,
+        ["Sword"] = 20,
+        ["Hero"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["CavalryHeavy"] = 0,
+        ["CavalryLight"] = 0,
+        ["Rifle"] = 0,
+    }
+    AiArmyTargetingConfig.Bow = {
+        [Entities.CU_Barbarian_LeaderClub1] = 40,
+        [Entities.CU_Barbarian_LeaderClub2] = 40,
+
+        ["MilitaryBuilding"] = 40,
+        ["Cannon"] = 40,
+        ["CavalryHeavy"] = 30,
+        ["CavalryLight"] = 20,
+        ["Spear"] = 20,
+        ["Hero"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["Rifle"] = 0,
+        ["Sword"] = 0,
+    }
+    AiArmyTargetingConfig.Rifle = {
+        [Entities.CU_Barbarian_LeaderClub1] = 40,
+        [Entities.CU_Barbarian_LeaderClub2] = 40,
+
+        ["Cannon"] = 50,
+        ["EvilLeader"] = 50,
+        ["LongRange"] = 40,
+        ["Spear"] = 30,
+        ["Hero"] = 20,
+        ["CavalryHeavy"] = 10,
+        ["Sword"] = 10,
+        ["DefendableBuilding"] = 0,
+        ["MilitaryBuilding"] = 0,
+    }
+    AiArmyTargetingConfig.Mace = {
+        ["MilitaryBuilding"] = 30,
+        ["CavalryHeavy"] = 30,
+        ["Sword"] = 20,
+        ["DefendableBuilding"] = 10,
+        ["Cannon"] = 10,
+        ["Rifle"] = 0,
+        ["Spear"] = 0,
+    }
+
+    AiArmyTargetingTypeMapping = {
+        [Entities.CU_Barbarian_LeaderClub1] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_Barbarian_LeaderClub2] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_BlackKnight_LeaderMace1] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_BlackKnight_LeaderMace2] = AiArmyTargetingConfig.Mace,
+        [Entities.CU_BanditLeaderSword1] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.CU_BanditLeaderSword2] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.PU_LeaderAxe1] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.PU_LeaderAxe2] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.PU_LeaderAxe3] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.PU_LeaderAxe4] = AiArmyTargetingConfig.CavalryHeavy,
+        [Entities.CV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.CV_Cannon2] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon1] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon2] = AiArmyTargetingConfig.BuildingCannon,
+        [Entities.PV_Cannon3] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon4] = AiArmyTargetingConfig.BuildingCannon,
+        [Entities.PV_Cannon7] = AiArmyTargetingConfig.TroopCannon,
+        [Entities.PV_Cannon8] = AiArmyTargetingConfig.TroopCannon,
+    }
+end
+
+function Stronghold.AI:OverwriteAiSpeedConfig()
+    AiArmyConstants.BaseSpeed = {
+        ["Bow"] = 360,
+        ["CavalryLight"] = 570,
+        ["CavalryHeavy"] = 520,
+        ["Hero"] = 400,
+        ["Rifle"] = 360,
+
+        [Entities.CU_Barbarian_LeaderClub1] = 400,
+        [Entities.CU_Barbarian_LeaderClub2] = 400,
+        [Entities.CV_Cannon1] = 345,
+        [Entities.CV_Cannon2] = 345,
+        [Entities.PV_Cannon1] = 300,
+        [Entities.PV_Cannon2] = 250,
+        [Entities.PV_Cannon3] = 200,
+        [Entities.PV_Cannon4] = 150,
+        [Entities.PV_Cannon7] = 300,
+        [Entities.PV_Cannon8] = 345,
+
+        ["_Others"] = 360,
+    };
+
+    AiArmyConstants.SpeedWeighting = {
+        ["CavalryLight"] = 0.4,
+        ["CavalryHeavy"] = 0.4,
+
+        [Entities.CU_Barbarian_LeaderClub1] = 0.9,
+        [Entities.CU_Barbarian_LeaderClub2] = 0.9,
+        [Entities.CV_Cannon1] = 0.6,
+        [Entities.CV_Cannon2] = 0.6,
+        [Entities.PV_Cannon1] = 0.6,
+        [Entities.PV_Cannon2] = 0.5,
+        [Entities.PV_Cannon3] = 0.3,
+        [Entities.PV_Cannon4] = 0.2,
+        [Entities.PV_Cannon7] = 0.6,
+        [Entities.PV_Cannon8] = 0.6,
+
+        ["_Others"] = 1.0
+    };
+end
+
+-- -------------------------------------------------------------------------- --
+-- Invasions
+
+--- Battalion operation plans
+BattalionPlan = {
+    -- Battalion is doing nothing
+    None = 0,
+    -- Battalion is retreating
+    Retreat = 1,
+    -- Battalion is advancing to a position
+    Advance = 2,
+    -- Battalion is attacking a position
+    Attack = 3,
+    -- Battalion is on attack walk
+    AttackMove = 4,
+    -- Battalion is raiding locations
+    Raid = 5,
+    -- Battalion is patroling
+    Patrol = 6,
+}
+
+function Stronghold.AI:BattalionCreate(_Data)
+    local Data = CopyTable(_Data);
+
+    -- Save properties
+    self.Data.Armies.Sequence = self.Data.Armies.Sequence +1;
+    Data.ID = self.Data.Armies.Sequence;
+    assert(Data.PlayerID and Data.PlayerID > 0 and Data.PlayerID < GetMaxPlayers(), "PlayerID is wrong!");
+    Data.Plan = BattalionPlan.None;
+    Data.Refiller = {};
+    if type(Data.HomePosition) ~= "table" then
+        Data.HomePosition = GetPosition(Data.HomePosition);
+    end
+
+    -- Create army
+    local ArmyID = AiArmy.New(
+        Data.PlayerID,
+        Data.Strength,
+        Data.HomePosition,
+        Data.RodeLength or 3500
+    );
+    AiArmy.SetAliveThreshold(ArmyID, 0.0001);
+    AiArmy.SetFormationController(ArmyID, function (_ID)
+        Stronghold.Unit:SetFormationOnCreate(_ID);
+    end);
+    Data.ArmyID = ArmyID;
+    self.Data.Armies[Data.ID] = Data;
+
+    Job.Second(function(_ID)
+        return Stronghold.AI:BattalionController(_ID);
+    end, Data.ID)
+    return Data.ID;
+end
+
+function Stronghold.AI:BattalionDestroy(_ID)
+    if self.Data.Armies[_ID] then
+        local Data = Stronghold.AI.Data.Armies[_ID];
+        local AttackArmy = AiArmy.Get(Data.ArmyID);
+        if AttackArmy then
+            AttackArmy:Abandon(true);
+            AttackArmy:Dispose();
+        end
+        self.Data.Armies[_ID] = nil;
+    end
+end
+
+function Stronghold.AI:BattalionChangePlayer(_ID, _PlayerID)
+    if self.Data.Armies[_ID] then
+        local ArmyID = self.Data.Armies[_ID].ArmyID;
+        AiArmy.ChangePlayer(ArmyID, _PlayerID);
+        for i= 1, table.getn(self.Data.Armies[_ID].Refiller) do
+            local RefillerID = self.Data.Armies[_ID].Refiller[i];
+            AiArmyRefiller.ChangePlayer(RefillerID, _PlayerID);
+        end
+    end
+end
+
+function Stronghold.AI:BattalionController(_ID)
+    if not self.Data.Armies[_ID] then
+        return true;
+    end
+
+    local Data = self.Data.Armies[_ID];
+    if AiArmy.IsArmyDoingNothing(Data.ArmyID) then
+        self.Data.Armies[_ID].Plan = 0;
+    else
+        -- Army retreats
+        if Data.Plan > 1 then
+            if AiArmy.IsCommandOfTypeEnqueued(Data.ArmyID, AiArmyCommand.Fallback)
+            or AiArmy.IsCommandOfTypeActive(Data.ArmyID, AiArmyCommand.Finish) then
+                self.Data.Armies[_ID].Plan = 1;
+            end
+        end
+    end
+end
+
+function Stronghold.AI:BattalionAddTroop(_ID, _TroopID, _Reinforce)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        return AiArmy.AddTroop(Data.ArmyID, _TroopID, _Reinforce);
+    end
+    return false;
+end
+
+function Stronghold.AI:BattalionClearTroops(_ID)
+    if self.Data.Armies[_ID] then
+        local Army = AiArmy.Get(self.Data.Armies[_ID].ArmyID);
+        if Army then
+            Army:Abandon(true);
+        end
+    end
+    return false;
+end
+
+function Stronghold.AI:BattalionCreateSpawningRefiller(_ID, _ScriptName, _Respawn, _Amount, ...)
+    if self.Data.Armies[_ID] then
+        return AiArmyRefiller.CreateSpawner {
+            PlayerID = self.Data.Armies[_ID].PlayerID,
+            ScriptName = _ScriptName,
+            SpawnPoint = (IsExisting(_ScriptName .. "Spawn") and _ScriptName .. "Spawn") or nil,
+            SpawnAmount = _Amount,
+            SpawnTimer = _Respawn,
+            AllowedTypes = CopyTable(arg),
+        }
+    end
+    return 0;
+end
+
+function Stronghold.AI:BattalionAddRefiller(_ID, _RefillerID)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        if not IsInTable(_RefillerID, Data.Refiller) then
+            table.insert(self.Data.Armies[_ID].Refiller, _RefillerID);
+            AiArmyRefiller.AddArmy(Data.ArmyID, _RefillerID);
+            return true;
+        end
+    end
+    return false;
+end
+
+function Stronghold.AI:BattalionClearRefiller(_ID)
+    if self.Data.Armies[_ID] then
+        local Data = Stronghold.AI.Data.Armies[_ID];
+        for i= 1, table.getn(Data.Refiller) do
+            AiArmyRefiller.RemoveArmy(Data.Refiller[i], Data.ArmyID);
+        end
+        self.Data.Armies[_ID].Refiller = {};
+        return true;
+    end
+    return false;
+end
+
+function Stronghold.AI:BattalionIsExisting(_ID)
+    return self.Data.Armies[_ID] ~= nil;
+end
+
+function Stronghold.AI:BattalionIsAlive(_ID)
+    if not self:BattalionIsExisting(_ID) then
+        return false;
+    end
+    if not AiArmy.IsInitallyFilled(self.Data.Armies[_ID].ArmyID) then
+        return true;
+    end
+    if AiArmy.IsAlive(self.Data.Armies[_ID].ArmyID) then
+        return true;
+    end
+    for i= 2, self.Data.Armies[_ID].Refiller[1] +1 do
+        if AiArmyRefiller.IsAlive(self.Data.Armies[_ID].Refiller[i]) then
+            return true;
+        end
+    end
+    return false;
+end
+
+function Stronghold.AI:BattalionGetPlan(_ID)
+    if self.Data.Armies[_ID] then
+        return self.Data.Armies[_ID].Plan;
+    end
+    return 0;
+end
+
+function Stronghold.AI:BattalionCancelPlan(_ID)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        AiArmy.ClearCommands(Data.ArmyID);
+        self.Data.Armies[_ID].Plan = BattalionPlan.None;
+    end
+end
+
+function Stronghold.AI:BattalionPlanRetreat(_ID)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        AiArmy.ClearCommands(Data.ArmyID);
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Fallback), false);
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Refill), false);
+        self.Data.Armies[_ID].Plan = BattalionPlan.Retreat;
+    end
+end
+
+function Stronghold.AI:BattalionPlanAdvance(_ID, _Target)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        AiArmy.ClearCommands(Data.ArmyID);
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Target), false);
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, _Target), false);
+        self.Data.Armies[_ID].Plan = BattalionPlan.Advance;
+    end
+end
+
+function Stronghold.AI:BattalionPlanAttack(_ID, _Target)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        AiArmy.ClearCommands(Data.ArmyID);
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Target), false);
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, _Target), false);
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
+        self.Data.Armies[_ID].Plan = BattalionPlan.Attack;
+    end
+end
+
+function Stronghold.AI:BattalionPlanAttackMove(_ID, _Targets)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        local PathSize = table.getn(_Targets);
+        assert(PathSize > 0, "Attack path is empty!");
+        AiArmy.ClearCommands(Data.ArmyID);
+        for i= 1, PathSize do
+            AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, _Targets[i]), false);
+            if i == PathSize then
+                AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, _Targets[i]), false);
+            end
+        end
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
+        self.Data.Armies[_ID].Plan = BattalionPlan.AttackMove;
+    end
+end
+
+function Stronghold.AI:BattalionPlanRaid(_ID, _Targets)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        local TargetSize = table.getn(arg);
+        assert(TargetSize > 0, "Raid targets are empty!");
+        AiArmy.ClearCommands(Data.ArmyID);
+        local ControlCommand = function(_Army, ...)
+            for i= 2, table.getn(arg) do
+                local Filter = {"Cannon", "DefendableBuilding", "Hero", "Leader", "MilitaryBuilding", "Serf"};
+                local Enemies = AiArmy.GetEnemiesInCircle(Data.ArmyID, arg[i], _Army.RodeLength, Filter);
+                if Enemies[1] then
+                    AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, arg[i]), false, 1);
+                    AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, arg[i]), false, 1);
+                    AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false, 1);
+                    return true;
+                end
+            end
+            return false;
+        end
+        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Custom, ControlCommand, unpack(_Targets)), true);
+        self.Data.Armies[_ID].Plan = BattalionPlan.Raid;
+    end
+end
+
+function Stronghold.AI:BattalionPlanPatrol(_ID, _Targets)
+    if self.Data.Armies[_ID] then
+        local Data = self.Data.Armies[_ID];
+        local PathSize = table.getn(_Targets);
+        assert(PathSize > 0, "Attack path is empty!");
+        AiArmy.ClearCommands(Data.ArmyID);
+        for i= 1, PathSize do
+            AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Targets[i]), true);
+            AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60, _Targets[i]), true);
+        end
+        self.Data.Armies[_ID].Plan = BattalionPlan.Patrol;
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+-- Delinquents
+
 function Stronghold.AI:CreateDelinquentsCamp(_Data)
     -- Camp Data
     local Data = CopyTable(_Data);
@@ -491,14 +929,11 @@ function Stronghold.AI:DelinquentsCampController(_ID)
     end
 
     -- Control attacking
-    --- @diagnostic disable-next-line: undefined-field
     local AttackArmyID = self.Data.Delinquents[_ID].AttackArmyID or 0;
     if AttackArmyID > 0 then
         if AiArmy.IsArmyDoingNothing(AttackArmyID) then
-            --- @diagnostic disable-next-line: undefined-field
             if self.Data.Delinquents[_ID].AttackAllowed then
                 local RodeLength = AiArmy.GetRodeLength(AttackArmyID);
-                --- @diagnostic disable-next-line: undefined-field
                 local Targets = self.Data.Delinquents[_ID].AttackTargets;
                 if Targets[1] > 0 then
                     local Index = math.random(2, Targets[1] +1);
@@ -521,12 +956,10 @@ function Stronghold.AI:DelinquentsCampController(_ID)
     end
 
     -- Control defending
-    --- @diagnostic disable-next-line: undefined-field
     local DefendArmyID = self.Data.Delinquents[_ID].DefendArmyID or 0;
     if DefendArmyID > 0 then
         if AiArmy.IsArmyDoingNothing(DefendArmyID) then
             local HomePosition = AiArmy.GetHomePosition(DefendArmyID);
-            --- @diagnostic disable-next-line: undefined-field
             local GuardPos = CopyTable(self.Data.Delinquents[_ID].DefendTargets);
             local PositionCount = table.remove(GuardPos, 1);
             if PositionCount > 0 then

@@ -955,23 +955,63 @@
     <!-- Military axe -->
 
     <SettlerUpgrade>
-	    <Category>LeaderAxe1</Category>
+	    <Category>LeaderBanditAxe1</Category>
 	    <FirstSettler>CU_BanditLeaderSword1</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
-	    <Category>SoldierAxe1</Category>
+	    <Category>SoldierBanditAxe1</Category>
 	    <FirstSettler>CU_BanditSoldierSword1</FirstSettler>
 	</SettlerUpgrade>
 
     <SettlerUpgrade>
-	    <Category>LeaderAxe2</Category>
+	    <Category>LeaderBanditAxe2</Category>
 	    <FirstSettler>CU_BanditLeaderSword2</FirstSettler>
 	</SettlerUpgrade>
 
 	<SettlerUpgrade>
-	    <Category>SoldierAxe2</Category>
+	    <Category>SoldierBanditAxe2</Category>
 	    <FirstSettler>CU_BanditSoldierSword2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderAxe1</Category>
+	    <FirstSettler>PU_LeaderAxe1</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierAxe1</Category>
+	    <FirstSettler>PU_SoldierAxe1</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderAxe2</Category>
+	    <FirstSettler>PU_LeaderAxe2</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierAxe2</Category>
+	    <FirstSettler>PU_SoldierAxe2</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderAxe3</Category>
+	    <FirstSettler>PU_LeaderAxe3</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierAxe3</Category>
+	    <FirstSettler>PU_SoldierAxe3</FirstSettler>
+	</SettlerUpgrade>
+
+    <SettlerUpgrade>
+	    <Category>LeaderAxe4</Category>
+	    <FirstSettler>PU_LeaderAxe4</FirstSettler>
+	</SettlerUpgrade>
+
+	<SettlerUpgrade>
+	    <Category>SoldierAxe4</Category>
+	    <FirstSettler>PU_SoldierAxe4</FirstSettler>
 	</SettlerUpgrade>
 
     <!-- Military mace -->

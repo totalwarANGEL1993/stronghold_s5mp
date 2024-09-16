@@ -467,7 +467,7 @@ function Stronghold.Mercenary:InitMercenaryRoster(_PlayerID)
         end
         if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Axemen) then
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe2);
-            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe1);
+            table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderAxe3);
         end
         if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Bandits) then
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.BanditLeaderSword1);
@@ -503,6 +503,8 @@ function Stronghold.Mercenary:InitMercenaryRoster(_PlayerID)
         end
         if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteSpear) then
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderPoleArm4);
+        end
+        if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_EliteSword) then
             table.insert(self.Data[_PlayerID].Roster, UpgradeCategories.LeaderSword4);
         end
         if not HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Lancer) then

@@ -157,6 +157,10 @@
 	
 
 
+    <!-- MPW -->
+	<AnimSet>SET_LEADERAXE3</AnimSet>
+	<AnimSet>SET_SOLDIERAXE3</AnimSet>
+
 	<!-- Stronghold -->
 	<AnimSet>SET_BEAR</AnimSet>
 	<AnimSet>SET_BUTTERFLY</AnimSet>

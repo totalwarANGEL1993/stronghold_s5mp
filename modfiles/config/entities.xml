@@ -1035,7 +1035,17 @@
 
 		<Entity>XD_TemplarAltar</Entity>
 
+<!--MPW-->
 
+        <!-- Units -->
+        <Entity>PU_LeaderAxe1</Entity>
+        <Entity>PU_SoldierAxe1</Entity>
+        <Entity>PU_LeaderAxe2</Entity>
+        <Entity>PU_SoldierAxe2</Entity>
+        <Entity>PU_LeaderAxe3</Entity>
+        <Entity>PU_SoldierAxe3</Entity>
+        <Entity>PU_LeaderAxe4</Entity>
+        <Entity>PU_SoldierAxe4</Entity>
 
 <!--Stronghold-->
 
