@@ -1480,6 +1480,10 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
             (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub2] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderBearman1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe1] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe2] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe3] or 0) +
+            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe4] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword1] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword2] or 0) +
             (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword3] or 0) +

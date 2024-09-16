@@ -24,7 +24,6 @@
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
         <MaxHealth>250</MaxHealth>
-        <ArmorClass>ArmorClassIron</ArmorClass>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -48,7 +47,7 @@
             <Sulfur>0</Sulfur>
         </Cost>
         <Upgrade>
-            <Category>SoldierAxe1</Category>
+            <Category>SoldierBanditAxe1</Category>
         </Upgrade>
 
 

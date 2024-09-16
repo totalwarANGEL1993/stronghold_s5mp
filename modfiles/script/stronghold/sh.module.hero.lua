@@ -595,7 +595,7 @@ function Stronghold.Hero:InitSpecialUnits(_PlayerID, _Type)
     -- Add Axemen
     if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Axemen) then
         table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Melee, UpgradeCategories.LeaderAxe2);
-        table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Melee, UpgradeCategories.LeaderAxe1);
+        table.insert(Stronghold.Recruit.Data[_PlayerID].Roster.Melee, UpgradeCategories.LeaderAxe3);
     end
     -- Add Bandits
     if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Unit_Bandits) then

@@ -102,10 +102,18 @@ end
 -- Overwrite from Cerberus Library
 GetUpgradeCategoryByEntityType_CategoryMap = {
     -- Axe
-    [Entities.CU_BanditLeaderSword1] = UpgradeCategories.LeaderAxe1,
-    [Entities.CU_BanditSoldierSword1] = UpgradeCategories.SoldierAxe1,
-    [Entities.CU_BanditLeaderSword2] = UpgradeCategories.LeaderAxe2,
-    [Entities.CU_BanditSoldierSword2] = UpgradeCategories.SoldierAxe2,
+    [Entities.CU_BanditLeaderSword1] = UpgradeCategories.LeaderBanditAxe1,
+    [Entities.CU_BanditSoldierSword1] = UpgradeCategories.SoldierBanditAxe1,
+    [Entities.CU_BanditLeaderSword2] = UpgradeCategories.LeaderBanditAxe2,
+    [Entities.CU_BanditSoldierSword2] = UpgradeCategories.SoldierBanditAxe2,
+    [Entities.PU_LeaderAxe1] = UpgradeCategories.LeaderAxe1,
+    [Entities.PU_SoldierAxe1] = UpgradeCategories.SoldierAxe1,
+    [Entities.PU_LeaderAxe2] = UpgradeCategories.LeaderAxe2,
+    [Entities.PU_SoldierAxe2] = UpgradeCategories.SoldierAxe2,
+    [Entities.PU_LeaderAxe3] = UpgradeCategories.LeaderAxe3,
+    [Entities.PU_SoldierAxe3] = UpgradeCategories.SoldierAxe3,
+    [Entities.PU_LeaderAxe4] = UpgradeCategories.LeaderAxe4,
+    [Entities.PU_SoldierAxe4] = UpgradeCategories.SoldierAxe4,
     -- Bow
     [Entities.CU_BanditLeaderBow1] = UpgradeCategories.BanditLeaderBow1,
     [Entities.CU_BanditSoldierBow1] = UpgradeCategories.BanditSoldierBow1,

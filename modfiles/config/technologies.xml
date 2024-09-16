@@ -344,8 +344,17 @@
 	<Technology>T_ChainBardingArmor</Technology>		
 	<Technology>T_PlateBardingArmor</Technology>	
 	<Technology>T_PaddedBardingArmor</Technology>	
-	<Technology>T_LeatherBaringArmor</Technology>		
-	
+	<Technology>T_LeatherBaringArmor</Technology>	
+
+
+    <!-- MPW -->	
+	<Technology>MU_LeaderAxe</Technology>
+    <Technology>MU_LeaderAxe2</Technology>
+    <Technology>MU_LeaderAxe3</Technology>
+    <Technology>MU_LeaderAxe4</Technology>
+	<Technology>T_UpgradeAxe1</Technology>
+    <Technology>T_UpgradeAxe2</Technology>
+    <Technology>T_UpgradeAxe3</Technology>
 
 
 <!-- Stronghold -->
