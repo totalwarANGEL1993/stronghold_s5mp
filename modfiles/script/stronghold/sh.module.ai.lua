@@ -18,6 +18,62 @@ Stronghold.AI = {
 -- -------------------------------------------------------------------------- --
 -- API
 
+-- Players --
+
+--- Returns the player ID reserved for the vagabond player.
+--- @return integer PlayerID ID of enemy player
+function GetVagabondPlayerID()
+    return Stronghold.AI.Config.VagabondPlayerID;
+end
+
+--- Returns the player color of the bandit player.
+--- @return integer ColorID ID of color
+function GetVagabondPlayerColor()
+    return Stronghold.AI.Config.VagabondPlayerColor;
+end
+
+--- Changes the bandit player. The passive player must be Max Human Player + 1.
+--- @param _PlayerID integer ID of player
+function SetVagabondPlayerID(_PlayerID)
+    local MaxHumanPlayers = GetMaxHumanPlayers();
+    assert(_PlayerID == MaxHumanPlayers +1, "Enemy player must be " ..(MaxHumanPlayers +1).. "!");
+    Stronghold.AI.Config.VagabondPlayerID = _PlayerID;
+end
+
+--- Changes the bandit player color.
+--- @param _ColorID integer ID of color
+function SetVagabondPlayerColor(_ColorID)
+    Stronghold.AI.Config.VagabondPlayerColor = _ColorID;
+    Display.SetPlayerColorMapping(GetVagabondPlayerID(), _ColorID);
+end
+
+--- Returns the player ID reserved for the passive player.
+--- @return integer PlayerID ID of neutral player
+function GetNeutralPlayerID()
+    return Stronghold.AI.Config.NeutralPlayerID;
+end
+
+--- Returns the neutral player color.
+--- @return integer ColorID ID of color
+function GetNeutralPlayerColor()
+    return Stronghold.AI.Config.NeutralPlayerColor;
+end
+
+--- Changes the passive player. The passive player must be Max Human Player + 2.
+--- @param _PlayerID integer ID of player
+function SetNeutralPlayerID(_PlayerID)
+    local MaxHumanPlayers = GetMaxHumanPlayers();
+    assert(_PlayerID == MaxHumanPlayers +2, "Neutral player must be " ..(MaxHumanPlayers +2).. "!");
+    Stronghold.AI.Config.NeutralPlayerID = _PlayerID;
+end
+
+--- Changes the neutral player color.
+--- @param _ColorID integer ID of color
+function SetNeutralPlayerColor(_ColorID)
+    Stronghold.AI.Config.NeutralPlayerColor = _ColorID;
+    Display.SetPlayerColorMapping(GetNeutralPlayerColor(), _ColorID);
+end
+
 -- Armies --
 
 --- Creates an battalion.
@@ -82,8 +138,13 @@ function BattalionCreateSpawningRefiller(_ID, _ScriptName, _Respawn, _Amount, ..
     return RefillerID;
 end
 
+--- NOT IMPLEMENTED!
 function BattalionCreateRecruitingRefiller(_ID, ...)
-    assert(false, "Not implemented");
+    local RefillerID = Stronghold.AI:BattalionCreateRecruitingRefiller(_ID, unpack(arg));
+    if RefillerID ~= 0 then
+        BattalionAddRefiller(_ID, RefillerID);
+    end
+    return RefillerID;
 end
 
 --- Adds an refiller to the battalion.
@@ -119,54 +180,61 @@ end
 --- @param _ID integer ID of battalion
 --- @return integer Plan Active plan
 function BattalionGetPlan(_ID)
-    return Stronghold.AI:BattalionGetPlan(_ID);
+    return Stronghold.AI:BattalionPlanGetPlan(_ID);
 end
 
 --- Cancels the current plan of the battalion.
 --- @param _ID integer ID of battalion
+--- @return boolean Canceled Plan is canceled
 function BattalionCancelPlan(_ID)
-    Stronghold.AI:BattalionCancelPlan(_ID);
+    return Stronghold.AI:Battalion_Plan_CancelPlan(_ID);
 end
 
 --- Activates the plan to retreat home.
 --- @param _ID integer ID of battalion
+--- @return boolean Activated Plan is activated
 function BattalionPlanRetreat(_ID)
-    Stronghold.AI:BattalionPlanRetreat(_ID);
+    return Stronghold.AI:BattalionStartPlanRetreat(_ID);
 end
 
 --- Activates the plan to advance to the position.
---- @param _ID integer   ID of battalion
---- @param _Target table Advance target
+--- @param _ID integer ID of battalion
+--- @param _Target any Advance target
+--- @return boolean Activated Plan is activated
 function BattalionPlanAdvance(_ID, _Target)
-    Stronghold.AI:BattalionPlanAdvance(_ID, _Target);
+    return Stronghold.AI:BattalionStartPlanAdvance(_ID, _Target);
 end
 
 --- Activates the plan to attack the target.
---- @param _ID integer   ID of battalion
---- @param _Target table Attack target
-function BattalionPlanAttack(_ID, _Target)
-    Stronghold.AI:BattalionPlanAttack(_ID, _Target);
+--- @param _ID integer ID of battalion
+--- @param _Target any Attack target
+--- @return boolean Activated Plan is activated
+function BattalionPlanRaid(_ID, _Target)
+    return Stronghold.AI:BattalionStartPlanRaid(_ID, _Target);
 end
 
 --- Activates the plan to attack any of the targets in order.
 --- @param _ID integer    ID of battalion
 --- @param _Targets table List of targets
-function BattalionPlanAttackMove(_ID, _Targets)
-    Stronghold.AI:BattalionPlanAttackMove(_ID, _Targets);
+--- @return boolean Activated Plan is activated
+function BattalionPlanAttack(_ID, _Targets)
+    return Stronghold.AI:BattalionStartPlanAttack(_ID, _Targets);
 end
 
---- Activates the plan to raid locations for the army.
+--- Activates the plan to intervene if foes are near positions.
 --- @param _ID integer    ID of battalion
 --- @param _Targets table List of targets
-function BattalionPlanRaid(_ID, _Targets)
-    Stronghold.AI:BattalionPlanRaid(_ID, _Targets);
+--- @return boolean Activated Plan is activated
+function BattalionPlanIntervene(_ID, _Area, _Targets)
+    return Stronghold.AI:BattalionStartPlanIntervene(_ID, _Area, _Targets);
 end
 
 --- Activates the plan to patrol between targets for the army.
 --- @param _ID integer    ID of battalion
 --- @param _Targets table List of targets
+--- @return boolean Activated Plan is activated
 function BattalionPlanPatrol(_ID, _Targets)
-    Stronghold.AI:BattalionPlanPatrol(_ID, _Targets);
+    return Stronghold.AI:BattalionStartPlanPatrol(_ID, _Targets);
 end
 
 -- Delinquents --
@@ -409,63 +477,6 @@ function Stronghold.AI:OnEveryTurnNoPlayer()
 end
 
 -- -------------------------------------------------------------------------- --
--- Player config
-
---- Returns the player ID reserved for the vagabond player.
---- @return integer PlayerID ID of enemy player
-function GetVagabondPlayerID()
-    return Stronghold.AI.Config.VagabondPlayerID;
-end
-
---- Returns the player color of the bandit player.
---- @return integer ColorID ID of color
-function GetVagabondPlayerColor()
-    return Stronghold.AI.Config.VagabondPlayerColor;
-end
-
---- Changes the bandit player. The passive player must be Max Human Player + 1.
---- @param _PlayerID integer ID of player
-function SetVagabondPlayerID(_PlayerID)
-    local MaxHumanPlayers = GetMaxHumanPlayers();
-    assert(_PlayerID == MaxHumanPlayers +1, "Enemy player must be " ..(MaxHumanPlayers +1).. "!");
-    Stronghold.AI.Config.VagabondPlayerID = _PlayerID;
-end
-
---- Changes the bandit player color.
---- @param _ColorID integer ID of color
-function SetVagabondPlayerColor(_ColorID)
-    Stronghold.AI.Config.VagabondPlayerColor = _ColorID;
-    Display.SetPlayerColorMapping(GetVagabondPlayerID(), _ColorID);
-end
-
---- Returns the player ID reserved for the passive player.
---- @return integer PlayerID ID of neutral player
-function GetNeutralPlayerID()
-    return Stronghold.AI.Config.NeutralPlayerID;
-end
-
---- Returns the neutral player color.
---- @return integer ColorID ID of color
-function GetNeutralPlayerColor()
-    return Stronghold.AI.Config.NeutralPlayerColor;
-end
-
---- Changes the passive player. The passive player must be Max Human Player + 2.
---- @param _PlayerID integer ID of player
-function SetNeutralPlayerID(_PlayerID)
-    local MaxHumanPlayers = GetMaxHumanPlayers();
-    assert(_PlayerID == MaxHumanPlayers +2, "Neutral player must be " ..(MaxHumanPlayers +2).. "!");
-    Stronghold.AI.Config.NeutralPlayerID = _PlayerID;
-end
-
---- Changes the neutral player color.
---- @param _ColorID integer ID of color
-function SetNeutralPlayerColor(_ColorID)
-    Stronghold.AI.Config.NeutralPlayerColor = _ColorID;
-    Display.SetPlayerColorMapping(GetNeutralPlayerColor(), _ColorID);
-end
-
--- -------------------------------------------------------------------------- --
 -- Army config
 
 function Stronghold.AI:OverwriteAiTargetConfig()
@@ -598,23 +609,25 @@ function Stronghold.AI:OverwriteAiSpeedConfig()
 end
 
 -- -------------------------------------------------------------------------- --
--- Invasions
+-- Battalions
 
 --- Battalion operation plans
+--- 
+--- @class BattalionPlan 
+--- @field None integer Ready for plan
+--- @field Retreat integer Fallback to base and then refill (if possible)
+--- @field Advance integer Advance to a position and stay
+--- @field Raid integer Raid a position, return home and refill (if possible)
+--- @field Attack integer Attack on path, return home and refill (if possible)
+--- @field Intervene integer Defend multiple positions, return home and refill (if possible)
+--- @field Patrol integer Patrol over positions in a endless loop
 BattalionPlan = {
-    -- Battalion is doing nothing
     None = 0,
-    -- Battalion is retreating
     Retreat = 1,
-    -- Battalion is advancing to a position
     Advance = 2,
-    -- Battalion is attacking a position
-    Attack = 3,
-    -- Battalion is on attack walk
-    AttackMove = 4,
-    -- Battalion is raiding locations
-    Raid = 5,
-    -- Battalion is patroling
+    Raid = 3,
+    Attack = 4,
+    Intervene = 5,
     Patrol = 6,
 }
 
@@ -653,8 +666,9 @@ end
 
 function Stronghold.AI:BattalionDestroy(_ID)
     if self.Data.Armies[_ID] then
-        local Data = Stronghold.AI.Data.Armies[_ID];
-        local AttackArmy = AiArmy.Get(Data.ArmyID);
+        --- @diagnostic disable-next-line: undefined-field
+        local ArmyID = self.Data.Armies[_ID].ArmyID;
+        local AttackArmy = AiArmy.Get(ArmyID);
         if AttackArmy then
             AttackArmy:Abandon(true);
             AttackArmy:Dispose();
@@ -665,9 +679,12 @@ end
 
 function Stronghold.AI:BattalionChangePlayer(_ID, _PlayerID)
     if self.Data.Armies[_ID] then
+        --- @diagnostic disable-next-line: undefined-field
         local ArmyID = self.Data.Armies[_ID].ArmyID;
         AiArmy.ChangePlayer(ArmyID, _PlayerID);
+        --- @diagnostic disable-next-line: undefined-field
         for i= 1, table.getn(self.Data.Armies[_ID].Refiller) do
+            --- @diagnostic disable-next-line: undefined-field
             local RefillerID = self.Data.Armies[_ID].Refiller[i];
             AiArmyRefiller.ChangePlayer(RefillerID, _PlayerID);
         end
@@ -680,13 +697,19 @@ function Stronghold.AI:BattalionController(_ID)
     end
 
     local Data = self.Data.Armies[_ID];
+    --- @diagnostic disable-next-line: undefined-field
     if AiArmy.IsArmyDoingNothing(Data.ArmyID) then
+        --- @diagnostic disable-next-line: inject-field
         self.Data.Armies[_ID].Plan = 0;
     else
         -- Army retreats
+        --- @diagnostic disable-next-line: undefined-field
         if Data.Plan > 1 then
+            --- @diagnostic disable-next-line: undefined-field
             if AiArmy.IsCommandOfTypeEnqueued(Data.ArmyID, AiArmyCommand.Fallback)
-            or AiArmy.IsCommandOfTypeActive(Data.ArmyID, AiArmyCommand.Finish) then
+            --- @diagnostic disable-next-line: undefined-field
+            or AiArmy.IsCommandOfTypeActive(Data.ArmyID, AiArmyCommand.Refill) then
+                --- @diagnostic disable-next-line: inject-field
                 self.Data.Armies[_ID].Plan = 1;
             end
         end
@@ -696,6 +719,7 @@ end
 function Stronghold.AI:BattalionAddTroop(_ID, _TroopID, _Reinforce)
     if self.Data.Armies[_ID] then
         local Data = self.Data.Armies[_ID];
+        --- @diagnostic disable-next-line: undefined-field
         return AiArmy.AddTroop(Data.ArmyID, _TroopID, _Reinforce);
     end
     return false;
@@ -703,6 +727,7 @@ end
 
 function Stronghold.AI:BattalionClearTroops(_ID)
     if self.Data.Armies[_ID] then
+        --- @diagnostic disable-next-line: undefined-field
         local Army = AiArmy.Get(self.Data.Armies[_ID].ArmyID);
         if Army then
             Army:Abandon(true);
@@ -714,6 +739,7 @@ end
 function Stronghold.AI:BattalionCreateSpawningRefiller(_ID, _ScriptName, _Respawn, _Amount, ...)
     if self.Data.Armies[_ID] then
         return AiArmyRefiller.CreateSpawner {
+            --- @diagnostic disable-next-line: undefined-field
             PlayerID = self.Data.Armies[_ID].PlayerID,
             ScriptName = _ScriptName,
             SpawnPoint = (IsExisting(_ScriptName .. "Spawn") and _ScriptName .. "Spawn") or nil,
@@ -725,11 +751,19 @@ function Stronghold.AI:BattalionCreateSpawningRefiller(_ID, _ScriptName, _Respaw
     return 0;
 end
 
+function Stronghold.AI:BattalionCreateRecruitingRefiller(_ID, ...)
+    assert(false, "Not implemented");
+    return 0;
+end
+
 function Stronghold.AI:BattalionAddRefiller(_ID, _RefillerID)
     if self.Data.Armies[_ID] then
         local Data = self.Data.Armies[_ID];
+        --- @diagnostic disable-next-line: undefined-field
         if not IsInTable(_RefillerID, Data.Refiller) then
+            --- @diagnostic disable-next-line: undefined-field
             table.insert(self.Data.Armies[_ID].Refiller, _RefillerID);
+            --- @diagnostic disable-next-line: undefined-field
             AiArmyRefiller.AddArmy(Data.ArmyID, _RefillerID);
             return true;
         end
@@ -740,9 +774,12 @@ end
 function Stronghold.AI:BattalionClearRefiller(_ID)
     if self.Data.Armies[_ID] then
         local Data = Stronghold.AI.Data.Armies[_ID];
+        --- @diagnostic disable-next-line: undefined-field
         for i= 1, table.getn(Data.Refiller) do
+            --- @diagnostic disable-next-line: undefined-field
             AiArmyRefiller.RemoveArmy(Data.Refiller[i], Data.ArmyID);
         end
+        --- @diagnostic disable-next-line: inject-field
         self.Data.Armies[_ID].Refiller = {};
         return true;
     end
@@ -757,13 +794,17 @@ function Stronghold.AI:BattalionIsAlive(_ID)
     if not self:BattalionIsExisting(_ID) then
         return false;
     end
+    --- @diagnostic disable-next-line: undefined-field
     if not AiArmy.IsInitallyFilled(self.Data.Armies[_ID].ArmyID) then
         return true;
     end
+    --- @diagnostic disable-next-line: undefined-field
     if AiArmy.IsAlive(self.Data.Armies[_ID].ArmyID) then
         return true;
     end
+    --- @diagnostic disable-next-line: undefined-field
     for i= 2, self.Data.Armies[_ID].Refiller[1] +1 do
+        --- @diagnostic disable-next-line: undefined-field
         if AiArmyRefiller.IsAlive(self.Data.Armies[_ID].Refiller[i]) then
             return true;
         end
@@ -771,105 +812,182 @@ function Stronghold.AI:BattalionIsAlive(_ID)
     return false;
 end
 
-function Stronghold.AI:BattalionGetPlan(_ID)
+function Stronghold.AI:BattalionPlanGetPlan(_ID)
     if self.Data.Armies[_ID] then
-        return self.Data.Armies[_ID].Plan;
+        --- @diagnostic disable-next-line: undefined-field
+        return self.Data.Armies[_ID].Plan or 0;
     end
     return 0;
 end
 
-function Stronghold.AI:BattalionCancelPlan(_ID)
-    if self.Data.Armies[_ID] then
-        local Data = self.Data.Armies[_ID];
-        AiArmy.ClearCommands(Data.ArmyID);
-        self.Data.Armies[_ID].Plan = BattalionPlan.None;
+function Stronghold.AI:Battalion_Plan_CancelPlan(_ID)
+    if not self.Data.Armies[_ID] then
+        return false;
     end
+    --- @diagnostic disable-next-line: undefined-field
+    local ArmyID = self.Data.Armies[_ID].ArmyID;
+    AiArmy.ClearCommands(ArmyID);
+    --- @diagnostic disable-next-line: inject-field
+    self.Data.Armies[_ID].Plan = BattalionPlan.None;
+    return true;
 end
 
-function Stronghold.AI:BattalionPlanRetreat(_ID)
-    if self.Data.Armies[_ID] then
-        local Data = self.Data.Armies[_ID];
-        AiArmy.ClearCommands(Data.ArmyID);
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Fallback), false);
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Refill), false);
-        self.Data.Armies[_ID].Plan = BattalionPlan.Retreat;
+function Stronghold.AI:BattalionStartPlanRetreat(_ID)
+    if not self.Data.Armies[_ID] then
+        return false;
     end
+    local Plan = self:BattalionPlanGetPlan(_ID);
+    if Plan ~= 0 then
+        return false;
+    end
+
+    --- @diagnostic disable-next-line: undefined-field
+    local ArmyID = self.Data.Armies[_ID].ArmyID;
+    AiArmy.ClearCommands(ArmyID);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Fallback), false);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Refill), false);
+    --- @diagnostic disable-next-line: inject-field
+    self.Data.Armies[_ID].Plan = BattalionPlan.Retreat;
+    return true;
 end
 
-function Stronghold.AI:BattalionPlanAdvance(_ID, _Target)
-    if self.Data.Armies[_ID] then
-        local Data = self.Data.Armies[_ID];
-        AiArmy.ClearCommands(Data.ArmyID);
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Target), false);
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, _Target), false);
-        self.Data.Armies[_ID].Plan = BattalionPlan.Advance;
+function Stronghold.AI:BattalionStartPlanAdvance(_ID, _Target)
+    if not self.Data.Armies[_ID] then
+        return false;
     end
+    local Plan = self:BattalionPlanGetPlan(_ID);
+    if Plan ~= 0 then
+        return false;
+    end
+
+    --- @diagnostic disable-next-line: undefined-field
+    local ArmyID = self.Data.Armies[_ID].ArmyID;
+    AiArmy.ClearCommands(ArmyID);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Target), false);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, _Target), false);
+    --- @diagnostic disable-next-line: inject-field
+    self.Data.Armies[_ID].Plan = BattalionPlan.Advance;
+    return true;
 end
 
-function Stronghold.AI:BattalionPlanAttack(_ID, _Target)
-    if self.Data.Armies[_ID] then
-        local Data = self.Data.Armies[_ID];
-        AiArmy.ClearCommands(Data.ArmyID);
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Target), false);
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, _Target), false);
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
-        self.Data.Armies[_ID].Plan = BattalionPlan.Attack;
+function Stronghold.AI:BattalionStartPlanRaid(_ID, _Target)
+    if not self.Data.Armies[_ID] then
+        return false;
     end
+    local Plan = self:BattalionPlanGetPlan(_ID);
+    if Plan ~= 0 then
+        return false;
+    end
+
+    --- @diagnostic disable-next-line: undefined-field
+    local ArmyID = self.Data.Armies[_ID].ArmyID;
+    AiArmy.ClearCommands(ArmyID);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Target), false);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, _Target), false);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Refill), false);
+    --- @diagnostic disable-next-line: inject-field
+    self.Data.Armies[_ID].Plan = BattalionPlan.Raid;
+    return true;
 end
 
-function Stronghold.AI:BattalionPlanAttackMove(_ID, _Targets)
-    if self.Data.Armies[_ID] then
-        local Data = self.Data.Armies[_ID];
-        local PathSize = table.getn(_Targets);
-        assert(PathSize > 0, "Attack path is empty!");
-        AiArmy.ClearCommands(Data.ArmyID);
-        for i= 1, PathSize do
-            AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, _Targets[i]), false);
-            if i == PathSize then
-                AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, _Targets[i]), false);
+function Stronghold.AI:BattalionStartPlanAttack(_ID, _Targets)
+    if not self.Data.Armies[_ID] then
+        return false;
+    end
+    local Plan = self:BattalionPlanGetPlan(_ID);
+    if Plan ~= 0 then
+        return false;
+    end
+
+    --- @diagnostic disable-next-line: undefined-field
+    local ArmyID = self.Data.Armies[_ID].ArmyID;
+    local PathSize = table.getn(_Targets);
+    assert(PathSize > 0, "Attack path is empty!");
+    AiArmy.ClearCommands(ArmyID);
+    for i= 1, PathSize do
+        AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, _Targets[i]), false);
+        if i == PathSize then
+            AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, _Targets[i]), false);
+        end
+    end
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Refill), false);
+    --- @diagnostic disable-next-line: inject-field
+    self.Data.Armies[_ID].Plan = BattalionPlan.Attack;
+    return true;
+end
+
+function Stronghold.AI:BattalionStartPlanIntervene(_ID, _Area, _Targets)
+    if not self.Data.Armies[_ID] then
+        return false;
+    end
+    local Plan = self:BattalionPlanGetPlan(_ID);
+    if Plan ~= 0 then
+        return false;
+    end
+
+    --- @diagnostic disable-next-line: undefined-field
+    local ArmyID = self.Data.Armies[_ID].ArmyID;
+    --- @diagnostic disable-next-line: undefined-field
+    local HomePosition = self.Data.Armies[_ID].HomePosition;
+    local TargetSize = table.getn(arg);
+    assert(TargetSize > 0, "Intervene targets are empty!");
+    AiArmy.ClearCommands(ArmyID.ArmyID);
+    local ControlCommand = function(_Army, ...)
+        local Filter = {"Cannon", "DefendableBuilding", "Hero", "Leader", "MilitaryBuilding", "Serf"};
+        local Priority = {};
+        -- Get enemies
+        for i= 2, table.getn(arg) do
+            local Enemies = AiArmy.GetEnemiesInCircle(_Army.ID, arg[i], _Area, Filter);
+            if Enemies[1] then
+                local Allies = GetAlliesInArea(_Army.PlayerID, GetPosition(arg[i]), _Area);
+                table.insert(Priority, {arg[i], Enemies, table.getn(Enemies), table.getn(Allies)});
             end
         end
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false);
-        self.Data.Armies[_ID].Plan = BattalionPlan.AttackMove;
+        -- Priority by enemy to ally ratio
+        table.sort(Priority, function(a, b)
+            return a[3] - a[4] > b[3] - b[4];
+        end);
+        -- Create behavior
+        if Priority[1] then
+            local Position = Priority[1][1];
+            AiArmy.PushCommand(_Army.ID, AiArmy.CreateCommand(AiArmyCommand.Refill), false, 1);
+            AiArmy.PushCommand(_Army.ID, AiArmy.CreateCommand(AiArmyCommand.Move), false, 1);
+            AiArmy.PushCommand(_Army.ID, AiArmy.CreateCommand(AiArmyCommand.Battle, Position), false, 1);
+            AiArmy.PushCommand(_Army.ID, AiArmy.CreateCommand(AiArmyCommand.Advance, Position), false, 1);
+            return true;
+        end
+        return false;
     end
+    AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 30, HomePosition), true);
+    AiArmy.PushCommand(ArmyID.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Custom, ControlCommand, unpack(_Targets)), true);
+    --- @diagnostic disable-next-line: inject-field
+    self.Data.Armies[_ID].Plan = BattalionPlan.Intervene;
+    return true;
 end
 
-function Stronghold.AI:BattalionPlanRaid(_ID, _Targets)
-    if self.Data.Armies[_ID] then
-        local Data = self.Data.Armies[_ID];
-        local TargetSize = table.getn(arg);
-        assert(TargetSize > 0, "Raid targets are empty!");
-        AiArmy.ClearCommands(Data.ArmyID);
-        local ControlCommand = function(_Army, ...)
-            for i= 2, table.getn(arg) do
-                local Filter = {"Cannon", "DefendableBuilding", "Hero", "Leader", "MilitaryBuilding", "Serf"};
-                local Enemies = AiArmy.GetEnemiesInCircle(Data.ArmyID, arg[i], _Army.RodeLength, Filter);
-                if Enemies[1] then
-                    AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Advance, arg[i]), false, 1);
-                    AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Battle, arg[i]), false, 1);
-                    AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move), false, 1);
-                    return true;
-                end
-            end
-            return false;
-        end
-        AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Custom, ControlCommand, unpack(_Targets)), true);
-        self.Data.Armies[_ID].Plan = BattalionPlan.Raid;
+function Stronghold.AI:BattalionStartPlanPatrol(_ID, _Targets)
+    if not self.Data.Armies[_ID] then
+        return false;
     end
-end
+    local Plan = self:BattalionPlanGetPlan(_ID);
+    if Plan ~= 0 then
+        return false;
+    end
 
-function Stronghold.AI:BattalionPlanPatrol(_ID, _Targets)
-    if self.Data.Armies[_ID] then
-        local Data = self.Data.Armies[_ID];
-        local PathSize = table.getn(_Targets);
-        assert(PathSize > 0, "Attack path is empty!");
-        AiArmy.ClearCommands(Data.ArmyID);
-        for i= 1, PathSize do
-            AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Targets[i]), true);
-            AiArmy.PushCommand(Data.ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 3*60, _Targets[i]), true);
-        end
-        self.Data.Armies[_ID].Plan = BattalionPlan.Patrol;
+    --- @diagnostic disable-next-line: undefined-field
+    local ArmyID = self.Data.Armies[_ID].ArmyID;
+    local PathSize = table.getn(_Targets);
+    assert(PathSize > 0, "Patrol path is empty!");
+    AiArmy.ClearCommands(ArmyID);
+    for i= 1, PathSize do
+        AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Move, _Targets[i]), true);
+        AiArmy.PushCommand(ArmyID, AiArmy.CreateCommand(AiArmyCommand.Wait, 30, _Targets[i]), true);
     end
+    --- @diagnostic disable-next-line: inject-field
+    self.Data.Armies[_ID].Plan = BattalionPlan.Patrol;
+    return true;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -929,11 +1047,14 @@ function Stronghold.AI:DelinquentsCampController(_ID)
     end
 
     -- Control attacking
+    --- @diagnostic disable-next-line: undefined-field
     local AttackArmyID = self.Data.Delinquents[_ID].AttackArmyID or 0;
     if AttackArmyID > 0 then
         if AiArmy.IsArmyDoingNothing(AttackArmyID) then
+            --- @diagnostic disable-next-line: undefined-field
             if self.Data.Delinquents[_ID].AttackAllowed then
                 local RodeLength = AiArmy.GetRodeLength(AttackArmyID);
+                --- @diagnostic disable-next-line: undefined-field
                 local Targets = self.Data.Delinquents[_ID].AttackTargets;
                 if Targets[1] > 0 then
                     local Index = math.random(2, Targets[1] +1);
@@ -956,10 +1077,12 @@ function Stronghold.AI:DelinquentsCampController(_ID)
     end
 
     -- Control defending
+    --- @diagnostic disable-next-line: undefined-field
     local DefendArmyID = self.Data.Delinquents[_ID].DefendArmyID or 0;
     if DefendArmyID > 0 then
         if AiArmy.IsArmyDoingNothing(DefendArmyID) then
             local HomePosition = AiArmy.GetHomePosition(DefendArmyID);
+            --- @diagnostic disable-next-line: undefined-field
             local GuardPos = CopyTable(self.Data.Delinquents[_ID].DefendTargets);
             local PositionCount = table.remove(GuardPos, 1);
             if PositionCount > 0 then
