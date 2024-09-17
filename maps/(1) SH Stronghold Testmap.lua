@@ -77,7 +77,8 @@ SHS5MP_RulesDefinition = {
         CreateProvince2();
         CreateProvince3();
 
-        CreateCamp1();
+        -- CreateCamp1();
+        CreateArmy1();
     end,
 
     -- Called after peacetime is over
@@ -89,6 +90,46 @@ SHS5MP_RulesDefinition = {
         UseWeatherSet("EuropeanWeatherSet");
     end,
 }
+
+-- -------------------------------------------------------------------------- --
+-- Armies
+
+function CreateArmy1()
+    Army1ID = BattalionCreate {
+        PlayerID     = 2,
+        HomePosition = "TestCamp1",
+        Strength     = 8,
+        RodeLength   = 3000,
+    }
+end
+
+function FillArmy1()
+    local TroopID = 0;
+    local Position = GetPosition("TestCamp1Spawn");
+    BattalionClearTroops(Army1ID)
+    TroopID = AI.Entity_CreateFormation(2, Entities.PU_LeaderAxe1, 0, 6, Position.X, Position.Y, 0, 0, 3, 0);
+    BattalionAddTroop(Army1ID, TroopID, true);
+    TroopID = AI.Entity_CreateFormation(2, Entities.PU_LeaderAxe1, 0, 6, Position.X, Position.Y, 0, 0, 3, 0);
+    BattalionAddTroop(Army1ID, TroopID, true);
+    TroopID = AI.Entity_CreateFormation(2, Entities.PU_LeaderAxe1, 0, 6, Position.X, Position.Y, 0, 0, 3, 0);
+    BattalionAddTroop(Army1ID, TroopID, true);
+end
+
+function StopPlanArmy1()
+    BattalionCancelPlan(Army1ID);
+end
+
+function StartPlanAdvanceArmy1()
+    BattalionPlanAdvance(Army1ID, "WP1");
+end
+
+function StartPlanPatrolArmy1()
+    BattalionPlanPatrol(Army1ID, {"GP1", "GP2", "GP3", "GP4"});
+end
+
+function StartPlanAttackWalkArmy1()
+    BattalionPlanAttackMove(Army1ID, {"WP1", "WP2", "WP3", "WP4", "PlayerHome"});
+end
 
 -- -------------------------------------------------------------------------- --
 -- Camps

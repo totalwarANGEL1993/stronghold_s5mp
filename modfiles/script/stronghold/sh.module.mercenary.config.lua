@@ -27,22 +27,22 @@ Stronghold.Mercenary.Config = {
             RefillTime = 180,
             MaxAmount  = 2,
         },
-        [Entities.PU_LeaderSword1]              = {
+        [Entities.PU_LeaderAxe1]                = {
             Button     = "Buy_LeaderSword",
             RefillTime = 90,
             MaxAmount  = 4,
         },
-        [Entities.PU_LeaderSword2]              = {
+        [Entities.PU_LeaderAxe2]                = {
             Button     = "Buy_LeaderSword",
             RefillTime = 90,
             MaxAmount  = 4,
         },
-        [Entities.PU_LeaderSword3]              = {
+        [Entities.PU_LeaderAxe3]                = {
             Button     = "Buy_LeaderSword",
             RefillTime = 180,
             MaxAmount  = 2,
         },
-        [Entities.PU_LeaderSword4]              = {
+        [Entities.PU_LeaderAxe4]                = {
             Button     = "Buy_LeaderSword",
             RefillTime = 180,
             MaxAmount  = 2,
