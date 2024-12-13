@@ -28,11 +28,11 @@
 
         <Upgrade>
             <Category>DarkBallistaTower</Category>
-            <Time>20.0</Time>
+            <Time>30.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood/>
-                <Stone>300</Stone>
+                <Stone>100</Stone>
                 <Gold/>
                 <Iron>0</Iron>
                 <Sulfur>300</Sulfur>
@@ -43,6 +43,14 @@
         
         <ConstructionInfo>
             <Time>90</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>250</Wood>
+                <Stone>250</Stone>
+                <Gold>0</Gold>
+                <Iron>100</Iron>
+                <Sulfur>0</Sulfur>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>100</X>

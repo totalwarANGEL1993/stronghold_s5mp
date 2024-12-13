@@ -35,11 +35,11 @@
 
         <Upgrade>
             <Category>Farm</Category>
-            <Time>50.0</Time>
+            <Time>75.0</Time>
             <Cost>
-                <Clay>50</Clay>
-                <Wood>150</Wood>
-                <Stone>250</Stone>
+                <Clay>200</Clay>
+                <Wood>0</Wood>
+                <Stone>100</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -49,6 +49,15 @@
         <UpgradeSite>ZB_UpgradeSiteFarm1</UpgradeSite>
 
         <ConstructionInfo>
+            <Time>90</Time>
+            <Cost>
+                <Clay>50</Clay>
+                <Wood>200</Wood>
+                <Stone>100</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>-400</X>

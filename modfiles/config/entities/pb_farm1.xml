@@ -33,11 +33,11 @@
 
 
         <Upgrade>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Cost>
-                <Clay>150</Clay>
-                <Wood>75</Wood>
-                <Stone>75</Stone>
+                <Clay>0</Clay>
+                <Wood>100</Wood>
+                <Stone>100</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -50,8 +50,8 @@
         <ConstructionInfo>
             <Time>80</Time>
             <Cost>
-                <Clay>100</Clay>
-                <Wood>50</Wood>
+                <Clay>50</Clay>
+                <Wood>100</Wood>
                 <Stone>0</Stone>
                 <Gold/>
                 <Iron/>

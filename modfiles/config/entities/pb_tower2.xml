@@ -28,14 +28,14 @@
 
         <Upgrade>
             <Category>BallistaTower</Category>
-            <Time>20.0</Time>
+            <Time>30.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood/>
-                <Stone>250</Stone>
+                <Stone>100</Stone>
                 <Gold/>
-                <Iron>50</Iron>
-                <Sulfur>250</Sulfur>
+                <Iron>0</Iron>
+                <Sulfur>300</Sulfur>
             </Cost>
             <Type>PB_Tower3</Type>
         </Upgrade>

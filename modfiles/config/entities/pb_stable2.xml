@@ -33,6 +33,15 @@
         <UpgradeSite>ZB_UpgradeSiteStables1</UpgradeSite>
 
         <ConstructionInfo>
+            <Time>120</Time>
+            <Cost>
+                <Clay>100</Clay>
+                <Wood>200</Wood>
+                <Stone>400</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>600</X>

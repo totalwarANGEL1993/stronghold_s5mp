@@ -56,6 +56,16 @@
         <UpgradeSite>ZB_UpgradeSite4</UpgradeSite>
 
         <ConstructionInfo>
+            <Time>120</Time>
+            <Cost>
+                <Silver>100</Silver>
+                <Clay>750</Clay>
+                <Wood>150</Wood>
+                <Stone>100</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>400</X>

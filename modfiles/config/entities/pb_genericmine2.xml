@@ -16,13 +16,13 @@
         <BuildOn>XD_SulfurPit1</BuildOn>
         <BuildOn>XD_ClayPit1</BuildOn>
         <Upgrade>
-            <Category>GenericMine1</Category>
+            <Category>GenericMine2</Category>
         </Upgrade>
         <ConstructionInfo>
             <Cost>
                 <Clay>150</Clay>
-                <Wood>100</Wood>
-                <Stone>0</Stone>
+                <Wood>200</Wood>
+                <Stone>150</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>
@@ -34,27 +34,27 @@
             <Class>GGL::CResourceDependentBuildingBehavior</Class>
             <Building>
                 <Resource>XD_ClayPit1</Resource>
-                <Type>PB_ClayMine1</Type>
+                <Type>PB_ClayMine2</Type>
             </Building>
             <Building>
                 <Resource>XD_IronPit1</Resource>
-                <Type>PB_IronMine1</Type>
+                <Type>PB_IronMine2</Type>
             </Building>
             <Building>
                 <Resource>XD_StonePit1</Resource>
-                <Type>PB_StoneMine1</Type>
+                <Type>PB_StoneMine2</Type>
             </Building>
             <Building>
                 <Resource>XD_StonePit2</Resource>
-                <Type>PB_StoneMine1</Type>
+                <Type>PB_StoneMine2</Type>
             </Building>
             <Building>
                 <Resource>XD_SulfurPit1</Resource>
-                <Type>PB_SulfurMine1</Type>
+                <Type>PB_SulfurMine2</Type>
             </Building>
             <Building>
                 <Resource>XD_ClayPit1</Resource>
-                <Type>PB_ClayMine1</Type>
+                <Type>PB_ClayMine2</Type>
             </Building>
         </Logic>
     </Behavior>

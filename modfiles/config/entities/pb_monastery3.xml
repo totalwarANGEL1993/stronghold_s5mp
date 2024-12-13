@@ -1,65 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Monastery3</Model>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <Category>Workplace</Category>
-		  <Category>DefendableBuilding</Category>  
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>
-		  <MaxHealth>4500</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>5</ArmorAmount> 
-		 
-		
-  <!-- Armor -->
-		  <ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-		  		
-		
-  <!-- Exploration-->
-		  <ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		   
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Monastery3</Model>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <Category>Workplace</Category>
+        <Category>DefendableBuilding</Category>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <MaxHealth>4500</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>5</ArmorAmount>
         <Worker>PU_Priest</Worker>
         <MaxWorkers>10</MaxWorkers>
-        <InitialMaxWorkers>10</InitialMaxWorkers>		
-		  <WorkTaskList>
-		    <Start>TL_PRIEST_WORK4_START</Start> 
-		    <Work>TL_PRIEST_WORK4</Work> 
-		</WorkTaskList>
-		  <WorkTaskList>
-		    <Start>TL_PRIEST_WORK5_START</Start> 
-		    <Work>TL_PRIEST_WORK5</Work> 
-		</WorkTaskList>
-		  <WorkTaskList>
-		    <Start>TL_PRIEST_WORK_INSIDE_START</Start> 
-		    <Work>TL_PRIEST_WORK_INSIDE</Work> 
-		</WorkTaskList>
-		  <Exploration>30</Exploration>
-		  <Upgrade>
-			  <Category>Monastery</Category> 
-		</Upgrade>
-        <ConstructionInfo>
-            
+        <InitialMaxWorkers>10</InitialMaxWorkers>
+        <WorkTaskList>
+            <Start>TL_PRIEST_WORK4_START</Start>
+            <Work>TL_PRIEST_WORK4</Work>
+        </WorkTaskList>
+        <WorkTaskList>
+            <Start>TL_PRIEST_WORK5_START</Start>
+            <Work>TL_PRIEST_WORK5</Work>
+        </WorkTaskList>
+        <WorkTaskList>
+            <Start>TL_PRIEST_WORK_INSIDE_START</Start>
+            <Work>TL_PRIEST_WORK_INSIDE</Work>
+        </WorkTaskList>
+        <Exploration>30</Exploration>
 
-      
-<!--Time>80</Time>
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
+        <Upgrade>
+            <Category>Monastery</Category>
+        </Upgrade>
+
+        <ConstructionInfo>
+            <Time>140</Time>
             <Cost>
-				    <Clay>800</Clay>
-				    <Wood>60</Wood>
-				<Stone></Stone>
-				<Gold></Gold>
-				<Iron></Iron>
-				<Sulfur></Sulfur>
-            </Cost-->
-           <BuilderSlot>
+                <Clay>0</Clay>
+                <Wood>1100</Wood>
+                <Stone>1650</Stone>
+                <Gold>500</Gold>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
+            <BuilderSlot>
                 <Position>
                     <X>-700</X>
                     <Y>600</Y>
@@ -100,7 +97,7 @@
                     <Y>-900</Y>
                 </Position>
                 <Orientation>90</Orientation>
-            </BuilderSlot>            
+            </BuilderSlot>
             <BuilderSlot>
                 <Position>
                     <X>-100</X>
@@ -114,19 +111,19 @@
                     <Y>-900</Y>
                 </Position>
                 <Orientation>90</Orientation>
-            </BuilderSlot>          
+            </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteMonastery1</ConstructionSite>
         </ConstructionInfo>
-       <ApproachPos>
+        <ApproachPos>
             <X>-700</X>
             <Y>200</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>-480</X>
-            <Y>195</Y>			
+            <Y>195</Y>
         </DoorPos>
-        
+
         <Blocked1>
             <X>-600</X>
             <Y>700</Y>
@@ -142,51 +139,51 @@
         <TerrainPos2>
             <X>800</X>
             <Y>-900</Y>
-        </TerrainPos2>  
-        		
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>63</NumDamageEffects>
-			  <NumDestroyEffects>34</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	
-	<Behavior>
-	    <Logic classname="GGL::CAffectMotivationBehaviorProps">
-	        <Class>GGL::CAffectMotivationBehavior</Class>
-	        <MotivationEffect>0.15</MotivationEffect>
-	    </Logic>
-	</Behavior>
-	
-	<Behavior>
-	    <Logic classname="GGL::CDefendableBuildingBehaviorProps">
-	        <Class>GGL::CDefendableBuildingBehavior</Class>
-	    </Logic>
-	</Behavior>
-	
-	 <Behavior>
-		  <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
-			  <Class>GGL::CLimitedAttachmentBehavior</Class>           
+        </TerrainPos2>
+
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>63</NumDamageEffects>
+            <NumDestroyEffects>34</NumDestroyEffects>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CAffectMotivationBehaviorProps">
+            <Class>GGL::CAffectMotivationBehavior</Class>
+            <MotivationEffect>0.15</MotivationEffect>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CDefendableBuildingBehaviorProps">
+            <Class>GGL::CDefendableBuildingBehavior</Class>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_DEFENDER_BUILDING</Type>
                 <Limit>20</Limit>
             </Attachment>
-		</Logic>		 
-	</Behavior>
+        </Logic>
+    </Behavior>
 
 
 

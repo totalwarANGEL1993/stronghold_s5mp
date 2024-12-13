@@ -43,7 +43,7 @@
 
         <Upgrade>
             <Category>Monastery</Category>
-            <Time>60.0</Time>
+            <Time>90.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>400</Wood>

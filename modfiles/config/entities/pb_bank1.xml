@@ -39,7 +39,7 @@
 
         <Upgrade>
             <Category>Bank</Category>
-            <Time>40</Time>
+            <Time>60</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood/>
@@ -57,7 +57,7 @@
             <Cost>
                 <Clay>0</Clay>
                 <Wood>200</Wood>
-                <Stone>400</Stone>
+                <Stone>300</Stone>
                 <Gold/>
                 <Iron>100</Iron>
                 <Sulfur/>

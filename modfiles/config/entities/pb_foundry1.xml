@@ -48,7 +48,7 @@
         <Exploration>30</Exploration>
         <Upgrade>
             <Category>Foundry</Category>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
 
             <Cost>
                 <Clay>200</Clay>

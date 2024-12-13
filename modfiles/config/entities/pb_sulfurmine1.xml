@@ -41,7 +41,7 @@
             <Work>TL_MINER_SULFURMINE_WORK_INSIDE</Work>
         </WorkTaskList>
         <Upgrade>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Category>SulfurMine</Category>
             <Cost>
                 <Clay/>
@@ -55,7 +55,7 @@
         </Upgrade>
         <Exploration>30</Exploration>
         <ConstructionInfo>
-            <Time>110</Time>
+            <Time>80</Time>
             <BuilderSlot>
                 <Position>
                     <X>700</X>

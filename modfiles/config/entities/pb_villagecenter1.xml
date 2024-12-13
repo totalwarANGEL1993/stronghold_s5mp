@@ -31,7 +31,7 @@
         <BuildOn>XD_VillageCenter</BuildOn>
         <HideBase>true</HideBase>
         <Upgrade>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Category>VillageCenter</Category>
             <Cost>
                 <Clay>0</Clay>

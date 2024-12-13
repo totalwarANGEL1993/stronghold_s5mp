@@ -41,7 +41,7 @@
 
         <Upgrade>
             <Category>GunsmithWorkshop</Category>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Cost>
                 <Clay>100</Clay>
                 <Wood>200</Wood>

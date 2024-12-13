@@ -1329,4 +1329,6 @@
         <Entity>XD_Bomb_Hero2</Entity>
         <Entity>XD_Bomb_PitchPit</Entity>
         <Entity>XD_Bomb_Traphole</Entity>
+        <Entity>PB_GenericMine2</Entity>
+        <Entity>PB_GenericMine3</Entity>
 </root>

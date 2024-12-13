@@ -20,6 +20,15 @@
         <MaxWorkers>9</MaxWorkers>
         <InitialMaxWorkers>9</InitialMaxWorkers>
         <Category>ClaySupplier</Category>
+        <Exploration>30</Exploration>
+        <WorkTaskList>
+            <Start>TL_MINER_CLAYMINE_WORK2_START</Start>
+            <Work>TL_MINER_CLAYMINE_WORK2</Work>
+        </WorkTaskList>
+        <WorkTaskList>
+            <Start>TL_MINER_CLAYMINE_WORK_INSIDE_START</Start>
+            <Work>TL_MINER_CLAYMINE_WORK_INSIDE</Work>
+        </WorkTaskList>
 
 
         <ModifyArmor>
@@ -31,19 +40,12 @@
         </ModifyExploration>
 
 
-        <WorkTaskList>
-            <Start>TL_MINER_CLAYMINE_WORK2_START</Start>
-            <Work>TL_MINER_CLAYMINE_WORK2</Work>
-        </WorkTaskList>
-        <WorkTaskList>
-            <Start>TL_MINER_CLAYMINE_WORK_INSIDE_START</Start>
-            <Work>TL_MINER_CLAYMINE_WORK_INSIDE</Work>
-        </WorkTaskList>
-        <Exploration>30</Exploration>
         <Upgrade>
             <Category>ClayMine</Category>
         </Upgrade>
+
         <ConstructionInfo>
+            <Time>80</Time>
             <BuilderSlot>
                 <Position>
                     <X>1000</X>

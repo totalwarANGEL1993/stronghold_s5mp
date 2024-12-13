@@ -51,7 +51,7 @@
         </WorkTaskList>
         <Upgrade>
             <Category>StoneMine</Category>
-            <Time>50.0</Time>
+            <Time>75.0</Time>
             <Cost>
                 <Clay>200</Clay>
                 <Wood/>
@@ -64,6 +64,7 @@
         </Upgrade>
         <Exploration>15</Exploration>
         <ConstructionInfo>
+            <Time>80</Time>
             <BuilderSlot>
                 <Position>
                     <X>-500</X>

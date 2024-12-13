@@ -1,51 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Barracks2</Model>
-		  <Anim>PB_Barracks2_600</Anim>
-		  <Anim>PB_Barracks2_601</Anim>
-		  <Anim>PB_Barracks2_602</Anim>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>		  
-		  <Category>Barracks</Category>
-      <Category>MilitaryBuilding</Category>
-      <Category>SerfConversionBuilding</Category>
-		  <MaxHealth>2000</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>4</ArmorAmount>
-		  
-		<!-- Armor -->
-		<ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-				
-		<!-- Exploration-->
-		<ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		
-        <Upgrade>
-			  <Category>Barracks</Category> 			  
-		</Upgrade>
-		  <Exploration>30</Exploration>
-        <ConstructionInfo>
-            
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Barracks2</Model>
+        <Anim>PB_Barracks2_600</Anim>
+        <Anim>PB_Barracks2_601</Anim>
+        <Anim>PB_Barracks2_602</Anim>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Category>Barracks</Category>
+        <Category>MilitaryBuilding</Category>
+        <Category>SerfConversionBuilding</Category>
+        <MaxHealth>2000</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>4</ArmorAmount>
+        <Exploration>30</Exploration>
 
-      
-<!--Time>50</Time>
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
+        <Upgrade>
+            <Category>Barracks</Category>
+        </Upgrade>
+
+        <ConstructionInfo>
+            <Time>90</Time>
             <Cost>
-				    <Clay>300</Clay>
-				    <Wood>60</Wood>
-				<Stone></Stone>
-				<Gold></Gold>
-				<Iron></Iron>
-				<Sulfur></Sulfur>
-            </Cost-->
+                <Clay>100</Clay>
+                <Wood>200</Wood>
+                <Stone>400</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>200</X>
@@ -87,22 +85,22 @@
                     <Y>800</Y>
                 </Position>
                 <Orientation>290</Orientation>
-            </BuilderSlot>             
+            </BuilderSlot>
             <ConstructionSite>ZB_ConstructionSiteBarracks1</ConstructionSite>
         </ConstructionInfo>
-        
-        
+
+
         <ApproachPos>
             <X>-800</X>
             <Y>-300</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>-700</X>
             <Y>-350</Y>
         </DoorPos>
-        
- 		<Blocked1>
+
+        <Blocked1>
             <X>-700</X>
             <Y>700</Y>
         </Blocked1>
@@ -117,39 +115,39 @@
         <TerrainPos2>
             <X>800</X>
             <Y>-800</Y>
-        </TerrainPos2>	
-        
-        
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>31</NumDamageEffects>
-			  <NumDestroyEffects>39</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	<Behavior>
-		  <Logic classname="GGL::CBarrackBehaviorProperties">
-			  <Class>GGL::CBarrackBehavior</Class>
-			  <LeaveTaskList>TL_LEAVE_BARRACKS</LeaveTaskList>
-			  <TrainingTime>30</TrainingTime>
-			  <TrainingTaskList>TL_TRAIN1_BARRACKS2</TrainingTaskList>
-			  <TrainingTaskList>TL_TRAIN2_BARRACKS2</TrainingTaskList>
-			  <TrainingTaskList>TL_TRAIN3_BARRACKS2</TrainingTaskList>
-		</Logic>
-	</Behavior>
+        </TerrainPos2>
+
+
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>31</NumDamageEffects>
+            <NumDestroyEffects>39</NumDestroyEffects>
+        </Display>
+    </Behavior>
+    <Behavior>
+        <Logic classname="GGL::CBarrackBehaviorProperties">
+            <Class>GGL::CBarrackBehavior</Class>
+            <LeaveTaskList>TL_LEAVE_BARRACKS</LeaveTaskList>
+            <TrainingTime>30</TrainingTime>
+            <TrainingTaskList>TL_TRAIN1_BARRACKS2</TrainingTaskList>
+            <TrainingTaskList>TL_TRAIN2_BARRACKS2</TrainingTaskList>
+            <TrainingTaskList>TL_TRAIN3_BARRACKS2</TrainingTaskList>
+        </Logic>
+    </Behavior>
 
 
 

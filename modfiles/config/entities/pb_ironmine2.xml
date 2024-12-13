@@ -47,7 +47,7 @@
         </WorkTaskList>
         <Upgrade>
             <Category>IronMine</Category>
-            <Time>50.0</Time>
+            <Time>75.0</Time>
 
             <Cost>
                 <Clay>200</Clay>
@@ -61,6 +61,7 @@
         </Upgrade>
         <Exploration>30</Exploration>
         <ConstructionInfo>
+            <Time>80</Time>
 
             <BuilderSlot>
                 <Position>

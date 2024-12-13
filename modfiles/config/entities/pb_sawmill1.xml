@@ -42,7 +42,7 @@
 
         <Upgrade>
             <Category>Sawmill</Category>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Cost>
                 <Clay>200</Clay>
                 <Wood/>

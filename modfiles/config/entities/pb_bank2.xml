@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <root>
-	<Display classname="ED::CDisplayEntityProps">
-		  <Class>ED::CDisplayBuilding</Class>
-		  <Model>PB_Bank2</Model>
-		  <Anim>PB_Bank2_safe_601</Anim>
-	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		  <Class>GGL::CBuilding</Class>
-		  <AccessCategory>AccessCategoryBuilding</AccessCategory>
-		  <NeedsPlayer>true</NeedsPlayer>
-		  <ForceNoPlayer>false</ForceNoPlayer>		  
-      <Category>Workplace</Category>
-      <Category>DefendableBuilding</Category>  
-		  <MaxHealth>1700</MaxHealth>
-		  <ArmorClass>ArmorClassFortification</ArmorClass> 
-		  <ArmorAmount>5</ArmorAmount>
-		
-		
-  <!-- Armor -->
-		  <ModifyArmor>
-		  	<Technology>T_Masonry</Technology>		  
-		</ModifyArmor>     
-				
-		
-  <!-- Exploration-->
-		  <ModifyExploration>
-        	<Technology>T_TownGuard</Technology>
-        </ModifyExploration>   
-		
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayBuilding</Class>
+        <Model>PB_Bank2</Model>
+        <Anim>PB_Bank2_safe_601</Anim>
+    </Display>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryBuilding</AccessCategory>
+        <NeedsPlayer>true</NeedsPlayer>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <Category>Workplace</Category>
+        <Category>DefendableBuilding</Category>
+        <MaxHealth>1700</MaxHealth>
+        <ArmorClass>ArmorClassFortification</ArmorClass>
+        <ArmorAmount>5</ArmorAmount>
         <Exploration>30</Exploration>
         <Worker>PU_Treasurer</Worker>
         <MaxWorkers>4</MaxWorkers>
         <InitialMaxWorkers>4</InitialMaxWorkers>
         <WorkTaskList>
-            <Start>TL_TREASURER_WORK1_START</Start> 
-            <Work>TL_TREASURER_WORK1</Work> 
+            <Start>TL_TREASURER_WORK1_START</Start>
+            <Work>TL_TREASURER_WORK1</Work>
         </WorkTaskList>
         <WorkTaskList>
-            <Start>TL_TREASURER_WORK_INSIDE_START</Start> 
-            <Work>TL_TREASURER_WORK_INSIDE</Work> 
+            <Start>TL_TREASURER_WORK_INSIDE_START</Start>
+            <Work>TL_TREASURER_WORK_INSIDE</Work>
         </WorkTaskList>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
         <Upgrade>
-			  <Category>Bank</Category> 			  
-		</Upgrade>
+            <Category>Bank</Category>
+        </Upgrade>
+
         <ConstructionInfo>
-                <BuilderSlot>
+            <Time>130</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>200</Wood>
+                <Stone>600</Stone>
+                <Gold/>
+                <Iron>200</Iron>
+                <Sulfur/>
+            </Cost>
+            <BuilderSlot>
                 <Position>
                     <X>-500</X>
                     <Y>400</Y>
@@ -106,10 +114,10 @@
             <X>-500</X>
             <Y>0</Y>
         </ApproachPos>
-		  <ApproachR>0</ApproachR>
+        <ApproachR>0</ApproachR>
         <DoorPos>
             <X>0</X>
-            <Y>0</Y>			
+            <Y>0</Y>
         </DoorPos>
         <Blocked1>
             <X>-400</X>
@@ -126,17 +134,17 @@
         <TerrainPos2>
             <X>600</X>
             <Y>-500</Y>
-        </TerrainPos2>      
-	</Logic>
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		  <Display classname="ED::CBehaviorProps">
-			  <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-   <Behavior>
+        </TerrainPos2>
+    </Logic>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>EGL::GLEBehaviorMultiSubAnims</Class>
+        </Logic>
+        <Display classname="ED::CBehaviorProps">
+            <Class>ED::CDisplayBehaviorBuildingAnimation</Class>
+        </Display>
+    </Behavior>
+    <Behavior>
         <Logic classname="GGL::CResourceRefinerBehaviorProperties">
             <Class>GGL::CResourceRefinerBehavior</Class>
             <ResourceType>Gold</ResourceType>
@@ -144,36 +152,36 @@
             <SupplierCategory>GoldSupplier</SupplierCategory>
         </Logic>
     </Behavior>
-    
 
-<!--AnSu: I will test if it is better to have all buildings as defender buildings-->
+
+    <!--AnSu: I will test if it is better to have all buildings as defender buildings-->
     <Behavior>
-		  <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
-			  <Class>GGL::CLimitedAttachmentBehavior</Class>           
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
             <Attachment>
                 <Type>ATTACHMENT_DEFENDER_BUILDING</Type>
                 <Limit>10</Limit>
             </Attachment>
-		</Logic>		 
-	</Behavior>
-    
-	<Behavior>
-		  <Logic classname="EGL::CGLEBehaviorProps">
-			  <Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		  <Display classname="GD::CBuildingBehaviorProps">
-			  <Class>GD::CBuildingBehavior</Class>
-			  <Banner>Default</Banner>
-			  <NumDamageEffects>48</NumDamageEffects>
-			  <NumDestroyEffects>34</NumDestroyEffects>
-		</Display>
-	</Behavior>
-	
-	<Behavior>
-	    <Logic classname="GGL::CDefendableBuildingBehaviorProps">
-	        <Class>GGL::CDefendableBuildingBehavior</Class>
-	    </Logic>
-	</Behavior>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <Banner>Default</Banner>
+            <NumDamageEffects>48</NumDamageEffects>
+            <NumDestroyEffects>34</NumDestroyEffects>
+        </Display>
+    </Behavior>
+
+    <Behavior>
+        <Logic classname="GGL::CDefendableBuildingBehaviorProps">
+            <Class>GGL::CDefendableBuildingBehavior</Class>
+        </Logic>
+    </Behavior>
 
 
 </root>

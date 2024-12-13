@@ -30,7 +30,7 @@
         <Upgrade>
             <Category>Archery</Category>
             <Type>PB_Archery2</Type>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Cost>
                 <Clay>100</Clay>
                 <Wood>0</Wood>
@@ -40,6 +40,7 @@
                 <Sulfur/>
             </Cost>
         </Upgrade>
+        
         <ConstructionInfo>
             <Time>90</Time>
             <Cost>

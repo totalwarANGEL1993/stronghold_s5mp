@@ -45,7 +45,7 @@
 
         <Upgrade>
             <Category>StoneMason</Category>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Cost>
                 <Clay>250</Clay>
                 <Wood>150</Wood>

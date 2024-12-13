@@ -34,6 +34,15 @@
         <NumberOfAttractableSettlers>65</NumberOfAttractableSettlers>
         <Exploration>40</Exploration>
         <ConstructionInfo>
+            <Time>110</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>700</Wood>
+                <Stone>1000</Stone>
+                <Gold>500</Gold>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>400</X>

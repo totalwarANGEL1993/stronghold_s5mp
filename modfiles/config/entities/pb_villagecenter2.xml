@@ -30,7 +30,7 @@
         <BuildOn>XD_VillageCenter</BuildOn>
         <HideBase>true</HideBase>
         <Upgrade>
-            <Time>40.0</Time>
+            <Time>75.0</Time>
             <Category>VillageCenter</Category>
             <Cost>
                 <Clay>0</Clay>
@@ -45,6 +45,15 @@
         <NumberOfAttractableSettlers>50</NumberOfAttractableSettlers>
         <Exploration>40</Exploration>
         <ConstructionInfo>
+            <Time>110</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>500</Wood>
+                <Stone>500</Stone>
+                <Gold>200</Gold>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>400</X>

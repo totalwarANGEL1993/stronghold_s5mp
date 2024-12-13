@@ -30,12 +30,12 @@
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
 
         <ConstructionInfo>
-            <Time>60</Time>
+            <Time>70</Time>
             <Cost>
-                <Clay>200</Clay>
-                <Wood>200</Wood>
+                <Clay>100</Clay>
+                <Wood>400</Wood>
                 <Stone>0</Stone>
-                <Gold/>
+                <Gold>100</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>

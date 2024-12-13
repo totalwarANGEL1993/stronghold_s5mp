@@ -18,17 +18,6 @@
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>3</ArmorAmount>
         <Exploration>30</Exploration>
-
-        <!-- Armor -->
-        <ModifyArmor>
-            <Technology>T_Masonry</Technology>
-        </ModifyArmor>
-
-        <!-- Exploration-->
-        <ModifyExploration>
-            <Technology>T_TownGuard</Technology>
-        </ModifyExploration>
-
         <Worker>PU_BrickMaker</Worker>
         <MaxWorkers>4</MaxWorkers>
         <InitialMaxWorkers>4</InitialMaxWorkers>
@@ -48,11 +37,31 @@
             <Start>TL_BRICKMAKER_WORK_INSIDE_START</Start>
             <Work>TL_BRICKMAKER_WORK_INSIDE</Work>
         </WorkTaskList>
+
+
+        <ModifyArmor>
+            <Technology>T_Masonry</Technology>
+        </ModifyArmor>
+
+        <ModifyExploration>
+            <Technology>T_TownGuard</Technology>
+        </ModifyExploration>
+
+
         <Upgrade>
             <Category>Brickworks</Category>
         </Upgrade>
-        <ConstructionInfo>
 
+        <ConstructionInfo>
+            <Time>110</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>350</Wood>
+                <Stone>200</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>100</X>

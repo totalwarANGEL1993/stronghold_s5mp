@@ -40,7 +40,7 @@
 
 
         <Upgrade>
-            <Time>90.0</Time>
+            <Time>120.0</Time>
             <Cost>
                 <Gold>500</Gold>
                 <Clay>350</Clay>
@@ -55,6 +55,16 @@
         <UpgradeSite>ZB_UpgradeSite4</UpgradeSite>
 
         <ConstructionInfo>
+            <Time>180</Time>
+            <Cost>
+                <Silver>0</Silver>
+                <Clay>450</Clay>
+                <Wood>200</Wood>
+                <Stone>750</Stone>
+                <Gold>250</Gold>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>400</X>

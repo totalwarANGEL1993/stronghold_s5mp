@@ -44,14 +44,15 @@
         </Upgrade>
 
         <ConstructionInfo>
-            <Time>100</Time>
+            <Time>120</Time>
             <Cost>
-                <Clay>1000</Clay>
-                <Wood></Wood>
-                <Stone>1000</Stone>
-                <Gold></Gold>
-                <Iron></Iron>
-                <Sulfur></Sulfur>
+                <Silver>150</Silver>
+                <Clay>1350</Clay>
+                <Wood>150</Wood>
+                <Stone>300</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
             </Cost>
             <BuilderSlot>
                 <Position>

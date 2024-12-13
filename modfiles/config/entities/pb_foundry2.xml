@@ -57,13 +57,15 @@
             <Category>Foundry</Category>
         </Upgrade>
         <ConstructionInfo>
-
-
-
-            <!--Time>10</Time>
+            <Time>110</Time>
             <Cost>
-				    <Clay>100</Clay>
-            </Cost-->
+                <Clay>300</Clay>
+                <Wood>0</Wood>
+                <Stone>500</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>600</X>

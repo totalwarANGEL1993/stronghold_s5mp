@@ -20,6 +20,15 @@
         <InitialMaxWorkers>5</InitialMaxWorkers>
         <Worker>PU_Miner</Worker>
         <Category>ClaySupplier</Category>
+        <Exploration>30</Exploration>
+        <WorkTaskList>
+            <Start>TL_MINER_CLAYMINE_WORK_START</Start>
+            <Work>TL_MINER_CLAYMINE_WORK</Work>
+        </WorkTaskList>
+        <WorkTaskList>
+            <Start>TL_MINER_CLAYMINE_WORK_INSIDE_START</Start>
+            <Work>TL_MINER_CLAYMINE_WORK_INSIDE</Work>
+        </WorkTaskList>
 
 
         <ModifyArmor>
@@ -31,18 +40,9 @@
         </ModifyExploration>
 
 
-        <WorkTaskList>
-            <Start>TL_MINER_CLAYMINE_WORK_START</Start>
-            <Work>TL_MINER_CLAYMINE_WORK</Work>
-        </WorkTaskList>
-        <WorkTaskList>
-            <Start>TL_MINER_CLAYMINE_WORK_INSIDE_START</Start>
-            <Work>TL_MINER_CLAYMINE_WORK_INSIDE</Work>
-        </WorkTaskList>
-
         <Upgrade>
             <Category>ClayMine</Category>
-            <Time>40.0</Time>
+            <Time>60.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>150</Wood>
@@ -53,10 +53,9 @@
             </Cost>
             <Type>PB_ClayMine2</Type>
         </Upgrade>
-        <Exploration>30</Exploration>
+
         <ConstructionInfo>
             <Time>80</Time>
-
             <BuilderSlot>
                 <Position>
                     <X>1000</X>

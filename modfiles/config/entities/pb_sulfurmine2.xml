@@ -47,7 +47,7 @@
         </WorkTaskList>
         <Upgrade>
             <Category>SulfurMine</Category>
-            <Time>50.0</Time>
+            <Time>75.0</Time>
             <Cost>
                 <Clay>200</Clay>
                 <Wood>0</Wood>
@@ -60,6 +60,7 @@
         </Upgrade>
         <Exploration>30</Exploration>
         <ConstructionInfo>
+            <Time>80</Time>
             <BuilderSlot>
                 <Position>
                     <X>700</X>

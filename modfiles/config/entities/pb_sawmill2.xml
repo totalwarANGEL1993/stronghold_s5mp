@@ -43,6 +43,15 @@
             <Category>Sawmill</Category>
         </Upgrade>
         <ConstructionInfo>
+            <Time>110</Time>
+            <Cost>
+                <Clay>350</Clay>
+                <Wood>0</Wood>
+                <Stone>250</Stone>
+                <Gold/>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>300</X>

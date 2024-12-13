@@ -43,7 +43,7 @@
 
         <Upgrade>
             <Category>Monastery</Category>
-            <Time>90.0</Time>
+            <Time>135.0</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>200</Wood>
@@ -57,6 +57,15 @@
         <UpgradeSite>ZB_UpgradeSiteMonastery1</UpgradeSite>
 
         <ConstructionInfo>
+            <Time>140</Time>
+            <Cost>
+                <Clay>0</Clay>
+                <Wood>900</Wood>
+                <Stone>1050</Stone>
+                <Gold>200</Gold>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>-700</X>

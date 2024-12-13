@@ -1286,6 +1286,258 @@
 	    <FirstSettler>CU_Assassin_SoldierKnife1</FirstSettler>
 	</SettlerUpgrade>
 
+    <!-- Fast Build -->
+
+    <BuildingUpgrade>
+        <Category>GenericMine1</Category>
+        <FirstBuilding>PB_GenericMine1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>GenericMine2</Category>
+        <FirstBuilding>PB_GenericMine2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>GenericMine3</Category>
+        <FirstBuilding>PB_GenericMine3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Alchemist1</Category>
+        <FirstBuilding>PB_Alchemist1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Alchemist2</Category>
+        <FirstBuilding>PB_Alchemist2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Archery1</Category>
+        <FirstBuilding>PB_Archery1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Archery2</Category>
+        <FirstBuilding>PB_Archery2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Bank1</Category>
+        <FirstBuilding>PB_Bank1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Bank2</Category>
+        <FirstBuilding>PB_Bank2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Barracks1</Category>
+        <FirstBuilding>PB_Barracks1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Barracks2</Category>
+        <FirstBuilding>PB_Barracks2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Blacksmith1</Category>
+        <FirstBuilding>PB_Blacksmith1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Blacksmith2</Category>
+        <FirstBuilding>PB_Blacksmith2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Blacksmith3</Category>
+        <FirstBuilding>PB_Blacksmith3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DarkWatchTower1</Category>
+        <FirstBuilding>PB_DarkTower1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>DarkWatchTower2</Category>
+        <FirstBuilding>PB_DarkTower4</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Farm1</Category>
+        <FirstBuilding>PB_Farm1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Farm2</Category>
+        <FirstBuilding>PB_Farm2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Farm3</Category>
+        <FirstBuilding>PB_Farm3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Foundry1</Category>
+        <FirstBuilding>PB_Foundry1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Foundry2</Category>
+        <FirstBuilding>PB_Foundry2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>GunsmithWorkshop1</Category>
+        <FirstBuilding>PB_GunsmithWorkshop1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>GunsmithWorkshop2</Category>
+        <FirstBuilding>PB_GunsmithWorkshop2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Headquarters1</Category>
+        <FirstBuilding>PB_Headquarters1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Headquarters2</Category>
+        <FirstBuilding>PB_Headquarters2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Headquarters3</Category>
+        <FirstBuilding>PB_Headquarters3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Market1</Category>
+        <FirstBuilding>PB_Market1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Market2</Category>
+        <FirstBuilding>PB_Market2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Monastery1</Category>
+        <FirstBuilding>PB_Monastery1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Monastery2</Category>
+        <FirstBuilding>PB_Monastery2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Monastery3</Category>
+        <FirstBuilding>PB_Monastery3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Outpost1</Category>
+        <FirstBuilding>PB_Outpost1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Outpost2</Category>
+        <FirstBuilding>PB_Outpost2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Outpost3</Category>
+        <FirstBuilding>PB_Outpost3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Residence1</Category>
+        <FirstBuilding>PB_Residence1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Residence2</Category>
+        <FirstBuilding>PB_Residence2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Residence3</Category>
+        <FirstBuilding>PB_Residence3</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Sawmill1</Category>
+        <FirstBuilding>PB_Sawmill1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Sawmill2</Category>
+        <FirstBuilding>PB_Sawmill2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>StoneMason1</Category>
+        <FirstBuilding>PB_StoneMason1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>StoneMason2</Category>
+        <FirstBuilding>PB_StoneMason2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Tavern1</Category>
+        <FirstBuilding>PB_Tavern1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>Tavern2</Category>
+        <FirstBuilding>PB_Tavern2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>University1</Category>
+        <FirstBuilding>PB_University1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>University2</Category>
+        <FirstBuilding>PB_University2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>WatchTower1</Category>
+        <FirstBuilding>PB_Tower1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>WatchTower2</Category>
+        <FirstBuilding>PB_Tower4</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>VillageCenter1</Category>
+        <FirstBuilding>PB_VillageCenter1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>VillageCenter2</Category>
+        <FirstBuilding>PB_VillageCenter2</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
+        <Category>VillageCenter3</Category>
+        <FirstBuilding>PB_VillageCenter3</FirstBuilding>
+    </BuildingUpgrade>
+
     <!-- Other -->
 
     <BuildingUpgrade>

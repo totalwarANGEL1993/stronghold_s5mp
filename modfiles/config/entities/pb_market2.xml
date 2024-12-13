@@ -59,6 +59,15 @@
         </Upgrade>
 
         <ConstructionInfo>
+            <Time>80</Time>
+            <Cost>
+                <Clay>150</Clay>
+                <Wood>200</Wood>
+                <Stone>150</Stone>
+                <Gold>500</Gold>
+                <Iron/>
+                <Sulfur/>
+            </Cost>
             <BuilderSlot>
                 <Position>
                     <X>500</X>
