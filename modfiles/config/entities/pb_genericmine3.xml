@@ -20,9 +20,9 @@
         </Upgrade>
         <ConstructionInfo>
             <Cost>
-                <Clay>250</Clay>
-                <Wood>300</Wood>
-                <Stone>250</Stone>
+                <Clay>200</Clay>
+                <Wood>200</Wood>
+                <Stone>150</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>

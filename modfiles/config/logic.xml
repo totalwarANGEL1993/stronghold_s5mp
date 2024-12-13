@@ -1290,7 +1290,7 @@
 
     <BuildingUpgrade>
         <Category>GenericMine1</Category>
-        <FirstBuilding>PB_GenericMine1</FirstBuilding>
+        <FirstBuilding>PB_GenericMine</FirstBuilding>
     </BuildingUpgrade>
 
     <BuildingUpgrade>

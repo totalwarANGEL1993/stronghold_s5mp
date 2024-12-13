@@ -51,9 +51,9 @@
             <Cost>
                 <Clay>0</Clay>
                 <Wood>100</Wood>
-                <Stone>450</Stone>
+                <Stone>350</Stone>
                 <Gold/>
-                <Iron>150</Iron>
+                <Iron>100</Iron>
                 <Sulfur/>
             </Cost>
             <BuilderSlot>

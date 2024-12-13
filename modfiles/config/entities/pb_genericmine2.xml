@@ -21,8 +21,8 @@
         <ConstructionInfo>
             <Cost>
                 <Clay>150</Clay>
-                <Wood>200</Wood>
-                <Stone>150</Stone>
+                <Wood>100</Wood>
+                <Stone>100</Stone>
                 <Gold/>
                 <Iron/>
                 <Sulfur/>

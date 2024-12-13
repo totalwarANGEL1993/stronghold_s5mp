@@ -37,9 +37,9 @@
             <Time>110</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>700</Wood>
-                <Stone>1000</Stone>
-                <Gold>500</Gold>
+                <Wood>500</Wood>
+                <Stone>600</Stone>
+                <Gold>250</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>

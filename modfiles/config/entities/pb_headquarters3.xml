@@ -49,10 +49,10 @@
             <Time>180</Time>
             <Cost>
                 <Silver>0</Silver>
-                <Clay>800</Clay>
+                <Clay>550</Clay>
                 <Wood>200</Wood>
-                <Stone>1100</Stone>
-                <Gold>750</Gold>
+                <Stone>850</Stone>
+                <Gold>560</Gold>
                 <Iron/>
                 <Sulfur/>
             </Cost>
