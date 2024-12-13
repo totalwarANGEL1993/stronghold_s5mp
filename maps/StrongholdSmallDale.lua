@@ -84,7 +84,7 @@ SHS5MP_RulesDefinition = {
 
     -- Called after game start timer is over
     OnGameStart = function()
-        BriefingSystem.SetMCButtonCount(8);
+        Cinematic.SetMCButtonCount(8);
         BriefingSelectDifficulty();
         BriefingExposition();
         StartCheckVictoryCondition();

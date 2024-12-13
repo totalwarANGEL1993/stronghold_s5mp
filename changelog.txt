@@ -1,5 +1,8 @@
 **Strongold Version 0.7.10**
 
+__Bugfix__
+- Auswählen der Friedenszeit sperrt nicht mehr sofort die Buttons
+
 __Feature__
 
 - Einige Gebäude können bereits ausgebaut gesetzt werden

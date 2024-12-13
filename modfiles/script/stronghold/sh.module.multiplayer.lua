@@ -255,8 +255,6 @@ end
 
 function Stronghold.Multiplayer:ConfigurePeaceTime(_Time)
     self.Data.Config.PeacetimeSelected = _Time;
-    local TimeMap = {0, 10, 20, 30, 40, 0, 15, 30, 45, 60};
-    self.Data.Config.PeaceTime = TimeMap[_Time];
 end
 
 function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
