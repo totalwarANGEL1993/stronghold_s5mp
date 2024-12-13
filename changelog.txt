@@ -1,3 +1,16 @@
+**Strongold Version 0.7.10**
+
+__Feature__
+
+- Einige Gebäude können bereits ausgebaut gesetzt werden
+  * Es werden die Rechte für den Ausbau vorausgesetzt
+  * Die Bauzeit ist gleich lang
+  * Ein Teil der Ausbaukosten wird auf Baukosten aufgeschlagen
+
+__Quality of Life__
+
+- Bau-/Kaufkosten sind grün, wenn in veredelten Rohstoffen bezahlt wird
+
 **Strongold Version 0.7.8**
 
 __Balancing__

@@ -375,7 +375,9 @@ function FormatCostString(_PlayerID, _Costs)
     if  _Costs[ResourceType.Gold] ~= nil
     and _Costs[ResourceType.Gold] ~= 0 then
 		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameMoney") .. ": ";
-		if GoldRaw + Gold >= _Costs[ResourceType.Gold] then
+		if Gold >= _Costs[ResourceType.Gold] then
+			CostString = CostString .. " @color:98,138,68,255 ";
+		elseif GoldRaw + Gold >= _Costs[ResourceType.Gold] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
 			CostString = CostString .. " @color:220,64,16,255 ";
@@ -386,7 +388,9 @@ function FormatCostString(_PlayerID, _Costs)
 	if  _Costs[ResourceType.Wood] ~= nil
     and _Costs[ResourceType.Wood] ~= 0 then
 		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameWood") .. ": ";
-		if WoodRaw + Wood >= _Costs[ResourceType.Wood] then
+		if Wood >= _Costs[ResourceType.Wood] then
+			CostString = CostString .. " @color:98,138,68,255 ";
+		elseif WoodRaw + Wood >= _Costs[ResourceType.Wood] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
 			CostString = CostString .. " @color:220,64,16,255 ";
@@ -397,7 +401,9 @@ function FormatCostString(_PlayerID, _Costs)
 	if  _Costs[ResourceType.Clay] ~= nil
     and _Costs[ResourceType.Clay] ~= 0 then
 		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameClay") .. ": ";
-		if ClayRaw + Clay >= _Costs[ResourceType.Clay] then
+		if Clay >= _Costs[ResourceType.Clay] then
+			CostString = CostString .. " @color:98,138,68,255 ";
+		elseif ClayRaw + Clay >= _Costs[ResourceType.Clay] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
 			CostString = CostString .. " @color:220,64,16,255 ";
@@ -408,7 +414,9 @@ function FormatCostString(_PlayerID, _Costs)
 	if  _Costs[ResourceType.Stone] ~= nil
     and _Costs[ResourceType.Stone] ~= 0 then
 		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameStone") .. ": ";
-		if StoneRaw + Stone >= _Costs[ResourceType.Stone] then
+		if Stone >= _Costs[ResourceType.Stone] then
+			CostString = CostString .. " @color:98,138,68,255 ";
+		elseif StoneRaw + Stone >= _Costs[ResourceType.Stone] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
 			CostString = CostString .. " @color:220,64,16,255 ";
@@ -419,7 +427,9 @@ function FormatCostString(_PlayerID, _Costs)
 	if  _Costs[ResourceType.Iron] ~= nil
     and _Costs[ResourceType.Iron] ~= 0 then
 		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameIron") .. ": ";
-		if IronRaw + Iron >= _Costs[ResourceType.Iron] then
+		if Iron >= _Costs[ResourceType.Iron] then
+			CostString = CostString .. " @color:98,138,68,255 ";
+		elseif IronRaw + Iron >= _Costs[ResourceType.Iron] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
 			CostString = CostString .. " @color:220,64,16,255 ";
@@ -430,7 +440,9 @@ function FormatCostString(_PlayerID, _Costs)
 	if  _Costs[ResourceType.Sulfur] ~= nil
     and _Costs[ResourceType.Sulfur] ~= 0 then
 		CostString = CostString .. XGUIEng.GetStringTableText("InGameMessages/GUI_NameSulfur") .. ": ";
-		if SulfurRaw + Sulfur >= _Costs[ResourceType.Sulfur] then
+		if Sulfur >= _Costs[ResourceType.Sulfur] then
+			CostString = CostString .. " @color:98,138,68,255 ";
+		elseif SulfurRaw + Sulfur >= _Costs[ResourceType.Sulfur] then
 			CostString = CostString .. " @color:255,255,255,255 ";
 		else
 			CostString = CostString .. " @color:220,64,16,255 ";
