@@ -42,10 +42,7 @@ Stronghold.Rights.Config = {
                 -- DO NOT MOVE THIS!!! --
                 PlayerRight.House,
                 PlayerRight.Farm,
-                PlayerRight.ClayPit,
-                PlayerRight.IronPit,
-                PlayerRight.StonePit,
-                PlayerRight.SulfurPit,
+                PlayerRight.GenericPit,
                 PlayerRight.Highschool,
                 PlayerRight.VillageCenter,
                 -- DO NOT MOVE THIS!!! --
@@ -149,10 +146,7 @@ Stronghold.Rights.Config = {
             Rights = {
                 PlayerRight.Blacksmith,
                 PlayerRight.Alchemist,
-                PlayerRight.ClayGallery,
-                PlayerRight.IronGallery,
-                PlayerRight.StoneGallery,
-                PlayerRight.SulfurGallery,
+                PlayerRight.GenericGallery,
                 PlayerRight.Market,
                 PlayerRight.Bank,
                 ---
@@ -224,10 +218,7 @@ Stronghold.Rights.Config = {
                 ---
                 PlayerRight.Laboratory,
                 PlayerRight.FinishingSmithy,
-                PlayerRight.ClayMine,
-                PlayerRight.IronMine,
-                PlayerRight.StoneMine,
-                PlayerRight.SulfurMine,
+                PlayerRight.GenericMine,
                 ---
                 PlayerRight.SwordGuardist,
                 ---

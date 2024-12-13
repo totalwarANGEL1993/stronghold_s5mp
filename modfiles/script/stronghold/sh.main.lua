@@ -918,9 +918,12 @@ function Stronghold:OverrideWidgetTooltips()
 
     Overwrite.CreateOverwrite("GUITooltip_ConstructBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
         local GuiPlayer = GetLocalPlayerID();
-        local EntityID = GUI.GetSelectedEntity();
+        local UpgradeCategory = _UpgradeCategory;
         Overwrite.CallOriginal();
-        Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
+        if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
+            UpgradeCategory = Stronghold.Construction:GetFastBuildUpgradeCategory(GuiPlayer, _UpgradeCategory);
+        end
+        Stronghold.Construction:PrintTooltipConstructionButton(UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_Payday", function()

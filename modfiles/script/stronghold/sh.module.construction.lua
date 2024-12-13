@@ -164,8 +164,14 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
     end
     local IsForbidden = false;
 
+    local InputUpgradeCategory = _UpgradeCategory;
+    local UpgradeCategory = _UpgradeCategory;
+    if self.Config.FastBuildUpCatToNormalUpCat[UpgradeCategory] then
+        UpgradeCategory = self.Config.FastBuildUpCatToNormalUpCat[UpgradeCategory];
+    end
+
     -- Get default text
-    local ForbiddenText = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable")
+    local ForbiddenText = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
     local NormalText = XGUIEng.GetStringTableText(_KeyNormal);
     local DisabledText = XGUIEng.GetStringTableText(_KeyDisabled);
     local DefaultText = NormalText;
@@ -180,7 +186,7 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
     -- Create costs tooltip
     local CostString = "";
     local ShortCutToolTip = "";
-    local Type = Logic.GetBuildingTypeByUpgradeCategory(_UpgradeCategory, PlayerID);
+    local Type = Logic.GetBuildingTypeByUpgradeCategory(InputUpgradeCategory, PlayerID);
     local TypeName = Logic.GetEntityTypeName(Type);
     if _Technology ==  nil then
         _Technology = Technologies[string.sub(TypeName, 2)];
@@ -462,10 +468,16 @@ function Stronghold.Construction:InitBuildingLimits()
 end
 
 function Stronghold.Construction:OverwriteCallbacks()
-    Overwrite.CreateOverwrite("GUIAction_PlaceBuilding", function(_UpgradeCategory)
+    self.Orig_GUIAction_PlaceBuilding = GUIAction_PlaceBuilding;
+    GUIAction_PlaceBuilding = function(_UpgradeCategory)
+        local PlayerID = GetLocalPlayerID();
+        local UpgradeCategory = _UpgradeCategory;
+        if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
+            UpgradeCategory = Stronghold.Construction:GetFastBuildUpgradeCategory(PlayerID, _UpgradeCategory);
+        end
         CPlaceBuilding.SetRotation(0);
-        Overwrite.CallOriginal();
-    end);
+        Stronghold.Construction.Orig_GUIAction_PlaceBuilding(UpgradeCategory);
+    end
 
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_PlayerPromoted", function(_PlayerID, _OldRank, _NewRank)
         Overwrite.CallOriginal();
@@ -518,5 +530,23 @@ function Stronghold.Construction:InitBarracksBuildingLimits(_PlayerID)
     local SmelterLimit = self.Config.SmeltingBuildingAmounts[Rank +1];
     EntityTracker.SetLimitOfType(Entities.PB_Foundry1, SmelterLimit, _PlayerID);
     EntityTracker.SetLimitOfType(Entities.PB_Foundry2, SmelterLimit, _PlayerID);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Fast Build
+
+function Stronghold.Construction:GetFastBuildUpgradeCategory(_PlayerID, _UpgradeCategory)
+    local UpgradeCategory = _UpgradeCategory;
+    if self.Config.NormalUpCatToFastBuildUpCat[UpgradeCategory] then
+        for i= 1, table.getn(self.Config.NormalUpCatToFastBuildUpCat[UpgradeCategory]) do
+            local HigherUpgradeCategory = self.Config.NormalUpCatToFastBuildUpCat[UpgradeCategory][i];
+            local NeededRight = self.Config.FastBuildUpCatToRight[HigherUpgradeCategory];
+            if HasRight(_PlayerID, NeededRight) then
+                UpgradeCategory = HigherUpgradeCategory;
+                break;
+            end
+        end
+    end
+    return UpgradeCategory;
 end
 
