@@ -198,9 +198,11 @@ function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory
             ShortCutToolTip = XGUIEng.GetStringTableText("MenuGeneric/Key_name")..
                 ": [" .. XGUIEng.GetStringTableText(_ShortCut) .. "]"
         end
+        local Level = GetUpgradeLevelByEntityType(Type);
+        local LevelText = (Level > 0 and " [Level: " ..(Level +1).. "] ") or "";
         DefaultText = string.format(
             self:GetBuildingRequiredRank(PlayerID, _Technology, DefaultText),
-            self:GetBuildingLimit(PlayerID, Type),
+            LevelText .. self:GetBuildingLimit(PlayerID, Type),
             self:GetBuildingEffects(Type, _Technology)
         );
     end
