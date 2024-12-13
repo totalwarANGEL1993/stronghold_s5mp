@@ -142,7 +142,6 @@ function Stronghold.Populace:OnEntityCreated(_EntityID)
     end
     -- Watchtowers
     self:OnWatchtowerBuild(_EntityID, PlayerID);
-    self:OnHawkHabitatCreated(_EntityID);
 end
 
 function Stronghold.Populace:OnEntityDestroyed(_EntityID)
@@ -164,12 +163,11 @@ end
 function Stronghold.Populace:OnConstructionComplete(_EntityID, _PlayerID)
     -- Watchtowers
     self:OnWatchtowerBuild(_EntityID, _PlayerID);
+    -- Hawks
+    self:OnHawkHabitatCreated(_EntityID);
 end
 
 function Stronghold.Populace:OnUpgradeComplete(_EntityIDOld, _EntityIDNew)
-    local PlayerID = Logic.EntityGetPlayer(_EntityIDNew);
-    -- Hawks
-    self:OnHawkHabitatCreated(_EntityIDNew);
 end
 
 function Stronghold.Populace:OnPayday()
@@ -352,6 +350,7 @@ function Stronghold.Populace:OnHawkHabitatCreated(_EntityID)
             local ID = Logic.CreateEntity(Entities.PU_Hawk_Deco, Positions[1].X, Positions[1].Y, 0, PlayerID);
             Logic.SetTaskList(ID, TaskLists.TL_NPC_WALK);
             MakeInvulnerable(ID);
+            self:OnHawkHabitatDestroyed(_EntityID);
             self.Data.HawkHabitats[PlayerID][_EntityID] = {ID, 3, unpack(Positions)};
         end
     end
