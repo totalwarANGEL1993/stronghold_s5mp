@@ -11,6 +11,7 @@
         <MaxHealth>1500</MaxHealth>
         <ArmorAmount>3</ArmorAmount>
         <Exploration>10</Exploration>
+        <KegEffectFactor>2.0</KegEffectFactor>
 
         <Category>Wall</Category>
         <ForceNoPlayer>false</ForceNoPlayer>

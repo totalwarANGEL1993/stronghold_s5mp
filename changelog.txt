@@ -6,6 +6,7 @@ __Feature__
   * Es werden die Rechte für den Ausbau vorausgesetzt
   * Die Bauzeit ist gleich lang
   * Ein Teil der Ausbaukosten wird auf Baukosten aufgeschlagen
+- Sabotage durch Diebe ist nun fatal gegen Mauern
 
 __Quality of Life__
 

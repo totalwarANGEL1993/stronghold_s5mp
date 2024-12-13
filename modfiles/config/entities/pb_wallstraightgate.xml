@@ -10,6 +10,7 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <MaxHealth>3500</MaxHealth>
         <ArmorAmount>8</ArmorAmount>
+        <KegEffectFactor>2.0</KegEffectFactor>
 
         <Category>Wall</Category>
         <ForceNoPlayer>false</ForceNoPlayer>
