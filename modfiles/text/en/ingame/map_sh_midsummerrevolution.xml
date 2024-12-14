@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<!-- Player Names -->
+
+<string id="Player1Name"></string>
+<string id="Player2Name"></string>
+<string id="Player3Name">The Devil's left hand</string>
+<string id="Player3Defeated">The DEVIL'S LEFT HAND has been defeated!</string>
+<string id="Player4Name">The Devil's right hand</string>
+<string id="Player4Defeated">The DEVIL'S RIGHT HAND has been defeated!</string>
+<string id="Player5Name">Bishop</string>
+<string id="Player6Name">Dovbar, the Devil</string>
+<string id="Player5Defeated">The bishop has been freed.</string>
+<string id="Player7Name">Brigands</string>
+<string id="Player8Name"></string>
+
+<!-- Difficulty selection -->
+
+<string id="BriefingSelectDifficulty_1_Title">Choosing Difficulty</string>
+<string id="BriefingSelectDifficulty_1_Text">Choose the difficulty you want to play at.</string>
+<string id="BriefingSelectDifficulty_1_Option_1">{green} @center Comfortable</string>
+<string id="BriefingSelectDifficulty_1_Option_2">{yellow} @center Average</string>
+<string id="BriefingSelectDifficulty_1_Option_3">{orange} @center Challenging</string>
+<string id="BriefingSelectDifficulty_1_Option_4">{red} @center Maniac</string>
+<string id="BriefingSelectDifficulty_2_Title">Easy Difficulty</string>
+<string id="BriefingSelectDifficulty_2_Text">You have choosen the easy option. Don't you think you making it a bit too easy?</string>
+<string id="BriefingSelectDifficulty_4_Title">Normal Difficulty</string>
+<string id="BriefingSelectDifficulty_4_Text">You play at the normal difficulty. This is a resonable choice. Have fun while playing.</string>
+<string id="BriefingSelectDifficulty_6_Title">Hard Difficulty</string>
+<string id="BriefingSelectDifficulty_6_Text">You want a little challenge and play at higher difficulty. If you insist...</string>
+<string id="BriefingSelectDifficulty_8_Title">Maniac Difficulty</string>
+<string id="BriefingSelectDifficulty_8_Text">Wouldn't you rather consider going to therapy? So much self-hate is not healthy...</string>
+
+<string id="BriefingSelectDifficulty_Pal_1_Title">Choosing difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_1_Text">The host is choosing the difficulty. Please wait patiently...</string>
+<string id="BriefingSelectDifficulty_Pal_2_Title">Easy Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_2_Text">The host has selected easy difficulty. Prepare to be bored out of your mind!</string>
+<string id="BriefingSelectDifficulty_Pal_4_Title">Normal Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_4_Text">The host has selected normal difficulty. You will feel entertained, but don't expect a challenge!</string>
+<string id="BriefingSelectDifficulty_Pal_6_Title">Hard Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_6_Text">The host has selected hard difficulty. The enemies are tough and you will have to do a little to win!</string>
+<string id="BriefingSelectDifficulty_Pal_8_Title">Maniac Difficulty</string>
+<string id="BriefingSelectDifficulty_Pal_8_Text">The host has selected maniac difficulty. You can thank them for that, because it won't be easy!</string>
+
+<!-- Mainquest -->
+
+<string id="MainQuest_Stage1_Title">The devil's touch</string>
+<string id="MainQuest_Stage1_Text">The Bishop has gone from being a humble servant of God to a vicious tyrant. You and your ally have risen up to stand up against injustice. Something must be responsible for the change in his character. You must find out! {cr}{cr}Mission: {cr}- Defeat the Bishop's forces</string>
+<string id="MainQuest_Stage2_Title">The devil's touch</string>
+<string id="MainQuest_Stage2_Text">The bishop has apparently been replaced by an unknown enemy. You and your ally have killed the henchman. Talk to the bishop and find out what is behind everything. {cr}{cr}Mission: {cr}- Talk to the bishop</string>
+<string id="MainQuest_Stage3_Title">The devil's touch</string>
+<string id="MainQuest_Stage3_Text">A man named Dovbar seems to be pulling the strings. Believing he was destined for something greater and robbed of his birthright, he is out to take revenge. You are convinced that this madman must be stopped. {cr}{cr}Mission: {cr}- Defeat the Devil's Right Hand {cr}- Defeat the Devil's Left Hand {cr}- Defeat Archduke Dovbar</string>
+
+<string id="BriefingIntro_1_Title"></string>
+<string id="BriefingIntro_1_Text">NARRATOR: The coastal lands. At first glance, the most peaceful province of the empire...</string>
+<string id="BriefingIntro_2_Title"></string>
+<string id="BriefingIntro_2_Text">NARRATOR: A place where settlers can peacefully go about their daily work...</string>
+<string id="BriefingIntro_3_Title"></string>
+<string id="BriefingIntro_3_Text">NARRATOR: A place for a good life...</string>
+<string id="BriefingIntro_4_Title"></string>
+<string id="BriefingIntro_4_Text">NARRATOR: Until one day the bishop apparently fell into madness and began to pressure and tyrannize the people.</string>
+<string id="BriefingIntro_5_Title"></string>
+<string id="BriefingIntro_5_Text">NARRATOR: Now it is in the hands of brave heroes to uncover the truth...</string>
+
+<string id="BriefingOutro_1_Title"></string>
+<string id="BriefingOutro_1_Text">NARRATOR: With the fall of the black fortress, the devil was defeated and the danger to the people was averted.</string>
+<string id="BriefingOutro_2_Title"></string>
+<string id="BriefingOutro_2_Text">NARRATOR: Finally, peace returned to the coastal lands...</string>
+<string id="BriefingOutro_3_Title"></string>
+<string id="BriefingOutro_3_Text">NARRATOR: ... and the people could once again safely go about their daily lives.</string>
+<string id="BriefingOutro_4_Title"></string>
+<string id="BriefingOutro_4_Text">NARRATOR: Even many hundreds of years later, people remembered the brave heroes who drove out the devil.</string>
+
+<string id="BriefingBishop1_1_Title">Bischop Murmurbulge</string>
+<string id="BriefingBishop1_1_Text">Thanks to the grace of the Lord and all his angels! I am finally free again.</string>
+<string id="BriefingBishop1_2_Title"></string>
+<string id="BriefingBishop1_2_Text">Someone had taken your place, Your Eminence! What a disgrace! The whole country thinks you have gone mad. Thankfully the nightmare is over now.</string>
+<string id="BriefingBishop1_3_Title">Bischop Murmurbulge</string>
+<string id="BriefingBishop1_3_Text">Not at all, my child, not at all! That villain was nothing but a henchman. The danger is not over yet. Whoever is behind this intrigue has not yet finished his plan. Oh, I feel the devil's hand on my... er, neck. It will not let go of me and this country!</string>
+<string id="BriefingBishop1_4_Title"></string>
+<string id="BriefingBishop1_4_Text">Than I will be the one to behead the devil!</string>
+<string id="BriefingBishop1_5_Title">Bischop Murmurbulge</string>
+<string id="BriefingBishop1_5_Text">Your courage does you credit, my child. But don't think it will be that easy! The forces of evil always outnumber you!</string>
+<string id="BriefingBishop1_6_Title"></string>
+<string id="BriefingBishop1_6_Text">Let that be my concern. Tell me, who is our enemy?</string>
+<string id="BriefingBishop1_7_Title">Bischop Murmurbulge</string>
+<string id="BriefingBishop1_7_Text">It is Archduke Dovbar. He believes he was once destined for greater things and now wants revenge on the Blue Sign. And he has gathered others around him who are at least as full of hatred as he is!</string>
+<string id="BriefingBishop1_8_Title">Bischop Murmurbulge</string>
+<string id="BriefingBishop1_8_Text">If you want a chance against him and his hordes, you should make use of my mercenaries. Speak to my confidant, he will make you an offer.</string>
+<string id="BriefingBishop1_9_Title"></string>
+<string id="BriefingBishop1_9_Text">Thank you, Your Eminence. With God's help and that of your mercenaries, we will accomplish this task.</string>
+
+<!-- Subquest Dustin -->
+
+<string id="SubquestDustin_Title">Isabella's disappearance</string>
+<string id="SubquestDustin_Text">Dustin Ravage's wife has disappeared. She is suspected to have been kidnapped. No one knows where the kidnappers fled to. {cr}{cr}Mission: {cr}- Find Isabella's kidnappers {cr}- Bring Isabella back to Dustin {cr}{cr}Reward: {cr}- Trade contract with village {cr}- Generous payment</string>
+<string id="SubquestDustin_MsgIsabella">It looks like the gang of robbers had a prisoner!</string>
+<string id="SubquestDustin_MsgReward">You have obtained 5000 Thalers.</string>
+
+<string id="BriefingDustin1_1_Title">Dustin Ravage</string>
+<string id="BriefingDustin1_1_Text">You must help me! My poor wife was kidnapped. They came in the night and took her away! Please, save my wife!</string>
+<string id="BriefingDustin1_2_Title"></string>
+<string id="BriefingDustin1_2_Text">Of course I'll help you! Which direction did they flee in? I need clues.</string>
+<string id="BriefingDustin1_3_Title">Dustin Ravage</string>
+<string id="BriefingDustin1_3_Text">All I can tell you is that they have gone south. Please hurry and save Isabella!</string>
+
+<string id="BriefingDustin2_1a_Title"></string>
+<string id="BriefingDustin2_1a_Text">I have brought your wife back to you.</string>
+<string id="BriefingDustin2_2a_Title">Dustin Ravage</string>
+<string id="BriefingDustin2_2a_Text">Wonderful! You shall be rewarded for this!</string>
+<string id="BriefingDustin2_3a_Title">Isabella</string>
+<string id="BriefingDustin2_3a_Text">May you burn in hell, together with my husband!</string>
+<string id="BriefingDustin2_1b_Title"></string>
+<string id="BriefingDustin2_1b_Text">Unfortunately, I have to inform you that I could not save Isabella.</string>
+<string id="BriefingDustin2_2b_Title">Dustin Ravage</string>
+<string id="BriefingDustin2_2b_Text">What? How tragic! What happened to her? What did those criminals do to her?</string>
+<string id="BriefingDustin2_3b_Title"></string>
+<string id="BriefingDustin2_3b_Text">Believe me, you don't want to know! I had her buried at sea.</string>
+<string id="BriefingDustin2_4_Title">Dustin Ravage</string>
+<string id="BriefingDustin2_4_Text">You might want to visit my market. Maybe you'll find something interesting...</string>
+
+<!-- Subquest Traitor -->
+
+<string id="SubquestTraitor_Title">Bloody Vengeance</string>
+<string id="SubquestTraitor_Text">You have come across the former leader of a band of robbers. He was betrayed by his former comrades and now wants revenge. Grant him revenge and he will reward you handsomely. {cr}{cr}Mission: {cr}- Destroy the band of robbers {cr}{cr}Reward: {cr}- Access to village center</string>
+<string id="SubquestTraitor_MsgIsabella">It looks like the gang of robbers had a prisoner!</string>
+
+<string id="BriefingTraitor1_1_Title"></string>
+<string id="BriefingTraitor1_1_Text">Why is an armed man just standing around like that?</string>
+<string id="BriefingTraitor1_2_Title">Vengeful Captain</string>
+<string id="BriefingTraitor1_2_Text">Because he was betrayed by his own people!</string>
+<string id="BriefingTraitor1_3_Title">Vengeful Captain</string>
+<string id="BriefingTraitor1_3_Text">Those damned sons of bitches betrayed me! I want to see them suffer for that!</string>
+<string id="BriefingTraitor1_4_Title">Vengeful Captain</string>
+<string id="BriefingTraitor1_4_Text">If you help me, I will clear this rockfall behind me.</string>
+
+<string id="BriefingTraitor2_1_Title"></string>
+<string id="BriefingTraitor2_1_Text">Ich habe mich um Eure ehemalige Bande gekümmert.</string>
+<string id="BriefingTraitor2_2_Title">Vengeful Captain</string>
+<string id="BriefingTraitor2_2_Text">I hope they suffered! Thank you. Now I will fulfill my part of our agreement!</string>
+
+<!-- Subquest Isabella -->
+
+<string id="SubquestIsabella_Title">Uncomfortable truth</string>
+<string id="SubquestIsabella_Text">After you have eliminated the kidnappers, you will learn the truth. Isabella was not kidnapped, but fled from Dustin because she could no longer bear his mistreatment. {cr}{cr}Mission: {cr}- Escort Isabella to a new life {cr}- OR bring her back to Dustin</string>
+<string id="SubquestIsabella_MsgTrust">I trust you and your judgment.</string>
+<string id="SubquestIsabella_MsgSolveA">Isabella has returned to her loving husband.</string>
+<string id="SubquestIsabella_MsgSolveB">Isabella has started a new life! You have obtained 300 honor.</string>
+
+<string id="BriefingIsabella1_1_Title"></string>
+<string id="BriefingIsabella1_1_Text">Don't be afraid, you are saved now! I have eliminated those nasty kidnappers. You can go home.</string>
+<string id="BriefingIsabella1_2_Title">Isabella</string>
+<string id="BriefingIsabella1_2_Text">What have you done?! They didn't kidnap me, I hired them! My husband is a brutal pig. He beats me whenever something doesn't go according to his plan. I couldn't take it anymore! Please don't take me back to that man!</string>
+<string id="BriefingIsabella1_3_Title"></string>
+<string id="BriefingIsabella1_3_Text">On the one hand a hefty reward awaits. But on the other I can not do this to her. What option should I pick...</string>
+
+<!-- Subquest Farmer -->
+
+<string id="SubquestSheeps_Title">Sheeps on the run</string>
+<string id="SubquestSheeps_Text">A farmer is furious. Because his servants were not paying attention, 5 of his prize-winning animals have escaped. {cr}{cr}Mission: {cr}- Find the escaped sheep {cr}- Bring the sheep back to their enclosure {cr}{cr}Reward: {cr}- Trade contract with village</string>
+<string id="SubquestSheeps_MsgAngry">Just wait, I'll hang you by your lace-up shoes, you idiots!</string>
+<string id="SubquestSheeps_MsgFound">A sheep makes its way home!</string>
+<string id="SubquestSheeps_MsgReady">All the sheep have returned to their enclosure!</string>
+
+<string id="BriefingFarmer1_1_Title">Angry Farmer</string>
+<string id="BriefingFarmer1_1_Text">Arrgh... these good-for-nothings! You look away just once and then this happend...</string>
+<string id="BriefingFarmer1_2_Title"></string>
+<string id="BriefingFarmer1_2_Text">What has happend? How can I help you?</string>
+<string id="BriefingFarmer1_3_Title">Angry Farmer</string>
+<string id="BriefingFarmer1_3_Text">These servants are as stupid as beanstalk! Nothing but air between the ears! Five of my prize-winning sheep have run away! Can you imagine the damage that is?</string>
+<string id="BriefingFarmer1_4_Title"></string>
+<string id="BriefingFarmer1_4_Text">Ich werde Eure Schafe für Euch finden.</string>
+<string id="BriefingFarmer1_5_Title">Angry Farmer</string>
+<string id="BriefingFarmer1_5_Text">I am going to pull out their ears! The whole bunch was probably in the brothel to let some steam off! Just wait, you idiots, until I am done with you!</string>
+<string id="BriefingFarmer1_6_Title"></string>
+<string id="BriefingFarmer1_6_Text">Hm... I don't think he is gonna calm down anytime soon...</string>
+
+<string id="BriefingFarmer2_1_Title">Happy Farmer</string>
+<string id="BriefingFarmer2_1_Text">Danke das Ihr meine Schafe zurückgebracht habt. Die Knechte haben übrigens ihre Lektion gelernt und werden in Zukunft besser aufpassen.</string>
+<string id="BriefingFarmer2_2_Title"></string>
+<string id="BriefingFarmer2_2_Text">Hab ich doch gern gemacht...</string>
+<string id="BriefingFarmer2_3_Title">Happy Farmer</string>
+<string id="BriefingFarmer2_3_Text">You should probably talk to our merchant. Maybe you will find something interesting...</string>
+
+<!-- Subquest Guard -->
+
+<string id="SubquestGuard_Title">A greedy watchman</string>
+<string id="SubquestGuard_Text">A raised bridge denies you access to important resources. You have no other choice, you have to let the coins do the talking. {cr}{cr}Mission: {cr}- Pay the tribute so that the bridge is lowered {cr}{cr}Reward: {cr}- Access to sulfur</string>
+<string id="SubquestGuard_Tribute">Pay %d Thalers so that the watchman will lower the bridge for you.</string>
+<string id="SubquestGuard_MsgBridge">The watchman has lowered the bridge</string>
+
+<string id="BriefingGuard1_1_Title">Greedy Watchman</string>
+<string id="BriefingGuard1_1_Text">What do you want? Over this bridge? Well that will be very expensive.</string>
+<string id="BriefingGuard1_2_Title"></string>
+<string id="BriefingGuard1_2_Text">Or no, that's such an overused cliché...</string>
+<string id="BriefingGuard1_3_Title">Greedy Watchman</string>
+<string id="BriefingGuard1_3_Text">Who has got the key? That is me. Muhahaha!</string>
+</stringtable>

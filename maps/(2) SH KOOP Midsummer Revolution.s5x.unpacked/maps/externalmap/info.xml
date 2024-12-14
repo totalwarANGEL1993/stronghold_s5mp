@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+ <NameKey>Volcano</NameKey>
+ <DescKey>Volcano</DescKey>
+ <Name>(2) @color:200,70,40 SH @color:135,205,255 KOOP @color:255,255,255 Die Mitsommerrevolution</Name>
+ <Desc>Der Bischof scheint wahnsinnig geworden zu sein und setzt den Glauben mit eiserner Faust durch. Das Volk ächst unter seinem Terrorregime. Mutige Helden wollen dies nicht mehr länger hinnehmen und stellen sich einem übermächtigen Gegner entgegen. Dabei decken sie eine Verschwörung auf, die tiefer reicht, als es zuerst den Anschein hat... @cr @cr @color:235,235,0 Hinweis: Dies ist eine KOOP-Karte gegen die KI.</Desc>
+ <SizeX>417</SizeX>
+ <SizeY>417</SizeY>
+ <MPFlag>true</MPFlag>
+ <MPPlayerCount>2</MPPlayerCount>
+ <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
+ <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
+ <Key>2</Key>
+ <GUID>
+  <Data>84a32eda-cfab-4330-99aa-cc1b9eb3bf41</Data>
+ </GUID>
+</root>
