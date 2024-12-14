@@ -17,18 +17,61 @@ Stronghold.QuickDialog = Stronghold.QuickDialog or {
 -- -------------------------------------------------------------------------- --
 -- API
 
+--- Starts a dialog for a player.
+---
+--- If the dialog table contains a function `Starting` then it is called
+--- before the dialog starts.
+---
+--- If the dialog table contains a function `Finished` then it is called
+--- after the dialog is finished.
+--- 
+--- @param _PlayerID integer ID of player
+--- @param _DialogName string Name for dialog
+--- @param _Dialog table Dialog table
 function QuickDialog.Start(_PlayerID, _DialogName, _Dialog)
     Stronghold.QuickDialog:StartDialog(_PlayerID, _DialogName, _Dialog);
 end
 
+--- Binds the page function to the dialog.
+---
+--- Usage:
+--- ```lua
+--- local AP = QuickDialog.AddPages(Briefing);
+--- ```
+---@param _Dialog table Dialog table
+---@return function
 function QuickDialog.AddPages(_Dialog)
     return Stronghold.QuickDialog:AddPages(_Dialog);
 end
 
+--- Returns if a dialog is active for the player.
+--- @param _PlayerID integer ID of player
+--- @return boolean Active Dialog is active
 function QuickDialog.IsActive(_PlayerID)
     return Stronghold.QuickDialog:IsDialogActive(_PlayerID);
 end
 
+-- Duration = Page.Duration or 9,
+-- Title = Page.Title,
+-- Text = Page.Text,
+-- Portrait = Page.Portrait,
+-- Close = Page.Close,
+-- Action = Page.Action,
+-- NoDelete = Page.NoDelete,
+
+--- Creates a page.
+--- 
+--- Fields to configure:
+--- * `Title` - Title or name of speaker
+--- * `Text` - Text of the page
+--- * `Duration` - Display duration in seconds (default: 9)
+--- * `Action` - Action function on display
+--- * `Portrait` - Path to a portrait image (65x65 pixel)
+--- * `Close` - Function when closed/deleted
+--- * `NoDelete` - Page can not be deleted
+--- 
+--- @param _Data table Page data
+--- @return table Page Created page
 function AP(_Data)
     assert(false, "Must be initalized with BriefingSystem.AddPages!");
     return {};
@@ -183,12 +226,14 @@ function Stronghold.QuickDialog:NextPage(_PlayerID, _FirstPage)
     self.GabID = self.GabID + 1;
     local Print = {
         Data = Page,
+        Count = Data.Page,
         StartTime = Round(Logic.GetTime()),
         Duration = Page.Duration or 9,
         Title = Page.Title,
         Text = Page.Text,
         Portrait = Page.Portrait,
         Close = Page.Close,
+        Action = Page.Action,
         NoDelete = Page.NoDelete,
         ID = self.GabID,
     };
@@ -198,6 +243,7 @@ function Stronghold.QuickDialog:NextPage(_PlayerID, _FirstPage)
     -- Invoke game callback
     GameCallback_SH_Logic_DialogNextPage(_PlayerID, Data, Page);
     -- Render pages
+    self:PlayMessageSound(_PlayerID);
     for i= self.Config.Display.MaxGabMessages, 1, -1 do
         self:RenderPage(_PlayerID, i);
     end
@@ -218,6 +264,7 @@ function Stronghold.QuickDialog:DeletePage(_PlayerID, _ID)
             end
         end
         -- Render pages
+        self:PlayMessageSound(_PlayerID);
         for i= self.Config.Display.MaxGabMessages, 1, -1 do
             self:RenderPage(_PlayerID, i);
         end
@@ -265,6 +312,12 @@ function Stronghold.QuickDialog:AddPages(_Dialog)
     return AP;
 end
 
+function Stronghold.QuickDialog:PlayMessageSound(_PlayerID)
+    if _PlayerID == GUI.GetPlayerID() then
+        Sound.PlayFeedbackSound(Sounds.Misc_Chat, 50);
+    end
+end
+
 function Stronghold.QuickDialog:RenderPage(_PlayerID, _Index)
     if _PlayerID ~= GUI.GetPlayerID()
     or not self.Data[_PlayerID]
@@ -286,8 +339,8 @@ function Stronghold.QuickDialog:RenderPage(_PlayerID, _Index)
     XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitText", 0);
     XGUIEng.ShowWidget("Gab0" .._Index.. "Portrait", 0);
     XGUIEng.ShowWidget("Gab0" .._Index.. "Done", 0);
-    if not Page.NoDelete then
-        XGUIEng.ShowWidget("Gab0" .._Index.. "Done", 0);
+    if not Page.NoDelete and _Index == 1 then
+        XGUIEng.ShowWidget("Gab0" .._Index.. "Done", 1);
     end
     if Page.Portrait then
         TitleWidget = "Gab0" .._Index.. "PortraitTitle";
@@ -303,6 +356,15 @@ function Stronghold.QuickDialog:RenderPage(_PlayerID, _Index)
 
     local Alpha = (_Index -1) * (1 / self.Config.Display.MaxGabMessages);
     XGUIEng.SetMaterialColor("Gab0" .._Index.. "Background", 0, 255, 255, 255, 255 * (1 - Alpha));
+
+    if _Index > 1 then
+        XGUIEng.ShowWidget("Gab0" .._Index.. "Count", 0);
+    else
+        local MaxPage = table.getn(self.Data[_PlayerID].Book);
+        local CurPage = Page.Count;
+        local Count = " @ra " ..CurPage.. "/" ..MaxPage;
+        XGUIEng.SetText("Gab0" .._Index.. "Count", Count);
+    end
 
     local Title = Localize(Page.Title);
     Title = Placeholder.Replace(Title);
@@ -331,13 +393,14 @@ function GUIAction_GabWindowClose(_Index)
     if PlayerID == 17 then
         return;
     end
-    if Stronghold.QuickDialog.Data[PlayerID].Book then
+    if not Stronghold.QuickDialog.Data[PlayerID].Book then
         return;
     end
     local Data = Stronghold.QuickDialog.Data[PlayerID].Book;
     local ID = Data.Print[_Index];
     Syncer.InvokeEvent(
-        Stronghold.Building.SyncEvents.DeletePage,
+        Stronghold.QuickDialog.NetworkCall,
+        Stronghold.QuickDialog.SyncEvents.DeletePage,
         ID
     );
 end
