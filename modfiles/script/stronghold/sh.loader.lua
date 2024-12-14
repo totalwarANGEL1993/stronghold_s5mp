@@ -60,6 +60,7 @@ Lib.Require("module/ai/AiArmy");
 Lib.Require("module/ai/AiArmyRefiller");
 Lib.Require("module/archive/Archive");
 Lib.Require("module/camera/FreeCam");
+Lib.Require("module/cinematic/Cinematic");
 Lib.Require("module/entity/EntityTracker");
 Lib.Require("module/entity/SVLib");
 Lib.Require("module/entity/Treasure");

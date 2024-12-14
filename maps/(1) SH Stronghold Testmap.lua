@@ -69,6 +69,8 @@ SHS5MP_RulesDefinition = {
     OnMapStart = function()
         UseWeatherSet("EuropeanWeatherSet");
         LocalMusic.UseSet = EUROPEMUSIC;
+
+        Lib.Require("module/io/NonPlayerCharacter");
     end,
 
     -- Called after game start timer is over
