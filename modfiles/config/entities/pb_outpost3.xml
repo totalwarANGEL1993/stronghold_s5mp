@@ -44,7 +44,7 @@
         </Upgrade>
 
         <ConstructionInfo>
-            <Time>120</Time>
+            <Time>255</Time>
             <Cost>
                 <Silver>150</Silver>
                 <Clay>800</Clay>

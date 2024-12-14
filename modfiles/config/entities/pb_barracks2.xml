@@ -35,7 +35,7 @@
         </Upgrade>
 
         <ConstructionInfo>
-            <Time>90</Time>
+            <Time>120</Time>
             <Cost>
                 <Clay>50</Clay>
                 <Wood>200</Wood>

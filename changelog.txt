@@ -7,7 +7,7 @@ __Feature__
 
 - Einige Gebäude können bereits ausgebaut gesetzt werden
   * Es werden die Rechte für den Ausbau vorausgesetzt
-  * Die Bauzeit ist gleich lang
+  * Die Bauzeit steigt um die Hälfte der Ausbauzeit
   * Ein Teil der Ausbaukosten wird auf Baukosten aufgeschlagen
 - Sabotage durch Diebe ist nun fatal gegen Mauern
 

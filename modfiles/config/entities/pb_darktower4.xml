@@ -30,7 +30,7 @@
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
 
         <ConstructionInfo>
-            <Time>60</Time>
+            <Time>90</Time>
             <Cost>
                 <Clay>100</Clay>
                 <Wood>400</Wood>

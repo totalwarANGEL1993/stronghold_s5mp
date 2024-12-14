@@ -55,7 +55,7 @@
         <UpgradeSite>ZB_UpgradeSite4</UpgradeSite>
 
         <ConstructionInfo>
-            <Time>180</Time>
+            <Time>300</Time>
             <Cost>
                 <Silver>0</Silver>
                 <Clay>300</Clay>
