@@ -233,6 +233,7 @@ function Stronghold:Init()
     self.Mercenary:Install();
     self.Trap:Install();
     self.Wall:Install();
+    self.QuickDialog:Install();
 
     self:OverwritePayday();
     self:OverwritePlacementCheck();
@@ -283,6 +284,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Mercenary:OnSaveGameLoaded();
     self.Trap:OnSaveGameLoaded();
     self.Wall:OnSaveGameLoaded();
+    self.QuickDialog:OnSaveGameLoaded();
 
     self:OverrideStringTableText();
 
