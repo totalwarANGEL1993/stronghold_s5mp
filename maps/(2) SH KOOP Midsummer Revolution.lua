@@ -73,9 +73,7 @@ SHS5MP_RulesDefinition = {
     OnMapStart = function()
         UseWeatherSet("EuropeanWeatherSet");
         LocalMusic.UseSet = EUROPEMUSIC;
-        AddPeriodicSummer(490);
-        AddPeriodicRain(60);
-        AddPeriodicSummer(120);
+        AddPeriodicSummer(610);
         AddPeriodicRain(60);
         AddPeriodicWinter(500);
         AddPeriodicRain(60);
@@ -621,7 +619,9 @@ function Enemy_Player6_StartStage1()
         ReplaceEntity("P6MG1", Entities.XD_DarkWallStraightGate);
         ReplaceEntity("P6MG2", Entities.XD_DarkWallStraightGate);
         ReplaceEntity("P3LG2", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P3LG2", 6);
         ReplaceEntity("P4RG2", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P4RG2", 6);
         DestroyEntity("P6Barrier1");
         DestroyEntity("P6Barrier2");
         SetHostile(1,6);
@@ -652,7 +652,9 @@ function Enemy_Player6_StartStage2()
         Enemy_InitPlayer6_2();
 
         ReplaceEntity("P6RG1", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6RG1", 6);
         ReplaceEntity("P6LG1", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6LG1", 6);
 
         Job.Second(Enemy_Player6_StartStage3);
         return true;
@@ -674,11 +676,17 @@ function Enemy_Player6_StartStage3()
         Enemy_InitPlayer6_3();
 
         ReplaceEntity("P6MG3", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6MG3", 6);
         ReplaceEntity("P6MG4", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6MG4", 6);
         ReplaceEntity("P6LG2", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6LG2", 6);
         ReplaceEntity("P6RG2", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6RG2", 6);
         ReplaceEntity("P6FG1", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6FG1", 6);
         ReplaceEntity("P6FG2", Entities.XD_DarkWallStraightGate);
+        ChangePlayer("P6FG2", 6);
         return true;
     end
 end
@@ -715,7 +723,7 @@ function Enemy_Player6_RestoreSpawnersInFog_2_1()
         if not IsExisting(ScriptName) then
             if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
             and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
-                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 6);
                 Logic.SetEntityName(ID, ScriptName);
             end
         end
@@ -752,7 +760,7 @@ function Enemy_Player6_RestoreSpawnersInFog_2_2()
         if not IsExisting(ScriptName) then
             if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
             and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
-                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 6);
                 Logic.SetEntityName(ID, ScriptName);
             end
         end
@@ -789,7 +797,7 @@ function Enemy_Player6_RestoreSpawnersInFog_2_3()
         if not IsExisting(ScriptName) then
             if  Logic.IsMapPositionExplored(1, Data[1], Data[2]) == 0
             and Logic.IsMapPositionExplored(2, Data[1], Data[2]) == 0 then
-                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 5);
+                local ID = Logic.CreateEntity(Data[3], Data[1], Data[2], Data[4], 6);
                 Logic.SetEntityName(ID, ScriptName);
             end
         end
@@ -1160,7 +1168,7 @@ function Enemy_Player5_CheckIsDefeated()
             SetHealth(ScriptName, 0);
         end
         Enemy_Player5_IsDefeated = 1;
-        SetNeutral(1,5);
+        SetNeutral(1, 5);
 
         local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/Player5Defeated");
         Sound.PlayGUISound(Sounds.Misc_so_signalhorn, 70);
