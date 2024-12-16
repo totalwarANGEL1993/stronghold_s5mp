@@ -81,6 +81,7 @@ function Stronghold.Trade:Install()
     for PlayerID = 1, GetMaxPlayers() do
         self.Data[PlayerID] = {};
     end
+    self:OverwriteMerchantReady();
 end
 
 function Stronghold.Trade:OnSaveGameLoaded()
@@ -129,5 +130,24 @@ function Stronghold.Trade:OnMerchantSelected(_EntityID)
             XGUIEng.ShowWidget(gvGUI_WidgetID.TroopMerchant, 1);
         end
     end
+end
+
+function Stronghold.Trade:OverwriteMerchantReady()
+    -- Fix: Actually close merchant on click "close"
+    GUIAction_MerchantReady = function()
+        XGUIEng.ShowWidget(gvGUI_WidgetID.TroopMerchant, 0);
+        GameCallback_GUI_SelectionChanged();
+    end
+    -- FIX: Mimic self-closing behavior of normal merchant
+    Job.Turn(function()
+        local LastSelectedID = gvStronghold_LastSelectedEntity or 0;
+        local PlayerID = Logic.EntityGetPlayer(LastSelectedID);
+        if  XGUIEng.IsWidgetShown(gvGUI_WidgetID.TroopMerchant) == 1
+        and Logic.IsHero(LastSelectedID) == 1
+        and GUI.GetPlayerID() == PlayerID
+        and Logic.IsEntityMoving(LastSelectedID) then
+            GUIAction_MerchantReady();
+        end
+    end);
 end
 
