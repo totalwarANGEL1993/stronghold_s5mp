@@ -413,7 +413,7 @@ function Stronghold.AI:HeroTriggerAbilityInflictFear(_HeroID)
         return;
     end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
-        SendEvent.SettlerInflictFear(_HeroID);
+        SendEvent.HeroInflictFear(_HeroID);
         return;
     end
     GUI.SettlerInflictFear(_HeroID);
@@ -426,7 +426,7 @@ function Stronghold.AI:HeroTriggerAbilityAffectUnits(_HeroID)
         return;
     end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
-        SendEvent.SettlerAffectUnitsInArea(_HeroID);
+        SendEvent.HeroActivateAura(_HeroID);
         return;
     end
     GUI.SettlerAffectUnitsInArea(_HeroID);
@@ -439,7 +439,7 @@ function Stronghold.AI:HeroTriggerAbilityCircularAttack(_HeroID)
         return;
     end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
-        SendEvent.SettlerCircularAttack(_HeroID);
+        SendEvent.HeroCircularAttack(_HeroID);
         return;
     end
     GUI.SettlerCircularAttack(_HeroID);
@@ -452,7 +452,7 @@ function Stronghold.AI:HeroTriggerAbilitySummon(_HeroID)
         return;
     end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
-        SendEvent.SettlerSummon(_HeroID);
+        SendEvent.HeroSummon(_HeroID);
         return;
     end
     GUI.SettlerSummon(_HeroID);
@@ -480,7 +480,7 @@ function Stronghold.AI:HeroTriggerAbilityDancingAttack(_HeroID)
 
     -- Unload fake ability
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
-        SendEvent.SettlerAffectUnitsInArea(_HeroID);
+        SendEvent.HeroActivateAura(_HeroID);
     else
         GUI.SettlerAffectUnitsInArea(_HeroID);
     end
@@ -499,7 +499,7 @@ function Stronghold.AI:HeroTriggerAbilityDancingAttack(_HeroID)
         local TimeLeft = Logic.HeroGetAbiltityChargeSeconds(_EntityID, Abilities.AbilityCircularAttack);
         if TimeLeft == RechargeTime then
             if XNetwork.Manager_DoesExist() == 1 and SendEvent then
-                SendEvent.SettlerCircularAttack(_EntityID);
+                SendEvent.HeroCircularAttack(_EntityID);
             else
                 GUI.SettlerCircularAttack(_EntityID);
             end
