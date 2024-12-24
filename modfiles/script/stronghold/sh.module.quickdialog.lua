@@ -121,7 +121,7 @@ function Stronghold.QuickDialog:CreateNetworkHandlers()
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
-            if _Action == Stronghold.Building.SyncEvents.DeletePage then
+            if _Action == Stronghold.QuickDialog.SyncEvents.DeletePage then
                 Stronghold.QuickDialog:DeletePage(_PlayerID, arg[1]);
             end
         end
@@ -228,7 +228,7 @@ function Stronghold.QuickDialog:NextPage(_PlayerID, _FirstPage)
         Data = Page,
         Count = Data.Page,
         StartTime = Round(Logic.GetTime()),
-        Duration = Page.Duration or 9,
+        Duration = Page.Duration,
         Title = Page.Title,
         Text = Page.Text,
         Portrait = Page.Portrait,
@@ -237,6 +237,9 @@ function Stronghold.QuickDialog:NextPage(_PlayerID, _FirstPage)
         NoDelete = Page.NoDelete,
         ID = self.GabID,
     };
+    -- Fix nonsensical inputs
+    Print.Duration = (Print.NoDelete and not Print.Duration and 9) or Print.Duration;
+    -- Save data
     self.Data[_PlayerID].Book[PageID].StartTime = Print.StartTime;
     self.Data[_PlayerID].Book[PageID].Duration = Print.Duration;
     table.insert(self.Data[_PlayerID].Book.Print, 1, Print);
@@ -255,18 +258,13 @@ function Stronghold.QuickDialog:DeletePage(_PlayerID, _ID)
         local Data = self.Data[_PlayerID].Book.Print;
         for i= table.getn(Data), 1, -1 do
             if Data[i].ID == _ID and not Data[i].NoDelete then
-                local Page = table.remove(self.Data[_PlayerID].Book.Print, i);
-                if Page.Close then
-                    Page.Close(Page.Data);
+                if Data[i].Close then
+                    Data[i].Close(Data[i].Data);
                 end
-                GameCallback_SH_Logic_DeletePage(_PlayerID, Dialog, Page, Page.Data);
+                self:NextPage(_PlayerID, false);
+                GameCallback_SH_Logic_DeletePage(_PlayerID, Dialog, Data[i], Data[i].Data);
                 break;
             end
-        end
-        -- Render pages
-        self:PlayMessageSound(_PlayerID);
-        for i= self.Config.Display.MaxGabMessages, 1, -1 do
-            self:RenderPage(_PlayerID, i);
         end
     end
 end
@@ -295,9 +293,11 @@ function Stronghold.QuickDialog:ControlDialog()
                 return false;
             end
             -- Next page after duration is up
-            local TimePassed = Logic.GetTime() - Data[PageID].StartTime;
-            if TimePassed > self.Data[PlayerID].Book[PageID].Duration then
-                self:NextPage(PlayerID, false);
+            if self.Data[PlayerID].Book[PageID].Duration then
+                local TimePassed = Logic.GetTime() - Data[PageID].StartTime;
+                if TimePassed > self.Data[PlayerID].Book[PageID].Duration then
+                    self:NextPage(PlayerID, false);
+                end
             end
         end
     end
@@ -397,7 +397,7 @@ function GUIAction_GabWindowClose(_Index)
         return;
     end
     local Data = Stronghold.QuickDialog.Data[PlayerID].Book;
-    local ID = Data.Print[_Index];
+    local ID = Data.Print[_Index].ID;
     Syncer.InvokeEvent(
         Stronghold.QuickDialog.NetworkCall,
         Stronghold.QuickDialog.SyncEvents.DeletePage,
