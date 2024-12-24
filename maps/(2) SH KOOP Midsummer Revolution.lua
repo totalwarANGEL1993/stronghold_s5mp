@@ -197,7 +197,7 @@ function Difficulty_SetNormal()
     Tools.GiveResouces(1, 900, 1000, 1200, 550, 0, 0);
     Tools.GiveResouces(2, 900, 1000, 1200, 550, 0, 0);
 
-    Difficulty_InitialPeaceTime = 40*60;
+    Difficulty_InitialPeaceTime = 45*60;
     Difficulty_Selected = 2;
 end
 
@@ -205,7 +205,7 @@ function Difficulty_SetHard()
     Tools.GiveResouces(1, 750, 900, 1000, 0, 0, 0);
     Tools.GiveResouces(2, 750, 900, 1000, 0, 0, 0);
 
-    Difficulty_InitialPeaceTime = 30*60;
+    Difficulty_InitialPeaceTime = 40*60;
     Difficulty_Selected = 3;
 end
 
@@ -320,8 +320,8 @@ function Enemy_InitPlayer6_1()
 
     Enemy_Player6_Stage = 1;
 
-    local Strength = 6 + (3 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
+    local Strength = 6 + (2 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsBastille = {
         Entities.CU_BlackKnight_LeaderMace2,
@@ -389,8 +389,8 @@ end
 function Enemy_InitPlayer6_2()
     Enemy_Player6_Stage = 2;
 
-    local Strength = 6 + (2 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
+    local Strength = 4 + (1 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsBastille = {
         Entities.CU_BlackKnight_LeaderMace2,
@@ -509,8 +509,8 @@ end
 function Enemy_InitPlayer6_3()
     Enemy_Player6_Stage = 3;
 
-    local Strength = 16 + (4 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
+    local Strength = 10 + (3 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsCastle = {
         Entities.CU_BlackKnight_LeaderMace2,
@@ -812,8 +812,8 @@ Enemy_Player3_IsDefeated = 0;
 function Enemy_InitPlayer3()
     SetupAiPlayer(3, 0, 0);
 
-    local Strength = 8 + (3 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
+    local Strength = 8 + (2 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsBastille = {
         Entities.CU_Barbarian_LeaderClub2,
@@ -941,8 +941,8 @@ Enemy_Player4_IsDefeated = 0;
 function Enemy_InitPlayer4()
     SetupAiPlayer(4, 0, 0);
 
-    local Strength = 8 + (3 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
+    local Strength = 8 + (2 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
 
     local AllowedUnitsBastille = {
         Entities.PU_LeaderPoleArm3,
@@ -1069,8 +1069,8 @@ Enemy_Player5_BuildingPositions = {};
 Enemy_Player5_IsDefeated = 0;
 
 function Enemy_Player5_Init()
-    local Strength = 8 + (4 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(180 / (Difficulty_Selected ^ (1.2)));
+    local Strength = 6 + (2 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
 
     -- Select types
     local AllowedMelee = {Entities.PU_LeaderPoleArm2, Entities.PU_LeaderSword2, Entities.PU_LeaderPoleArm2};
@@ -1187,8 +1187,8 @@ end
 -- Player 7 --------------------------------------------------------------------
 
 function Enemy_Player7_Init()
-    local Strength = 4 + (2 * (Difficulty_Selected -1));
-    local Respawn = math.ceil(180 / (Difficulty_Selected ^ (1.3)));
+    local Strength = 4 + (1 * (Difficulty_Selected -1));
+    local Respawn = math.ceil(240 / (Difficulty_Selected ^ (1.3)));
     local AllowedTroops = {
         {Entities.PU_LeaderPoleArm1, 3},
         {Entities.PU_LeaderBow1, 3},
