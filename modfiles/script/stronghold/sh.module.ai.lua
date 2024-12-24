@@ -652,7 +652,7 @@ function Stronghold.AI:BattalionCreate(_Data)
         Data.RodeLength or 3500
     );
     AiArmy.SetAliveThreshold(ArmyID, 0.0001);
-    AiArmy.SetFormationController(ArmyID, function (_ID)
+    AiArmy.SetTroopFormationController(ArmyID, function (_ID)
         Stronghold.Unit:SetFormationOnCreate(_ID);
     end);
     Data.ArmyID = ArmyID;
@@ -1016,7 +1016,7 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
         Data.HomePosition,
         Data.RodeLength or 3500
     );
-    AiArmy.SetFormationController(AttackArmyID, function (_ID)
+    AiArmy.SetTroopFormationController(AttackArmyID, function (_ID)
         Stronghold.Unit:SetFormationOnCreate(_ID);
     end);
     Data.AttackArmyID = AttackArmyID;
@@ -1028,7 +1028,7 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
         Data.HomePosition,
         Data.RodeLength or 3500
     );
-    AiArmy.SetFormationController(DefendArmyID, function (_ID)
+    AiArmy.SetTroopFormationController(DefendArmyID, function (_ID)
         Stronghold.Unit:SetFormationOnCreate(_ID);
     end);
     Data.DefendArmyID = DefendArmyID;
