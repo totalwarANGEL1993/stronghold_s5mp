@@ -44,7 +44,7 @@
             <Category>Tavern</Category>
         </Upgrade>
         <ConstructionInfo>
-            <Time>90</Time>
+            <Time>135</Time>
             <Cost>
                 <Clay>150</Clay>
                 <Wood>150</Wood>

@@ -50,7 +50,7 @@
         </Upgrade>
         <Exploration>30</Exploration>
         <ConstructionInfo>
-            <Time>90</Time>
+            <Time>125</Time>
             <Cost>
                 <Clay>200</Clay>
                 <Wood>200</Wood>

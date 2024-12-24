@@ -34,7 +34,7 @@
         <NumberOfAttractableSettlers>65</NumberOfAttractableSettlers>
         <Exploration>40</Exploration>
         <ConstructionInfo>
-            <Time>110</Time>
+            <Time>175</Time>
             <Cost>
                 <Clay>0</Clay>
                 <Wood>500</Wood>

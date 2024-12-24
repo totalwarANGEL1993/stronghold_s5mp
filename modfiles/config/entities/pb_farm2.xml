@@ -49,7 +49,7 @@
         <UpgradeSite>ZB_UpgradeSiteFarm1</UpgradeSite>
 
         <ConstructionInfo>
-            <Time>90</Time>
+            <Time>140</Time>
             <Cost>
                 <Clay>50</Clay>
                 <Wood>150</Wood>
