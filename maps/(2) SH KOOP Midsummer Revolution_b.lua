@@ -223,7 +223,7 @@ function Difficulty_BriefingSelectDifficulty()
         RenderFoW = false,
         RenderSky = true,
     };
-    local AP = BriefingSystem.AddPages(Briefing);
+    local AP, ASP, AMC = BriefingSystem.AddPages(Briefing);
 
     AP {
         Name        = "ChoicePage",
@@ -1554,59 +1554,72 @@ function Main1Quest_BriefingBishop1(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_1_Text",
-        Duration    = 10,
+        Target      = "Bishop",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_2_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_3_Text",
-        Duration    = 10,
+        Target      = "Bishop",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_4_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_5_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_5_Text",
-        Duration    = 10,
+        Target      = "Bishop",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_6_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_7_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_7_Text",
-        Duration    = 10,
+        Target      = "Bishop",
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_8_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_8_Text",
-        Duration    = 10,
+        Target      = "Garek1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_9_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
 
     Briefing.Finished = function()
         Main1Quest_InitFinalEnemyMinions();
     end
-    QuickDialog.Start(PlayerID, "BriefingBishop1", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingBishop1", Briefing);
 end
 
 -- ########################################################################## --
@@ -1677,23 +1690,30 @@ function Mayor1Quest_BriefingDustin1(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingDustin1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingDustin1_1_Text",
-        Duration    = 10,
+        Target      = "Mayor1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingDustin1_2_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingDustin1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingDustin1_3_Text",
-        Duration    = 10,
+        Target      = "Mayor1",
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -1705,7 +1725,7 @@ function Mayor1Quest_BriefingDustin1(_Npc, _HeroID)
             Message(Msg);
         end
     end
-    QuickDialog.Start(PlayerID, "BriefingDustin1", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingDustin1", Briefing);
 end
 
 function Mayor1Quest_BriefingDustin2(_Npc, _HeroID)
@@ -1714,53 +1734,64 @@ function Mayor1Quest_BriefingDustin2(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     if RescueWifeQuest_IsDone == 1 then
         AP {
             Title       = HeroName,
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_1a_Text",
-            Duration    = 10,
+            Target      = _HeroID,
+            CloseUp     = true,
         }
         AP {
             Title       = "map_sh_midsummerrevolution/BriefingDustin2_2a_Title",
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_2a_Text",
-            Duration    = 10,
+            Target      = "Mayor1",
+            CloseUp     = true,
         }
         AP {
             Title       = "map_sh_midsummerrevolution/BriefingDustin2_3a_Title",
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_3a_Text",
-            Duration    = 10,
+            Target      = "Isabella1",
+            CloseUp     = true,
         }
     else
         AP {
             Title       = HeroName,
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_1b_Text",
-            Duration    = 10,
+            Target      = _HeroID,
+            CloseUp     = true,
         }
         AP {
             Title       = "map_sh_midsummerrevolution/BriefingDustin2_2b_Title",
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_2b_Text",
-            Duration    = 10,
+            Target      = "Mayor1",
+            CloseUp     = true,
         }
         AP {
             Title       = HeroName,
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_3b_Text",
-            Duration    = 10,
+            Target      = _HeroID,
+            CloseUp     = true,
         }
     end
 
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingDustin2_4_Title",
         Text        = "map_sh_midsummerrevolution/BriefingDustin2_4_Text",
-        Duration    = 10,
+        Target      = "NPCTrader1",
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
         Mayor1Quest_Done();
     end
-    QuickDialog.Start(PlayerID, "BriefingDustin2", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingDustin2", Briefing);
 end
 
 -- Traitor ------------------------------------------------------------------ --
@@ -1775,10 +1806,8 @@ end
 
 function TraitorRevengeQuest_Done()
     -- make castle ruin accessible
-    local Position = GetPosition("VC_Blockade");
     ReplaceEntity("Traitor1", Entities.XD_ScriptEntity);
     ReplaceEntity("VC_Blockade", Entities.XD_ScriptEntity);
-    Logic.CreateEffect(GGL_Effects.FXExplosionPilgrim, Position.X, Position.Y, 0);
     -- make player 7 neutral to humans
     SetNeutral(1,7);
     SetNeutral(2,7);
@@ -1837,28 +1866,36 @@ function TraitorRevengeQuest_BriefingTraitor1(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_1_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_2_Text",
-        Duration    = 10,
+        Target      = "Traitor1",
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_3_Text",
-        Duration    = 10,
+        Target      = "BanditTower1",
+        CloseUp     = false,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_4_Text",
-        Duration    = 10,
+        Target      = "Traitor1",
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -1868,7 +1905,7 @@ function TraitorRevengeQuest_BriefingTraitor1(_Npc, _HeroID)
         SetHostile(1, 7);
         SetHostile(2, 7);
     end
-    QuickDialog.Start(PlayerID, "BriefingTraitor1", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingTraitor1", Briefing);
 end
 
 function TraitorRevengeQuest_BriefingTraitor2(_Npc, _HeroID)
@@ -1877,24 +1914,30 @@ function TraitorRevengeQuest_BriefingTraitor2(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingTraitor2_1_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor2_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor2_2_Text",
-        Duration    = 10,
+        Target      = "Traitor1",
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
         TraitorRevengeQuest_Done();
     end
-    QuickDialog.Start(PlayerID, "BriefingTraitor2", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingTraitor2", Briefing);
 end
 
 -- Rescue Wife -------------------------------------------------------------- --
@@ -1982,30 +2025,37 @@ function RescueWifeQuest_BriefingIsabella1(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingIsabella1_1_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingIsabella1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingIsabella1_2_Text",
-        Duration    = 10,
+        Target      = "Isabella1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingIsabella1_3_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
         RescueWifeQuest_AddToJournal();
         RescueWifeQuest_CreateIsabella1Npc2();
     end
-    QuickDialog.Start(PlayerID, "BriefingIsabella1", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingIsabella1", Briefing);
 end
 
 -- Find Sheeps -------------------------------------------------------------- --
@@ -2105,38 +2155,48 @@ function FindSheepsQuest_BriefingFarmer1(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_1_Text",
-        Duration    = 10,
+        Target      = "AngryFarmer1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_2_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_3_Text",
-        Duration    = 10,
+        Target      = "AngryFarmer1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_4_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer1_5_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_5_Text",
-        Duration    = 10,
+        Target      = "AngryFarmer1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_6_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -2144,7 +2204,7 @@ function FindSheepsQuest_BriefingFarmer1(_Npc, _HeroID)
         FindSheepsQuest_CreateEscapedSheepNpcs();
         FindSheepsQuest_CreateFarmer1Npc2();
     end
-    QuickDialog.Start(PlayerID, "BriefingFarmer1", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingFarmer1", Briefing);
 end
 
 function FindSheepsQuest_BriefingFarmer2(_Npc, _HeroID)
@@ -2153,29 +2213,36 @@ function FindSheepsQuest_BriefingFarmer2(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer2_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer2_1_Text",
-        Duration    = 10,
+        Target      = "AngryFarmer1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer2_2_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer2_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer2_3_Text",
-        Duration    = 10,
+        Target      = "NPCTrader2",
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
         Trader_CreateNpcTrader2();
     end
-    QuickDialog.Start(PlayerID, "BriefingFarmer2", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingFarmer2", Briefing);
 end
 
 -- Draw Bridge -------------------------------------------------------------- --
@@ -2249,30 +2316,37 @@ function DrawBridgeQuest_BriefingGuard1(_Npc, _HeroID)
     local TypeName = Logic.GetEntityTypeName(HeroType);
     local HeroName = XGUIEng.GetStringTableText("Names/".. TypeName);
 
-    local Briefing = {};
-    local AP = QuickDialog.AddPages(Briefing);
+    local Briefing = {
+        RenderFoW = false,
+        RenderSky = true,
+        ResetCamera = true,
+    };
+    local AP, ASP = BriefingSystem.AddPages(Briefing);
 
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingGuard1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingGuard1_1_Text",
-        Duration    = 10,
+        Target      = "BridgeGuard1",
+        CloseUp     = true,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingGuard1_2_Text",
-        Duration    = 10,
+        Target      = _HeroID,
+        CloseUp     = true,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingGuard1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingGuard1_3_Text",
-        Duration    = 10,
+        Target      = "BridgeGuard1",
+        CloseUp     = true,
     }
 
     Briefing.Finished = function(_PlayerID)
         DrawBridgeQuest_AddTribute();
         DrawBridgeQuest_AddToJournal();
     end
-    QuickDialog.Start(PlayerID, "BriefingGuard1", Briefing);
+    BriefingSystem.Start(PlayerID, "BriefingGuard1", Briefing);
 end
 
 -- ########################################################################## --
