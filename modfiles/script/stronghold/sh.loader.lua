@@ -60,6 +60,7 @@ Lib.Require("module/ai/AiArmy");
 Lib.Require("module/ai/AiArmyRefiller");
 Lib.Require("module/archive/Archive");
 Lib.Require("module/camera/FreeCam");
+Lib.Require("module/cinematic/Cinematic");
 Lib.Require("module/entity/EntityTracker");
 Lib.Require("module/entity/SVLib");
 Lib.Require("module/entity/Treasure");
@@ -143,6 +144,8 @@ Script.Load(gvStronghold_Path.. "sh.module.Wall.config.lua");
 ---
 Script.Load(gvStronghold_Path.. "sh.module.multiplayer.lua");
 Script.Load(gvStronghold_Path.. "sh.module.multiplayer.config.lua");
+Script.Load(gvStronghold_Path.. "sh.module.quickdialog.lua");
+Script.Load(gvStronghold_Path.. "sh.module.quickdialog.config.lua");
 ---
 Script.Load(gvStronghold_Path.. "sh.module.ai.lua");
 Script.Load(gvStronghold_Path.. "sh.module.ai.config.lua");

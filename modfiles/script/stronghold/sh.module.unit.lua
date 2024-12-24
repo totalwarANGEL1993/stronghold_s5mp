@@ -317,7 +317,7 @@ function Stronghold.Unit:FearmongerJobInflictFear(_LeaderID)
         return;
     end
     if XNetwork.Manager_DoesExist() == 1 and SendEvent then
-        SendEvent.SettlerInflictFear(_LeaderID);
+        SendEvent.HeroInflictFear(_LeaderID);
         return;
     end
     GUI.SettlerInflictFear(_LeaderID);
