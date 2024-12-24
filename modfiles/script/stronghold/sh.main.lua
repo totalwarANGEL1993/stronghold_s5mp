@@ -426,6 +426,9 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
                     Damage = Damage * 3;
                 end
             end
+            -- Morale
+            local Morale = GetPlayerMorale(AttackerPlayer);
+            Damage = math.max(math.ceil(Damage * Morale), 1);
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
             -- prevent eco harrasment
