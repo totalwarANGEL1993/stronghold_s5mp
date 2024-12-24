@@ -261,8 +261,8 @@ function Stronghold.QuickDialog:DeletePage(_PlayerID, _ID)
                 if Data[i].Close then
                     Data[i].Close(Data[i].Data);
                 end
-                self:NextPage(_PlayerID, false);
                 GameCallback_SH_Logic_DeletePage(_PlayerID, Dialog, Data[i], Data[i].Data);
+                self:NextPage(_PlayerID, false);
                 break;
             end
         end
@@ -331,12 +331,20 @@ function Stronghold.QuickDialog:RenderPage(_PlayerID, _Index)
         return;
     end
 
+    local Screen = {GUI.GetScreenSize()};
+    local ShowSmall = (Screen[2] < 1000 and 1) or 0;
+    local ShowBig = (Screen[2] >= 1000 and 1) or 0;
+
     local TitleWidget = "Gab0" .._Index.. "Title";
     local TextWidget = "Gab0" .._Index.. "Text";
-    XGUIEng.ShowWidget("Gab0" .._Index.. "Title", 1);
+    XGUIEng.ShowWidget("Gab0" .._Index.. "Title", ShowBig);
+    XGUIEng.ShowWidget("Gab0" .._Index.. "Title8", ShowSmall);
     XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitTitle", 0);
-    XGUIEng.ShowWidget("Gab0" .._Index.. "Text", 1);
+    XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitTitle8", 0);
+    XGUIEng.ShowWidget("Gab0" .._Index.. "Text", ShowBig);
+    XGUIEng.ShowWidget("Gab0" .._Index.. "Text8", ShowSmall);
     XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitText", 0);
+    XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitText8", 0);
     XGUIEng.ShowWidget("Gab0" .._Index.. "Portrait", 0);
     XGUIEng.ShowWidget("Gab0" .._Index.. "Done", 0);
     if not Page.NoDelete and _Index == 1 then
@@ -346,9 +354,13 @@ function Stronghold.QuickDialog:RenderPage(_PlayerID, _Index)
         TitleWidget = "Gab0" .._Index.. "PortraitTitle";
         TextWidget = "Gab0" .._Index.. "PortraitText";
         XGUIEng.ShowWidget("Gab0" .._Index.. "Title", 0);
-        XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitTitle", 1);
+        XGUIEng.ShowWidget("Gab0" .._Index.. "Title8", 0);
+        XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitTitle", ShowBig);
+        XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitTitle8", ShowSmall);
         XGUIEng.ShowWidget("Gab0" .._Index.. "Text", 0);
-        XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitText", 1);
+        XGUIEng.ShowWidget("Gab0" .._Index.. "Text8", 0);
+        XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitText", ShowBig);
+        XGUIEng.ShowWidget("Gab0" .._Index.. "PortraitText8", ShowSmall);
         XGUIEng.ShowWidget("Gab0" .._Index.. "Portrait", 1);
         XGUIEng.SetMaterialTexture("Gab0" .._Index.. "Portrait", 1, Page.Portrait);
     end
@@ -371,6 +383,7 @@ function Stronghold.QuickDialog:RenderPage(_PlayerID, _Index)
     if _Index > 1 then
         Title = " @color:80,80,80," ..(255 * (1 - Alpha)).. " " .. Title
     end
+    XGUIEng.SetText(TitleWidget.. "8", Title);
     XGUIEng.SetText(TitleWidget, Title);
 
     local Text = Localize(Page.Text);
@@ -378,6 +391,7 @@ function Stronghold.QuickDialog:RenderPage(_PlayerID, _Index)
     if _Index > 1 then
         Text = " @color:180,180,180," ..(255 * (1 - Alpha)).. " " .. Text
     end
+    XGUIEng.SetText(TextWidget.. "8", Text);
     XGUIEng.SetText(TextWidget, Text);
 end
 

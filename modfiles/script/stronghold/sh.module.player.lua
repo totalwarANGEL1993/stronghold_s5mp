@@ -966,7 +966,7 @@ function Stronghold.Player:GetFestivalCosts(_PlayerID, _Level)
         local SoldierFactor = Soldiers / self.Config.Base.FestivalSoldierDivisor;
         local MoneyCost = math.floor(BaseCost * (1 + (SoldierFactor + HonorFactor)));
         local Morale = GetPlayerMorale(_PlayerID);
-        MoneyCost = math.max(math.ceil(MoneyCost / Morale), 1);
+        MoneyCost = math.max(math.ceil(MoneyCost / Morale), 0);
         MoneyCost = GameCallback_SH_CalculateFestivalCosts(_PlayerID, MoneyCost);
         Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
     end
@@ -994,7 +994,7 @@ function Stronghold.Player:GetSermonCosts(_PlayerID, _Level)
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local MoneyCost = math.ceil(WorkerCount * BaseCost);
         local Morale = GetPlayerMorale(_PlayerID);
-        MoneyCost = math.max(math.ceil(MoneyCost / Morale), 1);
+        MoneyCost = math.max(math.ceil(MoneyCost / Morale), 0);
         MoneyCost = GameCallback_SH_CalculateSermonCosts(_PlayerID, MoneyCost);
         Costs = CreateCostTable(0, MoneyCost, 0, 0, 0, 0, 0, 0);
     end

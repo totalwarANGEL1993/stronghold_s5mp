@@ -93,6 +93,16 @@ SHS5MP_RulesDefinition = {
         Difficulty_Selected = 0;
         Difficulty_NetEvent = Syncer.CreateEvent(function(_PlayerID, _Selected)
             Difficulty_Selected = _Selected;
+
+            local ComputerMorale = 0.9 + (0.1 * (Difficulty_Selected -1));
+            local PlayerMorale = 1.1 - (0.1 * (Difficulty_Selected -1));
+            SetPlayerMorale(1, PlayerMorale);
+            SetPlayerMorale(2, PlayerMorale);
+            SetPlayerMorale(3, ComputerMorale);
+            SetPlayerMorale(4, ComputerMorale);
+            SetPlayerMorale(5, ComputerMorale);
+            SetPlayerMorale(6, ComputerMorale);
+            SetPlayerMorale(7, ComputerMorale);
         end);
     end,
 

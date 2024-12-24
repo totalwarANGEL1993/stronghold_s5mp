@@ -885,7 +885,6 @@ end
 function Stronghold.Economy:OnUnknownTaskInFarm(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if IsPlayer(PlayerID) then
-        local Morale = GetPlayerMorale(PlayerID);
         if  Logic.IsSettler(_EntityID) == 1
         and Logic.IsSettlerAtFarm(_EntityID) == 1 then
             local RationLevel = GetRationLevel(PlayerID);
@@ -904,7 +903,6 @@ function Stronghold.Economy:OnUnknownTaskInFarm(_EntityID)
                 if RationEffect + TechBonus ~= 0 then
                     EaterCounter = self.Data[PlayerID].ReputationDetails.ProvidingCounter;
                     EaterCounter = EaterCounter + ((RationEffect + TechBonus) * UpgradeFactor);
-                    EaterCounter = math.ceil(EaterCounter * Morale);
                     EaterCounter = GameCallback_SH_Calculate_ServiceReputationIncrease(PlayerID, EntityType, EaterCounter);
                 end
                 self.Data[PlayerID].ReputationDetails.ProvidingCounter = EaterCounter;
@@ -917,7 +915,6 @@ function Stronghold.Economy:OnUnknownTaskInFarm(_EntityID)
                 if RationEffect + TechBonus ~= 0 then
                     EaterCounter = self.Data[PlayerID].HonorDetails.ProvidingCounter;
                     EaterCounter = EaterCounter + ((RationEffect + TechBonus) * UpgradeFactor);
-                    EaterCounter = math.ceil(EaterCounter * Morale);
                     EaterCounter = GameCallback_SH_Calculate_ServiceHonorIncrease(PlayerID, EntityType, EaterCounter);
                 end
                 self.Data[PlayerID].HonorDetails.ProvidingCounter = EaterCounter;
@@ -937,7 +934,6 @@ end
 function Stronghold.Economy:OnUnknownTaskInTavern(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if IsPlayer(PlayerID) then
-        local Morale = GetPlayerMorale(PlayerID);
         if  Logic.IsSettler(_EntityID) == 1
         and Logic.IsSettlerAtFarm(_EntityID) == 1 then
             local BeverageLevel = GetBeverageLevel(PlayerID);
@@ -955,7 +951,6 @@ function Stronghold.Economy:OnUnknownTaskInTavern(_EntityID)
                 if BeverageEffect + TechBonus ~= 0 then
                     DrinkerCounter = self.Data[PlayerID].ReputationDetails.BeverageCounter;
                     DrinkerCounter = DrinkerCounter + ((BeverageEffect + TechBonus) * UpgradeFactor);
-                    DrinkerCounter = math.ceil(DrinkerCounter * Morale);
                     DrinkerCounter = GameCallback_SH_Calculate_ServiceReputationIncrease(PlayerID, EntityType, DrinkerCounter);
                 end
                 self.Data[PlayerID].ReputationDetails.BeverageCounter = DrinkerCounter;
@@ -973,7 +968,6 @@ function Stronghold.Economy:OnUnknownTaskInTavern(_EntityID)
                 if BeverageEffect + TechBonus ~= 0 then
                     DrinkerCounter = self.Data[PlayerID].HonorDetails.BeverageCounter;
                     DrinkerCounter = DrinkerCounter + ((BeverageEffect + TechBonus) * UpgradeFactor);
-                    DrinkerCounter = math.ceil(DrinkerCounter * Morale);
                     DrinkerCounter = GameCallback_SH_Calculate_ServiceHonorIncrease(PlayerID, EntityType, DrinkerCounter);
                 end
                 self.Data[PlayerID].HonorDetails.BeverageCounter = DrinkerCounter;
@@ -993,7 +987,6 @@ end
 function Stronghold.Economy:OnUnknownTaskInHouse(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     if IsPlayer(PlayerID) then
-        local Morale = GetPlayerMorale(PlayerID);
         if  Logic.IsSettler(_EntityID) == 1
         and Logic.IsSettlerAtResidence(_EntityID) == 1 then
             local SleepTimeLevel = GetSleepTimeLevel(PlayerID);
@@ -1012,7 +1005,6 @@ function Stronghold.Economy:OnUnknownTaskInHouse(_EntityID)
                 if SleepEffect + TechBonus ~= 0 then
                     SleepCounter = self.Data[PlayerID].ReputationDetails.HousingCounter;
                     SleepCounter = SleepCounter + ((SleepEffect + TechBonus) * UpgradeFactor);
-                    SleepCounter = math.ceil(SleepCounter * Morale);
                     SleepCounter = GameCallback_SH_Calculate_ServiceReputationIncrease(PlayerID, EntityType, SleepCounter);
                 end
                 self.Data[PlayerID].ReputationDetails.HousingCounter = SleepCounter;
@@ -1025,7 +1017,6 @@ function Stronghold.Economy:OnUnknownTaskInHouse(_EntityID)
                 if SleepEffect + TechBonus ~= 0 then
                     SleepCounter = self.Data[PlayerID].HonorDetails.HousingCounter;
                     SleepCounter = SleepCounter + ((SleepEffect + TechBonus) * UpgradeFactor);
-                    SleepCounter = math.ceil(SleepCounter * Morale);
                     SleepCounter = GameCallback_SH_Calculate_ServiceHonorIncrease(PlayerID, EntityType, SleepCounter);
                 end
                 self.Data[PlayerID].HonorDetails.HousingCounter = SleepCounter;
@@ -1566,7 +1557,7 @@ function Stronghold.Economy:UpdateFindViewAmount(_PlayerID)
             if Leaders[1] > 0 then
                 Costs = Logic.LeaderGetUpkeepCost(Leaders[2]) * Leaders[1];
             end
-            Upkeep = math.ceil(Upkeep / Morale);
+            Costs = math.ceil(Costs / Morale);
             self.Data[_PlayerID].UpkeepDetails[Type] = Costs;
         end
     end
