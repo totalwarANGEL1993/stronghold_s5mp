@@ -300,7 +300,7 @@ end
 function Stronghold.Wall:MakeNeutralWallInvincible(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local EntityType = Logic.GetEntityType(_EntityID);
-    if PlayerID == 0 or self.Config.NeutralWallType[EntityType] then
+    if PlayerID == 0 and self.Config.NeutralWallType[EntityType] then
         MakeInvulnerable(_EntityID);
     end
 end
