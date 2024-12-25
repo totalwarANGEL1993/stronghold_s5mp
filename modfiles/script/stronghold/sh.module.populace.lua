@@ -478,9 +478,11 @@ end
 function Stronghold.Populace:GetReputationLossByRats(_PlayerID)
     local Loss = 0;
     if self.Data[_PlayerID] then
+        local Morale = GetPlayerMorale(_PlayerID);
         local Rats = self:CountRats(_PlayerID);
         local Damage = self.Config.CivilDuties.Rats.ReputationDamage;
         Loss = Loss + (Damage * Rats);
+        Loss = math.max(math.floor((Loss / Morale) + 0.5), 0);
     end
     return Loss;
 end
@@ -744,9 +746,11 @@ end
 function Stronghold.Populace:GetReputationLossByCriminals(_PlayerID)
     local Loss = 0;
     if self.Data[_PlayerID] then
+        local Morale = GetPlayerMorale(_PlayerID);
         local Criminals = self:CountCriminals(_PlayerID);
         local Damage = self.Config.CivilDuties.Crime.ReputationDamage;
         Loss = Loss + (Damage * Criminals);
+        Loss = math.max(math.floor((Loss / Morale) + 0.5), 0);
     end
     return Loss;
 end

@@ -282,8 +282,6 @@ function Stronghold.Building:OnFarmSelected(_EntityID)
     or Type == Entities.PB_Farm2
     or Type == Entities.PB_Farm3 then
         XGUIEng.ShowWidget("FarmRations", 1);
-        XGUIEng.ShowWidget("FarmRationsLevel0", 0);
-        XGUIEng.ShowWidget("FarmRationsLevel1", 0);
     end
 end
 
@@ -319,14 +317,16 @@ function Stronghold.Building:PrintFarmRationButtonsTooltip(_PlayerID, _EntityID,
     if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..OngoingText;
+        local Value = string.format("" ..Effects.Reputation, "%.1f");
+        EffectText = EffectText.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
         Seperate = true;
     end
     if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
         local Seperator = (Seperate and ", ") or "";
-        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..OngoingText;
+        local Value = string.format("" ..Effects.Honor, "%.1f");
+        EffectText = EffectText..Seperator.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
     end
     EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
@@ -352,7 +352,7 @@ end
 GUIUpdate_RationsButtons = function()
     local PlayerID = GUI.GetPlayerID();
     local Level = GetRationLevel(PlayerID);
-    XGUIEng.SetWidgetPosition("FarmRations", 118, 5);
+    -- XGUIEng.SetWidgetPosition("FarmRations", 118, 5);
     XGUIEng.UnHighLightGroup("InGame", "rationsgroup");
     local WidgetID = Stronghold.Building.Config.Civil.RationButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
@@ -368,8 +368,6 @@ function Stronghold.Building:OnResidenceSelected(_EntityID)
     or Type == Entities.PB_Residence2
     or Type == Entities.PB_Residence3 then
         XGUIEng.ShowWidget("ResidenceSleepTime", 1);
-        XGUIEng.ShowWidget("ResidenceSleepLevel0", 0);
-        XGUIEng.ShowWidget("ResidenceSleepLevel1", 0);
     end
 end
 
@@ -405,14 +403,16 @@ function Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(_PlayerID, _E
     if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..OngoingText;
+        local Value = string.format("" ..Effects.Reputation, "%.1f");
+        EffectText = EffectText.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
         Seperate = true;
     end
     if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
         local Seperator = (Seperate and ", ") or "";
-        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..OngoingText;
+        local Value = string.format("" ..Effects.Honor, "%.1f");
+        EffectText = EffectText..Seperator.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
     end
     EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
@@ -438,7 +438,7 @@ end
 GUIUpdate_SleeptimeButtons = function()
     local PlayerID = GUI.GetPlayerID();
     local Level = GetSleepTimeLevel(PlayerID);
-    XGUIEng.SetWidgetPosition("ResidenceSleepTime", 118, 5);
+    -- XGUIEng.SetWidgetPosition("ResidenceSleepTime", 118, 5);
     XGUIEng.UnHighLightGroup("InGame", "sleeptimegroup");
     local WidgetID = Stronghold.Building.Config.Civil.SleepButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);
@@ -488,7 +488,8 @@ function Stronghold.Building:PrintTavernBeverageButtonsTooltip(_PlayerID, _Entit
     if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
         local Operator = (Effects.Reputation >= 0 and "+") or "";
-        EffectText = EffectText.. Operator ..Effects.Reputation.. " " ..Unit.. " " ..OngoingText;
+        local Value = string.format("" ..Effects.Reputation, "%.1f");
+        EffectText = EffectText.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
         -- (The tavern mirrors reputation onto honor if technology
         --  T_Instruments is researched.)
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_Instruments) == 1 then
@@ -500,7 +501,8 @@ function Stronghold.Building:PrintTavernBeverageButtonsTooltip(_PlayerID, _Entit
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
         local Operator = (Effects.Honor >= 0 and "+") or "";
         local Seperator = (Seperate and ", ") or "";
-        EffectText = EffectText..Seperator.. Operator ..Effects.Honor.. " " ..Unit.. " " ..OngoingText;
+        local Value = string.format("" ..Effects.Honor, "%.1f");
+        EffectText = EffectText..Seperator.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
     end
     EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
@@ -526,7 +528,7 @@ end
 GUIUpdate_BeverageButtons = function()
     local PlayerID = GUI.GetPlayerID();
     local Level = GetBeverageLevel(PlayerID);
-    XGUIEng.SetWidgetPosition("TavernBeverage", 143, 5);
+    -- XGUIEng.SetWidgetPosition("TavernBeverage", 143, 5);
     XGUIEng.UnHighLightGroup("InGame", "beveragegroup");
     local WidgetID = Stronghold.Building.Config.Civil.BeverageButtons[Level];
 	XGUIEng.HighLightButton(WidgetID, 1);

@@ -257,8 +257,6 @@ function Stronghold:OnSaveGameLoaded()
         Message("The S5 Community Server is required!");
         return false;
     end
-    -- FIXME: Do I still need next line?
-    Archive.Push("stronghold_s5mp.bba");
     Archive.ReloadGUI("data\\menu\\projects\\ingame.xml");
     Archive.ReloadEntities();
 
@@ -934,9 +932,6 @@ function Stronghold:OverrideWidgetTooltips()
     Overwrite.CreateOverwrite("GUITooltip_Payday", function()
         local PlayerID = GetLocalPlayerID();
         local PaydayTimeLeft = math.ceil(Logic.GetPlayerPaydayTimeLeft(PlayerID)/1000);
-        local PaydayFrequency = Logic.GetPlayerPaydayFrequency(PlayerID);
-        local PaydayCosts = Logic.GetPlayerPaydayCost(PlayerID);
-
         local TooltipString = string.format(
             " @color:200,200,200,255 %s @cr %d @color:255,255,255,255 %s ",
             XGUIEng.GetStringTableText("IngameMenu/NameTaxday"),

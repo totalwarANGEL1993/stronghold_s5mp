@@ -11,20 +11,18 @@ Stronghold.Building.Config.Civil = {
         [4] = "SetVeryHighTaxes",
     },
     RationButtons = {
+        [0] = "FarmRationsLevel0",
+        [1] = "FarmRationsLevel1",
         [2] = "FarmRationsLevel2",
         [3] = "FarmRationsLevel3",
         [4] = "FarmRationsLevel4",
-        -- deprecated
-        [0] = "FarmRationsLevel0",
-        [1] = "FarmRationsLevel1",
     },
     SleepButtons = {
+        [0] = "ResidenceSleepLevel0",
+        [1] = "ResidenceSleepLevel1",
         [2] = "ResidenceSleepLevel2",
         [3] = "ResidenceSleepLevel3",
         [4] = "ResidenceSleepLevel4",
-        -- deprecated
-        [0] = "ResidenceSleepLevel0",
-        [1] = "ResidenceSleepLevel1",
     },
     BeverageButtons = {
         [0] = "TavernBeverageLevel0",

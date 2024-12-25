@@ -394,7 +394,6 @@ end
 
 function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Morale = GetPlayerMorale(_PlayerID);
         local MaxReputation = self.Config.Income.MaxReputation;
         MaxReputation = GameCallback_SH_Calculate_ReputationMax(_PlayerID, MaxReputation);
         Stronghold.Player:SetPlayerReputationLimit(_PlayerID, MaxReputation);
@@ -416,7 +415,6 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         if self.Data[_PlayerID].ReputationDetails.OtherBonus > 0 then
             ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.OtherBonus;
         end
-        ReputationPlus = math.max(math.ceil(ReputationPlus * Morale), 1);
         ReputationPlus = GameCallback_SH_Calculate_ReputationIncrease(_PlayerID, ReputationPlus);
 
         -- Calculate reputation penalty
@@ -439,7 +437,6 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         if self.Data[_PlayerID].ReputationDetails.OtherMalus > 0 then
             ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.OtherMalus;
         end
-        ReputationMinus = math.max(math.ceil(ReputationMinus / Morale), 1);
         ReputationMinus = GameCallback_SH_Calculate_ReputationDecrease(_PlayerID, ReputationMinus);
 
         -- Calculate honor
@@ -459,7 +456,6 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         if self.Data[_PlayerID].HonorDetails.OtherBonus > 0 then
             HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.OtherBonus;
         end
-        HonorPlus = math.max(math.ceil(HonorPlus * Morale), 1);
         HonorPlus = GameCallback_SH_Calculate_HonorIncrease(_PlayerID, HonorPlus);
 
         local Upkeep = self:CalculateMoneyUpkeep(_PlayerID);
@@ -478,6 +474,7 @@ end
 -- Reputation can only increase if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Morale = GetPlayerMorale(_PlayerID);
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             -- Tax height
@@ -486,6 +483,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             if TaxtHeight == 1 then
                 local TaxEffect = self.Config.Income.TaxEffect;
                 local TaxBonus = TaxEffect[TaxtHeight].Reputation or 0;
+                TaxBonus = math.max(math.floor((TaxBonus * Morale) + 0.5), 0);
                 self.Data[_PlayerID].ReputationDetails.TaxBonus = TaxBonus;
             end
 
@@ -493,6 +491,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             local FarmBonus = self.Data[_PlayerID].ReputationDetails.ProvidingCounter;
             local TavernBonus = self.Data[_PlayerID].ReputationDetails.BeverageCounter;
             local Providing = (FarmBonus + TavernBonus) / math.max(WorkerCount, 1);
+            Providing = math.max(Providing * Morale, 0);
             if Providing >= 0 then
                 self.Data[_PlayerID].ReputationDetails.Providing = Providing;
             end
@@ -500,6 +499,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             -- Housing settlers
             local HouseBonus = self.Data[_PlayerID].ReputationDetails.HousingCounter;
             local Housing = HouseBonus / math.max(WorkerCount, 1);
+            Housing = math.max(Housing * Morale, 0);
             if Housing >= 0 then
                 self.Data[_PlayerID].ReputationDetails.Housing = Housing;
             end
@@ -568,6 +568,7 @@ end
 -- Reputation can only decrease if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+        local Morale = GetPlayerMorale(_PlayerID);
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             -- Tax height
@@ -575,6 +576,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
                 _PlayerID,
                 GetTaxHeight(_PlayerID)
             );
+            TaxPenalty = math.max(math.floor((TaxPenalty / Morale) + 0.5), 0);
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = TaxPenalty;
 
             local Rank = GetRank(_PlayerID) +1;
@@ -592,6 +594,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
                 HungerPenalty = HungerPenalty + ((-1) * TavernBonus)
             end
             HungerPenalty = (HungerPenalty / WorkerCount) * (Rank / MaxRank);
+            HungerPenalty = math.max(HungerPenalty / Morale, 0);
             HungerPenalty = GameCallback_SH_Calculate_HungerPenalty(_PlayerID, HungerPenalty);
             self.Data[_PlayerID].ReputationDetails.Hunger = math.min(HungerPenalty, 16);
             -- Penalty for no house
@@ -602,6 +605,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
                 SleepPenalty = SleepPenalty + ((-1) * HouseBonus);
             end
             SleepPenalty = (SleepPenalty / WorkerCount) * (Rank / MaxRank);
+            SleepPenalty = math.max(SleepPenalty / Morale, 0);
             SleepPenalty = GameCallback_SH_Calculate_SleepPenalty(_PlayerID, SleepPenalty);
             self.Data[_PlayerID].ReputationDetails.Homelessness = math.min(SleepPenalty, 16);
         else
@@ -773,11 +777,11 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
         local TaxPerWorker = Logic.GetPlayerRegularTaxPerWorker(_PlayerID);
         local WorkerAmount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local Income = TaxPerWorker * WorkerAmount;
+        local Morale = GetPlayerMorale(_PlayerID);
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Scale) == 1 then
             Income = Income * self.Config.Income.ScaleBonusFactor;
         end
-        local Morale = GetPlayerMorale(_PlayerID);
-        Income = math.ceil(Income * Morale);
+        Income = math.max(Income * Morale, 0);
         Income = GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, Income);
         return math.floor(Income + 0.5);
     end
@@ -806,8 +810,6 @@ function Stronghold.Economy:CalculateMoneyUpkeep(_PlayerID)
                 Upkeep = Upkeep + UnitCost;
             end
         end
-        local Morale = GetPlayerMorale(_PlayerID);
-        Upkeep = math.ceil(Upkeep / Morale);
         return math.floor(Upkeep);
     end
     return 0;
@@ -1552,12 +1554,10 @@ function Stronghold.Economy:UpdateFindViewAmount(_PlayerID)
     for _, TypeList in pairs(self.Config.SelectCategoryMapping) do
         for _, Type in pairs(TypeList) do
             local Costs = 0;
-            local Morale = GetPlayerMorale(_PlayerID);
             local Leaders = GetLeadersOfType(_PlayerID, Type);
             if Leaders[1] > 0 then
                 Costs = Logic.LeaderGetUpkeepCost(Leaders[2]) * Leaders[1];
             end
-            Costs = math.ceil(Costs / Morale);
             self.Data[_PlayerID].UpkeepDetails[Type] = Costs;
         end
     end
@@ -1620,9 +1620,9 @@ function Stronghold.Economy:CreatePaydayClockTooltipText(_PlayerID)
             local Text = self:FormatExtendedPaydayClockText(_PlayerID);
             AmendText = " @cr @cr " .. Placeholder.Replace(Text);
             -- Resize
-            XGUIEng.SetWidgetSize("TooltipTop", 172, 300);
-            XGUIEng.SetWidgetSize("TooltipTopText", 164, 300);
-            XGUIEng.SetWidgetSize("TooltipTopBackground", 172, 300);
+            XGUIEng.SetWidgetSize("TooltipTop", 172, 320);
+            XGUIEng.SetWidgetSize("TooltipTopText", 164, 320);
+            XGUIEng.SetWidgetSize("TooltipTopBackground", 172, 320);
             XGUIEng.SetMaterialTexture("TooltipTopBackground", 1, ExtGraphic);
         else
             -- Get Text
@@ -1653,6 +1653,8 @@ function Stronghold.Economy:FormatPaydayClockText(_PlayerID)
 end
 
 function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
+    local morl = math.floor(GetPlayerMorale(_PlayerID) * 100);
+
     local ihon = self.Data[_PlayerID].IncomeHonor;
     local hbb  = self.Data[_PlayerID].HonorDetails.Buildings;
     local htb  = self.Data[_PlayerID].HonorDetails.TaxBonus;
@@ -1691,7 +1693,9 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
         ((pbb < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pbb),
         ((ppr-phu < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", ppr-phu),
         ((pho-phs < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pho-phs),
-        ((pob-pop < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pob-pop)
+        ((pob-pop < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pob-pop),
+        -- Morale
+        "{azure}" ..morl.. "%{white}"
     );
 end
 
