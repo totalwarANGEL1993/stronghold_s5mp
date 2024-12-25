@@ -331,7 +331,7 @@ function Enemy_InitPlayer6_1()
     Enemy_Player6_Stage = 1;
 
     local Strength = 6 + (2 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
+    local RespawnTime = math.ceil(210 - ((210 * 0.1) * (Difficulty_Selected -1)));
 
     local AllowedUnitsBastille = {
         Entities.CU_BlackKnight_LeaderMace2,
@@ -400,7 +400,7 @@ function Enemy_InitPlayer6_2()
     Enemy_Player6_Stage = 2;
 
     local Strength = 4 + (1 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
+    local RespawnTime = math.ceil(180 - ((180 * 0.1) * (Difficulty_Selected -1)));
 
     local AllowedUnitsBastille = {
         Entities.CU_BlackKnight_LeaderMace2,
@@ -520,7 +520,7 @@ function Enemy_InitPlayer6_3()
     Enemy_Player6_Stage = 3;
 
     local Strength = 10 + (3 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
+    local RespawnTime = math.ceil(180 - ((180 * 0.1) * (Difficulty_Selected -1)));
 
     local AllowedUnitsCastle = {
         Entities.CU_BlackKnight_LeaderMace2,
@@ -823,7 +823,7 @@ function Enemy_InitPlayer3()
     SetupAiPlayer(3, 0, 0);
 
     local Strength = 8 + (2 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
+    local RespawnTime = math.ceil(210 - ((210 * 0.1) * (Difficulty_Selected -1)));
 
     local AllowedUnitsBastille = {
         Entities.CU_Barbarian_LeaderClub2,
@@ -952,7 +952,7 @@ function Enemy_InitPlayer4()
     SetupAiPlayer(4, 0, 0);
 
     local Strength = 8 + (2 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
+    local RespawnTime = math.ceil(210 - ((210 * 0.1) * (Difficulty_Selected -1)));
 
     local AllowedUnitsBastille = {
         Entities.PU_LeaderPoleArm3,
@@ -1079,8 +1079,8 @@ Enemy_Player5_BuildingPositions = {};
 Enemy_Player5_IsDefeated = 0;
 
 function Enemy_Player5_Init()
-    local Strength = 6 + (2 * (Difficulty_Selected -1));
-    local RespawnTime = math.ceil(240 / (Difficulty_Selected ^ (1.2)));
+    local Strength = 6 + (1 * (Difficulty_Selected -1));
+    local RespawnTime = math.ceil(240 - ((240 * 0.10) * (Difficulty_Selected -1)));
 
     -- Select types
     local AllowedMelee = {Entities.PU_LeaderPoleArm2, Entities.PU_LeaderSword2, Entities.PU_LeaderPoleArm2};
@@ -1095,9 +1095,13 @@ function Enemy_Player5_Init()
     if Difficulty_Selected >= 3 then
         AllowedCavalry = {Entities.CU_TemplarLeaderCavalry1, Entities.CU_TemplarLeaderHeavyCavalry1};
     end
-    local AllowedCannons = {Entities.PV_Cannon1, Entities.PV_Cannon2};
-    if Difficulty_Selected >= 3 then
-        AllowedCannons = {Entities.PV_Cannon3, Entities.PV_Cannon4};
+    local AllowedCannons = {Entities.PV_Cannon1};
+    if Difficulty_Selected >= 2 then
+        AllowedCannons = {Entities.PV_Cannon1, Entities.PV_Cannon1, Entities.PV_Cannon2};
+    elseif Difficulty_Selected >= 3 then
+        AllowedCannons = {Entities.PV_Cannon1, Entities.PV_Cannon3, Entities.PV_Cannon2};
+    elseif Difficulty_Selected >= 4 then
+        AllowedCannons = {Entities.PV_Cannon3, Entities.PV_Cannon3, Entities.PV_Cannon4};
     end
 
     -- Create enemies for player 1
@@ -1108,8 +1112,8 @@ function Enemy_Player5_Init()
     };
     DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_BC1", RespawnTime, 2, unpack(AllowedMelee));
     DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 2, unpack(AllowedCannons));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_ST1", RespawnTime, 2, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp1, "P5_FD1", RespawnTime, 1, unpack(AllowedCannons));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp1, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
     DelinquentsCampAddTarget(Enemy_Player5Camp1, "Player1Home", "Player2Home");
     -- DelinquentsCampAddTarget(Enemy_Player5Camp1, "P5DefPos2", "NWP1", "NWP2", "NWP3", "NWP4", "NWP5", "Player2Home");
@@ -1123,8 +1127,8 @@ function Enemy_Player5_Init()
     };
     DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_BC1", RespawnTime, 2, unpack(AllowedMelee));
     DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_FD1", RespawnTime, 1, unpack(AllowedCannons));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 1, unpack(AllowedCavalry));
-    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_AC1", RespawnTime, 2, unpack(AllowedRanged));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_ST1", RespawnTime, 2, unpack(AllowedCavalry));
+    DelinquentsCampAddSpawner(Enemy_Player5Camp2, "P5_AC1", RespawnTime, 1, unpack(AllowedRanged));
     DelinquentsCampAddGuardPositions(Enemy_Player5Camp2, "P5DefPos1", "P5DefPos2", "P5DefPos3", "P5DefPos4");
     DelinquentsCampAddTarget(Enemy_Player5Camp2, "Player1Home", "Player2Home");
     -- DelinquentsCampAddTarget(Enemy_Player5Camp2, "P5DefPos1", "MWP1", "MWP2", "MWP3", "SWP4", "SWP5", "Player1Home");
@@ -1198,7 +1202,7 @@ end
 
 function Enemy_Player7_Init()
     local Strength = 4 + (1 * (Difficulty_Selected -1));
-    local Respawn = math.ceil(240 / (Difficulty_Selected ^ (1.3)));
+    local RespawnTime = math.ceil(240 - ((240 * 0.10) * (Difficulty_Selected -1)));
     local AllowedTroops = {
         {Entities.PU_LeaderPoleArm1, 3},
         {Entities.PU_LeaderBow1, 3},
@@ -1221,7 +1225,7 @@ function Enemy_Player7_Init()
         HomePosition = "P7DefPos1",
         Strength     = Strength,
     };
-    DelinquentsCampAddSpawner(Enemy_Player7Camp1, "BanditTower1", Respawn, 2, unpack(AllowedTroops));
+    DelinquentsCampAddSpawner(Enemy_Player7Camp1, "BanditTower1", RespawnTime, 2, unpack(AllowedTroops));
     DelinquentsCampAddTarget(Enemy_Player7Camp1, "Player1Home", "Player2Home");
 end
 
@@ -1570,47 +1574,47 @@ function Main1Quest_BriefingBishop1(_Npc, _HeroID)
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_3_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_4_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_5_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_5_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_6_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_7_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_7_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingBishop1_8_Title",
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_8_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingBishop1_9_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function()
@@ -1693,17 +1697,17 @@ function Mayor1Quest_BriefingDustin1(_Npc, _HeroID)
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingDustin1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingDustin1_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingDustin1_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingDustin1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingDustin1_3_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -1731,40 +1735,40 @@ function Mayor1Quest_BriefingDustin2(_Npc, _HeroID)
         AP {
             Title       = HeroName,
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_1a_Text",
-            Duration    = 10,
+            Duration    = 12,
         }
         AP {
             Title       = "map_sh_midsummerrevolution/BriefingDustin2_2a_Title",
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_2a_Text",
-            Duration    = 10,
+            Duration    = 12,
         }
         AP {
             Title       = "map_sh_midsummerrevolution/BriefingDustin2_3a_Title",
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_3a_Text",
-            Duration    = 10,
+            Duration    = 12,
         }
     else
         AP {
             Title       = HeroName,
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_1b_Text",
-            Duration    = 10,
+            Duration    = 12,
         }
         AP {
             Title       = "map_sh_midsummerrevolution/BriefingDustin2_2b_Title",
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_2b_Text",
-            Duration    = 10,
+            Duration    = 12,
         }
         AP {
             Title       = HeroName,
             Text        = "map_sh_midsummerrevolution/BriefingDustin2_3b_Text",
-            Duration    = 10,
+            Duration    = 12,
         }
     end
 
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingDustin2_4_Title",
         Text        = "map_sh_midsummerrevolution/BriefingDustin2_4_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -1853,22 +1857,22 @@ function TraitorRevengeQuest_BriefingTraitor1(_Npc, _HeroID)
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_3_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor1_4_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -1893,12 +1897,12 @@ function TraitorRevengeQuest_BriefingTraitor2(_Npc, _HeroID)
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingTraitor2_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingTraitor2_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingTraitor2_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -1998,17 +2002,17 @@ function RescueWifeQuest_BriefingIsabella1(_Npc, _HeroID)
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingIsabella1_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingIsabella1_2_Title",
         Text        = "map_sh_midsummerrevolution/BriefingIsabella1_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingIsabella1_3_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -2121,32 +2125,32 @@ function FindSheepsQuest_BriefingFarmer1(_Npc, _HeroID)
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_3_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_4_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer1_5_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_5_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer1_6_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -2169,17 +2173,17 @@ function FindSheepsQuest_BriefingFarmer2(_Npc, _HeroID)
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer2_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer2_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingFarmer2_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingFarmer2_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingFarmer2_3_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
@@ -2205,7 +2209,7 @@ function DrawBridgeQuest_Done()
     Logic.SetQuestType(1, DrawBridgeQuest_ID, SUBQUEST_CLOSED, 1);
     Logic.SetQuestType(2, DrawBridgeQuest_ID, SUBQUEST_CLOSED, 1);
     ReplaceEntity("DrawBridge1", Entities.PB_DrawBridgeClosed1);
-    DrawBridgeQuest_IsDone = 0;
+    DrawBridgeQuest_IsDone = 1;
 
     local PlayerID = GUI.GetPlayerID();
     if PlayerID == 1 or PlayerID == 2 then
@@ -2216,7 +2220,7 @@ function DrawBridgeQuest_Done()
 end
 
 function DrawBridgeQuest_AddTribute()
-    local Tribute = 2500 * Difficulty_Selected;
+    local Tribute = math.floor(2500 + ((2500 * 0.2) * (Difficulty_Selected -1)));
     local Msg = XGUIEng.GetStringTableText("map_sh_midsummerrevolution/SubquestGuard_Tribute");
     Logic.AddTribute(1, DrawBridgeQuest_Player1ID, 0, 0, string.format(Msg, Tribute), ResourceType.Gold, Tribute);
     Logic.AddTribute(2, DrawBridgeQuest_Player2ID, 0, 0, string.format(Msg, Tribute), ResourceType.Gold, Tribute);
@@ -2265,17 +2269,17 @@ function DrawBridgeQuest_BriefingGuard1(_Npc, _HeroID)
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingGuard1_1_Title",
         Text        = "map_sh_midsummerrevolution/BriefingGuard1_1_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = HeroName,
         Text        = "map_sh_midsummerrevolution/BriefingGuard1_2_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
     AP {
         Title       = "map_sh_midsummerrevolution/BriefingGuard1_3_Title",
         Text        = "map_sh_midsummerrevolution/BriefingGuard1_3_Text",
-        Duration    = 10,
+        Duration    = 12,
     }
 
     Briefing.Finished = function(_PlayerID)
