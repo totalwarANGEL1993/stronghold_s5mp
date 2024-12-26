@@ -401,60 +401,60 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
         -- Calculate reputation bonus
         local ReputationPlus = 0;
         if self.Data[_PlayerID].ReputationDetails.Housing > 0 then
-            ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.Housing;
+            ReputationPlus = ReputationPlus + math.floor(self.Data[_PlayerID].ReputationDetails.Housing);
         end
         if self.Data[_PlayerID].ReputationDetails.Providing > 0 then
-            ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.Providing;
+            ReputationPlus = ReputationPlus + math.floor(self.Data[_PlayerID].ReputationDetails.Providing);
         end
         if self.Data[_PlayerID].ReputationDetails.TaxBonus > 0 then
-            ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.TaxBonus;
+            ReputationPlus = ReputationPlus + math.floor(self.Data[_PlayerID].ReputationDetails.TaxBonus);
         end
         if self.Data[_PlayerID].ReputationDetails.Buildings > 0 then
-            ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.Buildings;
+            ReputationPlus = ReputationPlus + math.floor(self.Data[_PlayerID].ReputationDetails.Buildings);
         end
         if self.Data[_PlayerID].ReputationDetails.OtherBonus > 0 then
-            ReputationPlus = ReputationPlus + self.Data[_PlayerID].ReputationDetails.OtherBonus;
+            ReputationPlus = ReputationPlus + math.floor(self.Data[_PlayerID].ReputationDetails.OtherBonus);
         end
         ReputationPlus = GameCallback_SH_Calculate_ReputationIncrease(_PlayerID, ReputationPlus);
 
         -- Calculate reputation penalty
         local ReputationMinus = 0;
         if self.Data[_PlayerID].ReputationDetails.Homelessness > 0 then
-            ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.Homelessness;
+            ReputationMinus = ReputationMinus + math.floor(self.Data[_PlayerID].ReputationDetails.Homelessness);
         end
         if self.Data[_PlayerID].ReputationDetails.Hunger > 0 then
-            ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.Hunger;
+            ReputationMinus = ReputationMinus + math.floor(self.Data[_PlayerID].ReputationDetails.Hunger);
         end
         if self.Data[_PlayerID].ReputationDetails.TaxPenalty > 0 then
-            ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.TaxPenalty;
+            ReputationMinus = ReputationMinus + math.floor(self.Data[_PlayerID].ReputationDetails.TaxPenalty);
         end
         if self.Data[_PlayerID].ReputationDetails.Criminals > 0 then
-            ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.Criminals;
+            ReputationMinus = ReputationMinus + math.floor(self.Data[_PlayerID].ReputationDetails.Criminals);
         end
         if self.Data[_PlayerID].ReputationDetails.Rats > 0 then
-            ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.Rats;
+            ReputationMinus = ReputationMinus + math.floor(self.Data[_PlayerID].ReputationDetails.Rats);
         end
         if self.Data[_PlayerID].ReputationDetails.OtherMalus > 0 then
-            ReputationMinus = ReputationMinus + self.Data[_PlayerID].ReputationDetails.OtherMalus;
+            ReputationMinus = ReputationMinus + math.floor(self.Data[_PlayerID].ReputationDetails.OtherMalus);
         end
         ReputationMinus = GameCallback_SH_Calculate_ReputationDecrease(_PlayerID, ReputationMinus);
 
         -- Calculate honor
         local HonorPlus = 0;
         if self.Data[_PlayerID].HonorDetails.Housing > 0 then
-            HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.Housing;
+            HonorPlus = HonorPlus + math.floor(self.Data[_PlayerID].HonorDetails.Housing);
         end
         if self.Data[_PlayerID].HonorDetails.Providing > 0 then
-            HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.Providing;
+            HonorPlus = HonorPlus + math.floor(self.Data[_PlayerID].HonorDetails.Providing);
         end
         if self.Data[_PlayerID].HonorDetails.TaxBonus > 0 then
-            HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.TaxBonus;
+            HonorPlus = HonorPlus + math.floor(self.Data[_PlayerID].HonorDetails.TaxBonus);
         end
         if self.Data[_PlayerID].HonorDetails.Buildings > 0 then
-            HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.Buildings;
+            HonorPlus = HonorPlus + math.floor(self.Data[_PlayerID].HonorDetails.Buildings);
         end
         if self.Data[_PlayerID].HonorDetails.OtherBonus > 0 then
-            HonorPlus = HonorPlus + self.Data[_PlayerID].HonorDetails.OtherBonus;
+            HonorPlus = HonorPlus + math.floor(self.Data[_PlayerID].HonorDetails.OtherBonus);
         end
         HonorPlus = GameCallback_SH_Calculate_HonorIncrease(_PlayerID, HonorPlus);
 
@@ -463,7 +463,7 @@ function Stronghold.Economy:UpdateIncomeAndUpkeep(_PlayerID)
 
         self.Data[_PlayerID].IncomeMoney = Income;
         self.Data[_PlayerID].UpkeepMoney = Upkeep;
-        local IncomeReputation = ReputationPlus - ReputationMinus;
+        local IncomeReputation = ReputationPlus -ReputationMinus;
         self.Data[_PlayerID].IncomeReputation = math.floor(IncomeReputation);
         self.Data[_PlayerID].IncomeHonor = math.floor(HonorPlus);
     end
@@ -483,7 +483,6 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             if TaxtHeight == 1 then
                 local TaxEffect = self.Config.Income.TaxEffect;
                 local TaxBonus = TaxEffect[TaxtHeight].Reputation or 0;
-                TaxBonus = math.max(math.floor((TaxBonus * Morale) + 0.5), 0);
                 self.Data[_PlayerID].ReputationDetails.TaxBonus = TaxBonus;
             end
 
@@ -571,43 +570,33 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
         local Morale = GetPlayerMorale(_PlayerID);
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
+            local Rank = GetRank(_PlayerID) +1;
+            local MaxRank = Stronghold.Player.Config.Base.MaxRank +1;
+
             -- Tax height
             local TaxPenalty = self:CalculateReputationTaxPenaltyAmount(
                 _PlayerID,
                 GetTaxHeight(_PlayerID)
             );
-            TaxPenalty = math.max(math.floor((TaxPenalty / Morale) + 0.5), 0);
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = TaxPenalty;
-
-            local Rank = GetRank(_PlayerID) +1;
-            local MaxRank = Stronghold.Player.Config.Base.MaxRank +1;
 
             -- Penalty for no food
             local NoFarm = self:GetNumberOfWorkerWithoutFarm(_PlayerID);
-            local HungerPenalty = (NoFarm / WorkerCount) * self.Config.Income.HungerFactor;
-            local FarmBonus = self.Data[_PlayerID].ReputationDetails.ProvidingCounter;
-            if FarmBonus < 0 then
-                HungerPenalty = HungerPenalty + ((-1) * FarmBonus)
-            end
-            local TavernBonus = self.Data[_PlayerID].ReputationDetails.BeverageCounter;
-            if TavernBonus < 0 then
-                HungerPenalty = HungerPenalty + ((-1) * TavernBonus)
-            end
-            HungerPenalty = (HungerPenalty / WorkerCount) * (Rank / MaxRank);
+            local HungerPenalty = NoFarm * self.Config.Income.HungerFactor;
+            local PenaltyFactor = self.Config.Income.PenaltyFactor;
+            HungerPenalty = HungerPenalty + PenaltyFactor * (Rank / MaxRank);
             HungerPenalty = math.max(HungerPenalty / Morale, 0);
             HungerPenalty = GameCallback_SH_Calculate_HungerPenalty(_PlayerID, HungerPenalty);
-            self.Data[_PlayerID].ReputationDetails.Hunger = math.min(HungerPenalty, 16);
+            self.Data[_PlayerID].ReputationDetails.Hunger = math.min(HungerPenalty, 8);
+
             -- Penalty for no house
             local NoHouse = self:GetNumberOfWorkerWithoutHouse(_PlayerID);
-            local SleepPenalty = (NoHouse / WorkerCount) * self.Config.Income.InsomniaFactor;
-            local HouseBonus = self.Data[_PlayerID].ReputationDetails.HousingCounter;
-            if HouseBonus < 0 then
-                SleepPenalty = SleepPenalty + ((-1) * HouseBonus);
-            end
-            SleepPenalty = (SleepPenalty / WorkerCount) * (Rank / MaxRank);
+            local SleepPenalty = NoHouse * self.Config.Income.InsomniaFactor;
+            local PenaltyFactor = self.Config.Income.PenaltyFactor;
+            SleepPenalty = SleepPenalty + PenaltyFactor * (Rank / MaxRank);
             SleepPenalty = math.max(SleepPenalty / Morale, 0);
             SleepPenalty = GameCallback_SH_Calculate_SleepPenalty(_PlayerID, SleepPenalty);
-            self.Data[_PlayerID].ReputationDetails.Homelessness = math.min(SleepPenalty, 16);
+            self.Data[_PlayerID].ReputationDetails.Homelessness = math.min(SleepPenalty, 8);
         else
             -- Reset all caches
             self.Data[_PlayerID].ReputationDetails.TaxPenalty = 0;
@@ -1620,9 +1609,9 @@ function Stronghold.Economy:CreatePaydayClockTooltipText(_PlayerID)
             local Text = self:FormatExtendedPaydayClockText(_PlayerID);
             AmendText = " @cr @cr " .. Placeholder.Replace(Text);
             -- Resize
-            XGUIEng.SetWidgetSize("TooltipTop", 172, 320);
-            XGUIEng.SetWidgetSize("TooltipTopText", 164, 320);
-            XGUIEng.SetWidgetSize("TooltipTopBackground", 172, 320);
+            XGUIEng.SetWidgetSize("TooltipTop", 172, 430);
+            XGUIEng.SetWidgetPositionAndSize("TooltipTopText", 4, 3, 164, 427);
+            XGUIEng.SetWidgetSize("TooltipTopBackground", 172, 430);
             XGUIEng.SetMaterialTexture("TooltipTopBackground", 1, ExtGraphic);
         else
             -- Get Text
@@ -1630,7 +1619,7 @@ function Stronghold.Economy:CreatePaydayClockTooltipText(_PlayerID)
             AmendText = " @cr @cr " .. Placeholder.Replace(Text);
             -- Resize
             XGUIEng.SetWidgetSize("TooltipTop", 172, 104);
-            XGUIEng.SetWidgetSize("TooltipTopText", 164, 104);
+            XGUIEng.SetWidgetPositionAndSize("TooltipTopText", 4, 3, 164, 101);
             XGUIEng.SetWidgetSize("TooltipTopBackground", 172, 104);
             XGUIEng.SetMaterialTexture("TooltipTopBackground", 1, Graphic);
         end
@@ -1646,56 +1635,69 @@ function Stronghold.Economy:FormatPaydayClockText(_PlayerID)
     return string.format(
         self.Text.PaydayClock[1][Language],
         -- Honor
-        ((ihon < 0 and "{scarlet}") or "{green}") ..ihon,
+        ((ihon < 0 and "{scarlet}") or "{green}+") ..ihon,
         -- Reputation
-        ((irep < 0 and "{scarlet}") or "{green}") ..irep
+        ((irep < 0 and "{scarlet}") or "{green}+") ..irep
     );
 end
 
 function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
+    local Language = GetLanguage();
+    local Screen = {GUI.GetScreenSize()};
+    local div = string.rep("-", (Screen[1] >= 1900 and 22) or (Screen[1] >= 1200 and 11) or 0);
+
     local morl = math.floor(GetPlayerMorale(_PlayerID) * 100);
 
-    local ihon = self.Data[_PlayerID].IncomeHonor;
-    local hbb  = self.Data[_PlayerID].HonorDetails.Buildings;
-    local htb  = self.Data[_PlayerID].HonorDetails.TaxBonus;
-    local hho  = self.Data[_PlayerID].HonorDetails.Housing;
-    local hpr  = self.Data[_PlayerID].HonorDetails.Providing;
-    local hob  = self.Data[_PlayerID].HonorDetails.OtherBonus;
+    local ihon = math.floor(self.Data[_PlayerID].IncomeHonor);
+    local htb  = math.floor(self.Data[_PlayerID].HonorDetails.TaxBonus);
+    local hbb  = math.floor(self.Data[_PlayerID].HonorDetails.Buildings);
+    local hho  = math.floor(self.Data[_PlayerID].HonorDetails.Housing);
+    local hpr  = math.floor(self.Data[_PlayerID].HonorDetails.Providing);
+    local hob  = math.floor(self.Data[_PlayerID].HonorDetails.OtherBonus);
 
-    local irep = self.Data[_PlayerID].IncomeReputation;
-    local pbb  = self.Data[_PlayerID].ReputationDetails.Buildings;
-    local ptb  = self.Data[_PlayerID].ReputationDetails.TaxBonus;
-    local ptp  = self.Data[_PlayerID].ReputationDetails.TaxPenalty;
-    local pho  = self.Data[_PlayerID].ReputationDetails.Housing;
-    local phs  = self.Data[_PlayerID].ReputationDetails.Homelessness;
-    local ppr  = self.Data[_PlayerID].ReputationDetails.Providing;
-    local phu  = self.Data[_PlayerID].ReputationDetails.Hunger;
-    local pob  = self.Data[_PlayerID].ReputationDetails.OtherBonus;
-    local pcr  = (-1) * self.Data[_PlayerID].ReputationDetails.Criminals;
-    local prt  = (-1) * self.Data[_PlayerID].ReputationDetails.Rats;
-    local pop  = self.Data[_PlayerID].ReputationDetails.OtherMalus;
+    local irep = math.floor(self.Data[_PlayerID].IncomeReputation);
+    local ptb  = math.floor(self.Data[_PlayerID].ReputationDetails.TaxBonus);
+    local pbb  = math.floor(self.Data[_PlayerID].ReputationDetails.Buildings);
+    local ppr  = math.floor(self.Data[_PlayerID].ReputationDetails.Providing);
+    local pho  = math.floor(self.Data[_PlayerID].ReputationDetails.Housing);
+    local pob  = math.floor(self.Data[_PlayerID].ReputationDetails.OtherBonus);
+    local ptp  = (-1) * math.floor(self.Data[_PlayerID].ReputationDetails.TaxPenalty);
+    local phu  = (-1) * math.floor(self.Data[_PlayerID].ReputationDetails.Hunger);
+    local phs  = (-1) * math.floor(self.Data[_PlayerID].ReputationDetails.Homelessness);
+    local pcr  = (-1) * math.floor(self.Data[_PlayerID].ReputationDetails.Criminals);
+    local prt  = (-1) * math.floor(self.Data[_PlayerID].ReputationDetails.Rats);
+    local pop  = (-1) * math.floor(self.Data[_PlayerID].ReputationDetails.OtherMalus);
 
-    local Language = GetLanguage();
     return string.format(
         self.Text.PaydayClock[2][Language],
-        -- Honor
-        ((ihon < 0 and "{scarlet}") or "{green}") ..ihon,
-        ((htb < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", htb),
-        ((hbb < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", hbb),
-        ((hpr < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", hpr),
-        ((hho < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", hho),
-        ((hob < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", hob),
-        -- Reputation
-        ((irep < 0 and "{scarlet}") or "{green}") ..irep,
-        ((ptb-ptp < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", ptb-ptp),
-        ((pcr < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pcr),
-        ((prt < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", prt),
-        ((pbb < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pbb),
-        ((ppr-phu < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", ppr-phu),
-        ((pho-phs < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pho-phs),
-        ((pob-pop < 0 and "{scarlet}") or "{green}") ..string.format("%.2f", pob-pop),
         -- Morale
-        "{azure}" ..morl.. "%{white}"
+        "{azure}" ..morl.. "%{white}",
+        -- Honor
+        ((htb > 0 and "{green}+") or "{white}") ..string.format("%.0f", htb),
+        ((hbb > 0 and "{green}+") or "{white}") ..string.format("%.0f", hbb),
+        ((hpr > 0 and "{green}+") or "{white}") ..string.format("%.0f", hpr),
+        ((hho > 0 and "{green}+") or "{white}") ..string.format("%.0f", hho),
+        ((hob > 0 and "{green}+") or "{white}") ..string.format("%.0f", hob),
+        div,
+        --
+        ((ihon < 0 and "{scarlet}") or "{green}+") ..ihon,
+        --
+        ((ptb > 0 and "{green}+") or "{white}") ..string.format("%.0f", ptb),
+        ((pbb > 0 and "{green}+") or "{white}") ..string.format("%.0f", pbb),
+        ((ppr > 0 and "{green}+") or "{white}") ..string.format("%.0f", ppr),
+        ((pho > 0 and "{green}+") or "{white}") ..string.format("%.0f", pho),
+        ((pob > 0 and "{green}+") or "{white}") ..string.format("%.0f", pob),
+        div,
+        --
+        ((ptp < 0 and "{scarlet}") or "{white}") ..string.format("%.0f", ptp),
+        ((phu < 0 and "{scarlet}") or "{white}") ..string.format("%.0f", phu),
+        ((phs < 0 and "{scarlet}") or "{white}") ..string.format("%.0f", phs),
+        ((pcr < 0 and "{scarlet}") or "{white}") ..string.format("%.0f", pcr),
+        ((prt < 0 and "{scarlet}") or "{white}") ..string.format("%.0f", prt),
+        ((pop < 0 and "{scarlet}") or "{white}") ..string.format("%.0f", pop),
+        div,
+        --
+        ((irep < 0 and "{scarlet}") or "{green}+") ..irep
     );
 end
 
