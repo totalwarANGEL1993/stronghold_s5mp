@@ -24,7 +24,10 @@
         <Cost>
             <Gold>0</Gold>
         </Cost>
-        <Category>Wall</Category>
+        <Category>Military</Category>
+        <Category>Leader</Category>
+        <Category>CavalryLight</Category>
+        <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>30</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
@@ -93,7 +96,7 @@
             <HitAnim>XA_Bear_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
-            <DamageAmount>90</DamageAmount>
+            <DamageAmount>120</DamageAmount>
             <MaxRandomDamageBonus>8</MaxRandomDamageBonus>
 
             <BattleWaitUntil>2500</BattleWaitUntil>

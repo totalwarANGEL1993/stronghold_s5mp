@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <!-- This is a special invisible bomb to fake area damage. -->
+    <Display classname="ED::CDisplayEntityProps">
+        <Class>ED::CDisplayStaticEntity</Class>
+        <Model>XD_Hero2Bomb</Model>
+    </Display>
+    <Logic classname="EGL::CGLEEntityProps">
+        <Class>EGL::CGLEEntity</Class>
+        <AccessCategory>AccessCategoryStatic</AccessCategory>
+        <ForceNoPlayer>false</ForceNoPlayer>
+        <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
+		<Visible>false</Visible>
+    </Logic>
+    <Behavior>
+        <Logic classname="GGL::CBombBehaviorProperties">
+            <Class>GGL::CBombBehavior</Class>
+            <Radius>500</Radius>
+            <Delay>0</Delay>
+            <Damage>300</Damage>
+            <DamageClass>DC_Hero</DamageClass>
+            <ExplodeEffectID>FXExtractStone</ExplodeEffectID>
+        </Logic>
+    </Behavior>
+</root>

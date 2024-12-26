@@ -312,21 +312,17 @@ function Stronghold.Building:PrintFarmRationButtonsTooltip(_PlayerID, _EntityID,
 
     local Seperate = false;
     local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectInfo = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffectFarmAmbiguous");
     local EffectText = "";
-    local OngoingText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
     if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
-        local Operator = (Effects.Reputation >= 0 and "+") or "";
-        local Value = string.format("" ..Effects.Reputation, "%.1f");
-        EffectText = EffectText.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
+        EffectText = EffectText.. string.format(EffectInfo, Unit);
         Seperate = true;
     end
     if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
-        local Operator = (Effects.Honor >= 0 and "+") or "";
         local Seperator = (Seperate and ", ") or "";
-        local Value = string.format("" ..Effects.Honor, "%.1f");
-        EffectText = EffectText..Seperator.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
+        EffectText = EffectText..Seperator.. string.format(EffectInfo, Unit);
     end
     EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
@@ -398,21 +394,17 @@ function Stronghold.Building:PrintResidenceSleepTimeButtonsTooltip(_PlayerID, _E
 
     local Seperate = false;
     local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectInfo = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffectHouseAmbiguous");
     local EffectText = "";
-    local OngoingText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
     if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
-        local Operator = (Effects.Reputation >= 0 and "+") or "";
-        local Value = string.format("" ..Effects.Reputation, "%.1f");
-        EffectText = EffectText.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
+        EffectText = EffectText.. string.format(EffectInfo, Unit);
         Seperate = true;
     end
     if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
-        local Operator = (Effects.Honor >= 0 and "+") or "";
         local Seperator = (Seperate and ", ") or "";
-        local Value = string.format("" ..Effects.Honor, "%.1f");
-        EffectText = EffectText..Seperator.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
+        EffectText = EffectText..Seperator.. string.format(EffectInfo, Unit);
     end
     EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 
@@ -483,13 +475,11 @@ function Stronghold.Building:PrintTavernBeverageButtonsTooltip(_PlayerID, _Entit
 
     local Seperate = false;
     local EffectDesc = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffect");
+    local EffectInfo = " @cr " ..XGUIEng.GetStringTableText("sh_text/TooltipEffectTavernAmbiguous");
     local EffectText = "";
-    local OngoingText = XGUIEng.GetStringTableText("sh_text/TooltipEffectOngoing");
     if Effects.Reputation ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Reputation");
-        local Operator = (Effects.Reputation >= 0 and "+") or "";
-        local Value = string.format("" ..Effects.Reputation, "%.1f");
-        EffectText = EffectText.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
+        EffectText = EffectText.. string.format(EffectInfo, Unit);
         -- (The tavern mirrors reputation onto honor if technology
         --  T_Instruments is researched.)
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_Instruments) == 1 then
@@ -499,10 +489,8 @@ function Stronghold.Building:PrintTavernBeverageButtonsTooltip(_PlayerID, _Entit
     end
     if Effects.Honor ~= 0 then
         local Unit = XGUIEng.GetStringTableText("sh_text/Silver");
-        local Operator = (Effects.Honor >= 0 and "+") or "";
         local Seperator = (Seperate and ", ") or "";
-        local Value = string.format("" ..Effects.Honor, "%.1f");
-        EffectText = EffectText..Seperator.. Operator ..Value.. " " ..Unit.. " " ..OngoingText;
+        EffectText = EffectText..Seperator.. string.format(EffectInfo, Unit);
     end
     EffectText = (EffectText ~= "" and EffectDesc..EffectText) or EffectText;
 

@@ -57,12 +57,15 @@ end
 function Stronghold.Trap:CreateTrapButtonHandlers()
     self.SyncEvents = {
         TriggerTrap = 1,
+        ToggleAutoTrigger = 2,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
         function(_PlayerID, _Action, ...)
             if _Action == Stronghold.Trap.SyncEvents.TriggerTrap then
                 Stronghold.Trap:OnTrapTriggered(_PlayerID, arg[1]);
+            elseif _Action == Stronghold.Trap.SyncEvents.ToggleAutoTrigger then
+                Stronghold.Trap:OnToggleAutoTrigger(_PlayerID, arg[1]);
             end
         end
     );
@@ -122,6 +125,21 @@ function Stronghold.Trap:OnTrapTriggered(_PlayerID, _TrapID)
     end
 end
 
+function Stronghold.Trap:OnToggleAutoTrigger(_PlayerID, _TrapID)
+    local PlayerID = Logic.EntityGetPlayer(_TrapID);
+    local GuiPlayer = GUI.GetPlayerID();
+    if PlayerID ~= _PlayerID or not IsPlayer(_PlayerID) then
+        return;
+    end
+    if self.Data.Trap[_TrapID] then
+        local State = self.Data.Trap[_TrapID][4] == true;
+        self.Data.Trap[_TrapID][4] = not State;
+    end
+    if PlayerID == GuiPlayer then
+        self:OnTrapSelected(_TrapID);
+    end
+end
+
 function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
     local GuiPlayer = GUI.GetPlayerID();
     local EntityType = Logic.GetEntityType(_TrapID);
@@ -163,7 +181,7 @@ function Stronghold.Trap:OnTrapConstructed(_TrapID, _PlayerID)
         end
     end
 
-    self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment};
+    self.Data.Trap[_TrapID] = {_PlayerID, EntityType, Attachment, Config.AutoTrigger};
 end
 
 function Stronghold.Trap:OnBearCageTriggered(_PlayerID, _TrapID)
@@ -219,13 +237,20 @@ function Stronghold.Trap:OnTrapholeTriggered(_PlayerID, _TrapID)
         -- Does crash for some reason...
         -- CEntity.DealDamageInArea(DamageDealerID, x, y, EffectArea, Damage);
         -- Workaround:
-        Logic.CreateEntity(Entities.XD_Bomb_Traphole, x, y, 0, _PlayerID);
+        local BombType = Entities.XD_Bomb_Traphole;
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_SharpSpikes) == 1 then
+            BombType = Entities.XD_Bomb_Traphole_Buff;
+        end
+        Logic.CreateEntity(BombType, x, y, 0, _PlayerID);
     end
 end
 
 function Stronghold.Trap:OnPitchpitTriggered(_PlayerID, _TrapID)
     if IsExisting(_TrapID) then
         local Duration = 30;
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_GreekFire) == 1 then
+            Duration = 45;
+        end
         local x, y, z = Logic.EntityGetPos(_TrapID);
         local DamageDealerID = Logic.CreateEntity(Entities.XD_ScriptEntity, x, y, 0, _PlayerID);
         Logic.SetModelAndAnimSet(DamageDealerID, Models.Effects_XF_HouseFire);
@@ -263,9 +288,9 @@ function Stronghold.Trap:OnPitchpitTriggered(_PlayerID, _TrapID)
 
         GameCallback_SH_Logic_OnAoETrapTriggered(_PlayerID, Entities.PB_PitchPit1, x, y);
 
-        Job.Second(function(_Time, _X, _Y, _EntityID)
+        Job.Second(function(_Time, _Duration, _X, _Y, _EntityID)
             -- Stop after delay
-            if not IsExisting(_EntityID) or _Time + Duration < Logic.GetTime() then
+            if not IsExisting(_EntityID) or _Time + _Duration < Logic.GetTime() then
                 return true;
             end
 
@@ -282,7 +307,7 @@ function Stronghold.Trap:OnPitchpitTriggered(_PlayerID, _TrapID)
             if NearPitchID and Logic.IsConstructionComplete(NearPitchID) == 1 then
                 self:OnPitchpitTriggered(_PlayerID, NearPitchID);
             end
-        end, Logic.GetTime(), x, y, DamageDealerID);
+        end, Logic.GetTime(), Duration, x, y, DamageDealerID);
     end
 end
 
@@ -301,19 +326,17 @@ function Stronghold.Trap:TrapController()
         else
             local PlayerID = Logic.EntityGetPlayer(TrapID);
             local Type = Logic.GetEntityType(TrapID);
-            local Config = self.Config.TrapTypeConfig[Type];
-            local AutoTrigger = (IsAIPlayer(PlayerID) or Config.AutoTrigger) == true;
-            if Config then
-                if Config.AutoTrigger or AutoTrigger then
-                    local Position = GetPosition(TrapID);
-                    local Area = Config.AutoTriggerDistance;
-                    if AreEnemiesInArea(PlayerID, Position, Area) then
-                        self:OnTrapTriggered(PlayerID, TrapID);
-                    end
+            local Config = self.Config.TrapTypeConfig[Type] or {};
+            local AutoTrigger = (IsAIPlayer(PlayerID) or self.Data.Trap[TrapID][4]) == true;
+            if AutoTrigger then
+                local Position = GetPosition(TrapID);
+                local Area = Config.AutoTriggerDistance;
+                if AreEnemiesInArea(PlayerID, Position, Area) then
+                    self:OnTrapTriggered(PlayerID, TrapID);
                 end
-                if Config.UnveilByThief then
-                    self:UpdateTrapVisibilityOnDiscovery(PlayerID, TrapID);
-                end
+            end
+            if Config.UnveilByThief then
+                self:UpdateTrapVisibilityOnDiscovery(PlayerID, TrapID);
             end
         end
     end
@@ -433,7 +456,7 @@ end
 -- Traps GUI
 
 function Stronghold.Trap:OnTrapSelected(_EntityID)
-    -- Workaround for selection because I am unable to change the model.
+    -- Workaround for selection because I am to dumb for blender.
     if self.Data.TrapDecoIDToTrapID[_EntityID] then
         GUI.ClearSelection();
         GUI.SelectEntity(self.Data.TrapDecoIDToTrapID[_EntityID]);
@@ -444,34 +467,71 @@ function Stronghold.Trap:OnTrapSelected(_EntityID)
         return;
     end
 
-    -- Trigger button not needed anymore
-    XGUIEng.ShowWidget("TriggerTrap", 0);
-
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local TrapType = Logic.GetEntityType(_EntityID);
     if TrapType == Entities.PB_BearCage1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
-        -- XGUIEng.ShowWidget("Research_BearTraining", 1);
         XGUIEng.ShowWidget("TriggerTrap", 1);
+        XGUIEng.ShowWidget("Research_BearTraining", 1);
+        local TechState = Logic.GetTechnologyState(PlayerID, Technologies.T_BearTraining);
+        if TechState == 2 or TechState == 3 or TechState == 4 then
+            XGUIEng.DisableButton("Research_BearTraining", 0);
+            if TechState == 4 then
+                XGUIEng.HighLightButton("Research_BearTraining", 1);
+            end
+        end
     elseif TrapType == Entities.PB_DogCage1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
-        -- XGUIEng.ShowWidget("Research_DogTraining", 1);
         XGUIEng.ShowWidget("TriggerTrap", 1);
+        XGUIEng.ShowWidget("Research_DogTraining", 1);
+        local TechState = Logic.GetTechnologyState(PlayerID, Technologies.T_DogTraining);
+        if TechState == 2 or TechState == 3 or TechState == 4 then
+            XGUIEng.DisableButton("Research_DogTraining", 0);
+            if TechState == 4 then
+                XGUIEng.HighLightButton("Research_DogTraining", 1);
+            end
+        end
     elseif TrapType == Entities.PB_Traphole1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
+        XGUIEng.ShowWidget("TriggerTrap", 1);
+        XGUIEng.ShowWidget("Research_SharpSpikes", 1);
+        local TechState = Logic.GetTechnologyState(PlayerID, Technologies.T_SharpSpikes);
+        if TechState == 2 or TechState == 3 or TechState == 4 then
+            XGUIEng.DisableButton("Research_SharpSpikes", 0);
+            if TechState == 4 then
+                XGUIEng.HighLightButton("Research_SharpSpikes", 1);
+            end
+        end
     elseif TrapType == Entities.PB_PitchPit1 then
         XGUIEng.ShowWidget("Trap", 1);
         XGUIEng.ShowWidget("Commands_Trap", 1);
         XGUIEng.ShowAllSubWidgets("Commands_Trap", 0);
         XGUIEng.ShowWidget("TriggerTrap", 1);
+        XGUIEng.ShowWidget("Research_GreekFire", 1);
+        local TechState = Logic.GetTechnologyState(PlayerID, Technologies.T_GreekFire);
+        if TechState == 2 or TechState == 3 or TechState == 4 then
+            XGUIEng.DisableButton("Research_GreekFire", 0);
+            if TechState == 4 then
+                XGUIEng.HighLightButton("Research_GreekFire", 1);
+            end
+        end
     else
         XGUIEng.ShowWidget("Trap", 0);
     end
+
+    -- Auto Toggle
+    local IsActive = true;
+    if Stronghold.Trap.Data.Trap[_EntityID] then
+        IsActive = Stronghold.Trap.Data.Trap[_EntityID][4];
+    end
+    XGUIEng.ShowWidget("ActivateTrapAutoTrigger", (IsActive and 1) or 0);
+    XGUIEng.ShowWidget("DeactivateTrapAutoTrigger", (IsActive and 0) or 1);
 end
 
 function GUIAction_TriggerTrap()
@@ -502,5 +562,37 @@ function GUITooltip_TriggerTrap()
 end
 
 function GUIUpdate_TriggerTrap()
+    -- Nothing to do here
+end
+
+function GUIAction_ToggleAutoTripper()
+    local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if PlayerID ~= GUI.GetPlayerID() then
+        return;
+    end
+    Syncer.InvokeEvent(
+        Stronghold.Trap.NetworkCall,
+        Stronghold.Trap.SyncEvents.ToggleAutoTrigger,
+        EntityID
+    );
+end
+
+function GUITooltip_ToggleAutoTripper()
+    local EntityID = GUI.GetSelectedEntity();
+    local ShortCut = XGUIEng.GetStringTableText("keybindings/ReserachTechnologies3");
+    local ShortCutDesc = XGUIEng.GetStringTableText("MenuGeneric/Key_name");
+    local ShortCutToolTip = ShortCutDesc .. ": [" .. ShortCut .. "]";
+    local Text = XGUIEng.GetStringTableText("sh_menutrap/autotriggeron_normal");
+    if not Stronghold.Trap.Data.Trap[EntityID] or not Stronghold.Trap.Data.Trap[EntityID][4] then
+        Text = XGUIEng.GetStringTableText("sh_menutrap/autotriggeroff_normal");
+    end
+    XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, Text);
+	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, ShortCutToolTip);
+end
+
+function GUIUpdate_ToggleAutoTripper()
+    -- Nothing to do here
 end
 

@@ -407,6 +407,8 @@
     <!-- Traps -->
     <Technology>T_BearTraining</Technology>
     <Technology>T_DogTraining</Technology>
+    <Technology>T_SharpSpikes</Technology>
+    <Technology>T_GreekFire</Technology>
 
     <!-- Ranks -->
     <Technology>R_Commoner</Technology>

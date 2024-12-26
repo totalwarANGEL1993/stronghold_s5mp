@@ -3,18 +3,19 @@
     <TecCategoryType>TC_Technologies</TecCategoryType>
     <TimeToResearch>45</TimeToResearch>
     <ResourceCosts>
-        <Knowledge>2</Knowledge>
-        <Gold>300</Gold>
+        <Knowledge>3</Knowledge>
+        <Gold>500</Gold>
         <Clay/>
         <Wood/>
         <Stone/>
-        <Iron>0</Iron>
+        <Iron>100</Iron>
         <Sulfur/>
     </ResourceCosts>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
+    <AutomaticResearch>true</AutomaticResearch>
 
     <ArmorModifier>
-        <Value>2</Value>
+        <Value>4</Value>
         <Operation>+</Operation>
     </ArmorModifier>
 
