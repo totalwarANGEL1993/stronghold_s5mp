@@ -25,7 +25,8 @@ Stronghold.Economy.Text.PaydayClock = {
              " @color:0,0,0,0 _ @color:180,180,180,255 Gebäude: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Versorgung: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Obdach: %s @cr "..
-             " @color:0,0,0,0 _ @color:180,180,180,255 Spezial: %s",
+             " @color:0,0,0,0 _ @color:180,180,180,255 Spezial: %s @cr @cr "..
+             " @color:255,255,255,255 Moral: %s ",
         en = " @color:255,255,255,255 Expected Honor: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Tax: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Buildings: %s @cr "..
@@ -39,7 +40,8 @@ Stronghold.Economy.Text.PaydayClock = {
              " @color:0,0,0,0 _ @color:180,180,180,255 Buildings: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Providing: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Housing: %s @cr "..
-             " @color:0,0,0,0 _ @color:180,180,180,255 Special: %s",
+             " @color:0,0,0,0 _ @color:180,180,180,255 Special: %s @cr @cr "..
+             " @color:255,255,255,255 Morale: %s ",
     },
 };
 

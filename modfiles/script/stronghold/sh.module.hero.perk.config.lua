@@ -862,7 +862,9 @@ Stronghold.Hero.Perk.Config.Perks = {
     [HeroPerks.Hero11_TraditionalMedicine] = {
         Icon = "HeroPerkHeroButtonSource11",
         Text = "sh_windowperks/Hero11_Perk0",
-        Data = {}
+        Data = {
+            Chance = 25,
+        }
     },
 
     -- Hero 12 --

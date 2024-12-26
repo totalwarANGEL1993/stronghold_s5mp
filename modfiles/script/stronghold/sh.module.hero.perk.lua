@@ -109,8 +109,11 @@ end
 -- GUI
 
 function Stronghold.Hero.Perk:PerkWindowOnShow()
+    local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = GetLocalPlayerID();
-    if not IsPlayer(PlayerID) then
+    if GuiPlayer == 17
+    or GuiPlayer ~= PlayerID
+    or not IsPlayer(PlayerID) then
         return;
     end
     XGUIEng.ShowWidget("HeroPerkWindow", 1);
@@ -121,8 +124,12 @@ function Stronghold.Hero.Perk:PerkWindowOnShow()
 end
 
 function Stronghold.Hero.Perk:PerkWindowUnlockPerkAction(_RowID, _ColumnID)
+    local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = GetLocalPlayerID();
-    if _RowID == 1 or not IsPlayer(PlayerID) then
+    if _RowID == 1
+    or GuiPlayer == 17
+    or GuiPlayer ~= PlayerID
+    or not IsPlayer(PlayerID) then
         return;
     end
 
@@ -235,6 +242,11 @@ end
 
 function Stronghold.Hero.Perk:PerkWindowUpdateHeadline()
     local PlayerID = GetLocalPlayerID();
+    if PlayerID == 17 then
+        -- HACK: Selfclose for spectator player
+        XGUIEng.ShowWidget("HeroPerkWindow", 0);
+        return;
+    end
     local WidgetID = XGUIEng.GetCurrentWidgetID();
     local Text = "Names/PU_Hero1";
     if IsPlayer(PlayerID) then
@@ -248,6 +260,9 @@ end
 
 function Stronghold.Hero.Perk:PerkWindowUpdateFlavorText()
     local PlayerID = GetLocalPlayerID();
+    if PlayerID == 17 then
+        return;
+    end
     local WidgetID = XGUIEng.GetCurrentWidgetID();
     local Text = self.Config.UI.FlavorText[Entities.PU_Hero1];
     if IsPlayer(PlayerID) then
@@ -260,6 +275,9 @@ end
 
 function Stronghold.Hero.Perk:PerkWindowUpdatePortrait()
     local PlayerID = GetLocalPlayerID();
+    if PlayerID == 17 then
+        return;
+    end
     local WidgetID = XGUIEng.GetCurrentWidgetID();
     local Image = self.Config.UI.Portraits[Entities.PU_Hero1];
     if IsPlayer(PlayerID) then
