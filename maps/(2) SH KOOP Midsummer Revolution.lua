@@ -207,7 +207,7 @@ function Difficulty_SetNormal()
     Tools.GiveResouces(1, 900, 1000, 1200, 550, 0, 0);
     Tools.GiveResouces(2, 900, 1000, 1200, 550, 0, 0);
 
-    Difficulty_InitialPeaceTime = 45*60;
+    Difficulty_InitialPeaceTime = 30*60;
     Difficulty_Selected = 2;
 end
 
@@ -215,7 +215,7 @@ function Difficulty_SetHard()
     Tools.GiveResouces(1, 750, 900, 1000, 0, 0, 0);
     Tools.GiveResouces(2, 750, 900, 1000, 0, 0, 0);
 
-    Difficulty_InitialPeaceTime = 40*60;
+    Difficulty_InitialPeaceTime = 30*60;
     Difficulty_Selected = 3;
 end
 
@@ -223,7 +223,7 @@ function Difficulty_SetManiac()
     Tools.GiveResouces(1, 600, 750, 900, 0, 0, 0);
     Tools.GiveResouces(2, 600, 750, 900, 0, 0, 0);
 
-    Difficulty_InitialPeaceTime = 30*60;
+    Difficulty_InitialPeaceTime = 40*60;
     Difficulty_Selected = 4;
 end
 
