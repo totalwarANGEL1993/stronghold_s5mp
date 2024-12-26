@@ -1,3 +1,33 @@
+**Strongold Version 0.7.11**
+
+__Bugfix__
+- KI-Truppen ignorieren jetzt Ziele außerhalb ihres Kampfbereiches
+- Spieler öffnen sich nicht mehr gegenseitig ihre Fähigkeitsfenster
+- NPC-Händler können geschlossen werden
+- Doppelter Technologiename gefixt (Instrumente)
+
+__Feature__
+- Moral (PvE)
+  Moral bestimmt das Handycap des Spielers __und spielt im PvP keine Rolle__. Es
+  werden verschiedene Werte des Spielers beeinflusst.
+  Moral wird in der erweiterten Zahltagsansicht angezeigt.
+- Fallen-Technologien
+  Jede Falle hat eine Technologie bekommen, die sie verbessert.
+- Fallenautomatik umschalten
+  Der automatische Modus von Fallen kann aktiviert/deactiviert werden
+  
+__Maps__
+
+- *"Die Mitsommerrevolution"*
+  Eine KOOP Map für 2 Spieler.
+
+__Quality of Life__
+
+- Message-Dialoge:
+  Dialoge mit NPCs können (vom Mapper) als "Message-Dialog" umgesetzt werden.
+  Anstatt eines Briefings wird der Text neben dem Helden-Button angezeigt.
+  Weiterspielen während des Dialogs ist dadurch möglich.
+
 **Strongold Version 0.7.10**
 
 __Bugfix__
