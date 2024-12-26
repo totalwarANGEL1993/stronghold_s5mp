@@ -51,8 +51,9 @@ Stronghold.Economy.Config.Resource = {
 
 Stronghold.Economy.Config.Income = {
     MaxReputation = 200,
-    HungerFactor = 21.000,
-    InsomniaFactor = 21.000,
+    HungerFactor = 0.350,
+    InsomniaFactor = 0.350,
+    PenaltyFactor = 1.200,
     --
     MaxKnowledgePoints = 5000,
     KnowledgePointsPerWorker = 13.5,
@@ -98,21 +99,21 @@ Stronghold.Economy.Config.Income = {
     },
     Festival = {
         [0] = {Honor =  0, Reputation = 0, BaseCost =   0,},
-        [1] = {Honor =  5, Reputation = 0, BaseCost =  25,},
-        [2] = {Honor = 10, Reputation = 0, BaseCost =  50,},
-        [3] = {Honor = 15, Reputation = 0, BaseCost =  75,},
-        [4] = {Honor = 25, Reputation = 0, BaseCost = 125,},
-        [5] = {Honor = 35, Reputation = 0, BaseCost = 200,},
-        [6] = {Honor = 50, Reputation = 0, BaseCost = 300,},
+        [1] = {Honor =  5, Reputation = 0, BaseCost =  25,}, -- + 25
+        [2] = {Honor = 10, Reputation = 0, BaseCost =  60,}, -- + 35
+        [3] = {Honor = 15, Reputation = 0, BaseCost = 110,}, -- + 50
+        [4] = {Honor = 25, Reputation = 0, BaseCost = 180,}, -- + 70
+        [5] = {Honor = 35, Reputation = 0, BaseCost = 280,}, -- + 100
+        [6] = {Honor = 50, Reputation = 0, BaseCost = 430,}, -- + 150
     },
     Sermon = {
         [0] = {Honor = 0, Reputation =  0, BaseCost =    0,},
-        [1] = {Honor = 0, Reputation =  2, BaseCost = 0.50,},
-        [2] = {Honor = 0, Reputation =  4, BaseCost = 1.25,},
-        [3] = {Honor = 0, Reputation =  6, BaseCost = 2.50,},
-        [4] = {Honor = 0, Reputation =  8, BaseCost = 5.00,},
-        [5] = {Honor = 0, Reputation = 10, BaseCost = 6.50,},
-        [6] = {Honor = 0, Reputation = 12, BaseCost = 9.00,},
+        [1] = {Honor = 0, Reputation =  2, BaseCost = 0.50,}, -- + 0.50
+        [2] = {Honor = 0, Reputation =  4, BaseCost = 1.25,}, -- + 0.75
+        [3] = {Honor = 0, Reputation =  6, BaseCost = 2.50,}, -- + 1.25
+        [4] = {Honor = 0, Reputation =  8, BaseCost = 4.25,}, -- + 1.75
+        [5] = {Honor = 0, Reputation = 10, BaseCost = 6.50,}, -- + 2.25
+        [6] = {Honor = 0, Reputation = 12, BaseCost = 9.25,}, -- + 2.75
     },
 
     TechnologyEffect = {
