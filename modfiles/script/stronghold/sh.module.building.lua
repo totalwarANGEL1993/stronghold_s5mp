@@ -251,7 +251,7 @@ end
 -- Tower
 
 function Stronghold.Building:OnTowerSelected(_EntityID)
-    if Logic.IsConstructionComplete(_EntityID) == 1 then
+    if Logic.IsConstructionComplete(_EntityID) == 0 then
         return;
     end
 
@@ -281,7 +281,7 @@ function Stronghold.Building:OnFarmSelected(_EntityID)
     XGUIEng.ShowWidget("FarmRations", 0);
 
     local Type = Logic.GetEntityType(_EntityID);
-    if Logic.IsConstructionComplete(_EntityID) == 1 then
+    if Logic.IsConstructionComplete(_EntityID) == 0 then
         return;
     end
     if Type == Entities.PB_Farm1
@@ -367,7 +367,7 @@ function Stronghold.Building:OnResidenceSelected(_EntityID)
     XGUIEng.ShowWidget("ResidenceSleepTime", 0);
 
     local Type = Logic.GetEntityType(_EntityID);
-    if Logic.IsConstructionComplete(_EntityID) == 1 then
+    if Logic.IsConstructionComplete(_EntityID) == 0 then
         return;
     end
     if Type == Entities.PB_Residence1
@@ -450,8 +450,11 @@ end
 -- Tavern
 
 function Stronghold.Building:OnTavernSelected(_EntityID)
-    local Type = Logic.GetEntityType(_EntityID);
     XGUIEng.ShowWidget("TavernBeverage", 0);
+    local Type = Logic.GetEntityType(_EntityID);
+    if Logic.IsConstructionComplete(_EntityID) == 0 then
+        return;
+    end
     if Type == Entities.PB_Tavern1
     or Type == Entities.PB_Tavern2 then
         XGUIEng.ShowWidget("TavernBeverage", 1);
