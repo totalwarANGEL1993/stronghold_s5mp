@@ -1571,8 +1571,10 @@ function Stronghold.Economy:OverrideSelectUnitCallbacks()
 end
 
 function Stronghold.Economy:SelectUnitType(_UpgradeCategory)
-    local PlayerID = GetLocalPlayerID();
-    if PlayerID == 0 or PlayerID == 17 then
+    local GuiPlayer = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if PlayerID == 0 or PlayerID == 17 or GuiPlayer ~= PlayerID then
         return;
     end
     local UnitTypes = Stronghold.Economy.Config.SelectCategoryMapping[_UpgradeCategory] or {};

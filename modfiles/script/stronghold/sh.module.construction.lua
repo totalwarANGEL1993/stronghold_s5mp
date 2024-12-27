@@ -85,8 +85,8 @@ end
 -- Text
 
 function Stronghold.Construction:GetBuildingEffects(_Type, _Technology)
-    local PlayerID = GetLocalPlayerID();
     local EffectText = "";
+    local PlayerID = GetLocalPlayerID();
     local TechnologyName = KeyOf(_Technology, Technologies);
     local EffectStringTable = XGUIEng.GetStringTableText("sh_effects/BuildingEffect_" ..TechnologyName);
     if EffectStringTable then
@@ -158,7 +158,12 @@ end
 -- Construction
 
 function Stronghold.Construction:PrintTooltipConstructionButton(_UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
-    local PlayerID = GetLocalPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return false;
+    end
     if not IsPlayer(PlayerID) then
         return false;
     end
@@ -284,8 +289,12 @@ end
 -- Upgrade Button
 
 function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDisabled, _KeyNormal, _Technology)
-    local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return false;
+    end
     if not IsPlayer(PlayerID) then
         return false;
     end
@@ -340,8 +349,13 @@ function Stronghold.Construction:PrintBuildingUpgradeButtonTooltip(_Type, _KeyDi
 end
 
 function Stronghold.Construction:UpdateBuildingUpgradeButtons(_Button, _Technology)
-    local PlayerID = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return false;
+    end
+
     local UpgradeLevel = Logic.GetUpgradeLevelForBuilding(EntityID);
     -- Kerberos/Kala hack
     local HeroID = GetNobleID(PlayerID);
@@ -472,8 +486,13 @@ end
 function Stronghold.Construction:OverwriteCallbacks()
     self.Orig_GUIAction_PlaceBuilding = GUIAction_PlaceBuilding;
     GUIAction_PlaceBuilding = function(_UpgradeCategory)
-        local PlayerID = GetLocalPlayerID();
         local UpgradeCategory = _UpgradeCategory;
+        local GuiPlayer = GUI.GetPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
+        if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+            return;
+        end
         if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
             UpgradeCategory = Stronghold.Construction:GetFastBuildUpgradeCategory(PlayerID, _UpgradeCategory);
         end
