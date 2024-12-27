@@ -368,6 +368,10 @@ function Stronghold.Economy:OnUnknownTask(_EntityID)
     if AdvanceType ~= nil then
         return AdvanceType;
     end
+    AdvanceType = self:OnUnknownTaskInTavern(_EntityID);
+    if AdvanceType ~= nil then
+        return AdvanceType;
+    end
     AdvanceType = self:OnUnknownTaskInHouse(_EntityID);
     if AdvanceType ~= nil then
         return AdvanceType;
