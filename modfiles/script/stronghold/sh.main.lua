@@ -801,7 +801,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         EntityID = SelectedID;
     end
 
-    local GuiPlayer = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
     if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
         return;

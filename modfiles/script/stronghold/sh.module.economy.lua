@@ -954,7 +954,7 @@ function Stronghold.Economy:OnUnknownTaskInTavern(_EntityID)
                 -- (The tavern mirrors reputation onto honor if technology
                 --  T_Instruments is researched.)
                 if Logic.IsTechnologyResearched(PlayerID, Technologies.T_Instruments) == 1 then
-                    BeverageEffect = self.Config.Income.Beverages[BeverageLevel].Reputation or 0;
+                    BeverageEffect = self.Config.Income.Beverage[BeverageLevel].Reputation or 0;
                 end
                 if BeverageEffect + TechBonus ~= 0 then
                     DrinkerCounter = self.Data[PlayerID].HonorDetails.BeverageCounter;
@@ -964,7 +964,7 @@ function Stronghold.Economy:OnUnknownTaskInTavern(_EntityID)
                 self.Data[PlayerID].HonorDetails.BeverageCounter = DrinkerCounter;
 
                 -- Stamina
-                local Factor = self.Config.Income.Beverages[BeverageLevel].Stamina or 0;
+                local Factor = self.Config.Income.Beverage[BeverageLevel].Stamina or 0;
                 local MaxStamina = CEntity.GetMaxStamina(_EntityID);
                 local Stamina = CEntity.GetCurrentStamina(_EntityID);
                 SetEntityStamina(_EntityID, Stamina + (MaxStamina * Factor));
