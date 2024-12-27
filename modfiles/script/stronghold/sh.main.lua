@@ -792,12 +792,19 @@ end
 -- Menu update
 -- This calls all updates of the selection menu when selection has changed.
 function Stronghold:OnSelectionMenuChanged(_EntityID)
-    local SelectedID = GUI.GetSelectedEntity();
-    -- Check selected entity is the same as passed entity
-    -- (That should never happen in theory)
     local EntityID = _EntityID;
-    if SelectedID ~= _EntityID then
+    local SelectedID = GUI.GetSelectedEntity();
+    if not SelectedID or SelectedID == 0 then
+        return;
+    end
+    if SelectedID ~= EntityID then
         EntityID = SelectedID;
+    end
+
+    local GuiPlayer = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return;
     end
 
     if EntityID then
@@ -905,7 +912,7 @@ function Stronghold:OverrideWidgetActions()
 
     Overwrite.CreateOverwrite("GUIAction_ChangeBuildingMenu", function(_WidgetID)
         local EntityID = GUI.GetSelectedEntity();
-        local PlayerID = GetLocalPlayerID();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
         if not Stronghold.Building:KeepChangeBuildingTabsGuiAction(PlayerID, EntityID, _WidgetID) then
             Overwrite.CallOriginal();
         end
@@ -920,11 +927,12 @@ function Stronghold:OverrideWidgetTooltips()
     end);
 
     Overwrite.CreateOverwrite("GUITooltip_ConstructBuilding", function( _UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut)
-        local GuiPlayer = GetLocalPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
         local UpgradeCategory = _UpgradeCategory;
         Overwrite.CallOriginal();
         if XGUIEng.IsModifierPressed(Keys.ModifierControl) == 1 then
-            UpgradeCategory = Stronghold.Construction:GetFastBuildUpgradeCategory(GuiPlayer, _UpgradeCategory);
+            UpgradeCategory = Stronghold.Construction:GetFastBuildUpgradeCategory(PlayerID, _UpgradeCategory);
         end
         Stronghold.Construction:PrintTooltipConstructionButton(UpgradeCategory, _KeyNormal, _KeyDisabled, _Technology, _ShortCut);
     end);
@@ -989,10 +997,14 @@ end
 -- Button Update Generic Override
 function Stronghold:OverrideWidgetUpdates()
     Overwrite.CreateOverwrite("GUIUpdate_BuildingButtons", function(_Button, _Technology)
-        local PlayerID = GetLocalPlayerID();
+        local GuiPlayer = GUI.GetPlayerID();
         local EntityID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
         Overwrite.CallOriginal();
         Stronghold.Rights:OnlineHelpUpdate(PlayerID, _Button, _Technology);
+        if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+            return;
+        end
         Stronghold.Construction:UpdateSerfConstructionButtons(PlayerID, _Button, _Technology);
         Stronghold.Building:OnAlchemistSelected(EntityID);
     end);

@@ -252,23 +252,25 @@ end
 
 function Stronghold.Building:OnTowerSelected(_EntityID)
     if Logic.IsConstructionComplete(_EntityID) == 1 then
-        local Type = Logic.GetEntityType(_EntityID);
-        if Type == Entities.PB_DarkTower1 or Type == Entities.PB_Tower1 then
-            XGUIEng.ShowWidget("Tower", 1);
-            XGUIEng.ShowWidget("Commands_Tower", 1);
-            XGUIEng.ShowWidget("Upgrade_Tower1", 0);
-            XGUIEng.ShowWidget("Upgrade_Tower2", 0);
-            XGUIEng.ShowWidget("Upgrade_Tower3", 1);
-            GUIUpdate_UpgradeButtons("Upgrade_Tower3", Technologies.UP3_Tower);
-        end
-        if Type == Entities.PB_DarkTower2 or Type == Entities.PB_Tower2 then
-            XGUIEng.ShowWidget("Tower", 1);
-            XGUIEng.ShowWidget("Commands_Tower", 1);
-            XGUIEng.ShowWidget("Upgrade_Tower1", 0);
-            XGUIEng.ShowWidget("Upgrade_Tower2", 1);
-            XGUIEng.ShowWidget("Upgrade_Tower3", 0);
-            GUIUpdate_UpgradeButtons("Upgrade_Tower2", Technologies.UP2_Tower);
-        end
+        return;
+    end
+
+    local Type = Logic.GetEntityType(_EntityID);
+    if Type == Entities.PB_DarkTower1 or Type == Entities.PB_Tower1 then
+        XGUIEng.ShowWidget("Tower", 1);
+        XGUIEng.ShowWidget("Commands_Tower", 1);
+        XGUIEng.ShowWidget("Upgrade_Tower1", 0);
+        XGUIEng.ShowWidget("Upgrade_Tower2", 0);
+        XGUIEng.ShowWidget("Upgrade_Tower3", 1);
+        GUIUpdate_UpgradeButtons("Upgrade_Tower3", Technologies.UP3_Tower);
+    end
+    if Type == Entities.PB_DarkTower2 or Type == Entities.PB_Tower2 then
+        XGUIEng.ShowWidget("Tower", 1);
+        XGUIEng.ShowWidget("Commands_Tower", 1);
+        XGUIEng.ShowWidget("Upgrade_Tower1", 0);
+        XGUIEng.ShowWidget("Upgrade_Tower2", 1);
+        XGUIEng.ShowWidget("Upgrade_Tower3", 0);
+        GUIUpdate_UpgradeButtons("Upgrade_Tower2", Technologies.UP2_Tower);
     end
 end
 
@@ -276,8 +278,12 @@ end
 -- Farm
 
 function Stronghold.Building:OnFarmSelected(_EntityID)
-    local Type = Logic.GetEntityType(_EntityID);
     XGUIEng.ShowWidget("FarmRations", 0);
+
+    local Type = Logic.GetEntityType(_EntityID);
+    if Logic.IsConstructionComplete(_EntityID) == 1 then
+        return;
+    end
     if Type == Entities.PB_Farm1
     or Type == Entities.PB_Farm2
     or Type == Entities.PB_Farm3 then
@@ -358,8 +364,12 @@ end
 -- Residence
 
 function Stronghold.Building:OnResidenceSelected(_EntityID)
-    local Type = Logic.GetEntityType(_EntityID);
     XGUIEng.ShowWidget("ResidenceSleepTime", 0);
+
+    local Type = Logic.GetEntityType(_EntityID);
+    if Logic.IsConstructionComplete(_EntityID) == 1 then
+        return;
+    end
     if Type == Entities.PB_Residence1
     or Type == Entities.PB_Residence2
     or Type == Entities.PB_Residence3 then
@@ -529,8 +539,13 @@ function Stronghold.Building:OverrideKeepButtons()
     gvStronghold_LastSelectedHQMenu = gvGUI_WidgetID.ToBuildingCommandMenu;
 
     Overwrite.CreateOverwrite("GUIAction_SetTaxes", function(_Level)
-        local PlayerID = GetLocalPlayerID();
-        if not IsPlayer(PlayerID) or GUI.GetPlayerID() == 17 then
+        local GuiPlayer = GUI.GetPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
+        if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+            return false;
+        end
+        if not IsPlayer(PlayerID) then
             return false;
         end
         Syncer.InvokeEvent(
@@ -541,8 +556,10 @@ function Stronghold.Building:OverrideKeepButtons()
     end);
 
     Overwrite.CreateOverwrite("GUIUpdate_TaxesButtons", function()
-        local PlayerID = GetLocalPlayerID();
-        if PlayerID == 17 then
+        local GuiPlayer = GUI.GetPlayerID();
+        local EntityID = GUI.GetSelectedEntity();
+        local PlayerID = Logic.EntityGetPlayer(EntityID);
+        if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
             return;
         end
         local TaxLevel = GetTaxHeight(PlayerID) -1;
@@ -633,6 +650,7 @@ function Stronghold.Building:OnKeepSelected(_EntityID)
     if not IsPlayer(PlayerID) then
         return;
     end
+
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 1 then
         if Logic.IsConstructionComplete(_EntityID) == 1 then
             local Type = Logic.GetEntityType(_EntityID);
@@ -684,6 +702,10 @@ function Stronghold.Building:GetLastSelectedKeepTab(_PlayerID)
 end
 
 function Stronghold.Building:KeepChangeBuildingTabsGuiAction(_PlayerID, _EntityID, _WidgetID)
+    local GuiPlayer = GUI.GetPlayerID();
+    if GuiPlayer ~= 17 and GuiPlayer ~= _PlayerID then
+        return false;
+    end
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
@@ -914,8 +936,12 @@ end
 
 function GUIUpdate_InfluenceProgress()
     local WidgetID = XGUIEng.GetCurrentWidgetID();
-    local PlayerID = GetLocalPlayerID();
+    local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return false;
+    end
     if Logic.IsEntityInCategory(EntityID, EntityCategories.Headquarters) == 0 then
         return false;
     end
@@ -977,26 +1003,29 @@ function Stronghold.Building:ControlChurchService(_PlayerID)
 end
 
 function Stronghold.Building:OnCathedralSelected(_EntityID)
-    local Type = Logic.GetEntityType(_EntityID);
     XGUIEng.ShowWidget("CathedralService", 0);
-    if Type == Entities.PB_Monastery1
-    or Type == Entities.PB_Monastery2
-    or Type == Entities.PB_Monastery3 then
-        XGUIEng.ShowWidget("Monastery", 0);
-        XGUIEng.ShowWidget("Cathedral", 1);
-        XGUIEng.ShowWidget("Commands_Cathedral", 1);
-        XGUIEng.ShowWidget("CathedralService", 1);
 
-        -- This must be called here to update upgrade buttons properly!
-        local UpgradeCategory = Logic.GetUpgradeCategoryByBuildingType(Type);
-        InterfaceTool_UpdateUpgradeButtons(Type, UpgradeCategory, "Upgrade_Cathedral");
+    local Type = Logic.GetEntityType(_EntityID);
+    if  Type ~= Entities.PB_Monastery1
+    and Type ~= Entities.PB_Monastery2
+    and Type ~= Entities.PB_Monastery3 then
+        return;
+    end
 
-        local Upgrade = Logic.GetUpgradeLevelForBuilding(_EntityID);
-        if Upgrade == 1 then
-            GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP2_Monastery);
-        elseif Upgrade == 0 then
-            GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP1_Monastery);
-        end
+    XGUIEng.ShowWidget("Monastery", 0);
+    XGUIEng.ShowWidget("Cathedral", 1);
+    XGUIEng.ShowWidget("Commands_Cathedral", 1);
+    XGUIEng.ShowWidget("CathedralService", 1);
+
+    -- This must be called here to update upgrade buttons properly!
+    local UpgradeCategory = Logic.GetUpgradeCategoryByBuildingType(Type);
+    InterfaceTool_UpdateUpgradeButtons(Type, UpgradeCategory, "Upgrade_Cathedral");
+
+    local Upgrade = Logic.GetUpgradeLevelForBuilding(_EntityID);
+    if Upgrade == 1 then
+        GUIUpdate_UpgradeButtons("Upgrade_Cathedral2", Technologies.UP2_Monastery);
+    elseif Upgrade == 0 then
+        GUIUpdate_UpgradeButtons("Upgrade_Cathedral1", Technologies.UP1_Monastery);
     end
 end
 
@@ -1373,25 +1402,29 @@ function Stronghold.Building:CancelRallyPointSelection(_PlayerID)
 end
 
 function Stronghold.Building:SendPlaceRallyPointEvent(_X, _Y, _Initial)
-    local PlayerID = GetLocalPlayerID();
+    local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if IsPlayer(PlayerID) then
-        if self:CanBuildingHaveRallyPoint(EntityID) then
-            local x,y = GUI.Debug_GetMapPositionUnderMouse();
-            if x ~= -1 and y ~= -1 then
-                Syncer.InvokeEvent(
-                    Stronghold.Building.NetworkCall,
-                    Stronghold.Building.SyncEvents.RallyPoint,
-                    EntityID,
-                    _X or x,
-                    _Y or y,
-                    _Initial == true
-                );
-                return true;
-            end
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return false;
+    end
+    if not IsPlayer(PlayerID) then
+        return false;
+    end
+    if self:CanBuildingHaveRallyPoint(EntityID) then
+        local x,y = GUI.Debug_GetMapPositionUnderMouse();
+        if x ~= -1 and y ~= -1 then
+            Syncer.InvokeEvent(
+                Stronghold.Building.NetworkCall,
+                Stronghold.Building.SyncEvents.RallyPoint,
+                EntityID,
+                _X or x,
+                _Y or y,
+                _Initial == true
+            );
+            return true;
         end
     end
-    return false;
 end
 
 function Stronghold.Building:ControlRallyPointSelection(_PlayerID)
@@ -1565,28 +1598,33 @@ function Stronghold.Building:OnSelectSerf(_EntityID)
     local GuiPlayer = GUI.GetPlayerID();
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     local EntityType = Logic.GetEntityType(_EntityID);
-    if PlayerID == GuiPlayer and EntityType == Entities.PU_Serf then
-        if gvStronghold_LastSelectedEntity ~= _EntityID then
-            gvStronghold_LastSelectedSerfMenu = gvGUI_WidgetID.SerfConstructionMenu;
-        end
-
-        XGUIEng.ShowAllSubWidgets(gvGUI_WidgetID.SerfMenus, 0);
-        XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "BuildingMenuGroup");
-        if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfConstructionMenu then
-            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
-            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
-        end
-        if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfMilitaryMenu then
-            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
-            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
-        end
-        if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfBeautificationMenu then
-            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
-            XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
-        end
-        XGUIEng.ShowWidget(gvStronghold_LastSelectedSerfMenu, 1);
-        XGUIEng.DoManualButtonUpdate(gvGUI_WidgetID.InGame);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return;
     end
+    if EntityType ~= Entities.PU_Serf then
+        return;
+    end
+
+    if gvStronghold_LastSelectedEntity ~= _EntityID then
+        gvStronghold_LastSelectedSerfMenu = gvGUI_WidgetID.SerfConstructionMenu;
+    end
+
+    XGUIEng.ShowAllSubWidgets(gvGUI_WidgetID.SerfMenus, 0);
+    XGUIEng.UnHighLightGroup(gvGUI_WidgetID.InGame, "BuildingMenuGroup");
+    if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfConstructionMenu then
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+    end
+    if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfMilitaryMenu then
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfBeatificationMenu, 1);
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
+    end
+    if gvStronghold_LastSelectedSerfMenu == gvGUI_WidgetID.SerfBeautificationMenu then
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfConstructionMenu, 1);
+        XGUIEng.HighLightButton(gvGUI_WidgetID.ToSerfMilitaryMenu, 1);
+    end
+    XGUIEng.ShowWidget(gvStronghold_LastSelectedSerfMenu, 1);
+    XGUIEng.DoManualButtonUpdate(gvGUI_WidgetID.InGame);
 end
 
 -- -------------------------------------------------------------------------- --

@@ -135,10 +135,13 @@ end
 
 function GUIAction_BuyMercenaryUnit(_Index)
     local WidgetID = "Buy_MercenaryUnit" .._Index;
-    local PlayerID = GetLocalPlayerID();
     local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
-    if PlayerID ~= GuiPlayer or not IsPlayer(PlayerID) or not IsExisting(EntityID) then
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return;
+    end
+    if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
     Stronghold.Mercenary:BuyMercenaryUnitAction(WidgetID, _Index, PlayerID, EntityID);
@@ -146,8 +149,12 @@ end
 
 function GUITooltip_BuyMercenaryUnit(_Index)
     local WidgetID = "Buy_MercenaryUnit" .._Index;
-    local PlayerID = GetLocalPlayerID();
+    local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return;
+    end
     if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         return;
     end
@@ -156,8 +163,12 @@ end
 
 function GUIUpdate_BuyMercenaryUnit(_Index)
     local WidgetID = "Buy_MercenaryUnit" .._Index;
-    local PlayerID = GetLocalPlayerID();
+    local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return;
+    end
     if not IsPlayer(PlayerID) or not IsExisting(EntityID) then
         XGUIEng.ShowWidget(WidgetID, 0);
         return;

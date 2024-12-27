@@ -480,8 +480,12 @@ function Stronghold.Unit:BuySoldierButtonAction()
     end
     -- Check player
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = GetLocalPlayerID();
-    if not IsPlayer(PlayerID) or GuiPlayer ~= PlayerID then
+    local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return true;
+    end
+    if not IsPlayer(PlayerID) then
         return true;
     end
     -- Check is leader
@@ -536,8 +540,11 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
         return Stronghold.Unit:BuySoldierButtonTooltipForMultipleLeaders(_KeyNormal, _KeyDisabled, _ShortCut);
     end
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = GetLocalPlayerID();
     local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return false;
+    end
     if not IsPlayer(PlayerID) then
         return false;
     end
@@ -569,14 +576,18 @@ function Stronghold.Unit:BuySoldierButtonTooltip(_KeyNormal, _KeyDisabled, _Shor
 end
 
 function Stronghold.Unit:BuySoldierButtonUpdate()
+    local EntityID = GUI.GetSelectedEntity();
+    local GuiPlayer = GUI.GetPlayerID();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return false;
+    end
     -- Check modifier pressed
     local SelectedLeader = {GUI.GetSelectedEntities()};
     if  XGUIEng.IsModifierPressed(Keys.ModifierControl)== 1
     and table.getn(SelectedLeader) > 1 then
         return Stronghold.Unit:BuySoldierButtonUpdateForMultipleLeaders();
     end
-    local PlayerID = GUI.GetPlayerID();
-    local EntityID = GUI.GetSelectedEntity();
     local Type = Logic.GetEntityType(EntityID);
     if IsPlayer(PlayerID) then
         local BarracksID = Logic.LeaderGetNearbyBarracks(EntityID);
@@ -608,7 +619,11 @@ end
 function Stronghold.Unit:BuySoldierButtonActionForMultipleLeaders()
     -- Check player
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = GetLocalPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return true;
+    end
     if not IsPlayer(PlayerID) or GuiPlayer ~= PlayerID then
         return true;
     end
@@ -649,8 +664,12 @@ end
 function Stronghold.Unit:BuySoldierButtonTooltipForMultipleLeaders(_KeyNormal, _KeyDisabled, _ShortCut)
     -- Check player
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = GetLocalPlayerID();
-    if not IsPlayer(PlayerID) or GuiPlayer ~= PlayerID then
+    local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return true;
+    end
+    if not IsPlayer(PlayerID) then
         return true;
     end
     -- Get costs
@@ -679,10 +698,14 @@ function Stronghold.Unit:BuySoldierButtonTooltipForMultipleLeaders(_KeyNormal, _
 end
 
 function Stronghold.Unit:BuySoldierButtonUpdateForMultipleLeaders()
-    -- Check player
+    local EntityID = GUI.GetSelectedEntity();
     local GuiPlayer = GUI.GetPlayerID();
-    local PlayerID = GetLocalPlayerID();
-    if not IsPlayer(PlayerID) or GuiPlayer ~= PlayerID then
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    if GuiPlayer ~= 17 and GuiPlayer ~= PlayerID then
+        return true;
+    end
+    -- Check player
+    if not IsPlayer(PlayerID) then
         return true;
     end
     -- Get weakened groups

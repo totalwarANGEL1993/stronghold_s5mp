@@ -532,7 +532,8 @@ end
 -- Play a funny comment when the hero is selected.
 function Stronghold.Hero:PlayFunnyComment(_PlayerID)
     -- It's not intended anymore that other players hear the funny comment.
-    if GetLocalPlayerID() ~= _PlayerID then
+    local GuiPlayer = GUI.GetPlayerID();
+    if GuiPlayer == 17 or GuiPlayer ~= _PlayerID then
         return;
     end
 
