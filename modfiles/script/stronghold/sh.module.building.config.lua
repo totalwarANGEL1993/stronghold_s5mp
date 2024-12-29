@@ -131,6 +131,14 @@ Stronghold.Building.Config.BuildingCreationBonus = {
     [Entities.PB_Monastery3]       = {Honor = 0, Reputation = 16},
 }
 
+-- Dictionary of towers that might be on a construction site
+Stronghold.Building.Config.TowerTypes = {
+    [Entities.PB_DarkTower2] = true,
+    [Entities.PB_DarkTower3] = true,
+    [Entities.PB_Tower2] = true,
+    [Entities.PB_Tower3] = true,
+}
+
 Stronghold.Building.Config.RecuitIndexRecuitShortcut = {
     [1]  = "A",
     [2]  = "S",

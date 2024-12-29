@@ -66,6 +66,7 @@ Stronghold.AI.Config = {
         [Entities.PU_Hawk_Deco] = true,
         [Entities.PU_Rat_Deco] = true,
         [Entities.PU_Watchman_Deco] = true,
+        [Entities.XD_TowerConstructionSite] = true,
     },
 }
 

@@ -11,6 +11,9 @@ __Feature__
   Moral bestimmt das Handycap des Spielers __und spielt im PvP keine Rolle__. Es
   werden verschiedene Werte des Spielers beeinflusst.
   Moral wird in der erweiterten Zahltagsansicht angezeigt.
+- Einheiten finden
+  Die Buttons zum finden von Einheiten werden nur noch angezeigt, wenn eine
+  entsprechende Einheit vorhanden ist.
 - Fallen-Technologien
   Jede Falle hat eine Technologie bekommen, die sie verbessert.
 - Fallenautomatik umschalten
