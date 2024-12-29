@@ -11,7 +11,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <MaxHealth>800</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <Exploration>45</Exploration>
 
 

@@ -20,7 +20,7 @@
         <MaxHealth>900</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <Exploration>30</Exploration>
+        <Exploration>0</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
         <DodgeChance>0</DodgeChance>

@@ -13,7 +13,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <MaxHealth>3500</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
+        <ArmorAmount>10</ArmorAmount>
         <Worker>PU_Priest</Worker>
         <MaxWorkers>8</MaxWorkers>
         <InitialMaxWorkers>8</InitialMaxWorkers>

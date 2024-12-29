@@ -34,7 +34,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <Exploration>20</Exploration>
         <ArmorClass>ArmorClassLeather</ArmorClass>
-        <ArmorAmount>7</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
         <DodgeChance>12</DodgeChance>
         <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
         <ExperiencePoints>20</ExperiencePoints>
@@ -119,7 +119,7 @@
 
             <DamageClass>DC_Strike</DamageClass>
             <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>

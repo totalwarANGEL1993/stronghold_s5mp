@@ -16,7 +16,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <MaxHealth>1700</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <Exploration>30</Exploration>
         <Worker>PU_BrickMaker</Worker>
         <MaxWorkers>4</MaxWorkers>

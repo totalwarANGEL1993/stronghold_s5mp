@@ -18,7 +18,7 @@
         <Category>MilitaryBuilding</Category>
         <MaxHealth>1200</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
 
         <!-- Armor -->
         <ModifyArmor>

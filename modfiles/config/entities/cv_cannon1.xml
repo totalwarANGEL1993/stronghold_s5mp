@@ -97,7 +97,7 @@
             <BattleWalkAnim>PV_Cannon4_Drive</BattleWalkAnim>
 
             <DamageClass>DC_Artillery</DamageClass>
-            <DamageAmount>350</DamageAmount>
+            <DamageAmount>250</DamageAmount>
             <MaxRandomDamageBonus>0</MaxRandomDamageBonus>
             <DamageRange>1000</DamageRange>
 

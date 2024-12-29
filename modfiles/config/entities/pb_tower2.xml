@@ -11,7 +11,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <MaxHealth>700</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <Exploration>30</Exploration>
         <Category>MilitaryBuilding</Category>
         <Category>Military</Category>

@@ -17,7 +17,7 @@
         <Category>ThiefRefuge</Category>
         <MaxHealth>1500</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>2</ArmorAmount>
+        <ArmorAmount>4</ArmorAmount>
 
 
         <Worker>PU_TavernBarkeeper</Worker>
