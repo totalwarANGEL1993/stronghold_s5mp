@@ -227,8 +227,8 @@ end
 function Stronghold.Construction:UpdateSerfConstructionButtons(_PlayerID, _Button, _Technology)
     -- Kerberos/Kala hack
     local Technology = _Technology;
-    if HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Hero7_Moloch)
-    or HasPlayerUnlockedPerk(_PlayerID, HeroPerks.Hero12_Moloch) then
+    local HeroType = Logic.GetEntityType(GetNobleID(_PlayerID));
+    if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
         if self.Config.TechnologyAlternateHack[Technology] then
             Technology = self.Config.TechnologyAlternateHack[Technology];
         end

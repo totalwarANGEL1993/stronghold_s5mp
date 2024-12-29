@@ -429,6 +429,10 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             Damage = math.max(math.ceil(Damage * Morale), 1);
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
+            -- tower sites
+            if AttackedType == Entities.XD_TowerConstructionSite then
+                Damage = 0;
+            end
             -- prevent eco harrasment
             if DamageClass == 1 or DamageClass == 2 then
                 if Logic.IsEntityInCategory(_AttackedID, EntityCategories.Worker) == 1
@@ -813,6 +817,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnCathedralSelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
+        self.Building:OnTowerSiteSelected(EntityID);
         self.Building:OnFarmSelected(EntityID);
         self.Building:OnResidenceSelected(EntityID);
         self.Building:OnTavernSelected(EntityID);

@@ -1189,6 +1189,8 @@
         <!-- Construction sites -->
         <Entity>XD_KeepConstructionSite</Entity>
         <Entity>XD_WallConstructionSite</Entity>
+        <Entity>XD_TowerConstructionSite_Used</Entity>
+        <Entity>XD_TowerConstructionSite</Entity>
         
         <!-- Wall replacers -->
         <Entity>XD_DarkWall_Replacer</Entity>
