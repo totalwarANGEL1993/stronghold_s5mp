@@ -1239,8 +1239,7 @@ function Stronghold.Economy:OverrideFindViewUpdate()
     Overwrite.CreateOverwrite("GUIUpdate_FindView", function()
         -- FIXME: Can not call original here...
         -- Overwrite.CallOriginal();
-        XGUIEng.ShowWidget("FindView", 1);
-        XGUIEng.ShowAllSubWidgets("FindView", 1);
+        Stronghold.Economy:UpdateFindViewButtons();
         GUIUpdate_SocialResource(1);
         GUIUpdate_SocialResource(2);
         GUIUpdate_SocialResource(3);
@@ -1464,70 +1463,23 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
     local Upkeep = 0;
 
     if _Key == "MenuTop/Find_spear" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_TemplarLeaderPoleArm1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm4] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForSpearmen(_PlayerID);
     elseif _Key == "MenuTop/Find_sword" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderMace1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderMace2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderBearman1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe4] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword4] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForSwordmen(_PlayerID);
     elseif _Key == "MenuTop/Find_bow" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderBow1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderSkirmisher1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow4] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForBowmen(_PlayerID);
     elseif _Key == "MenuTop/Find_cannon" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon2] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon3] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon4] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon7] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon8] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForCannons(_PlayerID);
     elseif _Key == "MenuTop/Find_lightcavalry" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderCavalry1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_TemplarLeaderCavalry1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry2] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForLightCavalry(_PlayerID);
     elseif _Key == "MenuTop/Find_heavycavalry" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_TemplarLeaderHeavyCavalry1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry2] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForHeavyCavalry(_PlayerID);
     elseif _Key == "AOMenuTop/Find_rifle" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle2] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForRiflemen(_PlayerID);
     elseif _Key == "AOMenuTop/Find_scout" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_Scout] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForScouts(_PlayerID);
     elseif _Key == "AOMenuTop/Find_Thief" then
-        Upkeep = Upkeep +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Assassin_LeaderKnife1] or 0) +
-            (self.Data[_PlayerID].UpkeepDetails[Entities.PU_Thief] or 0);
+        Upkeep = Upkeep + self:GetUpkeepForRouges(_PlayerID);
     else
         return false;
     end
@@ -1537,6 +1489,107 @@ function Stronghold.Economy:PrintTooltipGenericForFindView(_PlayerID, _Key)
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, "");
     XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, "");
     return true;
+end
+
+function Stronghold.Economy:GetUpkeepForSpearmen(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.CU_TemplarLeaderPoleArm1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm3] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderPoleArm4] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForSwordmen(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderSword3] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderMace1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BlackKnight_LeaderMace2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Barbarian_LeaderClub2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderBearman1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe3] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderAxe4] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword3] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderSword4] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForBowmen(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderBow1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Evil_LeaderSkirmisher1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow3] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderBow4] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForCannons(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CV_Cannon2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon2] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon3] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon4] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon7] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PV_Cannon8] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForLightCavalry(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.CU_BanditLeaderCavalry1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.CU_TemplarLeaderCavalry1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderCavalry2] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForHeavyCavalry(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.CU_TemplarLeaderHeavyCavalry1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderHeavyCavalry2] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForRiflemen(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_LeaderRifle2] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForScouts(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.PU_Scout] or 0);
+end
+
+function Stronghold.Economy:GetUpkeepForRouges(_PlayerID)
+    if not IsPlayer(_PlayerID) then
+        return 0;
+    end
+    return (self.Data[_PlayerID].UpkeepDetails[Entities.CU_Assassin_LeaderKnife1] or 0) +
+           (self.Data[_PlayerID].UpkeepDetails[Entities.PU_Thief] or 0);
 end
 
 function Stronghold.Economy:UpdateFindViewAmount(_PlayerID)
@@ -1550,6 +1603,39 @@ function Stronghold.Economy:UpdateFindViewAmount(_PlayerID)
             self.Data[_PlayerID].UpkeepDetails[Type] = Costs;
         end
     end
+end
+
+function Stronghold.Economy:UpdateFindViewButtons()
+    local GuiPlayer = GUI.GetPlayerID();
+    local EntityID = GUI.GetSelectedEntity();
+    local PlayerID = Logic.EntityGetPlayer(EntityID);
+    local Upkeep;
+
+    PlayerID = (PlayerID == 0 and GuiPlayer) or PlayerID;
+    if PlayerID == 17 then
+        XGUIEng.ShowAllSubWidgets("FindView", 0);
+        return;
+    end
+
+    XGUIEng.ShowWidget("FindView", 1);
+    Upkeep = self:GetUpkeepForSpearmen(PlayerID);
+    XGUIEng.ShowWidget("FindSpearmen", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForSwordmen(PlayerID);
+    XGUIEng.ShowWidget("FindSwordmen", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForBowmen(PlayerID);
+    XGUIEng.ShowWidget("FindBowmen", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForCannons(PlayerID);
+    XGUIEng.ShowWidget("FindCannon", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForLightCavalry(PlayerID);
+    XGUIEng.ShowWidget("FindLightCavalry", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForHeavyCavalry(PlayerID);
+    XGUIEng.ShowWidget("FindHeavyCavalry", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForRiflemen(PlayerID);
+    XGUIEng.ShowWidget("FindRiflemen", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForScouts(PlayerID);
+    XGUIEng.ShowWidget("FindScout", (Upkeep > 0 and 1) or 0);
+    Upkeep = self:GetUpkeepForRouges(PlayerID);
+    XGUIEng.ShowWidget("FindThief", (Upkeep > 0 and 1) or 0);
 end
 
 function Stronghold.Economy:OverrideSelectUnitCallbacks()
@@ -1570,9 +1656,12 @@ function Stronghold.Economy:SelectUnitType(_UpgradeCategory)
     local GuiPlayer = GUI.GetPlayerID();
     local EntityID = GUI.GetSelectedEntity();
     local PlayerID = Logic.EntityGetPlayer(EntityID);
-    if PlayerID == 0 or PlayerID == 17 or GuiPlayer ~= PlayerID then
+
+    PlayerID = (PlayerID == 0 and GuiPlayer) or PlayerID;
+    if PlayerID == 17 then
         return;
     end
+
     local UnitTypes = Stronghold.Economy.Config.SelectCategoryMapping[_UpgradeCategory] or {};
     local UnitList = {};
     for _, Type in (UnitTypes) do

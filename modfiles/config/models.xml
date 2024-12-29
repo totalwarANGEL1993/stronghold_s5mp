@@ -3794,7 +3794,7 @@
 
     <Model id="XA_Rat1">
         <Effect>SkinnedObjectAlpha</Effect>
-        <CastShadow>True</CastShadow>
+        <CastShadow>False</CastShadow>
         <UseSurfaceHeight>True</UseSurfaceHeight>
         <UseAlphaBlending>True</UseAlphaBlending>
     </Model>
