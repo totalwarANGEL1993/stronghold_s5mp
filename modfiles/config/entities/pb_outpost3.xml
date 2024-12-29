@@ -12,7 +12,7 @@
         <MaxHealth>4100</MaxHealth>
         <KegEffectFactor>0.3</KegEffectFactor>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>5</ArmorAmount>
+        <ArmorAmount>10</ArmorAmount>
         <Exploration>50</Exploration>
         <NumberOfAttractableSettlers>0</NumberOfAttractableSettlers>
         <BuildOn>XD_KeepConstructionSite</BuildOn>

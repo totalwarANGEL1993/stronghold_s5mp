@@ -122,7 +122,7 @@
 
             <DamageClass>DC_Strike</DamageClass>
             <DamageAmount>16</DamageAmount>
-            <MaxRandomDamageBonus>3</MaxRandomDamageBonus>
+            <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>
             <MinRange>0.0f</MinRange>

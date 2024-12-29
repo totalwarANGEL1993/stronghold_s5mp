@@ -13,8 +13,8 @@
     </ResourceCosts>
     <UseForStatisticsFlag>true</UseForStatisticsFlag>
     <ArmorModifier>
-        <Value>3</Value>
-        <Operation>+</Operation>
+        <Value>1.25</Value>
+        <Operation>*</Operation>
     </ArmorModifier>
 
     <AutomaticResearch>false</AutomaticResearch>

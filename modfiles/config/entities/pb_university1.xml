@@ -14,7 +14,7 @@
         <ForceNoPlayer>false</ForceNoPlayer>
         <MaxHealth>2000</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>4</ArmorAmount>
+        <ArmorAmount>8</ArmorAmount>
         <Worker>PU_Scholar</Worker>
         <MaxWorkers>5</MaxWorkers>
         <InitialMaxWorkers>5</InitialMaxWorkers>

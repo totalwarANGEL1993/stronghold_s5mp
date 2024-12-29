@@ -15,7 +15,7 @@
         <MaxHealth>1400</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <BuildOn>XD_ClayPit1</BuildOn>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <Worker>PU_Miner</Worker>
         <MaxWorkers>9</MaxWorkers>
         <InitialMaxWorkers>9</InitialMaxWorkers>

@@ -28,7 +28,8 @@
             <MinRange>0</MinRange>
             <DamageClass>DC_Arrow</DamageClass>
             <!-- Note: That is single target damage! -->
-            <DamageAmount>30</DamageAmount>
+            <!-- Note: The castle launcher should be stronger than the watchtower. -->
+            <DamageAmount>50</DamageAmount>
             <DamageRange>300</DamageRange>
             <AutoAttackRange>2400</AutoAttackRange>
             <BattleTaskList>TL_BATTLE_BALISTATOWER</BattleTaskList>

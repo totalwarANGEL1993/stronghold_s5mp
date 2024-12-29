@@ -8,16 +8,18 @@
     <Logic classname="GGL::CGLBuildingProps">
         <Class>GGL::CBuilding</Class>
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
-        <MaxHealth>3500</MaxHealth>
-        <ArmorAmount>8</ArmorAmount>
+        <MaxHealth>1200</MaxHealth>
+        <ArmorAmount>24</ArmorAmount>
         <Exploration>10</Exploration>
         <KegEffectFactor>2.0</KegEffectFactor>
-
         <Category>Wall</Category>
         <ForceNoPlayer>false</ForceNoPlayer>
         <NeedsPlayer>true</NeedsPlayer>
         <IsWall>true</IsWall>
+        <BuildOn>XD_WallConstructionSite</BuildOn>
         <UpgradeSite>ZB_UpgradeSiteTower1</UpgradeSite>
+        <HideBase>true</HideBase>
+
 
 		<ModifyArmor>
             <Technology>T_Masonry</Technology>		  
@@ -26,6 +28,7 @@
         <Upgrade>
             <Category>Wall</Category>
         </Upgrade>
+
 
         <ConstructionInfo>
             <Time>20</Time>

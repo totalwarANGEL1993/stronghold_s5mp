@@ -15,7 +15,7 @@
         <UpgradeSite>ZB_UpgradeSiteIronMine1</UpgradeSite>
         <MaxHealth>800</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <BuildOn>XD_IronPit1</BuildOn>
         <Worker>PU_Miner</Worker>
         <MaxWorkers>5</MaxWorkers>

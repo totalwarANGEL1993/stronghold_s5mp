@@ -15,7 +15,7 @@
         <MaxHealth>2200</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <Exploration>30</Exploration>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
 
 
         <ModifyArmor>

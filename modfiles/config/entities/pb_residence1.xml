@@ -12,7 +12,7 @@
         <MaxHealth>500</MaxHealth>
         <Category>Residence</Category>
         <ArmorClass>ArmorClassFortification</ArmorClass>
-        <ArmorAmount>3</ArmorAmount>
+        <ArmorAmount>6</ArmorAmount>
         <Exploration>20</Exploration>
         <Category>DefendableBuilding</Category>
 

@@ -115,7 +115,7 @@
             <HitAnim>CU_LeaderOutlaw1_Hit</HitAnim>
 
             <DamageClass>DC_Strike</DamageClass>
-            <DamageAmount>15</DamageAmount>
+            <DamageAmount>16</DamageAmount>
             <MaxRandomDamageBonus>5</MaxRandomDamageBonus>
 
             <MaxRange>300</MaxRange>

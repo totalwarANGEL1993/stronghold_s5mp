@@ -10,7 +10,7 @@
 		<NeedsPlayer>true</NeedsPlayer>
 		<ForceNoPlayer>false</ForceNoPlayer>
 		<MaxHealth>1000</MaxHealth>
-	        <ArmorAmount>6</ArmorAmount>
+	        <ArmorAmount>12</ArmorAmount>
 		<ApproachPos>
             <X>-100</X>
             <Y>-200</Y>
