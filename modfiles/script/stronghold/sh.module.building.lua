@@ -254,6 +254,25 @@ function Stronghold.Building:OnAlchemistSelected(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- LoggingCamp
+
+function Stronghold.Building:OnLoggingCampSelected(_EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    local Type = Logic.GetEntityType(_EntityID);
+    if not IsPlayer(PlayerID)
+    or Logic.GetUpgradeCategoryByBuildingType(Type) ~= UpgradeCategories.LoggingCamp then
+        return;
+    end
+    XGUIEng.ShowWidget("LoggingCamp", 1);
+    XGUIEng.ShowWidget("Upgrade_LoggingCamp1", (Type == Entities.PB_LoggingCamp1 and 1) or 0);
+    XGUIEng.ShowWidget("Upgrade_LoggingCamp2", (Type == Entities.PB_LoggingCamp2 and 1) or 0);
+
+    GUIUpdate_GlobalTechnologiesButtons("Research_PickAxeWoodMine", Technologies.T_PickAxeWood, Entities.PB_LoggingCamp1);
+    GUIUpdate_UpgradeButtons("Upgrade_LoggingCamp2", Technologies.UP2_LoggingCamp);
+    GUIUpdate_UpgradeButtons("Upgrade_LoggingCamp1", Technologies.UP1_LoggingCamp);
+end
+
+-- -------------------------------------------------------------------------- --
 -- Tower
 
 function Stronghold.Building:OnTowerSelected(_EntityID)

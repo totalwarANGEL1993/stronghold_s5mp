@@ -1176,6 +1176,10 @@ function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceI
     if Remaining > ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
     end
+
+    if _ResourceType == ResourceType.WoodRaw and ResourceAmount > 20 then
+        Logic.SetResourceDoodadGoodAmount(_SourceID, 20);
+    end
     return Amount;
 end
 
@@ -1206,6 +1210,12 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
     if _ResourceType == ResourceType.SulfurRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeSulfurBonus;
+        end
+    end
+
+    if _ResourceType == ResourceType.WoodRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeWood) == 1 then
+            Remaining = Remaining - math.floor(Amount / 2);
         end
     end
 

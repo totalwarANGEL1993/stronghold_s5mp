@@ -1541,6 +1541,11 @@
     <!-- Other -->
 
     <BuildingUpgrade>
+        <Category>LoggingCamp</Category>
+        <FirstBuilding>PB_LoggingCamp1</FirstBuilding>
+    </BuildingUpgrade>
+
+    <BuildingUpgrade>
         <Category>EvilTower</Category>
         <FirstBuilding>CB_Evil_Tower1</FirstBuilding>
     </BuildingUpgrade>

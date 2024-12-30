@@ -196,5 +196,6 @@
 	<AnimSet>SET_WILDBOAR1</AnimSet>
 	<AnimSet>SET_WILDBOAR2</AnimSet>
 	<AnimSet>SET_WILDBOAR3</AnimSet>
+	<AnimSet>SET_WOODCUTTER</AnimSet>
 	<AnimSet>SET_ZEBRA</AnimSet>
 </root>

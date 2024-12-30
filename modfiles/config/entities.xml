@@ -1065,6 +1065,9 @@
         <Entity>PB_Tower1_ArrowLauncher</Entity>
         <Entity>PB_MercenaryCamp1</Entity>
         <Entity>PB_ExecutionerPlace1</Entity>
+        <Entity>PB_LoggingCamp1</Entity>
+        <Entity>PB_LoggingCamp2</Entity>
+        <Entity>PB_LoggingCamp3</Entity>
 
         <!-- Units -->
         <Entity>CU_Assassin_LeaderKnife1</Entity>
@@ -1094,6 +1097,7 @@
         <Entity>PU_Hawk_Deco</Entity>
         <Entity>PU_Rat_Deco</Entity>
         <Entity>PU_Watchman_Deco</Entity>
+        <Entity>PU_Woodcutter</Entity>
         <Entity>PV_Cannon7</Entity>
         <Entity>PV_Cannon8</Entity>
 
@@ -1185,6 +1189,7 @@
 
         <!-- Pits -->
 		<Entity>XD_ClosedStonePit2</Entity>
+		<Entity>XD_ForestGlade1</Entity>
 
         <!-- Construction sites -->
         <Entity>XD_KeepConstructionSite</Entity>
