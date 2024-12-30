@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_WoodPit1</Model>
+        <RenderInFoW>true</RenderInFoW>
+	</Display>
+	<Logic classname="GGL::CResourceDoodadProperties">
+		<Class>GGL::CResourceDoodad</Class>
+        <AccessCategory>AccessCategoryResourceDoodad</AccessCategory>
+        <Category>ResourcePit</Category>
+		<DoNotExecute>True</DoNotExecute>
+		<ApproachPos>
+		    <X>0</X>
+		    <Y>-500</Y>
+		</ApproachPos>
+		<ApproachR>0</ApproachR>
+		<Blocked1>
+            <X>-550</X>
+            <Y>650</Y>
+        </Blocked1>
+        <Blocked2>
+            <X>900</X>
+            <Y>-500</Y>
+        </Blocked2>
+        <TerrainPos1>
+            <X>-650</X>
+            <Y>750</Y>
+        </TerrainPos1>
+        <TerrainPos2>
+            <X>1000</X>
+            <Y>-600</Y>
+        </TerrainPos2> 
+        
+        <!-- Serf placement: Radius must be set to 0 so that LineStart and LineEnd are used. If
+             Radius is greater than 0, serfs will arrange themselves in a circle. LineStart and 
+             LineEnd are the two end points of the line on which serfs will stand when extracting
+             resources from this doodad -->
+             <Radius>650</Radius>
+             <Center>
+                 <X>50</X>
+                 <Y>0</Y>
+             </Center>
+	</Logic>
+
+	<Behavior>
+		<Logic classname="GGL::CGLResourceDoodadBehaviorProps">
+			<Class>GGL::CResourceDoodadBehavior</Class>
+			<Resource>
+				<Good>WoodRaw</Good>
+				<Amount>28000</Amount>
+			</Resource>
+		</Logic>
+	</Behavior>
+</root>

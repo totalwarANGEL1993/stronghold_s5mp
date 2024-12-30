@@ -67,6 +67,25 @@ function ExtendedStatistics_Callback_KnowledgePerMinute(_PlayerID)
     return 0;
 end
 
+-- Used by the server to calculate absolute amount of wood earned.
+function ExtendedStatistics_Callback_WoodEarned(_PlayerID)
+    if Stronghold.Statistic.Data[_PlayerID] then
+        return Stronghold.Statistic.Data[_PlayerID].Resources.Wood[1];
+    end
+    return 0;
+end
+
+-- Used by the server to calculate wood earned per minute.
+function ExtendedStatistics_Callback_WoodEarnedPerMinute(_PlayerID)
+    if Stronghold.Statistic.Data[_PlayerID] then
+        local Actual = Stronghold.Statistic.Data[_PlayerID].Resources.Wood[1];
+        local Before = Stronghold.Statistic.Data[_PlayerID].Resources.Wood[2];
+        Stronghold.Statistic.Data[_PlayerID].Resources.Wood[2] = Actual
+        return Actual - Before;
+    end
+    return 0;
+end
+
 -- -------------------------------------------------------------------------- --
 
 function Stronghold.Statistic:Install()
@@ -77,6 +96,7 @@ function Stronghold.Statistic:Install()
                 ["Honor"] = {0, 0},
                 ["Reputation"] = {0, 0},
                 ["Knowledge"] = {0, 0},
+                ["Wood"] = {0, 0},
             };
         };
     end

@@ -1267,37 +1267,40 @@ function Stronghold.Player:ForcedSelfDesctruct(_PlayerID)
     Logic.PlayerSetGameStateToLost(_PlayerID);
 
     local DestroyLaterTypes = {
-        [Entities.PB_Headquarters1] = true;
-        [Entities.PB_Headquarters2] = true;
-        [Entities.PB_Headquarters3] = true;
-        [Entities.PB_Market1] = true;
-        [Entities.PB_Market2] = true;
-        [Entities.PB_Outpost1] = true;
-        [Entities.PB_Outpost2] = true;
-        [Entities.PB_Outpost3] = true;
-        [Entities.PB_ClayMine1] = true;
-        [Entities.PB_ClayMine2] = true;
-        [Entities.PB_ClayMine3] = true;
-        [Entities.PB_IronMine1] = true;
-        [Entities.PB_IronMine2] = true;
-        [Entities.PB_IronMine3] = true;
-        [Entities.PB_StoneMine1] = true;
-        [Entities.PB_StoneMine2] = true;
-        [Entities.PB_StoneMine3] = true;
-        [Entities.PB_SulfurMine1] = true;
-        [Entities.PB_SulfurMine2] = true;
-        [Entities.PB_SulfurMine3] = true;
+        ["PB_Headquarters1"] = true;
+        ["PB_Headquarters2"] = true;
+        ["PB_Headquarters3"] = true;
+        ["PB_Market1"] = true;
+        ["PB_Market2"] = true;
+        ["PB_Outpost1"] = true;
+        ["PB_Outpost2"] = true;
+        ["PB_Outpost3"] = true;
+        ["PB_LoggingCamp1"] = true;
+        ["PB_LoggingCamp2"] = true;
+        ["PB_LoggingCamp3"] = true;
+        ["PB_ClayMine1"] = true;
+        ["PB_ClayMine2"] = true;
+        ["PB_ClayMine3"] = true;
+        ["PB_IronMine1"] = true;
+        ["PB_IronMine2"] = true;
+        ["PB_IronMine3"] = true;
+        ["PB_StoneMine1"] = true;
+        ["PB_StoneMine2"] = true;
+        ["PB_StoneMine3"] = true;
+        ["PB_SulfurMine1"] = true;
+        ["PB_SulfurMine2"] = true;
+        ["PB_SulfurMine3"] = true;
     };
 
     local DestroyNeverTypes = {};
 
-    for _, Type in pairs(Entities) do
+    for Type,_ in pairs(Entities) do
         if not DestroyLaterTypes[Type] and not DestroyNeverTypes[Type] then
-            self:ForcedSelfDesctructHelper(_PlayerID, Type);
+            self:ForcedSelfDesctructHelper(_PlayerID, Entities[Type]);
         end;
     end;
-    for Type, _ in pairs(DestroyLaterTypes) do
-        self:ForcedSelfDesctructHelper(_PlayerID, Type);
+    for Type,_ in pairs(DestroyLaterTypes) do
+        self:ForcedSelfDesctructHelper(_PlayerID, Entities[Type]);
     end;
 end
 

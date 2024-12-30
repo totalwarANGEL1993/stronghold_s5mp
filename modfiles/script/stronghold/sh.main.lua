@@ -816,6 +816,7 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
         self.Building:OnKeepSelected(EntityID);
         self.Building:OnCathedralSelected(EntityID);
         self.Building:OnAlchemistSelected(EntityID);
+        self.Building:OnLoggingCampSelected(EntityID);
         self.Building:OnTowerSelected(EntityID);
         self.Building:OnTowerSiteSelected(EntityID);
         self.Building:OnFarmSelected(EntityID);

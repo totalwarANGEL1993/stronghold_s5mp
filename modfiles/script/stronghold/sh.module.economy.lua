@@ -1172,6 +1172,14 @@ function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceI
     if Remaining > ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
     end
+
+    if _ResourceType == ResourceType.WoodRaw and ResourceAmount > 20 then
+        Logic.SetResourceDoodadGoodAmount(_SourceID, 20);
+    end
+    if _ResourceType == ResourceType.SilverRaw then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
+        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
+    end
     return Amount;
 end
 
@@ -1205,10 +1213,21 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
         end
     end
 
+    if _ResourceType == ResourceType.SilverRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeWood) == 1 then
+            Remaining = Remaining - math.floor(Amount / 2);
+        end
+    end
+
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount, Remaining);
+
     if Remaining > ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
+    end
+    if _ResourceType == ResourceType.SilverRaw then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
+        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
     end
     return Amount;
 end

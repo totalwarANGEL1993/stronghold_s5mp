@@ -374,10 +374,13 @@
     <Technology>B_ExecutionerPlace</Technology>
     <Technology>B_PitchPit</Technology>
     <Technology>B_Traphole</Technology>
+    <Technology>B_LoggingCamp</Technology>
+	<Technology>UP1_LoggingCamp</Technology>
     <Technology>UP1_Palisade</Technology>
     <Technology>UP1_PalisadeDark</Technology>
     <Technology>UP1_Outpost</Technology>
     <Technology>UP1_TowerDark</Technology>
+	<Technology>UP2_LoggingCamp</Technology>
     <Technology>UP2_Outpost</Technology>
     <Technology>UP2_TowerDark</Technology>
     <Technology>UP3_Tower</Technology>
@@ -388,6 +391,7 @@
     <Technology>T_PickAxeIron</Technology>
     <Technology>T_PickAxeStone</Technology>
     <Technology>T_PickAxeSulfur</Technology>
+    <Technology>T_PickAxeWood</Technology>
 
     <!-- Units -->
     <Technology>T_AutoRepair</Technology>

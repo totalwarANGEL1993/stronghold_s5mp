@@ -455,4 +455,8 @@
 
     <!-- Hero -->
     <TaskList>TL_CU_HERO13_SUMMON</TaskList>
+
+    <!-- Buildings -->
+    <TaskList>TL_WOODCUTTER_WORK_INSIDE_START</TaskList>
+    <TaskList>TL_WOODCUTTER_WORK_INSIDE</TaskList>
 </root>

@@ -16,11 +16,11 @@
     <Conditions>
         <RequiredEntityConditions>1</RequiredEntityConditions>
         <EntityCondition>
-            <EntityType>PB_ClayMine2</EntityType>
+            <EntityType>PB_StoneMine2</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
         <EntityCondition>
-            <EntityType>PB_ClayMine3</EntityType>
+            <EntityType>PB_StoneMine3</EntityType>
             <Amount>1</Amount>
         </EntityCondition>
     </Conditions>

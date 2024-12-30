@@ -18,6 +18,9 @@ Stronghold.Economy.Config.Resource = {
         [Entities.PB_IronMine1] = 3,
         [Entities.PB_IronMine2] = 4,
         [Entities.PB_IronMine3] = 5,
+        [Entities.PB_LoggingCamp1] = 8,
+        [Entities.PB_LoggingCamp2] = 10,
+        [Entities.PB_LoggingCamp3] = 12,
         [Entities.PB_StoneMine1] = 4,
         [Entities.PB_StoneMine2] = 5,
         [Entities.PB_StoneMine3] = 6,
@@ -29,6 +32,7 @@ Stronghold.Economy.Config.Resource = {
         PickaxeStoneBonus = 1,
         PickaxeIronBonus = 1,
         PickaxeSulfurBonus = 1,
+        PickaxeWoodBonus = 0,
     },
     Refining = {
         [Entities.PB_Bank1] = 2,

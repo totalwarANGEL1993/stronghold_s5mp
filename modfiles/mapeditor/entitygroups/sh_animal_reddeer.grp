@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
- <Entity>XA_RedDeer</Entity>
- <Entity>XA_RedDoe</Entity>
+ <Entity>XA_RedDeer1</Entity>
+ <Entity>XA_RedDeer2</Entity>
+ <Entity>XA_RedDeer2</Entity>
+ <Entity>XA_RedDeer2</Entity>
 </root>

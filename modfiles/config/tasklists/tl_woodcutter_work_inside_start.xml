@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CTasksList>
+
+    <PrincipalTask>Work</PrincipalTask>
+
+    <Task classname="EGL::CGLETaskArgsTaskListID" classid="0x6385ea0d">
+        <TaskType>TASK_START_WORK_IF_AT_WORKPLACE</TaskType>
+        <TaskList>TL_MINER_STONEMINE_WORK_INSIDE</TaskList>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <Category>Walk</Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_LEAVE_BUILDING</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_LEFT_BUILDING</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_GO_TO_WORK_BUILDING</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_CHECK_GO_TO_WORK_BUILDING_SUCCESS</TaskType>
+    </Task>
+
+    <Task classname="GGL::CGLTaskArgsTargetType" classid="0x9b0b7f68">
+        <TaskType>TASK_ENTER_BUILDING</TaskType>
+        <TargetType>ATTACHMENT_WORKER_WORKPLACE</TargetType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_VANISH</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgsTaskListID" classid="6385ea0d">
+        <TaskType>TASK_SET_TASK_LIST</TaskType>
+        <TaskList>TL_MINER_WOODMINE_WORK_INSIDE</TaskList>
+    </Task>
+
+</CTasksList>

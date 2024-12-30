@@ -14,7 +14,7 @@
         <BuildOn>XD_StonePit1</BuildOn>
         <BuildOn>XD_StonePit2</BuildOn>
         <BuildOn>XD_SulfurPit1</BuildOn>
-        <BuildOn>XD_ClayPit1</BuildOn>
+        <BuildOn>XD_ForestGlade1</BuildOn>
         <Upgrade>
             <Category>GenericMine2</Category>
         </Upgrade>
@@ -53,8 +53,8 @@
                 <Type>PB_SulfurMine2</Type>
             </Building>
             <Building>
-                <Resource>XD_ClayPit1</Resource>
-                <Type>PB_ClayMine2</Type>
+                <Resource>XD_ForestGlade1</Resource>
+                <Type>PB_LoggingCamp2</Type>
             </Building>
         </Logic>
     </Behavior>
