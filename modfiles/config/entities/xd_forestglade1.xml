@@ -47,7 +47,7 @@
 		<Logic classname="GGL::CGLResourceDoodadBehaviorProps">
 			<Class>GGL::CResourceDoodadBehavior</Class>
 			<Resource>
-				<Good>WoodRaw</Good>
+				<Good>SilverRaw</Good>
 				<Amount>28000</Amount>
 			</Resource>
 		</Logic>

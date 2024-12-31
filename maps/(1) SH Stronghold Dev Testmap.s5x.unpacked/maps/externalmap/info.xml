@@ -2,16 +2,16 @@
 <root>
  <NameKey>MapDescription/Peaceful_Land_name</NameKey>
  <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
- <Name>(1) @color:200,70,40 SH @color:255,255,255 Stronghold Stresstest</Name>
- <Desc>A map to test the efficiency of algorythms.</Desc>
- <SizeX>577</SizeX>
- <SizeY>577</SizeY>
+ <Name>(1) @color:200,70,40 SH @color:255,255,255 Stronghold Testmap</Name>
+ <Desc>A simple testmap for the stronghold mod.</Desc>
+ <SizeX>321</SizeX>
+ <SizeY>321</SizeY>
  <MPFlag>true</MPFlag>
- <MPPlayerCount>6</MPPlayerCount>
+ <MPPlayerCount>1</MPPlayerCount>
  <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>7cb59102-568c-443b-afab-cb623824383e</Data>
+  <Data>0bf2947b-d2f1-4623-b5a8-90076305be52</Data>
  </GUID>
 </root>

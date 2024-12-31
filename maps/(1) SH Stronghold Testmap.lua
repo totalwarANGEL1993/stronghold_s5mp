@@ -21,10 +21,10 @@ SHS5MP_RulesDefinition = {
 
     -- Fill resource piles with resources
     -- (value of resources or 0 to not change)
-    MapStartFillClay = 4000,
-    MapStartFillStone = 4000,
-    MapStartFillIron = 4000,
-    MapStartFillSulfur = 4000,
+    MapStartFillClay = 1000,
+    MapStartFillStone = 1000,
+    MapStartFillIron = 400,
+    MapStartFillSulfur = 250,
     MapStartFillWood = 4000,
 
     -- Rank
@@ -48,11 +48,11 @@ SHS5MP_RulesDefinition = {
         -- Helias
         [Entities.PU_Hero6]              = true,
         -- Kerberos
-        [Entities.CU_BlackKnight]        = false,
+        [Entities.CU_BlackKnight]        = true,
         -- Mary
-        [Entities.CU_Mary_de_Mortfichet] = false,
+        [Entities.CU_Mary_de_Mortfichet] = true,
         -- Varg
-        [Entities.CU_Barbarian_Hero]     = false,
+        [Entities.CU_Barbarian_Hero]     = true,
         -- Drake
         [Entities.PU_Hero10]             = true,
         -- Yuki
@@ -70,17 +70,23 @@ SHS5MP_RulesDefinition = {
         UseWeatherSet("EuropeanWeatherSet");
         LocalMusic.UseSet = EUROPEMUSIC;
 
+        Lib.Require("module/cinematic/BriefingSystem");
         Lib.Require("module/io/NonPlayerCharacter");
+        Lib.Require("module/trigger/Job");
     end,
 
     -- Called after game start timer is over
     OnGameStart = function()
-        CreateProvince1();
-        CreateProvince2();
-        CreateProvince3();
+        SetHostile(1,6);
+        SetHostile(1,7);
 
-        -- CreateCamp1();
-        CreateArmy1();
+        Cinematic.SetMCButtonCount(8);
+        BriefingExposition();
+
+        InitalizePlayer2();
+        InitalizePlayer7();
+
+        HarborQuest_Stage1();
     end,
 
     -- Called after peacetime is over
@@ -93,96 +99,331 @@ SHS5MP_RulesDefinition = {
     end,
 }
 
--- -------------------------------------------------------------------------- --
--- Armies
+-- ########################################################################## --
+-- #                                ENEMY                                   # --
+-- ########################################################################## --
 
-function CreateArmy1()
-    Army1ID = BattalionCreate {
-        PlayerID     = 2,
-        HomePosition = "TestCamp1",
-        Strength     = 8,
-        RodeLength   = 3000,
-    }
+function InitalizePlayer2()
+    SetupAiPlayer(2, 6, Entities.CU_Hero13);
+    SetHostile(1,2);
 end
 
-function FillArmy1()
-    local TroopID = 0;
-    local Position = GetPosition("TestCamp1Spawn");
-    BattalionClearTroops(Army1ID)
-    TroopID = AI.Entity_CreateFormation(2, Entities.PU_LeaderAxe1, 0, 6, Position.X, Position.Y, 0, 0, 3, 0);
-    BattalionAddTroop(Army1ID, TroopID, true);
-    TroopID = AI.Entity_CreateFormation(2, Entities.PU_LeaderAxe1, 0, 6, Position.X, Position.Y, 0, 0, 3, 0);
-    BattalionAddTroop(Army1ID, TroopID, true);
-    TroopID = AI.Entity_CreateFormation(2, Entities.PU_LeaderAxe1, 0, 6, Position.X, Position.Y, 0, 0, 3, 0);
-    BattalionAddTroop(Army1ID, TroopID, true);
+function InitalizePlayer7()
+    SetHostile(1,7);
+
+    for Index = 1, 3 do
+        local CampID = DelinquentsCampCreate {
+            HomePosition = "banditTent" ..Index,
+            Strength = 3,
+        };
+        DelinquentsCampAddSpawner(
+            CampID, "banditTent" ..Index, 60, 1,
+            Entities.PU_LeaderAxe2,
+            Entities.PU_LeaderPoleArm2,
+            Entities.CU_BanditLeaderBow1
+        );
+        DelinquentsCampAddGuardPositions(CampID, "BanditBase1");
+        DelinquentsCampAddGuardPositions(CampID, "BanditBase2");
+    end
 end
 
-function StopPlanArmy1()
-    BattalionCancelPlan(Army1ID);
+-- ########################################################################## --
+-- #                                 QUEST                                  # --
+-- ########################################################################## --
+
+-- Harbor Quest --
+
+function HarborQuest_Stage1()
+    ReplaceEntity("cog1", Entities.XD_ScriptEntity);
+    ReplaceEntity("cog2", Entities.XD_ScriptEntity);
+    ReplaceEntity("trader1", Entities.XD_ScriptEntity);
+    ReplaceEntity("trader2", Entities.XD_ScriptEntity);
+    for i= 1,8 do
+        ReplaceEntity("npcTrader", Entities.XD_ScriptEntity);
+    end
+
+    NonPlayerCharacter.Create({
+        ScriptName      = "Garek",
+        Callback        = NpcBriefingGarek1
+    });
+    NonPlayerCharacter.Activate("Garek");
 end
 
-function StartPlanAdvanceArmy1()
-    BattalionPlanAdvance(Army1ID, "WP1");
+function HarborQuest_Stage2()
+    ReplaceEntity("BanditBarrier1", Entities.XD_ScriptEntity);
+    ReplaceEntity("Jack", Entities.XD_ScriptEntity);
+
+    local QuestTitle = XGUIEng.GetStringTableText("map_sh_demo/Quest_Habor_1_Title");
+    local QuestText  = XGUIEng.GetStringTableText("map_sh_demo/Quest_Habor_1_Text");
+    Logic.AddQuest(1, 2, SUBQUEST_OPEN, QuestTitle, QuestText, 1);
+
+    Job.Second(function()
+        if  not IsExisting("banditTent1")
+        and not IsExisting("banditTent2")
+        and not IsExisting("banditTent3") then
+            OilQuest_Stage1()
+            return true;
+        end
+    end);
 end
 
-function StartPlanPatrolArmy1()
-    BattalionPlanPatrol(Army1ID, {"GP1", "GP2", "GP3", "GP4"});
+function HarborQuest_Stage3()
+    ReplaceEntity("cog2", Entities.XD_Cog);
+    ReplaceEntity("cog2", Entities.XD_Cog);
+    ReplaceEntity("trader1", Entities.CU_Trader);
+    ReplaceEntity("trader2", Entities.CU_Trader);
+    for i= 1,8 do
+        ReplaceEntity("npcTrader", Entities.CU_Trader);
+    end
+
+    local QuestTitle = XGUIEng.GetStringTableText("map_sh_demo/Quest_Habor_2_Title");
+    local QuestText  = XGUIEng.GetStringTableText("map_sh_demo/Quest_Habor_2_Text");
+    Logic.AddQuest(1, 2, SUBQUEST_OPEN, QuestTitle, QuestText, 1);
+
+    Message(XGUIEng.GetStringTableText("map_sh_demo/Msg_TalkGarek"));
+    NonPlayerCharacter.Create({
+        ScriptName      = "Garek",
+        Callback        = NpcBriefingGarek2
+    });
+    NonPlayerCharacter.Activate("Garek");
 end
 
-function StartPlanAttackWalkArmy1()
-    BattalionPlanAttackMove(Army1ID, {"WP1", "WP2", "WP3", "WP4", "PlayerHome"});
+function HarborQuest_Stage4()
+    Logic.SetQuestType(1, 2, SUBQUEST_CLOSED, 1);
 end
 
--- -------------------------------------------------------------------------- --
--- Camps
+-- Oil Quest --
 
-function CreateCamp1()
-    gvTestCamp1 = DelinquentsCampCreate {
-        PlayerID        = 2,
-        HomePosition    = "TestCamp1Home",
-        Strength        = 6,
-        RodeLength      = 2500,
+function OilQuest_Stage1()
+    ReplaceEntity("Jack", Entities.CU_Hermit);
+    Message(XGUIEng.GetStringTableText("map_sh_demo/Msg_TalkJack"));
+    NonPlayerCharacter.Create({
+        ScriptName      = "Jack",
+        Callback        = NpcBriefingHermit1
+    });
+    NonPlayerCharacter.Activate("Jack");
+end
+
+function OilQuest_Stage2()
+    local QuestTitle = XGUIEng.GetStringTableText("map_sh_demo/Quest_Oil_1_Title");
+    local QuestText  = XGUIEng.GetStringTableText("map_sh_demo/Quest_Oil_1_Text");
+    Logic.AddQuest(1, 3, SUBQUEST_OPEN, QuestTitle, QuestText, 1);
+
+    local TributeText  = XGUIEng.GetStringTableText("map_sh_demo/Tribute_Oil");
+    Logic.AddTribute(1, 1, 0, 0, TributeText,ResourceType.Sulfur, 500);
+
+    Job.Tribute(function()
+        local TributeID = Event.GetTributeUniqueID();
+        local PlayerID = Event.GetSourcePlayerID();
+        if PlayerID == 1 and TributeID == 1 then
+            OilQuest_Stage3();
+            return true;
+        end
+    end);
+end
+
+function OilQuest_Stage3()
+    local QuestTitle = XGUIEng.GetStringTableText("map_sh_demo/Quest_Oil_2_Title");
+    local QuestText  = XGUIEng.GetStringTableText("map_sh_demo/Quest_Oil_2_Text");
+    Logic.AddQuest(1, 3, SUBQUEST_OPEN, QuestTitle, QuestText, 1);
+
+    Message(XGUIEng.GetStringTableText("map_sh_demo/Msg_TalkJack"));
+    NonPlayerCharacter.Create({
+        ScriptName      = "Jack",
+        Callback        = NpcBriefingHermit2
+    });
+    NonPlayerCharacter.Activate("Jack");
+end
+
+function OilQuest_Stage4()
+    Logic.SetQuestType(1, 3, SUBQUEST_CLOSED, 1);
+    HarborQuest_Stage3();
+end
+
+-- ########################################################################## --
+-- #                               BRIEFING                                 # --
+-- ########################################################################## --
+
+function BriefingExposition()
+    local Briefing = {
+        NoSkip = false,
     };
+    local AP = BriefingSystem.AddPages(Briefing);
 
-    DelinquentsCampAddSpawner(
-        gvTestCamp1, "TestCamp1", 30, 2,
-        {Entities.PU_LeaderPoleArm1, 3},
-        {Entities.PU_LeaderBow1, 3},
-        {Entities.PU_LeaderSword1, 3}
-    );
+    AP {
+        Target   = "HQ5",
+        CloseUp  = false,
+        NoSkip   = true,
+        FadeIn   = 2,
+        Duration = 2,
+    }
+    AP {
+        Title    = "map_sh_demo/BriefingExposition_1_Title",
+        Text     = "map_sh_demo/BriefingExposition_1_Text",
+        Target   = "HQ1",
+        CloseUp  = false,
+    }
+    AP {
+        Target   = "HQ5",
+        CloseUp  = false,
+        NoSkip   = true,
+        FadeOut  = 2,
+        Duration = 2,
+    }
 
-    DelinquentsCampAddTarget(gvTestCamp1, "PlayerHome");
-    DelinquentsCampActivateAttack(gvTestCamp1, false);
+    Briefing.Finished = function()
+        local QuestTitle = XGUIEng.GetStringTableText("map_sh_demo/Quest_Main_1_Title");
+        local QuestText  = XGUIEng.GetStringTableText("map_sh_demo/Quest_Main_1_Text");
+        Logic.AddQuest(1, 1, MAINQUEST_OPEN, QuestTitle, QuestText, 1);
+    end
+    BriefingSystem.Start(1, "BriefingExposition", Briefing);
 end
 
--- -------------------------------------------------------------------------- --
--- Provinces
+function NpcBriefingGarek1(_Npc, _HeroID)
+    local Briefing = {
+        NoSkip = false,
+    };
+    local AP = BriefingSystem.AddPages(Briefing);
+    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_HeroID))
+    local HeroName = XGUIEng.GetStringTableText("Names/" ..TypeName);
 
-function CreateProvince1()
-    CreateEncouragingProvince(
-        "Oasis de Lune",
-        "Province1Pos",
-        0.10,
-        0.5
-    );
+    AP {
+        Title    = HeroName,
+        Text     = "map_sh_demo/NpcBriefingGarek1_1_Text",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingGarek1_2_Text",
+        Target   = "Garek",
+        CloseUp  = true,
+    }
+    AP {
+        Title    = HeroName,
+        Text     = "map_sh_demo/NpcBriefingGarek1_3_Text",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingGarek1_4_Text",
+        Target   = "Garek",
+        CloseUp  = true,
+    }
+
+    Briefing.Finished = function()
+        HarborQuest_Stage2();
+    end
+    BriefingSystem.Start(1, "BriefingGarek1", Briefing);
 end
 
-function CreateProvince2()
-    CreateSlaveProvince(
-        "Oasis de Sene",
-        "Province2Pos",
-        4,
-        0.5
-    );
+function NpcBriefingGarek2(_Npc, _HeroID)
+    local Briefing = {
+        NoSkip = false,
+    };
+    local AP = BriefingSystem.AddPages(Briefing);
+    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_HeroID))
+    local HeroName = XGUIEng.GetStringTableText("Names/" ..TypeName);
+
+    AP {
+        Title    = HeroName,
+        Text     = "map_sh_demo/NpcBriefingGarek2_1_Text",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingGarek2_2_Text",
+        Target   = "Garek",
+        CloseUp  = true,
+    }
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingGarek2_3_Text",
+        Target   = "Garek",
+        CloseUp  = true,
+    }
+
+    Briefing.Finished = function()
+        HarborQuest_Stage4();
+    end
+    BriefingSystem.Start(1, "BriefingGarek2", Briefing);
 end
 
-function CreateProvince3()
-    CreateResourceProvince(
-        "la Source de Mystere",
-        "Province3Pos",
-        ResourceType.IronRaw,
-        200,
-        0.5
-    );
+function NpcBriefingHermit1(_Npc, _HeroID)
+    local Briefing = {
+        NoSkip = false,
+    };
+    local AP = BriefingSystem.AddPages(Briefing);
+    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_HeroID))
+    local HeroName = XGUIEng.GetStringTableText("Names/" ..TypeName);
+
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingHermit1_1_Text",
+        Target   = "Garek",
+        CloseUp  = true,
+    }
+    AP {
+        Title    = HeroName,
+        Text     = "map_sh_demo/NpcBriefingHermit1_2_Text",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingHermit1_3_Text",
+        Target   = "Garek",
+        CloseUp  = true,
+    }
+    AP {
+        Title    = HeroName,
+        Text     = "map_sh_demo/NpcBriefingHermit1_4_Text",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+
+    Briefing.Finished = function()
+        OilQuest_Stage2();
+    end
+    BriefingSystem.Start(1, "BriefingHermit1", Briefing);
+end
+
+function NpcBriefingHermit2(_Npc, _HeroID)
+    local Briefing = {
+        NoSkip = false,
+    };
+    local AP = BriefingSystem.AddPages(Briefing);
+    local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(_HeroID))
+    local HeroName = XGUIEng.GetStringTableText("Names/" ..TypeName);
+
+
+    AP {
+        Title    = HeroName,
+        Text     = "map_sh_demo/NpcBriefingHermit2_1_Text",
+        Target   = _HeroID,
+        CloseUp  = true,
+    }
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingHermit2_2_Text",
+        Target   = "Garek",
+        CloseUp  = true,
+    }
+    AP {
+        Title    = "Garek",
+        Text     = "map_sh_demo/NpcBriefingHermit2_3_Text",
+        Target   = "Lighthouse1",
+        CloseUp  = false,
+        Action   = function()
+            ReplaceEntity("Lighthouse1", Entities.CB_Lighthouse_Activated);
+        end
+    }
+
+    Briefing.Finished = function()
+        OilQuest_Stage4();
+    end
+    BriefingSystem.Start(1, "BriefingHermit1", Briefing);
 end
 

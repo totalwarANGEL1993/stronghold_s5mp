@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<string id="Quest_Main_1_Title">Demonstration</string>
+<string id="Quest_Main_1_Text">Auf dieser Karte könnt Ihr alle Features der Stronghold Modifikation nach Herzenslust ausprobieren.</string>
+
+<string id="Quest_Harbor_1_Title">Ein Unsicherer Hafen</string>
+<string id="Quest_Harbor_1_Text">Der Hafen wird nicht mehr von Schiffen angesteuert, weil der Leuchtturm seinen Dienst versagt hat. Vielleicht solltet Ihr einmal nachsehen, was mit dem Leutturm nicht stimmt.</string>
+<string id="Quest_Harbor_2_Title">Ein Unsicherer Hafen</string>
+<string id="Quest_Harbor_2_Text">Dank Eures Eingreifens, ist der Leuchtturmwärter nun wieder frei und der Leuchtturm wird den Schiffen einen sicheren Weg in den Hafen weisen. Ihr solltet Garek davon unterrichten. @cr @cr @color:180,180,180 Der Hafen wird nicht mehr von Schiffen angesteuert, weil der Leuchtturm seinen Dienst versagt hat. Vielleicht solltet Ihr einmal nachsehen, was mit dem Leutturm nicht stimmt.</string>
+
+<string id="Quest_Oil_1_Title">Der erloschene Leuchtturm</string>
+<string id="Quest_Oil_1_Text">Dem Leuchtturmwärter ist der Brennstoff ausgegangen. Ihr müsst ihm Schwefel besorgen, damit der Leuchtturm wieder arbeiten kann.</string>
+<string id="Quest_Oil_2_Title">Der erloschene Leuchtturm</string>
+<string id="Quest_Oil_2_Text">Ihr habt Schwefel für den Leuchtturmwärter besorgt. Sprecht nun erneut mit ihm und übergebt den Schwefel. @cr @cr @color:180,180,180 Dem Leuchtturmwärter ist der Brennstoff ausgegangen. Ihr müsst ihm Schwefel besorgen, damit der Leuchtturm wieder arbeiten kann.</string>
+
+<string id="Tribute_Oil">Besorgt dem Leuchtturmwärter 500 Schwefel, damit der Leuchtturm wieder arbeiten kann.</string>
+
+<string id="Msg_TalkGarek">Sprecht mit dem Hafenmeister</string>
+<string id="Msg_TalkJack">Sprecht mit dem Leuchtturmwärter.</string>
+
+<string id="BriefingExposition_1_Title">Demonstration</string>
+<string id="BriefingExposition_1_Text">Auf dieser Karte könnt Ihr alle Features der Stronghold Modifikation nach Herzenslust ausprobieren.</string>
+
+<string id="NpcBriefingGarek1_1_Title">Hero</string>
+<string id="NpcBriefingGarek1_1_Text">Was ist denn mit diesem Hafen passiert? Sollte es hier nicht voll mit Händlern sein, die ihre Waren veräußern wollen?</string>
+<string id="NpcBriefingGarek1_2_Title">Garek</string>
+<string id="NpcBriefingGarek1_2_Text">Das war es früher auch. Aber seitdem der alte Jack seinen Job nicht mehr macht und der Leuchtturm dunkel ist, trauen sich die Händler nicht mehr hier her. Die Steilklippen sind kreuzgefährlich!</string>
+<string id="NpcBriefingGarek1_3_Title">Hero</string>
+<string id="NpcBriefingGarek1_3_Text">Ich könnte nachsehen, was mit dem Leuchtturm nicht stimmt. Vielleicht kann ich es in Ordnung bringen.</string>
+<string id="NpcBriefingGarek1_4_Title">Garek</string>
+<string id="NpcBriefingGarek1_4_Text">Dafür wäre ich Euch sehr verbunden. Wenn Ihr das schafft, soll es Euer Schaden nicht sein.</string>
+
+<string id="NpcBriefingGarek2_1_Title">Hero</string>
+<string id="NpcBriefingGarek2_1_Text">Der Leuchtturm wurde von Banditen eingenommen. Ich habe sie beseitigt und Jack geholfen, den Turm Instand zu setzen.</string>
+<string id="NpcBriefingGarek2_2_Title">Garek</string>
+<string id="NpcBriefingGarek2_2_Text">Ja, ich weiß es bereits. Und seht nur, wie belebt der Hafen wieder ist, dank Eurer Hilfe.</string>
+<string id="NpcBriefingGarek2_3_Title">Garek</string>
+<string id="NpcBriefingGarek2_3_Text">Wenn Ihr etwas braucht, dann scheut nicht, mit den Händlern zu sprechen. Vielleicht haben sie etwas, dass Ihr gebrauchen könnt.</string>
+
+<string id="NpcBriefingHermit1_1_Title">Jack</string>
+<string id="NpcBriefingHermit1_1_Text">Endlich frei! Diese miesen Halunken haben meinen Turm besetzt und mich im Scheißhaus eingesperrt. IM SCHEISSHAUS!!</string>
+<string id="NpcBriefingHermit1_2_Title">Hero</string>
+<string id="NpcBriefingHermit1_2_Text">Hm, ja. Das riecht man... Da Ihr nun wieder frei seid, werdet Ihr das Feuer im Leuchtturm entzünden?</string>
+<string id="NpcBriefingHermit1_3_Title">Jack</string>
+<string id="NpcBriefingHermit1_3_Text">Das würde ich, wenn ich könnte. Aber leider haben diese Halunken sämtlichen Brennstoff schon veräußert. Ihr werdet mir schon neuen besorgen müssen.</string>
+<string id="NpcBriefingHermit1_4_Title">Hero</string>
+<string id="NpcBriefingHermit1_4_Text">Keine Sorge, ich kümmere mich darum.</string>
+
+<string id="NpcBriefingHermit1_1_Title">Hero</string>
+<string id="NpcBriefingHermit1_1_Text">Ich bringe Euch neuen Brennstoff für das Leuchtfeuer.</string>
+<string id="NpcBriefingHermit1_2_Title">Jack</string>
+<string id="NpcBriefingHermit1_2_Text">Wunderbar! Auf Euch kann man sich verlassen.</string>
+<string id="NpcBriefingHermit1_3_Title">Jack</string>
+<string id="NpcBriefingHermit1_3_Text">Schaut nur, schaut. Das Feuer brennt schon wieder.</string>
+</stringtable>
