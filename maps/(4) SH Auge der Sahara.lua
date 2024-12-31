@@ -164,6 +164,9 @@ end
 
 function SetupCampsWS0()
     for j= 1, 2 do
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.XD_ScriptEntity);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.XD_ScriptEntity);
+
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "DefPos",
             RodeLength = 2500,
@@ -189,6 +192,9 @@ end
 
 function SetupCampsWS10()
     for j= 1, 2 do
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.XD_ScriptEntity);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.XD_ScriptEntity);
+
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "DefPos",
             RodeLength = 2500,
@@ -214,6 +220,9 @@ end
 
 function SetupCampsWS20()
     for j= 1, 2 do
+        ReplaceEntity("OP" ..j.. "Tower1", Entities.PB_Tower2);
+        ReplaceEntity("OP" ..j.. "Tower2", Entities.PB_Tower2);
+
         local CampID = DelinquentsCampCreate {
             HomePosition = "Province" ..j.. "Pos",
             RodeLength = 2500,

@@ -127,13 +127,6 @@
     </Behavior>
 
     <Behavior>
-        <Logic classname="GGL::CFoundationBehaviorProps">
-            <Class>GGL::CFoundationBehavior</Class>
-            <TopEntityType>PB_DarkTower1_ArrowLauncher</TopEntityType>
-        </Logic>
-    </Behavior>
-
-    <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
             <Class>GGL::CGLBehaviorDying</Class>
         </Logic>

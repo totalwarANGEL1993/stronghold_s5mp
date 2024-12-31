@@ -3,18 +3,13 @@
 	<Display classname="ED::CDisplayEntityProps">
 		<Class>ED::CDisplayBuilding</Class>
 		<Model>XD_RuinSmallTower4</Model>
+        <RenderInFoW>true</RenderInFoW>
 	</Display>
-	<Logic classname="GGL::CGLBuildingProps">
-		<Class>GGL::CBuilding</Class>
-		<AccessCategory>AccessCategoryBuilding</AccessCategory>
-        <MaxHealth>1000</MaxHealth>
-        <ArmorAmount>2</ArmorAmount>
-        <Exploration>0</Exploration>
-        <KegEffectFactor>2.0</KegEffectFactor>
-        <Category>Wall</Category>
-        <ForceNoPlayer>false</ForceNoPlayer>
-        <NeedsPlayer>true</NeedsPlayer>
-        <IsWall>true</IsWall>
+    <Logic classname="GGL::CGLBuildingProps">
+        <Class>GGL::CBuilding</Class>
+        <AccessCategory>AccessCategoryStatic</AccessCategory>
+        <DoNotExecute>True</DoNotExecute>
+        <DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
 
         <ApproachPos>
             <X>-300</X>
@@ -41,26 +36,15 @@
             <X>300</X>
             <Y>-300</Y>
         </TerrainPos2>
-		<Exploration>30</Exploration>
 	</Logic>
-	<Behavior>
-		<Logic classname="EGL::CGLEBehaviorProps">
-			<Class>EGL::GLEBehaviorMultiSubAnims</Class>
-		</Logic>
-		<Display classname="ED::CBehaviorProps">
-			<Class>ED::CDisplayBehaviorBuildingAnimation</Class>
-		</Display>
-	</Behavior>
-	<Behavior>
-		<Logic classname="EGL::CGLEBehaviorProps">
-			<Class>GGL::CBuildingBehavior</Class>
-		</Logic>
-		<Display classname="GD::CBuildingBehaviorProps">
-			<Class>GD::CBuildingBehavior</Class>
-			<Banner>DefaultBend</Banner>
-		  <NumDamageEffects>4</NumDamageEffects>
-		  <NumDestroyEffects>5</NumDestroyEffects>
-		</Display>
-
-	</Behavior>
+    <Behavior>
+        <Logic classname="EGL::CGLEBehaviorProps">
+            <Class>GGL::CBuildingBehavior</Class>
+        </Logic>
+        <Display classname="GD::CBuildingBehaviorProps">
+            <Class>GD::CBuildingBehavior</Class>
+            <NumDamageEffects>13</NumDamageEffects>
+            <NumDestroyEffects>26</NumDestroyEffects>
+        </Display>
+    </Behavior>
 </root>

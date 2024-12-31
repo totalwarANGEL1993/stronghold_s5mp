@@ -28,28 +28,16 @@ Stronghold.Construction.Config = {
         [8] = 3,
     },
 
-    PlacementDistanceCheck = {
-        -- Towers
-        [UpgradeCategories.DarkBallistaTower] = 1500,
-        [UpgradeCategories.DarkCannonTower]   = 1500,
-        [UpgradeCategories.DarkWatchTower]    = 1500,
-        [UpgradeCategories.DarkTower]         = 1500,
-        [UpgradeCategories.Tower]             = 1500,
-        [UpgradeCategories.BallistaTower]     = 1500,
-        [UpgradeCategories.CannonTower]       = 1500,
-        [UpgradeCategories.WatchTower]        = 1500,
-    },
+    PlacementDistanceCheck = {},
 
     EnemyDistanceCheck = {
         -- Towers
         [UpgradeCategories.DarkBallistaTower] = 4000,
         [UpgradeCategories.DarkCannonTower]   = 4000,
-        [UpgradeCategories.DarkWatchTower]    = 4000,
         [UpgradeCategories.DarkTower]         = 4000,
         [UpgradeCategories.Tower]             = 4000,
         [UpgradeCategories.BallistaTower]     = 4000,
         [UpgradeCategories.CannonTower]       = 4000,
-        [UpgradeCategories.WatchTower]        = 4000,
         -- Traps
         [UpgradeCategories.BearCage]          = 2500,
         [UpgradeCategories.DogCage]           = 2500,

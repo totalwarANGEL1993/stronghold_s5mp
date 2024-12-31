@@ -508,7 +508,10 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Hero2_Perk3",
         Data = {
             RequiredRank = 7,
-            Factor = 0.8,
+            Factor = 1.2,
+            DamageClasses = {
+                [DamageClasses.DC_Turret] = true,
+            },
         }
     },
 
