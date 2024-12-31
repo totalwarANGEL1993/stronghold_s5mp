@@ -578,7 +578,7 @@ function Enemy_Player6_StartStage1()
         for i= 1, 5 do
             ChangePlayer("P6CTBastille" ..i, 6);
         end
-        for i= 1, 7 do
+        for i= 1, 2 do
             ChangePlayer("P6CTTower" ..i, 6);
         end
         Enemy_InitPlayer6_1();
@@ -612,10 +612,8 @@ function Enemy_Player6_StartStage2()
             ChangePlayer("P6RRBastille" ..i, 6);
             ChangePlayer("P6LRBastille" ..i, 6);
         end
-        for i= 1, 8 do
-            ChangePlayer("P6RRTower" ..i, 6);
-            ChangePlayer("P6LRTower" ..i, 6);
-        end
+        ChangePlayer("P6RRTower1", 6);
+        ChangePlayer("P6LRTower1", 6);
         Enemy_InitPlayer6_2();
 
         ReplaceEntity("P6RG1", Entities.XD_DarkWallStraightGate);
@@ -637,7 +635,7 @@ function Enemy_Player6_StartStage3()
         end
     end
     if Fulfulled then
-        for i= 1, 16 do
+        for i= 1, 8 do
             ChangePlayer("P6FITower" ..i, 6);
         end
         Enemy_InitPlayer6_3();
@@ -664,8 +662,7 @@ end
 function Enemy_Player6_SaveSpawnerBuildings_2_1()
     local Buildings = {
         "P6LRBastille1", "P6LRBastille2", "P6LRBastille3", "P6LRBastille4",
-        "P6LRBastille5", "P6LRTower1", "P6LRTower2", "P6LRTower3", "P6LRTower4",
-        "P6LRTower5", "P6LRTower6", "P6LRTower7", "P6LRTower8",
+        "P6LRBastille5", "P6LRTower1",
     };
 
     Enemy_Player6_BuildingPositions[1] = {};
@@ -701,8 +698,7 @@ end
 function Enemy_Player6_SaveSpawnerBuildings_2_2()
     local Buildings = {
         "P6RRBastille1", "P6RRBastille2", "P6RRBastille3", "P6RRBastille4",
-        "P6RRBastille5", "P6RRTower1", "P6RRTower2", "P6RRTower3", "P6RRTower4",
-        "P6RRTower5", "P6RRTower6", "P6RRTower7", "P6RRTower8",
+        "P6RRBastille5", "P6RRTower1",
     };
 
     Enemy_Player6_BuildingPositions[2] = {};
@@ -738,8 +734,7 @@ end
 function Enemy_Player6_SaveSpawnerBuildings_2_3()
     local Buildings = {
         "P6FITower1", "P6FITower2", "P6FITower3", "P6FITower4", "P6FITower5", "P6FITower6", 
-        "P6FITower7", "P6FITower8", "P6FITower9", "P6FITower10", "P6FITower11", "P6FITower12", 
-        "P6FITower13", "P6FITower14", "P6FITower15", "P6FITower16"
+        "P6FITower7", "P6FITower8",
     };
 
     Enemy_Player6_BuildingPositions[3] = {};
@@ -886,9 +881,7 @@ function Enemy_Player3_State1()
     for i= 1, 3 do
         ChangePlayer("P3Bastille" ..i, 3);
     end
-    for i= 1, 6 do
-        ChangePlayer("P3Tower" ..i, 3);
-    end
+    ChangePlayer("P3Tower1", 3);
     Enemy_InitPlayer3();
 
     ReplaceEntity("P3LG1", Entities.XD_DarkWallStraightGate);
@@ -1012,9 +1005,7 @@ function Enemy_Player4_State1()
     for i= 1, 3 do
         ChangePlayer("P4Bastille" ..i, 4);
     end
-    for i= 1, 6 do
-        ChangePlayer("P4Tower" ..i, 4);
-    end
+    ChangePlayer("P4Tower1", 4);
     Enemy_InitPlayer4();
 
     ReplaceEntity("P4RG1", Entities.XD_DarkWallStraightGate);
@@ -1089,7 +1080,7 @@ end
 
 function Enemy_Player5_SaveSpawnerBuildings()
     local BuildingList = {"P5_BC1","P5_AC1","P5_ST1","P5_FD1"};
-    for i= 1, 18 do
+    for i= 1, 8 do
         table.insert(BuildingList, "P5Tower" ..i);
     end
     for _,ScriptName in pairs(BuildingList) do
@@ -1758,7 +1749,7 @@ end
 
 function TraitorRevengeQuest_DestroyBanditsController()
     if not IsExisting("BanditTower1") then
-        for i= 1, 5 do
+        for i= 1, 3 do
             SetHealth("OutlawTower" ..i, 0);
         end
         TraitorRevengeQuest_CreateTraitor1Npc2();
