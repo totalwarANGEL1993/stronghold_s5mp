@@ -1145,11 +1145,6 @@ end
 
 function Stronghold.Hero.Perk:ApplyTowerDistancePassiveAbility(_PlayerID, _UpgradeCategory, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
-    -- Hero 2: Defence Master
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero2_FortressMaster) then
-        local Data = self.Config.Perks[HeroPerks.Hero2_FortressMaster].Data;
-        CurrentAmount = CurrentAmount * Data.Factor;
-    end
     return CurrentAmount;
 end
 
@@ -1181,6 +1176,14 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
         local Data = self.Config.Perks[HeroPerks.Generic_BeastMaster].Data;
         if Data.EntityTypes[AttackerType] then
             CurrentAmount = CurrentAmount * Data.DamageDeltFactor;
+        end
+    end
+    -- Hero 2: Fortress Master
+    if self:IsPerkTriggered(AttackerPlayerID, HeroPerks.Hero2_FortressMaster) then
+        local Data = self.Config.Perks[HeroPerks.Hero2_FortressMaster].Data;
+        local DamageClass = GetEntityDamageClass(_AttackedID);
+        if Data.DamageClasses[DamageClass] then
+            CurrentAmount = CurrentAmount * Data.Factor;
         end
     end
     -- Hero 8: Assassin Master

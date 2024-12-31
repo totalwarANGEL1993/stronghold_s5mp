@@ -294,7 +294,7 @@ end
 function Stronghold.Attraction:GetVirtualPlayerAttractionLimit(_PlayerID)
     local Limit = 0;
     local RawLimit = 0;
-    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
+    if IsPlayer(_PlayerID) then
         -- Headquarters
         local HQ1 = GetBuildingsOfType(_PlayerID, Entities.PB_Headquarters1, true);
         RawLimit = RawLimit + (HQ1[1] * self.Config.Attraction.HQCivil[1]);

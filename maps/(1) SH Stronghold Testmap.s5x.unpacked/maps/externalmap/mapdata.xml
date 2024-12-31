@@ -4402,12 +4402,12 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_TowerConstructionSite</Type>
    <Position>
-    <X>6.800000e+003</X>
+    <X>6.700000e+003</X>
     <Y>2.180000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>1</PlayerID>
+   <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
@@ -4417,12 +4417,12 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_TowerConstructionSite</Type>
    <Position>
-    <X>6.800000e+003</X>
-    <Y>1.840000e+004</Y>
+    <X>6.700000e+003</X>
+    <Y>1.850000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>8</PlayerID>
+   <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
@@ -4433,11 +4433,11 @@
    <Type>XD_TowerConstructionSite</Type>
    <Position>
     <X>3.300000e+003</X>
-    <Y>1.830000e+004</Y>
+    <Y>1.840000e+004</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
-   <PlayerID>1</PlayerID>
+   <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
@@ -18520,7 +18520,7 @@
     <X>6.081620e+003</X>
     <Y>2.323000e+004</Y>
    </Position>
-   <Orientation>9.809987e+001</Orientation>
+   <Orientation>9.809985e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -22240,7 +22240,7 @@
     <X>3.780241e+003</X>
     <Y>2.572000e+004</Y>
    </Position>
-   <Orientation>9.809986e+001</Orientation>
+   <Orientation>9.809985e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -32485,7 +32485,7 @@
     <X>1.277543e+004</X>
     <Y>1.634939e+004</Y>
    </Position>
-   <Orientation>9.418862e+001</Orientation>
+   <Orientation>9.418858e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -34735,7 +34735,7 @@
     <X>4.157354e+003</X>
     <Y>1.376912e+004</Y>
    </Position>
-   <Orientation>9.647384e+001</Orientation>
+   <Orientation>9.647383e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -36170,19 +36170,19 @@
    <Scale>9.552660e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Plant1</Type>
+   <Type>XD_RockMedium5</Type>
    <Position>
-    <X>3.430885e+003</X>
-    <Y>1.886307e+004</Y>
+    <X>1.453714e+004</X>
+    <Y>2.893019e+004</Y>
    </Position>
-   <Orientation>1.529014e+002</Orientation>
+   <Orientation>4.297182e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>8.609149e-001</Scale>
+   <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_Bush2</Type>
@@ -36275,34 +36275,34 @@
    <Scale>8.792749e-001</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Plant1</Type>
+   <Type>XD_RockMedium4</Type>
    <Position>
-    <X>6.947764e+003</X>
-    <Y>1.890907e+004</Y>
+    <X>1.458915e+004</X>
+    <Y>2.867000e+004</Y>
    </Position>
-   <Orientation>1.690847e+002</Orientation>
+   <Orientation>3.313521e+002</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>8.874905e-001</Scale>
+   <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
-   <Type>XD_Plant2</Type>
+   <Type>XD_RockMedium5</Type>
    <Position>
-    <X>6.286251e+003</X>
-    <Y>1.892098e+004</Y>
+    <X>1.392044e+004</X>
+    <Y>2.943965e+004</Y>
    </Position>
-   <Orientation>1.358720e+002</Orientation>
+   <Orientation>1.451408e+002</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>
    <AmbientSoundType></AmbientSoundType>
-   <Scale>9.922788e-001</Scale>
+   <Scale>1.000000e+000</Scale>
   </Entity>
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_Bush2</Type>
@@ -40420,7 +40420,7 @@
     <X>1.262392e+004</X>
     <Y>2.086119e+004</Y>
    </Position>
-   <Orientation>9.552899e+001</Orientation>
+   <Orientation>9.552895e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -54370,7 +54370,7 @@
     <X>9.622811e+003</X>
     <Y>2.498327e+004</Y>
    </Position>
-   <Orientation>9.579267e+001</Orientation>
+   <Orientation>9.579266e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -54910,7 +54910,7 @@
     <X>8.470589e+003</X>
     <Y>2.726967e+004</Y>
    </Position>
-   <Orientation>9.388100e+001</Orientation>
+   <Orientation>9.388099e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -55345,7 +55345,7 @@
     <X>6.660176e+003</X>
     <Y>2.664675e+004</Y>
    </Position>
-   <Orientation>7.790639e+001</Orientation>
+   <Orientation>7.790638e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -65260,7 +65260,7 @@
     <X>1.800793e+004</X>
     <Y>2.398009e+004</Y>
    </Position>
-   <Orientation>6.475537e+001</Orientation>
+   <Orientation>6.475536e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -66715,7 +66715,7 @@
     <X>1.781223e+004</X>
     <Y>2.290847e+004</Y>
    </Position>
-   <Orientation>8.594364e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -67930,7 +67930,7 @@
     <X>2.268392e+004</X>
     <Y>2.412083e+004</Y>
    </Position>
-   <Orientation>9.484784e+001</Orientation>
+   <Orientation>9.484782e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -68125,7 +68125,7 @@
     <X>2.285213e+004</X>
     <Y>2.350604e+004</Y>
    </Position>
-   <Orientation>7.511579e+001</Orientation>
+   <Orientation>7.511578e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -68755,7 +68755,7 @@
     <X>2.400032e+004</X>
     <Y>2.243266e+004</Y>
    </Position>
-   <Orientation>7.377542e+001</Orientation>
+   <Orientation>7.377541e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -69790,7 +69790,7 @@
     <X>2.231694e+004</X>
     <Y>2.148234e+004</Y>
    </Position>
-   <Orientation>9.157381e+001</Orientation>
+   <Orientation>9.157380e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -71215,7 +71215,7 @@
     <X>1.197585e+004</X>
     <Y>2.799839e+004</Y>
    </Position>
-   <Orientation>9.612229e+001</Orientation>
+   <Orientation>9.612226e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -71965,7 +71965,7 @@
     <X>1.476991e+004</X>
     <Y>2.811599e+004</Y>
    </Position>
-   <Orientation>7.412699e+001</Orientation>
+   <Orientation>7.412698e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -72025,7 +72025,7 @@
     <X>1.457194e+004</X>
     <Y>2.772126e+004</Y>
    </Position>
-   <Orientation>6.460156e+001</Orientation>
+   <Orientation>6.460155e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78040,7 +78040,7 @@
     <X>9.213980e+003</X>
     <Y>5.292180e+003</Y>
    </Position>
-   <Orientation>8.785000e+001</Orientation>
+   <Orientation>8.784998e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>8</PlayerID>
    <Health>-1</Health>
@@ -78535,7 +78535,7 @@
     <X>7.699417e+003</X>
     <Y>4.522838e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78550,7 +78550,7 @@
     <X>7.699245e+003</X>
     <Y>4.548954e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78565,7 +78565,7 @@
     <X>7.701479e+003</X>
     <Y>4.575017e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78580,7 +78580,7 @@
     <X>7.698875e+003</X>
     <Y>4.626058e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78595,7 +78595,7 @@
     <X>7.701109e+003</X>
     <Y>4.653610e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78610,7 +78610,7 @@
     <X>7.703343e+003</X>
     <Y>4.675206e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78625,7 +78625,7 @@
     <X>7.704833e+003</X>
     <Y>4.722865e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78640,7 +78640,7 @@
     <X>7.709957e+003</X>
     <Y>4.746599e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78655,7 +78655,7 @@
     <X>7.699928e+003</X>
     <Y>4.774181e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78670,7 +78670,7 @@
     <X>7.696900e+003</X>
     <Y>4.826297e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78685,7 +78685,7 @@
     <X>7.694667e+003</X>
     <Y>4.849381e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78700,7 +78700,7 @@
     <X>7.696900e+003</X>
     <Y>4.875445e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78715,7 +78715,7 @@
     <X>7.701369e+003</X>
     <Y>4.924593e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78730,7 +78730,7 @@
     <X>7.697645e+003</X>
     <Y>4.950656e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78745,7 +78745,7 @@
     <X>7.705505e+003</X>
     <Y>4.973653e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78760,7 +78760,7 @@
     <X>7.703001e+003</X>
     <Y>5.023370e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78775,7 +78775,7 @@
     <X>7.696105e+003</X>
     <Y>5.050324e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78790,7 +78790,7 @@
     <X>7.692971e+003</X>
     <Y>5.072265e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78805,7 +78805,7 @@
     <X>7.701747e+003</X>
     <Y>5.123666e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78820,7 +78820,7 @@
     <X>7.703914e+003</X>
     <Y>5.149139e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78835,7 +78835,7 @@
     <X>7.694512e+003</X>
     <Y>5.173586e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78850,7 +78850,7 @@
     <X>7.703879e+003</X>
     <Y>5.275555e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78865,7 +78865,7 @@
     <X>7.712529e+003</X>
     <Y>5.250514e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78880,7 +78880,7 @@
     <X>7.705634e+003</X>
     <Y>5.223560e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78895,7 +78895,7 @@
     <X>7.705627e+003</X>
     <Y>5.324629e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78910,7 +78910,7 @@
     <X>7.693631e+003</X>
     <Y>5.350545e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78925,7 +78925,7 @@
     <X>7.699862e+003</X>
     <Y>5.374776e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78940,7 +78940,7 @@
     <X>7.699862e+003</X>
     <Y>5.420468e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78955,7 +78955,7 @@
     <X>7.696401e+003</X>
     <Y>5.448853e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78970,7 +78970,7 @@
     <X>7.697786e+003</X>
     <Y>5.475160e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -78985,7 +78985,7 @@
     <X>7.692528e+003</X>
     <Y>5.521909e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79000,7 +79000,7 @@
     <X>7.693221e+003</X>
     <Y>5.544755e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79015,7 +79015,7 @@
     <X>7.698759e+003</X>
     <Y>5.568293e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79030,7 +79030,7 @@
     <X>7.700144e+003</X>
     <Y>5.619524e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79045,7 +79045,7 @@
     <X>7.700836e+003</X>
     <Y>5.649293e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79060,7 +79060,7 @@
     <X>7.708043e+003</X>
     <Y>5.668927e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79075,7 +79075,7 @@
     <X>7.707141e+003</X>
     <Y>5.722368e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79090,7 +79090,7 @@
     <X>7.696317e+003</X>
     <Y>5.750946e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79105,7 +79105,7 @@
     <X>7.692761e+003</X>
     <Y>5.775831e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79120,7 +79120,7 @@
     <X>7.686362e+003</X>
     <Y>5.824891e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79135,7 +79135,7 @@
     <X>7.699872e+003</X>
     <Y>5.844088e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79150,7 +79150,7 @@
     <X>7.699872e+003</X>
     <Y>5.868262e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79165,7 +79165,7 @@
     <X>7.504450e+003</X>
     <Y>4.525253e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79180,7 +79180,7 @@
     <X>7.510014e+003</X>
     <Y>4.550842e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79195,7 +79195,7 @@
     <X>7.500075e+003</X>
     <Y>4.578128e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79210,7 +79210,7 @@
     <X>7.501594e+003</X>
     <Y>4.622116e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79225,7 +79225,7 @@
     <X>7.501743e+003</X>
     <Y>4.645586e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79240,7 +79240,7 @@
     <X>7.504315e+003</X>
     <Y>4.673698e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79255,7 +79255,7 @@
     <X>7.506239e+003</X>
     <Y>4.724756e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79270,7 +79270,7 @@
     <X>7.506216e+003</X>
     <Y>4.747357e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79285,7 +79285,7 @@
     <X>7.505491e+003</X>
     <Y>4.775521e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79300,7 +79300,7 @@
     <X>7.509113e+003</X>
     <Y>4.825035e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79315,7 +79315,7 @@
     <X>7.504392e+003</X>
     <Y>4.851283e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79330,7 +79330,7 @@
     <X>7.504195e+003</X>
     <Y>4.873015e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79345,7 +79345,7 @@
     <X>7.500319e+003</X>
     <Y>4.921691e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79360,7 +79360,7 @@
     <X>7.501684e+003</X>
     <Y>4.946729e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79375,7 +79375,7 @@
     <X>7.501137e+003</X>
     <Y>4.971242e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79390,7 +79390,7 @@
     <X>7.509108e+003</X>
     <Y>5.026979e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79405,7 +79405,7 @@
     <X>7.504036e+003</X>
     <Y>5.056008e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79420,7 +79420,7 @@
     <X>7.503489e+003</X>
     <Y>5.080521e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79435,7 +79435,7 @@
     <X>7.507093e+003</X>
     <Y>5.125902e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79450,7 +79450,7 @@
     <X>7.506723e+003</X>
     <Y>5.146765e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79465,7 +79465,7 @@
     <X>7.504259e+003</X>
     <Y>5.175275e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79480,7 +79480,7 @@
     <X>7.503520e+003</X>
     <Y>5.274479e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79495,7 +79495,7 @@
     <X>7.502150e+003</X>
     <Y>5.253962e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79510,7 +79510,7 @@
     <X>7.501136e+003</X>
     <Y>5.226144e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79525,7 +79525,7 @@
     <X>7.511169e+003</X>
     <Y>5.323083e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79540,7 +79540,7 @@
     <X>7.509925e+003</X>
     <Y>5.348639e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79555,7 +79555,7 @@
     <X>7.508854e+003</X>
     <Y>5.375064e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79570,7 +79570,7 @@
     <X>7.502277e+003</X>
     <Y>5.423595e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79585,7 +79585,7 @@
     <X>7.508012e+003</X>
     <Y>5.446396e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79600,7 +79600,7 @@
     <X>7.504143e+003</X>
     <Y>5.477111e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79615,7 +79615,7 @@
     <X>7.506809e+003</X>
     <Y>5.522312e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79630,7 +79630,7 @@
     <X>7.509389e+003</X>
     <Y>5.548914e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79645,7 +79645,7 @@
     <X>7.508490e+003</X>
     <Y>5.576209e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79660,7 +79660,7 @@
     <X>7.511397e+003</X>
     <Y>5.622632e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79675,7 +79675,7 @@
     <X>7.514501e+003</X>
     <Y>5.647323e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79690,7 +79690,7 @@
     <X>7.506209e+003</X>
     <Y>5.675892e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79705,7 +79705,7 @@
     <X>7.507900e+003</X>
     <Y>5.720749e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79720,7 +79720,7 @@
     <X>7.507526e+003</X>
     <Y>5.746132e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79735,7 +79735,7 @@
     <X>7.508021e+003</X>
     <Y>5.771342e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79750,7 +79750,7 @@
     <X>7.502749e+003</X>
     <Y>5.823429e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79765,7 +79765,7 @@
     <X>7.505217e+003</X>
     <Y>5.850889e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79780,7 +79780,7 @@
     <X>7.509032e+003</X>
     <Y>5.875086e+003</Y>
    </Position>
-   <Orientation>8.594366e+001</Orientation>
+   <Orientation>8.594363e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79825,7 +79825,7 @@
     <X>6.895145e+003</X>
     <Y>5.223118e+003</Y>
    </Position>
-   <Orientation>9.093999e+001</Orientation>
+   <Orientation>9.093997e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -79858,6 +79858,66 @@
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
    <PlayerID>8</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockMedium4</Type>
+   <Position>
+    <X>1.413000e+004</X>
+    <Y>2.937111e+004</Y>
+   </Position>
+   <Orientation>4.297182e+001</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockDarkEvelance5</Type>
+   <Position>
+    <X>1.457298e+004</X>
+    <Y>2.698000e+004</Y>
+   </Position>
+   <Orientation>2.454084e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockDarkEvelance5</Type>
+   <Position>
+    <X>1.418000e+004</X>
+    <Y>2.614250e+004</Y>
+   </Position>
+   <Orientation>2.883803e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
+   <Health>-1</Health>
+   <Name></Name>
+   <ScriptCommandLine></ScriptCommandLine>
+   <AmbientSoundType></AmbientSoundType>
+   <Scale>1.000000e+000</Scale>
+  </Entity>
+  <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
+   <Type>XD_RockDarkEvelance5</Type>
+   <Position>
+    <X>1.583436e+004</X>
+    <Y>2.753731e+004</Y>
+   </Position>
+   <Orientation>2.597324e+002</Orientation>
+   <Flags>0</Flags>
+   <PlayerID>0</PlayerID>
    <Health>-1</Health>
    <Name></Name>
    <ScriptCommandLine></ScriptCommandLine>

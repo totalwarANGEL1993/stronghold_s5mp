@@ -1,4 +1,4 @@
-**Strongold Version 0.7.11**
+**Strongold Version 0.7.12**
 
 __Bugfix__
 - KI-Truppen ignorieren jetzt Ziele außerhalb ihres Kampfbereiches
@@ -11,6 +11,12 @@ __Feature__
   Moral bestimmt das Handycap des Spielers __und spielt im PvP keine Rolle__. Es
   werden verschiedene Werte des Spielers beeinflusst.
   Moral wird in der erweiterten Zahltagsansicht angezeigt.
+- Holzquelle: Waldlichtung
+  Es wird ein Holzfäller hinzugefügt, der ähnlich wie eine Mine funktioniert.
+  Als Ausgleich ist die Rohstoffmenge in normalen Bäumen reduziert.
+- Turmlimitierung
+  Türme sind signifikant stärker können aber nur noch an vordefinierten
+  Positionen gebaut werden.
 - Einheiten finden
   Die Buttons zum finden von Einheiten werden nur noch angezeigt, wenn eine
   entsprechende Einheit vorhanden ist.

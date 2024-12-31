@@ -75,7 +75,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
         ChangeBeverage = 8,
         ChangeFestival = 9,
         ChangeSermon = 10,
-        PlaceTower = 11,
     };
 
     self.NetworkCall = Syncer.CreateEvent(
@@ -109,9 +108,6 @@ function Stronghold.Building:CreateBuildingButtonHandlers()
             if _Action == Stronghold.Building.SyncEvents.ChangeSermon then
                 --- @diagnostic disable-next-line: param-type-mismatch
                 SetSermonLevel(_PlayerID, arg[1]);
-            end
-            if _Action == Stronghold.Building.SyncEvents.PlaceTower then
-                Stronghold.Building:OnTowerPlacedOnSite(_PlayerID, arg[2], arg[3])
             end
         end
     );
@@ -147,8 +143,6 @@ function Stronghold.Building:OnEntityDestroyed(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     -- Control rally points
     self:OnRallyPointHolderDestroyed(PlayerID, _EntityID);
-    -- Control tower sites
-    self:OnTowerDestroyed(PlayerID, _EntityID);
 end
 
 function Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID)
@@ -1867,176 +1861,6 @@ function Stronghold.Building:IsBuildingCreationBonusApplied(_PlayerID, _Building
         return self.Data[_PlayerID].CreationBonus[_BuildingType] ~= nil;
     end
     return false;
-end
-
--- -------------------------------------------------------------------------- --
--- Tower construction sites
-
-function Stronghold.Building:OnTowerSiteSelected(_EntityID)
-    XGUIEng.ShowWidget("TowerSite", 0);
-    local Type = Logic.GetEntityType(_EntityID);
-    if Logic.IsConstructionComplete(_EntityID) == 0 then
-        return;
-    end
-    if Type == Entities.XD_TowerConstructionSite then
-        XGUIEng.ShowWidget("TowerSite", 1);
-        GUIUpdate_TowerConstructionSiteInteraction(1);
-        GUIUpdate_TowerConstructionSiteInteraction(2);
-    end
-end
-
-function Stronghold.Building:OnTowerDestroyed(_PlayerID, _EntityID)
-    if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Type = Logic.GetEntityType(_EntityID);
-        local x,y,z = Logic.EntityGetPos(_EntityID);
-        if self.Config.TowerTypes[Type] then
-            local _, SiteID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.XD_TowerConstructionSite_Used, x, y, 100, 1);
-            if SiteID and SiteID ~= 0 then
-                ReplaceEntity(SiteID, Entities.XD_TowerConstructionSite);
-            end
-        end
-    end
-end
-
-function Stronghold.Building:OnTowerPlacedOnSite(_PlayerID, _EntityID, _Type)
-    if IsPlayer(_PlayerID) then
-        local x,y,z = Logic.EntityGetPos(_EntityID);
-        local Costs = {};
-        Logic.FillBuildingCostsTable(_Type, Costs);
-
-        if not self.Config.TowerTypes[_Type]
-        or not HasEnoughResources(_PlayerID, Costs) then
-            return;
-        end
-
-        local _, SiteID = Logic.GetPlayerEntitiesInArea(_PlayerID, Entities.XD_TowerConstructionSite, x, y, 100, 1);
-        if SiteID and SiteID ~= 0 then
-            ReplaceEntity(SiteID, Entities.XD_TowerConstructionSite_Used);
-            Logic.CreateConstructionSite(x, y, 0, _Type, _PlayerID);
-            RemoveResourcesFromPlayer(_PlayerID, Costs);
-        end
-    end
-end
-
-function Stronghold.Building:GetTowerTypeForPlayer(_PlayerID, _Type)
-    local Type = _Type;
-    if IsPlayer(_PlayerID) then
-        local HeroType = Logic.GetEntityType(GetNobleID(_PlayerID));
-        if HeroType == Entities.CU_BlackKnight or HeroType == Entities.CU_Evil_Queen then
-            Type = (Type == Entities.PB_Tower2 and Entities.PB_DarkTower2) or Type;
-            Type = (Type == Entities.PB_Tower3 and Entities.PB_DarkTower3) or Type;
-        end
-    end
-    return Type;
-end
-
-function GUIAction_TowerConstructionSiteInteraction(_Index)
-    local EntityID = GUI.GetSelectedEntity();
-    local PlayerID = Logic.EntityGetPlayer(EntityID);
-    local GuiPlayer = GUI.GetPlayerID();
-    if GuiPlayer == 17 or GuiPlayer ~= PlayerID then
-        return;
-    end
-
-    local Type = (_Index == 2 and Entities.PB_Tower3) or Entities.PB_Tower2;
-    Type = Stronghold.Building:GetTowerTypeForPlayer(PlayerID, Type);
-
-    local Costs = {};
-    Logic.FillBuildingCostsTable(Type, Costs);
-    if not HasPlayerEnoughResourcesFeedback(PlayerID, Costs) then
-        return;
-    end
-
-    Syncer.InvokeEvent(
-        Stronghold.Building.NetworkCall,
-        Stronghold.Building.SyncEvents.PlaceTower,
-        PlayerID,
-        EntityID,
-        Type
-    );
-end
-
-function GUITooltip_TowerConstructionSiteInteraction(_Index, _ShortCut)
-    local WidgetID = XGUIEng.GetCurrentWidgetID();
-    local EntityID = GUI.GetSelectedEntity();
-    local x,y,z = Logic.EntityGetPos(EntityID);
-    local PlayerID = Logic.EntityGetPlayer(EntityID);
-    local GuiPlayer = GUI.GetPlayerID();
-    if GuiPlayer == 17 or GuiPlayer ~= PlayerID then
-        return;
-    end
-
-    local CostString;
-    local HotKeyText;
-    local DefaultText;
-    local Type = (_Index == 2 and Entities.PB_Tower3) or Entities.PB_Tower2;
-    local Technology = (_Index == 2 and Technologies.UP2_Tower) or Technologies.UP1_Tower;
-    local TextKey = "sh_menutower/placetower" .._Index.. "_normal";
-    local IsForbidden = false;
-
-    Type = Stronghold.Building:GetTowerTypeForPlayer(PlayerID, Type);
-    Logic.FillBuildingCostsTable(Type, InterfaceGlobals.CostTable);
-    CostString = FormatCostString(PlayerID, InterfaceGlobals.CostTable);
-
-    local KeyBindText = XGUIEng.GetStringTableText("MenuGeneric/Key_name");
-    local KeyBindKey = XGUIEng.GetStringTableText(_ShortCut);
-    HotKeyText = KeyBindText .. ": [" ..KeyBindKey.. "]";
-
-    if Logic.GetTechnologyState(PlayerID, Technology) == 0 then
-        TextKey = XGUIEng.GetStringTableText("MenuGeneric/BuildingNotAvailable");
-        CostString = "";
-        HotKeyText = "";
-        IsForbidden = true;
-    elseif XGUIEng.IsButtonDisabled(WidgetID) == 1 then
-        TextKey = "sh_menutower/placetower" .._Index.. "_disabled";
-        if Stronghold.Construction:OnPlacementCheck(PlayerID, Type, x, y, 0, false) then
-            TextKey = "sh_menutower/OtherTowerToClose";
-        end
-    end
-
-    DefaultText = XGUIEng.GetStringTableText(TextKey);
-    if not IsForbidden then
-        DefaultText = string.format(
-            Stronghold.Construction:GetBuildingRequiredRank(PlayerID, Technology, DefaultText, true),
-            Stronghold.Construction:GetBuildingLimit(PlayerID, Type),
-            Stronghold.Construction:GetBuildingEffects(Type, Technology)
-        );
-    end
-
-    local TooltipText = DefaultText;
-	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomCosts, CostString);
-	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomText, TooltipText);
-	XGUIEng.SetText(gvGUI_WidgetID.TooltipBottomShortCut, HotKeyText);
-end
-
-function GUIUpdate_TowerConstructionSiteInteraction(_Index)
-    local WidgetID = "Restore_BallistaTower";
-    if _Index == 2 then
-        WidgetID = "Restore_CannonTower";
-    end
-    local EntityID = GUI.GetSelectedEntity();
-    local x,y,z = Logic.EntityGetPos(EntityID);
-    local PlayerID = Logic.EntityGetPlayer(EntityID);
-    local GuiPlayer = GUI.GetPlayerID();
-    if GuiPlayer == 17 or GuiPlayer ~= PlayerID then
-        return;
-    end
-
-    local Type = (_Index == 2 and Entities.PB_Tower3) or Entities.PB_Tower2;
-    local Technology = (_Index == 2 and Technologies.UP2_Tower) or Technologies.UP1_Tower;
-    local Right = PlayerRight.BallistaTower;
-    if Type == Entities.PB_Tower3 then
-        Right = PlayerRight.CannonTower;
-    end
-
-    local DisableFlag = 0;
-    local HasRightUnlocked = HasRight(PlayerID, Right);
-    local HasTechUnlocked = Logic.IsTechnologyResearched(PlayerID, Technology) == 0;
-    local HasDistance = Stronghold.Construction:OnPlacementCheck(PlayerID, Type, x, y, 0, false);
-    if not HasDistance or not HasTechUnlocked or not HasRightUnlocked then
-        DisableFlag = 1;
-    end
-    XGUIEng.DisableButton(WidgetID, DisableFlag);
 end
 
 -- -------------------------------------------------------------------------- --

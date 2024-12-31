@@ -9,12 +9,14 @@
         <AccessCategory>AccessCategoryBuilding</AccessCategory>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
-        <MaxHealth>700</MaxHealth>
+        <MaxHealth>1400</MaxHealth>
         <ArmorClass>ArmorClassFortification</ArmorClass>
         <ArmorAmount>6</ArmorAmount>
         <Exploration>30</Exploration>
         <Category>MilitaryBuilding</Category>
         <Category>Military</Category>
+        <BuildOn>XD_TowerConstructionSite</BuildOn>
+        <HideBase>true</HideBase>
 
 
         <ModifyArmor>
@@ -32,10 +34,10 @@
             <Cost>
                 <Clay>0</Clay>
                 <Wood/>
-                <Stone>100</Stone>
+                <Stone>200</Stone>
                 <Gold/>
                 <Iron>0</Iron>
-                <Sulfur>300</Sulfur>
+                <Sulfur>600</Sulfur>
             </Cost>
             <Type>PB_Tower3</Type>
         </Upgrade>
@@ -45,10 +47,10 @@
             <Time>90</Time>
             <Cost>
                 <Clay>0</Clay>
-                <Wood>250</Wood>
-                <Stone>250</Stone>
+                <Wood>500</Wood>
+                <Stone>500</Stone>
                 <Gold>0</Gold>
-                <Iron>100</Iron>
+                <Iron>200</Iron>
                 <Sulfur>0</Sulfur>
             </Cost>
             <BuilderSlot>
