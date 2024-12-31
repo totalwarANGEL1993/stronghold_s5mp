@@ -330,7 +330,7 @@ end
 function SetupAiPlayerVargArmies()
     for i= 1, gvVarg.ArmyCount do
         local ArmyID = AiArmy.New(2, 8, GetPosition("P2OuterPos"), 5000);
-        AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
+        AiArmy.SetTroopFormationController(ArmyID, CustomTroopFomrationController);
         for j= 1, table.getn(gvVarg.Spawners) do
             AiArmyRefiller.AddArmy(gvVarg.Spawners[j], ArmyID);
         end
