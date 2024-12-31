@@ -1035,7 +1035,7 @@ function CreatePlayer2Armies()
         {Entities.PV_Cannon4, 0},
     });
     gvP2Army1 = ArmyID;
-    AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
+    AiArmy.SetTroopFormationController(ArmyID, CustomTroopFomrationController);
     AiArmyRefiller.AddArmy(gvP2Barracks1Spawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2Barracks2Spawner, ArmyID);
     AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);
@@ -1056,7 +1056,7 @@ function CreatePlayer2Armies()
             {Entities.PV_Cannon3, 0},
         });
         _G["gvP2Army"..i] = ArmyID;
-        AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
+        AiArmy.SetTroopFormationController(ArmyID, CustomTroopFomrationController);
         AiArmyRefiller.AddArmy(gvP2Barracks1Spawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2Barracks2Spawner, ArmyID);
         AiArmyRefiller.AddArmy(gvP2ArcherySpawner, ArmyID);

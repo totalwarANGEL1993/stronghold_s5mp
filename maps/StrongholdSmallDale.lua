@@ -588,7 +588,7 @@ function CreateAiPlayer2()
         local HomePosition = GetPosition(ArmyHome[math.mod(i, 3) +1]);
         local ArmyID = AiArmy.New(2, gv_Difficulty.Player2.ArmySize, HomePosition, 3000);
         table.insert(gv_Difficulty.Player2.Armies, ArmyID);
-        AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
+        AiArmy.SetTroopFormationController(ArmyID, CustomTroopFomrationController);
         for j= 1, table.getn(gv_Difficulty.Player2.Spawners) do
             AiArmyRefiller.AddArmy(gv_Difficulty.Player2.Spawners[j], ArmyID);
         end
@@ -707,7 +707,7 @@ function CreateAiPlayer5()
         local HomePosition = GetPosition(ArmyHome[math.mod(i, 3) +1]);
         local ArmyID = AiArmy.New(5, gv_Difficulty.Player5.ArmySize, HomePosition, 3000);
         table.insert(gv_Difficulty.Player5.Armies, ArmyID);
-        AiArmy.SetFormationController(ArmyID, CustomTroopFomrationController);
+        AiArmy.SetTroopFormationController(ArmyID, CustomTroopFomrationController);
         for j= 1, table.getn(gv_Difficulty.Player5.Spawners) do
             AiArmyRefiller.AddArmy(gv_Difficulty.Player5.Spawners[j], ArmyID);
         end

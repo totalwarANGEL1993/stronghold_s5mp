@@ -203,7 +203,7 @@ function CreateProvinces()
         );
 
         local ID = AiArmy.New(7, table.getn(Troops), GetPosition("PV"..i.."_ArmyPos"), 3000);
-        AiArmy.SetFormationController(ID, CustomTroopFomrationController);
+        AiArmy.SetTroopFormationController(ID, CustomTroopFomrationController);
         for j= 1, table.getn(Troops) do
             AiArmy.SpawnTroop(ID, Troops[j][1], "PV"..i.."_ArmyPos", Troops[j][2]);
         end
