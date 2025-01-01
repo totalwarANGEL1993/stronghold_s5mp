@@ -25,7 +25,7 @@ SHS5MP_RulesDefinition = {
     MapStartFillStone = 1000,
     MapStartFillIron = 400,
     MapStartFillSulfur = 250,
-    MapStartFillWood = 4000,
+    MapStartFillWood = 0,
 
     -- Rank
     Rank = {
@@ -73,19 +73,16 @@ SHS5MP_RulesDefinition = {
         Lib.Require("module/cinematic/BriefingSystem");
         Lib.Require("module/io/NonPlayerCharacter");
         Lib.Require("module/trigger/Job");
+
+        InitalizePlayer2();
+        InitalizePlayer7();
+        SetHostile(1,6);
     end,
 
     -- Called after game start timer is over
     OnGameStart = function()
-        SetHostile(1,6);
-        SetHostile(1,7);
-
         Cinematic.SetMCButtonCount(8);
         BriefingExposition();
-
-        InitalizePlayer2();
-        InitalizePlayer7();
-
         HarborQuest_Stage1();
     end,
 
@@ -103,13 +100,244 @@ SHS5MP_RulesDefinition = {
 -- #                                ENEMY                                   # --
 -- ########################################################################## --
 
+-- Player 2 -- 
+
 function InitalizePlayer2()
-    SetupAiPlayer(2, 6, Entities.CU_Hero13);
-    SetHostile(1,2);
+    SetupAiPlayer(2, 6, 0);
+    SetHostile(1, 2);
+    Job.Second(ControllPlayer2Mines);
+    InitalizePlayer2Refillers();
+    InitalizePlayer2Armies();
 end
 
+function ControllPlayer2AttackArmies()
+    -- Check defeated
+    if not IsExisting("HQ2") then
+        return true;
+    end
+    -- Check 5 seconds passed
+    if math.mod(math.floor(Logic.GetTime()), 5) ~= 0 then
+        return;
+    end
+    -- Check bridge build
+    local Position = GetPosition("BridgeCheck1");
+    local _, BridgeID = Logic.GetEntitiesInArea(Entities.PB_Bridge1, Position.X, Position.Y, 1000, 1);
+    if not BridgeID or Logic.IsConstructionComplete(BridgeID) ~= 1 then
+        return;
+    end
+
+    -- Control attacker 1
+    if AiArmy.HasFullStrength(P2AttackArmy1) then
+        if AiArmy.IsArmyDoingNothing(P2AttackArmy1) then
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP2"), false);
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "SplitWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "BaseWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "HQWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Battle, "HQWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "P2RP1"), false);
+        end
+    end
+    -- Controll attacker 2
+    if AiArmy.HasFullStrength(P2AttackArmy2) then
+        if AiArmy.IsArmyDoingNothing(P2AttackArmy2) then
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP2"), false);
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "SplitWP2"), false);
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "BaseWP2"), false);
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "HQWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Battle, "HQWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "P2RP1"), false);
+        end
+    end
+end
+
+function ControllPlayer2DefendArmies()
+    -- Check defeated
+    if not IsExisting("HQ2") then
+        return true;
+    end
+    -- Check 5 seconds passed
+    if math.mod(math.floor(Logic.GetTime()), 5) ~= 0 then
+        return;
+    end
+
+    -- Control defender 1
+    if AiArmy.HasFullStrength(P2DefendArmy1) then
+        if AiArmy.IsArmyDoingNothing(P2DefendArmy1) then
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP2"), false);
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP1"), false);
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP3"), false);
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP4"), false);
+            AiArmy.PushCommand(P2DefendArmy1, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+        end
+    end
+    -- Controll defender 2
+    if AiArmy.HasFullStrength(P2DefendArmy2) then
+        if AiArmy.IsArmyDoingNothing(P2DefendArmy2) then
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP4"), false);
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP3"), false);
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP1"), false);
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "P2PP2"), false);
+            AiArmy.PushCommand(P2DefendArmy2, AiArmy.CreateCommand(AiArmyCommand.Wait, 2*60), false);
+        end
+    end
+end
+
+function ControllPlayer2Mines()
+    if not IsExisting("HQ2") then
+        DestroyEntity("P2ClayPit1");
+        DestroyEntity("P2StonePit1");
+        DestroyEntity("P2IronPit1");
+        return true;
+    end
+    if not IsExisting("P2ClayMine1") then
+        DestroyEntity("P2ClayPit1");
+    end
+    if not IsExisting("P2StoneMine1") then
+        DestroyEntity("P2StonePit1");
+    end
+    if not IsExisting("P2IronMine1") then
+        DestroyEntity("P2IronPit1");
+    end
+end
+
+function InitalizePlayer2Armies()
+    -- Attacking Armies
+    P2AttackArmy1 = AiArmy.New(2, 12, GetPosition("P2RP1"), 2500);
+    P2AttackArmy2 = AiArmy.New(2, 12, GetPosition("P2PP3"), 2500);
+    -- Defending Armies
+    P2DefendArmy1 = AiArmy.New(2, 8, GetPosition("P2RP1"), 4000);
+    P2DefendArmy2 = AiArmy.New(2, 8, GetPosition("P2RP2"), 4000);
+    P2DefendArmy3 = AiArmy.New(2, 4, GetPosition("P2PP4"), 5000);
+
+    -- Connect to refiller
+    AiArmyRefiller.AddArmy(P2Refiller1, P2AttackArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller2, P2AttackArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller3, P2AttackArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller4, P2AttackArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller5, P2AttackArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller6, P2AttackArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller1, P2AttackArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller2, P2AttackArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller3, P2AttackArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller4, P2AttackArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller5, P2AttackArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller6, P2AttackArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller1, P2DefendArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller2, P2DefendArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller3, P2DefendArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller4, P2DefendArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller5, P2DefendArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller6, P2DefendArmy1);
+    AiArmyRefiller.AddArmy(P2Refiller1, P2DefendArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller2, P2DefendArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller3, P2DefendArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller4, P2DefendArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller5, P2DefendArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller6, P2DefendArmy2);
+    AiArmyRefiller.AddArmy(P2Refiller7, P2DefendArmy3);
+
+    -- Add Controllers
+    Job.Second(ControllPlayer2AttackArmies);
+    Job.Second(ControllPlayer2DefendArmies);
+end
+
+function InitalizePlayer2Refillers()
+    P2Refiller1 = AiArmyRefiller.CreateSpawner{
+        ScriptName   = "P2Barracks1",
+        SpawnPoint   = "P2Barracks1Spawn",
+        SpawnTimer   = 30,
+        Sequentially = true,
+        Endlessly    = true,
+        AllowedTypes = {
+            {Entities.PU_LeaderPoleArm1, 3},
+            {Entities.PU_LeaderAxe2, 3},
+            {Entities.PU_LeaderPoleArm1, 3},
+        },
+    };
+    P2Refiller2 = AiArmyRefiller.CreateSpawner{
+        ScriptName   = "P2Barracks2",
+        SpawnPoint   = "P2Barracks2Spawn",
+        SpawnTimer   = 30,
+        Sequentially = true,
+        Endlessly    = true,
+        AllowedTypes = {
+            {Entities.PU_LeaderAxe3, 3},
+            {Entities.PU_LeaderPoleArm3, 3},
+        },
+    };
+    P2Refiller3 = AiArmyRefiller.CreateSpawner{
+        ScriptName   = "P2Archery1",
+        SpawnPoint   = "P2Archery1Spawn",
+        SpawnTimer   = 30,
+        Sequentially = true,
+        Endlessly    = true,
+        AllowedTypes = {
+            {Entities.PU_LeaderBow1, 3},
+        },
+    };
+    P2Refiller4 = AiArmyRefiller.CreateSpawner{
+        ScriptName   = "P2Archery2",
+        SpawnPoint   = "P2Archery2Spawn",
+        SpawnTimer   = 30,
+        Sequentially = true,
+        Endlessly    = true,
+        AllowedTypes = {
+            {Entities.PU_LeaderBow3, 3},
+            {Entities.PU_LeaderRifle1, 3},
+            {Entities.PU_LeaderBow3, 3},
+        },
+    };
+    P2Refiller5 = AiArmyRefiller.CreateSpawner{
+        ScriptName   = "P2Stable1",
+        SpawnPoint   = "P2Stable1Spawn",
+        SpawnTimer   = 30,
+        SpawnAmount  = 2,
+        Sequentially = true,
+        Endlessly    = true,
+        AllowedTypes = {
+            {Entities.PU_LeaderCavalry2, 3},
+            {Entities.PU_LeaderHeavyCavalry2, 3},
+            {Entities.PU_LeaderCavalry2, 3},
+        },
+    };
+    P2Refiller6 = AiArmyRefiller.CreateSpawner{
+        ScriptName   = "P2Foundry1",
+        SpawnPoint   = "P2Foundry1Spawn",
+        SpawnTimer   = 30,
+        SpawnAmount  = 2,
+        Sequentially = true,
+        Endlessly    = true,
+        AllowedTypes = {
+            {Entities.PV_Cannon3, 0},
+            {Entities.PV_Cannon4, 0},
+            {Entities.PV_Cannon3, 0},
+        },
+    };
+    P2Refiller7 = AiArmyRefiller.CreateSpawner{
+        ScriptName   = "HQ2",
+        SpawnPoint   = "HQ2Spawn",
+        SpawnTimer   = 30,
+        SpawnAmount  = 4,
+        Sequentially = true,
+        Endlessly    = true,
+        AllowedTypes = {
+            {Entities.CU_BlackKnight_LeaderMace1, 3},
+        },
+    };
+end
+
+-- Player 7 --
+
 function InitalizePlayer7()
-    SetHostile(1,7);
+    SetHostile(1, 7);
 
     for Index = 1, 3 do
         local CampID = DelinquentsCampCreate {
@@ -139,7 +367,7 @@ function HarborQuest_Stage1()
     ReplaceEntity("trader1", Entities.XD_ScriptEntity);
     ReplaceEntity("trader2", Entities.XD_ScriptEntity);
     for i= 1,8 do
-        ReplaceEntity("npcTrader", Entities.XD_ScriptEntity);
+        ReplaceEntity("npcTrader" ..i, Entities.XD_ScriptEntity);
     end
 
     NonPlayerCharacter.Create({
@@ -173,7 +401,7 @@ function HarborQuest_Stage3()
     ReplaceEntity("trader1", Entities.CU_Trader);
     ReplaceEntity("trader2", Entities.CU_Trader);
     for i= 1,8 do
-        ReplaceEntity("npcTrader", Entities.CU_Trader);
+        ReplaceEntity("npcTrader" ..i, Entities.CU_Trader);
     end
 
     local QuestTitle = XGUIEng.GetStringTableText("map_sh_demo/Quest_Habor_2_Title");
@@ -190,6 +418,8 @@ end
 
 function HarborQuest_Stage4()
     Logic.SetQuestType(1, 2, SUBQUEST_CLOSED, 1);
+    CreateShipMerchant1();
+    CreateShipMerchant2();
 end
 
 -- Oil Quest --
@@ -241,6 +471,28 @@ function OilQuest_Stage4()
 end
 
 -- ########################################################################## --
+-- #                               MERCHANTS                                # --
+-- ########################################################################## --
+
+function CreateShipMerchant1()
+    local ScriptName = "trader1";
+    NonPlayerMerchant.Create {ScriptName = ScriptName};
+    NonPlayerMerchant.AddResourceOffer(ScriptName, ResourceType.Gold, 1000, {Stone = 1000}, 5, 2*60);
+    NonPlayerMerchant.AddResourceOffer(ScriptName, ResourceType.Sulfur, 250, {Gold = 1000}, 3, 2*60);
+    NonPlayerMerchant.AddResourceOffer(ScriptName, ResourceType.Iron, 500, {Gold = 1000}, 3, 2*60);
+    NonPlayerMerchant.Activate(ScriptName);
+end
+
+function CreateShipMerchant2()
+    local ScriptName = "trader2";
+    NonPlayerMerchant.Create {ScriptName = ScriptName};
+    NonPlayerMerchant.AddResourceOffer(ScriptName, ResourceType.Gold, 500, {Wood = 1500}, 5, 2*60);
+    NonPlayerMerchant.AddResourceOffer(ScriptName, ResourceType.Gold, 500, {Clay = 1200}, 5, 2*60);
+    NonPlayerMerchant.AddResourceOffer(ScriptName, ResourceType.Stone, 1000, {Gold = 1000}, 3, 2*60);
+    NonPlayerMerchant.Activate(ScriptName);
+end
+
+-- ########################################################################## --
 -- #                               BRIEFING                                 # --
 -- ########################################################################## --
 
@@ -251,7 +503,7 @@ function BriefingExposition()
     local AP = BriefingSystem.AddPages(Briefing);
 
     AP {
-        Target   = "HQ5",
+        Target   = "HQ1",
         CloseUp  = false,
         NoSkip   = true,
         FadeIn   = 2,
@@ -264,7 +516,7 @@ function BriefingExposition()
         CloseUp  = false,
     }
     AP {
-        Target   = "HQ5",
+        Target   = "HQ1",
         CloseUp  = false,
         NoSkip   = true,
         FadeOut  = 2,
