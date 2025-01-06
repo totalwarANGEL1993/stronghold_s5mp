@@ -294,8 +294,10 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
         self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
         self.Config.DefaultSettings.Resources = _Config.Resources or Default.Resources;
-        for k,v in pairs(Default.AllowedHeroes) do
-            self.Config.DefaultSettings.AllowedHeroes[k] = _Config.AllowedHeroes[k] or v;
+        if _Config.AllowedHeroes then
+            for k,v in pairs(Default.AllowedHeroes) do
+                self.Config.DefaultSettings.AllowedHeroes[k] = _Config.AllowedHeroes[k] or v;
+            end
         end
 
         if _Config.OnMapStart then

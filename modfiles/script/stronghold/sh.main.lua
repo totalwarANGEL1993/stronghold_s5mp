@@ -56,7 +56,7 @@ GameCallback_OnGameStart = GameCallback_OnGameStart or function()
     SetupStronghold();
     local Players = Syncer.GetActivePlayers();
     for i= 1, table.getn(Players) do
-        local Serfs = SHS5MP_RulesDefinition.SerfAmount;
+        local Serfs = SHS5MP_RulesDefinition.StartingSerfs;
         SetupPlayer(Players[i], Serfs);
     end
     if SHS5MP_RulesDefinition.DisableRuleConfiguration then

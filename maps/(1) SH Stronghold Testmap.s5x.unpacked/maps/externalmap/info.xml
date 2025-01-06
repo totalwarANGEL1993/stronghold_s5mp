@@ -2,16 +2,16 @@
 <root>
  <NameKey>MapDescription/Peaceful_Land_name</NameKey>
  <DescKey>MapDescription/Peaceful_Land_desc</DescKey>
- <Name>(1) @color:200,70,40 SH @color:255,255,255 Stronghold Testmap</Name>
- <Desc>A simple testmap for the stronghold mod.</Desc>
+ <Name>@color:200,70,40 SH @color:255,255,255 Offizielle Demo</Name>
+ <Desc>Wolltet Ihr schon immer in Ruhe eine Burg bauen? Dann ist diese Karte genau das richtige für Euch. Hier könnt Ihr @color:200,70,40 Stronghold @color:255,255,255 in Ruhe ausprobieren.</Desc>
  <SizeX>321</SizeX>
  <SizeY>321</SizeY>
- <MPFlag>true</MPFlag>
+ <MPFlag>false</MPFlag>
  <MPPlayerCount>1</MPPlayerCount>
  <MPGameOptionFlagSet>3</MPGameOptionFlagSet>
  <MiniMapTextureName>data\graphics\Textures\GUI\MapPics\externalmap</MiniMapTextureName>
  <Key>2</Key>
  <GUID>
-  <Data>4bbb1062-b35b-49e7-a4a6-b980bc45220d</Data>
+  <Data>3a78d305-9390-43fa-ba34-b3ee9aa4d27f</Data>
  </GUID>
 </root>

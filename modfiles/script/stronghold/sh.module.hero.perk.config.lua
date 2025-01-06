@@ -728,7 +728,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Hero8_Perk1",
         Data = {
             RequiredRank = 1,
-            Amount = 2,
+            Amount = 1,
         }
     },
     [HeroPerks.Hero8_AgentMaster] = {
@@ -806,7 +806,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Hero10_Perk1",
         Data = {
             RequiredRank = 1,
-            Amount = 2,
+            Amount = 1,
         }
     },
     [HeroPerks.Hero10_MusketeersOath] = {

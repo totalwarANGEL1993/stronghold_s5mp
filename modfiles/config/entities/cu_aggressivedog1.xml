@@ -25,7 +25,7 @@
         <Category>CavalryLight</Category>
         <Category>Melee</Category>
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>30</Exploration>
+        <Exploration>15</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>1</ArmorAmount>
         <DodgeChance>0</DodgeChance>
@@ -99,7 +99,7 @@
 
             <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>
-            <AutoAttackRange>3000</AutoAttackRange>
+            <AutoAttackRange>1500</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>
