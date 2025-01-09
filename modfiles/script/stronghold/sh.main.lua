@@ -891,7 +891,12 @@ function Stronghold:OverwriteCommonCallbacks()
         if AdvanceType == nil then
             AdvanceType = Stronghold.Economy:OnUnknownTask(_EntityID);
         end
-        return AdvanceType;
+        if AdvanceType == nil then
+            AdvanceType = Stronghold.AI:OnUnknownTask(_EntityID);
+        end
+        if AdvanceType ~= nil then
+            return AdvanceType;
+        end
     end
 
     ---

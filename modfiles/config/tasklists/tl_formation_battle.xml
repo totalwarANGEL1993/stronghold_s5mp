@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CTasksList>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <Category>Run</Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>50</Thousandths>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_PSEUDO_CHECK_BATTLE</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_ASSUME_POSITION_IN_FORMATION</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_TURN_TO_TARGET_ORIENTATION</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_IDLE_IN_FORMATION</TaskType>
+    </Task>
+
+</CTasksList>

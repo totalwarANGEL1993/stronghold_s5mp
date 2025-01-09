@@ -521,8 +521,6 @@ function Stronghold.Hero:ConfigureSummonedEntities(_EntityID)
             local CurrentRank = GetRank(PlayerID);
             local Armor = 3 + math.floor(CurrentRank * 0.5);
             local Damage = 14 + math.floor(CurrentRank * 2);
-            Logic.SetSpeedFactor(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
-            SVLib.SetEntitySize(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
             CEntity.SetArmor(_EntityID, Armor);
             CEntity.SetDamage(_EntityID, Damage);
         end

@@ -476,6 +476,14 @@ function Stronghold.AI:OnEveryTurnNoPlayer()
     self:ControlMigratoryAnimal();
 end
 
+function Stronghold.AI:OnUnknownTask(_EntityID)
+    local AdvanceType;
+    AdvanceType = self:OnUnknownTaskForMilitaryUnit(_EntityID);
+    if AdvanceType ~= nil then
+        return AdvanceType; 
+    end
+end
+
 -- -------------------------------------------------------------------------- --
 -- Army config
 

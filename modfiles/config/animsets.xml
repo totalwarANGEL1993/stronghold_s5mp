@@ -162,6 +162,7 @@
 	<AnimSet>SET_SOLDIERAXE3</AnimSet>
 
 	<!-- Stronghold -->
+    <AnimSet>SET_ASSASSIN</AnimSet>
 	<AnimSet>SET_BEAR</AnimSet>
 	<AnimSet>SET_BUTTERFLY</AnimSet>
 	<AnimSet>SET_CU_HERO13</AnimSet>

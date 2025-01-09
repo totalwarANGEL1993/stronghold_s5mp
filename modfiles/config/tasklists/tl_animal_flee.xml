@@ -4,7 +4,7 @@
 		<TaskType>TASK_SET_ANIM</TaskType>
 		<Category>Run</Category>
 		<PlayBackwards>false</PlayBackwards>
-	</Task> 
+	</Task>
 	<Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
 		<TaskType>TASK_FLEE</TaskType>
 	</Task>

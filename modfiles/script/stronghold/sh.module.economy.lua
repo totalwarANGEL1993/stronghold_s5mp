@@ -372,7 +372,6 @@ function Stronghold.Economy:OnUnknownTask(_EntityID)
     if AdvanceType ~= nil then
         return AdvanceType;
     end
-    return TaskAdvancementType.Immediately;
 end
 
 -- -------------------------------------------------------------------------- --

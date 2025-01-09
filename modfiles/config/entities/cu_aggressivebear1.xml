@@ -28,7 +28,7 @@
         <Category>Leader</Category>
         <Category>CavalryLight</Category>
         <Category>Melee</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
+        <AdjustWalkAnimSpeed>false</AdjustWalkAnimSpeed>
         <Exploration>15</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>4</ArmorAmount>
@@ -61,7 +61,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>600</Speed>
+            <Speed>400</Speed>
             <RotationSpeed>50</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Bear_Idle1</MoveIdleAnim>
@@ -92,7 +92,7 @@
             <FinishingMoveAnim>XA_Bear_Attack3</FinishingMoveAnim>
             <MissAttackAnim>XA_Bear_Attack1</MissAttackAnim>
             <BattleIdleAnim>XA_Bear_Attack1</BattleIdleAnim>
-            <BattleWalkAnim>XA_Bear_Walk1</BattleWalkAnim>
+            <BattleWalkAnim>XA_Bear_Run1</BattleWalkAnim>
             <HitAnim>XA_Bear_Attack1</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>

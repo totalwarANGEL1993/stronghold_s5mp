@@ -14,6 +14,7 @@
         <Anim>PU_SoldierCavalry4_Attack1</Anim>
         <Anim>PU_SoldierCavalry4_Dying1</Anim>
         <Anim>PU_SoldierCavalry4_Hit</Anim>
+        <Anim>PU_SoldierCavalry4_Walk</Anim>
 
     </Display>
     <Logic classname="GGL::CGLSettlerProps">

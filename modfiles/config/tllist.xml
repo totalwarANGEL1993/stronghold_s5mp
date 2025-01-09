@@ -446,6 +446,11 @@
     <TaskList>TL_ANIMAL_ZEBRA_IDLE</TaskList>
 
     <!-- Battle -->
+    <TaskList>TL_ASSASSIN_WALK</TaskList>
+    <TaskList>TL_ASSASSIN_WALK_BATTLE</TaskList>
+    <TaskList>TL_FORMATION_BATTLE</TaskList>
+    <TaskList>TL_LEADER_WALK_BATTLE</TaskList>
+    <TaskList>TL_SERF_WALK_BATTLE</TaskList>
     <TaskList>TL_BATTLE_GATLING</TaskList>
     <TaskList>TL_BEAR_IDLE</TaskList>
     <TaskList>TL_BATTLE_BEAR</TaskList>

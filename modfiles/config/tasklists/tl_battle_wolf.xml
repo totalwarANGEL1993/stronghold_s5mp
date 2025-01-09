@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CTaskList>
-
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
         <TaskType>TASK_MOVE_TO_TARGET</TaskType>
+        <Category>Run</Category>
+        <PlayBackwards>false</PlayBackwards>
     </Task>
 
     <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">

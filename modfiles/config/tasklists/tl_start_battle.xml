@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CTaskList>
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <Category>Run</Category>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="7ce66308">
+        <TaskType>TASK_PSEUDO_RUN_START</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_GET_CLOSE_TO_TARGET</TaskType>
+    </Task>
+    
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_ATTACK</TaskType>
+    </Task>
+    
+</CTaskList>
