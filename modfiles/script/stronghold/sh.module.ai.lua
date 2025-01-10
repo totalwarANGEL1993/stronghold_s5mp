@@ -468,20 +468,12 @@ function Stronghold.AI:OnSaveGameLoaded()
     Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
 end
 
-function Stronghold.AI:OnEveryTurn(_PlayerID)
-end
-
 function Stronghold.AI:OnEveryTurnNoPlayer()
     -- Control animals
     self:ControlMigratoryAnimal();
 end
 
 function Stronghold.AI:OnUnknownTask(_EntityID)
-    local AdvanceType;
-    AdvanceType = self:OnUnknownTaskForMilitaryUnit(_EntityID);
-    if AdvanceType ~= nil then
-        return AdvanceType; 
-    end
 end
 
 -- -------------------------------------------------------------------------- --
