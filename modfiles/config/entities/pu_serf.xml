@@ -174,7 +174,7 @@
     <Behavior>
         <Logic classname="GGL::CSerfBattleBehaviorProps">
             <Class>GGL::CSerfBattleBehavior</Class>
-            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_SERF</BattleTaskList>
 
             <NormalAttackAnim1>PU_Serf_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_Serf_Attack1</NormalAttackAnim2>

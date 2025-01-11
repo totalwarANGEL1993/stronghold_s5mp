@@ -450,13 +450,21 @@
     <TaskList>TL_ASSASSIN_WALK_BATTLE</TaskList>
     <TaskList>TL_FORMATION_BATTLE</TaskList>
     <TaskList>TL_LEADER_WALK_BATTLE</TaskList>
+    <TaskList>TL_MILITIA_WALK_BATTLE</TaskList>
     <TaskList>TL_SERF_WALK_BATTLE</TaskList>
-    <TaskList>TL_BATTLE_GATLING</TaskList>
     <TaskList>TL_BEAR_IDLE</TaskList>
+    <TaskList>TL_BATTLE_GATLING</TaskList>
+    <TaskList>TL_BATTLE_SERF</TaskList>
     <TaskList>TL_BATTLE_BEAR</TaskList>
     <TaskList>TL_BATTLE_DOG</TaskList>
+    <TaskList>TL_BATTLE_HERO</TaskList>
+    <TaskList>TL_BATTLE_HEROCLAW</TaskList>
+    <TaskList>TL_BATTLE_HERORIFLE</TaskList>
     <TaskList>TL_BATTLE_LION</TaskList>
+    <TaskList>TL_BATTLE_SWORD</TaskList>
+    <TaskList>TL_BATTLE_KNIGHT</TaskList>
     <TaskList>TL_BATTLE_WOLF</TaskList>
+    <TaskList>TL_BATTLE_AXE</TaskList>
 
     <!-- Hero -->
     <TaskList>TL_CU_HERO13_SUMMON</TaskList>

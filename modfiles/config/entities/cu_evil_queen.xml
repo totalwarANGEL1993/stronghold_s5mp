@@ -71,7 +71,7 @@
 
             <SoldierType>CU_Evil_LeaderBearman1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_CLAW</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_HEROCLAW</BattleTaskList>
 
             <NormalAttackAnim1>CU_Evil_Queen_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>CU_Evil_Queen_Finish</NormalAttackAnim2>

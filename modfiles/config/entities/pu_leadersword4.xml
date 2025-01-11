@@ -105,7 +105,7 @@
             <HomeRadius>2000</HomeRadius>
             <SoldierType>PU_SoldierSword4</SoldierType>
 
-            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_SWORD</BattleTaskList>
 
             <NormalAttackAnim1>PU_LeaderSword4_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_LeaderSword4_Attack2</NormalAttackAnim2>

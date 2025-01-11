@@ -12,8 +12,7 @@ Stronghold.Economy.Text.PaydayClock = {
              " @color:255,255,255,255 Reputation: %s @cr ",
     },
     [2] = {
-        de = " @color:255,255,255,255 Moral: %s @cr @cr ".. 
-             " @color:0,0,0,0 _ @color:180,180,180,255 Steuer: %s @cr "..
+        de = " @color:0,0,0,0 _ @color:180,180,180,255 Steuer: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Gebäude: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Rationen: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Freizeit: %s @cr "..
@@ -34,8 +33,7 @@ Stronghold.Economy.Text.PaydayClock = {
              " @color:0,0,0,0 _ @color:180,180,180,255 Sonder: %s @cr "..
              " @color:255,255,255,255 ---------------------------%s @cr "..
              " @color:255,255,255,255 Beliebtheit: %s @cr ",
-        en = " @color:255,255,255,255 Morale: %s @cr @cr "..
-             " @color:0,0,0,0 _ @color:180,180,180,255 Tax: %s @cr "..
+        en = " @color:0,0,0,0 _ @color:180,180,180,255 Tax: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Buildings: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Rations: %s @cr "..
              " @color:0,0,0,0 _ @color:180,180,180,255 Freetime: %s @cr "..

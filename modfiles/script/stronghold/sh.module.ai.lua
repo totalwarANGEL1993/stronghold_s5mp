@@ -310,11 +310,6 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
             table.insert(Troops, Troop);
         end
 
-        local AtkTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
-        AiArmy.SetAllowedTypes(Data.AttackArmyID, CopyTable(Troops, AtkTypes));
-        local DefTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
-        AiArmy.SetAllowedTypes(Data.DefendArmyID, CopyTable(Troops, DefTypes));
-
         SpawnerID = AiArmyRefiller.Get(_ScriptName);
         if SpawnerID == 0 then
             SpawnerID = AiArmyRefiller.CreateSpawner{

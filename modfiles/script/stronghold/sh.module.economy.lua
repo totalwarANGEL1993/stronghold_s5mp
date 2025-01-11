@@ -473,7 +473,6 @@ end
 -- Reputation can only increase if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Morale = GetPlayerMorale(_PlayerID);
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             -- Tax height
@@ -489,7 +488,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             local FarmBonus = self.Data[_PlayerID].ReputationDetails.ProvidingCounter;
             local TavernBonus = self.Data[_PlayerID].ReputationDetails.BeverageCounter;
             local Providing = (FarmBonus + TavernBonus) / math.max(WorkerCount, 1);
-            Providing = math.max(Providing * Morale, 0);
+            Providing = math.max(Providing, 0);
             if Providing >= 0 then
                 self.Data[_PlayerID].ReputationDetails.Providing = Providing;
             end
@@ -497,7 +496,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             -- Housing settlers
             local HouseBonus = self.Data[_PlayerID].ReputationDetails.HousingCounter;
             local Housing = HouseBonus / math.max(WorkerCount, 1);
-            Housing = math.max(Housing * Morale, 0);
+            Housing = math.max(Housing, 0);
             if Housing >= 0 then
                 self.Data[_PlayerID].ReputationDetails.Housing = Housing;
             end
@@ -566,7 +565,6 @@ end
 -- Reputation can only decrease if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Morale = GetPlayerMorale(_PlayerID);
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             local Rank = GetRank(_PlayerID) +1;
@@ -584,7 +582,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             local HungerPenalty = NoFarm * self.Config.Income.HungerFactor;
             local PenaltyFactor = self.Config.Income.PenaltyFactor;
             HungerPenalty = HungerPenalty + PenaltyFactor * (Rank / MaxRank);
-            HungerPenalty = math.max(HungerPenalty / Morale, 0);
+            HungerPenalty = math.max(HungerPenalty, 0);
             HungerPenalty = GameCallback_SH_Calculate_HungerPenalty(_PlayerID, HungerPenalty);
             self.Data[_PlayerID].ReputationDetails.Hunger = math.min(HungerPenalty, 8);
 
@@ -593,7 +591,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             local SleepPenalty = NoHouse * self.Config.Income.InsomniaFactor;
             local PenaltyFactor = self.Config.Income.PenaltyFactor;
             SleepPenalty = SleepPenalty + PenaltyFactor * (Rank / MaxRank);
-            SleepPenalty = math.max(SleepPenalty / Morale, 0);
+            SleepPenalty = math.max(SleepPenalty, 0);
             SleepPenalty = GameCallback_SH_Calculate_SleepPenalty(_PlayerID, SleepPenalty);
             self.Data[_PlayerID].ReputationDetails.Homelessness = math.min(SleepPenalty, 8);
         else
@@ -765,11 +763,9 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
         local TaxPerWorker = Logic.GetPlayerRegularTaxPerWorker(_PlayerID);
         local WorkerAmount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local Income = TaxPerWorker * WorkerAmount;
-        local Morale = GetPlayerMorale(_PlayerID);
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Scale) == 1 then
             Income = Income * self.Config.Income.ScaleBonusFactor;
         end
-        Income = math.max(Income * Morale, 0);
         Income = GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, Income);
         return math.floor(Income + 0.5);
     end
@@ -1061,7 +1057,6 @@ end
 
 function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Morale = GetPlayerMorale(_PlayerID);
         -- Add points per working scholar
         local ScholarList = GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
         for i= 2, ScholarList[1] +1 do
@@ -1074,7 +1069,6 @@ function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
                     if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_BetterStudies) == 1 then
                         Amount = Amount * self.Config.Income.BetterStudiesFactor;
                     end
-                    Amount = math.ceil(Amount * Morale);
                     Amount = GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, Amount);
                     Amount = Amount * Motivation;
                     self:SetPlayerKnowledgePoints(_PlayerID, CurrentAmount + Amount);
@@ -1290,7 +1284,7 @@ function Stronghold.Economy:HonorMenuInit()
     local ScreenSize = {GUI.GetScreenSize()}
     local TextPos = {0, 1};
     local TextWidth = {0, 0};
-    if ScreenSize[2] >= 960 then
+    if ScreenSize[2] < 960 then
         TextWidth[1] = TextWidth[1] - 2;
         TextWidth[2] = TextWidth[2] + 0;
         TextPos[1] = TextPos[1] + 0;
@@ -1428,12 +1422,44 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         XGUIEng.SetText( "TaxWorkerAmount", ""..NumerOfWorkers);
     end);
 
+    Overwrite.CreateOverwrite("GUIUpdate_ResidencePlaces", function()
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 0, 0);
+        end
+    end);
+
+    Overwrite.CreateOverwrite("GUIUpdate_FarmPlaces", function()
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 0, 0);
+        end
+    end);
+
+    Overwrite.CreateOverwrite("GUIUpdate_ResourceAmount", function(_Type, _RefinedFlag)
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            local y = (_Type == ResourceType.Gold and 2) or 0;
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 39, y);
+        end
+    end);
+
     function GUIUpdate_Population()
         local PlayerID = GetLocalPlayerID();
         local Usage = GetCivilAttractionUsage(PlayerID);
         local Limit = GetCivilAttractionLimit(PlayerID);
         local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
         XGUIEng.SetText("PopulationPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("PopulationPlaces", 0, 0);
+        end
     end
 
     function GUIUpdate_Military()
@@ -1442,6 +1468,10 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         local Limit = GetMilitaryAttractionLimit(PlayerID);
         local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
         XGUIEng.SetText("MilitaryPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("MilitaryPlaces", 0, 0);
+        end
     end
 
     function GUIUpdate_Slaves()
@@ -1455,6 +1485,10 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
             Color = "";
         end
         XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..SlaveUsage.. "/" ..SlaveLimit);
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("SlavePlaces", 0, 0);
+        end
     end
 end
 
@@ -1755,8 +1789,6 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
     local Screen = {GUI.GetScreenSize()};
     local div = string.rep("-", (Screen[1] >= 1900 and 22) or (Screen[1] >= 1200 and 11) or 0);
 
-    local morl = math.floor(GetPlayerMorale(_PlayerID) * 100);
-
     local ihon = math.floor(self.Data[_PlayerID].IncomeHonor);
     local htb  = math.floor(self.Data[_PlayerID].HonorDetails.TaxBonus);
     local hbb  = math.floor(self.Data[_PlayerID].HonorDetails.Buildings);
@@ -1779,8 +1811,6 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
 
     return string.format(
         self.Text.PaydayClock[2][Language],
-        -- Morale
-        "{azure}" ..morl.. "%{white}",
         -- Honor
         ((htb > 0 and "{green}+") or "{white}") ..string.format("%.0f", htb),
         ((hbb > 0 and "{green}+") or "{white}") ..string.format("%.0f", hbb),

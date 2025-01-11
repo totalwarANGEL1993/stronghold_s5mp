@@ -112,7 +112,7 @@
 
             <SoldierType>PU_SoldierSword2</SoldierType>
 
-            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_SWORD</BattleTaskList>
 
             <NormalAttackAnim1>PU_LeaderSword2_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_LeaderSword2_Attack2</NormalAttackAnim2>

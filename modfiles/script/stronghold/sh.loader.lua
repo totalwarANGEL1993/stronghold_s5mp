@@ -29,6 +29,7 @@ assert(Lib ~= nil);
 Lib.Require("comfort/AreEnemiesInArea");
 Lib.Require("comfort/ArePositionsConnected");
 Lib.Require("comfort/ConvertSecondsToString");
+Lib.Require("comfort/CopyTable");
 Lib.Require("comfort/CreateNameForEntity");
 Lib.Require("comfort/GetReachablePosition");
 Lib.Require("comfort/CreateWoodPile");

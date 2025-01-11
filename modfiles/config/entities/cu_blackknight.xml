@@ -73,7 +73,7 @@
             <HomeRadius>3000</HomeRadius>
             <SoldierType>CU_BlackKnight_Bodyguard</SoldierType>
 
-            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_HERO</BattleTaskList>
 
             <NormalAttackAnim1>CU_BlackKnight_Blackknight_Attack2</NormalAttackAnim1>
             <NormalAttackAnim2>CU_BlackKnight_Blackknight_Finish</NormalAttackAnim2>

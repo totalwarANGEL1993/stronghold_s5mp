@@ -41,13 +41,18 @@
 <string id="ExplainUnit_2">TOM SIMPKINS: Select the squad to continue!</string>
 <string id="ExplainUnit_3">TOM SIMPKINS: Here you can give direct orders to the soldiers as usual.</string>
 <string id="ExplainUnit_4">TOM SIMPKINS: If the captain's soldiers fall, you can use this button to recruit new soldiers at a corresponding building. {scarlet} You can fill up the squad with CTRL.</string>
-<string id="ExplainUnit_5">TOM SIMPKINS: This meter indicates the captain's health.</string>
-<string id="ExplainUnit_6">TOM SIMPKINS: Here you can see the captain's experience.{scarlet} Experienced captains lead their troops better.</string>
-<string id="ExplainUnit_7">TOM SIMPKINS: These numbers indicate troop strength. Almost all military units and Kerberos have soldiers.</string>
-<string id="ExplainUnit_8">TOM SIMPKINS: Here you can see the squad's defense. It will reduce damage taken.</string>
-<string id="ExplainUnit_9">TOM SIMPKINS: Attack power indicates the damage a squad can deal. The attack power is offset against the armor of the attack target.</string>
-<string id="ExplainUnit_10">TOM SIMPKINS: And finally, maintenance. Your units will require different amounts of pay. The maintenance depends on {scarlet}the type of troops.</string>
-<string id="ExplainUnit_11">TOM SIMPKINS: Of course you can release troops when you no longer need them.</string>
+<string id="ExplainUnit_5">TOM SIMPKINS: Here you can see the captain's experience.{scarlet} Experienced captains lead their troops better.</string>
+<string id="ExplainUnit_6">TOM SIMPKINS: This meter indicates the captain's health.</string>
+<string id="ExplainUnit_7">TOM SIMPKINS: On this line you can see which activity your unit is doing and how much endurance they have.</string>
+<string id="ExplainUnit_8">TOM SIMPKINS: Endurance determinates {scarlet}how well a unit fairs in battle.{white} The Endurance is stated by the little face. The happier it is, the more endurance is left. Your noble {scarlet}will not be affected by endurance.</string>
+<string id="ExplainUnit_9">TOM SIMPKINS: Activities provide information about whether a unit exhaust or replenish their endurance. {scarlet}If the unit stands still, their endurance is regenerating. If it is running or fighting endurance is consumed.{white} Your serfs also consume endurance when they are working.</string>
+<string id="ExplainUnit_10">TOM SIMPKINS: You can order all of your units at once to march instead of run. They will move not as fast, {scarlet}but they will not get tired.</string>
+<string id="ExplainUnit_11">TOM SIMPKINS: Diese Zahlen geben die Truppenstärke an. Fast alle Militäreinheiten und Kerberos verfügen über Soldaten.</string>
+<string id="ExplainUnit_11">TOM SIMPKINS: These numbers indicate troop strength. Almost all military units and Kerberos have soldiers.</string>
+<string id="ExplainUnit_12">TOM SIMPKINS: Here you can see the squad's defense. It will reduce damage taken.</string>
+<string id="ExplainUnit_13">TOM SIMPKINS: Attack power indicates the damage a squad can deal. The attack power is offset against the armor of the attack target.</string>
+<string id="ExplainUnit_14">TOM SIMPKINS: And finally, maintenance. Your units will require different amounts of pay. The maintenance depends on {scarlet}the type of troops.</string>
+<string id="ExplainUnit_15">TOM SIMPKINS: Of course you can release troops when you no longer need them.</string>
 
 <string id="ExplainManage_1">TOM SIMPKINS: It is time for me to explain how to manage your castle.</string>
 <string id="ExplainManage_2">TOM SIMPKINS: Your buildings are still being constructed by serfs. Some buildings are tied to a title. {scarlet} You can see the conditions in the tooltip. {white} Similarly, technologies and other elements are tied to the title.</string>

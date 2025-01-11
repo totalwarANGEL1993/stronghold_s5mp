@@ -82,7 +82,7 @@
 
             <SoldierType>CU_Barbarian_SoldierClub1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_HEROMACE</BattleTaskList>
 
             <NormalAttackAnim1>CU_Barbarian_LeaderClub1_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>CU_Barbarian_LeaderClub1_Finish</NormalAttackAnim2>
