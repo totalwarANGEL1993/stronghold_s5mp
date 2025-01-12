@@ -48,7 +48,7 @@
 			<Class>GGL::CResourceDoodadBehavior</Class>
 			<Resource>
 				<Good>WoodRaw</Good>
-				<Amount>28000</Amount>
+				<Amount>1000</Amount>
 			</Resource>
 		</Logic>
 	</Behavior>

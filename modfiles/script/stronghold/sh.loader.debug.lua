@@ -33,9 +33,9 @@ assert(Lib ~= nil);
 Lib.Require("comfort/AreEnemiesInArea");
 Lib.Require("comfort/ArePositionsConnected");
 Lib.Require("comfort/ConvertSecondsToString");
+Lib.Require("comfort/CopyTable");
 Lib.Require("comfort/CreateNameForEntity");
 Lib.Require("comfort/GetReachablePosition");
-Lib.Require("comfort/CreateWoodPile");
 Lib.Require("comfort/GetAngleBetween");
 Lib.Require("comfort/GetCirclePosition");
 Lib.Require("comfort/GetDistance");
@@ -143,6 +143,8 @@ Script.Load(gvStronghold_Path.. "sh.module.recruit.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.statistic.lua");
 Script.Load(gvStronghold_Path.. "sh.module.unit.lua");
 Script.Load(gvStronghold_Path.. "sh.module.unit.config.lua");
+Script.Load(gvStronghold_Path.. "sh.module.stamina.lua");
+Script.Load(gvStronghold_Path.. "sh.module.stamina.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.mercenary.lua");
 Script.Load(gvStronghold_Path.. "sh.module.mercenary.config.lua");
 Script.Load(gvStronghold_Path.. "sh.module.trap.lua");
@@ -157,6 +159,6 @@ Script.Load(gvStronghold_Path.. "sh.module.quickdialog.config.lua");
 ---
 Script.Load(gvStronghold_Path.. "sh.module.ai.lua");
 Script.Load(gvStronghold_Path.. "sh.module.ai.config.lua");
-Script.Load(gvStronghold_Path.. "sh.module.ai.animal.lua");
+Script.Load(gvStronghold_Path.. "sh.module.ai.unit.lua");
 Script.Load(gvStronghold_Path.. "sh.module.ai.hero.lua");
 

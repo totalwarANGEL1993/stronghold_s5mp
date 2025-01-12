@@ -56,7 +56,7 @@ GameCallback_OnGameStart = GameCallback_OnGameStart or function()
     SetupStronghold();
     local Players = Syncer.GetActivePlayers();
     for i= 1, table.getn(Players) do
-        local Serfs = SHS5MP_RulesDefinition.SerfAmount;
+        local Serfs = SHS5MP_RulesDefinition.StartingSerfs;
         SetupPlayer(Players[i], Serfs);
     end
     if SHS5MP_RulesDefinition.DisableRuleConfiguration then
@@ -224,6 +224,7 @@ function Stronghold:Init()
     self.Recruit:Install();
     self.Hero:Install();
     self.Unit:Install();
+    self.Stamina:Install();
     self.Attraction:Install();
     self.Populace:Install();
     self.Province:Install();
@@ -273,6 +274,7 @@ function Stronghold:OnSaveGameLoaded()
     self.Trade:OnSaveGameLoaded();
     self.Hero:OnSaveGameLoaded();
     self.Unit:OnSaveGameLoaded();
+    self.Stamina:OnSaveGameLoaded();
     self.Attraction:OnSaveGameLoaded();
     self.Populace:OnSaveGameLoaded();
     self.Province:OnSaveGameLoaded();
@@ -314,6 +316,7 @@ function Stronghold:StartTriggers()
             Stronghold.Player:PlayerDefeatCondition(i);
         end
         Stronghold.Building:OnEverySecond();
+        Stronghold.Economy:OnEverySecond();
         Stronghold.Province:OnEverySecond();
         Stronghold.Trap:OnEverySecond();
     end);
@@ -326,7 +329,6 @@ function Stronghold:StartTriggers()
         -- Player jobs on each turn
         local Players = GetMaxPlayers();
         for PlayerID = 1, Players do
-            Stronghold.AI:OnEveryTurn(PlayerID);
             Stronghold.Attraction:OnEveryTurn(PlayerID);
             Stronghold.Building:OnEveryTurn(PlayerID);
             Stronghold.Economy:OncePerTurn(PlayerID);
@@ -352,6 +354,7 @@ function Stronghold:StartTriggers()
                 Stronghold.Hero:OncePerSecond(PlayerID);
                 Stronghold.Mercenary:OncePerSecond(PlayerID);
                 Stronghold.Unit:OncePerSecond(PlayerID);
+                Stronghold.Stamina:OncePerSecond(PlayerID);
             end
         end
     end);
@@ -366,6 +369,7 @@ function Stronghold:StartTriggers()
         Stronghold.Economy:OnEntityCreated(EntityID);
         Stronghold.Hero:OnEntityCreated(EntityID);
         Stronghold.Unit:OnEntityCreated(EntityID);
+        Stronghold.Stamina:OnEntityCreated(EntityID);
         Stronghold.Wall:OnEntityCreated(EntityID);
     end);
 
@@ -377,6 +381,7 @@ function Stronghold:StartTriggers()
         Stronghold.Construction:OnEntityDestroyed(EntityID);
         Stronghold.Hero:OnEntityDestroyed(EntityID);
         Stronghold.Unit:OnEntityDestroyed(EntityID);
+        Stronghold.Stamina:OnEntityDestroyed(EntityID);
         Stronghold.Wall:OnEntityDestroyed(EntityID);
     end);
 
@@ -424,9 +429,9 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
                     Damage = Damage * 3;
                 end
             end
-            -- Morale
-            local Morale = GetPlayerMorale(AttackerPlayer);
-            Damage = math.max(math.ceil(Damage * Morale), 1);
+            -- Endurance
+            local Endurance = self.Stamina:GetUnitEndurance(_AttackerID);
+            Damage = math.max(math.ceil(Damage * Endurance), 1);
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
             -- tower sites
@@ -837,6 +842,8 @@ function Stronghold:OnSelectionMenuChanged(_EntityID)
 
         self.Trade:OnMerchantSelected(EntityID);
 
+        self.Stamina:OnSelectUnit(EntityID);
+
         gvStronghold_LastSelectedEntity = EntityID;
     end
 end
@@ -889,9 +896,17 @@ function Stronghold:OverwriteCommonCallbacks()
     GameCallback_UnknownTask = function(_EntityID)
         local AdvanceType;
         if AdvanceType == nil then
+            AdvanceType = Stronghold.AI:OnUnknownTask(_EntityID);
+        end
+        if AdvanceType == nil then
             AdvanceType = Stronghold.Economy:OnUnknownTask(_EntityID);
         end
-        return AdvanceType;
+        if AdvanceType == nil then
+            AdvanceType = Stronghold.Stamina:OnUnknownTask(_EntityID);
+        end
+        if AdvanceType ~= nil then
+            return AdvanceType;
+        end
     end
 
     ---

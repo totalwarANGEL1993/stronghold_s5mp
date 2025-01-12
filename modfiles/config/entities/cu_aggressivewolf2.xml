@@ -28,8 +28,8 @@
         <Category>Leader</Category>
         <Category>CavalryLight</Category>
         <Category>Melee</Category>
-        <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
-        <Exploration>30</Exploration>
+        <AdjustWalkAnimSpeed>false</AdjustWalkAnimSpeed>
+        <Exploration>15</Exploration>
         <ArmorClass>ArmorClassFur</ArmorClass>
         <ArmorAmount>2</ArmorAmount>
         <DodgeChance>0</DodgeChance>
@@ -61,7 +61,7 @@
     <Behavior>
         <Logic classname="EGL::CMovementBehaviorProps">
             <Class>GGL::CLeaderMovement</Class>
-            <Speed>600</Speed>
+            <Speed>400</Speed>
             <RotationSpeed>50</RotationSpeed>
             <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
             <MoveIdleAnim>XA_Wolf1_Idle1</MoveIdleAnim>
@@ -93,7 +93,7 @@
             <MissAttackAnim>XA_Wolf1_Attack2</MissAttackAnim>
             <BattleIdleAnim>XA_Wolf1_Attack3</BattleIdleAnim>
             <BattleWalkAnim>XA_Wolf1_Walk</BattleWalkAnim>
-            <HitAnim>XA_Wolf1_Attack1</HitAnim>
+            <HitAnim>XA_Wolf1_Run</HitAnim>
 
             <DamageClass>DC_Beast</DamageClass>
             <DamageAmount>18</DamageAmount>
@@ -103,7 +103,7 @@
 
             <MaxRange>300</MaxRange>
             <MinRange>0</MinRange>
-            <AutoAttackRange>3000</AutoAttackRange>
+            <AutoAttackRange>1500</AutoAttackRange>
 
             <HealingPoints>5</HealingPoints>
             <HealingSeconds>3</HealingSeconds>

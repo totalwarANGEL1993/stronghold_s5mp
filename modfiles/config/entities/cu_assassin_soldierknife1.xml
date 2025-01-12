@@ -80,7 +80,7 @@
         <Logic classname="GGL::CGLAnimationBehaviorExProps">
             <Class>GGL::CGLBehaviorAnimationEx</Class>
             <SuspensionAnimation>PU_Thief_Idle1</SuspensionAnimation>
-            <AnimSet>SET_THIEF</AnimSet>
+            <AnimSet>SET_ASSASSIN</AnimSet>
         </Logic>
         <Display classname="ED::CBehaviorProps">
             <Class>ED::CDisplayBehaviorAnimation</Class>
@@ -92,7 +92,7 @@
             <Class>GGL::CSoldierMovement</Class>
             <Speed>360</Speed>
             <RotationSpeed>30</RotationSpeed>
-            <MoveTaskList>TL_THIEF_WALK</MoveTaskList>
+            <MoveTaskList>TL_ASSASSIN_WALK</MoveTaskList>
             <MoveIdleAnim>PU_Thief_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">

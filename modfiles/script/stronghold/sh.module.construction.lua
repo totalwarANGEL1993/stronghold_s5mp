@@ -68,13 +68,13 @@ function Stronghold.Construction:IterateWallReplacer()
         for EntityID in CEntityIterator.Iterator(Iterator) do
             local TypeName = Logic.GetEntityTypeName(Replacement);
             local Orientation = Logic.GetEntityOrientation(EntityID);
-            local SiteOrientation = Orientation + ((string.find(TypeName, "Gate") and 45) or 0);
+            local SiteOrientation = Orientation - ((string.find(TypeName, "Gate") and 45) or 0);
             local x,y,z = Logic.EntityGetPos(EntityID);
             local SiteID = Logic.CreateEntity(Entities.XD_WallConstructionSite, x, y, SiteOrientation, 0);
             Logic.SetModelAndAnimSet(SiteID, Models.XD_RuinFragment6);
             local PlayerID = Logic.EntityGetPlayer(EntityID);
             if IsPlayer(PlayerID) then
-                local WallID = Logic.CreateEntity(Replacement, x, y, Orientation, PlayerID);
+                Logic.CreateEntity(Replacement, x, y, Orientation, PlayerID);
             end
             DestroyEntity(EntityID);
         end

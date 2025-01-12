@@ -80,6 +80,25 @@ function GetReputationIncome(_PlayerID)
     return Stronghold.Economy:GetReputationIncome(_PlayerID);
 end
 
+--- Creates a pile of wood that can be extracted with serfs.
+--- @param _Entity string Scriptname of entiry
+--- @param _Resources integer Amount of resource
+function CreateWoodPile(_Entity, _Resources)
+    Stronghold.Economy:CreateWoodPile(_Entity, _Resources);
+end
+
+--- Destroys a wood pile.
+--- @param _Entity string Scriptname of entiry
+function DestroyWoodPile(_Entity)
+    Stronghold.Economy:DestroyWoodPile(_Entity);
+end
+
+--- Returns if the entity is a wood pile.
+--- @return boolean IsPile Entity is pile
+function IsWoodPile(_Entity)
+    return Stronghold.Economy:IsWoodPile(_Entity);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
@@ -315,6 +334,8 @@ function Stronghold.Economy:Install()
         };
     end
 
+    self.Data.WoodPiles = {};
+
     self:HonorMenuInit();
     self:OverrideResourceCallbacks();
     self:OverrideFindViewUpdate();
@@ -333,6 +354,10 @@ end
 
 function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
     return Stronghold.Economy.Config.Income.Dynamic[_Type];
+end
+
+function Stronghold.Economy:OnEverySecond()
+    self:ControlWoodPiles();
 end
 
 function Stronghold.Economy:OncePerSecond(_PlayerID)
@@ -376,7 +401,6 @@ function Stronghold.Economy:OnUnknownTask(_EntityID)
     if AdvanceType ~= nil then
         return AdvanceType;
     end
-    return TaskAdvancementType.Immediately;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -494,7 +518,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             local FarmBonus = self.Data[_PlayerID].ReputationDetails.ProvidingCounter;
             local TavernBonus = self.Data[_PlayerID].ReputationDetails.BeverageCounter;
             local Providing = (FarmBonus + TavernBonus) / math.max(WorkerCount, 1);
-            Providing = math.max(Providing * Morale, 0);
+            Providing = math.max(Providing, 0);
             if Providing >= 0 then
                 self.Data[_PlayerID].ReputationDetails.Providing = Providing;
             end
@@ -502,7 +526,7 @@ function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
             -- Housing settlers
             local HouseBonus = self.Data[_PlayerID].ReputationDetails.HousingCounter;
             local Housing = HouseBonus / math.max(WorkerCount, 1);
-            Housing = math.max(Housing * Morale, 0);
+            Housing = math.max(Housing, 0);
             if Housing >= 0 then
                 self.Data[_PlayerID].ReputationDetails.Housing = Housing;
             end
@@ -589,7 +613,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             local HungerPenalty = NoFarm * self.Config.Income.HungerFactor;
             local PenaltyFactor = self.Config.Income.PenaltyFactor;
             HungerPenalty = HungerPenalty + PenaltyFactor * (Rank / MaxRank);
-            HungerPenalty = math.max(HungerPenalty / Morale, 0);
+            HungerPenalty = math.max(HungerPenalty, 0);
             HungerPenalty = GameCallback_SH_Calculate_HungerPenalty(_PlayerID, HungerPenalty);
             self.Data[_PlayerID].ReputationDetails.Hunger = math.min(HungerPenalty, 8);
 
@@ -598,7 +622,7 @@ function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
             local SleepPenalty = NoHouse * self.Config.Income.InsomniaFactor;
             local PenaltyFactor = self.Config.Income.PenaltyFactor;
             SleepPenalty = SleepPenalty + PenaltyFactor * (Rank / MaxRank);
-            SleepPenalty = math.max(SleepPenalty / Morale, 0);
+            SleepPenalty = math.max(SleepPenalty, 0);
             SleepPenalty = GameCallback_SH_Calculate_SleepPenalty(_PlayerID, SleepPenalty);
             self.Data[_PlayerID].ReputationDetails.Homelessness = math.min(SleepPenalty, 8);
         else
@@ -1119,6 +1143,54 @@ function Stronghold.Economy:SetSettlersMotivation(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Wood Piles
+
+function Stronghold.Economy:CreateWoodPile(_Entity, _Resources)
+    assert(type(_Entity) == "string");
+    assert(type(_Resources) == "number");
+    local x,y,z = Logic.EntityGetPos(GetID(_Entity));
+    local PileID = Logic.CreateEntity(Entities.XD_Rock3, x, y, 0, 0);
+    Logic.SetEntityName(PileID, _Entity.."_WoodPile");
+    Logic.SetModelAndAnimSet(PileID, Models.Effects_XF_ExtractStone);
+    local ResID = ReplaceEntity(_Entity, Entities.XD_ResourceTree);
+    Logic.SetModelAndAnimSet(ResID, Models.XD_SignalFire1);
+    Logic.SetResourceDoodadGoodAmount(GetID(_Entity), _Resources*15);
+
+    self.Data.WoodPiles[_Entity] = {
+        ResourceEntity = _Entity,
+        PileEntity = _Entity.."_WoodPile",
+        ResourceLimit = _Resources*14,
+    };
+end
+
+function Stronghold.Economy:DestroyWoodPile(_Entity)
+    if self.Data.WoodPiles[_Entity] then
+        local Data = self.Data.WoodPiles[_Entity];
+        local x,y,z = Logic.EntityGetPos(GetID(Data.ResourceEntity));
+        DestroyEntity(Data.ResourceEntity);
+        DestroyEntity(Data.PileEntity);
+        Logic.CreateEffect(GGL_Effects.FXCrushBuilding, x, y, 0);
+        self.Data.WoodPiles[_Entity] = nil;
+    end
+end
+
+function Stronghold.Economy:IsWoodPile(_Entity)
+    if type(_Entity) == "number" then
+        _Entity = Logic.GetEntityName(_Entity);
+    end
+    return self.Data.WoodPiles[_Entity] ~= nil;
+end
+
+function Stronghold.Economy:ControlWoodPiles()
+    for Entity, Data in pairs(self.Data.WoodPiles) do
+        local ID = GetID(Entity);
+        if Logic.GetResourceDoodadGoodAmount(ID) <= Data.ResourceLimit then
+            self:DestroyWoodPile(Entity);
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- Resource Mining
 
 function Stronghold.Economy:OverrideResourceCallbacks()
@@ -1177,12 +1249,11 @@ function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceI
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
     end
 
-    if _ResourceType == ResourceType.WoodRaw and ResourceAmount > 20 then
-        Logic.SetResourceDoodadGoodAmount(_SourceID, 20);
-    end
-    if _ResourceType == ResourceType.SilverRaw then
-        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
-        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
+    -- Reduce resource in trees
+    if _ResourceType == ResourceType.WoodRaw and ResourceAmount > 26 then
+        if not self:IsWoodPile(_SourceID) then
+            Logic.SetResourceDoodadGoodAmount(_SourceID, 26);
+        end
     end
     return Amount;
 end
@@ -1198,22 +1269,24 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
             Amount = Amount + self.Config.Resource.Mining.PickaxeClayBonus;
         end
     end
-
     if _ResourceType == ResourceType.IronRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeIron) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeIronBonus;
         end
     end
-
     if _ResourceType == ResourceType.StoneRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeStone) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeStoneBonus;
         end
     end
-
     if _ResourceType == ResourceType.SulfurRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeSulfurBonus;
+        end
+    end
+    if _ResourceType == ResourceType.WoodRaw then
+        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeWood) == 1 then
+            Amount = Amount + self.Config.Resource.Mining.PickaxeWoodBonus;
         end
     end
 
@@ -1226,6 +1299,10 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount, Remaining);
 
+    -- Forest glades never run out of wood
+    if _ResourceType == ResourceType.WoodRaw then
+        Remaining = Remaining + Amount;
+    end
     if Remaining > ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
     end
@@ -1295,7 +1372,7 @@ function Stronghold.Economy:HonorMenuInit()
     local ScreenSize = {GUI.GetScreenSize()}
     local TextPos = {0, 1};
     local TextWidth = {0, 0};
-    if ScreenSize[2] >= 960 then
+    if ScreenSize[2] < 960 then
         TextWidth[1] = TextWidth[1] - 2;
         TextWidth[2] = TextWidth[2] + 0;
         TextPos[1] = TextPos[1] + 0;
@@ -1433,12 +1510,44 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         XGUIEng.SetText( "TaxWorkerAmount", ""..NumerOfWorkers);
     end);
 
+    Overwrite.CreateOverwrite("GUIUpdate_ResidencePlaces", function()
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 0, 0);
+        end
+    end);
+
+    Overwrite.CreateOverwrite("GUIUpdate_FarmPlaces", function()
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 0, 0);
+        end
+    end);
+
+    Overwrite.CreateOverwrite("GUIUpdate_ResourceAmount", function(_Type, _RefinedFlag)
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            local y = (_Type == ResourceType.Gold and 2) or 0;
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 39, y);
+        end
+    end);
+
     function GUIUpdate_Population()
         local PlayerID = GetLocalPlayerID();
         local Usage = GetCivilAttractionUsage(PlayerID);
         local Limit = GetCivilAttractionLimit(PlayerID);
         local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
         XGUIEng.SetText("PopulationPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("PopulationPlaces", 0, 0);
+        end
     end
 
     function GUIUpdate_Military()
@@ -1447,6 +1556,10 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
         local Limit = GetMilitaryAttractionLimit(PlayerID);
         local Color = (Usage < Limit and "") or " @color:255,120,120,255 ";
         XGUIEng.SetText("MilitaryPlaces", Color.. " @ra " ..Usage.. "/" ..Limit);
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("MilitaryPlaces", 0, 0);
+        end
     end
 
     function GUIUpdate_Slaves()
@@ -1460,6 +1573,10 @@ function Stronghold.Economy:OverrideTaxAndPayStatistics()
             Color = "";
         end
         XGUIEng.SetText("SlavePlaces", Color.. " @ra " ..SlaveUsage.. "/" ..SlaveLimit);
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("SlavePlaces", 0, 0);
+        end
     end
 end
 
@@ -1759,8 +1876,6 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
     local Language = GetLanguage();
     local Screen = {GUI.GetScreenSize()};
     local div = string.rep("-", (Screen[1] >= 1900 and 22) or (Screen[1] >= 1200 and 11) or 0);
-
-    local morl = math.floor(GetPlayerMorale(_PlayerID) * 100);
 
     local ihon = math.floor(self.Data[_PlayerID].IncomeHonor);
     local htb  = math.floor(self.Data[_PlayerID].HonorDetails.TaxBonus);

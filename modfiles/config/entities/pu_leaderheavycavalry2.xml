@@ -103,7 +103,7 @@
             <HomeRadius>2000</HomeRadius>
             <SoldierType>PU_SoldierHeavyCavalry2</SoldierType>
 
-            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_KNIGHT</BattleTaskList>
 
             <NormalAttackAnim1>PU_LeaderCavalry4_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_LeaderCavalry4_Attack1</NormalAttackAnim2>

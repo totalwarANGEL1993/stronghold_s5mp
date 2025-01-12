@@ -310,11 +310,6 @@ function DelinquentsCampAddSpawner(_ID, _ScriptName, _Time, _Amount, ...)
             table.insert(Troops, Troop);
         end
 
-        local AtkTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
-        AiArmy.SetAllowedTypes(Data.AttackArmyID, CopyTable(Troops, AtkTypes));
-        local DefTypes = AiArmy.GetAllowedTypes(Data.AttackArmyID);
-        AiArmy.SetAllowedTypes(Data.DefendArmyID, CopyTable(Troops, DefTypes));
-
         SpawnerID = AiArmyRefiller.Get(_ScriptName);
         if SpawnerID == 0 then
             SpawnerID = AiArmyRefiller.CreateSpawner{
@@ -468,12 +463,12 @@ function Stronghold.AI:OnSaveGameLoaded()
     Display.SetPlayerColorMapping(GetNeutralPlayerID(), GetNeutralPlayerColor());
 end
 
-function Stronghold.AI:OnEveryTurn(_PlayerID)
-end
-
 function Stronghold.AI:OnEveryTurnNoPlayer()
     -- Control animals
     self:ControlMigratoryAnimal();
+end
+
+function Stronghold.AI:OnUnknownTask(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --

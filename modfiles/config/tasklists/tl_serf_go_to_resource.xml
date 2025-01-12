@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CTaskList>
+    <Task classname="EGL::CTaskArgsModelID" classid="0x3d17c8cd">
+        <TaskType>TASK_SET_MODEL</TaskType>
+        <Model>PU_SerfPickax</Model>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_SerfPickax_Run1</AnimID>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+    
+    <Task classname="EGL::CGLETaskArgsThousandths" classid="0x230862d8">
+        <TaskType>TASK_WAIT_FOR_ANIM</TaskType>
+        <Thousandths>50</Thousandths>
+    </Task>
+    <Task classname="EGL::CGLETaskArgs" classid="7ce66308">
+        <TaskType>TASK_PSEUDO_CHECK_BATTLE</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_GO_TO_RESOURCE</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_GO_TO_RESOURCE_SLOT</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_TURN_TO_RESOURCE</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgs" classid="0x7ce66308">
+        <TaskType>TASK_TURN_TO_TARGET_ORIENTATION</TaskType>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgsAnimation" classid="0x4d90ecb8">
+        <TaskType>TASK_SET_ANIM</TaskType>
+        <AnimID>PU_SerfPickax_Work1</AnimID>
+        <PlayBackwards>false</PlayBackwards>
+    </Task>
+
+    <Task classname="EGL::CGLETaskArgsTaskListID" classid="0x6385ea0d">
+        <TaskType>TASK_SET_TASK_LIST</TaskType>
+        <TaskList>TL_SERF_EXTRACT_RESOURCE</TaskList>
+    </Task>
+
+</CTaskList>

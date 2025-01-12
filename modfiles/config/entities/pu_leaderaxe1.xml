@@ -109,7 +109,7 @@
             <BarrackUpgradeCategory>Barracks</BarrackUpgradeCategory>
             <HomeRadius>2000</HomeRadius>
 
-            <BattleTaskList>TL_BATTLE_MACE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_AXE</BattleTaskList>
 
             <NormalAttackAnim1>CU_LeaderOutlaw1_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>CU_LeaderOutlaw1_Attack1</NormalAttackAnim2>

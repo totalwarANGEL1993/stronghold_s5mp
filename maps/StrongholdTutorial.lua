@@ -18,6 +18,8 @@ SHS5MP_RulesDefinition = {
     -- (PTGate1, PTGate2, ...)
     PeaceTimeOpenGates = true,
 
+    -- Serfs
+    StartingSerfs = 3,
     -- Fill resource piles with resources
     -- (value of resources or 0 to not change)
     MapStartFillClay = 400,
@@ -328,8 +330,8 @@ function Tutorial_AddCastleInterfaceSection()
     local ArrowPos_Measure = {698, 575};
     local ArrowPos_BuyNoble = {350, 700};
     local ArrowPos_Tax = {517, 692};
-    local ArrowPos_Measures_Row = {522, 635};
-    local ArrowPos_Measures_Bar = {522, 680};
+    local ArrowPos_Measures_Row = {520, 635};
+    local ArrowPos_Measures_Bar = {520, 680};
 
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainCastle_1",
@@ -470,15 +472,17 @@ function Tutorial_StartPart2()
 end
 
 function Tutorial_AddUnitSelectionSection()
-    local ArrowPos_TroopSize = {740, 672};
-    local ArrowPos_Armor = {740, 692};
-    local ArrowPos_Damage = {740, 710};
-    local ArrowPos_Upkeep = {740, 726};
-    local ArrowPos_Experience = {740, 652};
-    local ArrowPos_Health = {740, 640};
+    local ArrowPos_Status = {740, 672};
+    local ArrowPos_TroopSize = {740, 684};
+    local ArrowPos_Armor = {740, 705};
+    local ArrowPos_Damage = {740, 720};
+    local ArrowPos_Upkeep = {740, 735};
+    local ArrowPos_Health = {740, 650};
+    local ArrowPos_Experience = {740, 642};
     local ArrowPos_Expel = {720, 700};
     local ArrowPos_BuySoldier = {318, 700};
     local ArrowPos_Commands = {380, 700};
+    local ArrowPos_Pace = {720, 626};
 
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_1",
@@ -510,7 +514,7 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_5",
         ClickCatcher = true,
-        Arrow        = ArrowPos_Health,
+        Arrow        = ArrowPos_Experience,
         ArrowWidget  = "TutorialArrowRight",
         ArrowUpdate = function(_Data)
             return IsEntitySelected("Scout");
@@ -519,7 +523,7 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_6",
         ClickCatcher = true,
-        Arrow        = ArrowPos_Experience,
+        Arrow        = ArrowPos_Health,
         ArrowWidget  = "TutorialArrowRight",
         ArrowUpdate = function(_Data)
             return IsEntitySelected("Scout");
@@ -528,7 +532,7 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_7",
         ClickCatcher = true,
-        Arrow        = ArrowPos_TroopSize,
+        Arrow        = ArrowPos_Status,
         ArrowWidget  = "TutorialArrowRight",
         ArrowUpdate = function(_Data)
             return IsEntitySelected("Scout");
@@ -537,7 +541,7 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_8",
         ClickCatcher = true,
-        Arrow        = ArrowPos_Armor,
+        Arrow        = ArrowPos_Status,
         ArrowWidget  = "TutorialArrowRight",
         ArrowUpdate = function(_Data)
             return IsEntitySelected("Scout");
@@ -546,7 +550,7 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_9",
         ClickCatcher = true,
-        Arrow        = ArrowPos_Damage,
+        Arrow        = ArrowPos_Status,
         ArrowWidget  = "TutorialArrowRight",
         ArrowUpdate = function(_Data)
             return IsEntitySelected("Scout");
@@ -555,6 +559,42 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_10",
         ClickCatcher = true,
+        Arrow        = ArrowPos_Pace,
+        ArrowWidget  = "TutorialArrowUp",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
+    }
+    Tutorial.AddMessage {
+        Text         = "sh_tutorial/ExplainUnit_11",
+        ClickCatcher = true,
+        Arrow        = ArrowPos_TroopSize,
+        ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
+    }
+    Tutorial.AddMessage {
+        Text         = "sh_tutorial/ExplainUnit_12",
+        ClickCatcher = true,
+        Arrow        = ArrowPos_Armor,
+        ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
+    }
+    Tutorial.AddMessage {
+        Text         = "sh_tutorial/ExplainUnit_13",
+        ClickCatcher = true,
+        Arrow        = ArrowPos_Damage,
+        ArrowWidget  = "TutorialArrowRight",
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
+    }
+    Tutorial.AddMessage {
+        Text         = "sh_tutorial/ExplainUnit_14",
+        ClickCatcher = true,
         Arrow        = ArrowPos_Upkeep,
         ArrowWidget  = "TutorialArrowRight",
         ArrowUpdate = function(_Data)
@@ -562,7 +602,7 @@ function Tutorial_AddUnitSelectionSection()
         end,
     }
     Tutorial.AddMessage {
-        Text         = "sh_tutorial/ExplainUnit_11",
+        Text         = "sh_tutorial/ExplainUnit_15",
         ClickCatcher = true,
         Arrow        = ArrowPos_Expel,
         ArrowUpdate = function(_Data)
@@ -595,7 +635,7 @@ function Tutorial_AddProvisionSection()
         Text        = "sh_tutorial/ExplainManage_3",
         Condition   = function(_Data)
             local SerfAmount = Logic.GetNumberOfEntitiesOfTypeOfPlayer(1, Entities.PU_Serf);
-            return SerfAmount >= 18;
+            return SerfAmount >= 9;
         end
     }
     Tutorial.AddMessage {
@@ -656,7 +696,6 @@ function Tutorial_AddProvisionSection()
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_11",
-        SlowMotion  = true,
     }
     Tutorial.AddMessage {
         Text        = "sh_tutorial/ExplainManage_12",
@@ -1016,7 +1055,7 @@ function CreatePlayer2Spawner()
     gvP2FoundrySpawner  = AiArmyRefiller.CreateSpawner {
         ScriptName      = "P2Foundry1",
         SpawnPoint      = "P2Foundry1Spawn",
-        SpawnAmount     = 2,
+        SpawnAmount     = 3,
         SpawnTimer      = 3*60,
         AllowedTypes    = {
             {Entities.PV_Cannon3, 0},
@@ -1028,11 +1067,11 @@ end
 function CreatePlayer2Armies()
     local ArmyID = AiArmy.New(2, 16, GetPosition("P2OuterPos"), 3000);
     AiArmy.SetAllowedTypes(ArmyID, {
-        {Entities.CU_BlackKnight_LeaderMace1, 3},
-        {Entities.PU_LeaderSword4, 3},
-        {Entities.PU_LeaderBow3, 3},
-        {Entities.PU_LeaderHeavyCavalry2, 3},
-        {Entities.PV_Cannon4, 0},
+        Entities.CU_BlackKnight_LeaderMace1,
+        Entities.PU_LeaderSword4,
+        Entities.PU_LeaderBow3,
+        Entities.PU_LeaderHeavyCavalry2,
+        Entities.PV_Cannon4,
     });
     gvP2Army1 = ArmyID;
     AiArmy.SetTroopFormationController(ArmyID, CustomTroopFomrationController);
@@ -1049,11 +1088,11 @@ function CreatePlayer2Armies()
         local Position = GetPosition(Positions[math.random(1, Positions[1]) +1]);
         ArmyID = AiArmy.New(2, 8, Position, 5000);
         AiArmy.SetAllowedTypes(ArmyID, {
-            {Entities.CU_BlackKnight_LeaderMace1, 3},
-            {Entities.PU_LeaderPoleArm4, 3},
-            {Entities.PU_LeaderRifle2, 3},
-            {Entities.PU_LeaderCavalry2, 3},
-            {Entities.PV_Cannon3, 0},
+            Entities.CU_BlackKnight_LeaderMace1,
+            Entities.PU_LeaderPoleArm4,
+            Entities.PU_LeaderRifle2,
+            Entities.PU_LeaderCavalry2,
+            Entities.PV_Cannon3,
         });
         _G["gvP2Army"..i] = ArmyID;
         AiArmy.SetTroopFormationController(ArmyID, CustomTroopFomrationController);
@@ -1114,8 +1153,8 @@ function CreatePlayer3()
         Strength        = 7,
         RodeLength      = 2500,
     };
-    DelinquentsCampAddSpawner(CampID, "HQ3", 2*60, 2, Entities.PU_LeaderBow2);
-    DelinquentsCampAddSpawner(CampID, "P3Tent1", 2*60, 1, Entities.PU_LeaderPoleArm1);
+    DelinquentsCampAddSpawner(CampID, "HQ3", 2*60, 2, Entities.CU_BanditLeaderBow1);
+    DelinquentsCampAddSpawner(CampID, "P3Tent1", 2*60, 1, Entities.PU_LeaderPoleArm3);
     DelinquentsCampAddSpawner(CampID, "P3Tent2", 2*60, 1, Entities.CU_BanditLeaderSword3);
     DelinquentsCampAddSpawner(CampID, "P3Tent3", 2*60, 1, Entities.PU_LeaderSword2);
     DelinquentsCampAddTarget(CampID, "PlayerHome");
@@ -1124,10 +1163,9 @@ function CreatePlayer3()
     gvPlayer3Camp = CampID;
     SetHostile(1, 3);
     MakeInvulnerable("HQ3");
-    MakeInvulnerable("P3Tower");
     Job.Second(function()
         if  not IsExisting("P3Tent1") and not IsExisting("P3Tent2")
-        and not IsExisting("P3Tent3") and not IsExisting("P3Tower") then
+        and not IsExisting("P3Tent3") then
             MakeVulnerable("HQ3");
             return true;
         end

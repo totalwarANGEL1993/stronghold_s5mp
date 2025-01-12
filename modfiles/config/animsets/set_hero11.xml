@@ -1,0 +1,51 @@
+<AnimSet>
+	<Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Walk</Name>
+		<Animation>PU_Hero11_Walk</Animation>
+    </Category>
+    
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Run</Name>
+		<Animation>PU_Hero11_Run1</Animation>
+    </Category>
+    
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle</Name>
+		<Animation>PU_Hero11_Idle1</Animation>
+    </Category>
+        
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle1</Name>
+		<Animation>PU_Hero11_Idle1</Animation>
+    </Category>
+        
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle2</Name>
+		<Animation>PU_Hero11_Idle1</Animation>
+    </Category>
+        
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle3</Name>
+		<Animation>PU_Hero11_Idle1</Animation>
+    </Category>
+        
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle4</Name>
+		<Animation>PU_Hero11_Idle1</Animation>
+    </Category>
+        
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle5</Name>
+		<Animation>PU_Hero11_Idle1</Animation>
+    </Category>
+    
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Die</Name>
+		<Animation>PU_Hero11_Dying1</Animation>
+    </Category>
+
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Dead</Name>
+		<Animation>PU_Hero11_Dead</Animation>
+    </Category>
+</AnimSet>

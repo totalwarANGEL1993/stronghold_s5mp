@@ -104,7 +104,7 @@
 
             <SoldierType>CU_TemplarSoldierHeavyCavalry1</SoldierType>
 
-            <BattleTaskList>TL_BATTLE</BattleTaskList>
+            <BattleTaskList>TL_BATTLE_KNIGHT</BattleTaskList>
             <NormalAttackAnim1>PU_LeaderCavalry3_Attack1</NormalAttackAnim1>
             <NormalAttackAnim2>PU_LeaderCavalry3_Attack1</NormalAttackAnim2>
             <CounterAttackAnim>PU_LeaderCavalry3_Attack1</CounterAttackAnim>

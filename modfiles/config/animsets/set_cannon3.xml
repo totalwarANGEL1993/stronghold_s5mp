@@ -1,0 +1,41 @@
+<AnimSet>
+   
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle</Name>
+		<Animation>PV_Cannon3_Drive</Animation>
+    </Category>
+       
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle1</Name>
+		<Animation>PV_Cannon3_Drive</Animation>
+    </Category>
+       
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle2</Name>
+		<Animation>PV_Cannon3_Drive</Animation>
+    </Category>
+       
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle3</Name>
+		<Animation>PV_Cannon3_Drive</Animation>
+    </Category>
+       
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle4</Name>
+		<Animation>PV_Cannon3_Drive</Animation>
+    </Category>
+   
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Idle5</Name>
+		<Animation>PV_Cannon3_Drive</Animation>
+    </Category>
+        
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Walk</Name>
+		<Animation>PV_Cannon3_Drive</Animation>
+    </Category>
+    <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
+		<Name>Die</Name>
+		<Animation>PV_Cannon3_Destroyed</Animation>
+    </Category>
+</AnimSet>

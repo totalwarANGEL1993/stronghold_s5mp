@@ -18,11 +18,11 @@ SHS5MP_RulesDefinition = {
 
     -- Fill resource piles with resources
     -- (value of resources or 0 to not change)
-    MapStartFillClay = 4000,
-    MapStartFillStone = 4000,
-    MapStartFillIron = 4000,
-    MapStartFillSulfur = 4000,
-    MapStartFillWood = 4000,
+    MapStartFillClay = 2000,
+    MapStartFillStone = 2000,
+    MapStartFillIron = 400,
+    MapStartFillSulfur = 250,
+    MapStartFillWood = 12000,
 
     -- Rank
     Rank = {

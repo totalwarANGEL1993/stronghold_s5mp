@@ -132,4 +132,5 @@
     <EntityName>XD_StonePit1</EntityName>
     <EntityName>XD_StonePit2</EntityName>
     <EntityName>XD_SulfurPit1</EntityName>
+    <EntityName>XD_TowerConstructionSite_Used</EntityName>
 </root>

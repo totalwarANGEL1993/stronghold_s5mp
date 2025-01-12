@@ -521,8 +521,6 @@ function Stronghold.Hero:ConfigureSummonedEntities(_EntityID)
             local CurrentRank = GetRank(PlayerID);
             local Armor = 3 + math.floor(CurrentRank * 0.5);
             local Damage = 14 + math.floor(CurrentRank * 2);
-            Logic.SetSpeedFactor(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
-            SVLib.SetEntitySize(_EntityID, 1.1 + ((CurrentRank -1) * 0.04));
             CEntity.SetArmor(_EntityID, Armor);
             CEntity.SetDamage(_EntityID, Damage);
         end
@@ -831,7 +829,26 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
         XGUIEng.ShowWidget("DetailsSoldiers", 1);
     end
 
+    Overwrite.CreateOverwrite("GUIUpdate_Armor", function()
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 45, 12);
+        end
+    end);
+
+    Overwrite.CreateOverwrite("GUIUpdate_Damage", function()
+        Overwrite.CallOriginal();
+        local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
+        local ScreenSize = {GUI.GetScreenSize()};
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition(CurrentWidgetID, 45, 12);
+        end
+    end);
+
     GUIUpdate_DetailsSoldiers = function()
+        local ScreenSize = {GUI.GetScreenSize()};
         local ID = GUI.GetSelectedEntity();
         local MaxSoldiers = Logic.LeaderGetMaxNumberOfSoldiers(ID);
         local Soldiers = Logic.LeaderGetNumberOfSoldiers(ID);
@@ -842,9 +859,13 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
         else
             XGUIEng.ShowWidget("DetailsSoldiers", 0);
         end
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("DetailsSoldiers_Amount", 22, 12);
+        end
     end
 
     GUIUpdate_DetailsSlots = function()
+        local ScreenSize = {GUI.GetScreenSize()};
         local ID = GUI.GetSelectedEntity();
         local Type = Logic.GetEntityType(ID);
         if Logic.IsLeader(ID) == 1 and Type ~= Entities.CU_BlackKnight then
@@ -853,6 +874,9 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
             XGUIEng.ShowWidget("DetailsPayAndSlots", 1);
         else
             XGUIEng.ShowWidget("DetailsPayAndSlots", 0);
+        end
+        if ScreenSize[2] < 960 then
+            XGUIEng.SetWidgetPosition("DetailsPayAndSlots_SlotAmount", 45, 12);
         end
     end
 

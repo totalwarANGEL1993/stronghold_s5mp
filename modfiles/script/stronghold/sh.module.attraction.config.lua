@@ -12,8 +12,8 @@ Stronghold.Attraction.Config.Attraction = {
     HQMilitary = {[1] = 90, [2] = 135, [3] = 180},
     OPMilitary = {[1] = 45, [2] =  70, [3] =  95},
     -- Serf attraction limit
-    SlaveLimit = 30,
-    RankSlaveBonus = 6,
+    SlaveLimit = 15,
+    RankSlaveBonus = 3,
 }
 
 Stronghold.Attraction.Config.UsedSpace = {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-16"?>
+<stringtable>
+<string id="Quest_Main_1_Title">Demonstration</string>
+<string id="Quest_Main_1_Text">On this map, you can explore all the features of the Stronghold modification to your heart's content.</string>
+
+<string id="Quest_Harbor_1_Title">An Uncertain Harbor</string>
+<string id="Quest_Harbor_1_Text">The harbor is no longer visited by ships because the lighthouse has failed. Perhaps you should check what is wrong with the lighthouse.</string>
+<string id="Quest_Harbor_2_Title">An Uncertain Harbor</string>
+<string id="Quest_Harbor_2_Text">Thanks to your intervention, the lighthouse keeper is now free again, and the lighthouse will guide ships safely into the harbor. You should inform Garek about this. @cr @cr @color:180,180,180 The harbor is no longer visited by ships because the lighthouse has failed. Perhaps you should check what is wrong with the lighthouse.</string>
+
+<string id="Quest_Oil_1_Title">The Extinguished Lighthouse</string>
+<string id="Quest_Oil_1_Text">The lighthouse keeper has run out of fuel. You need to get him sulfur so the lighthouse can work again.</string>
+<string id="Quest_Oil_2_Title">The Extinguished Lighthouse</string>
+<string id="Quest_Oil_2_Text">You have brought sulfur to the lighthouse keeper. Now speak to him again and hand over the sulfur. @cr @cr @color:180,180,180 The lighthouse keeper has run out of fuel. You need to get him sulfur so the lighthouse can work again.</string>
+
+<string id="Tribute_Oil">Provide the lighthouse keeper with 500 sulfur so the lighthouse can work again.</string>
+
+<string id="Msg_TalkGarek">Speak with the harbor master</string>
+<string id="Msg_TalkJack">Speak with the lighthouse keeper.</string>
+
+<string id="BriefingExposition_1_Title">Demonstration</string>
+<string id="BriefingExposition_1_Text">On this map, you can explore all the features of the Stronghold modification to your heart's content.</string>
+
+<string id="NpcBriefingGarek1_1_Title">Hero</string>
+<string id="NpcBriefingGarek1_1_Text">What happened to this harbor? Shouldn't it be bustling with traders looking to sell their goods?</string>
+<string id="NpcBriefingGarek1_2_Title">Garek</string>
+<string id="NpcBriefingGarek1_2_Text">It used to be. But since old Jack stopped doing his job and the lighthouse went dark, the traders no longer dare to come here. The steep cliffs are extremely dangerous!</string>
+<string id="NpcBriefingGarek1_3_Title">Hero</string>
+<string id="NpcBriefingGarek1_3_Text">I could check what's wrong with the lighthouse. Maybe I can fix it.</string>
+<string id="NpcBriefingGarek1_4_Title">Garek</string>
+<string id="NpcBriefingGarek1_4_Text">I would be very grateful if you did. If you manage to fix it, there will be a reward in it for you.</string>
+
+<string id="NpcBriefingGarek2_1_Title">Hero</string>
+<string id="NpcBriefingGarek2_1_Text">The lighthouse was taken over by bandits. I got rid of them and helped Jack repair the tower.</string>
+<string id="NpcBriefingGarek2_2_Title">Garek</string>
+<string id="NpcBriefingGarek2_2_Text">Yes, I already heard. And just look how lively the harbor is again, thanks to your help.</string>
+<string id="NpcBriefingGarek2_3_Title">Garek</string>
+<string id="NpcBriefingGarek2_3_Text">If you need anything, do not hesitate to talk to the traders. They might have something you can use.</string>
+
+<string id="NpcBriefingHermit1_1_Title">Jack</string>
+<string id="NpcBriefingHermit1_1_Text">Finally free! Those scoundrels took over my tower and locked me up in the outhouse. IN THE OUTHOUSE!!</string>
+<string id="NpcBriefingHermit1_2_Title">Hero</string>
+<string id="NpcBriefingHermit1_2_Text">Hm, yes. You can smell it... Now that you are free again, will you light the fire in the lighthouse?</string>
+<string id="NpcBriefingHermit1_3_Title">Jack</string>
+<string id="NpcBriefingHermit1_3_Text">I would if I could. But unfortunately, those scoundrels sold off all the fuel. You will have to get me some more.</string>
+<string id="NpcBriefingHermit1_4_Title">Hero</string>
+<string id="NpcBriefingHermit1_4_Text">Do not worry, I will take care of it.</string>
+
+<string id="NpcBriefingHermit1_1_Title">Hero</string>
+<string id="NpcBriefingHermit1_1_Text">I have brought you new fuel for the lighthouse beacon.</string>
+<string id="NpcBriefingHermit1_2_Title">Jack</string>
+<string id="NpcBriefingHermit1_2_Text">Wonderful! You are reliable as ever.</string>
+<string id="NpcBriefingHermit1_3_Title">Jack</string>
+<string id="NpcBriefingHermit1_3_Text">Just look, look. The fire is burning again.</string>
+</stringtable>
