@@ -369,7 +369,9 @@ function Stronghold.Stamina:DoesUnitEnduranceChange(_EntityID)
     return Logic.GetEntityHealth(_EntityID) > 0 and
            Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 0 and
            Logic.IsEntityInCategory(_EntityID, EntityCategories.Hero) == 0 and
-           Logic.IsEntityInCategory(_EntityID, EntityCategories.Worker) == 0;
+           Logic.IsEntityInCategory(_EntityID, EntityCategories.Worker) == 0 and
+           AiArmy.GetArmyOfTroop(_EntityID) == 0 and
+           AiArmyRefiller.GetRefillerOfTroop(_EntityID) == 0;
 end
 
 function Stronghold.Stamina:GetUnitEndurance(_EntityID)
