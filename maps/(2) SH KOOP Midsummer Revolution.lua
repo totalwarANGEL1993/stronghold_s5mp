@@ -1,6 +1,6 @@
 SHS5MP_RulesDefinition = {
     -- Config version (Always an integer)
-    Version = 1,
+    Version = 2,
 
     -- ###################################################################### --
     -- #                             CONFIG                                 # --
@@ -16,54 +16,15 @@ SHS5MP_RulesDefinition = {
 
     -- Fill resource piles with resources
     -- (Entities with scriptnames are ignored. Set to 0 to deactivate.)
-    MapStartFillClay = 1000,
-    MapStartFillStone = 1000,
-    MapStartFillIron = 500,
-    MapStartFillSulfur = 500,
-    MapStartFillWood = 20000,
-
-    -- Rank
-    Rank = {
-        Initial = 0,
-        Final = 7,
-    },
+    MapStartFillClay = 500,
+    MapStartFillStone = 500,
+    MapStartFillIron = 250,
+    MapStartFillSulfur = 250,
+    MapStartFillWood = 2000,
 
     -- Resources
     -- {Honor, Gold, Clay, Wood, Stone, Iron, Sulfur}
-    Resources = {
-        [1] = {  0,    0,    0,    0,    0,    0,    0},
-        -- unbenutzt
-        [2] = { 50, 2000, 2400, 3000, 1100,  600,    0},
-        [3] = {300, 8000, 4800, 6000, 3300, 1800,  900},
-    },
-
-    -- Setup heroes allowed
-    AllowedHeroes = {
-        -- Dario
-        [Entities.PU_Hero1c]             = true,
-        -- Pilgrim
-        [Entities.PU_Hero2]              = true,
-        -- Salim
-        [Entities.PU_Hero3]              = true,
-        -- Erec
-        [Entities.PU_Hero4]              = true,
-        -- Ari
-        [Entities.PU_Hero5]              = true,
-        -- Helias
-        [Entities.PU_Hero6]              = true,
-        -- Kerberos
-        [Entities.CU_BlackKnight]        = true,
-        -- Mary
-        [Entities.CU_Mary_de_Mortfichet] = true,
-        -- Varg
-        [Entities.CU_Barbarian_Hero]     = true,
-        -- Drake
-        [Entities.PU_Hero10]             = true,
-        -- Yuki
-        [Entities.PU_Hero11]             = true,
-        -- Kala
-        [Entities.CU_Evil_Queen]         = true,
-    },
+    Resources = {[1] = {  0,    0,    0,    0,    0,    0,    0},},
 
     -- ###################################################################### --
     -- #                            CALLBACKS                               # --
@@ -93,16 +54,6 @@ SHS5MP_RulesDefinition = {
         Difficulty_Selected = 0;
         Difficulty_NetEvent = Syncer.CreateEvent(function(_PlayerID, _Selected)
             Difficulty_Selected = _Selected;
-
-            local ComputerMorale = 0.9 + (0.1 * (Difficulty_Selected -1));
-            local PlayerMorale = 1.1 - (0.1 * (Difficulty_Selected -1));
-            SetPlayerMorale(1, PlayerMorale);
-            SetPlayerMorale(2, PlayerMorale);
-            SetPlayerMorale(3, ComputerMorale);
-            SetPlayerMorale(4, ComputerMorale);
-            SetPlayerMorale(5, ComputerMorale);
-            SetPlayerMorale(6, ComputerMorale);
-            SetPlayerMorale(7, ComputerMorale);
         end);
     end,
 
