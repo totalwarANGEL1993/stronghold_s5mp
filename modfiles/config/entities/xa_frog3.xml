@@ -23,7 +23,7 @@
     <Behavior>
 		<Logic classname="EGL::CMovementBehaviorProps">
 			<Class>GGL::CBehaviorAnimalMovement</Class>
-			<Speed>100</Speed>
+			<Speed>200</Speed>
 			<RotationSpeed>30</RotationSpeed>
 		</Logic>
 		<Display classname="ED::CBehaviorProps">
