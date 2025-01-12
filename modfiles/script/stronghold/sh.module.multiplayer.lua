@@ -289,10 +289,13 @@ function Stronghold.Multiplayer:ConfigureChangeDefault(_Config)
         if _Config.PeaceTimeOpenGates ~= nil then
             self.Config.DefaultSettings.PeaceTimeOpenGates = _Config.PeaceTimeOpenGates == true;
         end
+        if _Config.StartingSerfs ~= nil then
+            self.Config.DefaultSettings.StartingSerfs = _Config.StartingSerfs;
+        end
 
         self.Config.DefaultSettings.PeaceTime = _Config.PeaceTime;
-        self.Config.DefaultSettings.Rank.Initial = _Config.Rank.Initial or Default.Rank.Initial;
-        self.Config.DefaultSettings.Rank.Final = _Config.Rank.Final or Default.Rank.Final;
+        self.Config.DefaultSettings.Rank.Initial = (_Config.Rank and _Config.Rank.Initial) or Default.Rank.Initial;
+        self.Config.DefaultSettings.Rank.Final = (_Config.Rank and _Config.Rank.Final) or Default.Rank.Final;
         self.Config.DefaultSettings.Resources = _Config.Resources or Default.Resources;
         if _Config.AllowedHeroes then
             for k,v in pairs(Default.AllowedHeroes) do
