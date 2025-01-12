@@ -7,12 +7,14 @@ __Bugfix__
 - Doppelter Technologiename gefixt (Instrumente)
 
 __Feature__
-- Moral (PvE)
-  Moral bestimmt das Handycap des Spielers __und spielt im PvP keine Rolle__. Es
-  werden verschiedene Werte des Spielers beeinflusst.
-  Moral wird in der erweiterten Zahltagsansicht angezeigt.
+- Ausdauersystem
+  * Einheiten haben Ausdauer, die bei verschiedenen Aktionen langsam
+    aufgebraucht wird. Ausdauer reganeriert sich durch Ruhephasen.
+  * Hohe Ausdauer gibt Einheiten mit geringem Schaden mehr Bonus.
+  * Niedrige Ausdauer schwächt einheiten mit hohem Schaden stärker.
 - Holzquelle: Waldlichtung
   Es wird ein Holzfäller hinzugefügt, der ähnlich wie eine Mine funktioniert.
+  Waldlichtungen haben jedoch unbegrenze Menge Holz.
   Als Ausgleich ist die Rohstoffmenge in normalen Bäumen reduziert.
 - Turmlimitierung
   Türme sind signifikant stärker können aber nur noch an vordefinierten

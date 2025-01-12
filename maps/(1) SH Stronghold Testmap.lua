@@ -344,6 +344,7 @@ function InitalizePlayer7()
     for Index = 1, 3 do
         local CampID = DelinquentsCampCreate {
             HomePosition = "banditTent" ..Index,
+            RodeLength = 2000,
             Strength = 3,
         };
         DelinquentsCampAddSpawner(

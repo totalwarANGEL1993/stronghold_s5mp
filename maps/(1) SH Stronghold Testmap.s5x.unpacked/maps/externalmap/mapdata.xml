@@ -72577,8 +72577,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_ScriptEntity</Type>
    <Position>
-    <X>3.900000e+003</X>
-    <Y>1.010000e+004</Y>
+    <X>3.500000e+003</X>
+    <Y>9.600000e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -72593,7 +72593,7 @@
    <Type>XD_ScriptEntity</Type>
    <Position>
     <X>4.200000e+003</X>
-    <Y>8.400000e+003</Y>
+    <Y>8.500000e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -73057,8 +73057,8 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XS_Ambient</Type>
    <Position>
-    <X>5.144410e+003</X>
-    <Y>7.478322e+003</Y>
+    <X>5.100000e+003</X>
+    <Y>7.500000e+003</Y>
    </Position>
    <Orientation>0.000000e+000</Orientation>
    <Flags>0</Flags>
@@ -77512,10 +77512,10 @@
   <Entity classname="EGL::CGLEEntityCreator" classid="0x0753286d">
    <Type>XD_SnowBarrier1</Type>
    <Position>
-    <X>6.391676e+003</X>
-    <Y>1.103229e+004</Y>
+    <X>6.368630e+003</X>
+    <Y>1.096169e+004</Y>
    </Position>
-   <Orientation>2.749985e+002</Orientation>
+   <Orientation>2.799988e+002</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -99940,7 +99940,7 @@
     <X>2.574532e+004</X>
     <Y>1.849593e+004</Y>
    </Position>
-   <Orientation>9.552896e+001</Orientation>
+   <Orientation>9.552895e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -101230,7 +101230,7 @@
     <X>2.132549e+004</X>
     <Y>4.243929e+003</Y>
    </Position>
-   <Orientation>9.602336e+001</Orientation>
+   <Orientation>9.602335e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
@@ -106195,7 +106195,7 @@
     <X>2.045730e+004</X>
     <Y>1.426097e+004</Y>
    </Position>
-   <Orientation>8.594365e+001</Orientation>
+   <Orientation>8.594364e+001</Orientation>
    <Flags>0</Flags>
    <PlayerID>0</PlayerID>
    <Health>-1</Health>
