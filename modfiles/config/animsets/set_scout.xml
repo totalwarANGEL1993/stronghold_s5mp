@@ -1,51 +1,46 @@
 <AnimSet>
 	<Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Walk</Name>
-		<Animation>XA_Squirrel_Run</Animation>
+		<Animation>PU_Scout_Walk</Animation>
     </Category>
-
+    
 	<Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Run</Name>
-		<Animation>XA_Squirrel_Run</Animation>
+		<Animation>PU_Scout_Run1</Animation>
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle</Name>
-		<Animation>XA_Squirrel_Idle1</Animation>
+		<Animation>PU_Scout_Idle1</Animation>
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle1</Name>
-		<Animation>XA_Squirrel_Idle1</Animation>
+		<Animation>PU_Scout_Idle2</Animation>
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle2</Name>
-		<Animation>XA_Squirrel_Idle2</Animation>
+		<Animation>PU_Scout_Idle3</Animation>
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle3</Name>
-		<Animation>XA_Squirrel_Idle2</Animation>
+		<Animation>PU_Scout_Idle4</Animation>
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle4</Name>
-		<Animation>XA_Squirrel_Look</Animation>
+		<Animation>PU_Scout_Idle5</Animation>
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Idle5</Name>
-		<Animation>XA_Squirrel_Idle2</Animation>
+		<Animation>PU_Scout_Idle5</Animation>
     </Category>
     
     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
 		<Name>Die</Name>
-		<Animation>XA_Squirrel_Run</Animation>
-    </Category>
-    
-     <Category classname="GGL::CGLAnimCategory" classid="0xa7b5dfb8">
-		<Name>Dead</Name>
-		<Animation>XA_Squirrel_Run</Animation>
+		<Animation>PU_Scout_Dying1</Animation>
     </Category>
 </AnimSet>

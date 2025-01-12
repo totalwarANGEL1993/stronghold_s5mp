@@ -11,12 +11,22 @@ Stronghold.Stamina.Config = {
             ["TL_LEADER_WALK_BATTLE"] = "TL_LEADER_WALK",
             ["TL_MILITIA_WALK_BATTLE"] = "TL_MILITIA_WALK",
             ["TL_SERF_WALK_BATTLE"] = "TL_SERF_WALK",
+            ["TL_THIEF_WALK_BATTLE"] = "TL_THIEF_WALK",
         },
         WalkToRun = {
             ["TL_ASSASSIN_WALK"] = "TL_ASSASSIN_WALK_BATTLE",
             ["TL_LEADER_WALK"] = "TL_LEADER_WALK_BATTLE",
             ["TL_MILITIA_WALK"] = "TL_MILITIA_WALK_BATTLE",
             ["TL_SERF_WALK"] = "TL_SERF_WALK_BATTLE",
+            ["TL_THIEF_WALK"] = "TL_THIEF_WALK_BATTLE",
+        },
+        IgnoredTypes = {
+            [Entities.PU_Bear_Deco] = true,
+            [Entities.PU_Criminal_Deco] = true,
+            [Entities.PU_Dog_Deco] = true,
+            [Entities.PU_Hawk_Deco] = true,
+            [Entities.PU_Rat_Deco] = true,
+            [Entities.PU_Watchman_Deco] = true,
         },
     },
 
@@ -75,6 +85,14 @@ Stronghold.Stamina.Config = {
             ["TL_SERF_TURN_INTO_BATTLE_SERF"] = -0.0035,
             ["TL_START_BATTLE"] = -0.0035,
             ["TL_SERF_WALK_BATTLE"] = -0.0035,
+        },
+        IgnoredTypes = {
+            [Entities.PU_Bear_Deco] = true,
+            [Entities.PU_Criminal_Deco] = true,
+            [Entities.PU_Dog_Deco] = true,
+            [Entities.PU_Hawk_Deco] = true,
+            [Entities.PU_Rat_Deco] = true,
+            [Entities.PU_Watchman_Deco] = true,
         },
     }
 };

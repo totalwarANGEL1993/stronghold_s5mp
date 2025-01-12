@@ -121,7 +121,8 @@ function Stronghold.Stamina:OnUnknownTaskForMilitaryUnit(_EntityID)
     if Logic.IsEntityInCategory(_EntityID, EntityCategories.Leader) == 1
     or Logic.IsEntityInCategory(_EntityID, EntityCategories.Hero) == 1
     or Logic.IsEntityInCategory(_EntityID, EntityCategories.Serf) == 1
-    or Logic.GetEntityType(_EntityID) == Entities.PU_BattleSerf then
+    or Logic.GetEntityType(_EntityID) == Entities.PU_BattleSerf
+    or Logic.GetEntityType(_EntityID) == Entities.PU_Thief then
         if IsValidEntity(_EntityID) then
             local TaskList = Logic.GetCurrentTaskList(_EntityID);
             local Command = Logic.LeaderGetCurrentCommand(_EntityID);
@@ -170,19 +171,21 @@ function Stronghold.Stamina:OnUnknownTaskForMilitaryUnit(_EntityID)
         if IsValidEntity(_EntityID) then
             local TaskList = Logic.GetCurrentTaskList(_EntityID);
             local LeaderID = SVLib.GetLeaderOfSoldier(_EntityID);
-            local ShouldRun = self:IsUnitSupposedToRun(LeaderID);
-            if TaskList == "TL_FORMATION" then
-                if ShouldRun then
-                    Logic.SetTaskList(_EntityID, TaskLists.TL_FORMATION_BATTLE);
-                    return TaskAdvancementType.NextTick;
+            if LeaderID and LeaderID ~= 0 then
+                local ShouldRun = self:IsUnitSupposedToRun(LeaderID);
+                if TaskList == "TL_FORMATION" then
+                    if ShouldRun then
+                        Logic.SetTaskList(_EntityID, TaskLists.TL_FORMATION_BATTLE);
+                        return TaskAdvancementType.NextTick;
+                    end
+                    return TaskAdvancementType.Immediately;
+                elseif TaskList == "TL_FORMATION_BATTLE" then
+                    if ShouldRun then
+                        Logic.SetTaskList(_EntityID, TaskLists.TL_FORMATION);
+                        return TaskAdvancementType.NextTick;
+                    end
+                    return TaskAdvancementType.Immediately;
                 end
-                return TaskAdvancementType.Immediately;
-            elseif TaskList == "TL_FORMATION_BATTLE" then
-                if ShouldRun then
-                    Logic.SetTaskList(_EntityID, TaskLists.TL_FORMATION);
-                    return TaskAdvancementType.NextTick;
-                end
-                return TaskAdvancementType.Immediately;
             end
         end
     end
@@ -195,6 +198,11 @@ function Stronghold.Stamina:IsUnitSupposedToRun(_EntityID)
     end
     local TaskList = Logic.GetCurrentTaskList(_EntityID);
     local Command = Logic.LeaderGetCurrentCommand(_EntityID);
+    local Type = Logic.GetEntityType(_EntityID);
+
+    if self.Config.Movement.IgnoredTypes[Type] then
+        return true;
+    end
 
     -- Run always when performing these tasks
     if TaskList == "TL_START_BATTLE" or
@@ -217,7 +225,7 @@ function Stronghold.Stamina:IsUnitSupposedToRun(_EntityID)
                IsFighting(_EntityID);
     end
     return (Command == 0 or Command == 5 or Command == 6 or Command == 8) or
-           Logic.GetEntityType(_EntityID) == Entities.PU_Serf or
+           Type == Entities.PU_Serf or
            IsFighting(_EntityID);
 end
 
@@ -370,6 +378,7 @@ function Stronghold.Stamina:DoesUnitEnduranceChange(_EntityID)
            Logic.IsEntityInCategory(_EntityID, EntityCategories.Cannon) == 0 and
            Logic.IsEntityInCategory(_EntityID, EntityCategories.Hero) == 0 and
            Logic.IsEntityInCategory(_EntityID, EntityCategories.Worker) == 0 and
+           not self.Config.Endurance.IgnoredTypes[Logic.GetEntityType(_EntityID)] and
            AiArmy.GetArmyOfTroop(_EntityID) == 0 and
            AiArmyRefiller.GetRefillerOfTroop(_EntityID) == 0;
 end
@@ -396,7 +405,8 @@ function Stronghold.Stamina:OnSelectUnit(_EntityID)
         if Logic.IsEntityInCategory(_EntityID, EntityCategories.Leader) == 1
         or Logic.IsEntityInCategory(_EntityID, EntityCategories.Hero) == 1
         or Logic.IsEntityInCategory(_EntityID, EntityCategories.Serf) == 1
-        or Logic.GetEntityType(_EntityID) == Entities.PU_BattleSerf then
+        or Logic.GetEntityType(_EntityID) == Entities.PU_BattleSerf
+        or Logic.GetEntityType(_EntityID) == Entities.PU_Thief then
             VisibilityFlag = 1;
         end
     end
