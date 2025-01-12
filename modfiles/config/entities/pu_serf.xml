@@ -139,31 +139,6 @@
                 <Amount>1</Amount>
             </ExtractionInfo>
             <ExtractionInfo>
-                <ResourceEntityType>XD_ClayPit1</ResourceEntityType>
-                <Delay>3</Delay>
-                <Amount>1</Amount>
-            </ExtractionInfo>
-            <ExtractionInfo>
-                <ResourceEntityType>XD_IronPit1</ResourceEntityType>
-                <Delay>6</Delay>
-                <Amount>1</Amount>
-            </ExtractionInfo>
-            <ExtractionInfo>
-                <ResourceEntityType>XD_StonePit1</ResourceEntityType>
-                <Delay>3</Delay>
-                <Amount>1</Amount>
-            </ExtractionInfo>
-            <ExtractionInfo>
-                <ResourceEntityType>XD_StonePit2</ResourceEntityType>
-                <Delay>3</Delay>
-                <Amount>1</Amount>
-            </ExtractionInfo>
-            <ExtractionInfo>
-                <ResourceEntityType>XD_SulfurPit1</ResourceEntityType>
-                <Delay>6</Delay>
-                <Amount>1</Amount>
-            </ExtractionInfo>
-            <ExtractionInfo>
                 <ResourceEntityType>XD_ResourceTree</ResourceEntityType>
                 <Delay>3</Delay>
                 <Amount>2</Amount>

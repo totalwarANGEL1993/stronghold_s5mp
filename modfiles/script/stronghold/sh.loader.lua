@@ -32,7 +32,6 @@ Lib.Require("comfort/ConvertSecondsToString");
 Lib.Require("comfort/CopyTable");
 Lib.Require("comfort/CreateNameForEntity");
 Lib.Require("comfort/GetReachablePosition");
-Lib.Require("comfort/CreateWoodPile");
 Lib.Require("comfort/GetAngleBetween");
 Lib.Require("comfort/GetCirclePosition");
 Lib.Require("comfort/GetDistance");

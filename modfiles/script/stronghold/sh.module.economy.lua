@@ -80,6 +80,25 @@ function GetReputationIncome(_PlayerID)
     return Stronghold.Economy:GetReputationIncome(_PlayerID);
 end
 
+--- Creates a pile of wood that can be extracted with serfs.
+--- @param _Entity string Scriptname of entiry
+--- @param _Resources integer Amount of resource
+function CreateWoodPile(_Entity, _Resources)
+    Stronghold.Economy:CreateWoodPile(_Entity, _Resources);
+end
+
+--- Destroys a wood pile.
+--- @param _Entity string Scriptname of entiry
+function DestroyWoodPile(_Entity)
+    Stronghold.Economy:DestroyWoodPile(_Entity);
+end
+
+--- Returns if the entity is a wood pile.
+--- @return boolean IsPile Entity is pile
+function IsWoodPile(_Entity)
+    return Stronghold.Economy:IsWoodPile(_Entity);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callbacks
 
@@ -315,6 +334,8 @@ function Stronghold.Economy:Install()
         };
     end
 
+    self.Data.WoodPiles = {};
+
     self:HonorMenuInit();
     self:OverrideResourceCallbacks();
     self:OverrideFindViewUpdate();
@@ -333,6 +354,10 @@ end
 
 function Stronghold.Economy:GetDynamicTypeConfiguration(_Type)
     return Stronghold.Economy.Config.Income.Dynamic[_Type];
+end
+
+function Stronghold.Economy:OnEverySecond()
+    self:ControlWoodPiles();
 end
 
 function Stronghold.Economy:OncePerSecond(_PlayerID)
@@ -1108,6 +1133,54 @@ function Stronghold.Economy:SetSettlersMotivation(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
+-- Wood Piles
+
+function Stronghold.Economy:CreateWoodPile(_Entity, _Resources)
+    assert(type(_Entity) == "string");
+    assert(type(_Resources) == "number");
+    local x,y,z = Logic.EntityGetPos(GetID(_Entity));
+    local PileID = Logic.CreateEntity(Entities.XD_Rock3, x, y, 0, 0);
+    Logic.SetEntityName(PileID, _Entity.."_WoodPile");
+    Logic.SetModelAndAnimSet(PileID, Models.Effects_XF_ExtractStone);
+    local ResID = ReplaceEntity(_Entity, Entities.XD_ResourceTree);
+    Logic.SetModelAndAnimSet(ResID, Models.XD_SignalFire1);
+    Logic.SetResourceDoodadGoodAmount(GetID(_Entity), _Resources*15);
+
+    self.Data.WoodPiles[_Entity] = {
+        ResourceEntity = _Entity,
+        PileEntity = _Entity.."_WoodPile",
+        ResourceLimit = _Resources*14,
+    };
+end
+
+function Stronghold.Economy:DestroyWoodPile(_Entity)
+    if self.Data.WoodPiles[_Entity] then
+        local Data = self.Data.WoodPiles[_Entity];
+        local x,y,z = Logic.EntityGetPos(GetID(Data.ResourceEntity));
+        DestroyEntity(Data.ResourceEntity);
+        DestroyEntity(Data.PileEntity);
+        Logic.CreateEffect(GGL_Effects.FXCrushBuilding, x, y, 0);
+        self.Data.WoodPiles[_Entity] = nil;
+    end
+end
+
+function Stronghold.Economy:IsWoodPile(_Entity)
+    if type(_Entity) == "number" then
+        _Entity = Logic.GetEntityName(_Entity);
+    end
+    return self.Data.WoodPiles[_Entity] ~= nil;
+end
+
+function Stronghold.Economy:ControlWoodPiles()
+    for Entity, Data in pairs(self.Data.WoodPiles) do
+        local ID = GetID(Entity);
+        if Logic.GetResourceDoodadGoodAmount(ID) <= Data.ResourceLimit then
+            self:DestroyWoodPile(Entity);
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 -- Resource Mining
 
 function Stronghold.Economy:OverrideResourceCallbacks()
@@ -1166,12 +1239,11 @@ function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceI
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
     end
 
-    if _ResourceType == ResourceType.WoodRaw and ResourceAmount > 20 then
-        Logic.SetResourceDoodadGoodAmount(_SourceID, 20);
-    end
-    if _ResourceType == ResourceType.SilverRaw then
-        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
-        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
+    -- Reduce resource in trees
+    if _ResourceType == ResourceType.WoodRaw and ResourceAmount > 26 then
+        if not self:IsWoodPile(_SourceID) then
+            Logic.SetResourceDoodadGoodAmount(_SourceID, 26);
+        end
     end
     return Amount;
 end
@@ -1187,40 +1259,36 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
             Amount = Amount + self.Config.Resource.Mining.PickaxeClayBonus;
         end
     end
-
     if _ResourceType == ResourceType.IronRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeIron) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeIronBonus;
         end
     end
-
     if _ResourceType == ResourceType.StoneRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeStone) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeStoneBonus;
         end
     end
-
     if _ResourceType == ResourceType.SulfurRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeSulfur) == 1 then
             Amount = Amount + self.Config.Resource.Mining.PickaxeSulfurBonus;
         end
     end
-
-    if _ResourceType == ResourceType.SilverRaw then
+    if _ResourceType == ResourceType.WoodRaw then
         if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeWood) == 1 then
-            Remaining = Remaining - math.floor(Amount / 2);
+            Amount = Amount + self.Config.Resource.Mining.PickaxeWoodBonus;
         end
     end
 
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount, Remaining);
 
+    -- Forest glades never run out of wood
+    if _ResourceType == ResourceType.WoodRaw then
+        Remaining = Remaining + Amount;
+    end
     if Remaining > ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
-    end
-    if _ResourceType == ResourceType.SilverRaw then
-        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
-        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
     end
     return Amount;
 end

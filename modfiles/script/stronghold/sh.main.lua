@@ -316,6 +316,7 @@ function Stronghold:StartTriggers()
             Stronghold.Player:PlayerDefeatCondition(i);
         end
         Stronghold.Building:OnEverySecond();
+        Stronghold.Economy:OnEverySecond();
         Stronghold.Province:OnEverySecond();
         Stronghold.Trap:OnEverySecond();
     end);
