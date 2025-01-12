@@ -143,8 +143,6 @@ function Stronghold.Building:OnEntityDestroyed(_EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
     -- Control rally points
     self:OnRallyPointHolderDestroyed(PlayerID, _EntityID);
-    -- Control tower sites
-    self:OnTowerDestroyed(PlayerID, _EntityID);
 end
 
 function Stronghold.Building:OnConstructionComplete(_EntityID, _PlayerID)

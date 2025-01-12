@@ -502,7 +502,6 @@ end
 -- Reputation can only increase if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationIncrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Morale = GetPlayerMorale(_PlayerID);
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             -- Tax height
@@ -595,7 +594,6 @@ end
 -- Reputation can only decrease if there are pepole at the fortress.
 function Stronghold.Economy:CalculateReputationDecrease(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Morale = GetPlayerMorale(_PlayerID);
         local WorkerCount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         if WorkerCount > 0 then
             local Rank = GetRank(_PlayerID) +1;
@@ -794,11 +792,9 @@ function Stronghold.Economy:CalculateMoneyIncome(_PlayerID)
         local TaxPerWorker = Logic.GetPlayerRegularTaxPerWorker(_PlayerID);
         local WorkerAmount = Logic.GetNumberOfAttractedWorker(_PlayerID);
         local Income = TaxPerWorker * WorkerAmount;
-        local Morale = GetPlayerMorale(_PlayerID);
         if Logic.IsTechnologyResearched(_PlayerID,Technologies.T_Scale) == 1 then
             Income = Income * self.Config.Income.ScaleBonusFactor;
         end
-        Income = math.max(Income * Morale, 0);
         Income = GameCallback_SH_Calculate_TotalPaydayIncome(_PlayerID, Income);
         return math.floor(Income + 0.5);
     end
@@ -1090,7 +1086,6 @@ end
 
 function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
     if IsPlayer(_PlayerID) and not IsAIPlayer(_PlayerID) then
-        local Morale = GetPlayerMorale(_PlayerID);
         -- Add points per working scholar
         local ScholarList = GetWorkersOfType(_PlayerID, Entities.PU_Scholar);
         for i= 2, ScholarList[1] +1 do
@@ -1103,7 +1098,6 @@ function Stronghold.Economy:GainKnowledgePoints(_PlayerID)
                     if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_BetterStudies) == 1 then
                         Amount = Amount * self.Config.Income.BetterStudiesFactor;
                     end
-                    Amount = math.ceil(Amount * Morale);
                     Amount = GameCallback_SH_Calculate_KnowledgeIncrease(_PlayerID, Amount);
                     Amount = Amount * Motivation;
                     self:SetPlayerKnowledgePoints(_PlayerID, CurrentAmount + Amount);
@@ -1290,12 +1284,6 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
         end
     end
 
-    if _ResourceType == ResourceType.SilverRaw then
-        if Logic.IsTechnologyResearched(_PlayerID, Technologies.T_PickAxeWood) == 1 then
-            Remaining = Remaining - math.floor(Amount / 2);
-        end
-    end
-
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount, Remaining);
 
@@ -1305,10 +1293,6 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
     end
     if Remaining > ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
-    end
-    if _ResourceType == ResourceType.SilverRaw then
-        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
-        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
     end
     return Amount;
 end
@@ -1899,8 +1883,6 @@ function Stronghold.Economy:FormatExtendedPaydayClockText(_PlayerID)
 
     return string.format(
         self.Text.PaydayClock[2][Language],
-        -- Morale
-        "{azure}" ..morl.. "%{white}",
         -- Honor
         ((htb > 0 and "{green}+") or "{white}") ..string.format("%.0f", htb),
         ((hbb > 0 and "{green}+") or "{white}") ..string.format("%.0f", hbb),
