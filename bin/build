@@ -12,6 +12,8 @@ rm -rf var
 # fill editor archive
 mkdir -p var/stronghold_s5mp/sh_editor.bba.unpacked
 cp -r modfiles/graphics var/stronghold_s5mp/sh_editor.bba.unpacked
+rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked/graphics/textures/gui
+rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked/graphics/videos
 rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked/graphics/textureslow
 rm -rf var/stronghold_s5mp/sh_editor.bba.unpacked/graphics/texturesmed
 cp -r modfiles/config var/stronghold_s5mp/sh_editor.bba.unpacked
