@@ -117,6 +117,16 @@
     </Behavior>
 
     <Behavior>
+        <Logic classname="GGL::CLimitedAttachmentBehaviorProperties">
+            <Class>GGL::CLimitedAttachmentBehavior</Class>
+            <Attachment>
+                <Type>ATTACHMENT_LEADER_SOLDIER</Type>
+                <Limit>0</Limit>
+            </Attachment>
+        </Logic>
+    </Behavior>
+
+    <Behavior>
         <Logic classname="GGL::CGLBehaviorPropsDying">
             <Class>GGL::CGLBehaviorDying</Class>
             <DyingTaskList>TL_DIE</DyingTaskList>

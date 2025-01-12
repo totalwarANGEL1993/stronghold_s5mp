@@ -1,0 +1,14 @@
+<AnimSet>
+	<Category classname="EGL::CGLEAnimCategory" classid="0xceb17718">
+		<Name>Walk</Name>
+		<Animation>XA_Hawk_Fly</Animation>
+    </Category>
+	<Category classname="EGL::CGLEAnimCategory" classid="0xceb17718">
+		<Name>Run</Name>
+		<Animation>XA_Hawk_Fly</Animation>
+    </Category>
+	<Category classname="EGL::CGLEAnimCategory" classid="0xceb17718">
+		<Name>Die</Name>
+		<Animation>XA_Hawk_Fly</Animation>
+    </Category>
+</AnimSet>

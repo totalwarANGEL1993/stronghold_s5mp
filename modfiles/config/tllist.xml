@@ -452,6 +452,7 @@
     <TaskList>TL_LEADER_WALK_BATTLE</TaskList>
     <TaskList>TL_MILITIA_WALK_BATTLE</TaskList>
     <TaskList>TL_SERF_WALK_BATTLE</TaskList>
+    <TaskList>TL_THIEF_WALK_BATTLE</TaskList>
     <TaskList>TL_BEAR_IDLE</TaskList>
     <TaskList>TL_BATTLE_GATLING</TaskList>
     <TaskList>TL_BATTLE_SERF</TaskList>
