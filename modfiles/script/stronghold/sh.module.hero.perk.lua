@@ -1020,6 +1020,8 @@ function Stronghold.Hero.Perk:ApplySerfExtractionBonusAbility(_PlayerID, _SerfID
         local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
         if _ResourceType == ResourceType.WoodRaw then
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Data.RawWoodBonus);
+        elseif _ResourceType == ResourceType.SilverRaw then
+            Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Data.RawWoodBonus);
         elseif math.random(1, 100) <= Data.PreservationChance then
             RemainingAmount = RemainingAmount + Data.SerfPreservation;
         end

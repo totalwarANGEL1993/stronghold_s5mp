@@ -1235,15 +1235,21 @@ function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceI
 
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, Amount, Remaining);
-    if Remaining > ResourceAmount then
+    -- Reduce resource in trees
+    if _ResourceType == ResourceType.WoodRaw and Remaining > 26 then
+        if not self:IsWoodPile(_SourceID) then
+            Remaining = 26;
+        end
+    end
+
+    if Remaining ~= ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
     end
 
-    -- Reduce resource in trees
-    if _ResourceType == ResourceType.WoodRaw and ResourceAmount > 26 then
-        if not self:IsWoodPile(_SourceID) then
-            Logic.SetResourceDoodadGoodAmount(_SourceID, 26);
-        end
+    -- Raw silver becomes raw wood
+    if _ResourceType == ResourceType.SilverRaw then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
+        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
     end
     return Amount;
 end
@@ -1283,12 +1289,13 @@ function Stronghold.Economy:OnMineExtractedResource(_PlayerID, _BuildingID, _Sou
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_ResourceMined(_PlayerID, _BuildingID, _SourceID, _ResourceType, Amount, Remaining);
 
-    -- Forest glades never run out of wood
-    if _ResourceType == ResourceType.WoodRaw then
-        Remaining = Remaining + Amount;
-    end
-    if Remaining > ResourceAmount then
+    if Remaining ~= ResourceAmount then
         Logic.SetResourceDoodadGoodAmount(_SourceID, Remaining);
+    end
+    -- Raw silver becomes raw wood
+    if _ResourceType == ResourceType.SilverRaw then
+        Logic.SubFromPlayersGlobalResource(_PlayerID, ResourceType.SilverRaw, Amount);
+        Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Amount);
     end
     return Amount;
 end

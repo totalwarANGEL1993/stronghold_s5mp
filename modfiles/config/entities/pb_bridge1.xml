@@ -29,21 +29,21 @@
 
         <Blocked1>
             <X>-1600</X>
-            <Y>-400</Y>
+            <Y>-500</Y>
         </Blocked1>
         <Blocked2>
             <X>1600</X>
-            <Y>400</Y>
+            <Y>500</Y>
         </Blocked2>
 
         <BridgeArea>
             <Blocked1>
                 <X>-1600</X>
-                <Y>-100</Y>
+                <Y>-200</Y>
             </Blocked1>
             <Blocked2>
                 <X>1600</X>
-                <Y>100</Y>
+                <Y>200</Y>
             </Blocked2>
         </BridgeArea>
 

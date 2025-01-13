@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_Bridge4_1</Model>
+		<RenderInFoW>true</RenderInFoW>
+	</Display>
+	<Logic classname="GGL::CResourceDoodadProperties">
+		<Class>GGL::CResourceDoodad</Class>
+    <AccessCategory>AccessCategoryResourceDoodad</AccessCategory>
+		<DoNotExecute>True</DoNotExecute>
+        <ApproachPos>
+            <X>0</X>
+            <Y>-2500</Y>
+        </ApproachPos>
+		<ApproachR>0</ApproachR>
+        <DoorPos>
+            <X>1</X>
+            <Y>1</Y>
+        </DoorPos>
+
+        <Blocked1>
+            <X>-600</X>
+            <Y>-2400</Y>
+        </Blocked1>
+        <Blocked2>
+            <X>600</X>
+            <Y>2400</Y>
+        </Blocked2>
+
+        <TerrainPos1>
+            <X>-400</X>
+            <Y>-2600</Y>
+        </TerrainPos1>
+        <TerrainPos2>
+            <X>300</X>
+            <Y>2600</Y>
+        </TerrainPos2>
+		<DeleteWhenBuiltOn>false</DeleteWhenBuiltOn>
+		<DividesTwoSectors>true</DividesTwoSectors>
+	</Logic>
+
+    <Behavior>
+        <Logic classname="GGL::CReplaceableEntityBehaviorProperties">
+            <Class>GGL::CReplaceableEntityBehavior</Class>
+            <EntityType>XD_NeutralBridge4</EntityType>
+        </Logic>
+    </Behavior>
+
+	<Behavior>
+		<Logic classname="GGL::CGLBehaviorPropsDying">
+			<Class>GGL::CGLBehaviorDying</Class>
+		</Logic>
+	</Behavior>
+
+</root>

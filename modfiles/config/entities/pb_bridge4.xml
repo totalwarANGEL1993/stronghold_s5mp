@@ -28,11 +28,11 @@
         </Height>
 
         <Blocked1>
-            <X>-300</X>
+            <X>-400</X>
             <Y>-2400</Y>
         </Blocked1>
         <Blocked2>
-            <X>200</X>
+            <X>300</X>
             <Y>2400</Y>
         </Blocked2>
 
@@ -42,7 +42,7 @@
                 <Y>-2400</Y>
             </Blocked1>
             <Blocked2>
-                <X>100</X>
+                <X>200</X>
                 <Y>2400</Y>
             </Blocked2>
         </BridgeArea>
