@@ -770,8 +770,7 @@ Stronghold.Hero.Perk.Config.Perks = {
         Text = "sh_windowperks/Hero9_Perk1",
         Data = {
             RequiredRank = 1,
-            ReputationFactor = 1.5,
-            HonorFactor = 1.5,
+            CostFactor = 0.5,
         }
     },
     [HeroPerks.Hero9_BerserkerRage] = {

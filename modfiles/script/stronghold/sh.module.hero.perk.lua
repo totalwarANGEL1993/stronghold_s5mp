@@ -1328,13 +1328,7 @@ end
 
 function Stronghold.Hero.Perk:ApplyDynamicReputationBonusPassiveAbility(_PlayerID, _Type, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
-    -- Hero 9: Critical Drinker
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero9_CriticalDrinker) then
-        local Data = self.Config.Perks[HeroPerks.Hero9_CriticalDrinker].Data;
-        if _Type == Entities.PB_Tavern1 or _Type == Entities.PB_Tavern2 then
-            CurrentAmount = CurrentAmount * Data.ReputationFactor;
-        end
-    end
+    -- ...
     return math.floor(CurrentAmount + 0.5);
 end
 
@@ -1372,13 +1366,7 @@ end
 
 function Stronghold.Hero.Perk:ApplyDynamicHonorBonusPassiveAbility(_PlayerID, _Type, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
-    -- Hero 9: Critical Drinker
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero9_CriticalDrinker) then
-        local Data = self.Config.Perks[HeroPerks.Hero9_CriticalDrinker].Data;
-        if _Type == Entities.PB_Tavern1 or _Type == Entities.PB_Tavern2 then
-            CurrentAmount = CurrentAmount * Data.HonorFactor;
-        end
-    end
+    -- ...
     return math.floor(CurrentAmount + 0.5);
 end
 
@@ -1433,7 +1421,7 @@ function Stronghold.Hero.Perk:ApplyMercenaryCapacityPassiveAbility(_PlayerID, _C
 end
 
 function Stronghold.Hero.Perk:ApplyExperiencePassiveAbility(_PlayerID, _EntityID, _Amount)
-    local Amount = _Amount;
+    local CurrentAmount = _Amount;
     local Type = Logic.GetEntityType(_EntityID);
     -- Hero 4: Experienced Instructor
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero4_ExperiencedInstructor) then
@@ -1449,7 +1437,7 @@ function Stronghold.Hero.Perk:ApplyExperiencePassiveAbility(_PlayerID, _EntityID
             CurrentAmount = CurrentAmount + Data.Amount;
         end
     end
-    return Amount;
+    return CurrentAmount;
 end
 
 function Stronghold.Hero.Perk:ApplyPaydayIncomeBonusPassiveAbility(_PlayerID, _CurrentAmount)
@@ -1756,7 +1744,11 @@ end
 
 function Stronghold.Hero.Perk:ApplyFestivalCostsDiscountPassiveAbility(_PlayerID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
-    -- ...
+    -- Hero 9: Critical Drinker
+    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero9_CriticalDrinker) then
+        local Data = self.Config.Perks[HeroPerks.Hero9_CriticalDrinker].Data;
+        CurrentAmount = math.ceil(CurrentAmount * Data.CostFactor);
+    end
     return CurrentAmount;
 end
 

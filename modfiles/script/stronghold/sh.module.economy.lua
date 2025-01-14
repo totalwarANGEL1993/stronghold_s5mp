@@ -1236,9 +1236,9 @@ function Stronghold.Economy:OnSerfExtractedResource(_PlayerID, _SerfID, _SourceI
     -- External changes
     Amount, Remaining = GameCallback_SH_Calculate_SerfExtraction(_PlayerID, _SerfID, _SourceID, _ResourceType, Amount, Remaining);
     -- Reduce resource in trees
-    if _ResourceType == ResourceType.WoodRaw and Remaining > 26 then
+    if _ResourceType == ResourceType.WoodRaw and Remaining > 46 then
         if not self:IsWoodPile(_SourceID) then
-            Remaining = 26;
+            Remaining = 46;
         end
     end
 

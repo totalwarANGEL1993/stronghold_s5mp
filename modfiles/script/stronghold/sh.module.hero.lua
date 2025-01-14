@@ -838,14 +838,17 @@ function Stronghold.Hero:OverrideDetailsPayAndSlots()
         end
     end);
 
-    Overwrite.CreateOverwrite("GUIUpdate_Damage", function()
-        Overwrite.CallOriginal();
+    GUIUpdate_Damage = function()
         local CurrentWidgetID = XGUIEng.GetCurrentWidgetID();
         local ScreenSize = {GUI.GetScreenSize()};
+        local EntityID = GUI.GetSelectedEntity();
+        local Damage = Logic.GetEntityDamage(EntityID);
+        Damage = Stronghold.Stamina:GetUnitDamageByEndurance(EntityID, Damage);
+        XGUIEng.SetTextByValue(CurrentWidgetID, Damage, 1);
         if ScreenSize[2] < 960 then
             XGUIEng.SetWidgetPosition(CurrentWidgetID, 45, 12);
         end
-    end);
+    end
 
     GUIUpdate_DetailsSoldiers = function()
         local ScreenSize = {GUI.GetScreenSize()};

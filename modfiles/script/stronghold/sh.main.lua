@@ -429,9 +429,6 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
                     Damage = Damage * 3;
                 end
             end
-            -- Endurance
-            local Endurance = self.Stamina:GetUnitEndurance(_AttackerID);
-            Damage = math.max(math.ceil(Damage * Endurance), 1);
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
             -- prevent eco harrasment

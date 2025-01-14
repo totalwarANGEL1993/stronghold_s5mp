@@ -353,8 +353,6 @@ function InitalizePlayer7()
             Entities.PU_LeaderPoleArm2,
             Entities.CU_BanditLeaderBow1
         );
-        DelinquentsCampAddGuardPositions(CampID, "BanditBase1");
-        DelinquentsCampAddGuardPositions(CampID, "BanditBase2");
     end
 end
 

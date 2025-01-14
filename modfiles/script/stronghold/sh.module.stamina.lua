@@ -220,11 +220,11 @@ function Stronghold.Stamina:IsUnitSupposedToRun(_EntityID)
     or self.Data.Marching[PlayerID][_EntityID] then
         local IsInArmy = AiArmy.GetArmyOfTroop(_EntityID) ~= 0;
         local IsRefilling = AiArmyRefiller.GetRefillerOfTroop(_EntityID) ~= 0;
-        return Command == 0 or
+        return (Command == 0 or Command == 3) or
                (not IsInArmy and not IsRefilling and Command == 5) or
                IsFighting(_EntityID);
     end
-    return (Command == 0 or Command == 5 or Command == 6 or Command == 8) or
+    return (Command == 0 or Command == 3 or Command == 5 or Command == 6 or Command == 8) or
            Type == Entities.PU_Serf or
            IsFighting(_EntityID);
 end
@@ -308,16 +308,19 @@ function Stronghold.Stamina:UpdateUnitEndurance(_PlayerID)
         for EntityID, Endurance in pairs(self.Data.Endurance[_PlayerID]) do
             if self:DoesUnitEnduranceChange(EntityID) then
                 local Max = self.Config.Endurance.MaxStaminaThreshold;
+                local Type = Logic.GetEntityType(EntityID);
                 local TaskList = Logic.GetCurrentTaskList(EntityID) or "";
+                local Config = Stronghold.Unit.Config.Troops:GetConfig(Type);
+                local Tier = (Config == nil and 0) or Config.Tier;
                 local Factor = 0;
-                if self.Config.Endurance.RestingRecovery[TaskList] then
-                    Factor = self.Config.Endurance.RestingRecovery[TaskList];
+                if self.Config.Endurance.RestingRecoveryTask[TaskList] then
+                    Factor = self.Config.Endurance.RestingRecoveryRates[Tier] or 0;
                 end
-                if self.Config.Endurance.RunningDrain[TaskList] then
-                    Factor = self.Config.Endurance.RunningDrain[TaskList];
+                if self.Config.Endurance.RunningDrainTasks[TaskList] then
+                    Factor = self.Config.Endurance.RunningDrainRates[Tier] or 0;
                 end
-                if self.Config.Endurance.BattleDrain[TaskList] then
-                    Factor = self.Config.Endurance.BattleDrain[TaskList];
+                if self.Config.Endurance.BattleDrainTasks[TaskList] then
+                    Factor = self.Config.Endurance.BattleDrainRates[Tier] or 0;
                 end
                 Endurance = math.min(math.max(Endurance + Factor, 0), Max);
                 self.Data.Endurance[_PlayerID][EntityID] = Endurance;
@@ -327,50 +330,7 @@ function Stronghold.Stamina:UpdateUnitEndurance(_PlayerID)
 end
 
 function Stronghold.Stamina:ApplyEnduranceToDamage(_AttackerID, _AttackedID, _Damage)
-    local LeaderID = _AttackerID;
-    if Logic.IsEntityInCategory(LeaderID, EntityCategories.Soldier) == 1 then
-        LeaderID = SVLib.GetLeaderOfSoldier(LeaderID);
-    end
-
-    local Endurance = self:GetUnitEndurance(LeaderID);
-    local Factor = 1;
-    if  Endurance <= self.Config.Endurance.MaxStaminaThreshold
-    and Endurance > self.Config.Endurance.FineStaminaThreshold then
-        Factor = self.Config.Endurance.FineDamageFactor;
-    end
-    if  Endurance <= self.Config.Endurance.FineStaminaThreshold
-    and Endurance > self.Config.Endurance.GoodStaminaThreshold then
-        Factor = self.Config.Endurance.GoodDamageFactor;
-    end
-    if  Endurance <= self.Config.Endurance.GoodStaminaThreshold
-    and Endurance > self.Config.Endurance.BadStaminaThreshold then
-        Factor = self.Config.Endurance.BadDamageFactor;
-    end
-    if  Endurance < self.Config.Endurance.BadStaminaThreshold then
-        Factor = self.Config.Endurance.WorseDamageFactor;
-    end
-    return self:CalculateDamageReduction(_Damage, Factor, 5);
-end
-
--- The following function is the core of the stamina system:
--- * Stamina factor > 1:
---   - Big damage is increased less by higher stamina
---   - Small damage is increased more by higher stamina
--- * Stamina factor < 1:
---   - Big damage is decreased more by lower stamina
---   - Small damage is decreased less by lower stamina
--- This will (hopefully) make the player conserve their elite more and also
--- make weak cannon fodder more atractive to use.
-function Stronghold.Stamina:CalculateDamageReduction(_Damage, _Factor, _Base)
-    if _Damage > 0 and _Base > 0 then
-        local LogValue = math.log(_Damage) / math.log(_Base);
-        if _Factor > 1 then
-            return _Damage * (1 + (_Factor - 1) * (1 - math.exp(-LogValue) * 1.5));
-        else
-            return _Damage * (_Factor ^ LogValue);
-        end
-    end
-    return _Damage;
+    return self:GetUnitDamageByEndurance(_AttackerID, _Damage);
 end
 
 function Stronghold.Stamina:DoesUnitEnduranceChange(_EntityID)
@@ -389,6 +349,52 @@ function Stronghold.Stamina:GetUnitEndurance(_EntityID)
         return self.Data.Endurance[PlayerID][_EntityID] or 1;
     end
     return 1;
+end
+
+function Stronghold.Stamina:GetUnitDamageByEndurance(_AttackerID, _Damage)
+    local LeaderID = _AttackerID;
+    if Logic.IsEntityInCategory(LeaderID, EntityCategories.Soldier) == 1 then
+        LeaderID = SVLib.GetLeaderOfSoldier(LeaderID);
+    end
+    local Endurance = self:GetUnitEndurance(LeaderID);
+    local Factor = 1;
+    if  Endurance <= self.Config.Endurance.MaxStaminaThreshold
+    and Endurance > self.Config.Endurance.FineStaminaThreshold then
+        Factor = self.Config.Endurance.FineDamageFactor;
+    end
+    if  Endurance <= self.Config.Endurance.FineStaminaThreshold
+    and Endurance > self.Config.Endurance.GoodStaminaThreshold then
+        Factor = self.Config.Endurance.GoodDamageFactor;
+    end
+    if  Endurance <= self.Config.Endurance.GoodStaminaThreshold
+    and Endurance > self.Config.Endurance.BadStaminaThreshold then
+        Factor = self.Config.Endurance.BadDamageFactor;
+    end
+    if  Endurance < self.Config.Endurance.BadStaminaThreshold then
+        Factor = self.Config.Endurance.WorseDamageFactor;
+    end
+    return self:CalculateDamageReduction(_Damage, Factor, 16);
+end
+
+-- The following function is the core of the stamina system:
+-- * Stamina factor > 1:
+--   - Big damage is increased less by higher stamina
+--   - Small damage is increased more by higher stamina
+-- * Stamina factor < 1:
+--   - Big damage is decreased more by lower stamina
+--   - Small damage is decreased less by lower stamina
+-- This will (hopefully) make the player conserve their elite more and also
+-- make weak cannon fodder more atractive to use.
+function Stronghold.Stamina:CalculateDamageReduction(_Damage, _Factor, _Base)
+    if _Damage > 0 and _Base > 0 then
+        local LogValue = math.log(_Damage) / math.log(_Base);
+        if _Factor > 1 then
+            return _Damage + 3;
+        elseif _Factor < 1 then
+            return _Damage * (_Factor ^ LogValue);
+        end
+    end
+    return _Damage;
 end
 
 -- -------------------------------------------------------------------------- --
