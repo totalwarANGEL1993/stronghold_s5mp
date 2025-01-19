@@ -903,13 +903,13 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
 
     Overwrite.CreateOverwrite("GameCallback_SH_CalculateFestivalCosts", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        Stronghold.Hero.Perk:ApplyFestivalCostsDiscountPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero.Perk:ApplyFestivalCostsDiscountPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 
     Overwrite.CreateOverwrite("GameCallback_SH_CalculateSermonCosts", function(_PlayerID, _CurrentAmount)
         local CurrentAmount = Overwrite.CallOriginal();
-        Stronghold.Hero.Perk:ApplySermonCostsDiscountPassiveAbility(_PlayerID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero.Perk:ApplySermonCostsDiscountPassiveAbility(_PlayerID, CurrentAmount);
         return CurrentAmount;
     end);
 

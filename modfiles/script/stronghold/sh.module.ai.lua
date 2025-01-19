@@ -1009,7 +1009,7 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
         Data.PlayerID,
         math.ceil((Data.Strength or 4)/2),
         Data.HomePosition,
-        Data.RodeLength or 3500
+        Data.RodeLength or 2000
     );
     AiArmy.SetTroopFormationController(AttackArmyID, function (_ID)
         Stronghold.Unit:SetFormationOnCreate(_ID);
@@ -1021,7 +1021,7 @@ function Stronghold.AI:CreateDelinquentsCamp(_Data)
         Data.PlayerID,
         math.floor((Data.Strength or 4)/2),
         Data.HomePosition,
-        Data.RodeLength or 3500
+        Data.RodeLength or 2000
     );
     AiArmy.SetTroopFormationController(DefendArmyID, function (_ID)
         Stronghold.Unit:SetFormationOnCreate(_ID);

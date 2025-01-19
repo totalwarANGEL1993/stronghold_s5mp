@@ -460,7 +460,9 @@
     <TaskList>TL_BATTLE_DOG</TaskList>
     <TaskList>TL_BATTLE_HERO</TaskList>
     <TaskList>TL_BATTLE_HEROCLAW</TaskList>
+    <TaskList>TL_BATTLE_HEROMACE</TaskList>
     <TaskList>TL_BATTLE_HERORIFLE</TaskList>
+    <TaskList>TL_BATTLE_HEROSTAFF</TaskList>
     <TaskList>TL_BATTLE_LION</TaskList>
     <TaskList>TL_BATTLE_SWORD</TaskList>
     <TaskList>TL_BATTLE_KNIGHT</TaskList>
