@@ -49,7 +49,7 @@ SHS5MP_RulesDefinition = {
         Lib.Require("module/io/NonPlayerCharacter");
         Lib.Require("module/trigger/Job");
 
-        InitalizePlayer2();
+        -- InitalizePlayer2();
         InitalizePlayer7();
         SetHostile(1,6);
     end,
@@ -107,6 +107,7 @@ function ControllPlayer2AttackArmies()
             AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP1"), false);
             AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP2"), false);
             AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "SplitWP1"), false);
+            AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "SplitWP3"), false);
             AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "BaseWP1"), false);
             AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Move, "HQWP1"), false);
             AiArmy.PushCommand(P2AttackArmy1, AiArmy.CreateCommand(AiArmyCommand.Battle, "HQWP1"), false);
@@ -119,6 +120,7 @@ function ControllPlayer2AttackArmies()
             AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP1"), false);
             AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "BridgeWP2"), false);
             AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "SplitWP2"), false);
+            AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "SplitWP4"), false);
             AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "BaseWP2"), false);
             AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Move, "HQWP1"), false);
             AiArmy.PushCommand(P2AttackArmy2, AiArmy.CreateCommand(AiArmyCommand.Battle, "HQWP1"), false);
