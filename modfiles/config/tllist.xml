@@ -468,6 +468,7 @@
     <TaskList>TL_BATTLE_KNIGHT</TaskList>
     <TaskList>TL_BATTLE_WOLF</TaskList>
     <TaskList>TL_BATTLE_AXE</TaskList>
+    <TaskList>TL_NPC_ALWAYS_RUN</TaskList>
 
     <!-- Hero -->
     <TaskList>TL_CU_HERO13_SUMMON</TaskList>

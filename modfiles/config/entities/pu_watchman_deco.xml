@@ -35,7 +35,7 @@
         <AdjustWalkAnimSpeed>true</AdjustWalkAnimSpeed>
         <RepairFactor>0.3</RepairFactor>
         <Exploration>0</Exploration>
-        <IdleTaskList>TL_MILITARY_IDLE</IdleTaskList>
+        <IdleTaskList>TL_NPC_IDLE</IdleTaskList>
         <AttractionSlots>0</AttractionSlots>
         <Convertible>false</Convertible>
         <ExperiencePoints>0</ExperiencePoints>
@@ -71,7 +71,7 @@
             <Class>GGL::CLeaderMovement</Class>
             <Speed>380</Speed>
             <RotationSpeed>30</RotationSpeed>
-            <MoveTaskList>TL_LEADER_WALK</MoveTaskList>
+            <MoveTaskList>TL_NPC_ALWAYS_RUN</MoveTaskList>
             <MoveIdleAnim>PU_SoldierPoleArm1_Idle1</MoveIdleAnim>
         </Logic>
         <Display classname="ED::CBehaviorProps">

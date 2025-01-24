@@ -109,11 +109,13 @@ Stronghold.Stamina.Config = {
         IgnoredTypes = {
             [Entities.PU_Bear_Cage] = true,
             [Entities.PU_Bear_Deco] = true,
+            [Entities.PU_BattleSerf] = true,
             [Entities.PU_Criminal_Deco] = true,
             [Entities.PU_Dog_Cage] = true,
             [Entities.PU_Dog_Deco] = true,
             [Entities.PU_Hawk_Deco] = true,
             [Entities.PU_Rat_Deco] = true,
+            [Entities.PU_Serf] = true,
             [Entities.PU_Watchman_Deco] = true,
         },
     }

@@ -384,7 +384,7 @@ end
 --   - Big damage is decreased more by lower stamina
 --   - Small damage is decreased less by lower stamina
 -- This will (hopefully) make the player conserve their elite more and also
--- make weak cannon fodder more atractive to use.
+-- make weak cannon fodder more attractive to use.
 function Stronghold.Stamina:CalculateDamageReduction(_Damage, _Factor, _Base)
     if _Damage > 0 and _Base > 0 then
         local LogValue = math.log(_Damage) / math.log(_Base);
