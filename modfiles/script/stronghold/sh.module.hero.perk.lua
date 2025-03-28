@@ -1410,7 +1410,7 @@ function Stronghold.Hero.Perk:ApplyMercenaryCapacityPassiveAbility(_PlayerID, _C
 end
 
 function Stronghold.Hero.Perk:ApplyExperiencePassiveAbility(_PlayerID, _EntityID, _Amount)
-    local Amount = _Amount;
+    local CurrentAmount = _Amount;
     local Type = Logic.GetEntityType(_EntityID);
     -- Hero 4: Experienced Instructor
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero4_ExperiencedInstructor) then
@@ -1426,7 +1426,7 @@ function Stronghold.Hero.Perk:ApplyExperiencePassiveAbility(_PlayerID, _EntityID
             CurrentAmount = CurrentAmount + Data.Amount;
         end
     end
-    return Amount;
+    return CurrentAmount;
 end
 
 function Stronghold.Hero.Perk:ApplyPaydayIncomeBonusPassiveAbility(_PlayerID, _CurrentAmount)
