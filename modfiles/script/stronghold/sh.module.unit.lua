@@ -498,12 +498,13 @@ function Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damag
     local AltitudeFactor = self.Config.Passive.HeightBonus.InitialAltitudeFactor;
     local _,_,AttackerZ = Logic.EntityGetPos(_AttackerID);
     local _,_,AttackedZ = Logic.EntityGetPos(_AttackedID);
-    local AltitudeDelta = math.ceil(AttackerZ - AttackedZ / 100);
+    local AltitudeDelta = math.ceil((AttackerZ - AttackedZ) / 100);
 
     local Bonus = self.Config.Passive.HeightBonus.AltitudeFactor * AltitudeDelta;
     AltitudeFactor = math.min(AltitudeFactor, self.Config.Passive.HeightBonus.MaxAltitudeFactor);
     AltitudeFactor = math.max(AltitudeFactor, self.Config.Passive.HeightBonus.MinAltitudeFactor);
 
+    -- Note: applying the bonus after clamping allows perks to raise factors abouve the limits
     Bonus = GameCallback_SH_Logic_CalculateAltitudeBonus(_AttackerID, AttackerZ, _AttackedID, AttackedZ, Bonus);
     AltitudeFactor = AltitudeFactor + Bonus;
     return Damage * AltitudeFactor;
