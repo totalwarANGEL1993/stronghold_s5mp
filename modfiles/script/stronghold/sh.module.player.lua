@@ -974,7 +974,15 @@ end
 
 function Stronghold.Player:AttackMemoryController(_PlayerID)
     if self:IsPlayer(_PlayerID) then
+        -- Create local table to avoid modifying global table while looping
+        local AttackMemory = {};
         for EntityID, Data in pairs(self.Data[_PlayerID].Player.AttackMemory) do
+            table.insert(AttackMemory, {EntityID, Data});
+        end
+        -- Reverse loop over local table
+        for i= table.getn(AttackMemory), 1, -1 do
+            local EntityID = AttackMemory[i][1];
+            local Data = AttackMemory[i][2];
             if not IsExisting(EntityID) then
                 self.Data[_PlayerID].Player.AttackMemory[EntityID] = nil;
             else

@@ -316,7 +316,13 @@ end
 -- destroyed. If the trap is destroyed, the attachment is destroyed.
 function Stronghold.Trap:TrapController()
     -- Traps
+    local Trap = {};
     for TrapID, Data in pairs(self.Data.Trap) do
+        table.insert(Trap, {TrapID, Data});
+    end
+    for i= table.getn(Trap), 1, -1 do
+        local TrapID = Trap[i][1];
+        local Data = Trap[i][2];
         if not IsExisting(TrapID) then
             for i= 2, Data[3][1] +1 do
                 self.Data.TrapDecoIDToTrapID[Data[3][i]] = nil;
@@ -340,8 +346,15 @@ function Stronghold.Trap:TrapController()
             end
         end
     end
+
     -- Remains
+    local TrapRemains = {};
     for RemainID, Data in pairs(self.Data.TrapRemains) do
+        table.insert(TrapRemains, {RemainID, Data});
+    end
+    for i= table.getn(TrapRemains), 1, -1 do
+        local RemainID = TrapRemains[i][1];
+        local Data = TrapRemains[i][2];
         if IsExisting(RemainID) then
             self.Data.TrapRemains[RemainID][1] = math.max(Data[1] - 1, 0);
             if Data[1] <= 0 then

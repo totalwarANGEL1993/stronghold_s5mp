@@ -1653,7 +1653,16 @@ function Stronghold.Hero.Perk:ApplyMineAmountPassiveAbility(_EntityID, _Amount)
     if ResourceAmount > 0 then
         for PlayerID = 1, GetMaxPlayers() do
             if IsPlayer(PlayerID) then
+                -- Create local table to avoid modifying global table while looping
+                local ScoutBombs = {};
                 for BombID, BombData in pairs(self.Data.ScoutBombs) do
+                    table.insert(ScoutBombs, {BombID, BombData});
+                end
+                -- Reverse loop over local table
+                for i= table.getn(ScoutBombs), 1, -1 do
+                    local BombID = ScoutBombs[i][1];
+                    local BombData = ScoutBombs[i][2];
+
                     if GetDistance({X= x1, Y= y1}, {X= BombData[2], Y= BombData[3]}) < 1000 then
                         -- Generic T1: Pyrotechnican
                         if self:IsPerkTriggered(PlayerID, HeroPerks.Generic_Pyrotechnican) then

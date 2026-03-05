@@ -357,7 +357,14 @@ function Stronghold.Populace:OnHawkHabitatCreated(_EntityID)
 end
 
 function Stronghold.Populace:OnHawkHabitatDestroyed(_EntityID)
+    -- Create local table to avoid modifying global table while looping
+    local HawkHabitats = {};
     for PlayerID,_ in pairs(self.Data.HawkHabitats) do
+        table.insert(HawkHabitats, PlayerID);
+    end
+    -- Loop over local table
+    for i= 1, table.getn(HawkHabitats) do
+        local PlayerID = HawkHabitats[i];
         if self.Data.HawkHabitats[PlayerID][_EntityID] then
             local ID = self.Data.HawkHabitats[PlayerID][_EntityID][1];
             DestroyEntity(ID);

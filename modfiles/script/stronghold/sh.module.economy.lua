@@ -1172,7 +1172,15 @@ function Stronghold.Economy:IsWoodPile(_Entity)
 end
 
 function Stronghold.Economy:ControlWoodPiles()
+    -- Create local table to avoid modifying global table while looping
+    local WoodPiles = {};
     for Entity, Data in pairs(self.Data.WoodPiles) do
+        table.insert(WoodPiles, {Entity, Data});
+    end
+    -- Loop over local table
+    for i= 1, table.getn(WoodPiles) do
+        local Entity = WoodPiles[i][1];
+        local Data = WoodPiles[i][2];
         local ID = GetID(Entity);
         if Logic.GetResourceDoodadGoodAmount(ID) <= Data.ResourceLimit then
             self:DestroyWoodPile(Entity);
