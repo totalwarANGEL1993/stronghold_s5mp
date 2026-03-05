@@ -816,18 +816,17 @@ Stronghold.Hero.Perk.Config.Perks = {
             Factor = 0.7,
         }
     },
-    [HeroPerks.Hero10_GunManufacturer] = {
+    [HeroPerks.Hero10_PrecisionTraining] = {
         Icon = "HeroPerkHeroButtonSource10",
         Text = "sh_windowperks/Hero10_Perk3",
         Data = {
             RequiredRank = 7,
-            Bonus = 3,
-            EntityTypes = {
-                [Entities.PB_GunsmithWorkshop1] = true,
-                [Entities.PB_GunsmithWorkshop2] = true
-            },
-            ResourceTypes = {
-                [ResourceType.Sulfur] = true,
+            Factor = 1.1,
+            DamageClasses = {
+                [DamageClasses.DC_Bullet] = true,
+                [DamageClasses.DC_Arrow] = true,
+                [DamageClasses.DC_Bolt] = true,
+                [DamageClasses.DC_BoltStrong] = true,
             },
         }
     },

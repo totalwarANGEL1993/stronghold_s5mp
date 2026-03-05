@@ -393,7 +393,6 @@ function Stronghold:StartTriggers()
         local Attacker = Event.GetEntityID1();
         local Attacked = Event.GetEntityID2();
         Stronghold:OnEntityHurtEntity(Attacker, Attacked);
-        Stronghold.Unit:OnEntityHurt(Attacker, Attacked);
     end);
 
     Job.Diplomacy(function()
@@ -406,9 +405,7 @@ end
 
 function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
     local AttackerPlayer = Logic.EntityGetPlayer(_AttackerID);
-    local AttackerType = Logic.GetEntityType(_AttackerID);
     local AttackedPlayer = Logic.EntityGetPlayer(_AttackedID);
-    local AttackedType = Logic.GetEntityType(_AttackedID);
     if _AttackerID and _AttackedID then
         -- Get attacker ID
         local ID = _AttackedID;
@@ -419,29 +416,33 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             end
         end
         if Logic.GetEntityHealth(ID) > 0 then
-            -- Save in attack memory
-            Stronghold.Player:RegisterAttack(AttackedPlayer, _AttackedID, _AttackerID, 15);
             local Damage = CEntity.HurtTrigger.GetDamage();
             local DamageClass = GetEntityDamageClass(_AttackedID);
-            -- Vigilante
-            if IsAttackerAlarmDefender(_AttackerID) then
-                if Logic.IsTechnologyResearched(AttackerPlayer, Technologies.T_Vigilante) == 1 then
-                    Damage = Damage * 3;
-                end
-            end
+            -- Save in attack memory
+            Stronghold.Player:RegisterAttack(AttackedPlayer, _AttackedID, _AttackerID, 15);
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
-            -- prevent eco harrasment
-            if DamageClass == 1 or DamageClass == 2 then
-                if Logic.IsEntityInCategory(_AttackedID, EntityCategories.Worker) == 1
-                or Logic.IsEntityInCategory(_AttackedID, EntityCategories.Workplace) == 1
-                or AttackedType == Entities.PU_Serf then
-                    Damage = 1;
-                end
-            end
+            -- Apply eco raid protection (always last, so it cannot be manipulated by other effects)
+            Damage = Stronghold.Unit:ApplyEcoRaidProtection(_AttackerID, _AttackedID, Damage);
             CEntity.HurtTrigger.SetDamage(math.max(math.ceil(Damage), 1));
         end
     end
+end
+
+-- Lord Eco Mopping
+function Stronghold.Unit:ApplyEcoRaidProtection(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
+    local AttackedType = Logic.GetEntityType(_AttackedID);
+    local AttackerType = Logic.GetEntityType(_AttackerID);
+    local DamageClass = self:GetEntityDamageClass(_AttackedID);
+    if DamageClass == 1 or DamageClass == 2 then
+        if Logic.IsEntityInCategory(_AttackedID, EntityCategories.Worker) == 1
+        or Logic.IsEntityInCategory(_AttackedID, EntityCategories.Workplace) == 1
+        or AttackedType == Entities.PU_Serf then
+            Damage = 0;
+        end
+    end
+    return Damage;
 end
 
 -- Payday updater

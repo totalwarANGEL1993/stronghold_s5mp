@@ -71,7 +71,7 @@ HeroPerks = {
     Hero10_Ability = 300,
     Hero10_MusketeersOath = 301,
     Hero10_SlaveMaster = 302,
-    Hero10_GunManufacturer = 303,
+    Hero10_PrecisionTraining = 303,
     --
     Hero11_Ability = 310,
     Hero11_UseShuriken = 311,

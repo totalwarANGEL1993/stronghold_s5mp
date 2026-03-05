@@ -483,7 +483,7 @@ function Stronghold.Hero.Perk:SetupUnlockablePerksForPlayerHero(_PlayerID, _Type
         if _Type == Entities.PU_Hero10 then
             self:ClosePerkForPlayerInSelection(_PlayerID, HeroPerks.Generic_PhilosophersStone);
 
-            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero10_GunManufacturer);
+            self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero10_PrecisionTraining);
             self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero10_MusketeersOath);
             self:AllowPerkForPlayerInSelection(_PlayerID, HeroPerks.Hero10_SlaveMaster);
         end
@@ -807,6 +807,12 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         Stronghold.Hero.Perk:OnNobleDefeated(_PlayerID, _NobleID, _AttackerID);
     end);
 
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_CalculateAltitudeBonus", function(_AttackerID, _AttackerZ, _AttackedID, _AttackedZ, _Bonus)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero.Perk:ApplyHeightDamageBonus(_AttackerID, _AttackerZ, _AttackedID, _AttackedZ, _Bonus);
+        return CurrentAmount;
+    end);
+
     -- Noble --
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_ReputationMax", function(_PlayerID, _CurrentAmount)
@@ -1080,14 +1086,6 @@ function Stronghold.Hero.Perk:ApplyResourceRefiningBonusAbility(_PlayerID, _Buil
         local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
         if _ResourceType == ResourceType.Wood then
             CurrentAmount = CurrentAmount + Data.RefinedWoodBonus;
-        end
-    end
-    -- Hero 10: Gun Manufacturer
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero10_GunManufacturer) then
-        local Data = self.Config.Perks[HeroPerks.Hero10_GunManufacturer].Data;
-        local BuildingType = Logic.GetEntityType(_BuildingID);
-        if Data.EntityTypes[BuildingType] and Data.ResourceTypes[_ResourceType] then
-            CurrentAmount = CurrentAmount + Data.Bonus;
         end
     end
     return CurrentAmount;
@@ -1758,6 +1756,20 @@ function Stronghold.Hero.Perk:ApplySermonCostsDiscountPassiveAbility(_PlayerID, 
     if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero6_Preacher) then
         local Data = self.Config.Perks[HeroPerks.Hero6_Preacher].Data;
         CurrentAmount = math.ceil(CurrentAmount * Data.CostFactor);
+    end
+    return CurrentAmount;
+end
+
+function Stronghold.Hero.Perk:ApplyHeightDamageBonus(_AttackerID, _AttackerZ, _AttackedID, _AttackedZ, _CurrentAmount)
+    local CurrentAmount = _CurrentAmount;
+    local PlayerID = Logic.EntityGetPlayer(_AttackerID);
+    local DamageClass = GetEntityDamageClass(_AttackedID);
+    -- Hero 10: Precision Training
+    if self:IsPerkTriggered(PlayerID, HeroPerks.Hero10_PrecisionTraining) then
+        local Data = self.Config.Perks[HeroPerks.Hero10_PrecisionTraining].Data;
+        if Data.DamageClasses[DamageClass] then
+            CurrentAmount = CurrentAmount * Data.Factor;
+        end
     end
     return CurrentAmount;
 end

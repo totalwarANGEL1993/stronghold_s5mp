@@ -10,8 +10,8 @@ Stronghold = Stronghold or {};
 
 Stronghold.Unit = {
     Data = {
-        Intoxicated = {},
-        ComboStar = {},
+        ArmorBreak = {},
+        ConsecutiveHits = {},
     },
     Config = {},
 }
@@ -24,6 +24,20 @@ Stronghold.Unit = {
 --- @return integer DamageClass Damage class
 function GetEntityDamageClass(_Entity)
     return Stronghold.Unit:GetEntityDamageClass(_Entity);
+end
+
+-- -------------------------------------------------------------------------- --
+-- Game Callbacks
+
+--- Called after the altitude bonus has be calculated.
+--- @param _AttackerID integer ID of the attacking entity
+--- @param _AttackerZ number Height of the attacking entity
+--- @param _AttackedID integer ID of the attacked entity
+--- @param _AttackedZ number Height of the attacked entity
+--- @param _Factor number Altitude bonus factor
+--- @return number New altitude bonus factor
+function GameCallback_SH_Logic_CalculateAltitudeBonus(_AttackerID, _AttackerZ, _AttackedID, _AttackedZ, _Factor)
+    return _Factor;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -61,22 +75,21 @@ function Stronghold.Unit:OncePerSecond(_PlayerID)
     self:FearmongerJob(_PlayerID);
 end
 
-function Stronghold.Unit:OnEntityHurt(_AttackerID, _AttackedID)
-end
-
 function Stronghold.Unit:OverwriteGameCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_BattleDamage", function(_AttackerID, _AttackedID, _Damage)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Unit:IntoxicationCalculateDamage(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:VigilanteTechnologyEffect(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:ArmorBreakCalculateDamage(_AttackerID, _AttackedID, _Damage);
         CurrentAmount = Stronghold.Unit:AssassinationCalculateDamage(_AttackerID, _AttackedID, _Damage);
         CurrentAmount = Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID, _Damage);
         CurrentAmount = Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damage);
         return CurrentAmount;
     end);
 end
 
 -- -------------------------------------------------------------------------- --
--- Damage Classes
+-- Damage Calculation
 
 function Stronghold.Unit:GetEntityDamageClass(_EntityID)
     local EntityID = GetID(_EntityID);
@@ -85,6 +98,16 @@ function Stronghold.Unit:GetEntityDamageClass(_EntityID)
     end
     local EntityType = Logic.GetEntityType(EntityID);
     return self.Config.EntityToDamageClassMap[EntityType] or 0;
+end
+
+function Stronghold.Unit:VigilanteTechnologyEffect(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
+    if IsAttackerAlarmDefender(_AttackerID) then
+        if Logic.IsTechnologyResearched(_AttackerID, Technologies.T_Vigilante) == 1 then
+            Damage = Damage * 3;
+        end
+    end
+    return Damage;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -323,9 +346,9 @@ function Stronghold.Unit:FearmongerJobInflictFear(_LeaderID)
     GUI.SettlerInflictFear(_LeaderID);
 end
 
--- Intoxication --
+-- Armor Break --
 
-function Stronghold.Unit:IntoxicationCalculateDamage(_AttackerID, _AttackedID, _Damage)
+function Stronghold.Unit:ArmorBreakCalculateDamage(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
     local CurrentTurn = Logic.GetCurrentTurn();
     local AttackerType = Logic.GetEntityType(_AttackerID);
@@ -340,16 +363,16 @@ function Stronghold.Unit:IntoxicationCalculateDamage(_AttackerID, _AttackedID, _
         local Chance = self.Config.Passive.Cripple[AttackerType].Chance;
         if  (Logic.IsHero(TargetID) == 0 and Logic.IsBuilding(TargetID) == 0)
         and math.random(1, 100) <= Chance
-        and not self.Data.Intoxicated[TargetID] then
+        and not self.Data.ArmorBreak[TargetID] then
             local Time = self.Config.Passive.Cripple[AttackerType].Duration;
-            self.Data.Intoxicated[_AttackedID] = {Time, Logic.GetTime(), AttackerType};
+            self.Data.ArmorBreak[_AttackedID] = {Time, Logic.GetTime(), AttackerType};
         end
     end
     -- Manipulate damage
-    if self.Data.Intoxicated[_AttackedID] then
-        local Data = self.Data.Intoxicated[_AttackedID];
+    if self.Data.ArmorBreak[_AttackedID] then
+        local Data = self.Data.ArmorBreak[_AttackedID];
         if Logic.GetTime() > Data[1] + Data[2] then
-            self.Data.Intoxicated[TargetID] = nil;
+            self.Data.ArmorBreak[TargetID] = nil;
         else
             if self.Config.Passive.Cripple[Data[3]] then
                 local Factor = self.Config.Passive.Cripple[Data[3]].Factor;
@@ -437,21 +460,21 @@ function Stronghold.Unit:RefundKilledUnit(_EntityID)
     end
 end
 
--- Combo star --
+-- Consecutive Hits --
 
 function Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
     local CurrentTurn = Logic.GetCurrentTurn();
     local AttackerType = Logic.GetEntityType(_AttackerID);
-    if self.Config.Passive.ComboStar[AttackerType] then
+    if self.Config.Passive.ConsecutiveHits[AttackerType] then
         -- Get leader
         local LeaderID = _AttackerID;
         if Logic.IsEntityInCategory(LeaderID, EntityCategories.Soldier) == 1 then
             LeaderID = SVLib.GetLeaderOfSoldier(LeaderID) or LeaderID;
         end
         -- Calculate extra Damage
-        local Config = self.Config.Passive.ComboStar[AttackerType];
-        local Data = self.Data.ComboStar[LeaderID] or {};
+        local Config = self.Config.Passive.ConsecutiveHits[AttackerType];
+        local Data = self.Data.ConsecutiveHits[LeaderID] or {};
         local Factor = 1;
         for i= table.getn(Data), 1, -1 do
             if Data[i][1] + Config.MaxTime > CurrentTurn then
@@ -463,9 +486,27 @@ function Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID
         Damage = Damage * Factor;
         -- Add hit to register
         table.insert(Data, {CurrentTurn, Config.Bonus});
-        self.Data.ComboStar[LeaderID] = Data;
+        self.Data.ConsecutiveHits[LeaderID] = Data;
     end
     return Damage;
+end
+
+-- Height Bonus --
+
+function Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
+    local AltitudeFactor = self.Config.Passive.HeightBonus.InitialAltitudeFactor;
+    local _,_,AttackerZ = Logic.EntityGetPos(_AttackerID);
+    local _,_,AttackedZ = Logic.EntityGetPos(_AttackedID);
+    local AltitudeDelta = math.ceil(AttackerZ - AttackedZ / 100);
+
+    local Bonus = self.Config.Passive.HeightBonus.AltitudeFactor * AltitudeDelta;
+    AltitudeFactor = math.min(AltitudeFactor, self.Config.Passive.HeightBonus.MaxAltitudeFactor);
+    AltitudeFactor = math.max(AltitudeFactor, self.Config.Passive.HeightBonus.MinAltitudeFactor);
+
+    Bonus = GameCallback_SH_Logic_CalculateAltitudeBonus(_AttackerID, AttackerZ, _AttackedID, AttackedZ, Bonus);
+    AltitudeFactor = AltitudeFactor + Bonus;
+    return Damage * AltitudeFactor;
 end
 
 -- -------------------------------------------------------------------------- --
