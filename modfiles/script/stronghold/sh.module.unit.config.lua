@@ -816,7 +816,7 @@ Stronghold.Unit.Config.Passive = {
             Refund = 0.5
         },
     },
-    ComboStar = {
+    ConsecutiveHits = {
         [Entities.PU_LeaderCavalry2] = {
             MaxTime = 100,
             Bonus = 0.015,
@@ -844,7 +844,7 @@ Stronghold.Unit.Config.HeightConfig = {
 };
 
 Stronghold.Unit.Config.HiddenConfig = {
-    EvasionChance = 10,
+    EvasionChance = 20,
     DamageClasses = {
         [DamageClasses.DC_Bullet] = true,
         [DamageClasses.DC_Arrow] = true,

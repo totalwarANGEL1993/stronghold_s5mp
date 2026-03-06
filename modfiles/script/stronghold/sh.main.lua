@@ -423,23 +423,23 @@ function Stronghold:OnEntityHurtEntity(_AttackerID, _AttackedID)
             -- External
             Damage = GameCallback_SH_Calculate_BattleDamage(_AttackerID, _AttackedID, Damage);
             -- Apply eco raid protection (always last, so it cannot be manipulated by other effects)
-            Damage = Stronghold.Unit:ApplyEcoRaidProtection(_AttackerID, _AttackedID, Damage);
-            CEntity.HurtTrigger.SetDamage(math.max(math.ceil(Damage), 1));
+            Damage = self:ApplyEcoRaidProtection(_AttackerID, _AttackedID, Damage);
+            CEntity.HurtTrigger.SetDamage(math.max(math.ceil(Damage), 0));
         end
     end
 end
 
 -- Lord Eco Mopping
-function Stronghold.Unit:ApplyEcoRaidProtection(_AttackerID, _AttackedID, _Damage)
+function Stronghold:ApplyEcoRaidProtection(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
     local AttackedType = Logic.GetEntityType(_AttackedID);
     local AttackerType = Logic.GetEntityType(_AttackerID);
-    local DamageClass = self:GetEntityDamageClass(_AttackedID);
+    local DamageClass = GetEntityDamageClass(_AttackedID);
     if DamageClass == 1 or DamageClass == 2 then
         if Logic.IsEntityInCategory(_AttackedID, EntityCategories.Worker) == 1
         or Logic.IsEntityInCategory(_AttackedID, EntityCategories.Workplace) == 1
         or AttackedType == Entities.PU_Serf then
-            Damage = 0;
+            Damage = 1;
         end
     end
     return Damage;

@@ -73659,9 +73659,9 @@
                           <Name>DetailsStatus</Name>
                           <Rectangle>
                             <X>2</X>
-                            <Y>64</Y>
+                            <Y>66</Y>
                             <W>80</W>
-                            <H>30</H>
+                            <H>20</H>
                           </Rectangle>
                           <IsShown>True</IsShown>
                           <ZPriority>0</ZPriority>
@@ -74020,7 +74020,7 @@
                               <Name>DetailsHealth_Amount</Name>
                               <Rectangle>
                                 <X>0</X>
-                                <Y>6</Y>
+                                <Y>7</Y>
                                 <W>67</W>
                                 <H>4</H>
                               </Rectangle>

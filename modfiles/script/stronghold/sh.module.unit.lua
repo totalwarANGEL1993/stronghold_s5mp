@@ -87,13 +87,13 @@ end
 function Stronghold.Unit:OverwriteGameCallbacks()
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_BattleDamage", function(_AttackerID, _AttackedID, _Damage)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Unit:VigilanteTechnologyEffect(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:ArmorBreakCalculateDamage(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:AssassinationCalculateDamage(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damage);
-        CurrentAmount = Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:VigilanteTechnologyEffect(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Unit:ArmorBreakCalculateDamage(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Unit:AssassinationCalculateDamage(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, CurrentAmount);
         return CurrentAmount;
     end);
 end
@@ -505,14 +505,14 @@ end
 
 function Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
-    local AltitudeFactor = self.Config.Passive.HeightBonus.InitialAltitudeFactor;
+    local AltitudeFactor = self.Config.HeightConfig.InitialAltitudeFactor;
     local _,_,AttackerZ = Logic.EntityGetPos(_AttackerID);
     local _,_,AttackedZ = Logic.EntityGetPos(_AttackedID);
     local AltitudeDelta = math.ceil((AttackerZ - AttackedZ) / 100);
 
-    local Bonus = self.Config.Passive.HeightBonus.AltitudeFactor * AltitudeDelta;
-    AltitudeFactor = math.min(AltitudeFactor, self.Config.Passive.HeightBonus.MaxAltitudeFactor);
-    AltitudeFactor = math.max(AltitudeFactor, self.Config.Passive.HeightBonus.MinAltitudeFactor);
+    local Bonus = self.Config.HeightConfig.AltitudeFactor * AltitudeDelta;
+    AltitudeFactor = math.min(AltitudeFactor, self.Config.HeightConfig.MaxAltitudeFactor);
+    AltitudeFactor = math.max(AltitudeFactor, self.Config.HeightConfig.MinAltitudeFactor);
 
     -- Note: applying the bonus after clamping allows perks to raise factors abouve the limits
     Bonus = GameCallback_SH_Logic_CalculateAltitudeBonus(_AttackerID, AttackerZ, _AttackedID, AttackedZ, Bonus);
