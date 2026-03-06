@@ -41,10 +41,10 @@ HeroPerks = {
     Hero4_GrandMaster = 242,
     Hero4_Marschall = 243,
     --
-    Hero5_ChildOfNature = 250,
-    Hero5_HubertusBlessing = 251,
-    Hero5_TaxBonus = 252,
-    Hero5_Ability = 253,
+    Hero5_Ability = 250,
+    Hero5_TaxBonus = 251,
+    Hero5_ChildOfNature = 252,
+    Hero5_HubertusBlessing = 253,
     --
     Hero6_Ability = 260,
     Hero6_Confessor = 261,

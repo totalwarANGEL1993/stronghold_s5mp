@@ -27,6 +27,10 @@ function UnlockPerkForPlayer(_PlayerID, _Perk)
     Stronghold.Hero.Perk:UnlockPerkForPlayer(_PlayerID, _Perk)
 end
 
+function IsPerkTriggered(_PlayerID, _Perk)
+    return Stronghold.Hero.Perk:IsPerkTriggered(_PlayerID, _Perk);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Game Callback
 
@@ -799,7 +803,7 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
 
     Overwrite.CreateOverwrite("GameCallback_SH_Calculate_BattleDamage", function(_AttackerID, _AttackedID, _Damage)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _AttackedID, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -809,7 +813,13 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
 
     Overwrite.CreateOverwrite("GameCallback_SH_Logic_CalculateAltitudeBonus", function(_AttackerID, _AttackerZ, _AttackedID, _AttackedZ, _Bonus)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero.Perk:ApplyHeightDamageBonus(_AttackerID, _AttackerZ, _AttackedID, _AttackedZ, _Bonus);
+        CurrentAmount = Stronghold.Hero.Perk:ApplyHeightDamageBonus(_AttackerID, _AttackerZ, _AttackedID, _AttackedZ, CurrentAmount);
+        return CurrentAmount;
+    end);
+
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_CalculateBotanyEvasionChance", function(_AttackerID, _AttackedID, _Chance)
+        local CurrentAmount = Overwrite.CallOriginal();
+        CurrentAmount = Stronghold.Hero.Perk:ApplyEvasionChanceBonus(_AttackerID, _AttackedID, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1008,14 +1018,6 @@ function Stronghold.Hero.Perk:ApplyResourceProductionBonusAbility(_PlayerID, _Bu
             CurrentAmount = CurrentAmount + Data.Amount;
         end
     end
-    -- Hero 5: Child of Nature
-    if self:IsPerkTriggered(_PlayerID, HeroPerks.Hero5_ChildOfNature) then
-        local Data = self.Config.Perks[HeroPerks.Hero5_ChildOfNature].Data;
-        if  math.random(1, 100) <= Data.PreservationChance
-        and _ResourceType ~= ResourceType.WoodRaw then
-            RemainingAmount = RemainingAmount + Data.MinerPreservation;
-        end
-    end
     return CurrentAmount, RemainingAmount;
 end
 
@@ -1028,8 +1030,6 @@ function Stronghold.Hero.Perk:ApplySerfExtractionBonusAbility(_PlayerID, _SerfID
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Data.RawWoodBonus);
         elseif _ResourceType == ResourceType.SilverRaw then
             Logic.AddToPlayersGlobalResource(_PlayerID, ResourceType.WoodRaw, Data.RawWoodBonus);
-        elseif math.random(1, 100) <= Data.PreservationChance then
-            RemainingAmount = RemainingAmount + Data.SerfPreservation;
         end
     end
     return CurrentAmount, RemainingAmount;
@@ -1239,13 +1239,6 @@ function Stronghold.Hero.Perk:ApplyBattleDamagePassiveAbility(_AttackerID, _Atta
             if Data.DamageClasses[DamageClass] then
                 CurrentAmount = CurrentAmount * Data.Factor;
             end
-        end
-    end
-    -- Hero 4: Hubertus Blessing
-    if self:IsPerkTriggered(AttackedPlayerID, HeroPerks.Hero5_HubertusBlessing) then
-        local Data = self.Config.Perks[HeroPerks.Hero5_HubertusBlessing].Data;
-        if Data.EntityTypes[AttackedType] then
-            CurrentAmount = CurrentAmount * Data.DamageFactor;
         end
     end
     -- Hero 7: Moloch
@@ -1777,6 +1770,20 @@ function Stronghold.Hero.Perk:ApplyHeightDamageBonus(_AttackerID, _AttackerZ, _A
     if self:IsPerkTriggered(PlayerID, HeroPerks.Hero10_PrecisionTraining) then
         local Data = self.Config.Perks[HeroPerks.Hero10_PrecisionTraining].Data;
         if Data.DamageClasses[DamageClass] then
+            CurrentAmount = CurrentAmount * Data.Factor;
+        end
+    end
+    return CurrentAmount;
+end
+
+function Stronghold.Hero.Perk:ApplyEvasionChanceBonus(_AttackerID, _AttackedID, _CurrentAmount)
+    local CurrentAmount = _CurrentAmount;
+    local PlayerID = Logic.EntityGetPlayer(_AttackedID);
+    local AttackedType = Logic.GetEntityType(_AttackedID);
+    -- Hero 4: Hubertus Blessing
+    if self:IsPerkTriggered(PlayerID, HeroPerks.Hero5_HubertusBlessing) then
+        local Data = self.Config.Perks[HeroPerks.Hero5_HubertusBlessing].Data;
+        if Data.EntityTypes[AttackedType] then
             CurrentAmount = CurrentAmount * Data.Factor;
         end
     end

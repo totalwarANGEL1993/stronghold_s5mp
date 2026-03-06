@@ -42,6 +42,27 @@ function SetUnitMarchingFlag(_Entity, _Flag)
     Stronghold.Stamina:SetUnitMarchingFlag(EntityID, _Flag)
 end
 
+--- Checks if the unit is currently hidden in bushes or behind trees.
+--- @param _EntityID integer ID of entity 
+--- @return boolean True if the unit is hidden, false otherwise
+function IsUnitHidden(_EntityID)
+    return IsUnitHiddenByBush(_EntityID) or IsUnitHiddenByTree(_EntityID);
+end
+
+--- Checks if the unit is currently hidden in bushes.
+--- @param _EntityID integer ID of entity 
+--- @return boolean True if the unit is hidden, false otherwise
+function IsUnitHiddenByBush(_EntityID)
+    return Stronghold.Stamina:GetUnitHiddenByBush(_EntityID);
+end
+
+--- Checks if the unit is currently hidden behind trees.
+--- @param _EntityID integer ID of entity 
+--- @return boolean True if the unit is hidden, false otherwise
+function IsUnitHiddenByTree(_EntityID)
+    return Stronghold.Stamina:GetUnitHiddenByTree(_EntityID);
+end
+
 -- -------------------------------------------------------------------------- --
 -- Internal
 
@@ -351,6 +372,18 @@ function Stronghold.Stamina:GetUnitEndurance(_EntityID)
     return 1;
 end
 
+function Stronghold.Stamina:GetUnitHiddenByBush(_EntityID)
+    local x,y,z = Logic.EntityGetPos(_EntityID);
+    local BushInArea = GetBushAtPosition(x, y, self.Config.HiddenConfig.BushCoverArea, 1);
+    return BushInArea[1] and true or false;
+end
+
+function Stronghold.Stamina:GetUnitHiddenByTree(_EntityID)
+    local x,y,z = Logic.EntityGetPos(_EntityID);
+    local TreeInArea = GetTreeAtPosition(x, y, self.Config.HiddenConfig.TreeCoverArea, 1);
+    return TreeInArea[1] and true or false;
+end
+
 function Stronghold.Stamina:GetUnitDamageByEndurance(_AttackerID, _Damage)
     local LeaderID = _AttackerID;
     if Logic.IsEntityInCategory(LeaderID, EntityCategories.Soldier) == 1 then
@@ -420,6 +453,7 @@ function Stronghold.Stamina:OnSelectUnit(_EntityID)
     XGUIEng.ShowWidget("DetailsStatus", VisibilityFlag);
     XGUIEng.ShowWidget("DetailsStatus_Pace", 1);
     XGUIEng.ShowWidget("DetailsStatus_Stamina", 1);
+    XGUIEng.ShowWidget("DetailsStatus_Visibility", 1);
 end
 
 function Stronghold.Stamina:GetUnitStaminaIcon(_Endurance)
@@ -438,6 +472,14 @@ function Stronghold.Stamina:GetUnitStaminaIcon(_Endurance)
     end
     if  _Endurance < self.Config.Endurance.BadStaminaThreshold then
         EnduranceSource = "graphics/textures/gui/i_res_motiv_worse.png";
+    end
+    return EnduranceSource;
+end
+
+function Stronghold.Stamina:GetUnitVisibilityIcon(_Visibility)
+    local EnduranceSource = "graphics/textures/gui/onscreen_status_visible.png";
+    if _Visibility then
+        EnduranceSource = "graphics/textures/gui/onscreen_status_visible.png";
     end
     return EnduranceSource;
 end
@@ -530,5 +572,13 @@ function GUIUpdate_DetailsStatus()
     local EnduranceImage = Stronghold.Stamina:GetUnitStaminaIcon(Endurance);
     XGUIEng.ShowWidget("DetailsStatus_Stamina", StaminaVisibilityFlag);
     XGUIEng.SetMaterialTexture("DetailsStatus_StaminaIcon", 1, EnduranceImage);
+
+    local Hidden = false;
+    if IsPerkTriggered(GUI.GetPlayerID(), HeroPerks.Hero5_HubertusBlessing) or IsUnitHidden(EntityID) then
+        Hidden = true;
+    end
+    local VisibilityImage = Stronghold.Stamina:GetUnitVisibilityIcon(Hidden);
+    XGUIEng.ShowWidget("DetailsStatus_Visibility", (Hidden and 1) or 0);
+    XGUIEng.SetMaterialTexture("DetailsStatus_VisibilityIcon", 1, VisibilityImage);
 end
 

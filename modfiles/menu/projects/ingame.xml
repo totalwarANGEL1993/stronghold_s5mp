@@ -73751,9 +73751,83 @@
                               <LineDistanceFactor>0</LineDistanceFactor>
                             </WidgetList>
                             <WidgetList classname="EGUIX::CContainerWidget" classid="0x55f9d1f6">
-                              <Name>DetailsStatus_Pace</Name>
+                              <Name>DetailsStatus_Visibility</Name>
                               <Rectangle>
                                 <X>42</X>
+                                <Y>3</Y>
+                                <W>24</W>
+                                <H>23</H>
+                              </Rectangle>
+                              <IsShown>False</IsShown>
+                              <ZPriority>0</ZPriority>
+                              <MotherID>DetailsStatus</MotherID>
+                              <Group></Group>
+                              <ForceToHandleMouseEventsFlag>False</ForceToHandleMouseEventsFlag>
+                              <ForceToNeverBeFoundFlag>False</ForceToNeverBeFoundFlag>
+                              <SubWidgets>
+                                <WidgetList classname="EGUIX::CPureTooltipWidget" classid="0x82cc8876">
+                                  <Name>DetailsStatus_VisibilityTooltip</Name>
+                                  <Rectangle>
+                                    <X>6</X>
+                                    <Y>6</Y>
+                                    <W>12</W>
+                                    <H>12</H>
+                                  </Rectangle>
+                                  <IsShown>True</IsShown>
+                                  <ZPriority>20</ZPriority>
+                                  <MotherID>DetailsStatus_Visibility</MotherID>
+                                  <Group></Group>
+                                  <ForceToHandleMouseEventsFlag>False</ForceToHandleMouseEventsFlag>
+                                  <ForceToNeverBeFoundFlag>False</ForceToNeverBeFoundFlag>
+                                  <ToolTipHelper>
+                                    <ToolTipEnabledFlag>True</ToolTipEnabledFlag>
+                                    <ToolTipString>
+                                      <StringTableKey></StringTableKey>
+                                      <RawString></RawString>
+                                    </ToolTipString>
+                                    <TargetWidget>TooltipBottom</TargetWidget>
+                                    <ControlTargetWidgetDisplayState>True</ControlTargetWidgetDisplayState>
+                                    <UpdateFunction>
+                                      <LuaCommand>GUITooltip_Generic("sh_menucommandsgeneric/StatusVisibility")</LuaCommand>
+                                    </UpdateFunction>
+                                  </ToolTipHelper>
+                                </WidgetList>
+                                <WidgetList classname="EGUIX::CStaticWidget" classid="0x213a8776">
+                                  <Name>DetailsStatus_VisibilityIcon</Name>
+                                  <Rectangle>
+                                    <X>0</X>
+                                    <Y>0</Y>
+                                    <W>24</W>
+                                    <H>23</H>
+                                  </Rectangle>
+                                  <IsShown>True</IsShown>
+                                  <ZPriority>0</ZPriority>
+                                  <MotherID>DetailsStatus_Visibility</MotherID>
+                                  <Group></Group>
+                                  <ForceToHandleMouseEventsFlag>False</ForceToHandleMouseEventsFlag>
+                                  <ForceToNeverBeFoundFlag>False</ForceToNeverBeFoundFlag>
+                                  <BackgroundMaterial>
+                                    <Texture>graphics\textures\gui\onscreen_status_exposed.png</Texture>
+                                    <TextureCoordinates>
+                                      <X>0</X>
+                                      <Y>0</Y>
+                                      <W>1</W>
+                                      <H>1</H>
+                                    </TextureCoordinates>
+                                    <Color>
+                                      <Red>255</Red>
+                                      <Green>255</Green>
+                                      <Blue>255</Blue>
+                                      <Alpha>255</Alpha>
+                                    </Color>
+                                  </BackgroundMaterial>
+                                </WidgetList>
+                              </SubWidgets>
+                            </WidgetList>
+                            <WidgetList classname="EGUIX::CContainerWidget" classid="0x55f9d1f6">
+                              <Name>DetailsStatus_Pace</Name>
+                              <Rectangle>
+                                <X>28</X>
                                 <Y>3</Y>
                                 <W>24</W>
                                 <H>23</H>

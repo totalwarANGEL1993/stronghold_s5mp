@@ -19,13 +19,6 @@ Stronghold.Unit.Config.Movement = {
     },
 };
 
-Stronghold.Unit.Config.HeightConfig = {
-    AltitudeFactor = 0.02,
-    InitialAltitudeFactor = 1,
-    MinAltitudeFactor = 0.9,
-    MaxAltitudeFactor = 1.2,
-};
-
 -- Troops config
 Stronghold.Unit.Config.Troops = {
     -- Spear --
@@ -842,4 +835,21 @@ Stronghold.Unit.Config.Passive = {
         },
     },
 }
+
+Stronghold.Unit.Config.HeightConfig = {
+    AltitudeFactor = 0.02,
+    InitialAltitudeFactor = 1,
+    MinAltitudeFactor = 0.9,
+    MaxAltitudeFactor = 1.2,
+};
+
+Stronghold.Unit.Config.HiddenConfig = {
+    EvasionChance = 10,
+    DamageClasses = {
+        [DamageClasses.DC_Bullet] = true,
+        [DamageClasses.DC_Arrow] = true,
+        [DamageClasses.DC_Bolt] = true,
+        [DamageClasses.DC_BoltStrong] = true,
+    },
+};
 

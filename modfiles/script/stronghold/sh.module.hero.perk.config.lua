@@ -599,6 +599,9 @@ Stronghold.Hero.Perk.Config.Perks = {
                 [Entities.CU_TemplarLeaderHeavyCavalry1] = true,
                 [Entities.PU_LeaderHeavyCavalry1] = true,
                 [Entities.PU_LeaderHeavyCavalry2] = true,
+                [Entities.CU_TemplarSoldierHeavyCavalry1] = true,
+                [Entities.PU_SoldierHeavyCavalry1] = true,
+                [Entities.PU_SoldierHeavyCavalry2] = true,
             },
             DamageClasses = {
                 [DamageClasses.DC_Halberd] = true,
@@ -609,37 +612,37 @@ Stronghold.Hero.Perk.Config.Perks = {
 
     -- Hero 5 --
 
-    [HeroPerks.Hero5_ChildOfNature] = {
+    [HeroPerks.Hero5_TaxBonus] = {
         Icon = "HeroPerkHeroButtonSource6",
         Text = "sh_windowperks/Hero5_Perk1",
         Data = {
-            RequiredRank = 1,
-            PreservationChance = 10,
-            MinerPreservation = 1,
-            SerfPreservation = 1,
-            RawWoodBonus = 1,
-            RefinedWoodBonus = 1,
+            RequiredRank = 4,
+            Bonus = 1.3,
         }
     },
-    [HeroPerks.Hero5_TaxBonus] = {
+    [HeroPerks.Hero5_ChildOfNature] = {
         Icon = "HeroPerkHeroButtonSource6",
         Text = "sh_windowperks/Hero5_Perk2",
         Data = {
-            RequiredRank = 4,
-            Bonus = 1.3,
+            RequiredRank = 1,
+            PreservationChance = 10,
+            RawWoodBonus = 1,
+            RefinedWoodBonus = 2,
         }
     },
     [HeroPerks.Hero5_HubertusBlessing] = {
         Icon = "HeroPerkHeroButtonSource6",
         Text = "sh_windowperks/Hero5_Perk3",
         Data = {
-            RequiredRank = 7,
-            DamageFactor = 0.7,
             EntityTypes = {
                 [Entities.CU_BanditLeaderBow1] = true,
                 [Entities.CU_BanditLeaderCavalry1] = true,
                 [Entities.CU_BanditLeaderSword3] = true,
-            }
+                [Entities.CU_BanditSoldierBow1] = true,
+                [Entities.CU_BanditSoldierCavalry1] = true,
+                [Entities.CU_BanditSoldierSword3] = true,
+            },
+            Factor = 2.0,
         }
     },
 

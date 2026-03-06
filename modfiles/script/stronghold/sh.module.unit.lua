@@ -40,6 +40,15 @@ function GameCallback_SH_Logic_CalculateAltitudeBonus(_AttackerID, _AttackerZ, _
     return _Factor;
 end
 
+--- Called after evasion chance has been calculated for botany.
+--- @param _AttackerID integer ID of the attacking entity
+--- @param _AttackedID integer ID of the attacked entity
+--- @param _Chance integer Base chance to evade
+--- @return integer New chance to evade
+function GameCallback_SH_Logic_CalculateBotanyEvasionChance(_AttackerID, _AttackedID, _Chance)
+    return _Chance;
+end
+
 -- -------------------------------------------------------------------------- --
 -- Main
 
@@ -84,6 +93,7 @@ function Stronghold.Unit:OverwriteGameCallbacks()
         CurrentAmount = Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID, _Damage);
         CurrentAmount = Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, _Damage);
         CurrentAmount = Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damage);
+        CurrentAmount = Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, _Damage);
         return CurrentAmount;
     end);
 end
@@ -508,6 +518,24 @@ function Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damag
     Bonus = GameCallback_SH_Logic_CalculateAltitudeBonus(_AttackerID, AttackerZ, _AttackedID, AttackedZ, Bonus);
     AltitudeFactor = AltitudeFactor + Bonus;
     return Damage * AltitudeFactor;
+end
+
+-- Botany Damage Evasion --
+
+function Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, _Damage)
+    local Damage = _Damage;
+    local PlayerID = Logic.EntityGetPlayer(_AttackedID);
+    if Stronghold.Hero.Perk:IsPerkTriggered(PlayerID, HeroPerks.Hero5_HubertusBlessing) or IsUnitHidden(_AttackedID) then
+        local DamageClass = GetEntityDamageClass(_AttackerID);
+        if self.Config.HiddenConfig.DamageClasses[DamageClass] then
+            local Chance = self.Config.HiddenConfig.EvasionChance;
+            Chance = GameCallback_SH_Logic_CalculateBotanyEvasionChance(_AttackerID, _AttackedID, Chance);
+            if math.random(1, 100) <= math.ceil(Chance) then
+                Damage = 0;
+            end
+        end
+    end
+    return Damage;
 end
 
 -- -------------------------------------------------------------------------- --

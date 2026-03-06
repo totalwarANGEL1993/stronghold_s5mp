@@ -118,6 +118,11 @@ Stronghold.Stamina.Config = {
             [Entities.PU_Serf] = true,
             [Entities.PU_Watchman_Deco] = true,
         },
+    },
+
+    HiddenConfig = {
+        BushCoverArea = 200,
+        TreeCoverArea = 350,
     }
 };
 

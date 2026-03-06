@@ -62,45 +62,23 @@ function GetEntityCurrentTarget(_EntityID)
 end
 
 -- -------------------------------------------------------------------------- --
--- Find trees
--- (Limited to 16 per type but Vanilla compatible)
+-- Find bushes and trees
 
-gvTreeTypeTable = {};
-
-function GetTreeAtPosition(_X, _Y, _Range, _Amount, _Type)
-    FillTreeTable();
+function GetTreeAtPosition(_X, _Y, _Range, _Amount)
     if CEntityIterator then
         return GetTreeAtPositionWithIterator(_X, _Y, _Range, _Amount);
     end
-
-    _Amount = math.max(_Amount or 1, 1);
-    _Type = _Type or 0;
-
-    local List = {};
-    local Statics = {Logic.GetEntitiesInArea(_Type, _X, _Y, _Range, 16, 32)};
-    if Statics[1] <= 16 then
-        for i= 2, Statics[1]+1 do
-            if table.getn(List) >= _Amount then
-                break;
-            end
-            if IsTree(Statics[i]) then
-                table.insert(List, Statics[i]);
-            end
-        end
-    end
-    for k,v in pairs(gvTreeTypeTable) do
-        if table.getn(List) >= _Amount then
-            break;
-        end
-        for _, Tree in (GetTreeAtPosition(_X, _Y, _Range, Entities[k])) do
-            if table.getn(List) >= _Amount then
-                break;
-            end
-            table.insert(List, Tree);
-        end
-    end
-    return List;
+    return {};
 end
+
+function GetBushAtPosition(_X, _Y, _Range, _Amount)
+    if CEntityIterator then
+        return GetBushAtPositionWithIterator(_X, _Y, _Range, _Amount);
+    end
+    return {};
+end
+
+gvBotanyTypeTable = {};
 
 function GetTreeAtPositionWithIterator(_X, _Y, _Range, _Amount)
     local List = {};
@@ -122,23 +100,65 @@ function GetTreeAtPositionWithIterator(_X, _Y, _Range, _Amount)
     return List;
 end
 
+function GetBushAtPositionWithIterator(_X, _Y, _Range, _Amount)
+    local List = {};
+    local LowestDistance = Logic.WorldGetSize();
+    for ID in CEntityIterator.Iterator(CEntityIterator.InRangeFilter(_X, _Y, _Range)) do
+        if table.getn(List) >= _Amount then
+            break;
+        end
+        if IsBush(ID) then
+            local CurrentDistance = GetDistance(ID, {X= _X, Y= _Y});
+            if CurrentDistance < LowestDistance then
+                LowestDistance = CurrentDistance;
+                table.insert(List, 1, ID);
+            else
+                table.insert(List, ID);
+            end
+        end
+    end
+    return List;
+end
+
+function IsBush(_Entity)
+    return IsBotany(_Entity, "Bush");
+end
+
 function IsTree(_Entity)
+    return IsBotany(_Entity, "Tree");
+end
+
+function IsBotany(_Entity, _Type)
+    FillBotanyTables();
     if _Entity and IsExisting(_Entity) then
         local ID = GetID(_Entity);
         local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(ID));
-        return gvTreeTypeTable[TypeName] == true;
+        return gvBotanyTypeTable[_Type] and gvBotanyTypeTable[_Type][TypeName] == true;
     end
     return false;
 end
 
-function FillTreeTable()
-    gvTreeTypeTable = gvTreeTypeTable or {};
-    for k,v in pairs(Entities) do
-        if v ~= Entities.XD_TreeStump1 then
-            for _, TypePart in pairs{"Tree", "Palm", "Pine", "Fir", "Cypress", "Umbrella", "Willow"} do
+function FillBotanyTables()
+    if not gvBotanyTypeTable.Bush then
+        gvBotanyTypeTable.Bush = {};
+        for k,v in pairs(Entities) do
+            for _, TypePart in pairs{"Bush", "Corn", "GreeneryBush", "Rape", "Sunflower"} do
                 if (string.find(k, TypePart)) then
-                    gvTreeTypeTable[k] = true;
+                    gvBotanyTypeTable.Bush[k] = true;
                     break;
+                end
+            end
+        end
+    end
+    if not gvBotanyTypeTable.Tree then
+        gvBotanyTypeTable.Tree = {};
+        for k,v in pairs(Entities) do
+            if v ~= Entities.XD_TreeStump1 then
+                for _, TypePart in pairs{"Tree", "Palm", "Pine", "Fir", "Cypress", "Umbrella", "Willow"} do
+                    if (string.find(k, TypePart)) then
+                        gvBotanyTypeTable.Tree[k] = true;
+                        break;
+                    end
                 end
             end
         end
