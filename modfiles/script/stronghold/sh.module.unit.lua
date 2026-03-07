@@ -474,31 +474,33 @@ end
 
 function Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
-    local CurrentTurn = Logic.GetCurrentTurn();
     local AttackerType = Logic.GetEntityType(_AttackerID);
-    if self.Config.Passive.ConsecutiveHits[AttackerType] then
-        -- Get leader
-        local LeaderID = _AttackerID;
-        if Logic.IsEntityInCategory(LeaderID, EntityCategories.Soldier) == 1 then
-            LeaderID = SVLib.GetLeaderOfSoldier(LeaderID) or LeaderID;
-        end
-        -- Calculate extra Damage
-        local Config = self.Config.Passive.ConsecutiveHits[AttackerType];
-        local Data = self.Data.ConsecutiveHits[LeaderID] or {};
-        local Factor = 1;
-        for i= table.getn(Data), 1, -1 do
-            if Data[i][1] + Config.MaxTime > CurrentTurn then
-                Factor = Factor + Data[i][2];
-            else
-                table.remove(Data, i);
-            end
-        end
-        Damage = Damage * Factor;
-        -- Add hit to register
-        table.insert(Data, {CurrentTurn, Config.Bonus});
-        self.Data.ConsecutiveHits[LeaderID] = Data;
+    -- Check if the attacker has the consecutive hits passive
+    local Config = self.Config.Passive.ConsecutiveHits[AttackerType];
+    if not Config then
+        return Damage;
     end
-    return Damage;
+    -- Get the leader of the attacker
+    local LeaderID = _AttackerID;
+    if Logic.IsEntityInCategory(LeaderID, EntityCategories.Soldier) == 1 then
+        LeaderID = SVLib.GetLeaderOfSoldier(LeaderID) or LeaderID;
+    end
+    -- Calculate extra Damage
+    local Data = self.Data.ConsecutiveHits[LeaderID] or {};
+    local CurrentTurn = Logic.GetCurrentTurn();
+    local Factor = 1;
+    for i= table.getn(Data), 1, -1 do
+        if Data[i][1] + Config.MaxTime > CurrentTurn then
+            Factor = Factor + Data[i][2];
+        else
+            table.remove(Data, i);
+        end
+    end
+    -- Add data of the leader
+    table.insert(Data, {CurrentTurn, Config.Bonus});
+    self.Data.ConsecutiveHits[LeaderID] = Data;
+    -- Return the increased damage
+    return Damage * Factor;
 end
 
 -- Height Bonus --
@@ -524,16 +526,22 @@ end
 
 function Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
+    -- Check if ranged damage type (only these can be evaded)
+    local DamageClass = GetEntityDamageClass(_AttackerID);
+    if not self.Config.HiddenConfig.DamageClasses[DamageClass] then
+        return Damage;
+    end
+    -- Check if attacked unit is hidden
     local PlayerID = Logic.EntityGetPlayer(_AttackedID);
-    if Stronghold.Hero.Perk:IsPerkTriggered(PlayerID, HeroPerks.Hero5_HubertusBlessing) or IsUnitHidden(_AttackedID) then
-        local DamageClass = GetEntityDamageClass(_AttackerID);
-        if self.Config.HiddenConfig.DamageClasses[DamageClass] then
-            local Chance = self.Config.HiddenConfig.EvasionChance;
-            Chance = GameCallback_SH_Logic_CalculateBotanyEvasionChance(_AttackerID, _AttackedID, Chance);
-            if math.random(1, 100) <= math.ceil(Chance) then
-                Damage = 0;
-            end
-        end
+    local UnitIsHidden = IsPerkTriggered(PlayerID, HeroPerks.Hero5_HubertusBlessing);
+    if not UnitIsHidden and not IsUnitHidden(_AttackedID) then
+        return Damage;
+    end
+    -- Execute damage dice roll
+    local Chance = self.Config.HiddenConfig.EvasionChance;
+    Chance = GameCallback_SH_Logic_CalculateBotanyEvasionChance(_AttackerID, _AttackedID, Chance);
+    if math.random(1, 100) <= math.ceil(Chance) then
+        Damage = 0;
     end
     return Damage;
 end

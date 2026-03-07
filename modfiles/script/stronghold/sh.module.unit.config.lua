@@ -704,72 +704,72 @@ Stronghold.Unit.Config.Passive = {
         [Entities.CU_BanditLeaderSword1] = {
             Chance = 12,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.CU_BanditSoldierSword1] = {
             Chance = 12,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.CU_BanditLeaderSword2] = {
             Chance = 6,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.CU_BanditSoldierSword2] = {
             Chance = 6,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_LeaderAxe1] = {
             Chance = 6,
             Duration = 20,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_SoldierAxe1] = {
             Chance = 6,
             Duration = 20,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_LeaderAxe2] = {
             Chance = 6,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_SoldierAxe2] = {
             Chance = 6,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_LeaderAxe3] = {
             Chance = 12,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_SoldierAxe3] = {
             Chance = 12,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_LeaderAxe4] = {
             Chance = 12,
             Duration = 45,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_SoldierAxe4] = {
             Chance = 12,
             Duration = 45,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_LeaderSword4] = {
             Chance = 12,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
         [Entities.PU_SoldierSword4] = {
             Chance = 12,
             Duration = 30,
-            Factor = 1.25,
+            Factor = 1.15,
         },
     },
     Sneak = {
@@ -786,19 +786,19 @@ Stronghold.Unit.Config.Passive = {
     },
     Circle = {
         [Entities.PU_LeaderPoleArm2] = {
-            Melee = 0.5,
+            Melee = 0.25,
             Ranged = 1.25,
         },
         [Entities.PU_SoldierPoleArm2] = {
-            Melee = 0.5,
+            Melee = 0.25,
             Ranged = 1.25,
         },
         [Entities.PU_LeaderPoleArm4] = {
-            Melee = 0.5,
+            Melee = 0.25,
             Ranged = 1.25,
         },
         [Entities.PU_SoldierPoleArm4] = {
-            Melee = 0.5,
+            Melee = 0.25,
             Ranged = 1.25,
         },
     },
