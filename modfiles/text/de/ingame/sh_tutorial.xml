@@ -43,15 +43,16 @@
 <string id="ExplainUnit_4">TOM SIMPKINS: Sollten Soldaten des Hauptmannes fallen, könnt Ihr mit diesem Button bei einem entsprechenden Gebäude neue Soldaten anwerben. {scarlet} Mit STRG könnt Ihr den Trupp voll auffüllen.</string>
 <string id="ExplainUnit_5">TOM SIMPKINS: Hier seht Ihr die Erfahrung des Hauptmannes.{scarlet} Erfahrene Hauptmänner führen ihre Truppen besser.</string>
 <string id="ExplainUnit_6">TOM SIMPKINS: Diese Anzeige gibt die Gesundheit des Hauptmannes an.</string>
-<string id="ExplainUnit_7">TOM SIMPKINS: Auf dieser Zeile seht Ihr, wie viel Ausdauer eine Einheit hat und welcher Tätigkeit sie nachgeht.</string>
+<string id="ExplainUnit_7">TOM SIMPKINS: Auf dieser Zeile seht Ihr, wie viel Ausdauer eine Einheit hat, ob sie gerade in Blattwerk verborgen ist und welcher Tätigkeit sie nachgeht.</string>
 <string id="ExplainUnit_8">TOM SIMPKINS: Ausdauer bestimmt {scarlet}wie effektiv die Einheit im Kampf ist.{white} Wie gut es um die Ausdauer der Einheit bestellt ist, zeigt der Gesichtsausdruck des Icons an. Je fröhlicher das Gesicht, desto mehr Ausdauer. Euer Adliger {scarlet}ist von Ausdauer nicht betroffen.</string>
-<string id="ExplainUnit_9">TOM SIMPKINS: Tätigkeiten geben Aufschluss, ob die Einheit Ausdauer verbraucht oder regeneriert. {scarlet}Steht die Einheit still, erholt sich die Ausdauer. Rennen oder Kämpfen verbraucht Ausdauer.{white} Eure Knechte verbrauchen zusätzlich Ausdauer, wenn sie arbeiten.</string>
-<string id="ExplainUnit_10">TOM SIMPKINS: Ihr konnt allen Euren Einheiten auf einmal befehlen, zu marschieren statt zu rennen. Dadurch bewegen sie sich langsamer, {scarlet}verbrauchen aber keine Ausdauer.</string>
-<string id="ExplainUnit_11">TOM SIMPKINS: Diese Zahlen geben die Truppenstärke an. Fast alle Militäreinheiten und Kerberos verfügen über Soldaten.</string>
-<string id="ExplainUnit_12">TOM SIMPKINS: Hier seht Ihr die Verteidigung des Trupps. Sie wird erlittenen Schaden reduzieren.</string>
-<string id="ExplainUnit_13">TOM SIMPKINS: Die Angriffskraft gibt den Schaden an, den ein Trupp austeilen kann. Die Angriffskraft wird mit der Rüstung des Angriffsziels verrechnet.</string>
-<string id="ExplainUnit_14">TOM SIMPKINS: Und schließich der Unterhalt. Eure Einheiten werden unterschiedlich viel Sold verlangen. Der Unterhalt richtet sich nach {scarlet}der Truppenart.</string>
-<string id="ExplainUnit_15">TOM SIMPKINS: Natürlich könnt Ihr Truppen entlassen, wenn Ihr sie nicht mehr benötigt.</string>
+<string id="ExplainUnit_9">TOM SIMPKINS: Tätigkeiten geben Aufschluss, ob die Einheit Ausdauer verbraucht oder regeneriert. {scarlet}Steht die Einheit still, erholt sich die Ausdauer. Rennen oder Kämpfen verbraucht Ausdauer.</string>
+<string id="ExplainUnit_10">TOM SIMPKINS: Versteckt sein macht eine Einheit schwieriger zu treffen. {scarlet}Versteckte Einheiten erleiden weniger Schaden durch Geschosse (außer Kanonen).</string>
+<string id="ExplainUnit_11">TOM SIMPKINS: Ihr konnt allen Euren Einheiten auf einmal befehlen, zu marschieren statt zu rennen. Dadurch bewegen sie sich langsamer, {scarlet}verbrauchen aber keine Ausdauer.</string>
+<string id="ExplainUnit_12">TOM SIMPKINS: Diese Zahlen geben die Truppenstärke an. Fast alle Militäreinheiten und Kerberos verfügen über Soldaten.</string>
+<string id="ExplainUnit_13">TOM SIMPKINS: Hier seht Ihr die Verteidigung des Trupps. Sie wird erlittenen Schaden reduzieren.</string>
+<string id="ExplainUnit_14">TOM SIMPKINS: Die Angriffskraft gibt den Schaden an, den ein Trupp austeilen kann. Die Angriffskraft wird mit der Rüstung des Angriffsziels verrechnet.</string>
+<string id="ExplainUnit_15">TOM SIMPKINS: Und schließich der Unterhalt. Eure Einheiten werden unterschiedlich viel Sold verlangen. Der Unterhalt richtet sich nach {scarlet}der Truppenart.</string>
+<string id="ExplainUnit_16">TOM SIMPKINS: Natürlich könnt Ihr Truppen entlassen, wenn Ihr sie nicht mehr benötigt.</string>
 
 <string id="ExplainManage_1">TOM SIMPKINS: Es ist an der Zeit, dass ich Euch erkläre, wie Ihr Eure Burg zu führen habt.</string>
 <string id="ExplainManage_2">TOM SIMPKINS: Eure Gebäude werden noch immer von Knechten gebaut. Manche Gebäude sind an einen Titel gebunden. {scarlet} Ihr seht die Bedigungen im Tooltip. {white} Ebenso sind Technologien u.a. an den Titel gebunden.</string>

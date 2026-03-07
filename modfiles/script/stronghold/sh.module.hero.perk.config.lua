@@ -830,6 +830,7 @@ Stronghold.Hero.Perk.Config.Perks = {
                 [DamageClasses.DC_Arrow] = true,
                 [DamageClasses.DC_Bolt] = true,
                 [DamageClasses.DC_BoltStrong] = true,
+                [DamageClasses.DC_Javelin] = true,
             },
         }
     },

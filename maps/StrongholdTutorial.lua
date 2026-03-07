@@ -477,7 +477,7 @@ function Tutorial_AddUnitSelectionSection()
     local ArrowPos_Armor = {740, 705};
     local ArrowPos_Damage = {740, 720};
     local ArrowPos_Upkeep = {740, 735};
-    local ArrowPos_Health = {740, 650};
+    local ArrowPos_Health = {740, 652};
     local ArrowPos_Experience = {740, 642};
     local ArrowPos_Expel = {720, 700};
     local ArrowPos_BuySoldier = {318, 700};
@@ -559,14 +559,22 @@ function Tutorial_AddUnitSelectionSection()
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_10",
         ClickCatcher = true,
-        Arrow        = ArrowPos_Pace,
-        ArrowWidget  = "TutorialArrowUp",
+        Arrow        = ArrowPos_Status,
+        ArrowWidget  = "TutorialArrowRight",
         ArrowUpdate = function(_Data)
             return IsEntitySelected("Scout");
         end,
     }
     Tutorial.AddMessage {
         Text         = "sh_tutorial/ExplainUnit_11",
+        ClickCatcher = true,
+        Arrow        = ArrowPos_Pace,
+        ArrowUpdate = function(_Data)
+            return IsEntitySelected("Scout");
+        end,
+    }
+    Tutorial.AddMessage {
+        Text         = "sh_tutorial/ExplainUnit_12",
         ClickCatcher = true,
         Arrow        = ArrowPos_TroopSize,
         ArrowWidget  = "TutorialArrowRight",
@@ -575,7 +583,7 @@ function Tutorial_AddUnitSelectionSection()
         end,
     }
     Tutorial.AddMessage {
-        Text         = "sh_tutorial/ExplainUnit_12",
+        Text         = "sh_tutorial/ExplainUnit_13",
         ClickCatcher = true,
         Arrow        = ArrowPos_Armor,
         ArrowWidget  = "TutorialArrowRight",
@@ -584,7 +592,7 @@ function Tutorial_AddUnitSelectionSection()
         end,
     }
     Tutorial.AddMessage {
-        Text         = "sh_tutorial/ExplainUnit_13",
+        Text         = "sh_tutorial/ExplainUnit_14",
         ClickCatcher = true,
         Arrow        = ArrowPos_Damage,
         ArrowWidget  = "TutorialArrowRight",
@@ -593,7 +601,7 @@ function Tutorial_AddUnitSelectionSection()
         end,
     }
     Tutorial.AddMessage {
-        Text         = "sh_tutorial/ExplainUnit_14",
+        Text         = "sh_tutorial/ExplainUnit_15",
         ClickCatcher = true,
         Arrow        = ArrowPos_Upkeep,
         ArrowWidget  = "TutorialArrowRight",
@@ -602,7 +610,7 @@ function Tutorial_AddUnitSelectionSection()
         end,
     }
     Tutorial.AddMessage {
-        Text         = "sh_tutorial/ExplainUnit_15",
+        Text         = "sh_tutorial/ExplainUnit_16",
         ClickCatcher = true,
         Arrow        = ArrowPos_Expel,
         ArrowUpdate = function(_Data)

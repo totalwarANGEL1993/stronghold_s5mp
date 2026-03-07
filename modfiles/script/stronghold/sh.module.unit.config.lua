@@ -846,10 +846,11 @@ Stronghold.Unit.Config.HeightConfig = {
 Stronghold.Unit.Config.HiddenConfig = {
     EvasionChance = 20,
     DamageClasses = {
-        [DamageClasses.DC_Bullet] = true,
         [DamageClasses.DC_Arrow] = true,
+        [DamageClasses.DC_Bullet] = true,
         [DamageClasses.DC_Bolt] = true,
         [DamageClasses.DC_BoltStrong] = true,
+        [DamageClasses.DC_Javelin] = true,
     },
 };
 
