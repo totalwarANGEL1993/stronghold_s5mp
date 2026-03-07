@@ -398,10 +398,27 @@ function Stronghold.AI:ControlHero13DefendCastle(_PlayerID, _HeroID)
     end
 end
 
--- Hero 13
+-- Hero 14
 
 function Stronghold.AI:ControlHero14DefendCastle(_PlayerID, _HeroID)
-    
+    local FarEnemyList = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 3500);
+    if table.getn(FarEnemyList) > 0 then
+        -- Hurt enemies
+        local CloseEnemies = GetEnemiesInArea(_PlayerID, GetPosition(_HeroID), 1800);
+        local Selected = math.random(1, table.getn(CloseEnemies));
+        local EnemyID = CloseEnemies[Selected];
+        if Logic.IsSettler(EnemyID) == 1 then
+            if Logic.IsEntityInCategory(EnemyID, EntityCategories.Soldier) == 1 then
+                EnemyID = SVLib.GetLeaderOfSoldier(EnemyID);
+            end
+            self:HeroTriggerAbilityShuriken(_HeroID, EnemyID);
+        end
+        -- Attack enemies
+        if not IsFighting(_HeroID) then
+            local EnemyPos = GetPosition(FarEnemyList[1]);
+            Logic.GroupAttackMove(_HeroID, EnemyPos.X, EnemyPos.Y);
+        end
+    end
 end
 
 -- Helper
