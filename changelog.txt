@@ -12,9 +12,23 @@ __Feature__
     aufgebraucht wird. Ausdauer reganeriert sich durch Ruhephasen.
   * Hohe Ausdauer gibt Einheiten mit geringem Schaden mehr Bonus.
   * Niedrige Ausdauer schwächt einheiten mit hohem Schaden stärker.
+- Cover-System
+  * Busche und Bäume gewähren Deckung gegen Geschosse, außer Kanonen
+    (20% Chance Schaden zu ignorieren)
+  * Kundschafter können nun Büsche pflanzen, sobald "Grüner Daumen" erforscht
+    wurde. Diese Fähigkeit ersetzt "Fackeln".
+  * Ari Perk "Hubertus Heil"
+    Der Perk bewirkt nun, das Einheiten immer in Deckung sind. Zusätzlich
+    ist die Deckung für Aris Spezialeinheiten doppelt so effektiv
+- Höhenvorteil
+  * Fernkämpfer, außer Kanonen, machen mehr Schaden, wenn sie von erhöhter
+    Position auf Feinde schießen. (bis zu +20%)
+  * Von niedrigerer Position wird der Schaden reduziert. (bis zu -10%)
+  * Drake Perk "Präzesionstraining"
+    Der Zusatzschaden für Fernkämpfer durch Höhenvorteil wird um 15% erhöht.
+    Dieser Perk ersetzt "Waffenwart".
 - Holzquelle: Waldlichtung
   Es wird ein Holzfäller hinzugefügt, der ähnlich wie eine Mine funktioniert.
-  Waldlichtungen haben jedoch unbegrenze Menge Holz.
   Als Ausgleich ist die Rohstoffmenge in normalen Bäumen reduziert.
 - Turmlimitierung
   Türme sind signifikant stärker können aber nur noch an vordefinierten
@@ -29,8 +43,7 @@ __Feature__
   
 __Maps__
 
-- *"Die Mitsommerrevolution"*
-  Eine KOOP Map für 2 Spieler.
+
 
 __Quality of Life__
 
