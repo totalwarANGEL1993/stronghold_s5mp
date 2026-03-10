@@ -837,7 +837,7 @@ Stronghold.Unit.Config.Passive = {
 }
 
 Stronghold.Unit.Config.HeightConfig = {
-    AltitudeFactor = 0.02,
+    AltitudeFactor = 0.00134,
     InitialAltitudeFactor = 1,
     MinAltitudeFactor = 0.9,
     MaxAltitudeFactor = 1.2,
