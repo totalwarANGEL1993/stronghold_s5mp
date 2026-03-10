@@ -56,11 +56,26 @@ function Stronghold.Unit:Install()
     for i= 1, GetMaxPlayers() do
         self.Data[i] = {};
     end
+    self:CreateBuildingButtonHandlers();
     self:OverwriteScoutFindResources();
     self:OverwriteGameCallbacks();
 end
 
 function Stronghold.Unit:OnSaveGameLoaded()
+end
+
+function Stronghold.Unit:CreateBuildingButtonHandlers()
+    self.SyncEvents = {
+        ScoutPlantFoilage = 1,
+    };
+
+    self.NetworkCall = Syncer.CreateEvent(
+        function(_PlayerID, _Action, ...)
+            if _Action == Stronghold.Unit.SyncEvents.ScoutPlantFoilage then
+                Stronghold.Unit:OnScoutPlantFoilage(_PlayerID, arg[1]);
+            end
+        end
+    );
 end
 
 function Stronghold.Unit:OnEntityCreated(_EntityID)
@@ -126,6 +141,32 @@ end
 function Stronghold.Unit:OverwriteScoutFindResources()
     GUIAction_ScoutFindResources = function()
         GUI.ActivatePlaceBombCommandState();
+    end
+
+    GUIAction_ScoutPlantFoilage = function()
+        local EntityID = GUI.GetSelectedEntity();
+        Syncer.InvokeEvent(
+            Stronghold.Unit.NetworkCall,
+            Stronghold.Unit.SyncEvents.ScoutPlantFoilage,
+            EntityID
+        );
+    end
+end
+
+function Stronghold.Unit:OnScoutPlantFoilage(_PlayerID, _EntityID)
+    local PlayerID = Logic.EntityGetPlayer(_EntityID);
+    if PlayerID ~= _PlayerID then
+        return;
+    end
+    Logic.HeroSetAbilityChargeSeconds(_EntityID, Abilities.AbilityScoutTorches, 0);
+    local x,y,z = Logic.EntityGetPos(_EntityID);
+    local Sector = Logic.GetSector(_EntityID);
+    for i= 1, table.getn(self.Config.FoilagePlanting.Offsets) do
+        local Offset = self.Config.FoilagePlanting.Offsets[i];
+        local ID = Logic.CreateEntity(Offset[1], x + Offset[2], y + Offset[3], 0);
+        if Logic.GetSector(ID) ~= Sector then
+            DestroyEntity(ID);
+        end
     end
 end
 

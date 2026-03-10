@@ -395,6 +395,7 @@
 
     <!-- Units -->
     <Technology>T_AutoRepair</Technology>
+    <Technology>T_ScoutPlantFoilage</Technology>
 
     <!-- Honor & Reputation -->
     <Technology>T_Instruments</Technology>

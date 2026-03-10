@@ -854,3 +854,17 @@ Stronghold.Unit.Config.HiddenConfig = {
     },
 };
 
+Stronghold.Unit.Config.FoilagePlanting = {
+    Offsets = {
+        {Entities.XD_Bush2,    0,    0},
+        {Entities.XD_Bush3,  200,  200},
+        {Entities.XD_Bush3, -200, -200},
+        {Entities.XD_Bush3,  200, -200},
+        {Entities.XD_Bush3, -200,  200},
+        {Entities.XD_Bush2, -300,    0},
+        {Entities.XD_Bush2,  300,    0},
+        {Entities.XD_Bush2,    0, -300},
+        {Entities.XD_Bush2,    0,  300},
+    },
+};
+

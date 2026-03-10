@@ -76248,7 +76248,7 @@
                             <W>32</W>
                             <H>32</H>
                           </Rectangle>
-                          <IsShown>True</IsShown>
+                          <IsShown>False</IsShown>
                           <ZPriority>50</ZPriority>
                           <MotherID>Commands_Scout</MotherID>
                           <Group></Group>
@@ -76312,6 +76312,42 @@
                           <ProgressBarValue>5</ProgressBarValue>
                           <ProgressBarLimit>10</ProgressBarLimit>
                         </WidgetList>
+                        <WidgetList classname="EGUIX::CProgressBarWidget" classid="0x72633416">
+                          <Name>Scout_RechargePlantFoilage</Name>
+                          <Rectangle>
+                            <X>76</X>
+                            <Y>40</Y>
+                            <W>32</W>
+                            <H>32</H>
+                          </Rectangle>
+                          <IsShown>True</IsShown>
+                          <ZPriority>50</ZPriority>
+                          <MotherID>Commands_Scout</MotherID>
+                          <Group></Group>
+                          <ForceToHandleMouseEventsFlag>False</ForceToHandleMouseEventsFlag>
+                          <ForceToNeverBeFoundFlag>True</ForceToNeverBeFoundFlag>
+                          <BackgroundMaterial>
+                            <Texture></Texture>
+                            <TextureCoordinates>
+                              <X>0</X>
+                              <Y>0</Y>
+                              <W>1</W>
+                              <H>1</H>
+                            </TextureCoordinates>
+                            <Color>
+                              <Red>214</Red>
+                              <Green>44</Green>
+                              <Blue>24</Blue>
+                              <Alpha>189</Alpha>
+                            </Color>
+                          </BackgroundMaterial>
+                          <UpdateFunction>
+                            <LuaCommand>GUIUpdate_HeroAbility(Abilities.AbilityScoutTorches,"Scout_PlantFoilage")</LuaCommand>
+                          </UpdateFunction>
+                          <UpdateManualFlag>False</UpdateManualFlag>
+                          <ProgressBarValue>-4.316021E+08</ProgressBarValue>
+                          <ProgressBarLimit>-4.316021E+08</ProgressBarLimit>
+                        </WidgetList>
                         <WidgetList classname="EGUIX::CGfxButtonWidget" classid="0x56dda656">
                           <Name>Scout_Torches</Name>
                           <Rectangle>
@@ -76320,7 +76356,7 @@
                             <W>32</W>
                             <H>32</H>
                           </Rectangle>
-                          <IsShown>True</IsShown>
+                          <IsShown>False</IsShown>
                           <ZPriority>10</ZPriority>
                           <MotherID>Commands_Scout</MotherID>
                           <Group>Command_group</Group>
@@ -76690,6 +76726,138 @@
                           </ToolTipHelper>
                           <UpdateFunction>
                             <LuaCommand>GUIUpdate_AbilityButtons("Scout_FindResources", Technologies.T_ScoutFindResources)</LuaCommand>
+                          </UpdateFunction>
+                          <UpdateManualFlag>False</UpdateManualFlag>
+                          <IconMaterial>
+                            <Texture></Texture>
+                            <TextureCoordinates>
+                              <X>0</X>
+                              <Y>0</Y>
+                              <W>0.25</W>
+                              <H>0.25</H>
+                            </TextureCoordinates>
+                            <Color>
+                              <Red>255</Red>
+                              <Green>255</Green>
+                              <Blue>255</Blue>
+                              <Alpha>0</Alpha>
+                            </Color>
+                          </IconMaterial>
+                        </WidgetList>
+                        <WidgetList classname="EGUIX::CGfxButtonWidget" classid="0x56dda656">
+                          <Name>Scout_PlantFoilage</Name>
+                          <Rectangle>
+                            <X>76</X>
+                            <Y>40</Y>
+                            <W>32</W>
+                            <H>32</H>
+                          </Rectangle>
+                          <IsShown>True</IsShown>
+                          <ZPriority>10</ZPriority>
+                          <MotherID>Commands_Scout</MotherID>
+                          <Group>Command_group</Group>
+                          <ForceToHandleMouseEventsFlag>False</ForceToHandleMouseEventsFlag>
+                          <ForceToNeverBeFoundFlag>False</ForceToNeverBeFoundFlag>
+                          <ButtonHelper>
+                            <DisabledFlag>False</DisabledFlag>
+                            <HighLightedFlag>False</HighLightedFlag>
+                            <ActionFunction>
+                              <LuaCommand>GUIAction_ScoutPlantFoilage()</LuaCommand>
+                            </ActionFunction>
+                            <ShortCutString>
+                              <StringTableKey>KeyBindings/HeroAbility3</StringTableKey>
+                              <RawString></RawString>
+                            </ShortCutString>
+                          </ButtonHelper>
+                          <Materials>
+                            <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                            <TextureCoordinates>
+                              <X>0</X>
+                              <Y>0.25</Y>
+                              <W>0.25</W>
+                              <H>0.25</H>
+                            </TextureCoordinates>
+                            <Color>
+                              <Red>255</Red>
+                              <Green>255</Green>
+                              <Blue>255</Blue>
+                              <Alpha>255</Alpha>
+                            </Color>
+                          </Materials>
+                          <Materials>
+                            <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                            <TextureCoordinates>
+                              <X>0.25</X>
+                              <Y>0.25</Y>
+                              <W>0.25</W>
+                              <H>0.25</H>
+                            </TextureCoordinates>
+                            <Color>
+                              <Red>255</Red>
+                              <Green>255</Green>
+                              <Blue>255</Blue>
+                              <Alpha>255</Alpha>
+                            </Color>
+                          </Materials>
+                          <Materials>
+                            <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                            <TextureCoordinates>
+                              <X>0.5</X>
+                              <Y>0.25</Y>
+                              <W>0.25</W>
+                              <H>0.25</H>
+                            </TextureCoordinates>
+                            <Color>
+                              <Red>255</Red>
+                              <Green>255</Green>
+                              <Blue>255</Blue>
+                              <Alpha>255</Alpha>
+                            </Color>
+                          </Materials>
+                          <Materials>
+                            <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                            <TextureCoordinates>
+                              <X>0</X>
+                              <Y>0.25</Y>
+                              <W>0.25</W>
+                              <H>0.25</H>
+                            </TextureCoordinates>
+                            <Color>
+                              <Red>128</Red>
+                              <Green>128</Green>
+                              <Blue>128</Blue>
+                              <Alpha>128</Alpha>
+                            </Color>
+                          </Materials>
+                          <Materials>
+                            <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                            <TextureCoordinates>
+                              <X>0.75</X>
+                              <Y>0.25</Y>
+                              <W>0.25</W>
+                              <H>0.25</H>
+                            </TextureCoordinates>
+                            <Color>
+                              <Red>255</Red>
+                              <Green>255</Green>
+                              <Blue>255</Blue>
+                              <Alpha>255</Alpha>
+                            </Color>
+                          </Materials>
+                          <ToolTipHelper>
+                            <ToolTipEnabledFlag>True</ToolTipEnabledFlag>
+                            <ToolTipString>
+                              <StringTableKey></StringTableKey>
+                              <RawString></RawString>
+                            </ToolTipString>
+                            <TargetWidget>TooltipBottom</TargetWidget>
+                            <ControlTargetWidgetDisplayState>True</ControlTargetWidgetDisplayState>
+                            <UpdateFunction>
+                              <LuaCommand>GUITooltip_AbilityButton(Technologies.T_ScoutPlantFoilage,"sh_aomenuscout/Command_PlantFoilage","KeyBindings/HeroAbility3")</LuaCommand>
+                            </UpdateFunction>
+                          </ToolTipHelper>
+                          <UpdateFunction>
+                            <LuaCommand>GUIUpdate_AbilityButtons("Scout_PlantFoilage", Technologies.T_ScoutPlantFoilage)</LuaCommand>
                           </UpdateFunction>
                           <UpdateManualFlag>False</UpdateManualFlag>
                           <IconMaterial>
@@ -124980,7 +125148,7 @@
                                 <W>32</W>
                                 <H>32</H>
                               </Rectangle>
-                              <IsShown>True</IsShown>
+                              <IsShown>False</IsShown>
                               <ZPriority>0</ZPriority>
                               <MotherID>Commands_Tavern</MotherID>
                               <Group></Group>
@@ -125218,6 +125386,138 @@
                               </ToolTipHelper>
                               <UpdateFunction>
                                 <LuaCommand>GUIUpdate_TechnologyButtons("Research_Instruments", Technologies.T_Instruments, Entities.PB_Tavern2)</LuaCommand>
+                              </UpdateFunction>
+                              <UpdateManualFlag>True</UpdateManualFlag>
+                              <IconMaterial>
+                                <Texture></Texture>
+                                <TextureCoordinates>
+                                  <X>0</X>
+                                  <Y>0</Y>
+                                  <W>0.25</W>
+                                  <H>0.25</H>
+                                </TextureCoordinates>
+                                <Color>
+                                  <Red>255</Red>
+                                  <Green>255</Green>
+                                  <Blue>255</Blue>
+                                  <Alpha>0</Alpha>
+                                </Color>
+                              </IconMaterial>
+                            </WidgetList>
+                            <WidgetList classname="EGUIX::CGfxButtonWidget" classid="0x56dda656">
+                              <Name>Research_PlantFoilage</Name>
+                              <Rectangle>
+                                <X>4</X>
+                                <Y>75</Y>
+                                <W>32</W>
+                                <H>32</H>
+                              </Rectangle>
+                              <IsShown>True</IsShown>
+                              <ZPriority>0</ZPriority>
+                              <MotherID>Commands_Tavern</MotherID>
+                              <Group></Group>
+                              <ForceToHandleMouseEventsFlag>False</ForceToHandleMouseEventsFlag>
+                              <ForceToNeverBeFoundFlag>False</ForceToNeverBeFoundFlag>
+                              <ButtonHelper>
+                                <DisabledFlag>False</DisabledFlag>
+                                <HighLightedFlag>False</HighLightedFlag>
+                                <ActionFunction>
+                                  <LuaCommand>GUIAction_ReserachTechnology(Technologies.T_ScoutPlantFoilage)</LuaCommand>
+                                </ActionFunction>
+                                <ShortCutString>
+                                  <StringTableKey>KeyBindings/ReserachTechnologies3</StringTableKey>
+                                  <RawString></RawString>
+                                </ShortCutString>
+                              </ButtonHelper>
+                              <Materials>
+                                <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                                <TextureCoordinates>
+                                  <X>0</X>
+                                  <Y>0.25</Y>
+                                  <W>0.25</W>
+                                  <H>0.25</H>
+                                </TextureCoordinates>
+                                <Color>
+                                  <Red>255</Red>
+                                  <Green>255</Green>
+                                  <Blue>255</Blue>
+                                  <Alpha>255</Alpha>
+                                </Color>
+                              </Materials>
+                              <Materials>
+                                <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                                <TextureCoordinates>
+                                  <X>0.25</X>
+                                  <Y>0.25</Y>
+                                  <W>0.25</W>
+                                  <H>0.25</H>
+                                </TextureCoordinates>
+                                <Color>
+                                  <Red>255</Red>
+                                  <Green>255</Green>
+                                  <Blue>255</Blue>
+                                  <Alpha>255</Alpha>
+                                </Color>
+                              </Materials>
+                              <Materials>
+                                <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                                <TextureCoordinates>
+                                  <X>0.5</X>
+                                  <Y>0.25</Y>
+                                  <W>0.25</W>
+                                  <H>0.25</H>
+                                </TextureCoordinates>
+                                <Color>
+                                  <Red>255</Red>
+                                  <Green>255</Green>
+                                  <Blue>255</Blue>
+                                  <Alpha>255</Alpha>
+                                </Color>
+                              </Materials>
+                              <Materials>
+                                <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                                <TextureCoordinates>
+                                  <X>0</X>
+                                  <Y>0.25</Y>
+                                  <W>0.25</W>
+                                  <H>0.25</H>
+                                </TextureCoordinates>
+                                <Color>
+                                  <Red>128</Red>
+                                  <Green>128</Green>
+                                  <Blue>128</Blue>
+                                  <Alpha>128</Alpha>
+                                </Color>
+                              </Materials>
+                              <Materials>
+                                <Texture>graphics\textures\gui\b_units_scout.png</Texture>
+                                <TextureCoordinates>
+                                  <X>0.75</X>
+                                  <Y>0.25</Y>
+                                  <W>0.25</W>
+                                  <H>0.25</H>
+                                </TextureCoordinates>
+                                <Color>
+                                  <Red>255</Red>
+                                  <Green>255</Green>
+                                  <Blue>255</Blue>
+                                  <Alpha>255</Alpha>
+                                </Color>
+                              </Materials>
+                              <ToolTipHelper>
+                                <ToolTipEnabledFlag>True</ToolTipEnabledFlag>
+                                <ToolTipString>
+                                  <StringTableKey></StringTableKey>
+                                  <RawString></RawString>
+                                </ToolTipString>
+                                <TargetWidget>TooltipBottom</TargetWidget>
+                                <ControlTargetWidgetDisplayState>True</ControlTargetWidgetDisplayState>
+                                <UpdateFunction>
+                                  <LuaCommand>GUITooltip_ResearchTechnologies(Technologies.T_ScoutPlantFoilage,"sh_menutavern/ScoutPlantFoilage","KeyBindings/ReserachTechnologies3")</LuaCommand>
+                                </UpdateFunction>
+                              </ToolTipHelper>
+                              <UpdateFunction>
+                                <LuaCommand>GUIUpdate_TechnologyButtons("Research_PlantFoilage", Technologies.T_ScoutPlantFoilage, Entities.PB_Tavern2)</LuaCommand>
                               </UpdateFunction>
                               <UpdateManualFlag>True</UpdateManualFlag>
                               <IconMaterial>
