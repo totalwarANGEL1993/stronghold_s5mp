@@ -22,7 +22,7 @@
     <Logic classname="GGL::CGLSettlerProps">
         <Class>GGL::CSettler</Class>
         <AccessCategory>AccessCategorySettler</AccessCategory>
-        <MaxHealth>750</MaxHealth>
+        <MaxHealth>500</MaxHealth>
         <NeedsPlayer>true</NeedsPlayer>
         <ForceNoPlayer>false</ForceNoPlayer>
         <Hat/>
@@ -124,11 +124,11 @@
     <Behavior>
         <Logic classname="GGL::CCircularAttackProps">
             <Class>GGL::CCircularAttack</Class>
-            <RechargeTimeSeconds>20</RechargeTimeSeconds>
+            <RechargeTimeSeconds>60</RechargeTimeSeconds>
             <TaskList>TL_BATTLE_SPECIAL</TaskList>
             <Animation>PU_Herox_Finish</Animation>
             <DamageClass>DC_HeroCircularAttack</DamageClass>
-            <DamageAmount>60</DamageAmount>
+            <DamageAmount>30</DamageAmount>
             <Range>400.0</Range>
         </Logic>
     </Behavior>
