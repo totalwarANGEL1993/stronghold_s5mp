@@ -817,9 +817,9 @@ function Stronghold.Hero.Perk:OverwriteGameCallbacks()
         return CurrentAmount;
     end);
 
-    Overwrite.CreateOverwrite("GameCallback_SH_Logic_CalculateBotanyEvasionChance", function(_AttackerID, _AttackedID, _Chance)
+    Overwrite.CreateOverwrite("GameCallback_SH_Logic_CalculateFoilageDamageReduction", function(_AttackerID, _AttackedID, _Damage)
         local CurrentAmount = Overwrite.CallOriginal();
-        CurrentAmount = Stronghold.Hero.Perk:ApplyEvasionChanceBonus(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Hero.Perk:ApplyFoilageDamageReduction(_AttackerID, _AttackedID, CurrentAmount);
         return CurrentAmount;
     end);
 
@@ -1776,7 +1776,7 @@ function Stronghold.Hero.Perk:ApplyHeightDamageBonus(_AttackerID, _AttackerZ, _A
     return CurrentAmount;
 end
 
-function Stronghold.Hero.Perk:ApplyEvasionChanceBonus(_AttackerID, _AttackedID, _CurrentAmount)
+function Stronghold.Hero.Perk:ApplyFoilageDamageReduction(_AttackerID, _AttackedID, _CurrentAmount)
     local CurrentAmount = _CurrentAmount;
     local PlayerID = Logic.EntityGetPlayer(_AttackedID);
     local AttackedType = Logic.GetEntityType(_AttackedID);

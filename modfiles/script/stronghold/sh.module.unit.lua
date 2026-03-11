@@ -40,13 +40,13 @@ function GameCallback_SH_Logic_CalculateAltitudeBonus(_AttackerID, _AttackerZ, _
     return _Factor;
 end
 
---- Called after evasion chance has been calculated for botany.
+--- Called after damage reduction has been calculated for foilage.
 --- @param _AttackerID integer ID of the attacking entity
 --- @param _AttackedID integer ID of the attacked entity
---- @param _Chance integer Base chance to evade
---- @return integer New chance to evade
-function GameCallback_SH_Logic_CalculateBotanyEvasionChance(_AttackerID, _AttackedID, _Chance)
-    return _Chance;
+--- @param _Damage integer Current damage value
+--- @return integer Damage New damage value
+function GameCallback_SH_Logic_CalculateFoilageDamageReduction(_AttackerID, _AttackedID, _Damage)
+    return _Damage;
 end
 
 -- -------------------------------------------------------------------------- --
@@ -108,7 +108,7 @@ function Stronghold.Unit:OverwriteGameCallbacks()
         CurrentAmount = Stronghold.Unit:CircleFormationCalculateDamage(_AttackerID, _AttackedID, CurrentAmount);
         CurrentAmount = Stronghold.Unit:ConsecutiveHitsCalculateDamage(_AttackerID, _AttackedID, CurrentAmount);
         CurrentAmount = Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, CurrentAmount);
-        CurrentAmount = Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, CurrentAmount);
+        CurrentAmount = Stronghold.Unit:FoilageDamageReduction(_AttackerID, _AttackedID, CurrentAmount);
         return CurrentAmount;
     end);
 end
@@ -155,9 +155,10 @@ end
 
 function Stronghold.Unit:OnScoutPlantFoilage(_PlayerID, _EntityID)
     local PlayerID = Logic.EntityGetPlayer(_EntityID);
-    if PlayerID ~= _PlayerID then
+    if PlayerID ~= _PlayerID or not IsExisting(_EntityID) then
         return;
     end
+    Logic.SetTaskList(_EntityID, TaskLists.TL_SCOUT_PLANT_FOILAGE);
     Logic.HeroSetAbilityChargeSeconds(_EntityID, Abilities.AbilityScoutTorches, 0);
     local x,y,z = Logic.EntityGetPos(_EntityID);
     local Sector = Logic.GetSector(_EntityID);
@@ -563,9 +564,9 @@ function Stronghold.Unit:HeightBonusBonusDamage(_AttackerID, _AttackedID, _Damag
     return Damage * AltitudeFactor;
 end
 
--- Botany Damage Evasion --
+-- Foilage Damage Evasion --
 
-function Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, _Damage)
+function Stronghold.Unit:FoilageDamageReduction(_AttackerID, _AttackedID, _Damage)
     local Damage = _Damage;
     -- Check if ranged damage type (only these can be evaded)
     local DamageClass = GetEntityDamageClass(_AttackerID);
@@ -578,12 +579,9 @@ function Stronghold.Unit:BotanyDamageNullification(_AttackerID, _AttackedID, _Da
     if not UnitIsHidden and not IsUnitHidden(_AttackedID) then
         return Damage;
     end
-    -- Execute damage dice roll
-    local Chance = self.Config.HiddenConfig.EvasionChance;
-    Chance = GameCallback_SH_Logic_CalculateBotanyEvasionChance(_AttackerID, _AttackedID, Chance);
-    if math.random(1, 100) <= math.ceil(Chance) then
-        Damage = 0;
-    end
+    -- Execute damage reduction
+    Damage = Damage * self.Config.HiddenConfig.DamageFactor;
+    Damage = GameCallback_SH_Logic_CalculateFoilageDamageReduction(_AttackerID, _AttackedID, Damage);
     return Damage;
 end
 

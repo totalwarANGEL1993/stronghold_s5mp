@@ -642,7 +642,7 @@ Stronghold.Hero.Perk.Config.Perks = {
                 [Entities.CU_BanditSoldierCavalry1] = true,
                 [Entities.CU_BanditSoldierSword3] = true,
             },
-            Factor = 2.0,
+            Factor = 0.8,
         }
     },
 

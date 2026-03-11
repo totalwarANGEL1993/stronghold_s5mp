@@ -14,12 +14,12 @@ __Feature__
   * Niedrige Ausdauer schwächt einheiten mit hohem Schaden stärker.
 - Cover-System
   * Busche und Bäume gewähren Deckung gegen Geschosse, außer Kanonen
-    (20% Chance Schaden zu ignorieren)
+    (20% weniger Schaden)
   * Kundschafter können nun Büsche pflanzen, sobald "Grüner Daumen" erforscht
     wurde. Diese Fähigkeit ersetzt "Fackeln".
   * Ari Perk "Hubertus Heil"
     Der Perk bewirkt nun, das Einheiten immer in Deckung sind. Zusätzlich
-    ist die Deckung für Aris Spezialeinheiten doppelt so effektiv
+    ist die Deckung für Aris effektiver (nochmals 20% weniger Schaden).
 - Höhenvorteil
   * Fernkämpfer, außer Kanonen, machen mehr Schaden, wenn sie von erhöhter
     Position auf Feinde schießen. (bis zu +20%)

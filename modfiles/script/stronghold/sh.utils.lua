@@ -78,7 +78,7 @@ function GetBushAtPosition(_X, _Y, _Range, _Amount)
     return {};
 end
 
-gvBotanyTypeTable = {};
+gvFoilageTypeTable = {};
 
 function GetTreeAtPositionWithIterator(_X, _Y, _Range, _Amount)
     local List = {};
@@ -121,42 +121,42 @@ function GetBushAtPositionWithIterator(_X, _Y, _Range, _Amount)
 end
 
 function IsBush(_Entity)
-    return IsBotany(_Entity, "Bush");
+    return IsFoilage(_Entity, "Bush");
 end
 
 function IsTree(_Entity)
-    return IsBotany(_Entity, "Tree");
+    return IsFoilage(_Entity, "Tree");
 end
 
-function IsBotany(_Entity, _Type)
-    FillBotanyTables();
+function IsFoilage(_Entity, _Type)
+    FillFoilageTables();
     if _Entity and IsExisting(_Entity) then
         local ID = GetID(_Entity);
         local TypeName = Logic.GetEntityTypeName(Logic.GetEntityType(ID));
-        return gvBotanyTypeTable[_Type] and gvBotanyTypeTable[_Type][TypeName] == true;
+        return gvFoilageTypeTable[_Type] and gvFoilageTypeTable[_Type][TypeName] == true;
     end
     return false;
 end
 
-function FillBotanyTables()
-    if not gvBotanyTypeTable.Bush then
-        gvBotanyTypeTable.Bush = {};
+function FillFoilageTables()
+    if not gvFoilageTypeTable.Bush then
+        gvFoilageTypeTable.Bush = {};
         for k,v in pairs(Entities) do
             for _, TypePart in pairs{"Bush", "Corn", "GreeneryBush", "Rape", "Sunflower"} do
                 if (string.find(k, TypePart)) then
-                    gvBotanyTypeTable.Bush[k] = true;
+                    gvFoilageTypeTable.Bush[k] = true;
                     break;
                 end
             end
         end
     end
-    if not gvBotanyTypeTable.Tree then
-        gvBotanyTypeTable.Tree = {};
+    if not gvFoilageTypeTable.Tree then
+        gvFoilageTypeTable.Tree = {};
         for k,v in pairs(Entities) do
             if v ~= Entities.XD_TreeStump1 then
                 for _, TypePart in pairs{"Tree", "Palm", "Pine", "Fir", "Cypress", "Umbrella", "Willow"} do
                     if (string.find(k, TypePart)) then
-                        gvBotanyTypeTable.Tree[k] = true;
+                        gvFoilageTypeTable.Tree[k] = true;
                         break;
                     end
                 end

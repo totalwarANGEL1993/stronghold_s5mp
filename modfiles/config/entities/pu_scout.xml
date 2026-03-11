@@ -155,12 +155,13 @@
         </Logic>
     </Behavior>
 
+self.    <!-- This behavior is actually used for planting foilage -->
     <Behavior>
         <Logic classname="GGL::CTorchPlacerBehaviorProperties">
             <Class>GGL::CTorchPlacerBehavior</Class>
             <TorchEntity>XD_ScoutTorch</TorchEntity>
             <TaskList>TL_PLACE_TORCH</TaskList>
-            <RechargeTimeSeconds>150</RechargeTimeSeconds>
+            <RechargeTimeSeconds>300</RechargeTimeSeconds> <!-- 150 -->
         </Logic>
     </Behavior>
 

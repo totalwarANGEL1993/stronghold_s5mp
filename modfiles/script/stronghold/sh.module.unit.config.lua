@@ -845,6 +845,7 @@ Stronghold.Unit.Config.HeightConfig = {
 
 Stronghold.Unit.Config.HiddenConfig = {
     EvasionChance = 20,
+    DamageFactor = 0.8,
     DamageClasses = {
         [DamageClasses.DC_Arrow] = true,
         [DamageClasses.DC_Bullet] = true,
@@ -856,15 +857,15 @@ Stronghold.Unit.Config.HiddenConfig = {
 
 Stronghold.Unit.Config.FoilagePlanting = {
     Offsets = {
-        {Entities.XD_Bush2,    0,    0},
-        {Entities.XD_Bush3,  200,  200},
-        {Entities.XD_Bush3, -200, -200},
-        {Entities.XD_Bush3,  200, -200},
-        {Entities.XD_Bush3, -200,  200},
-        {Entities.XD_Bush2, -300,    0},
-        {Entities.XD_Bush2,  300,    0},
-        {Entities.XD_Bush2,    0, -300},
-        {Entities.XD_Bush2,    0,  300},
+        {Entities.XD_ScoutBush1,    0,    0},
+        {Entities.XD_ScoutBush2,  200,  200},
+        {Entities.XD_ScoutBush2, -200, -200},
+        {Entities.XD_ScoutBush2,  200, -200},
+        {Entities.XD_ScoutBush2, -200,  200},
+        {Entities.XD_ScoutBush1, -300,    0},
+        {Entities.XD_ScoutBush1,  300,    0},
+        {Entities.XD_ScoutBush1,    0, -300},
+        {Entities.XD_ScoutBush1,    0,  300},
     },
 };
 

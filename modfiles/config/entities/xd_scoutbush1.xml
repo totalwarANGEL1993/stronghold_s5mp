@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Display classname="ED::CDisplayEntityProps">
+		<Class>ED::CDisplayStaticEntity</Class>
+		<Model>XD_Bush2</Model>
+	</Display>
+	<Logic classname="EGL::CGLEEntityProps">
+		<Class>EGL::CGLEEntity</Class>
+  		<AccessCategory>AccessCategoryOrnamental</AccessCategory> 
+		<MapFileDontSave>true</MapFileDontSave>
+	</Logic>
+	<Behavior>
+	    <Logic classname="GGL::CLimitedLifespanBehaviorProps">
+	        <Class>GGL::CLimitedLifespanBehavior</Class>
+	        <LifespanSeconds>240</LifespanSeconds>
+	    </Logic>
+	</Behavior>
+	<Behavior>
+		<Logic classname="GGL::CGLBehaviorPropsDying">
+			<Class>GGL::CGLBehaviorDying</Class>
+		</Logic>
+	</Behavior>
+</root>

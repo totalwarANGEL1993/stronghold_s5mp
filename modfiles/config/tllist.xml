@@ -476,4 +476,7 @@
     <!-- Buildings -->
     <TaskList>TL_WOODCUTTER_WORK_INSIDE_START</TaskList>
     <TaskList>TL_WOODCUTTER_WORK_INSIDE</TaskList>
+
+    <!-- Scout -->
+    <TaskList>TL_SCOUT_PLANT_FOILAGE</TaskList>
 </root>

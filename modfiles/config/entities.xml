@@ -1339,4 +1339,6 @@
         <Entity>XD_Bomb_Traphole_Buff</Entity>
         <Entity>PB_GenericMine2</Entity>
         <Entity>PB_GenericMine3</Entity>
+        <Entity>XD_ScoutBush1</Entity>
+        <Entity>XD_ScoutBush2</Entity>
 </root>
